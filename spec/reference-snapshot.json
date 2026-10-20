@@ -1,0 +1,124 @@
+{
+  "root": "reference/2026-DAYNOMY-dev",
+  "recorded_date": "2026-10-20",
+  "git_commit": null,
+  "basis": "Relevant source-file SHA-256; no .git in supplied directory. Not a full repository snapshot.",
+  "files": [
+    {
+      "path": "backend/README.md",
+      "sha256": "fa642af6870125e85f755865f77ab26fb8f912827583762dcbf16982e2220eef"
+    },
+    {
+      "path": "backend/build.gradle.kts",
+      "sha256": "a479d0c8674abda6232e38fccd1f69f071d0a4e3d0cd30a62f960383c3e1ec29"
+    },
+    {
+      "path": "backend/docs/adr/260818-공통 응답 및 에러 구조 논의.md",
+      "sha256": "b58f3a902d2ee202fc1add56e77937f6093be0f6d9467afde9d8c40f2a808047"
+    },
+    {
+      "path": "backend/docs/adr/260819-계층별 테스트 범위 및 작성 기준 논의.md",
+      "sha256": "ed6c1311936a420e3c41a45cada5402b1ec0a08ce9493d01a97cf9ab9a11032d"
+    },
+    {
+      "path": "backend/docs/adr/260819-입력값 오류의 ErrorCode 및 응답 형식 논의.md",
+      "sha256": "05e0ff806017dd5ba5f95e78dfd3e48c5c1956c4ce2865870f99b018baa2fe7f"
+    },
+    {
+      "path": "backend/src/main/java/org/grit/daynomy/auth/controller/AuthController.java",
+      "sha256": "ef2570ed7e0d73b8b1570e6c615b85f28708981b67f4908ba25c4eced710fc5b"
+    },
+    {
+      "path": "backend/src/main/java/org/grit/daynomy/auth/exception/AuthErrorCode.java",
+      "sha256": "2f1cd93b263d5274808befa5c6361e2a9a54eb222ceb5db5d8a811b6df5cbe8a"
+    },
+    {
+      "path": "backend/src/main/java/org/grit/daynomy/auth/handler/RestAccessDeniedHandler.java",
+      "sha256": "e9dcaf94ade75fdd16dc15d31dd509a2149e4406dc9adc5c199793a489dc383d"
+    },
+    {
+      "path": "backend/src/main/java/org/grit/daynomy/auth/token/JwtAuthenticationFilter.java",
+      "sha256": "449fd00a4b7f4fc171c6c313bf8f7e40ef76dd3cfa7c31e27aa5c79ba3aff54e"
+    },
+    {
+      "path": "backend/src/main/java/org/grit/daynomy/common/BaseEntity.java",
+      "sha256": "b82d965679082f5432ab41445c64b2ae5a0fa373895cba25f4b10c49e3241fa4"
+    },
+    {
+      "path": "backend/src/main/java/org/grit/daynomy/common/exception/CommonErrorCode.java",
+      "sha256": "6d68e5e0a70fc08e8f4af1640aefbac297159dbe4c374f7df2f3c0220eebc532"
+    },
+    {
+      "path": "backend/src/main/java/org/grit/daynomy/common/exception/GlobalExceptionHandler.java",
+      "sha256": "ece62fafbde46af0b92d6162cfb5e6ac76760164f6cd9f868c94621dc63c13d8"
+    },
+    {
+      "path": "backend/src/main/java/org/grit/daynomy/common/response/ErrorResponse.java",
+      "sha256": "59bae3cba460949ea9d8b9b5c9b9e1c964a2aeb5639043b1e3edbda8c6c063a9"
+    },
+    {
+      "path": "backend/src/main/java/org/grit/daynomy/common/response/ValidationErrorField.java",
+      "sha256": "a9cc7f79d041181f0ead285421b961f6dd24583db7dde34d5daa9a0a245781a5"
+    },
+    {
+      "path": "backend/src/main/java/org/grit/daynomy/config/SecurityConfig.java",
+      "sha256": "65776d056d7198a6a3381ae21ea99ed0bd7df71b52cbb984165d483f5aba6545"
+    },
+    {
+      "path": "backend/src/main/java/org/grit/daynomy/feedback/controller/FeedbackController.java",
+      "sha256": "fac4e041f43203d1e0e48792a48802948a343f6f13e90eb9ab282ec872d01b37"
+    },
+    {
+      "path": "backend/src/main/java/org/grit/daynomy/feedback/domain/Feedback.java",
+      "sha256": "c3c248c1eb3b4df11645bb9b57670ddf662582d28bc133df6451bdc4815c18ba"
+    },
+    {
+      "path": "backend/src/main/java/org/grit/daynomy/feedback/domain/FeedbackStatus.java",
+      "sha256": "6afecf2e1d5f5537eebf4de2adf45d3ab101c3e4226b7759a6cec87667be5189"
+    },
+    {
+      "path": "backend/src/main/java/org/grit/daynomy/feedback/dto/FeedbackCreateRequest.java",
+      "sha256": "c82f030979558be05d6664553e64082d553bbe3ca00983de0570fd7a4c3a565e"
+    },
+    {
+      "path": "backend/src/main/java/org/grit/daynomy/feedback/repository/FeedbackRepository.java",
+      "sha256": "185532bfe4c87154ed3deb316b9a7035038dd10380d3d28b4ccd3c36689e7cb7"
+    },
+    {
+      "path": "backend/src/main/java/org/grit/daynomy/feedback/service/FeedbackService.java",
+      "sha256": "5df7880cd16def38e6e7a08be507fcd64d508c6da2f30c0580bbc81631be90ad"
+    },
+    {
+      "path": "backend/src/main/java/org/grit/daynomy/member/controller/MemberController.java",
+      "sha256": "e01dcbf7a50e41bd02efb2b7e8bda3dfc0671b66d6a6771f0b35c5b91cfb2db7"
+    },
+    {
+      "path": "backend/src/main/java/org/grit/daynomy/portfolio/controller/PortfolioController.java",
+      "sha256": "f53781c5afa9fb3883d691553f366a3298bd02c790d75ff11d75c8b6cbf7d927"
+    },
+    {
+      "path": "backend/src/main/resources/db/migration/V25__create_feedbacks.sql",
+      "sha256": "b36368c4370f73ea8723b40fedc962ca502224029d0c3a1b9d17b0f14931017a"
+    },
+    {
+      "path": "backend/src/test/java/org/grit/daynomy/common/exception/GlobalExceptionHandlerTest.java",
+      "sha256": "784cbda485a45c044957aadb9589169a7fe556e0ee6b0c16450840ed48fb93f2"
+    },
+    {
+      "path": "backend/src/test/java/org/grit/daynomy/feedback/controller/FeedbackControllerTest.java",
+      "sha256": "3a993713abd4b1c4b53812280d6aecc080e3226cc2f0ec580b9073bc848203a3"
+    },
+    {
+      "path": "backend/src/test/java/org/grit/daynomy/feedback/service/FeedbackServiceTest.java",
+      "sha256": "66be6fb7d558dc85ee6f8896b308392e4942ce74cd802ee8c50cdd929aef04de"
+    },
+    {
+      "path": "frontend/src/api/client.ts",
+      "sha256": "f2284ccc24c4394d02f3ae4db3e5c2a55af0754c066a5a254203d6e33dfca59e"
+    },
+    {
+      "path": "frontend/src/features/feedback/api.ts",
+      "sha256": "6136328872132faea4413d2adbdd86b99bca729a14b73f6584d368177446d3d5"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+.DS_Store
+.idea/
+.env
+.env.*
+!.env.example
+reference/
+**/target/
+**/__pycache__/
+runs/acceptance-*.json
+runs/lifecycle-*.json
+.local/
