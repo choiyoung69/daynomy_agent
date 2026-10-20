@@ -23,7 +23,7 @@ source .local/pilot.env
 python3 scripts/check.py verify
 ```
 
-`verify`는 원본 해시, Rust fmt/clippy/test/build, 검증기 자체 테스트,
+`verify`는 원본 해시, Rust fmt/clippy/test/build, 검증기·비교기 자체 테스트,
 실제 HTTP/DB 동작을 차례로 검사한다. 실패하면 비정상 종료한다.
 각 실행 명령의 제한 시간은 기본 600초다. 최초 의존성 다운로드 등으로 시간이
 초과하면 원인을 기록한 뒤 `PILOT_COMMAND_TIMEOUT_SECONDS`로 조정할 수 있다.
@@ -99,8 +99,9 @@ Axum/Actix Web/Rocket 등 웹 프레임워크 없음. 의존 라이브러리 내
 
 ## 첫 실험의 구현 선택과 한계
 
-- unknown JSON 필드는 무시하고 숫자→문자열 자동 변환은 하지 않는다.
-  중복 DTO 필드와 잘못된 JSON은 requestBody 오류로 거부한다.
+- 2026-10-21 사용자 결정으로 content는 문자열만 허용한다. JSON 객체의 중복 키는
+  unknown field와 중첩 객체 안에서도 검사해 requestBody 400으로 거부한다.
+  중복이 없는 unknown field는 무시한다. 상세 계약은 `spec/feedback.md`를 따른다.
 - 원본과 전체 Unicode/Jackson 호환성을 검증한 것은 아니다.
 - 알 수 없는 경로 404, 잘못된 메서드 405, JSON 외 Content-Type 415.
   이 응답 문구/형식은 Spring과 완전 호환을 주장하지 않는다.
@@ -111,3 +112,36 @@ Axum/Actix Web/Rocket 등 웹 프레임워크 없음. 의존 라이브러리 내
 - Ctrl+C/SIGTERM 시 최대 15초 동안 처리 중인 연결을 기다린다.
 - 앱 로그는 이벤트와 저장 ID만 남기며 입력 본문·경로·쿠키·DB 오류 원문은 출력하지 않는다.
 - 배포·성능 벤치마크·운영 보안 검증은 이번 완료 범위 밖이다.
+
+## 원본 Spring과 비교
+
+프로젝트 루트에서 다음 명령 하나로 두 서버의 빌드·시작·비교·종료를 수행한다.
+실행 환경에는 위 도구 외에 JDK 21이 필요하고, 처음에는 Gradle 의존성 다운로드가 필요하다.
+
+```sh
+python3 scripts/run_comparison.py
+```
+
+- 원본의 빌드 파일과 `src/main`을 `.local/spring-reference`에 복사해 빌드한다.
+  원본 `.env`와 사용자 환경의 실제 API 키·DB 설정은 가져오지 않는다.
+- 원본 애플리케이션 전체를 시작하되 스케줄러는 끄고 외부 API 주소는 로컬 미사용
+  주소로 바꾼다. OAuth·S3 설정에는 테스트 전용 값을 사용한다.
+  피드백 Controller·Service·Repository·Validation·Security 필터는 원본 그대로다.
+- Spring은 18082, Rust는 18083 포트다. 이미 사용 중이면 중단한다.
+- 프로젝트 전용 PostgreSQL 55439에 `daynomy_spring_compare_test`와
+  `daynomy_rust_compare_test`를 별도로 만든다. 기존 피드백 실험 DB는 비교에 쓰지 않는다.
+- 전체 원본 앱의 JPA 검증에 필요한 원본 Flyway 마이그레이션은 **Spring 비교 DB에만**
+  실행한다. Rust 비교 DB에는 피드백 테이블만 준비한다.
+- 비교에 사용한 소스·설정·시작 로그는 `.local/comparison/`, 비교 결과는
+  `runs/comparison-*.json`에 남긴다. 요청 본문·토큰·접속 문자열은 결과 보고서에 남기지 않는다.
+- 서버는 종료하고 DB 데이터는 보존한다. DB는 이 명령이 시작한 경우에만 종료한다.
+  정상 실행 또는 예외 처리 중 정리하며, 프로세스를 강제로 kill한 경우에는 수동 확인이 필요하다.
+
+종료 코드: `0`은 공통 계약 및 승인된 정책 차이 검사 통과,
+`1`은 계약 위반이나 예상하지 않은 차이, `2`는 환경·실행·정리 문제다.
+숫자·boolean·중복 키의 승인된 차이는 `EXPECTED_DIFFERENCE`로 표시한다.
+Spring은 정해진 값으로 저장하고 Rust는 정해진 400으로 거절·미저장해야 통과한다.
+원본과 완전히 같은지를 뜻하는 보고서의 `full_match`는 별도이며, 승인된 차이가 있으면 false다.
+세부 결과와 제외 범위는 `runs/003-comparison.md`, 기준은 `spec/feedback.md`에 있다.
+
+비교기 자체의 검사는 서버 없이 `python3 scripts/test_compare_feedback.py`로 실행한다.

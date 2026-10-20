@@ -8,4 +8,5 @@ reference/
 **/__pycache__/
 runs/acceptance-*.json
 runs/lifecycle-*.json
+runs/comparison-*.json
 .local/

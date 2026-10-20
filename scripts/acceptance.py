@@ -173,7 +173,7 @@ def check_storage(before, after, rows, expected):
         datetime.fromisoformat(row[key].replace("Z", "+00:00"))
 
 
-def cases():
+def shared_cases():
     good = {"content": "화면이 좋아요.", "pagePath": "/news/1"}
     result = []
 
@@ -212,9 +212,34 @@ def cases():
     add("both-fields-missing", {}, errors=(REASONS["content_blank"], REASONS["path_blank"]))
     add("malformed-json", b'{"content":', errors=(REASONS["body"],), raw=True)
     add("empty-body", b"", errors=(REASONS["body"],), raw=True)
+    for name, content in (("numeric-string", "123"), ("boolean-string", "true")):
+        add(name, {**good, "content": content}, (content, good["pagePath"]))
+    for name, content in (("array-content", []), ("object-content", {})):
+        add(name, {**good, "content": content}, errors=(REASONS["body"],))
     add("duplicate-1", good, (good["content"], good["pagePath"]))
     add("duplicate-2", good, (good["content"], good["pagePath"]))
     return result
+
+
+def policy_cases():
+    # User decision, 2026-10-21: string content only; duplicate keys at any depth fail.
+    # Duplicate-key bodies must stay raw bytes; Python dictionaries would erase them.
+    inputs = [
+        ("numeric-content", {"content": 123, "pagePath": "/probe"}, False),
+        ("boolean-content", {"content": True, "pagePath": "/probe"}, False),
+        ("duplicate-content-key", b'{"content":"first","content":"second","pagePath":"/probe"}', True),
+        ("duplicate-same-content-key", b'{"content":"same","content":"same","pagePath":"/probe"}', True),
+        ("duplicate-escaped-content-key", br'{"content":"first","\u0063ontent":"second","pagePath":"/probe"}', True),
+        ("duplicate-page-path-key", b'{"content":"probe","pagePath":"/first","pagePath":"/second"}', True),
+        ("duplicate-unknown-key", b'{"content":"probe","pagePath":"/probe","extra":1,"extra":2}', True),
+        ("duplicate-nested-key", b'{"content":"probe","pagePath":"/probe","extra":[{"x":1,"x":2}]}', True),
+    ]
+    return [(name, payload, 400, None, (REASONS["body"],), "valid", raw)
+            for name, payload, raw in inputs]
+
+
+def cases():
+    return shared_cases() + policy_cases()
 
 
 def main():

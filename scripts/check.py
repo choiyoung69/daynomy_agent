@@ -51,6 +51,7 @@ def verify():
         ["cargo", "test", "--manifest-path", str(manifest)],
         ["cargo", "build", "--manifest-path", str(manifest)],
         [sys.executable, str(ROOT / "scripts/test_acceptance.py")],
+        [sys.executable, str(ROOT / "scripts/test_compare_feedback.py")],
         [sys.executable, str(ROOT / "scripts/acceptance.py")],
     ]
     for command in commands:

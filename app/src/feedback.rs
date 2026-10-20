@@ -1,4 +1,63 @@
 use serde::{Deserialize, Serialize};
+use std::collections::HashSet;
+
+// Inspect objects before deserializing the DTO: ignored fields can also contain
+// duplicate keys. A JSON Value/HashMap would already have discarded duplicates.
+struct NoDuplicateKeys;
+
+impl<'de> Deserialize<'de> for NoDuplicateKeys {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        deserializer.deserialize_any(Self)
+    }
+}
+
+impl<'de> serde::de::Visitor<'de> for NoDuplicateKeys {
+    type Value = Self;
+
+    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+        formatter.write_str("JSON without duplicate object keys")
+    }
+
+    fn visit_map<M: serde::de::MapAccess<'de>>(self, mut map: M) -> Result<Self, M::Error> {
+        let mut keys = HashSet::new();
+        while let Some(key) = map.next_key::<String>()? {
+            if !keys.insert(key) {
+                return Err(serde::de::Error::custom("duplicate object key"));
+            }
+            map.next_value::<Self>()?;
+        }
+        Ok(Self)
+    }
+
+    fn visit_seq<S: serde::de::SeqAccess<'de>>(self, mut seq: S) -> Result<Self, S::Error> {
+        while seq.next_element::<Self>()?.is_some() {}
+        Ok(Self)
+    }
+
+    fn visit_bool<E: serde::de::Error>(self, _: bool) -> Result<Self, E> {
+        Ok(Self)
+    }
+
+    fn visit_i64<E: serde::de::Error>(self, _: i64) -> Result<Self, E> {
+        Ok(Self)
+    }
+
+    fn visit_u64<E: serde::de::Error>(self, _: u64) -> Result<Self, E> {
+        Ok(Self)
+    }
+
+    fn visit_f64<E: serde::de::Error>(self, _: f64) -> Result<Self, E> {
+        Ok(Self)
+    }
+
+    fn visit_str<E: serde::de::Error>(self, _: &str) -> Result<Self, E> {
+        Ok(Self)
+    }
+
+    fn visit_unit<E: serde::de::Error>(self) -> Result<Self, E> {
+        Ok(Self)
+    }
+}
 
 #[derive(Debug, Serialize)]
 pub struct FieldError {
@@ -90,6 +149,11 @@ fn validate_field(
 }
 
 pub fn parse(body: &[u8]) -> Result<Feedback, ApiError> {
+    let mut deserializer = serde_json::Deserializer::from_slice(body);
+    NoDuplicateKeys::deserialize(&mut deserializer).map_err(|_| ApiError::unreadable_body())?;
+    deserializer
+        .end()
+        .map_err(|_| ApiError::unreadable_body())?;
     let request: CreateRequest =
         serde_json::from_slice(body).map_err(|_| ApiError::unreadable_body())?;
     let mut errors = Vec::new();
@@ -187,5 +251,46 @@ mod tests {
             };
             assert_eq!(error.errors[0].field, "requestBody");
         }
+    }
+
+    #[test]
+    fn accepts_string_content_but_rejects_other_json_types() {
+        for content in [json!(123), json!(true), json!([]), json!({})] {
+            let input = serde_json::to_vec(&json!({"content":content,"pagePath":"/"})).unwrap();
+            let error = parse(&input).err().expect("non-string content must fail");
+            assert_eq!(error.code, "INVALID_REQUEST");
+            assert_eq!(error.errors[0].field, "requestBody");
+        }
+        for content in ["123", "true"] {
+            let input = serde_json::to_vec(&json!({"content":content,"pagePath":"/"})).unwrap();
+            assert_eq!(parse(&input).unwrap().content, content);
+        }
+    }
+
+    #[test]
+    fn rejects_duplicate_keys_including_ignored_nested_and_escaped_names() {
+        for input in [
+            br#"{"content":"first","content":"second","pagePath":"/"}"#.as_slice(),
+            br#"{"content":"same","content":"same","pagePath":"/"}"#,
+            br#"{"content":"ok","pagePath":"/a","pagePath":"/b"}"#,
+            br#"{"content":"ok","pagePath":"/","extra":1,"extra":2}"#,
+            br#"{"content":"ok","pagePath":"/","extra":[{"x":1,"x":2}]}"#,
+            br#"{"content":"first","\u0063ontent":"second","pagePath":"/"}"#,
+        ] {
+            let error = parse(input).err().expect("duplicate key must fail");
+            assert_eq!(
+                serde_json::to_value(error).unwrap(),
+                json!({
+                    "code":"INVALID_REQUEST", "message":"요청값이 올바르지 않습니다.",
+                    "errors":[{"field":"requestBody","reason":"요청 본문을 읽을 수 없습니다."}]
+                })
+            );
+        }
+    }
+
+    #[test]
+    fn allows_unique_ignored_fields_and_keys_reused_in_separate_objects() {
+        let input = br#"{"content":"ok","pagePath":"/","extra":[{"x":1},{"x":2}]}"#;
+        assert_eq!(parse(input).unwrap().content, "ok");
     }
 }
