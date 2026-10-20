@@ -23,6 +23,16 @@ source .local/pilot.env
 python3 scripts/check.py verify
 ```
 
+`verify`는 원본 해시, Rust fmt/clippy/test/build, 검증기 자체 테스트,
+실제 HTTP/DB 동작을 차례로 검사한다. 실패하면 비정상 종료한다.
+각 실행 명령의 제한 시간은 기본 600초다. 최초 의존성 다운로드 등으로 시간이
+초과하면 원인을 기록한 뒤 `PILOT_COMMAND_TIMEOUT_SECONDS`로 조정할 수 있다.
+HTTP/DB 검사만 실행하려면 같은 환경에서 `python3 scripts/acceptance.py`를 사용한다.
+`PILOT_BASE_URL`은 로컬 서버, `PILOT_TEST_DB_URL`은 서버와 동일한 전용 테스트 DB를
+가리켜야 하며 helper가 `.local/pilot.env`에 설정한다. DB 이름은 `_test`로 끝나야 한다.
+검사 중에는 다른 요청이나 검사를 동시에 실행하지 않는다. 성공 요청의 테스트 행은 남는다.
+자동 결과는 Git에서 제외한 `runs/acceptance-*.json`에 기록된다.
+
 자동 게이트 이후 재시작·저장 장애 검증:
 
 ```sh

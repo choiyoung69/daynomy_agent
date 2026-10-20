@@ -5,7 +5,8 @@
 1. `README.md`, `spec/feedback.md`, `runs/001-setup.md`를 읽는다.
    `runs/002-implementation.md`가 있으면 현재 구현 상태와 실패 기록도 확인한다.
 2. `python3 scripts/check.py preflight`로 원본과 실행 환경을 확인한다.
-3. 구현을 요청받으면 `prompts/implement.md`를 따른다. 준비 작업과 구현 실험을 구분한다.
+3. `prompts/implement.md`는 완료한 첫 구현의 요청문 기록이다. 이후 작업은 현재 사용자
+   요청과 최신 상태를 기준으로 수행하며, 첫 구현을 자동으로 다시 시작하지 않는다.
 
 ## 범위와 자율성
 

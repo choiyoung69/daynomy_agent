@@ -1,100 +1,77 @@
 # DAYNOMY Rust 에이전트 실험
 
-첫 기능은 **비회원 피드백 등록**(`POST /api/feedback`)이다.
-현재는 **Rust 구현 및 첫 로컬 검증 완료** 상태다.
-실행 방법은 `app/README.md`, 실제 작업 기록은 `runs/002-implementation.md`에 있다.
-운영 배포와 전체 Spring 동작의 완전한 호환성 검증은 수행하지 않았다.
+기존 Spring 서비스의 **비회원 피드백 등록**을 Rust로 재구현하며,
+AI에게 개발을 맡기고 결과를 검증하는 방법을 배우는 프로젝트다.
+현재 피드백 서버와 첫 로컬 검증은 완료했다. 전체 서비스 이식이나 운영 배포 완료는 아니다.
 
-## 왜 이 기능인가
+## 처음에는 이것만 읽기
 
-| 후보 | 첫 실험 적합성 |
-| --- | --- |
-| 피드백 등록 | 외부 API와 로그인 없이 입력 검증 → 문자열 정리 → PostgreSQL 저장을 검증할 수 있다. CSRF는 필요하다. |
-| 회원 닉네임 변경 | JWT·회원 데이터 준비가 먼저 필요하다. |
-| 포트폴리오 계산/원장 | 가격·환율·여러 도메인·동시성 의존성이 크다. |
+1. **무엇을 만들어야 하나?** → [피드백 명세](spec/feedback.md)의 HTTP 계약과 저장 계약.
+2. **실제로 어떻게 실행하나?** → [실행 안내](app/README.md)의 실행 절차.
+3. **어디까지 확인했나?** → [첫 구현 기록](runs/002-implementation.md)의 최종 검증과 한계.
 
-근거는 각 Controller와 `spec/feedback.md`의 파일 목록이다. 이것은 전체 서비스 완성이나
-운영 이전이 아닌, 에이전트 작업 방식을 확인하는 첫 실험이다.
+모든 문서를 매번 읽을 필요는 없다. 이 README는 안내 목차이며,
+세부 요구사항·실행법·검증 결과는 아래 각 문서에서 관리한다.
 
-## 최소 구성
+## 문서별 역할
 
-- `AGENTS.md`: 에이전트 작업 규칙
-- `spec/feedback.md`: 범위·동작·근거·불확실성·완료 기준
-- `spec/reference-snapshot.json`: 분석한 원본 파일의 SHA-256 (원본에 `.git` 없음)
-- `prompts/implement.md`: 다음 구현 실행에 줄 요청문
-- `scripts/check.py`: 준비 확인과 Rust 검사·인수 검증 진입점
-- `scripts/acceptance.py`: 실제 HTTP와 PostgreSQL을 함께 확인하는 인수 검증
-- `scripts/test_acceptance.py`: 검증기가 잘못된 결과를 거부하는지 확인하는 자체 테스트
-- `runs/001-setup.md`: 이번 준비 작업의 관찰 기록
-- `runs/002-implementation.md`: 구현·실패·수정·검증 결과와 에이전트 역할
-- `app/`: Rust 피드백 서버, 스키마, 실행 안내
+| 파일 | 의미 | 언제 읽거나 바꾸나? |
+| --- | --- | --- |
+| [README.md](README.md) | 프로젝트 안내와 문서 목차 | 처음 들어왔을 때 |
+| [spec/feedback.md](spec/feedback.md) | 피드백 기능의 동작, 원본 근거, 완료 기준 | 요구사항을 확인하거나 변경할 때 |
+| [app/README.md](app/README.md) | 서버·DB 실행법, 검사 방법, 사용 라이브러리 | 직접 실행하거나 실행 방식이 바뀔 때 |
+| [AGENTS.md](AGENTS.md) | 에이전트의 작업 범위와 규칙 | 에이전트가 작업을 시작할 때 |
+| [prompts/implement.md](prompts/implement.md) | 첫 구현에 사용한 요청문 | 당시 무엇을 맡겼는지 돌아볼 때 |
+| [runs/001-setup.md](runs/001-setup.md) | 구현 전 준비 과정의 과거 기록 | 첫 기능 선정 이유와 준비 과정을 확인할 때 |
+| [runs/002-implementation.md](runs/002-implementation.md) | 첫 구현의 실패·수정·검증 결과 | 무엇이 실제로 검증됐는지 확인할 때 |
+| [spec/reference-snapshot.json](spec/reference-snapshot.json) | 분석한 원본 파일의 해시 목록 | 검증 스크립트가 원본 변경 여부를 확인할 때 |
 
-## 지금 실행할 수 있는 것
+`runs/001-setup.md`의 “구현 전” 상태는 당시 기록이다. 현재 상태와 혼동하지 않는다.
+`runs/*.json`은 자동 생성된 실행 결과이며 사람이 작성한 안내 문서가 아니다.
+로컬에만 보관하고 Git에서는 제외한다.
 
-프로젝트 루트에서:
+## 구현이 맞는지 확인하는 방법
+
+검증은 **약속한 동작과 실제 실행 결과를 비교하는 일**이다.
+예를 들어 정상 요청은 204 응답과 DB 한 행 추가를 모두 확인하고,
+빈 내용은 400 응답과 DB 변화 없음을 모두 확인한다.
+
+| 검사 | 확인하는 것 | 실행 위치 |
+| --- | --- | --- |
+| 준비 확인 | 분석한 원본이 그대로인지, 도구가 있는지 | `python3 scripts/check.py preflight` |
+| Rust 검사와 함수 테스트 | 빌드, 코드 검사, 길이·공백·CSRF 등의 규칙 | 아래 `verify`에 포함 |
+| HTTP/DB 검사 | 실제 요청의 응답과 실제 저장 결과 | 아래 `verify`에 포함 |
+| 재시작·저장 장애 검사 | 재시작 후 데이터 유지, 저장 실패 시 500, 복구 | `python3 scripts/check_lifecycle.py` |
+| 원본 대조와 코드 리뷰 | 명세 해석, 검사 누락, unsafe·의존성 등 | 원본·명세·코드를 읽고 확인 |
+
+[실행 안내](app/README.md)에 따라 전용 DB와 서버를 시작한 뒤,
+다른 터미널에서 환경을 불러오고 검사한다.
 
 ```sh
-python3 scripts/check.py preflight
-python3 scripts/test_acceptance.py
-```
-
-preflight는 분석 근거의 해시와 명령 설치 여부를 확인한다. 서버나 DB를 생성·수정하지 않는다.
-`verify`를 실행하려면 아래처럼 테스트 DB와 서버를 먼저 시작해야 한다.
-
-```sh
-bash scripts/local-db.sh start
 source .local/pilot.env
-cargo build --manifest-path app/Cargo.toml --locked
-./app/target/debug/daynomy-feedback
-```
-
-다른 터미널에서 같은 폴더로 이동해 `source .local/pilot.env` 후
-`python3 scripts/check.py verify`를 실행한다.
-
-## 첫 구현 실험
-
-`prompts/implement.md`는 첫 구현에 사용한 요청문이다. 새 대화에서는 먼저 현재 실행 기록을
-읽고 이어서 작업한다. 요청문 파일 자체가 에이전트를 자동 실행시키는 것은 아니다.
-
-구현 에이전트는 `app/`에 Rust 서버와 실행 설명을 만든다. PostgreSQL은 원본과 같은
-종류를 사용하되 **별도 로컬 테스트 DB**를 사용한다. DB 이름은 `_test`로 끝나야 한다.
-서버의 DB와 인수 검증의 DB가 같아야 하며, 다른 요청이나 테스트를 동시에 보내지 않는다.
-검증기는 행을 읽기만 하지만 HTTP 성공 요청으로 테스트 행이 생성되고 남는다.
-
-서버 실행 후 다음 값을 로컬 환경변수로 설정한다. 실제 접속값은 커밋하거나 출력하지 않는다.
-
-- `PILOT_BASE_URL`: 예: `http://127.0.0.1:8080`
-- `PILOT_TEST_DB_URL`: 전용 테스트 DB의 PostgreSQL URI. 호스트는 loopback,
-  DB 이름은 `_test` 접미사. 검증기는 `psql`을 이용한다.
-- 서버의 `DATABASE_URL`: 위 테스트 DB와 동일한 연결 대상. 설정 방법은 구현 README에 기록한다.
-
-```sh
 python3 scripts/check.py verify
+python3 scripts/check_lifecycle.py
 ```
 
-검사 순서: 원본 해시 확인 → Rust fmt/clippy/test/build → 하네스 자체 테스트 →
-HTTP/DB 인수 검증. 성공 보고를 꾸미지 않고 누락된 환경이나 실패를 비정상 종료로 반환한다.
-각 명령에는 실행 시간 제한이 있다. 최초 의존성 다운로드/빌드가 제한을 넘으면 원인을
-기록하고 `PILOT_COMMAND_TIMEOUT_SECONDS`로 조정한다 (기본 600초).
+두 검사는 차례로 실행한다. `verify`는 포맷·clippy·Rust 테스트·빌드·검증기 자체
+테스트·HTTP/DB 검사를 실행한다. `preflight`만 통과한 것은 기능 검증이 아니다.
+테스트는 성공 요청으로 전용 DB에 데이터를 추가한다.
 
-인수 검증만 별도로 실행할 수도 있다:
+## 현재 검증의 의미와 한계
 
-```sh
-python3 scripts/acceptance.py
-```
+첫 구현에서 Rust 테스트 7개, 검증기 자체 테스트 9개,
+HTTP/DB 사례 33개와 CSRF 준비 검사, 재시작·장애 검사 4개가 통과했다.
+이는 [첫 구현 기록](runs/002-implementation.md)에 남긴 당시 결과다.
 
-결과는 `runs/acceptance-*.json`에 기록된다. 재시작 후 영속성 및 DB 장애는
-`python3 scripts/check_lifecycle.py`로 별도 확인한다. 이 명령은 전용 테스트 DB에 잠시
-INSERT 거부 제약을 추가했다 제거하므로 다른 테스트와 동시에 실행하지 않는다.
-의존성/unsafe 코드 리뷰는 별도 확인한다.
+같은 에이전트가 명세·구현·테스트를 작성하고 리뷰했다. 같은 오해가 모두에 들어가면
+테스트도 통과할 수 있다. 따라서 원본 근거와 기대 결과를 대조해야 한다.
+원본 Spring 서버와 동일 요청을 보내 직접 비교하는 검증과 독립 리뷰는 아직 수행하지 않았다.
+현재 결론은 **명세에 정한 로컬 피드백 동작을 검증했다**는 범위다.
 
-첫 실행 결과: Rust 테스트 7개, 하네스 자체 테스트 9개,
-HTTP/DB 사례 33개 + CSRF 준비 검사, 재시작/장애 관련 검사 4개 통과.
-최종 확인 후 서버와 전용 DB는 종료했고 테스트 행 12개는 보존했다.
+## 문서 유지 원칙
 
-## 이번 실험에서 볼 것
-
-사람의 추가 지시 횟수와 이유, 총 소요 시간, 최초 실패, 수정 시도, 최종 통과 항목,
-남은 결함을 기록한다. 사용량은 도구가 제공하는 값만 기록한다.
-첫 실행은 기준선 관찰이며, 이 결과 하나로 하네스가 생산성을 높였다고 단정하지 않는다.
-실제 실패 원인을 보고 규칙이나 검사 하나씩 추가한다.
+- 동작 변경은 명세, 실행법 변경은 앱 README, 작업 규칙 변경은 AGENTS.md에 반영한다.
+- 과거 실험 기록은 당시 증거로 보존한다. 새 실험 결과를 과거 성공 결과에 덮어쓰지 않는다.
+- 새 문서를 만들기 전에 기존 문서에 해당 내용을 둘 자리가 있는지 먼저 확인한다.
+- `reference/`는 분석용 원본, `app/`은 구현, `scripts/`는 실행·검사 프로그램이다.
+  테스트 프로그램은 AI 에이전트가 아니다.

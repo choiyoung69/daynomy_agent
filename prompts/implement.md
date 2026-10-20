@@ -1,5 +1,9 @@
 # 첫 구현 실행 요청
 
+> 보관용: 첫 구현에 사용한 요청문이다. 해당 구현은 완료했으며 결과는
+> [첫 구현 기록](../runs/002-implementation.md)에 있다.
+> 현재 작업 지시로 자동 재실행하지 않는다.
+
 이 저장소의 AGENTS.md, README.md, spec/feedback.md, runs/001-setup.md를 읽고
 비회원 피드백 등록을 Rust로 구현하라. 원본을 읽고 명세의 근거를 필요할 때 확인하라.
 구현 위치는 app/이다. reference/는 수정하지 마라.
