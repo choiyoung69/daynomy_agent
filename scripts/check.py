@@ -45,13 +45,34 @@ def verify():
     timeout = int(os.environ.get("PILOT_COMMAND_TIMEOUT_SECONDS", "600"))
     if timeout <= 0:
         raise ValueError("timeout must be positive")
+    test_command = ["cargo", "test", "--manifest-path", str(manifest)]
+    if os.environ.get("PILOT_READ_ONLY_SERVER") == "true":
+        # The compiler needs writable build output; the resulting test binary
+        # must not inherit that write access to trusted criteria or controller.
+        try:
+            version = subprocess.run(["rustc", "-vV"], capture_output=True, text=True, timeout=30)
+        except subprocess.TimeoutExpired:
+            print("BLOCKED: Rust target discovery timed out.")
+            return 2
+        host = next((line.removeprefix("host: ") for line in version.stdout.splitlines()
+                     if line.startswith("host: ")), "")
+        if version.returncode or not host or not all(c.isalnum() or c in "_-" for c in host):
+            print("BLOCKED: unable to determine Rust target for read-only test runner.")
+            return 2
+        runner = ROOT / "scripts/readonly_runner.py"
+        if not runner.is_file() or shutil.which("codex") is None:
+            print("BLOCKED: read-only Rust test runner unavailable.")
+            return 2
+        runner_config = "target." + host + ".runner=" + json.dumps([sys.executable, str(runner)])
+        test_command = ["cargo", "--config", runner_config, "test", "--manifest-path", str(manifest)]
     commands = [
         ["cargo", "fmt", "--manifest-path", str(manifest), "--", "--check"],
         ["cargo", "clippy", "--manifest-path", str(manifest), "--all-targets", "--", "-D", "warnings"],
-        ["cargo", "test", "--manifest-path", str(manifest)],
+        test_command,
         ["cargo", "build", "--manifest-path", str(manifest)],
         [sys.executable, str(ROOT / "scripts/test_acceptance.py")],
         [sys.executable, str(ROOT / "scripts/test_compare_feedback.py")],
+        [sys.executable, str(ROOT / "scripts/test_agent_workflow.py")],
         [sys.executable, str(ROOT / "scripts/acceptance.py")],
     ]
     for command in commands:

@@ -1,0 +1,13 @@
+{
+  "backend": "codex_cli",
+  "max_model_calls": 2,
+  "max_rounds": 3,
+  "reviewer": {
+    "name": "independent_reviewer",
+    "model": null
+  },
+  "tasks": [
+    {"name": "news", "file": "news.rs", "model": null},
+    {"name": "portfolio", "file": "portfolio_calc.rs", "model": null}
+  ]
+}

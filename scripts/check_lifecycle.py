@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 import re
+import signal
 import subprocess
 import sys
 import time
@@ -26,9 +27,17 @@ def alter(db, sql):
 
 def start(log_path, env):
     log = log_path.open("w")
+    command = [str(ROOT / "app/target/debug/daynomy-feedback")]
+    if env.get("PILOT_READ_ONLY_SERVER") == "true":
+        command = [
+            "codex", "sandbox", "-P", "daynomy_runtime", "-C", str(ROOT), "-c",
+            'permissions.daynomy_runtime={filesystem={":root"="read"},network={enabled=true}}',
+            sys.executable, "-c",
+            'import os,sys; print("sandbox_runtime_pid="+str(os.getpid()),flush=True); '
+            'os.execv(sys.argv[1],sys.argv[1:])', *command,
+        ]
     process = subprocess.Popen(
-        [str(ROOT / "app/target/debug/daynomy-feedback")],
-        env={**env, "PORT": "0"}, stdout=log, stderr=log,
+        command, env={**env, "PORT": "0"}, stdout=log, stderr=log, start_new_session=True,
     )
     log.close()
     try:
@@ -37,6 +46,10 @@ def start(log_path, env):
             require(process.poll() is None, "Probe server exited before becoming ready")
             match = re.search(r"event=server.started address=(127\.0\.0\.1:\d+)", log_path.read_text())
             if match:
+                pid = re.search(r"sandbox_runtime_pid=(\d+)", log_path.read_text())
+                if env.get("PILOT_READ_ONLY_SERVER") == "true":
+                    require(pid is not None, "Missing sandbox runtime PID")
+                    process.runtime_pid = int(pid[1])
                 return process, Client("http://" + match[1])
             time.sleep(0.05)
         raise AssertionError("Probe server startup timeout")
@@ -46,14 +59,36 @@ def start(log_path, env):
 
 
 def stop(process):
-    if process is not None and process.poll() is None:
-        process.terminate()
+    if process is None:
+        return
+    if process.poll() is None:
+        try:
+            if hasattr(process, "runtime_pid"):
+                os.kill(process.runtime_pid, signal.SIGTERM)
+            else:
+                os.killpg(process.pid, signal.SIGTERM)
+        except ProcessLookupError:
+            pass
         try:
             process.wait(timeout=20)
         except subprocess.TimeoutExpired:
-            process.kill()
+            try:
+                os.killpg(process.pid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
             process.wait()
             raise AssertionError("Server did not shut down gracefully") from None
+        finally:
+            try:
+                os.killpg(process.pid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+    else:
+        # A previously exited wrapper may still have live descendants.
+        try:
+            os.killpg(process.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
 
 
 def main():
