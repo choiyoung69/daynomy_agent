@@ -1,0 +1,13 @@
+{
+  "execution": "desktop_subagents",
+  "max_concurrent_agents_including_coordinator": 4,
+  "roles": {
+    "implementer": {"model": "gpt-6.1-sol", "reasoning_effort": "medium"},
+    "test_author": {"model": "gpt-6.1-sol", "reasoning_effort": "medium"},
+    "explorer": {"model": "gpt-6-luna", "reasoning_effort": "high"},
+    "critical_reviewer": {"model": "gpt-6-astra", "reasoning_effort": "high"}
+  },
+  "scope": {"exclude": ["league", "ui", "deployment", "calendar_email_notifications"], "priority": "verified_core_user_features"},
+  "scheduling": "Independent test authors and domain implementers share three worker slots. Reuse a freed slot for a fresh independent reviewer or the next domain. Never review one's own implementation.",
+  "note": "Dispatch settings for this conversation, not an unattended Python runner. Already spawned inherited-model agents retain their original settings; explicit roles apply to new instances. Config alone does not execute agents or increase the host limit."
+}
