@@ -3,7 +3,7 @@
 .env
 .env.*
 !.env.example
-reference/
+/reference/
 **/target/
 **/__pycache__/
 runs/acceptance-*.json

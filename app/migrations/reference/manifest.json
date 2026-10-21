@@ -1,0 +1,312 @@
+{
+  "source": "reference/2026-DAYNOMY-dev/backend/src/main/resources/db/migration",
+  "purpose": "Unchanged original SQL for independent Rust database initialization; league tables retained only for schema compatibility.",
+  "migrations": [
+    {
+      "file": "V1__init_schema.sql",
+      "version": 1,
+      "sha256": "8dc827cb863a95cc8cbfeb9559629be5fa221bb108b06fa67c05bafb76a6736e",
+      "transactional": true
+    },
+    {
+      "file": "V2__add_news_search_indexes.sql",
+      "version": 2,
+      "sha256": "32757103cb012328fc7e3293d2e53d8098fb474ad2de1fbea82908f98a50050a",
+      "transactional": true
+    },
+    {
+      "file": "V3__add_news_status.sql",
+      "version": 3,
+      "sha256": "93d2a4bfa71f4d8120919b85d57bfb329a4e4da42d15475de6cea1486e533e6f",
+      "transactional": true
+    },
+    {
+      "file": "V4__allow_manual_news.sql",
+      "version": 4,
+      "sha256": "4662c61b1fb102c3e91a21b95ac70ad24cb2d3795e70f6ba843a33e39d4705d8",
+      "transactional": true
+    },
+    {
+      "file": "V5__integrate_market_analysis_summary.sql",
+      "version": 5,
+      "sha256": "c90967bf75dd849ff1a990aa53279d80dbae60cac367ce8d8a7ff324f86d97f6",
+      "transactional": true
+    },
+    {
+      "file": "V6__remove_market_analysis_details.sql",
+      "version": 6,
+      "sha256": "f22593e595ce1dbdd1a6db7b1249672aa606fd0a310e356e3a815232dbd9f3ef",
+      "transactional": true
+    },
+    {
+      "file": "V7__remove_news_description.sql",
+      "version": 7,
+      "sha256": "28050cf96d0fcded6bdc9b6d16619d4dbb30bb363d58b4e180c901782f514263",
+      "transactional": true
+    },
+    {
+      "file": "V8__migrate_news_sources_to_jsonb.sql",
+      "version": 8,
+      "sha256": "2d45bf64c2b4496c82eafba8f1278dddf3546d27c48437066d381ea974d64d6d",
+      "transactional": true
+    },
+    {
+      "file": "V9__remove_news_source_identity_columns.sql",
+      "version": 9,
+      "sha256": "67640ac3e5af7cde7441ef35e4a3b66207955523f79df075c314372b7fb5cf4d",
+      "transactional": true
+    },
+    {
+      "file": "V10__remove_bookmark_features.sql",
+      "version": 10,
+      "sha256": "01e0a3d16032ab10cedd65af7856c57106ef28ccc526809290c6af753bde40de",
+      "transactional": true
+    },
+    {
+      "file": "V11__add_stock_master_columns.sql",
+      "version": 11,
+      "sha256": "77b11c72ada74a47a1a24840eff9020783ac808823121ad81e680edb2fa35fb9",
+      "transactional": true
+    },
+    {
+      "file": "V12__create_stock_daily_prices.sql",
+      "version": 12,
+      "sha256": "cf97bbac4759716a44e6e6616268b9ce3fa7e0b97258b4bd1572fe59332ab64e",
+      "transactional": true
+    },
+    {
+      "file": "V13__add_news_image_source.sql",
+      "version": 13,
+      "sha256": "f5bd06e94b0b639fc096139c26f5bcdf1b979490e5a4f2d28d74b3d59bd6a59a",
+      "transactional": true
+    },
+    {
+      "file": "V14__convert_news_image_source_to_jsonb.sql",
+      "version": 14,
+      "sha256": "582a32dec3ae018a691c0c08fac9959871b731894811694e4de0ffd4a35d549f",
+      "transactional": true
+    },
+    {
+      "file": "V15__create_portfolio_tracking.sql",
+      "version": 15,
+      "sha256": "1b5e7e2efd90dedfcd0375939768a3254c22a83132b9d0a8185e53be187f5289",
+      "transactional": true
+    },
+    {
+      "file": "V16__create_stock_related_contents.sql",
+      "version": 16,
+      "sha256": "52feaae48e05d83ef17e4246a20f3c0d514cb9ca30210bf53b1604fbf3551ff9",
+      "transactional": true
+    },
+    {
+      "file": "V17__link_asset_contents_to_news.sql",
+      "version": 17,
+      "sha256": "55cdaf6da57b8bf095528d26527aab2e32d6f836542e0734c9072c513054372b",
+      "transactional": true
+    },
+    {
+      "file": "V18__normalize_stock_content_source_type.sql",
+      "version": 18,
+      "sha256": "627c4c7b2b3b95da4462df76f5f3b43e138838c3514d59d5615aa76c60cf1544",
+      "transactional": true
+    },
+    {
+      "file": "V19__add_image_url_to_stock_related_contents.sql",
+      "version": 19,
+      "sha256": "5ba43bd10bf62921f2a866f099db005183419de98726a02389526057e0fcb19f",
+      "transactional": true
+    },
+    {
+      "file": "V20__add_news_search_order_index.sql",
+      "version": 20,
+      "sha256": "c3f9eb4487fe2ca31237534ce5fc7c6a4396364a9392c2c87c7c0fdb34fc797a",
+      "transactional": false
+    },
+    {
+      "file": "V21__add_admin_news_search_order_index.sql",
+      "version": 21,
+      "sha256": "82a8edfcb4f70c7e77c0ce352da04a6f4cd7dc0509b8068cbaefabafca6a424a",
+      "transactional": false
+    },
+    {
+      "file": "V24__create_featured_people.sql",
+      "version": 24,
+      "sha256": "4fb54c653ad2c1a5df16bfb3b8857216b529c02fe06c1d8923fe7c6292d1f6db",
+      "transactional": true
+    },
+    {
+      "file": "V25__create_feedbacks.sql",
+      "version": 25,
+      "sha256": "b36368c4370f73ea8723b40fedc962ca502224029d0c3a1b9d17b0f14931017a",
+      "transactional": true
+    },
+    {
+      "file": "V26__create_financial_learning_records.sql",
+      "version": 26,
+      "sha256": "0effb3f6287b7b8ac2c51ba37b9acba0e2fad3b08cf704355a00480d01090551",
+      "transactional": true
+    },
+    {
+      "file": "V27__create_investment_league.sql",
+      "version": 27,
+      "sha256": "fcbbe576109ea5e96a274b181431cb88770d40001ffb170b7c4c29ba9079dd22",
+      "transactional": true
+    },
+    {
+      "file": "V28__isolate_shared_portfolios.sql",
+      "version": 28,
+      "sha256": "9b89482ea67fc223668282ba033f85a5f81e83bb706f8d6ccb7e3ccc71138db6",
+      "transactional": true
+    },
+    {
+      "file": "V29__create_financial_plans.sql",
+      "version": 29,
+      "sha256": "da6e36949b1c1d21faab2bcf5c2c7dd9f1105df35a810624a49033ae314f2c84",
+      "transactional": true
+    },
+    {
+      "file": "V30__separate_private_google_name.sql",
+      "version": 30,
+      "sha256": "8b4fe8a563ba50cb6fdcaf24b77115c73a653dccd5f00d2d9d98ebfe97de34ca",
+      "transactional": true
+    },
+    {
+      "file": "V31__complete_league_performance.sql",
+      "version": 31,
+      "sha256": "db18a95f7be784b1aa82096e9ce8285e339829b772417d8620aa2d0a37a4ee04",
+      "transactional": true
+    },
+    {
+      "file": "V32__allow_optional_investment_decision_fields.sql",
+      "version": 32,
+      "sha256": "bd68f80830aef71327f60e9ad3ae788c92b5e2f99be3ab89a5353122692c2159",
+      "transactional": true
+    },
+    {
+      "file": "V33__add_portfolio_transaction_ledger.sql",
+      "version": 33,
+      "sha256": "03108ff94ab1cebed8b39bcb9944befc52dcc163d6659a4996a3c24b907dad6f",
+      "transactional": true
+    },
+    {
+      "file": "V34__structure_market_analysis.sql",
+      "version": 34,
+      "sha256": "34090e80a7ae1d998af67ae76d93d79b3a9fd5f7b0434f1bd353dee204ee4c66",
+      "transactional": true
+    },
+    {
+      "file": "V35__create_portfolio_analyses.sql",
+      "version": 35,
+      "sha256": "ebb4b4957a82f472dfba5aa33f6572d19342da4e04417d693bcc824b0331aa80",
+      "transactional": true
+    },
+    {
+      "file": "V36__add_portfolio_analysis_request_lease.sql",
+      "version": 36,
+      "sha256": "0ad087f3388ed5ebfcabcb6a883b1f626263f8a6d85fd812138d99d14d804384",
+      "transactional": true
+    },
+    {
+      "file": "V37__add_portfolio_analysis_check_outcome.sql",
+      "version": 37,
+      "sha256": "e8300ac02d31cc316647842f1e331d10f690b0f4e3ddb17e98f797e9882a1e92",
+      "transactional": true
+    },
+    {
+      "file": "V38__add_portfolio_analysis_evidence_fact_quote.sql",
+      "version": 38,
+      "sha256": "a61a13b77dc47b1850334b138f3b127674517e399aae2d64e358887a7d4b89a2",
+      "transactional": true
+    },
+    {
+      "file": "V39__add_stock_content_published_date.sql",
+      "version": 39,
+      "sha256": "378dad98eb4f12b84a5bcd5e4cf665ef56be8c1f15d827aab2b50ba42431c3c8",
+      "transactional": true
+    },
+    {
+      "file": "V40__add_featured_person_profile_image.sql",
+      "version": 40,
+      "sha256": "8d719d93bd8e2e37272394b43f86c80bf77af39af96d7161de2d13bf7cc2b4df",
+      "transactional": true
+    },
+    {
+      "file": "V41__add_featured_person_youtube_profile.sql",
+      "version": 41,
+      "sha256": "5d9de234375345ea39a74d62eaa1f05287bd3710d00df4a06ac914dac2edd7d8",
+      "transactional": true
+    },
+    {
+      "file": "V42__backfill_and_index_stock_content_published_date.sql",
+      "version": 42,
+      "sha256": "60cb6a23bb17e939c8e197ac8761aaf8807c15dc5938ac90cb79c69dee81aea7",
+      "transactional": true
+    },
+    {
+      "file": "V43__add_featured_person_post_published_at.sql",
+      "version": 43,
+      "sha256": "569aefc95b5a96caa7c9915b54e041d0d4078e5fc880448cfed56f498f16f5ff",
+      "transactional": true
+    },
+    {
+      "file": "V44__create_portfolio_asset_analyses.sql",
+      "version": 44,
+      "sha256": "cda965c87c960e0f9e76e5892ccd1e97d2037dd613634c8352bf9d30752f3f97",
+      "transactional": true
+    },
+    {
+      "file": "V45__track_stock_price_collection_attempt.sql",
+      "version": 45,
+      "sha256": "7dd2cc4f55141bda407ae13e42cf62e52bb17d64ff3526cd8406780594ce48d8",
+      "transactional": true
+    },
+    {
+      "file": "V46__add_missing_entity_audit_timestamps.sql",
+      "version": 46,
+      "sha256": "0e0280451ce339ecb65b03fcaab5eeb74be9473942e2f438cbe7efa9506c0c16",
+      "transactional": true
+    },
+    {
+      "file": "V47__create_investment_events.sql",
+      "version": 47,
+      "sha256": "1bec43b8e842c61ea6e47c859405c2184fd35d7650acb0373d045a3befa03062",
+      "transactional": true
+    },
+    {
+      "file": "V48__record_asset_price_history_coverage.sql",
+      "version": 48,
+      "sha256": "19c13fde89dd4091d24471693ca534eb422b02803ed9e95d34f1c46f86d76766",
+      "transactional": true
+    },
+    {
+      "file": "V49__create_featured_person_post_candidates.sql",
+      "version": 49,
+      "sha256": "de8c9591888eb702697c0c2d63f2db102d767c0803817b051a2d8c3d970317a0",
+      "transactional": true
+    },
+    {
+      "file": "V50__replace_post_candidates_with_post_status.sql",
+      "version": 50,
+      "sha256": "a0097d3cf8faa8a687d410322218900eeb906326de9f34ad2858880e395fdf46",
+      "transactional": true
+    },
+    {
+      "file": "V51__preserve_us_stock_price_precision.sql",
+      "version": 51,
+      "sha256": "d444d505a861b897a5c0e2f255dcd5927d547c9c8740c5eed7b236ae8884cea1",
+      "transactional": true
+    },
+    {
+      "file": "V52__scope_isin_uniqueness_to_domestic_assets.sql",
+      "version": 52,
+      "sha256": "f7e3882ff06076750c65be8f0ed672dae021e75f666f8f947854b57d61a84e23",
+      "transactional": true
+    },
+    {
+      "file": "V53__support_usd_portfolio_transactions.sql",
+      "version": 53,
+      "sha256": "f3eafcba1e2905f8f3d08eb0c3be3c039953ed7da20be42341f4b0dd74008686",
+      "transactional": true
+    }
+  ]
+}
