@@ -1,0 +1,312 @@
+[
+  {
+    "name": "default-list-full-dto-tie-id-desc",
+    "path": "/api/admin/feedbacks",
+    "principal": "admin",
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": 941002,
+          "content": "fixture two",
+          "pagePath": "/b",
+          "status": "RESOLVED",
+          "createdAt": "2026-08-18T10:00:00Z",
+          "updatedAt": "2026-08-18T10:00:00Z"
+        },
+        {
+          "id": 941001,
+          "content": "fixture one",
+          "pagePath": "/a",
+          "status": "PENDING",
+          "createdAt": "2026-08-18T10:00:00Z",
+          "updatedAt": "2026-08-18T10:00:00Z"
+        },
+        {
+          "id": 941003,
+          "content": "fixture three",
+          "pagePath": "/c",
+          "status": "RESOLVED",
+          "createdAt": "2026-08-17T09:00:00Z",
+          "updatedAt": "2026-08-17T09:00:00Z"
+        }
+      ],
+      "page": 1,
+      "size": 15,
+      "totalPages": 1,
+      "totalElements": 3,
+      "hasNext": false
+    }
+  },
+  {
+    "name": "first-page-has-next",
+    "path": "/api/admin/feedbacks?page=1&size=2",
+    "principal": "admin",
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": 941002,
+          "content": "fixture two",
+          "pagePath": "/b",
+          "status": "RESOLVED",
+          "createdAt": "2026-08-18T10:00:00Z",
+          "updatedAt": "2026-08-18T10:00:00Z"
+        },
+        {
+          "id": 941001,
+          "content": "fixture one",
+          "pagePath": "/a",
+          "status": "PENDING",
+          "createdAt": "2026-08-18T10:00:00Z",
+          "updatedAt": "2026-08-18T10:00:00Z"
+        }
+      ],
+      "page": 1,
+      "size": 2,
+      "totalPages": 2,
+      "totalElements": 3,
+      "hasNext": true
+    }
+  },
+  {
+    "name": "second-page-final-item",
+    "path": "/api/admin/feedbacks?page=2&size=2",
+    "principal": "admin",
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": 941003,
+          "content": "fixture three",
+          "pagePath": "/c",
+          "status": "RESOLVED",
+          "createdAt": "2026-08-17T09:00:00Z",
+          "updatedAt": "2026-08-17T09:00:00Z"
+        }
+      ],
+      "page": 2,
+      "size": 2,
+      "totalPages": 2,
+      "totalElements": 3,
+      "hasNext": false
+    }
+  },
+  {
+    "name": "outside-page-is-empty",
+    "path": "/api/admin/feedbacks?page=9&size=2",
+    "principal": "admin",
+    "status": 200,
+    "body": {
+      "items": [],
+      "page": 9,
+      "size": 2,
+      "totalPages": 2,
+      "totalElements": 3,
+      "hasNext": false
+    }
+  },
+  {
+    "name": "empty-parameters-use-defaults",
+    "path": "/api/admin/feedbacks?page=&size=",
+    "principal": "admin",
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": 941002,
+          "content": "fixture two",
+          "pagePath": "/b",
+          "status": "RESOLVED",
+          "createdAt": "2026-08-18T10:00:00Z",
+          "updatedAt": "2026-08-18T10:00:00Z"
+        },
+        {
+          "id": 941001,
+          "content": "fixture one",
+          "pagePath": "/a",
+          "status": "PENDING",
+          "createdAt": "2026-08-18T10:00:00Z",
+          "updatedAt": "2026-08-18T10:00:00Z"
+        },
+        {
+          "id": 941003,
+          "content": "fixture three",
+          "pagePath": "/c",
+          "status": "RESOLVED",
+          "createdAt": "2026-08-17T09:00:00Z",
+          "updatedAt": "2026-08-17T09:00:00Z"
+        }
+      ],
+      "page": 1,
+      "size": 15,
+      "totalPages": 1,
+      "totalElements": 3,
+      "hasNext": false
+    }
+  },
+  {
+    "name": "page-zero-validation",
+    "path": "/api/admin/feedbacks?page=0",
+    "principal": "admin",
+    "status": 400,
+    "body": {
+      "code": "INVALID_REQUEST",
+      "message": "요청값이 올바르지 않습니다.",
+      "errors": [
+        {
+          "field": "page",
+          "reason": "페이지 번호는 1 이상이어야 합니다."
+        }
+      ]
+    }
+  },
+  {
+    "name": "size-over-maximum",
+    "path": "/api/admin/feedbacks?size=101",
+    "principal": "admin",
+    "status": 400,
+    "body": {
+      "code": "INVALID_REQUEST",
+      "message": "요청값이 올바르지 않습니다.",
+      "errors": [
+        {
+          "field": "size",
+          "reason": "페이지 크기는 100 이하여야 합니다."
+        }
+      ]
+    }
+  },
+  {
+    "name": "page-type-error",
+    "path": "/api/admin/feedbacks?page=abc",
+    "principal": "admin",
+    "status": 400,
+    "body": {
+      "code": "INVALID_REQUEST",
+      "message": "요청값이 올바르지 않습니다.",
+      "errors": [
+        {
+          "field": "page",
+          "reason": "타입이 올바르지 않습니다."
+        }
+      ]
+    }
+  },
+  {
+    "name": "size-type-error",
+    "path": "/api/admin/feedbacks?size=1.5",
+    "principal": "admin",
+    "status": 400,
+    "body": {
+      "code": "INVALID_REQUEST",
+      "message": "요청값이 올바르지 않습니다.",
+      "errors": [
+        {
+          "field": "size",
+          "reason": "타입이 올바르지 않습니다."
+        }
+      ]
+    }
+  },
+  {
+    "name": "detail-full-dto",
+    "path": "/api/admin/feedbacks/941001",
+    "principal": "admin",
+    "status": 200,
+    "body": {
+      "id": 941001,
+      "content": "fixture one",
+      "pagePath": "/a",
+      "status": "PENDING",
+      "createdAt": "2026-08-18T10:00:00Z",
+      "updatedAt": "2026-08-18T10:00:00Z"
+    }
+  },
+  {
+    "name": "detail-missing",
+    "path": "/api/admin/feedbacks/949999",
+    "principal": "admin",
+    "status": 404,
+    "body": {
+      "code": "FEEDBACK_NOT_FOUND",
+      "message": "피드백을 찾을 수 없습니다."
+    }
+  },
+  {
+    "name": "detail-type-error",
+    "path": "/api/admin/feedbacks/abc",
+    "principal": "admin",
+    "status": 400,
+    "body": {
+      "code": "INVALID_REQUEST",
+      "message": "요청값이 올바르지 않습니다.",
+      "errors": [
+        {
+          "field": "id",
+          "reason": "타입이 올바르지 않습니다."
+        }
+      ]
+    }
+  },
+  {
+    "name": "list-without-login",
+    "path": "/api/admin/feedbacks",
+    "principal": "none",
+    "status": 401,
+    "body": {
+      "code": "UNAUTHORIZED",
+      "message": "로그인이 필요합니다."
+    }
+  },
+  {
+    "name": "list-normal-user-forbidden",
+    "path": "/api/admin/feedbacks",
+    "principal": "user",
+    "status": 403,
+    "body": {
+      "code": "FORBIDDEN",
+      "message": "접근 권한이 없습니다."
+    }
+  },
+  {
+    "name": "list-invalid-token",
+    "path": "/api/admin/feedbacks",
+    "principal": "invalid",
+    "status": 401,
+    "body": {
+      "code": "INVALID_TOKEN",
+      "message": "유효하지 않은 인증 정보입니다."
+    }
+  },
+  {
+    "name": "list-withdrawn-admin",
+    "path": "/api/admin/feedbacks",
+    "principal": "withdrawn",
+    "status": 401,
+    "body": {
+      "code": "INVALID_TOKEN",
+      "message": "유효하지 않은 인증 정보입니다."
+    }
+  },
+  {
+    "name": "detail-without-login",
+    "path": "/api/admin/feedbacks/941001",
+    "principal": "none",
+    "status": 401,
+    "body": {
+      "code": "UNAUTHORIZED",
+      "message": "로그인이 필요합니다."
+    }
+  },
+  {
+    "name": "detail-normal-user-forbidden",
+    "path": "/api/admin/feedbacks/941001",
+    "principal": "user",
+    "status": 403,
+    "body": {
+      "code": "FORBIDDEN",
+      "message": "접근 권한이 없습니다."
+    }
+  }
+]
