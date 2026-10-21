@@ -1,0 +1,7 @@
+{
+  "backend": "codex_cli",
+  "max_rounds": 3,
+  "test_author": {"name": "stock_price_test_author", "model": null},
+  "implementer": {"name": "stock_price_implementer", "model": null},
+  "reviewer": {"name": "stock_price_reviewer", "model": null}
+}
