@@ -21,6 +21,11 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCES = {"main.rs", "feedback.rs", "csrf.rs"}
 RESULT_KEYS = {"status", "summary", "findings", "questions"}
 REQUIRED_CHECKS = {"preflight", "build", "verify", "lifecycle", "server-stop"}
+ROLE_STATUSES = {
+    "implementer": {"implemented", "needs_decision", "blocked"},
+    "test_author": {"tests_written", "needs_decision", "blocked"},
+    "reviewer": {"approve", "revise", "needs_decision", "blocked"},
+}
 
 
 def now():
@@ -84,7 +89,7 @@ def capture(command, prompt, events, timeout, env):
 
 def permission_config(role, workspace):
     access = {":root": "read"}
-    if role == "implementer":
+    if role in ("implementer", "test_author"):
         access[str(Path(workspace).resolve())] = "write"
     table = ",".join(json.dumps(key) + "=" + json.dumps(value) for key, value in access.items())
     return 'permissions.daynomy_role={filesystem={' + table + '},network={enabled=false}}'
@@ -108,7 +113,7 @@ def permission_probe(workspace, control, role):
     command = ["codex", "sandbox", "-P", "daynomy_role", "-C", str(workspace),
                "-c", permission_config(role, workspace), sys.executable, "-c", program]
     result = subprocess.run(command, env=clean_env(), text=True, capture_output=True, timeout=30)
-    expected = {"inside": "write" if role == "implementer" else "denied", "outside": "denied"}
+    expected = {"inside": "write" if role in ("implementer", "test_author") else "denied", "outside": "denied"}
     try:
         actual = json.loads(result.stdout)
     except ValueError:
@@ -121,8 +126,9 @@ def permission_probe(workspace, control, role):
 
 
 def validate_result(result, role):
-    allowed = {"implemented", "needs_decision", "blocked"} if role == "implementer" else {
-        "approve", "revise", "needs_decision", "blocked"}
+    if role not in ROLE_STATUSES:
+        raise ValueError("Unknown agent role")
+    allowed = ROLE_STATUSES[role]
     if not isinstance(result, dict) or set(result) != RESULT_KEYS:
         raise ValueError("Invalid agent result keys")
     if result["status"] not in allowed or not isinstance(result["summary"], str):
@@ -161,19 +167,24 @@ def transient_error(events):
 
 
 class CliAgent:
-    def __init__(self, timeout=240, model=None, max_attempts=3):
+    def __init__(self, timeout=240, model=None, max_attempts=3, reasoning_effort=None, executable="codex"):
         self.timeout = timeout
         if model is not None and (not isinstance(model, str) or not model.strip()
                                   or model.startswith("-") or any(c.isspace() for c in model)):
             raise ValueError("Invalid model identifier")
         if max_attempts not in (1, 2, 3):
             raise ValueError("Agent attempts must be between one and three")
+        if reasoning_effort not in (None, "low", "medium", "high", "xhigh", "max", "ultra"):
+            raise ValueError("Invalid reasoning effort")
         self.model, self.max_attempts = model, max_attempts
+        self.reasoning_effort = reasoning_effort
+        self.executable = str(executable)
 
     def __call__(self, role, workspace, prompt, output_dir):
         output_dir.mkdir(parents=True, exist_ok=True)
-        statuses = (["implemented", "needs_decision", "blocked"] if role == "implementer"
-                    else ["approve", "revise", "needs_decision", "blocked"])
+        if role not in ROLE_STATUSES:
+            raise ValueError("Unknown agent role")
+        statuses = sorted(ROLE_STATUSES[role])
         schema = {"type": "object", "additionalProperties": False,
                   "properties": {"status": {"type": "string", "enum": statuses},
                                  "summary": {"type": "string"},
@@ -184,7 +195,7 @@ class CliAgent:
         dump(schema_path, schema)
         if result_path.exists():
             raise RuntimeError("Agent output path must be fresh")
-        command = ["codex", "-a", "never", "exec", "--ignore-user-config", "--ephemeral",
+        command = [self.executable, "-a", "never", "exec", "--ignore-user-config", "--ephemeral",
                    "--skip-git-repo-check", "-C", str(workspace),
                    "-c", 'default_permissions="daynomy_role"',
                    "-c", permission_config(role, workspace), "-c", 'web_search="disabled"',
@@ -192,6 +203,8 @@ class CliAgent:
                    "--output-schema", str(schema_path), "-o", str(result_path), "-"]
         if self.model is not None:
             command[-1:-1] = ["--model", self.model]
+        if self.reasoning_effort is not None:
+            command[-1:-1] = ["-c", f'model_reasoning_effort="{self.reasoning_effort}"']
         attempts = []
         for attempt in range(1, self.max_attempts + 1):
             events = output_dir / ("events.jsonl" if attempt == 1 else f"events-attempt-{attempt}.jsonl")
@@ -223,6 +236,8 @@ class CliAgent:
         result = validate_result(json.loads(result_path.read_text()), role)
         return result, {"session_id": session_ids[0], "role": role, "exit_code": code,
                         "requested_model": self.model, "model_selection": "explicit" if self.model else "cli_default",
+                        "requested_reasoning_effort": self.reasoning_effort,
+                        "executable": self.executable,
                         "result": str(result_path), "events": str(events), "usage": usage,
                         "attempts": attempts}
 

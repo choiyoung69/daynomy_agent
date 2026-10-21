@@ -340,6 +340,33 @@ class CliRetryTests(unittest.TestCase):
                 "reviewer", self.workspace, "Synthetic retry test", self.output)
         return verdict, identity, calls
 
+    def test_explicit_model_and_effort_reach_cli_and_evidence(self):
+        capture, calls = self.capture_script([self.success()])
+        with mock.patch("agent_workflow.capture", side_effect=capture):
+            _, identity = workflow.CliAgent(
+                timeout=1, model="gpt-6.1-sol", reasoning_effort="medium", max_attempts=1
+            )("reviewer", self.workspace, "Synthetic configuration test", self.output)
+        command = calls[0]["command"]
+        self.assertEqual(command[command.index("--model") + 1], "gpt-6.1-sol")
+        self.assertIn('model_reasoning_effort="medium"', command)
+        self.assertEqual(identity["requested_reasoning_effort"], "medium")
+        self.assertEqual(identity["requested_model"], "gpt-6.1-sol")
+
+    def test_invalid_reasoning_effort_is_rejected_before_transport(self):
+        with self.assertRaises(ValueError):
+            workflow.CliAgent(reasoning_effort="unlimited")
+
+    def test_explicit_cli_executable_is_used_without_model_substitution(self):
+        capture, calls = self.capture_script([self.success()])
+        executable = "/synthetic/app-bundled/codex"
+        with mock.patch("agent_workflow.capture", side_effect=capture):
+            _, identity = workflow.CliAgent(
+                timeout=1, model="gpt-6.1-sol", executable=executable
+            )("reviewer", self.workspace, "Synthetic executable selection", self.output)
+        self.assertEqual(calls[0]["command"][0], executable)
+        self.assertEqual(identity["executable"], executable)
+        self.assertEqual(identity["requested_model"], "gpt-6.1-sol")
+
     def test_429_error_retries_then_uses_fresh_success_identity(self):
         failure = ([{"type": "error", "message": "429 Too Many Requests"}], 1, None)
         verdict, identity, calls = self.invoke([failure, self.success()])
