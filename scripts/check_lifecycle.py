@@ -27,7 +27,7 @@ def alter(db, sql):
 
 def start(log_path, env):
     log = log_path.open("w")
-    command = [str(ROOT / "app/target/debug/daynomy-feedback")]
+    command = [os.environ.get("PILOT_BINARY",str(ROOT / "app/target/debug/daynomy-feedback"))]
     if env.get("PILOT_READ_ONLY_SERVER") == "true":
         command = [
             "codex", "sandbox", "-P", "daynomy_runtime", "-C", str(ROOT), "-c",
