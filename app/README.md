@@ -1,147 +1,124 @@
-# 피드백 Rust 서버
+# DAYNOMY Rust 백엔드
 
-구현 범위: 비회원 피드백 등록과 필요한 CSRF 발급. 웹 프레임워크 없이 HTTP를 직접
-분기하며 자체 Rust 코드에 `#![forbid(unsafe_code)]`를 적용한다.
+웹 프레임워크 없이 Hyper로 요청을 분기한다. 자체 크레이트에는
+`#![forbid(unsafe_code)]`를 적용한다. 의존성 내부의 unsafe까지 금지한다는 뜻은 아니다.
 
-## 실행
+범위는 [전체 명세](../spec/service.md)의 F01–F13이다. 리그·UI·배포·이메일 알림(F14)은
+제외한다. 구현 여부와 실제 검증 결과는 [이번 실행 기록](../runs/010-three-hour-service.md)에서
+구분한다. 코드를 작성했다는 이유만으로 모든 외부 서비스 연결이 검증된 것은 아니다.
 
-프로젝트 루트(`daynomy_agent`)에서 실행한다. Rust/Cargo, Python 3.11 이상,
-PostgreSQL CLI/서버가 필요하다. 검사에는 rustfmt/clippy도 필요하다.
-검증 환경은 macOS, Rust 1.92, PostgreSQL 18이다.
+## 로컬 실행
+
+프로젝트 루트에서 Rust/Cargo, Python 3.11+, PostgreSQL CLI/서버를 사용한다.
+원본 `.env`나 운영 DB를 사용하지 않는다. 아래는 비밀번호 없는 loopback 실험 DB다.
 
 ```sh
 bash scripts/local-db.sh start
-source .local/pilot.env
-cargo build --manifest-path app/Cargo.toml --locked
-./app/target/debug/daynomy-feedback
+/opt/homebrew/opt/postgresql@18/bin/createdb -h 127.0.0.1 -p 55439 -U pilot daynomy_service_test
+export DATABASE_URL=postgresql://pilot@127.0.0.1:55439/daynomy_service_test
+export PORT=18081
+export JWT_SECRET="$(openssl rand -base64 32)"
+export JWT_ISSUER=daynomy
+export COOKIE_SECURE=false
+python3 scripts/service_migrate.py
+export CARGO_HOME="$PWD/.local/cargo"
+cargo run --locked --manifest-path app/Cargo.toml
 ```
 
-다른 터미널에서 같은 프로젝트 루트로 이동한 뒤:
+DB가 이미 있으면 `createdb`를 반복하지 않는다. `service_migrate.py`는 적용한 SQL의 해시를
+검사하고 재실행 시 건너뛴다. 이 도구는 loopback의 `_test` DB만 허용한다. 기존 피드백
+전용 DB처럼 스키마는 있지만 이 도구의 이력이 없는 DB에는 적용을 거절한다.
+
+`migrations/reference/`의 SQL 51개는 원본 V1–V53 범위에서 그대로 복사했다.
+리그 테이블도 원본 스키마 호환성을 위해 남지만 리그 API·배치는 제공하지 않는다.
+원본 V25에 피드백 테이블이 있으므로 별도의 `001_feedbacks.sql`은 중복 적용하지 않는다.
+추가 OAuth 상태·비회원 분석 세션 테이블을 적용한다. 서버 자체는 스키마를 생성하지 않는다.
+
+서버는 loopback에 바인딩하고 기본 포트는 8080이다. 종료는 Ctrl+C.
+요청 본문·쿠키·토큰·DB 연결 문자열은 서버 로그에 남기지 않는다.
+현재 DB 연결은 NoTls이며 로컬 실험 범위다.
+
+## 검증
+
+원본 비교에는 캐시된 원본 Spring JAR과 Java 21도 필요하다. 실행기는 후보 코드를 복사하고,
+별도 빌드·일회용 DB·로컬 제공자를 사용하며 끝나면 프로세스와 DB를 정리한다.
+DB를 쓰는 검사는 공유 잠금으로 직렬 실행한다. 각 `--output`은 새 디렉터리여야 한다.
 
 ```sh
-source .local/pilot.env
-python3 scripts/check.py verify
+python3 scripts/service_gate.py \
+  --output .local/service-verification-1 \
+  --standalone-schema --mock-auth --mock-ai \
+  --suites public core service_calendar_acceptance service_auth_provider_acceptance service_analysis_acceptance service_admin_acceptance binding
 ```
 
-`verify`는 원본 해시, Rust fmt/clippy/test/build, 검증기·비교기 자체 테스트,
-실제 HTTP/DB 동작을 차례로 검사한다. 실패하면 비정상 종료한다.
-각 실행 명령의 제한 시간은 기본 600초다. 최초 의존성 다운로드 등으로 시간이
-초과하면 원인을 기록한 뒤 `PILOT_COMMAND_TIMEOUT_SECONDS`로 조정할 수 있다.
-HTTP/DB 검사만 실행하려면 같은 환경에서 `python3 scripts/acceptance.py`를 사용한다.
-`PILOT_BASE_URL`은 로컬 서버, `PILOT_TEST_DB_URL`은 서버와 동일한 전용 테스트 DB를
-가리켜야 하며 helper가 `.local/pilot.env`에 설정한다. DB 이름은 `_test`로 끝나야 한다.
-검사 중에는 다른 요청이나 검사를 동시에 실행하지 않는다. 성공 요청의 테스트 행은 남는다.
-자동 결과는 Git에서 제외한 `runs/acceptance-*.json`에 기록된다.
-
-자동 게이트 이후 재시작·저장 장애 검증:
+각 제공자 모의 서버는 다른 응답 계약을 사용하므로 분리해서 검사한다.
 
 ```sh
-python3 scripts/check_lifecycle.py
+python3 scripts/service_gate.py --output .local/service-verification-media \
+  --standalone-schema --mock-media --suites service_media_acceptance
+python3 scripts/service_gate.py --output .local/service-verification-social \
+  --standalone-schema --mock-social --suites service_social_acceptance
+python3 scripts/service_gate.py --output .local/service-verification-sync \
+  --standalone-schema --mock-sync --suites service_sync_acceptance
+python3 scripts/service_gate.py --output .local/service-verification-fx \
+  --standalone-schema --mock-fx --suites service_fx_acceptance
+python3 scripts/service_gate.py --output .local/service-verification-schedule \
+  --standalone-schema --mock-schedule --suites service_schedule_acceptance
 ```
 
-이 검증은 별도 포트에서 서버를 두 번 실행하고 종료한다. 전용 테스트 DB에 임시
-`pilot_failure_probe` 제약을 추가해 INSERT를 실패시킨 후 제거한다. 기존 데이터는 유지한다.
-다른 테스트를 동시에 실행하지 않는다. 강제 종료로 정리가 중단되면 전용 테스트 DB의
-해당 제약만 제거한 뒤 재실행한다.
+`service_gate`의 결과에는 후보 소스·바이너리 해시, 명령별 시간, 실제 통과·실패 수가 남는다.
+`--source`와 `--criteria-source`로 고정한 소스·검사 복사본을 지정할 수 있다.
+`--mutant`는 별도 후보 복사본에만 의도적인 결함을 넣는다. 이 후보의 검사 실패는
+결함 탐지 증거이며 정상 구현의 성공 결과와 구분한다.
+실제 Google/S3/공공데이터/유료 AI 환경 검증과 로컬 모의 서버 검증은 구분한다.
 
-서버는 기본 helper 설정에서 `127.0.0.1:18081`에만 바인딩한다. 종료는 Ctrl+C.
-DB 종료는 `bash scripts/local-db.sh stop`. 재시작해도 `.local/pgdata`의 데이터는 유지된다.
-helper는 테스트 데이터를 삭제하지 않는다.
+기존 피드백 전용 검사 `scripts/check.py verify`, `scripts/acceptance.py`,
+`scripts/check_lifecycle.py`도 유지한다. 이 검사만 통과했다고 전체 서비스를 완료로 판정하지 않는다.
 
-`PG_BIN`으로 PostgreSQL 실행 파일 디렉터리를 지정할 수 있다.
-기본값은 `/opt/homebrew/opt/postgresql@18/bin`이다. 포트 충돌 시 최초 실행 전에
-`PILOT_DB_PORT`와 `PILOT_PORT`를 지정한다. 기존 클러스터의 포트를 바꾸려면 먼저 정지한다.
+## 배치 실행
 
-helper는 기존 시스템 DB를 사용하지 않고 `.local/pgdata`에 별도 클러스터를 만든다.
-loopback 전용 trust 인증, 테스트 계정 `pilot`, `daynomy_feedback_test` DB를 사용한다.
-이 설정은 로컬 실험용이며 운영용 계정/인증/배포 설정이 아니다. 접속값은 Git에서 제외된
-`.local/pilot.env`에 저장하며 원본 프로젝트의 `.env`는 읽지 않는다.
+기본값으로 예약 작업은 실행하지 않는다. 명시적으로 한 번 실행할 수 있다.
 
-## 설정과 데이터
+```sh
+cargo run --locked --manifest-path app/Cargo.toml -- --job portfolio-snapshots
+```
 
-- `DATABASE_URL`: PostgreSQL 연결. 현재 클라이언트는 NoTls이며 로컬 실험용이다.
-- `PORT`: 서버 포트, 직접 실행 시 기본 8080, helper는 18081로 설정.
-- 스키마: `migrations/001_feedbacks.sql`을 빈 테스트 DB에 한 번 적용.
-  helper는 feedbacks 테이블이 없는 경우만 적용한다. 스키마 drift를 자동 수정하지 않는다.
-- 서버는 스키마를 자동 생성하지 않는다. 없거나 DB 접속이 실패하면 시작을 거부한다.
-- `.local/cargo`에 프로젝트 전용 의존성 캐시를 둔다. Cargo.lock으로 버전을 고정한다.
+작업: `market-calendar`, `kr-master`, `kr-prices`, `us-stocks`, `exchange-rate`,
+`portfolio-snapshots`, `investment-calendar`, `news-korea`, `news-us`, `person-posts`.
+결과는 JSON으로 출력하고 실패·부분 성공은 비정상 종료한다. 외부 작업에는 해당 제공자 설정이 필요하다.
+예약 실행은 `JOB_SCHEDULER_ENABLED=true`와 `JOB_SCHEDULER_JOBS` CSV를 모두 지정한다.
+원본 개별 `*_ENABLED=false`는 선택된 작업도 막는다. 원본 cron·시간대를 사용하며
+지원하지 않는 cron 표현식은 거절한다. 동시에 같은 작업을 실행하는 프로세스는 DB 잠금으로 막지만,
+재시작을 넘는 실행 체크포인트는 저장하지 않는다.
 
-## 요청 흐름
+## 주요 설정
 
-1. `GET /api/auth/csrf`: JSON의 headerName/token과 XSRF-TOKEN 쿠키를 받는다.
-2. 같은 쿠키와 지정 헤더를 사용하여 `POST /api/feedback`에 JSON을 보낸다.
-3. 원문 길이/필수값 검사 → Java 방식 앞뒤 공백 제거 → parameterized INSERT.
-4. 저장 완료 시에만 본문 없는 204. DB 오류는 일반화된 500, 입력 오류는 400.
+- 인증: `JWT_SECRET`(32바이트 이상 base64), `JWT_ISSUER`, `COOKIE_SECURE`,
+  `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `OAUTH_REDIRECT_URI`,
+  `SUCCESS_REDIRECT_URI`, `FAILURE_REDIRECT_URI`.
+- CORS: `APP_CORS_ALLOWED_ORIGIN` 정확히 한 origin, 기본 `http://localhost:5173`.
+- AI: `AI_OPENAI_BASE_URL`, `AI_OPENAI_API_KEY`, `AI_OPENAI_MODEL`.
+- 가격·환율: `EODHD_BASE_URL`, `EODHD_API_TOKEN`, `PUBLIC_DATA_SERVICE_KEY`,
+  `PUBLIC_DATA_LISTED_STOCK_URL`, `PUBLIC_DATA_STOCK_PRICE_URL`, `PUBLIC_DATA_ETF_PRICE_URL`.
+- 미디어: `WIKIMEDIA_BASE_URL`, `WIKIMEDIA_USER_AGENT`, `S3_REGION`, `S3_BUCKET`,
+  `S3_OBJECT_PREFIX`, `S3_PUBLIC_BASE_URL`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`,
+  선택적으로 `AWS_SESSION_TOKEN`, `S3_ENDPOINT_URL`.
+- 소셜: `YOUTUBE_API_KEY`, `YOUTUBE_BASE_URL`, `AI_OPENAI_SOCIAL_SEARCH_MODEL`.
 
-CSRF는 원본과 같은 쿠키/헤더 double-submit 방식이며 UUID v4를 생성한다.
-이미 유효한 쿠키가 있으면 재사용한다. 서로 다른 신규 클라이언트에는 다른 토큰을 제공한다.
-비교는 subtle의 constant-time 비교를 사용하고, 중복 토큰 헤더/쿠키는 거부한다.
-HTTP 로컬 실험에서는 SameSite=Lax, Path=/, Domain 없음, HttpOnly=false를 사용한다.
-전체 OAuth·JWT·브라우저 CORS·HTTPS·서브도메인 cookie injection 방어를 구현한 것은 아니다.
+테스트용 제공자 override는 명시한 loopback 주소만 허용한다. 실제 배포 설정은 이번 범위에 포함하지 않는다.
 
 ## 직접 의존성
 
-| 라이브러리 | 역할 |
+| 라이브러리 | 용도 |
 | --- | --- |
-| hyper | HTTP/1.1 프로토콜 처리. 경로와 요청 처리 구조는 직접 작성 |
-| hyper-util | Tokio 소켓/타이머와 Hyper 연결 |
-| http-body-util | 응답 body, 요청 body 크기 제한 |
-| tokio | 비동기 I/O·태스크·신호·시간 제한 |
-| tokio-postgres | 매개변수 SQL로 PostgreSQL 접근 |
-| serde, serde_json | DTO와 JSON |
-| uuid | UUID v4 토큰 (OS 난수 사용) |
-| subtle | 토큰 비교 |
+| hyper, hyper-util, http-body-util | HTTP와 제한된 본문 처리 |
+| tokio | 비동기 I/O·태스크·신호·타이머 |
+| tokio-postgres | 매개변수 SQL·트랜잭션·정확한 NUMERIC 계산 |
+| serde, serde_json | JSON, 임의 정밀 숫자 유지 |
+| reqwest | 제한 시간·본문 크기를 제한한 제공자 HTTP |
+| jsonwebtoken, hmac, sha2, base64, subtle | JWT/OIDC 검증·해시·서명·상수 시간 비교 |
+| uuid | 식별자·CSRF·세션 난수 |
+| zip, flate2 | OpenDART ZIP 문서의 제한된 메모리 해제 |
 
-Axum/Actix Web/Rocket 등 웹 프레임워크 없음. 의존 라이브러리 내부의 unsafe는 별도 범위다.
-공식 사용법 참고: [Hyper 서버](https://hyper.rs/guides/1/server/hello-world/),
-[tokio-postgres](https://docs.rs/tokio-postgres/latest/tokio_postgres/),
-[UUID v4](https://docs.rs/uuid/latest/uuid/struct.Uuid.html#method.new_v4).
-
-## 첫 실험의 구현 선택과 한계
-
-- 2026-10-21 사용자 결정으로 content는 문자열만 허용한다. JSON 객체의 중복 키는
-  unknown field와 중첩 객체 안에서도 검사해 requestBody 400으로 거부한다.
-  중복이 없는 unknown field는 무시한다. 상세 계약은 `spec/feedback.md`를 따른다.
-- 원본과 전체 Unicode/Jackson 호환성을 검증한 것은 아니다.
-- 알 수 없는 경로 404, 잘못된 메서드 405, JSON 외 Content-Type 415.
-  이 응답 문구/형식은 Spring과 완전 호환을 주장하지 않는다.
-- 요청 본문 최대 64 KiB, 헤더/본문 수신 제한 각 5초, DB statement timeout 5초.
-  본문 제한 초과/읽기 오류는 requestBody 400, 수신 timeout은 408.
-- 동시 연결 최대 64개, keep-alive를 끄고 요청 종료 후 연결을 닫는다.
-  공유 DB 연결 하나를 사용하며 자동 재연결/커넥션 풀은 없다.
-- Ctrl+C/SIGTERM 시 최대 15초 동안 처리 중인 연결을 기다린다.
-- 앱 로그는 이벤트와 저장 ID만 남기며 입력 본문·경로·쿠키·DB 오류 원문은 출력하지 않는다.
-- 배포·성능 벤치마크·운영 보안 검증은 이번 완료 범위 밖이다.
-
-## 원본 Spring과 비교
-
-프로젝트 루트에서 다음 명령 하나로 두 서버의 빌드·시작·비교·종료를 수행한다.
-실행 환경에는 위 도구 외에 JDK 21이 필요하고, 처음에는 Gradle 의존성 다운로드가 필요하다.
-
-```sh
-python3 scripts/run_comparison.py
-```
-
-- 원본의 빌드 파일과 `src/main`을 `.local/spring-reference`에 복사해 빌드한다.
-  원본 `.env`와 사용자 환경의 실제 API 키·DB 설정은 가져오지 않는다.
-- 원본 애플리케이션 전체를 시작하되 스케줄러는 끄고 외부 API 주소는 로컬 미사용
-  주소로 바꾼다. OAuth·S3 설정에는 테스트 전용 값을 사용한다.
-  피드백 Controller·Service·Repository·Validation·Security 필터는 원본 그대로다.
-- Spring은 18082, Rust는 18083 포트다. 이미 사용 중이면 중단한다.
-- 프로젝트 전용 PostgreSQL 55439에 `daynomy_spring_compare_test`와
-  `daynomy_rust_compare_test`를 별도로 만든다. 기존 피드백 실험 DB는 비교에 쓰지 않는다.
-- 전체 원본 앱의 JPA 검증에 필요한 원본 Flyway 마이그레이션은 **Spring 비교 DB에만**
-  실행한다. Rust 비교 DB에는 피드백 테이블만 준비한다.
-- 비교에 사용한 소스·설정·시작 로그는 `.local/comparison/`, 비교 결과는
-  `runs/comparison-*.json`에 남긴다. 요청 본문·토큰·접속 문자열은 결과 보고서에 남기지 않는다.
-- 서버는 종료하고 DB 데이터는 보존한다. DB는 이 명령이 시작한 경우에만 종료한다.
-  정상 실행 또는 예외 처리 중 정리하며, 프로세스를 강제로 kill한 경우에는 수동 확인이 필요하다.
-
-종료 코드: `0`은 공통 계약 및 승인된 정책 차이 검사 통과,
-`1`은 계약 위반이나 예상하지 않은 차이, `2`는 환경·실행·정리 문제다.
-숫자·boolean·중복 키의 승인된 차이는 `EXPECTED_DIFFERENCE`로 표시한다.
-Spring은 정해진 값으로 저장하고 Rust는 정해진 400으로 거절·미저장해야 통과한다.
-원본과 완전히 같은지를 뜻하는 보고서의 `full_match`는 별도이며, 승인된 차이가 있으면 false다.
-세부 결과와 제외 범위는 `runs/003-comparison.md`, 기준은 `spec/feedback.md`에 있다.
-
-비교기 자체의 검사는 서버 없이 `python3 scripts/test_compare_feedback.py`로 실행한다.
+ZIP은 [공식 문서](https://docs.rs/zip/9.0.5/zip/)에 따라 필요한 DEFLATE 기능만 사용한다.
+의존성 버전은 `Cargo.lock`에 고정한다.
