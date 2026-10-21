@@ -1,0 +1,22 @@
+[package]
+name = "daynomy-admin-feedback-bench"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.88"
+publish = false
+
+[dependencies]
+base64 = "0.22"
+hmac = "0.13"
+sha2 = "0.11"
+jsonwebtoken = "9.3"
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+http-body-util = "0.1"
+hyper = { version = "1", features = ["server", "http1"] }
+hyper-util = { version = "0.1", features = ["tokio"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["arbitrary_precision"] }
+subtle = "2"
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "net", "signal", "time", "sync"] }
+tokio-postgres = "0.7"
+uuid = { version = "1", features = ["v4"] }
