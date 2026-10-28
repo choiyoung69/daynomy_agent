@@ -1,0 +1,11 @@
+{
+  "observed_at": "2026-10-28T09:32:33.862963+00:00",
+  "files": {
+    "app/src/service_auth.rs": "ca50065e928882961f8cd932c404e61aee6bc38df0ab9637f52cfc0e3cd331f7",
+    "app/src/main.rs": "6b8637836f7ba463a410fc44944760805d0fca9bcb0c3d6300c8eb1f9887c605",
+    "app/src/csrf.rs": "07ed24054d7528405e759ffefd0584684a3f81fe84aca8474cc92246e0f367b9",
+    "app/migrations/004_mobile_auth_codes.sql": "9e6363d71340a4e58fec6dc165b15f44c76eb6424878c43be3bc951ac13488c8",
+    "spec/flutter/native-auth.md": "24c871bed39dff656b924c761ebd788ccd2111c543826e70c2063b469cdef054",
+    "app/README.md": "3eb69ef9f22c2ea49ddc203d81670bf3ac34d84a0832d82c3be9619ba60d04e4"
+  }
+}

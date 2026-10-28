@@ -1,0 +1,41 @@
+{
+  "recorded_at": "2026-10-28T09:13:19.064579+00:00",
+  "policy": "local KB first; linked original and pinned official materials next; official web only for an unresolved documented gap",
+  "feature": "stock-search-price",
+  "platform": "ios-swift",
+  "source_hashes": {
+    "knowledge/wiki/projects/daynomy/stock-search-price.md": "706a51304f7404dd878a5fa809e5070104f5df914e3b4cfba703ce128131c7cf",
+    "knowledge/wiki/packages/ios-swift/index.md": "93265b16b977aadccb9e96e751168fc1ef079674c780399c6e5f2367dbd6feec",
+    "knowledge/wiki/platforms/ios.md": "b09ab0423a1d079f8cbdccb337adddd1f961fcb62e0096bff1551732da560e84",
+    "knowledge/wiki/languages/swift.md": "108b26df30fbbee4a5ea9275411e578d2ec1a57a79308821780e3de489236330",
+    "knowledge/wiki/shared/data-semantics.md": "d180bff29e9217ff8e951f9be327f142abc65811d59761f646b96ebd91fab57b",
+    "knowledge/wiki/shared/ui-state-navigation.md": "5f0ba960a826013154bead549da222e861c0b8ad6bb31daea1fd913f816b82ba",
+    "knowledge/wiki/shared/build-validation.md": "7944866a8f93bba0bde214db763cc47970a9d7056803b0e49eec733840376cae",
+    "knowledge/contracts/stock-search-price.json": "03fb14fe1c685b4737eafcb97c4d25aea8becfa07f49040cb87f3c4b937a4921",
+    "reference/2026-DAYNOMY-dev/frontend/src/features/stocks/api.ts": "bd4189b4ae61e779c10beb1eb933d23894385d9a7885aac1eba647384d6c4756",
+    "reference/2026-DAYNOMY-dev/frontend/src/features/stocks/types.ts": "bf1e18b274488b6f7a9f15d8b10c3a9e78222e48adb49ca9e0ccc8f83d36627f",
+    "reference/2026-DAYNOMY-dev/frontend/src/features/portfolio/components/PortfolioTransactionEditor.tsx": "abacd47444c919ddd4d732951084861d1722bdb1791c271ce5ec6f54ee20154c",
+    "knowledge/wiki/packages/ios-swift/async-and-cancellation.md": "2008dfec9c6f8f8020f83c5890763509eceae42a794ff1fab959115ceeb37355",
+    "knowledge/wiki/packages/ios-swift/auth-and-storage.md": "1b72d76de2c9878911c5669d4edb9fcebdea457ace71325eaedd97c46220bdfe",
+    "knowledge/wiki/packages/ios-swift/errors-and-transactions.md": "bd8d4ec748acdbc152ea36325a9329b8a5b4afe5c4ba0c80993c32e3923ea0d9",
+    "knowledge/wiki/packages/ios-swift/modules-and-testing.md": "c21a2c401acc45f93dc015784bac6ce54d71e9c8c7c66a26441f69ac78dad24f",
+    "knowledge/wiki/packages/ios-swift/collections-and-models.md": "cb963e174f417cebf924fa2bfd8851af0817b1a3a84d27bb6d39c8acb2ab95c0",
+    "knowledge/wiki/packages/ios-swift/state-and-navigation.md": "992d3a5a2c9be77dac1cd653588e4d51d6ac3a81f641bc6e12ee5ee6483b432c",
+    "knowledge/wiki/packages/ios-swift/dates-and-unicode.md": "a3e041c705c54fdf64ab55a6a0cbe8047757fd44eb2582275167304d64f5ed31",
+    "knowledge/wiki/packages/ios-swift/numbers-and-money.md": "53785ee82b3760337c4c8d9405f19f95acecdef02292f7c547608dad3396d9ea",
+    "knowledge/wiki/packages/ios-swift/types-and-json.md": "78bd2bef1763cbc2c84097b241dab13e69fc6c625b1790f072fff28dacaee3b6"
+  },
+  "readiness": {
+    "global_context": "NOT READY; do not bypass or describe as ready",
+    "pilot_decisions": {
+      "minimum_ios": "17.0",
+      "swift_language_mode": "6",
+      "host_toolchain": "Swift 6.3.3 macOS",
+      "xcode": "unavailable; iOS build and UI runtime blocked",
+      "state_lifetime": "owned screen memory; deactivate retains draft and cancels requests; activate refetches; no disk restoration claim",
+      "price_precision": "retain numeric JSON lexical precision; finite Double acceptance bound; no Double intermediate for editable string",
+      "currency": "explicit native defensive fallback matching Android pilot for malformed/unknown currency",
+      "source_of_truth": "original code and feature contract; KB not sole test oracle"
+    }
+  }
+}

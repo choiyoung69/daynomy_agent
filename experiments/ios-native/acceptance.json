@@ -1,0 +1,30 @@
+{
+  "accepted_at": "2026-10-28T09:29:30.614380+00:00",
+  "status": "host_and_http_accepted_native_blocked",
+  "scope": "stock search/selection/latest stored quote/manual price preservation; native SwiftUI sources and project",
+  "core_test_methods": 23,
+  "numeric_supplement_assertions": 14,
+  "real_loopback_assertions": 7,
+  "real_rust_postgresql_assertions": 7,
+  "frozen_test_mutations": [],
+  "client_hash_mismatches": [],
+  "evidence_sha256": {
+    "test-author/frozen-tests.json": "2c9192de3b8b16a6a83c1b97d81e75c6267a4c9e3be7bacb4e4fa4747a274cd2",
+    "test-author/supplemental-query-freeze.json": "e3fa391ff75f51c95d066bf9d97183d536c9f4960f97c87de74771d7145d0094",
+    "verification/candidate-result.json": "3e09d1990dae33f7eda074b67e2d2a18d4402cd90d315ba60f030400424ec144",
+    "verification/loopback.json": "b3411581ebeaa4ae9a1c232689f353026a9611902d0b593d9a94e2621ea35cf9",
+    "verification/supplemental-result.json": "49da7d385a5f660ef5d0bfdfdd8ff38bf1940cd75863516d50b0adea4e5d5239",
+    "verification/review.md": "0e03cc5eaaa529e0d35acd6da8a520264b1b20648783e96430efe506cfb9fa3e",
+    "verification/environment.json": "8747834ecd026cddfb7aaf5e66ef75e21f47b085f6d5518010c27c9977c17baf",
+    "verification/ios-build-blocked.json": "9296ca92d03719eba5e81335f24f79b4ffb1c9c28947000192e05955681c012b"
+  },
+  "remaining": [
+    "full Xcode/iOS SDK and chosen Simulator runtime",
+    "iOS SDK build/typecheck",
+    "2 authored XCUITest scenarios",
+    "native accessibility/keyboard/lifecycle/visual acceptance",
+    "canonical Swift Testing runtime execution",
+    "subsequent full frontend modules in spec/ios-native/porting-map.md"
+  ],
+  "coordination": "root dispatches3 distinct subagents; no unattended runner; existing synthetic fixture reused read-only after identity checks"
+}

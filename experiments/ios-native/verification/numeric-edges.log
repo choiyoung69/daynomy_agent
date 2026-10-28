@@ -1,0 +1,14 @@
+PASS exact integral ID 1.0
+PASS exact integral ID 1e0
+PASS exact integral ID 100e-2
+PASS exact integral ID 0.1e1
+PASS exact integral ID 0.0000000000000000000000000000000000000001e40
+PASS exact integral ID 900719925474099100e-2
+PASS reject exact noninteger/out-of-range ID 1.00000000000000000000000000000001
+PASS reject exact noninteger/out-of-range ID 9007199254740991.00000000000001
+PASS reject exact noninteger/out-of-range ID 9007199254740992
+PASS reject exact noninteger/out-of-range ID 1e99999
+PASS reject exact noninteger/out-of-range ID 1e-99999
+PASS duplicate JSON keys use final value
+PASS subnormal lexical decoding preserved but UI nonpositive rejected
+NUMERIC EDGE ASSERTIONS 14

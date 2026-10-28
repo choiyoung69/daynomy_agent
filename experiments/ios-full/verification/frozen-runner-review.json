@@ -1,0 +1,184 @@
+{
+  "manifests": [
+    {
+      "manifest": "experiments/ios-native/test-author/frozen-tests.json",
+      "manifest_sha256": "2c9192de3b8b16a6a83c1b97d81e75c6267a4c9e3be7bacb4e4fa4747a274cd2",
+      "checks": [
+        {
+          "path": "clients/ios/Package.swift",
+          "checked_path": "clients/ios/Package.swift",
+          "matches": true
+        },
+        {
+          "path": "clients/ios/Sources/DaynomyCore/Contracts.swift",
+          "checked_path": "clients/ios/Sources/DaynomyCore/Contracts.swift",
+          "matches": true
+        },
+        {
+          "path": "spec/ios-native/interfaces.md",
+          "checked_path": "spec/ios-native/interfaces.md",
+          "matches": true
+        },
+        {
+          "path": "experiments/ios-native/test-author/run_host_tests.py",
+          "checked_path": "experiments/ios-native/test-author/run_host_tests.py",
+          "matches": true
+        },
+        {
+          "path": "clients/ios/Tests/DaynomyCoreTests/MarketModelTests.swift",
+          "checked_path": "clients/ios/Tests/DaynomyCoreTests/MarketModelTests.swift",
+          "matches": true
+        },
+        {
+          "path": "clients/ios/Tests/DaynomyCoreTests/APIContractTests.swift",
+          "checked_path": "clients/ios/Tests/DaynomyCoreTests/APIContractTests.swift",
+          "matches": true
+        },
+        {
+          "path": "clients/ios/UITests/DaynomyIOSUITests.swift",
+          "checked_path": "experiments/ios-full/test-author/DaynomyIOSUITests-v1.swift",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "manifest": "experiments/ios-native/test-author/supplemental-query-freeze.json",
+      "manifest_sha256": "e3fa391ff75f51c95d066bf9d97183d536c9f4960f97c87de74771d7145d0094",
+      "checks": []
+    },
+    {
+      "manifest": "experiments/ios-full/test-author/bundle-1-freeze.json",
+      "manifest_sha256": "a2c70f3b53634c41c0159a8d9e7798f14c1338d40c812375f680251f81787333",
+      "checks": [
+        {
+          "path": "clients/ios/Sources/DaynomyCore/ServiceContracts.swift",
+          "checked_path": "clients/ios/Sources/DaynomyCore/ServiceContracts.swift",
+          "matches": true
+        },
+        {
+          "path": "clients/ios/Tests/DaynomyCoreTests/FullServiceTests.swift",
+          "checked_path": "clients/ios/Tests/DaynomyCoreTests/FullServiceTests.swift",
+          "matches": true
+        },
+        {
+          "path": "experiments/ios-full/test-author/run_host_tests.py",
+          "checked_path": "experiments/ios-full/test-author/run_host_tests.py",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "manifest": "experiments/ios-full/test-author/bundle-2-freeze.json",
+      "manifest_sha256": "c7a037f58cc7def9c57e1cd42c5d2626ba7115961b76f46f0a7a965c3290d0ce",
+      "checks": [
+        {
+          "path": "clients/ios/Sources/DaynomyCore/PortfolioContracts.swift",
+          "checked_path": "clients/ios/Sources/DaynomyCore/PortfolioContracts.swift",
+          "matches": true
+        },
+        {
+          "path": "clients/ios/Tests/DaynomyCoreTests/GuestPortfolioTests.swift",
+          "checked_path": "clients/ios/Tests/DaynomyCoreTests/GuestPortfolioTests.swift",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "manifest": "experiments/ios-full/test-author/holding-adjustment-freeze.json",
+      "manifest_sha256": "e09970de4b30a28fd4383c11b5fea2cf82d8b6d537af02664afe6147a579e260",
+      "checks": [
+        {
+          "path": "clients/ios/Sources/DaynomyCore/PortfolioAdjustmentContracts.swift",
+          "checked_path": "clients/ios/Sources/DaynomyCore/PortfolioAdjustmentContracts.swift",
+          "matches": true
+        },
+        {
+          "path": "clients/ios/Tests/DaynomyCoreTests/HoldingPortfolioTests.swift",
+          "checked_path": "clients/ios/Tests/DaynomyCoreTests/HoldingPortfolioTests.swift",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "manifest": "experiments/ios-full/test-author/multipart-freeze.json",
+      "manifest_sha256": "cfb654234b95ca8ceb267b33eb63dac921be10d9a8469fca8f4f444e745b5f57",
+      "checks": [
+        {
+          "path": "clients/ios/Sources/DaynomyCore/MultipartContracts.swift",
+          "checked_path": "clients/ios/Sources/DaynomyCore/MultipartContracts.swift",
+          "matches": true
+        },
+        {
+          "path": "clients/ios/Tests/DaynomyCoreTests/MultipartServiceTests.swift",
+          "checked_path": "clients/ios/Tests/DaynomyCoreTests/MultipartServiceTests.swift",
+          "matches": true
+        }
+      ]
+    }
+  ],
+  "ui_revision_checks": {
+    "original": true,
+    "updated": true,
+    "additional": true
+  },
+  "method_count": 51,
+  "methods": [
+    "APIContractTests.queryEncodingAndCountry",
+    "APIContractTests.validMarketsAndSafeMaximumID",
+    "APIContractTests.malformedSearchAndIDsRejected",
+    "APIContractTests.jsonLexicalAndShapeBoundaries",
+    "APIContractTests.currencyFallbackPolicy",
+    "APIContractTests.priceLexicalPrecisionAndDateStrings",
+    "APIContractTests.invalidPricesRejected",
+    "APIContractTests.invalidRequestedIDNeverSent",
+    "APIContractTests.httpErrorClassification",
+    "APIContractTests.networkAndCancellationClassification",
+    "FullServiceTests.genericJSONPreservesNumbersAndNull",
+    "FullServiceTests.formQueryAnd204Handling",
+    "FullServiceTests.csrfBodyAndNoPrecisionLossOnWrite",
+    "FullServiceTests.unauthorizedRefreshThenRetryOnce",
+    "FullServiceTests.httpErrorsKeepCodeAndMessage",
+    "FullServiceTests.malformedCSRFNeverWrites",
+    "FullServiceTests.mobileExchangeSkipsCSRFAndPreserves204",
+    "FullServiceTests.publicEndpointCatalogMatchesOriginal",
+    "FullServiceTests.memberAndWriteEndpointCatalog",
+    "AdminServiceTests.adminEndpointCatalog",
+    "AdminServiceTests.malformedOutgoingNumberNeverSent",
+    "NativeAuthServiceTests.pkceS256AndCallbackExchange",
+    "NativeAuthServiceTests.rejectsWrongCallbackStateAndOAuthFailure",
+    "GuestPortfolioTests.buyWeightedAverageIncludesFeesAndExactDecimal",
+    "GuestPortfolioTests.sellReducesQuantityKeepsCostAndRealizesNet",
+    "GuestPortfolioTests.usdRateConvertsCostAndSale",
+    "GuestPortfolioTests.replayDateThenIDAndOversellRollback",
+    "GuestPortfolioTests.editAndDeleteReplaysAllLaterTradesAtomically",
+    "GuestPortfolioTests.validationRejectsBadDateQuantityAndScales",
+    "GuestPortfolioTests.usdRequiresPositiveRateAndSixFractionDigits",
+    "GuestPortfolioTests.duplicateAndMissingIDAreExplicit",
+    "GuestPortfolioTests.openingBalanceAndNegativeProfitRoundAwayFromZero",
+    "HoldingPortfolioTests.combinedChronologicalAdjustAndRemoveReplay",
+    "HoldingPortfolioTests.backdatedAdjustmentOversellRollsBack",
+    "HoldingPortfolioTests.tradeMutationsRespectLaterAdjustment",
+    "HoldingPortfolioTests.adjustmentValidationAndGlobalIDs",
+    "MarketModelTests.debounceTrimsJSWhitespaceAndBlankSkips",
+    "MarketModelTests.nelPreservedAndCountryReissues",
+    "MarketModelTests.staleSearchSuccessErrorAndLoadingGuard",
+    "MarketModelTests.selectionAutofillExactAndManualDeletionDirty",
+    "MarketModelTests.nonpositiveQuoteFailsWithoutFilling",
+    "MarketModelTests.staleQuoteSuccessAndFailureCannotMutateNewSelection",
+    "MarketModelTests.deactivateBackPreservesDraftAndActivationRefetches",
+    "MarketModelTests.restoreDirtyEmptyAndChangeStockReset",
+    "MarketModelTests.localCategoryFilterRetainsFullResults",
+    "MarketModelTests.completedNewSearchSurvivesLateOldCompletion",
+    "MarketModelTests.restoredNonDirtyNonemptyPricePreserved",
+    "MarketModelTests.explicitRetryAfterFailureAndNoAutomaticRetry",
+    "MultipartServiceTests.adminNewsMultipartJSONAndBinaryImage",
+    "MultipartServiceTests.multipartOptionalImageAndUnsafeFilename",
+    "QueryEncodingRegressionTests.formDecoderPreservesLiteralPlus"
+  ],
+  "all_frozen_files_match": true,
+  "runner_audit": {
+    "source_hash": "5fe51e76505bc233e7fd71ca3f5a3b74db2480c0a17b7a88407072b2e2a5a5b4",
+    "semantics": "Each currently authored @Test func in each Tests struct invoked once; body macro substitutions preserve Bool expectation, optional require, MarketError throw equality and Issue.record failure counts. Uncaught throws counted. Nonzero exit on any failure; zero tests rejected. No parameterized cases in current source. Runs serially on MainActor, not Swift Testing runtime, iOS SDK or UI execution.",
+    "canonical_framework_runtime": "blocked: CLT lib_TestingInterop.dylib absent"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "frozen_at": "2026-10-28T09:25:24.892081+00:00",
+  "purpose": "Post-initial-implementation independent regression after actual HTTP verifier detected literal plus query corruption; original freeze retained unchanged",
+  "test_file": "clients/ios/Tests/DaynomyCoreTests/QueryEncodingRegressionTests.swift",
+  "test_sha256": "19f83f706cd3575c16fcc5dc42616f6729c42c751021eff460ef63804cf6fd8b",
+  "canonical_total_test_count": 23,
+  "supplemental_test_count": 1,
+  "red": {
+    "isolated_source_sha256": "6dbf26147434f67cf354363d5ec28f4462913d25c601f07a962f3f854c882979",
+    "isolated_model_sha256": "6aa1d0fe9c94f879d565768d7712111ac4533bebfa71641b0682e8174d26bf3c",
+    "exit_code": 1,
+    "log": "experiments/ios-native/test-author/regression-query-red-isolated.log",
+    "log_sha256": "eb615840c10830c50ab8dec56b44862d257f6fb59cc36bef6cd15fc71c607e67",
+    "total_failures": 3,
+    "old_22_tests_pass": true,
+    "reconstruction": "Exact previous source reconstructed in isolated temporary copy by removing plus fix; SHA verified matches implementer preserved previous API file"
+  },
+  "green_observation_before_freeze": {
+    "log": "experiments/ios-native/test-author/regression-query-red.log",
+    "log_sha256": "6e2bfade416a742be7b6fa38bf9c2154ecdcd55591a484f42f1a9e839d385f77",
+    "exit_code": 0,
+    "total_failures": 0,
+    "note": "Live API was already fixed when first run started, so misleading requested red filename retained as actual green observation"
+  },
+  "current_fixed_api_sha256": "d33b9b7c9e4cc21095f8765e66054201d965d683923cf020379c9f842414130d",
+  "original_freeze_sha256": "2c9192de3b8b16a6a83c1b97d81e75c6267a4c9e3be7bacb4e4fa4747a274cd2",
+  "runner_sha256": "02009bfa43aa844f8b484d047c5a1dedbdf6720781b06cb0d282414f4fa7f3ef",
+  "source_evidence": {
+    "reference/2026-DAYNOMY-dev/frontend/src/features/stocks/api.ts": "bd4189b4ae61e779c10beb1eb933d23894385d9a7885aac1eba647384d6c4756",
+    "app/src/api.rs": "d0eb5f514815abba8947ed459f89232555d7b971d276470ea2c11d600b676148"
+  }
+}

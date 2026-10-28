@@ -1,0 +1,9 @@
+{
+  "exit_code": 0,
+  "server_events": [
+    "refresh-pending",
+    "logout-response",
+    "late-refresh-response-attempted"
+  ],
+  "claim": "Actual URLSession private cookie jar; loopback late refresh versus logout. Synthetic HTTP server, not Rust/provider."
+}

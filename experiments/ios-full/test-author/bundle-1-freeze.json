@@ -1,0 +1,22 @@
+{
+  "bundle": 1,
+  "frozen_at": "2026-10-28T09:35:01.985329+00:00",
+  "files": {
+    "clients/ios/Sources/DaynomyCore/ServiceContracts.swift": "05bc1b533eab09eb927788da082faceb739903bf2ce6e4c15b3c2c2fde69fa53",
+    "clients/ios/Tests/DaynomyCoreTests/FullServiceTests.swift": "8d1c89a87bcee20b5e0df9923c164faf33e85d489a83f90b96a9826552690fc3",
+    "experiments/ios-full/test-author/run_host_tests.py": "5fe51e76505bc233e7fd71ca3f5a3b74db2480c0a17b7a88407072b2e2a5a5b4"
+  },
+  "stub_hashes": {
+    "clients/ios/Sources/DaynomyCore/ServiceClient.swift": "280f9fb46a4f2ccb386fe9bc6a16c7922e48f60cc38d58c5beb3e3aeb2b90d22",
+    "clients/ios/Sources/DaynomyCore/ServiceEndpoints.swift": "0b1f55e9e2588956b2837f7b34573dd02fed5f635b312678ad803c52602c3423",
+    "clients/ios/Sources/DaynomyCore/NativeAuthContract.swift": "bbd8af41461eaf0c8bc39d1d893b2467b9cafac61160b6f2c65b2738c579d734"
+  },
+  "red_log": "experiments/ios-full/test-author/service-red-freeze-02.log",
+  "red_log_sha256": "72203bfe09455a2f9d96158fd5fbc11364a86166cfe3502b8a1e669c94627f1a",
+  "total_cases": 36,
+  "prior_cases": 23,
+  "new_cases": 13,
+  "failures": 11,
+  "exit_code": 1,
+  "elapsed_seconds": 4.028
+}

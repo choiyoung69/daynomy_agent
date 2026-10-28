@@ -1,0 +1,53 @@
+{
+  "started_at": "2026-10-28T09:21:36.529763+00:00",
+  "freeze_sha256": "2c9192de3b8b16a6a83c1b97d81e75c6267a4c9e3be7bacb4e4fa4747a274cd2",
+  "candidate_hashes": {
+    "clients/ios/README.md": "b5751824cce39bb90779a8fd6bd92b228adc6d2d7da69efa60fbf3e6ee757c16",
+    "clients/ios/Package.swift": "82ef0d41197bb540287c8d25ed4cff4e1aba34095253a918ba1e5c4b4398a378",
+    "clients/ios/DaynomyIOS.xcodeproj/project.pbxproj": "031db8057436dfb05a4f2a4f9537b06574827db4aa6b9b4130e7bce2017d72ce",
+    "clients/ios/UITests/DaynomyIOSUITests.swift": "880feafbdf2544bb8a287ead19c2035f37ce1f16c2ad5230abb47ae82f3d3824",
+    "clients/ios/DaynomyIOS/APIConfiguration.swift": "3008577d6d2c2b6339451b8882150c519cda7ceccf6bd5e4cd2f18cb38975f56",
+    "clients/ios/DaynomyIOS/Info-Release.plist": "0f058711d95352d7d2334e0488c8066745c1c37fee98eca9357f5b334b15bcda",
+    "clients/ios/DaynomyIOS/Info-Debug.plist": "370c3e45ea2b52044277783db82f30f60208acb7637a0a2d771a962d0eb3b313",
+    "clients/ios/DaynomyIOS/DaynomyApp.swift": "ac92c2afac594a25001342255c15cae9a5c94f8492cc5265bf164895ca40a2cb",
+    "clients/ios/DaynomyIOS/MarketView.swift": "030faee441da5bac97287d342ccb110689c741253a74ee6b87305abe14894238",
+    "clients/ios/Sources/DaynomyCore/Contracts.swift": "a8fd25ed4f714075e8d4c54f126c2b5048b38ab15ae8f2c0fcfe2f3052692640",
+    "clients/ios/Sources/DaynomyCore/MarketModel.swift": "400ad7bbaf7d9247872ec48364a36c8d41e2450dfdb853cf2af2c7bce04472a8",
+    "clients/ios/Sources/DaynomyCore/API.swift": "3f9923cd894ffa4b893a0e427c6237e649758ea3d8e442ef2270da9066a8cbc5",
+    "clients/ios/Tests/DaynomyCoreTests/MarketModelTests.swift": "006d3ccd0522671ba24520c1112d95de01e2c3266119f8d1634acc0c7230d7f6",
+    "clients/ios/Tests/DaynomyCoreTests/APIContractTests.swift": "d8c6bda98ff1663da7ff9decf3bf472ae36f90edc6a741da862da676c6e938e2",
+    "clients/ios/DaynomyIOS.xcodeproj/xcshareddata/xcschemes/DaynomyIOS.xcscheme": "81d262e8ff4b63e37d80718a3e0a24115e841ced6e188c91dab452d9a16e8ab3"
+  },
+  "commands": [
+    {
+      "name": "host-green",
+      "argv": [
+        "python3",
+        "/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-native/test-author/run_host_tests.py"
+      ],
+      "exit_code": 0,
+      "seconds": 3.4577445830218494
+    },
+    {
+      "name": "live-compile",
+      "argv": [
+        "swiftc",
+        "-swift-version",
+        "6",
+        "-parse-as-library",
+        "-module-cache-path",
+        "/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-native/verification/module-cache",
+        "/Users/seoyeong/develop/AI/daynomy_agent/clients/ios/Sources/DaynomyCore/API.swift",
+        "/Users/seoyeong/develop/AI/daynomy_agent/clients/ios/Sources/DaynomyCore/Contracts.swift",
+        "/Users/seoyeong/develop/AI/daynomy_agent/clients/ios/Sources/DaynomyCore/MarketModel.swift",
+        "/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-native/verification/LiveHTTP.swift",
+        "-o",
+        "/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-native/verification/live-http"
+      ],
+      "exit_code": 1,
+      "seconds": 24.358237833017483
+    }
+  ],
+  "scope": "macOS host assertions + real loopback HTTP; not iOS or canonical Swift Testing runtime",
+  "host_case_count": 22
+}

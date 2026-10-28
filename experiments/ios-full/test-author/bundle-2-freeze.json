@@ -1,0 +1,17 @@
+{
+  "bundle": 2,
+  "frozen_at": "2026-10-28T09:36:41.416147+00:00",
+  "files": {
+    "clients/ios/Sources/DaynomyCore/PortfolioContracts.swift": "8671b6c0fce77b015331c4a5d8b1df509adfc420bc6e2cc9aa21a59c8320105b",
+    "clients/ios/Tests/DaynomyCoreTests/GuestPortfolioTests.swift": "e6e94ae7c6ff40811e2cb759bea5cd2f4f6732c75216df821dd8ede822a7bfeb"
+  },
+  "stub_hashes": {
+    "clients/ios/Sources/DaynomyCore/PortfolioEngine.swift": "9464de724315e27a5ca34a1b196fd1dd3951bdd4d95f7796bc0f3cdc7c07107f"
+  },
+  "red_log": "experiments/ios-full/test-author/portfolio-red-freeze.log",
+  "red_log_sha256": "0b0934ec29f579a82ce40d93f4628c27916f9a0900e0fbf261dff9d62e92ccdd",
+  "new_cases": 9,
+  "total_cases": 45,
+  "exit_code": 1,
+  "note": "Service bundle may still be red independently; portfolio cases throw against no-op engine. No shared DB/server run."
+}

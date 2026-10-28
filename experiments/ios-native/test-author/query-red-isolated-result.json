@@ -1,0 +1,6 @@
+{
+  "isolated_source_sha256": "6dbf26147434f67cf354363d5ec28f4462913d25c601f07a962f3f854c882979",
+  "isolated_model_sha256": "6aa1d0fe9c94f879d565768d7712111ac4533bebfa71641b0682e8174d26bf3c",
+  "exit_code": 1,
+  "log": "experiments/ios-native/test-author/regression-query-red-isolated.log"
+}

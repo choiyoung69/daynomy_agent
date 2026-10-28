@@ -12,6 +12,13 @@
 전체 기능 14개 항목을 포함한 지식 구성과 검증 범위는
 [지식베이스 구축 현황](knowledge/STATUS.md)에서 확인한다.
 
+iOS 네이티브는 [클라이언트 안내](clients/ios/README.md),
+[30분 전체 기능 확장](runs/016-ios-full-thirty-minute.md),
+[첫 파일럿 기록](runs/015-ios-native.md)을 본다. 서로 다른 테스트 작성자·구현자·검증자가
+포트폴리오·거래·뉴스·검색·계정·분석·캘린더·관리자 기능을 확장했다. 원본 화면 지도는
+[이식 지도](spec/ios-native/porting-map.md)에 보존한다. Xcode/iOS SDK가 없는 현재 호스트에서
+macOS Swift 검사와 실제 HTTP 검증을 iOS 앱 빌드·화면 실행 성공으로 세지 않는다.
+
 초기 피드백·대표 기능·종가·작업 큐 실험은 `runs/001`–`009`의 과거 기록이다.
 
 ## 처음에는 이것만 읽기

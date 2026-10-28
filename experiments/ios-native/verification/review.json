@@ -1,0 +1,38 @@
+{
+  "reviewed_at": "2026-10-28T09:29:26.990882+00:00",
+  "disposition": "accept-bounded-host-core-and-http; iOS application verification blocked",
+  "full_ios_approved": false,
+  "unresolved_actionable_host_code_findings": [],
+  "frozen_baseline_sha256": "2c9192de3b8b16a6a83c1b97d81e75c6267a4c9e3be7bacb4e4fa4747a274cd2",
+  "supplemental_freeze_sha256": "e3fa391ff75f51c95d066bf9d97183d536c9f4960f97c87de74771d7145d0094",
+  "host_method_count": 23,
+  "host_failures": 0,
+  "loopback_assertions": 7,
+  "numeric_assertions": 14,
+  "rust_db_assertions": 7,
+  "same_candidate_before_after": true,
+  "canonical_swift_test_success": false,
+  "ios_build_success": false,
+  "ui_runtime_success": false,
+  "review_markdown_sha256": "0e03cc5eaaa529e0d35acd6da8a520264b1b20648783e96430efe506cfb9fa3e",
+  "candidate_result_sha256": "3e09d1990dae33f7eda074b67e2d2a18d4402cd90d315ba60f030400424ec144",
+  "supplemental_result_sha256": "49da7d385a5f660ef5d0bfdfdd8ff38bf1940cd75863516d50b0adea4e5d5239",
+  "blocked": [
+    "Full Xcode/iOS SDK/simulator absent; actual project list/build exit1 and simctl exit72",
+    "Canonical Swift Testing runtime missing lib_TestingInterop.dylib",
+    "SwiftUI iOS typechecking, 2 UI tests and native lifecycle/keyboard/accessibility/runtime unverified"
+  ],
+  "supplemental_runner_audit": {
+    "original_runner_review": "runner-review.json preserved at original22-method stage",
+    "final_methods": 23,
+    "test_file": "clients/ios/Tests/DaynomyCoreTests/QueryEncodingRegressionTests.swift",
+    "test_sha256": "19f83f706cd3575c16fcc5dc42616f6729c42c751021eff460ef63804cf6fd8b",
+    "semantic_assessment": "Same currently audited macro constructs; form decoder maps plus to space then percent-decodes like Rust query. Three fixture keywords reproduce initial missing HTTP-boundary expectation. Original frozen22 still pass on prior code while new regression gives3 failures. Explicit invocation23 and zero failures checked by independent gate."
+  },
+  "fixture_scope": "existing synthetic PostgreSQL/Rust fixture read-only GET reuse; startup full-source hashes and binary identity preserved; current market/API hashes unchanged before/after; README.md only current-tree mismatch during run",
+  "limitations": [
+    "Existing fixture insertion order was older then newer: date ordering has source review plus expected latest output, not reverse-insertion dynamic mutation test",
+    "Standalone translated tests run serially on MainActor and are not general Swift Testing runner equivalence",
+    "No full backend regression run for this bounded read-only client task"
+  ]
+}

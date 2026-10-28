@@ -1,0 +1,38 @@
+warning: /Users/seoyeong/Library/org.swift.swiftpm/configuration is not accessible or not writable, disabling user-level cache features.
+warning: /Users/seoyeong/Library/org.swift.swiftpm/security is not accessible or not writable, disabling user-level cache features.
+[0/1] Planning build
+Building for debugging...
+[0/3] Write swift-version--1AB21518FC5DEDBE.txt
+[2/7] Compiling DaynomyCore MarketModel.swift
+[3/7] Emitting module DaynomyCore
+[4/7] Compiling DaynomyCore API.swift
+[5/7] Compiling DaynomyCore Contracts.swift
+[6/10] Compiling DaynomyCoreTests MarketModelTests.swift
+[7/10] Emitting module DaynomyCoreTests
+[8/10] Compiling DaynomyCoreTests APIContractTests.swift
+macro expansion #require:1:45: error: recursive expansion of macro 'require(_:_:sourceLocation:)'
+`- /Users/seoyeong/develop/AI/daynomy_agent/clients/ios/Tests/DaynomyCoreTests/APIContractTests.swift:42:116: note: expanded code originates here
+ 40 |             #expect(values.isEmpty)
+ 41 |             let request = try #require(await transport.lastRequest())
+ 42 |             let parts = try #require(URLComponents(url: try #require(request.url), resolvingAgainstBaseURL: false))
+    |                             `- note: in expansion of macro 'require' here
+    +--- macro expansion #require --------------------------------------
+    |1 | Testing.__checkValue(URLComponents(url: try #require(request.url), resolvingAgainstBaseURL: false),expression: .__fromSyntaxNode("URLComponents(url: try #require(request.url), resolvingAgainstBaseURL: false)"),comments: [],isRequired: true,sourceLocation: Testing.SourceLocation.__here()).__required()
+    |  |                                             `- error: recursive expansion of macro 'require(_:_:sourceLocation:)'
+    +-------------------------------------------------------------------
+ 43 |             #expect(parts.path == "/api/stocks")
+ 44 |             #expect(parts.queryItems?.first(where: { $0.name == "q" })?.value == "삼성 A&B+%?#/")
+
+macro expansion #require:1:41: warning: no calls to throwing functions occur within 'try' expression
+`- /Users/seoyeong/develop/AI/daynomy_agent/clients/ios/Tests/DaynomyCoreTests/APIContractTests.swift:42:116: note: expanded code originates here
+ 40 |             #expect(values.isEmpty)
+ 41 |             let request = try #require(await transport.lastRequest())
+ 42 |             let parts = try #require(URLComponents(url: try #require(request.url), resolvingAgainstBaseURL: false))
+    |                             `- note: in expansion of macro 'require' here
+    +--- macro expansion #require --------------------------------------
+    |1 | Testing.__checkValue(URLComponents(url: try #require(request.url), resolvingAgainstBaseURL: false),expression: .__fromSyntaxNode("URLComponents(url: try #require(request.url), resolvingAgainstBaseURL: false)"),comments: [],isRequired: true,sourceLocation: Testing.SourceLocation.__here()).__required()
+    |  |                                         `- warning: no calls to throwing functions occur within 'try' expression
+    +-------------------------------------------------------------------
+ 43 |             #expect(parts.path == "/api/stocks")
+ 44 |             #expect(parts.queryItems?.first(where: { $0.name == "q" })?.value == "삼성 A&B+%?#/")
+error: fatalError

@@ -1,0 +1,58 @@
+[
+  {
+    "argv": [
+      "plutil",
+      "-lint",
+      "clients/ios/DaynomyIOS.xcodeproj/project.pbxproj"
+    ],
+    "exit_code": 0,
+    "output": "clients/ios/DaynomyIOS.xcodeproj/project.pbxproj: OK\n"
+  },
+  {
+    "argv": [
+      "plutil",
+      "-lint",
+      "clients/ios/DaynomyIOS/Info-Debug.plist"
+    ],
+    "exit_code": 0,
+    "output": "clients/ios/DaynomyIOS/Info-Debug.plist: OK\n"
+  },
+  {
+    "argv": [
+      "plutil",
+      "-lint",
+      "clients/ios/DaynomyIOS/Info-Release.plist"
+    ],
+    "exit_code": 0,
+    "output": "clients/ios/DaynomyIOS/Info-Release.plist: OK\n"
+  },
+  {
+    "scheme_testables": [
+      {
+        "BuildableIdentifier": "primary",
+        "BlueprintIdentifier": "C50000000000000000000001",
+        "BuildableName": "DaynomyIOSUITests.xctest",
+        "BlueprintName": "DaynomyIOSUITests",
+        "ReferencedContainer": "container:DaynomyIOS.xcodeproj"
+      }
+    ]
+  },
+  {
+    "source_sha256": "d9d94038cbf82e84e6c3375fa492ea7af34f5c02cff5b68179466b6cf35c8b52",
+    "source_mapping": {
+      "stockQuery": "query binding -> updateQuery",
+      "country": "draft.country -> updateCountry",
+      "filter": "draft.filter -> updateFilter; filteredResults display",
+      "result": "select(stock)",
+      "manual price": "unitPrice binding -> editPrice",
+      "stock change": "changeStock",
+      "error retry": "retrySearch/retryPrice",
+      "stored quote": "ready quote.closePrice + quote.baseDate",
+      "lifecycle": "onAppear/scene active activate; onDisappear/background deactivate",
+      "observation_dependency": "@State reference requires Observable MarketModel, pending final model check"
+    },
+    "limitations": [
+      "No iOS typecheck, build, launch, UI tests, VoiceOver, Dynamic Type, keyboard, physical/simulator network verification"
+    ]
+  }
+]

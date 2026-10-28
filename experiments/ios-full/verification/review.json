@@ -1,0 +1,86 @@
+{
+  "disposition": "bounded-core-verified; full iOS app completion blocked",
+  "verified": {
+    "translated_canonical_host_methods": 51,
+    "host_failures": 0,
+    "all_frozen_files_match": true,
+    "actual_URLSession_Rust_isolated_PostgreSQL_assertions": 34,
+    "controlled_refresh_logout_regressions": 2,
+    "actual_URLSession_cookie_race": true,
+    "independent_portfolio_currency_cases": 2,
+    "compiled_snapshot_current_source_identity": true,
+    "endpoint_catalog_entries": 74
+  },
+  "real_HTTP_scope": [
+    "filled public news/today/detail/keywords/market analysis/search",
+    "content feed/search/related content and people",
+    "cached FX and guest calculation/calendar via real CSRF",
+    "feedback204 plus DB row mutation",
+    "synthetic one-use PKCE exchange and cookie profile",
+    "member nickname and transaction buy/edit/sell/delete replay",
+    "401 refresh retry, admin403, logout401",
+    "ADMIN feedback status/delete, person create/update/delete",
+    "ADMIN multipart JSON-part news create/update/soft-delete"
+  ],
+  "resolved_findings": [
+    "late old401 caused redundant refresh: controlled before2 refreshes, after1",
+    "prelogout request succeeded after refresh finished: beforetrue, afterfalse; cookie jar cleared in actual URLSession late response race",
+    "portfolio currency precedence aligned to original explicit currency then .US suffix"
+  ],
+  "verification_corrections": [
+    "Own initial news DELETE assertion expected404; original explicitly soft-deletes to DELETED. Corrected own assertion with source evidence; failed attempt02 preserved."
+  ],
+  "not_verified": [
+    "iOS SDK compilation/type checking, Simulator/device launch, SwiftUI navigation/UI tests/accessibility/layout",
+    "canonical swift test Testing runtime, unavailable lib_TestingInterop.dylib",
+    "actual Google OAuth ASWebAuthenticationSession browser/device callback",
+    "external AI analysis, live market sync/backfill, image providers/S3 uploads; binary multipart wire host test only",
+    "every route and every native screen equivalence; route catalog and source review do not prove all74 catalog behaviors",
+    "every endpoint and native screen equivalence; 74 catalog entries do not prove all route behavior"
+  ],
+  "limitations": [
+    "Host runner preserves current assertion bodies but executes serial MainActor standalone without Swift Testing runtime.",
+    "Real auth uses synthetic one-use codes seeded in isolated DB; no real Google provider claim.",
+    "Core evidence uses exact copied source snapshot; UI source review is static and cannot certify absent SDK typing."
+  ],
+  "owned_fixture_cleanup": {
+    "status": "stopped",
+    "finished_at": "2026-10-28T09:52:16.499916+00:00",
+    "pg_stop_exit": [
+      0
+    ],
+    "own_ports": [
+      55561,
+      18096
+    ],
+    "shared_cluster_untouched": true
+  },
+  "core_hashes": {
+    "clients/ios/Sources/DaynomyCore/PortfolioAdjustmentContracts.swift": "aea292363b6e021ceea311997f3511b5016b65e430cdaba8782b55b104004103",
+    "clients/ios/Sources/DaynomyCore/MultipartContracts.swift": "20bf3caa5198d989ecccf695c9bf437261d1a9ecab3c1f7d9a1b911f566e0db2",
+    "clients/ios/Sources/DaynomyCore/ServiceEndpoints.swift": "5a5709a60b29a4f59c0934fb8a52c1da49b45ed4913219896e3dbee901c047a4",
+    "clients/ios/Sources/DaynomyCore/Contracts.swift": "a8fd25ed4f714075e8d4c54f126c2b5048b38ab15ae8f2c0fcfe2f3052692640",
+    "clients/ios/Sources/DaynomyCore/PortfolioContracts.swift": "8671b6c0fce77b015331c4a5d8b1df509adfc420bc6e2cc9aa21a59c8320105b",
+    "clients/ios/Sources/DaynomyCore/SessionCookieTransport.swift": "744c49946c92fd8431d588f2f240259254637e43368124d6d54deaf4127de583",
+    "clients/ios/Sources/DaynomyCore/ServiceClient.swift": "608cd67fffb2eda792fc7ec3e05161751afdc5f45153fc5c0061368223868c7a",
+    "clients/ios/Sources/DaynomyCore/Multipart.swift": "361ed857c0c582b79879c7c4c7d794b2929467896b854ad07ebe1b15fb92ae25",
+    "clients/ios/Sources/DaynomyCore/MarketModel.swift": "6aa1d0fe9c94f879d565768d7712111ac4533bebfa71641b0682e8174d26bf3c",
+    "clients/ios/Sources/DaynomyCore/API.swift": "dfd066ef6bee69604f182b33184c0bf1ca606f71dda63e74469565bf54fecf78",
+    "clients/ios/Sources/DaynomyCore/PortfolioEngine.swift": "678ed011033014cf742391d1368bd365c1a3f450ab7930db73f84dbca57d35ba",
+    "clients/ios/Sources/DaynomyCore/ServiceContracts.swift": "05bc1b533eab09eb927788da082faceb739903bf2ce6e4c15b3c2c2fde69fa53",
+    "clients/ios/Sources/DaynomyCore/NativeAuthContract.swift": "83b9160c72906b9f2b1e78b7f399823584d1ca293d48ebf708afae8f7b2ebb0d"
+  },
+  "evidence": [
+    "host51-final.log",
+    "frozen-runner-review.json",
+    "full-live-final.log",
+    "full-live-final-result.json",
+    "final-source-identity.json",
+    "concurrency-before.log",
+    "concurrency-logout-before.log",
+    "concurrency-final.log",
+    "cookie-race-result.json",
+    "portfolio-supplement.log",
+    "admin-expectation-correction.md"
+  ]
+}

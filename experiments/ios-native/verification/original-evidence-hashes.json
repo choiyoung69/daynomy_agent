@@ -1,0 +1,11 @@
+{
+  "reference/2026-DAYNOMY-dev/frontend/src/features/stocks/api.ts": "bd4189b4ae61e779c10beb1eb933d23894385d9a7885aac1eba647384d6c4756",
+  "reference/2026-DAYNOMY-dev/frontend/src/features/stocks/types.ts": "bf1e18b274488b6f7a9f15d8b10c3a9e78222e48adb49ca9e0ccc8f83d36627f",
+  "reference/2026-DAYNOMY-dev/frontend/src/features/portfolio/components/PortfolioTransactionEditor.tsx": "abacd47444c919ddd4d732951084861d1722bdb1791c271ce5ec6f54ee20154c",
+  "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/asset/service/StockPriceService.java": "c03786eabc892a3effcf4545a1d17a8a7c5a59821606f2e271bca6e2e71de8ff",
+  "knowledge/contracts/stock-search-price.json": "03fb14fe1c685b4737eafcb97c4d25aea8becfa07f49040cb87f3c4b937a4921",
+  "knowledge/wiki/platforms/ios.md": "b09ab0423a1d079f8cbdccb337adddd1f961fcb62e0096bff1551732da560e84",
+  "knowledge/wiki/packages/ios-swift/types-and-json.md": "78bd2bef1763cbc2c84097b241dab13e69fc6c625b1790f072fff28dacaee3b6",
+  "knowledge/wiki/packages/ios-swift/numbers-and-money.md": "53785ee82b3760337c4c8d9405f19f95acecdef02292f7c547608dad3396d9ea",
+  "scripts/android_backend_fixture.py": "33b8d1f64afd8827a27cab85ac742cf827fc8833a9596ef64f7e51b1d1b70601"
+}

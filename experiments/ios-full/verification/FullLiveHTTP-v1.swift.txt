@@ -1,0 +1,89 @@
+import Foundation
+
+struct CheckFailure: Error { let name: String }
+@main struct FullLiveHTTP {
+    @MainActor static var count = 0
+    @MainActor static func check(_ condition: @autoclosure () -> Bool, _ name: String) throws {
+        guard condition() else { throw CheckFailure(name: name) };count += 1;print("PASS \(name)")
+    }
+    static func decimal(_ value: ServiceValue?) -> Decimal? { value?.number.flatMap { Decimal(string: $0) } }
+    @MainActor static func main() async {
+        do { try await run() } catch { print("FAILED \(type(of:error)) \((error as? CheckFailure)?.name ?? "request or response failure")");exit(1) }
+    }
+    @MainActor static func run() async throws {
+        let env = ProcessInfo.processInfo.environment
+        let base = URL(string: env["IOS_FIXTURE_BASE_URL"]!)!
+        let config = URLSessionConfiguration.ephemeral;config.timeoutIntervalForRequest = 8
+        let session = URLSession(configuration: config);defer { session.invalidateAndCancel() }
+        let client = ServiceClient(baseURL: base, transport: URLSessionTransport(session: session))
+        let news = try await client.call(ServiceEndpoints.resolve("news"))
+        try check(news["items"]?.array?.count == 3, "filled public news excludes unpublished")
+        let today = try await client.call(ServiceEndpoints.resolve("today"))
+        try check(today["items"]?.array?.count == 2, "today news")
+        let detail = try await client.call(ServiceEndpoints.resolve("newsDetail",id:910001))
+        try check(detail["content"]?.string == "Harness body", "news detail")
+        let keywords = try await client.call(ServiceEndpoints.resolve("keywords",id:910001))
+        try check(keywords["keywords"]?.array?.count == 1, "news keywords")
+        let analysis = try await client.call(ServiceEndpoints.resolve("marketAnalysis",id:910001))
+        try check(analysis["risk"]?.string == "Fixture risk", "news market analysis")
+        let search = try await client.call(ServiceEndpoints.resolve("newsSearch"), query:["q":"Harness","page":"1","size":"20"])
+        try check(search["content"]?.array?.count == 3, "filled news search")
+        let contentSearch = try await client.call(ServiceEndpoints.resolve("contentSearch"),query:["q":"Harness"])
+        try check(contentSearch["items"]?.array?.count == 6, "content source deduplication")
+        let contents = try await client.call(ServiceEndpoints.resolve("contents"))
+        try check(contents["items"]?.array?.isEmpty == false, "filled content feed")
+        let related = try await client.call(ServiceEndpoints.resolve("assetContents",id:910001))
+        try check(related["contents"]?.array?.count == 2, "asset public related contents")
+        let people = try await client.call(ServiceEndpoints.resolve("people"))
+        try check(people["people"]?.array?.count == 2, "filled people feed")
+        let fx = try await client.call(ServiceEndpoints.resolve("fx"),query:["date":"2020-01-03"])
+        try check(decimal(fx["rate"]) == Decimal(string:"1300.25") && fx["baseDate"]?.string == "2020-01-03", "cached FX exact date and rate")
+        let holding: ServiceValue = .object(["assetId":.number("910001"),"quantity":.number("2"),"averagePurchasePrice":.number("100.00")])
+        let calc = try await client.call(ServiceEndpoints.resolve("calculate"),body:.object(["holdings":.array([holding])]))
+        try check(calc["pricingStatus"]?.string == "COMPLETE" && decimal(calc["totalEvaluationAmount"]) == Decimal(string:"240.50"), "guest calculate with real CSRF cookie and header")
+        let calendar = try await client.call(ServiceEndpoints.resolve("guestCalendar"),query:["year":"2026","month":"10","scope":"ALL"],body:.object(["holdings":.array([])]))
+        try check(calendar["events"]?.array?.count == 1, "guest calendar filled event via CSRF")
+        let feedback = try await client.call(ServiceEndpoints.resolve("feedback"),body:.object(["content":.string("iOS independent fixture feedback"),"pagePath":.string("/ios-verification")]))
+        try check(feedback == .null, "feedback204 (fixture verifies exact DB row delta)")
+        let state = String(repeating:"a",count:32)
+        let callback = URL(string:"org.daynomy.app://auth/callback?code=" + env["IOS_FIXTURE_AUTH_CODE"]! + "&state=" + state)!
+        let body = try NativeAuthContract.exchangeBody(callbackURL:callback,expectedState:state,verifier:env["IOS_FIXTURE_AUTH_VERIFIER"]!)
+        let exchange = try await client.request(path:"/api/auth/mobile/exchange",method:"POST",body:body,retryUnauthorized:false)
+        try check(exchange == .null, "synthetic PKCE one-time exchange204")
+        let profile = try await client.call(ServiceEndpoints.resolve("profile"))
+        try check(profile["id"]?.number == "970001", "mobile exchange cookies authenticate profile")
+        _ = try await client.call(ServiceEndpoints.resolve("updateProfile"),body:.object(["nickname":.string("iosverified")]))
+        let updated = try await client.call(ServiceEndpoints.resolve("profile"))
+        try check(updated["nickname"]?.string == "iosverified", "member nickname PATCH persisted")
+        let originalPortfolio = try await client.call(ServiceEndpoints.resolve("portfolio"))
+        try check(originalPortfolio["holdings"]?.array?.isEmpty == true, "member initially empty portfolio")
+        func trade(_ type: String, quantity: String, price: String) -> ServiceValue { .object(["assetId":.number("910001"),"type":.string(type),"tradeDate":.string("2026-10-28"),"quantity":.number(quantity),"unitPrice":.number(price),"fee":.number("0"),"tax":.number("0")]) }
+        _ = try await client.call(ServiceEndpoints.resolve("createTrade"),body:trade("BUY",quantity:"2",price:"100"))
+        let bought = try await client.call(ServiceEndpoints.resolve("portfolio"))
+        try check(bought["holdings"]?.array?.first?["quantity"]?.number == "2", "member buy persisted")
+        let history = try await client.call(ServiceEndpoints.resolve("histories"),query:["from":"2026-10-28","to":"2026-10-28"])
+        guard let buyID = history.array?.first?["historyId"]?.number.flatMap(Int64.init) else { throw CheckFailure(name:"buy history ID") }
+        _ = try await client.call(ServiceEndpoints.resolve("updateTrade",id:buyID),body:.object(["tradeDate":.string("2026-10-28"),"quantity":.number("3"),"unitPrice":.number("99"),"fee":.number("0"),"tax":.number("0")]))
+        let edited = try await client.call(ServiceEndpoints.resolve("portfolio"))
+        try check(edited["holdings"]?.array?.first?["quantity"]?.number == "3", "member transaction edit persisted")
+        _ = try await client.call(ServiceEndpoints.resolve("createTrade"),body:trade("SELL",quantity:"1",price:"130"))
+        let sold = try await client.call(ServiceEndpoints.resolve("portfolio"))
+        try check(sold["holdings"]?.array?.first?["quantity"]?.number == "2" && decimal(sold["totalRealizedProfitLoss"]) == Decimal(31), "member sell and realized gain")
+        let history2 = try await client.call(ServiceEndpoints.resolve("histories"),query:["from":"2026-10-28","to":"2026-10-28"])
+        guard let sellID = history2.array?.first?["historyId"]?.number.flatMap(Int64.init) else { throw CheckFailure(name:"sell history ID") }
+        _ = try await client.call(ServiceEndpoints.resolve("deleteTrade",id:sellID))
+        _ = try await client.call(ServiceEndpoints.resolve("deleteTrade",id:buyID))
+        let empty = try await client.call(ServiceEndpoints.resolve("portfolio"))
+        try check(empty["holdings"]?.array?.isEmpty == true, "member transaction delete replays ledger")
+        // Access expiry simulation removes access cookie only, keeping refresh cookie in ephemeral jar.
+        if let storage = session.configuration.httpCookieStorage { for cookie in storage.cookies ?? [] where cookie.name == "access_token" { storage.deleteCookie(cookie) } }
+        let refreshed = try await client.call(ServiceEndpoints.resolve("profile"))
+        try check(refreshed["id"]?.number == "970001", "401 shared client refresh restores authenticated request")
+        do { _ = try await client.call(ServiceEndpoints.resolve("adminNews"));throw CheckFailure(name:"nonadmin accepted") }
+        catch let error as ServiceError { try check(error.status == 403, "member admin access rejected") }
+        _ = try await client.call(ServiceEndpoints.resolve("logout"))
+        do { _ = try await client.request(path:"/api/users/me",retryUnauthorized:false);throw CheckFailure(name:"logout session survived") }
+        catch let error as ServiceError { try check(error.status == 401, "logout cookie session cleared") }
+        print("FULL LIVE ASSERTIONS \(count); no real Google/provider/device claim")
+    }
+}

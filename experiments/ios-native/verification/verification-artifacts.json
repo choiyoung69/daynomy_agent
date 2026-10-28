@@ -1,0 +1,15 @@
+{
+  "review.md": "0e03cc5eaaa529e0d35acd6da8a520264b1b20648783e96430efe506cfb9fa3e",
+  "candidate-result.json": "3e09d1990dae33f7eda074b67e2d2a18d4402cd90d315ba60f030400424ec144",
+  "supplemental-result.json": "49da7d385a5f660ef5d0bfdfdd8ff38bf1940cd75863516d50b0adea4e5d5239",
+  "loopback.json": "b3411581ebeaa4ae9a1c232689f353026a9611902d0b593d9a94e2621ea35cf9",
+  "environment.json": "8747834ecd026cddfb7aaf5e66ef75e21f47b085f6d5518010c27c9977c17baf",
+  "ios-build-blocked.json": "9296ca92d03719eba5e81335f24f79b4ffb1c9c28947000192e05955681c012b",
+  "LiveHTTP.swift": "39ac7f6bff144ff1ebc10e336345c9ced70fdf684337de39108d0ba49f964c7e",
+  "NumericEdges.swift": "4f7d138c64283b496d4c8eb336baa98ca627f5fc6331ddd46dbf35ba9170bf21",
+  "loopback_verify.py": "59c592d97eb512e0bfead56a47b5cc80f900fbef174b9e8e408f691a6874d4a3",
+  "verify_candidate.py": "0bfaf4a8e56d4be5112981f8be8093126a190383c3010a4d5b06dcd8f550d4b3",
+  "supplemental_verify.py": "22ef6c9891c39ed499e52a40a70c5a8d6e91e44f190b2738f92247acbec1cc74",
+  "ui_fixture.py": "21ca25d1308189228a0a932559a9ad073bb44c9d680faa7465163e0536ac3d5d",
+  "review.json": "c0df4fd3814a17a4e00420c453d466b8500e274f69a3fd956f9b287dd5fb1215"
+}

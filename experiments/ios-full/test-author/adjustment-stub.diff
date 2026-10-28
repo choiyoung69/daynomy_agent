@@ -1,0 +1,11 @@
+--- before
++++ stub-added
+@@ -3,6 +3,8 @@
+ /// Replays a proposed ledger before committing it, so every mutation is atomic.
+ public struct PortfolioEngine: Sendable {
+     public private(set) var trades: [LocalTrade] = []
++    public private(set) var holdingChanges: [HoldingAdjustment] = []
++    public mutating func changeHolding(_ change: HoldingAdjustment) throws { throw PortfolioError.invalidTrade }
+     private let openingHoldings: [LocalHolding]
+     private let today: String
+     public init(openingHoldings: [LocalHolding] = [], today: String) {

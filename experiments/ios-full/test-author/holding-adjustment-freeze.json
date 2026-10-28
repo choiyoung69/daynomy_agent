@@ -1,0 +1,27 @@
+{
+  "bundle": "holding-adjustment",
+  "frozen_at": "2026-10-28T09:47:24.442925+00:00",
+  "files": {
+    "clients/ios/Sources/DaynomyCore/PortfolioAdjustmentContracts.swift": "aea292363b6e021ceea311997f3511b5016b65e430cdaba8782b55b104004103",
+    "clients/ios/Tests/DaynomyCoreTests/HoldingPortfolioTests.swift": "efdf5abc1d70500ca32c704ccbe48b59fbec013af0f97438feea282860daa07c"
+  },
+  "stub_hashes": {
+    "clients/ios/Sources/DaynomyCore/PortfolioEngine.swift": "47ee4d4d037682c0e007c0fc4243a8b1ffbedd66fe985dfd68bd3d859148c9c6"
+  },
+  "red_log": "experiments/ios-full/test-author/supplement-adjust-multipart-red.log",
+  "red_log_sha256": "43f786659271d584250e4cb453ad044b4dcebb15858e200c56c878d2b642b861",
+  "total_cases": 51,
+  "prior_cases": 45,
+  "new_cases_combined": 6,
+  "failures_new_only": 8,
+  "exit_code": 1,
+  "elapsed_seconds": 4.403,
+  "source_evidence": {
+    "reference/2026-DAYNOMY-dev/frontend/src/features/portfolio/guestPortfolioLedger.ts": "239347c74313e64c213b4e7fd43aed411d9996db95807bdae86442f7d9440184"
+  },
+  "prior_implementation": {
+    "source": "experiments/ios-full/test-author/PortfolioEngine-before-adjustment.swift",
+    "sha256": "a5c958727f2fe145d80843c0279ee42d2d7c997741624040f46add46de74deed",
+    "stub_only_diff": "experiments/ios-full/test-author/adjustment-stub.diff"
+  }
+}

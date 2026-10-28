@@ -1,0 +1,24 @@
+{
+  "exit_code": 1,
+  "source_hashes": {
+    "clients/ios/Sources/DaynomyCore/PortfolioAdjustmentContracts.swift": "aea292363b6e021ceea311997f3511b5016b65e430cdaba8782b55b104004103",
+    "clients/ios/Sources/DaynomyCore/MultipartContracts.swift": "20bf3caa5198d989ecccf695c9bf437261d1a9ecab3c1f7d9a1b911f566e0db2",
+    "clients/ios/Sources/DaynomyCore/ServiceEndpoints.swift": "5a5709a60b29a4f59c0934fb8a52c1da49b45ed4913219896e3dbee901c047a4",
+    "clients/ios/Sources/DaynomyCore/Contracts.swift": "a8fd25ed4f714075e8d4c54f126c2b5048b38ab15ae8f2c0fcfe2f3052692640",
+    "clients/ios/Sources/DaynomyCore/PortfolioContracts.swift": "8671b6c0fce77b015331c4a5d8b1df509adfc420bc6e2cc9aa21a59c8320105b",
+    "clients/ios/Sources/DaynomyCore/SessionCookieTransport.swift": "744c49946c92fd8431d588f2f240259254637e43368124d6d54deaf4127de583",
+    "clients/ios/Sources/DaynomyCore/ServiceClient.swift": "608cd67fffb2eda792fc7ec3e05161751afdc5f45153fc5c0061368223868c7a",
+    "clients/ios/Sources/DaynomyCore/Multipart.swift": "361ed857c0c582b79879c7c4c7d794b2929467896b854ad07ebe1b15fb92ae25",
+    "clients/ios/Sources/DaynomyCore/MarketModel.swift": "6aa1d0fe9c94f879d565768d7712111ac4533bebfa71641b0682e8174d26bf3c",
+    "clients/ios/Sources/DaynomyCore/API.swift": "dfd066ef6bee69604f182b33184c0bf1ca606f71dda63e74469565bf54fecf78",
+    "clients/ios/Sources/DaynomyCore/PortfolioEngine.swift": "678ed011033014cf742391d1368bd365c1a3f450ab7930db73f84dbca57d35ba",
+    "clients/ios/Sources/DaynomyCore/ServiceContracts.swift": "05bc1b533eab09eb927788da082faceb739903bf2ce6e4c15b3c2c2fde69fa53",
+    "clients/ios/Sources/DaynomyCore/NativeAuthContract.swift": "83b9160c72906b9f2b1e78b7f399823584d1ca293d48ebf708afae8f7b2ebb0d"
+  },
+  "sources_unchanged_after": true,
+  "feedback_before": 1,
+  "feedback_after": 1,
+  "expected_delta": 0,
+  "note": "One feedback created then admin deleted; own isolated synthetic cluster only. No real provider.",
+  "fixture_binary_sha256": "c6e271bda594bc80c29a5de6632e8ca77b6a3964b2e980f1189e4051543f0acd"
+}

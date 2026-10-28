@@ -1,0 +1,8 @@
+{
+  "checked_at": "2026-10-28T09:18:09.824185+00:00",
+  "manifest_sha256": "2c9192de3b8b16a6a83c1b97d81e75c6267a4c9e3be7bacb4e4fa4747a274cd2",
+  "mismatches": [],
+  "frozen_file_count": 7,
+  "stub_file_count": 2,
+  "red_evidence_sha256": "563df361dd960f7955699d4e1aaddee8fd4ff965aa2115c5ada08edc1fde68c8"
+}

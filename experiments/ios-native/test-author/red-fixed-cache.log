@@ -1,0 +1,33 @@
+warning: /Users/seoyeong/Library/org.swift.swiftpm/configuration is not accessible or not writable, disabling user-level cache features.
+warning: /Users/seoyeong/Library/org.swift.swiftpm/security is not accessible or not writable, disabling user-level cache features.
+Building for debugging...
+[0/7] /tmp/ios-author-build/arm64-apple-macosx/debug/DaynomyIOSPackageTests.derived/runner.swift
+[1/7] Write sources
+[4/7] Write swift-version--1AB21518FC5DEDBE.txt
+[6/11] Compiling DaynomyCore Contracts.swift
+[7/11] Emitting module DaynomyCore
+[8/11] Compiling DaynomyCore API.swift
+[9/11] Compiling DaynomyCore MarketModel.swift
+error: emit-module command failed with exit code 1 (use -v to see invocation)
+[10/14] Emitting module DaynomyCoreTests
+/Users/seoyeong/develop/AI/daynomy_agent/clients/ios/Tests/DaynomyCoreTests/APIContractTests.swift:2:8: error: no such module 'Testing'
+  1 | import Foundation
+  2 | import Testing
+    |        `- error: no such module 'Testing'
+  3 | @testable import DaynomyCore
+  4 | 
+[11/14] Compiling DaynomyCoreTests APIContractTests.swift
+/Users/seoyeong/develop/AI/daynomy_agent/clients/ios/Tests/DaynomyCoreTests/APIContractTests.swift:2:8: error: no such module 'Testing'
+  1 | import Foundation
+  2 | import Testing
+    |        `- error: no such module 'Testing'
+  3 | @testable import DaynomyCore
+  4 | 
+[12/14] Compiling DaynomyCoreTests MarketModelTests.swift
+/Users/seoyeong/develop/AI/daynomy_agent/clients/ios/Tests/DaynomyCoreTests/APIContractTests.swift:2:8: error: no such module 'Testing'
+  1 | import Foundation
+  2 | import Testing
+    |        `- error: no such module 'Testing'
+  3 | @testable import DaynomyCore
+  4 | 
+error: fatalError

@@ -1,0 +1,1 @@
+Attempt02 independently expected GET404 after admin news DELETE, but original News.java:176 and AdminNewsService.java:263 explicitly soft-delete to DELETED; admin detail remains readable. Corrected verifier assertion to persisted DELETED status. Prior33 assertions passed, failed attempt preserved. Production and authored tests unchanged.

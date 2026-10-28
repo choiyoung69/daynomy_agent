@@ -1,0 +1,2 @@
+OBSERVED late401 refresh requests 2, expected1 after newer authorization generation
+OBSERVED prelogout request succeeds after logout true, expectedfalse

@@ -1,0 +1,3 @@
+ Swift/ErrorType.swift:254: Fatal error: Error raised at top level: main.MarketError.http(400)
+
+{"exit_code": -5, "elapsed_seconds": 2.9587041250197217, "slow_request_observed": false, "socket_disconnect_observed": false, "requests": [{"path": "/api/stocks", "query": {"q": ["삼성 & ETF%_! ?#"], "country": ["US"]}, "method": "GET"}], "binary_sha256": "9cd089b9d6f63bf403a791af37346be9db84b7af408eff7a29a5a15b9c07be3f", "scope": "macOS URLSession real loopback HTTP; not iOS"}

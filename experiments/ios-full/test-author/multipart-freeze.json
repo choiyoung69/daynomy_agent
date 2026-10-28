@@ -1,0 +1,23 @@
+{
+  "bundle": "multipart",
+  "frozen_at": "2026-10-28T09:47:24.444043+00:00",
+  "files": {
+    "clients/ios/Sources/DaynomyCore/MultipartContracts.swift": "20bf3caa5198d989ecccf695c9bf437261d1a9ecab3c1f7d9a1b911f566e0db2",
+    "clients/ios/Tests/DaynomyCoreTests/MultipartServiceTests.swift": "0ed6d91aa9d6578cfd351f51dccd222504ae3cd11b7a6999d334298603bb84f6"
+  },
+  "stub_hashes": {
+    "clients/ios/Sources/DaynomyCore/Multipart.swift": "63a8803b6a5c381aaf1877dc483afd07c4c6afb8d5d915d5a645c5bf1e587a89"
+  },
+  "red_log": "experiments/ios-full/test-author/supplement-adjust-multipart-red.log",
+  "red_log_sha256": "43f786659271d584250e4cb453ad044b4dcebb15858e200c56c878d2b642b861",
+  "total_cases": 51,
+  "prior_cases": 45,
+  "new_cases_combined": 6,
+  "failures_new_only": 8,
+  "exit_code": 1,
+  "elapsed_seconds": 4.403,
+  "source_evidence": {
+    "reference/2026-DAYNOMY-dev/frontend/src/features/admin/api.ts": "4646c92eebc2165eff1aa27f5c1842614ec315ea820d5bc72b84a11d0fc110b4",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/news/controller/AdminNewsController.java": "84c459212134e22e52b851444a4d958deead169e9f3158020fa412a0060cc7c4"
+  }
+}

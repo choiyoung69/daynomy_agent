@@ -1,0 +1,12 @@
+{
+  "recorded_at": "2026-10-28T09:22:58.469589+00:00",
+  "own_fixture": ".local/ios-native-fixture-20261028-0920",
+  "status": "cancelled_while_waiting_shared_lock",
+  "last_completed_command": "rust-build",
+  "reason": "existing independent android-next-backend-01 fixture owns shared gate lock; reuse read-only after source/binary identity verification",
+  "own_pid": 27286,
+  "exit_code": 137,
+  "db_started_by_this_attempt": false,
+  "foreign_resource_stopped": false,
+  "verification_identity": "verification/shared-fixture-identity.json"
+}

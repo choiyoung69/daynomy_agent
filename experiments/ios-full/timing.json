@@ -1,0 +1,14 @@
+{
+  "requested_window_minutes": 30,
+  "started_at": "2026-10-28T09:30:59Z",
+  "deadline_at": "2026-10-28T10:00:59Z",
+  "scope": "all nonleague frontend iOS; prioritize verified core user features if all cannot finish",
+  "priority": [
+    "portfolio and transactions",
+    "news and search",
+    "analysis and calendar",
+    "session/account/feedback",
+    "admin and content"
+  ],
+  "platform_blocker": "full Xcode/iOS SDK absent; do not equate host tests and source with iOS execution"
+}

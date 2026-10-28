@@ -1,0 +1,34 @@
+PASS filled public news excludes unpublished
+PASS today news
+PASS news detail
+PASS news keywords
+PASS news market analysis
+PASS filled news search
+PASS content source deduplication
+PASS filled content feed
+PASS asset public related contents
+PASS filled people feed
+PASS cached FX exact date and rate
+PASS guest calculate with real CSRF cookie and header
+PASS guest calendar filled event via CSRF
+PASS feedback204 (fixture verifies exact DB row delta)
+PASS synthetic PKCE one-time exchange204
+PASS mobile exchange cookies authenticate profile
+PASS member nickname PATCH persisted
+PASS member initially empty portfolio
+PASS member buy persisted
+PASS member transaction edit persisted
+PASS member sell and realized gain
+PASS member transaction delete replays ledger
+PASS 401 shared client refresh restores authenticated request
+PASS member admin access rejected
+PASS logout cookie session cleared
+PASS synthetic admin cookie profile
+PASS admin feedback status persisted
+PASS admin feedback deletion persisted
+PASS admin person create
+PASS admin person update
+PASS admin person delete restores public feed
+PASS admin multipart news create JSON part
+PASS admin multipart news update JSON part
+FAILED CheckFailure deleted news remained

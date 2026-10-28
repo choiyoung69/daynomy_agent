@@ -1,0 +1,13 @@
+{
+  "reason": "User expanded first pilot to full native tab shell; default is Portfolio, author-approved market tab selection adapts launch navigation while preserving assertions",
+  "original_source": "experiments/ios-full/test-author/DaynomyIOSUITests-v1.swift",
+  "original_sha256": "880feafbdf2544bb8a287ead19c2035f37ce1f16c2ad5230abb47ae82f3d3824",
+  "updated_source": "clients/ios/UITests/DaynomyIOSUITests.swift",
+  "updated_sha256": "413d7063bf4ed310cc54dbb57c2ca839e590d1874d3832c098f763ee1589d907",
+  "additional_source": "clients/ios/UITests/DaynomyFullUITests.swift",
+  "additional_sha256": "c111a7b2196aaf7f9b048f371e39bff7e04746687c8f0acb98ebd7663a88955d",
+  "diff": "experiments/ios-full/test-author/ui-v2.diff",
+  "run_status": "uncompiled/unrun: Xcode and iOS SDK absent",
+  "frozen_original_manifest": "experiments/ios-native/test-author/frozen-tests.json",
+  "note": "Original freeze is immutable historical baseline; this explicit revision supersedes only UI launch navigation source hash. Core original files unchanged."
+}

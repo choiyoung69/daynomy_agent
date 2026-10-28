@@ -1,0 +1,8 @@
+PASS loopback UTF8 query GET
+PASS loopback exact long decimal token
+PASS loopback business 404
+PASS loopback generic 404
+PASS loopback invalid numeric grammar
+PASS loopback URLSession cancel classification
+PASS loopback URLSession cancellation latency
+COMPLETE loopback macOS URLSession (not iOS runtime)

@@ -1,0 +1,16 @@
+{
+  "execution": "desktop_subagents",
+  "max_concurrent_agents_including_coordinator": 4,
+  "started_at": "2026-10-28T09:30:59Z",
+  "deadline_at": "2026-10-28T10:00:59Z",
+  "scope": "all nonleague iOS frontend features; prioritize verified core user features if the full scope cannot fit",
+  "exclude": ["league", "calendar_email_notifications", "deployment"],
+  "roles": {
+    "test_author": {"agent": "ios_tests", "model": "gpt-6.1-sol", "reasoning_effort": "medium"},
+    "implementation_a": {"agent": "ios_implementer", "model": "gpt-6.1-sol", "reasoning_effort": "medium", "scope": "service transport/session/discovery/account/admin"},
+    "implementation_b": {"agent": "ios_portfolio", "model": "gpt-6.1-sol", "reasoning_effort": "medium", "scope": "portfolio/transactions/calendar/analysis"},
+    "independent_verifier": {"agent": "ios_verifier", "model": "gpt-6-astra", "reasoning_effort": "high"}
+  },
+  "scheduling": "Test author releases each frozen bundle immediately. Its freed slot becomes implementation B. Independent verification overlaps both implementations. Root integrates app entry/navigation/project. Isolated verification DB has separate cluster/data/socket/port and serial writers.",
+  "note": "The chat dispatches agents. This file is not an unattended runner. iOS source and host verification are separate from missing iOS SDK/device execution."
+}

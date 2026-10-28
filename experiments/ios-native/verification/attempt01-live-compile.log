@@ -1,0 +1,37 @@
+/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-native/verification/LiveHTTP.swift:34:23: error: sending value of non-Sendable type '() async throws -> ()' risks causing data races [#SendingRisksDataRace]
+32 |             let usQuote = try await api.latestPrice(assetId: us[0].assetId)
+33 |             try check(usQuote.baseDate == "2026-10-22" && Decimal(string: usQuote.closePrice) == Decimal(string: "193.4000") && usQuote.currency == "USD", "rust US stored quote")
+34 |             try await expectError(.notFound, "rust missing price 404") { _ = try await api.latestPrice(assetId: 910003) }
+   |                       |- error: sending value of non-Sendable type '() async throws -> ()' risks causing data races [#SendingRisksDataRace]
+   |                       `- note: sending main actor-isolated value of non-Sendable type '() async throws -> ()' to nonisolated static method 'expectError(_:_:work:)' risks causing races in between main actor-isolated and nonisolated uses
+35 |         } else {
+36 |             let stocks = try await api.search(keyword: "삼성 & ETF%_!+?#", country: .US)
+
+/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-native/verification/LiveHTTP.swift:40:23: error: sending value of non-Sendable type '() async throws -> ()' risks causing data races [#SendingRisksDataRace]
+38 |             let quote = try await api.latestPrice(assetId: 1)
+39 |             try check(quote.closePrice == "123456789012345678901234567890123456789.0000000001", "loopback exact long decimal token")
+40 |             try await expectError(.notFound, "loopback business 404") { _ = try await api.latestPrice(assetId: 404) }
+   |                       |- error: sending value of non-Sendable type '() async throws -> ()' risks causing data races [#SendingRisksDataRace]
+   |                       `- note: sending main actor-isolated value of non-Sendable type '() async throws -> ()' to nonisolated static method 'expectError(_:_:work:)' risks causing races in between main actor-isolated and nonisolated uses
+41 |             try await expectError(.http(404), "loopback generic 404") { _ = try await api.latestPrice(assetId: 405) }
+42 |             try await expectError(.invalidResponse, "loopback invalid numeric grammar") { _ = try await api.latestPrice(assetId: 2) }
+
+/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-native/verification/LiveHTTP.swift:41:23: error: sending value of non-Sendable type '() async throws -> ()' risks causing data races [#SendingRisksDataRace]
+39 |             try check(quote.closePrice == "123456789012345678901234567890123456789.0000000001", "loopback exact long decimal token")
+40 |             try await expectError(.notFound, "loopback business 404") { _ = try await api.latestPrice(assetId: 404) }
+41 |             try await expectError(.http(404), "loopback generic 404") { _ = try await api.latestPrice(assetId: 405) }
+   |                       |- error: sending value of non-Sendable type '() async throws -> ()' risks causing data races [#SendingRisksDataRace]
+   |                       `- note: sending main actor-isolated value of non-Sendable type '() async throws -> ()' to nonisolated static method 'expectError(_:_:work:)' risks causing races in between main actor-isolated and nonisolated uses
+42 |             try await expectError(.invalidResponse, "loopback invalid numeric grammar") { _ = try await api.latestPrice(assetId: 2) }
+43 |             let pending = Task { try await api.search(keyword: "cancel", country: .KR) }
+
+/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-native/verification/LiveHTTP.swift:42:23: error: sending value of non-Sendable type '() async throws -> ()' risks causing data races [#SendingRisksDataRace]
+40 |             try await expectError(.notFound, "loopback business 404") { _ = try await api.latestPrice(assetId: 404) }
+41 |             try await expectError(.http(404), "loopback generic 404") { _ = try await api.latestPrice(assetId: 405) }
+42 |             try await expectError(.invalidResponse, "loopback invalid numeric grammar") { _ = try await api.latestPrice(assetId: 2) }
+   |                       |- error: sending value of non-Sendable type '() async throws -> ()' risks causing data races [#SendingRisksDataRace]
+   |                       `- note: sending main actor-isolated value of non-Sendable type '() async throws -> ()' to nonisolated static method 'expectError(_:_:work:)' risks causing races in between main actor-isolated and nonisolated uses
+43 |             let pending = Task { try await api.search(keyword: "cancel", country: .KR) }
+44 |             for _ in 0..<100 {
+
+[#SendingRisksDataRace]: <https://docs.swift.org/compiler/documentation/diagnostics/sending-risks-data-race>

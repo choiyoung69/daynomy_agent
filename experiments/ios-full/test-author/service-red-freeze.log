@@ -1,0 +1,196 @@
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-lahkmzvs/FullServiceTests.swift:91:42: error: call to main actor-isolated global function 'expect(_:file:line:)' in a synchronous nonisolated context [#ActorIsolatedCall]
+ 82 | 
+ 83 | struct AdminServiceTests {
+ 84 |     func adminEndpointCatalog() throws {
+    |          `- note: add '@MainActor' to make instance method 'adminEndpointCatalog()' part of global actor 'MainActor'
+ 85 |         let rows: [(String,String,String)] = [
+ 86 |             ("adminNews","/api/admin/news","GET"),("adminNewsDetail","/api/admin/news/7","GET"),("adminCreateNews","/api/admin/news","POST"),("adminUpdateNews","/api/admin/news/7","PUT"),("adminDeleteNews","/api/admin/news/7","DELETE"),("adminPublishNews","/api/admin/news/7/publish","POST"),("adminRejectNews","/api/admin/news/7/reject","POST"),("adminGenerateKorea","/api/admin/news/generate/economy/korea","POST"),("adminGenerateUS","/api/admin/news/generate/economy/us","POST"),("adminImageSearch","/api/admin/news/image-search","GET"),("adminGenerateImage","/api/admin/news/7/generate-image","POST"),
+    :
+ 89 |             ("adminPeople","/api/admin/people","GET"),("adminCreatePerson","/api/admin/people","POST"),("adminUpdatePerson","/api/admin/people/7","PUT"),("adminDeletePerson","/api/admin/people/7","DELETE"),("adminSearchPosts","/api/admin/people/7/posts/search","GET"),("adminCreatePost","/api/admin/people/7/posts","POST"),("adminDeletePost","/api/admin/people/7/posts/9","DELETE"),("adminCandidates","/api/admin/people/7/post-candidates","GET"),("adminCollectPosts","/api/admin/people/7/post-candidates/collect","POST"),("adminApproveCandidate","/api/admin/people/7/post-candidates/9/approve","POST"),("adminRejectCandidate","/api/admin/people/7/post-candidates/9/reject","POST"),("adminBulkApprove","/api/admin/people/7/post-candidates/bulk-approve","POST"),("adminBulkReject","/api/admin/people/7/post-candidates/bulk-reject","POST"),("adminAllCandidates","/api/admin/people/post-candidates","GET"),("adminAllBulkApprove","/api/admin/people/post-candidates/bulk-approve","POST"),("adminAllBulkReject","/api/admin/people/post-candidates/bulk-reject","POST"),
+ 90 |             ("syncKR","/api/admin/stocks/sync","POST"),("syncKRPrices","/api/admin/stocks/prices/sync","POST"),("backfill","/api/admin/stocks/prices/backfill","POST"),("syncUS","/api/admin/stocks/us/sync","POST"),("syncUSPrices","/api/admin/stocks/us/prices/sync","POST")]
+ 91 |         for (name,path,method) in rows { expect(try ServiceEndpoints.resolve(name,id:7,secondaryId:9) == ServiceEndpoint(path:path,method:method,csrf:method != "GET")) }
+    |                                          `- error: call to main actor-isolated global function 'expect(_:file:line:)' in a synchronous nonisolated context [#ActorIsolatedCall]
+ 92 |     }
+ 93 |     func malformedOutgoingNumberNeverSent() async {
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-lahkmzvs/Harness.swift:4:17: note: calls to global function 'expect(_:file:line:)' from outside of its actor context are implicitly asynchronous
+ 2 | @MainActor var failures = 0
+ 3 | @MainActor func record(_ message: String, file: StaticString = #filePath, line: UInt = #line) { failures += 1; print("FAIL \(file):\(line) \(message)") }
+ 4 | @MainActor func expect(_ value: Bool, file: StaticString = #filePath, line: UInt = #line) { if !value { record("expectation false", file:file,line:line) } }
+   |                 `- note: calls to global function 'expect(_:file:line:)' from outside of its actor context are implicitly asynchronous
+ 5 | @MainActor func require<T>(_ value:T?) throws -> T { guard let value else { throw MarketError.invalidResponse }; return value }
+ 6 | @MainActor func expect<T>(throws expected: MarketError, _ operation: () async throws -> T, file: StaticString = #filePath, line: UInt = #line) async { do { _ = try await operation(); record("expected error \(expected)",file:file,line:line) } catch { if (error as? MarketError) != expected { record("expected \(expected), got \(error)",file:file,line:line) } } }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-lahkmzvs/FullServiceTests.swift:96:138: error: main actor-isolated global function 'record(_:file:line:)' cannot be called from outside of the actor
+ 94 |         for raw in ["NaN","01","+1","1.","1e","null,\"injected\":1"] {
+ 95 |             let transport = ServiceScriptTransport([(200,"{}")])
+ 96 |             do { _ = try await service(transport).request(path:"/api/portfolio/analysis",method:"POST",body:.object(["x":.number(raw)]));record("malformed number accepted") }
+    |                                                                                                                                          `- error: main actor-isolated global function 'record(_:file:line:)' cannot be called from outside of the actor
+ 97 |             catch { expect(await transport.captured().isEmpty) }
+ 98 |         }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-lahkmzvs/FullServiceTests.swift:97:21: error: main actor-isolated global function 'expect(_:file:line:)' cannot be called from outside of the actor
+ 95 |             let transport = ServiceScriptTransport([(200,"{}")])
+ 96 |             do { _ = try await service(transport).request(path:"/api/portfolio/analysis",method:"POST",body:.object(["x":.number(raw)]));record("malformed number accepted") }
+ 97 |             catch { expect(await transport.captured().isEmpty) }
+    |                     `- error: main actor-isolated global function 'expect(_:file:line:)' cannot be called from outside of the actor
+ 98 |         }
+ 99 |     }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-lahkmzvs/FullServiceTests.swift:106:25: error: call to main actor-isolated global function 'require' in a synchronous nonisolated context [#ActorIsolatedCall]
+100 | }
+101 | struct NativeAuthServiceTests {
+102 |     func pkceS256AndCallbackExchange() throws {
+    |          `- note: add '@MainActor' to make instance method 'pkceS256AndCallbackExchange()' part of global actor 'MainActor'
+103 |         let verifier = "dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk"
+104 |         let state = String(repeating:"a",count:32)
+105 |         let url = try NativeAuthContract.startURL(baseURL:URL(string:"https://example.invalid")!,verifier:verifier,state:state)
+106 |         let parts = try require(URLComponents(url:url,resolvingAgainstBaseURL:false))
+    |                         `- error: call to main actor-isolated global function 'require' in a synchronous nonisolated context [#ActorIsolatedCall]
+107 |         expect(parts.path == "/api/auth/mobile/start")
+108 |         expect(parts.queryItems?.first(where:{$0.name == "code_challenge"})?.value == "E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM")
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-lahkmzvs/Harness.swift:5:17: note: calls to global function 'require' from outside of its actor context are implicitly asynchronous
+ 3 | @MainActor func record(_ message: String, file: StaticString = #filePath, line: UInt = #line) { failures += 1; print("FAIL \(file):\(line) \(message)") }
+ 4 | @MainActor func expect(_ value: Bool, file: StaticString = #filePath, line: UInt = #line) { if !value { record("expectation false", file:file,line:line) } }
+ 5 | @MainActor func require<T>(_ value:T?) throws -> T { guard let value else { throw MarketError.invalidResponse }; return value }
+   |                 `- note: calls to global function 'require' from outside of its actor context are implicitly asynchronous
+ 6 | @MainActor func expect<T>(throws expected: MarketError, _ operation: () async throws -> T, file: StaticString = #filePath, line: UInt = #line) async { do { _ = try await operation(); record("expected error \(expected)",file:file,line:line) } catch { if (error as? MarketError) != expected { record("expected \(expected), got \(error)",file:file,line:line) } } }
+ 7 | @main struct Runner { @MainActor static func main() async {
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-lahkmzvs/FullServiceTests.swift:107:9: error: call to main actor-isolated global function 'expect(_:file:line:)' in a synchronous nonisolated context [#ActorIsolatedCall]
+100 | }
+101 | struct NativeAuthServiceTests {
+102 |     func pkceS256AndCallbackExchange() throws {
+    |          `- note: add '@MainActor' to make instance method 'pkceS256AndCallbackExchange()' part of global actor 'MainActor'
+103 |         let verifier = "dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk"
+104 |         let state = String(repeating:"a",count:32)
+105 |         let url = try NativeAuthContract.startURL(baseURL:URL(string:"https://example.invalid")!,verifier:verifier,state:state)
+106 |         let parts = try require(URLComponents(url:url,resolvingAgainstBaseURL:false))
+107 |         expect(parts.path == "/api/auth/mobile/start")
+    |         `- error: call to main actor-isolated global function 'expect(_:file:line:)' in a synchronous nonisolated context [#ActorIsolatedCall]
+108 |         expect(parts.queryItems?.first(where:{$0.name == "code_challenge"})?.value == "E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM")
+109 |         expect(parts.queryItems?.first(where:{$0.name == "state"})?.value == state)
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-lahkmzvs/Harness.swift:4:17: note: calls to global function 'expect(_:file:line:)' from outside of its actor context are implicitly asynchronous
+ 2 | @MainActor var failures = 0
+ 3 | @MainActor func record(_ message: String, file: StaticString = #filePath, line: UInt = #line) { failures += 1; print("FAIL \(file):\(line) \(message)") }
+ 4 | @MainActor func expect(_ value: Bool, file: StaticString = #filePath, line: UInt = #line) { if !value { record("expectation false", file:file,line:line) } }
+   |                 `- note: calls to global function 'expect(_:file:line:)' from outside of its actor context are implicitly asynchronous
+ 5 | @MainActor func require<T>(_ value:T?) throws -> T { guard let value else { throw MarketError.invalidResponse }; return value }
+ 6 | @MainActor func expect<T>(throws expected: MarketError, _ operation: () async throws -> T, file: StaticString = #filePath, line: UInt = #line) async { do { _ = try await operation(); record("expected error \(expected)",file:file,line:line) } catch { if (error as? MarketError) != expected { record("expected \(expected), got \(error)",file:file,line:line) } } }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-lahkmzvs/FullServiceTests.swift:108:9: error: call to main actor-isolated global function 'expect(_:file:line:)' in a synchronous nonisolated context [#ActorIsolatedCall]
+100 | }
+101 | struct NativeAuthServiceTests {
+102 |     func pkceS256AndCallbackExchange() throws {
+    |          `- note: add '@MainActor' to make instance method 'pkceS256AndCallbackExchange()' part of global actor 'MainActor'
+103 |         let verifier = "dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk"
+104 |         let state = String(repeating:"a",count:32)
+    :
+106 |         let parts = try require(URLComponents(url:url,resolvingAgainstBaseURL:false))
+107 |         expect(parts.path == "/api/auth/mobile/start")
+108 |         expect(parts.queryItems?.first(where:{$0.name == "code_challenge"})?.value == "E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM")
+    |         `- error: call to main actor-isolated global function 'expect(_:file:line:)' in a synchronous nonisolated context [#ActorIsolatedCall]
+109 |         expect(parts.queryItems?.first(where:{$0.name == "state"})?.value == state)
+110 |         expect(!url.absoluteString.contains(verifier))
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-lahkmzvs/Harness.swift:4:17: note: calls to global function 'expect(_:file:line:)' from outside of its actor context are implicitly asynchronous
+ 2 | @MainActor var failures = 0
+ 3 | @MainActor func record(_ message: String, file: StaticString = #filePath, line: UInt = #line) { failures += 1; print("FAIL \(file):\(line) \(message)") }
+ 4 | @MainActor func expect(_ value: Bool, file: StaticString = #filePath, line: UInt = #line) { if !value { record("expectation false", file:file,line:line) } }
+   |                 `- note: calls to global function 'expect(_:file:line:)' from outside of its actor context are implicitly asynchronous
+ 5 | @MainActor func require<T>(_ value:T?) throws -> T { guard let value else { throw MarketError.invalidResponse }; return value }
+ 6 | @MainActor func expect<T>(throws expected: MarketError, _ operation: () async throws -> T, file: StaticString = #filePath, line: UInt = #line) async { do { _ = try await operation(); record("expected error \(expected)",file:file,line:line) } catch { if (error as? MarketError) != expected { record("expected \(expected), got \(error)",file:file,line:line) } } }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-lahkmzvs/FullServiceTests.swift:109:9: error: call to main actor-isolated global function 'expect(_:file:line:)' in a synchronous nonisolated context [#ActorIsolatedCall]
+100 | }
+101 | struct NativeAuthServiceTests {
+102 |     func pkceS256AndCallbackExchange() throws {
+    |          `- note: add '@MainActor' to make instance method 'pkceS256AndCallbackExchange()' part of global actor 'MainActor'
+103 |         let verifier = "dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk"
+104 |         let state = String(repeating:"a",count:32)
+    :
+107 |         expect(parts.path == "/api/auth/mobile/start")
+108 |         expect(parts.queryItems?.first(where:{$0.name == "code_challenge"})?.value == "E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM")
+109 |         expect(parts.queryItems?.first(where:{$0.name == "state"})?.value == state)
+    |         `- error: call to main actor-isolated global function 'expect(_:file:line:)' in a synchronous nonisolated context [#ActorIsolatedCall]
+110 |         expect(!url.absoluteString.contains(verifier))
+111 |         let body = try NativeAuthContract.exchangeBody(callbackURL:URL(string:"org.daynomy.app://auth/callback?code=fixture&state=\(state)")!,expectedState:state,verifier:verifier)
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-lahkmzvs/Harness.swift:4:17: note: calls to global function 'expect(_:file:line:)' from outside of its actor context are implicitly asynchronous
+ 2 | @MainActor var failures = 0
+ 3 | @MainActor func record(_ message: String, file: StaticString = #filePath, line: UInt = #line) { failures += 1; print("FAIL \(file):\(line) \(message)") }
+ 4 | @MainActor func expect(_ value: Bool, file: StaticString = #filePath, line: UInt = #line) { if !value { record("expectation false", file:file,line:line) } }
+   |                 `- note: calls to global function 'expect(_:file:line:)' from outside of its actor context are implicitly asynchronous
+ 5 | @MainActor func require<T>(_ value:T?) throws -> T { guard let value else { throw MarketError.invalidResponse }; return value }
+ 6 | @MainActor func expect<T>(throws expected: MarketError, _ operation: () async throws -> T, file: StaticString = #filePath, line: UInt = #line) async { do { _ = try await operation(); record("expected error \(expected)",file:file,line:line) } catch { if (error as? MarketError) != expected { record("expected \(expected), got \(error)",file:file,line:line) } } }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-lahkmzvs/FullServiceTests.swift:110:9: error: call to main actor-isolated global function 'expect(_:file:line:)' in a synchronous nonisolated context [#ActorIsolatedCall]
+100 | }
+101 | struct NativeAuthServiceTests {
+102 |     func pkceS256AndCallbackExchange() throws {
+    |          `- note: add '@MainActor' to make instance method 'pkceS256AndCallbackExchange()' part of global actor 'MainActor'
+103 |         let verifier = "dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk"
+104 |         let state = String(repeating:"a",count:32)
+    :
+108 |         expect(parts.queryItems?.first(where:{$0.name == "code_challenge"})?.value == "E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM")
+109 |         expect(parts.queryItems?.first(where:{$0.name == "state"})?.value == state)
+110 |         expect(!url.absoluteString.contains(verifier))
+    |         `- error: call to main actor-isolated global function 'expect(_:file:line:)' in a synchronous nonisolated context [#ActorIsolatedCall]
+111 |         let body = try NativeAuthContract.exchangeBody(callbackURL:URL(string:"org.daynomy.app://auth/callback?code=fixture&state=\(state)")!,expectedState:state,verifier:verifier)
+112 |         expect(body == .object(["code":.string("fixture"),"codeVerifier":.string(verifier)]))
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-lahkmzvs/Harness.swift:4:17: note: calls to global function 'expect(_:file:line:)' from outside of its actor context are implicitly asynchronous
+ 2 | @MainActor var failures = 0
+ 3 | @MainActor func record(_ message: String, file: StaticString = #filePath, line: UInt = #line) { failures += 1; print("FAIL \(file):\(line) \(message)") }
+ 4 | @MainActor func expect(_ value: Bool, file: StaticString = #filePath, line: UInt = #line) { if !value { record("expectation false", file:file,line:line) } }
+   |                 `- note: calls to global function 'expect(_:file:line:)' from outside of its actor context are implicitly asynchronous
+ 5 | @MainActor func require<T>(_ value:T?) throws -> T { guard let value else { throw MarketError.invalidResponse }; return value }
+ 6 | @MainActor func expect<T>(throws expected: MarketError, _ operation: () async throws -> T, file: StaticString = #filePath, line: UInt = #line) async { do { _ = try await operation(); record("expected error \(expected)",file:file,line:line) } catch { if (error as? MarketError) != expected { record("expected \(expected), got \(error)",file:file,line:line) } } }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-lahkmzvs/FullServiceTests.swift:112:9: error: call to main actor-isolated global function 'expect(_:file:line:)' in a synchronous nonisolated context [#ActorIsolatedCall]
+100 | }
+101 | struct NativeAuthServiceTests {
+102 |     func pkceS256AndCallbackExchange() throws {
+    |          `- note: add '@MainActor' to make instance method 'pkceS256AndCallbackExchange()' part of global actor 'MainActor'
+103 |         let verifier = "dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk"
+104 |         let state = String(repeating:"a",count:32)
+    :
+110 |         expect(!url.absoluteString.contains(verifier))
+111 |         let body = try NativeAuthContract.exchangeBody(callbackURL:URL(string:"org.daynomy.app://auth/callback?code=fixture&state=\(state)")!,expectedState:state,verifier:verifier)
+112 |         expect(body == .object(["code":.string("fixture"),"codeVerifier":.string(verifier)]))
+    |         `- error: call to main actor-isolated global function 'expect(_:file:line:)' in a synchronous nonisolated context [#ActorIsolatedCall]
+113 |     }
+114 |     func rejectsWrongCallbackStateAndOAuthFailure() {
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-lahkmzvs/Harness.swift:4:17: note: calls to global function 'expect(_:file:line:)' from outside of its actor context are implicitly asynchronous
+ 2 | @MainActor var failures = 0
+ 3 | @MainActor func record(_ message: String, file: StaticString = #filePath, line: UInt = #line) { failures += 1; print("FAIL \(file):\(line) \(message)") }
+ 4 | @MainActor func expect(_ value: Bool, file: StaticString = #filePath, line: UInt = #line) { if !value { record("expectation false", file:file,line:line) } }
+   |                 `- note: calls to global function 'expect(_:file:line:)' from outside of its actor context are implicitly asynchronous
+ 5 | @MainActor func require<T>(_ value:T?) throws -> T { guard let value else { throw MarketError.invalidResponse }; return value }
+ 6 | @MainActor func expect<T>(throws expected: MarketError, _ operation: () async throws -> T, file: StaticString = #filePath, line: UInt = #line) async { do { _ = try await operation(); record("expected error \(expected)",file:file,line:line) } catch { if (error as? MarketError) != expected { record("expected \(expected), got \(error)",file:file,line:line) } } }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-lahkmzvs/FullServiceTests.swift:117:126: error: call to main actor-isolated global function 'record(_:file:line:)' in a synchronous nonisolated context [#ActorIsolatedCall]
+112 |         expect(body == .object(["code":.string("fixture"),"codeVerifier":.string(verifier)]))
+113 |     }
+114 |     func rejectsWrongCallbackStateAndOAuthFailure() {
+    |          `- note: add '@MainActor' to make instance method 'rejectsWrongCallbackStateAndOAuthFailure()' part of global actor 'MainActor'
+115 |         let state = String(repeating:"a",count:32);let verifier = String(repeating:"v",count:43)
+116 |         for raw in ["https://auth/callback?code=x&state=\(state)","org.daynomy.app://evil/callback?code=x&state=\(state)","org.daynomy.app://auth/wrong?code=x&state=\(state)","org.daynomy.app://auth/callback?code=x&state=wrong","org.daynomy.app://auth/callback?error=oauth_failed&state=\(state)","org.daynomy.app://auth/callback?state=\(state)"] {
+117 |             do { _ = try NativeAuthContract.exchangeBody(callbackURL:URL(string:raw)!,expectedState:state,verifier:verifier);record("unsafe callback accepted") } catch {}
+    |                                                                                                                              `- error: call to main actor-isolated global function 'record(_:file:line:)' in a synchronous nonisolated context [#ActorIsolatedCall]
+118 |         }
+119 |     }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-lahkmzvs/Harness.swift:3:17: note: calls to global function 'record(_:file:line:)' from outside of its actor context are implicitly asynchronous
+ 1 | import Foundation
+ 2 | @MainActor var failures = 0
+ 3 | @MainActor func record(_ message: String, file: StaticString = #filePath, line: UInt = #line) { failures += 1; print("FAIL \(file):\(line) \(message)") }
+   |                 `- note: calls to global function 'record(_:file:line:)' from outside of its actor context are implicitly asynchronous
+ 4 | @MainActor func expect(_ value: Bool, file: StaticString = #filePath, line: UInt = #line) { if !value { record("expectation false", file:file,line:line) } }
+ 5 | @MainActor func require<T>(_ value:T?) throws -> T { guard let value else { throw MarketError.invalidResponse }; return value }
+
+[#ActorIsolatedCall]: <https://docs.swift.org/compiler/documentation/diagnostics/actor-isolated-call>
+{"exit_code": 1, "elapsed_seconds": 2.054, "canonical_test_count": 36}

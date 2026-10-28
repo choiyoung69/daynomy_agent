@@ -1,0 +1,37 @@
+{
+  "runner_sha256": "02009bfa43aa844f8b484d047c5a1dedbdf6720781b06cb0d282414f4fa7f3ef",
+  "method_count": 22,
+  "methods": {
+    "clients/ios/Tests/DaynomyCoreTests/APIContractTests.swift": [
+      "queryEncodingAndCountry",
+      "validMarketsAndSafeMaximumID",
+      "malformedSearchAndIDsRejected",
+      "jsonLexicalAndShapeBoundaries",
+      "currencyFallbackPolicy",
+      "priceLexicalPrecisionAndDateStrings",
+      "invalidPricesRejected",
+      "invalidRequestedIDNeverSent",
+      "httpErrorClassification",
+      "networkAndCancellationClassification"
+    ],
+    "clients/ios/Tests/DaynomyCoreTests/MarketModelTests.swift": [
+      "debounceTrimsJSWhitespaceAndBlankSkips",
+      "nelPreservedAndCountryReissues",
+      "staleSearchSuccessErrorAndLoadingGuard",
+      "selectionAutofillExactAndManualDeletionDirty",
+      "nonpositiveQuoteFailsWithoutFilling",
+      "staleQuoteSuccessAndFailureCannotMutateNewSelection",
+      "deactivateBackPreservesDraftAndActivationRefetches",
+      "restoreDirtyEmptyAndChangeStockReset",
+      "localCategoryFilterRetainsFullResults",
+      "completedNewSearchSurvivesLateOldCompletion",
+      "restoredNonDirtyNonemptyPricePreserved",
+      "explicitRetryAfterFailureAndNoAutomaticRetry"
+    ]
+  },
+  "review": "For currently inspected simple @Test func methods translation preserves boolean expectation, optional requirement failure, exact MarketError expected-error mismatch and Issue.record failure. Explicit invocation catches thrown errors and nonzero exit on assertions. Added MainActor suites and serial invocation differs from Swift Testing scheduling. No canonical framework runtime success claimed.",
+  "limits": [
+    "Regex translator only validated for present syntax, not arbitrary future Testing macros/parameterized tests.",
+    "Actual iOS runtime unavailable."
+  ]
+}

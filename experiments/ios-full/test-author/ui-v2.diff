@@ -1,0 +1,11 @@
+--- frozen UI-v1
++++ UI-v2 tab shell
+@@ -9,6 +9,8 @@
+         let app = XCUIApplication()
+         app.launchEnvironment["DAYNOMY_API_BASE_URL"] = ProcessInfo.processInfo.environment["DAYNOMY_UI_BASE_URL"] ?? "http://127.0.0.1:18082"
+         app.launch()
++        let marketTab = app.tabBars.buttons["종목"]
++        if marketTab.waitForExistence(timeout: 5) { marketTab.tap() }
+         return app
+     }
+     private func selectSamsung(_ app: XCUIApplication) {

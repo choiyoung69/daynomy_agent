@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "frozen_at": "2026-10-28T09:17:50.652515+00:00",
+  "status": "behavior-red",
+  "baseline": "Swift 6.3.3 Swift6 host/macOS; iOS17 target; Xcode absent",
+  "files": {
+    "clients/ios/Package.swift": "82ef0d41197bb540287c8d25ed4cff4e1aba34095253a918ba1e5c4b4398a378",
+    "clients/ios/Sources/DaynomyCore/Contracts.swift": "a8fd25ed4f714075e8d4c54f126c2b5048b38ab15ae8f2c0fcfe2f3052692640",
+    "spec/ios-native/interfaces.md": "8bd3b99b1b065787ad7d96c59a61eea2ccb2a08584138f58128d3bf68591e6db",
+    "experiments/ios-native/test-author/run_host_tests.py": "02009bfa43aa844f8b484d047c5a1dedbdf6720781b06cb0d282414f4fa7f3ef",
+    "clients/ios/Tests/DaynomyCoreTests/MarketModelTests.swift": "006d3ccd0522671ba24520c1112d95de01e2c3266119f8d1634acc0c7230d7f6",
+    "clients/ios/Tests/DaynomyCoreTests/APIContractTests.swift": "d8c6bda98ff1663da7ff9decf3bf472ae36f90edc6a741da862da676c6e938e2",
+    "clients/ios/UITests/DaynomyIOSUITests.swift": "880feafbdf2544bb8a287ead19c2035f37ce1f16c2ad5230abb47ae82f3d3824"
+  },
+  "red_evidence": "experiments/ios-native/test-author/red-host-final.log",
+  "red_exit_code": 1,
+  "canonical_test_count": 22,
+  "ui_test_count": 2,
+  "stubs": {
+    "clients/ios/Sources/DaynomyCore/API.swift": "20ee672969cf134323f9e626b655948c578825dce8388513daadde2afcd4e8d8",
+    "clients/ios/Sources/DaynomyCore/MarketModel.swift": "588134663929bafe3c5a00344d937f1668c61f2ab46806aacf593c6f60b3c353"
+  },
+  "source_evidence": {
+    "reference/2026-DAYNOMY-dev/frontend/src/features/stocks/api.ts": "bd4189b4ae61e779c10beb1eb933d23894385d9a7885aac1eba647384d6c4756",
+    "reference/2026-DAYNOMY-dev/frontend/src/features/stocks/types.ts": "bf1e18b274488b6f7a9f15d8b10c3a9e78222e48adb49ca9e0ccc8f83d36627f",
+    "reference/2026-DAYNOMY-dev/frontend/src/features/portfolio/components/PortfolioTransactionEditor.tsx": "abacd47444c919ddd4d732951084861d1722bdb1791c271ce5ec6f54ee20154c"
+  },
+  "limitations": [
+    "SwiftPM canonical tests compile with CLT framework flags but loader cannot load absent lib_TestingInterop.dylib",
+    "Standalone host runner executes all canonical test bodies through assertion syntax translation audited by verifier",
+    "UI XCTest source authored but uncompiled/unrun absent Xcode",
+    "No app/device/actual HTTP/DB verified by author"
+  ]
+}

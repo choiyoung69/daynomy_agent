@@ -1,0 +1,355 @@
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:10:6: warning: no calls to throwing functions occur within 'try' expression
+ 8 | do { try await APIContractTests().queryEncodingAndCountry(); print("RAN APIContractTests.queryEncodingAndCountry") } catch { record("queryEncodingAndCountry: \(error)") }
+ 9 | do { try await APIContractTests().validMarketsAndSafeMaximumID(); print("RAN APIContractTests.validMarketsAndSafeMaximumID") } catch { record("validMarketsAndSafeMaximumID: \(error)") }
+10 | do { try await APIContractTests().malformedSearchAndIDsRejected(); print("RAN APIContractTests.malformedSearchAndIDsRejected") } catch { record("malformedSearchAndIDsRejected: \(error)") }
+   |      `- warning: no calls to throwing functions occur within 'try' expression
+11 | do { try await APIContractTests().jsonLexicalAndShapeBoundaries(); print("RAN APIContractTests.jsonLexicalAndShapeBoundaries") } catch { record("jsonLexicalAndShapeBoundaries: \(error)") }
+12 | do { try await APIContractTests().currencyFallbackPolicy(); print("RAN APIContractTests.currencyFallbackPolicy") } catch { record("currencyFallbackPolicy: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:10:130: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+ 8 | do { try await APIContractTests().queryEncodingAndCountry(); print("RAN APIContractTests.queryEncodingAndCountry") } catch { record("queryEncodingAndCountry: \(error)") }
+ 9 | do { try await APIContractTests().validMarketsAndSafeMaximumID(); print("RAN APIContractTests.validMarketsAndSafeMaximumID") } catch { record("validMarketsAndSafeMaximumID: \(error)") }
+10 | do { try await APIContractTests().malformedSearchAndIDsRejected(); print("RAN APIContractTests.malformedSearchAndIDsRejected") } catch { record("malformedSearchAndIDsRejected: \(error)") }
+   |                                                                                                                                  `- warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+11 | do { try await APIContractTests().jsonLexicalAndShapeBoundaries(); print("RAN APIContractTests.jsonLexicalAndShapeBoundaries") } catch { record("jsonLexicalAndShapeBoundaries: \(error)") }
+12 | do { try await APIContractTests().currencyFallbackPolicy(); print("RAN APIContractTests.currencyFallbackPolicy") } catch { record("currencyFallbackPolicy: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:14:6: warning: no calls to throwing functions occur within 'try' expression
+12 | do { try await APIContractTests().currencyFallbackPolicy(); print("RAN APIContractTests.currencyFallbackPolicy") } catch { record("currencyFallbackPolicy: \(error)") }
+13 | do { try await APIContractTests().priceLexicalPrecisionAndDateStrings(); print("RAN APIContractTests.priceLexicalPrecisionAndDateStrings") } catch { record("priceLexicalPrecisionAndDateStrings: \(error)") }
+14 | do { try await APIContractTests().invalidPricesRejected(); print("RAN APIContractTests.invalidPricesRejected") } catch { record("invalidPricesRejected: \(error)") }
+   |      `- warning: no calls to throwing functions occur within 'try' expression
+15 | do { try await APIContractTests().invalidRequestedIDNeverSent(); print("RAN APIContractTests.invalidRequestedIDNeverSent") } catch { record("invalidRequestedIDNeverSent: \(error)") }
+16 | do { try await APIContractTests().httpErrorClassification(); print("RAN APIContractTests.httpErrorClassification") } catch { record("httpErrorClassification: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:14:114: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+12 | do { try await APIContractTests().currencyFallbackPolicy(); print("RAN APIContractTests.currencyFallbackPolicy") } catch { record("currencyFallbackPolicy: \(error)") }
+13 | do { try await APIContractTests().priceLexicalPrecisionAndDateStrings(); print("RAN APIContractTests.priceLexicalPrecisionAndDateStrings") } catch { record("priceLexicalPrecisionAndDateStrings: \(error)") }
+14 | do { try await APIContractTests().invalidPricesRejected(); print("RAN APIContractTests.invalidPricesRejected") } catch { record("invalidPricesRejected: \(error)") }
+   |                                                                                                                  `- warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+15 | do { try await APIContractTests().invalidRequestedIDNeverSent(); print("RAN APIContractTests.invalidRequestedIDNeverSent") } catch { record("invalidRequestedIDNeverSent: \(error)") }
+16 | do { try await APIContractTests().httpErrorClassification(); print("RAN APIContractTests.httpErrorClassification") } catch { record("httpErrorClassification: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:15:6: warning: no calls to throwing functions occur within 'try' expression
+13 | do { try await APIContractTests().priceLexicalPrecisionAndDateStrings(); print("RAN APIContractTests.priceLexicalPrecisionAndDateStrings") } catch { record("priceLexicalPrecisionAndDateStrings: \(error)") }
+14 | do { try await APIContractTests().invalidPricesRejected(); print("RAN APIContractTests.invalidPricesRejected") } catch { record("invalidPricesRejected: \(error)") }
+15 | do { try await APIContractTests().invalidRequestedIDNeverSent(); print("RAN APIContractTests.invalidRequestedIDNeverSent") } catch { record("invalidRequestedIDNeverSent: \(error)") }
+   |      `- warning: no calls to throwing functions occur within 'try' expression
+16 | do { try await APIContractTests().httpErrorClassification(); print("RAN APIContractTests.httpErrorClassification") } catch { record("httpErrorClassification: \(error)") }
+17 | do { try await APIContractTests().networkAndCancellationClassification(); print("RAN APIContractTests.networkAndCancellationClassification") } catch { record("networkAndCancellationClassification: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:15:126: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+13 | do { try await APIContractTests().priceLexicalPrecisionAndDateStrings(); print("RAN APIContractTests.priceLexicalPrecisionAndDateStrings") } catch { record("priceLexicalPrecisionAndDateStrings: \(error)") }
+14 | do { try await APIContractTests().invalidPricesRejected(); print("RAN APIContractTests.invalidPricesRejected") } catch { record("invalidPricesRejected: \(error)") }
+15 | do { try await APIContractTests().invalidRequestedIDNeverSent(); print("RAN APIContractTests.invalidRequestedIDNeverSent") } catch { record("invalidRequestedIDNeverSent: \(error)") }
+   |                                                                                                                              `- warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+16 | do { try await APIContractTests().httpErrorClassification(); print("RAN APIContractTests.httpErrorClassification") } catch { record("httpErrorClassification: \(error)") }
+17 | do { try await APIContractTests().networkAndCancellationClassification(); print("RAN APIContractTests.networkAndCancellationClassification") } catch { record("networkAndCancellationClassification: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:16:6: warning: no calls to throwing functions occur within 'try' expression
+14 | do { try await APIContractTests().invalidPricesRejected(); print("RAN APIContractTests.invalidPricesRejected") } catch { record("invalidPricesRejected: \(error)") }
+15 | do { try await APIContractTests().invalidRequestedIDNeverSent(); print("RAN APIContractTests.invalidRequestedIDNeverSent") } catch { record("invalidRequestedIDNeverSent: \(error)") }
+16 | do { try await APIContractTests().httpErrorClassification(); print("RAN APIContractTests.httpErrorClassification") } catch { record("httpErrorClassification: \(error)") }
+   |      `- warning: no calls to throwing functions occur within 'try' expression
+17 | do { try await APIContractTests().networkAndCancellationClassification(); print("RAN APIContractTests.networkAndCancellationClassification") } catch { record("networkAndCancellationClassification: \(error)") }
+18 | do { try await FullServiceTests().genericJSONPreservesNumbersAndNull(); print("RAN FullServiceTests.genericJSONPreservesNumbersAndNull") } catch { record("genericJSONPreservesNumbersAndNull: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:16:118: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+14 | do { try await APIContractTests().invalidPricesRejected(); print("RAN APIContractTests.invalidPricesRejected") } catch { record("invalidPricesRejected: \(error)") }
+15 | do { try await APIContractTests().invalidRequestedIDNeverSent(); print("RAN APIContractTests.invalidRequestedIDNeverSent") } catch { record("invalidRequestedIDNeverSent: \(error)") }
+16 | do { try await APIContractTests().httpErrorClassification(); print("RAN APIContractTests.httpErrorClassification") } catch { record("httpErrorClassification: \(error)") }
+   |                                                                                                                      `- warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+17 | do { try await APIContractTests().networkAndCancellationClassification(); print("RAN APIContractTests.networkAndCancellationClassification") } catch { record("networkAndCancellationClassification: \(error)") }
+18 | do { try await FullServiceTests().genericJSONPreservesNumbersAndNull(); print("RAN FullServiceTests.genericJSONPreservesNumbersAndNull") } catch { record("genericJSONPreservesNumbersAndNull: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:17:6: warning: no calls to throwing functions occur within 'try' expression
+15 | do { try await APIContractTests().invalidRequestedIDNeverSent(); print("RAN APIContractTests.invalidRequestedIDNeverSent") } catch { record("invalidRequestedIDNeverSent: \(error)") }
+16 | do { try await APIContractTests().httpErrorClassification(); print("RAN APIContractTests.httpErrorClassification") } catch { record("httpErrorClassification: \(error)") }
+17 | do { try await APIContractTests().networkAndCancellationClassification(); print("RAN APIContractTests.networkAndCancellationClassification") } catch { record("networkAndCancellationClassification: \(error)") }
+   |      `- warning: no calls to throwing functions occur within 'try' expression
+18 | do { try await FullServiceTests().genericJSONPreservesNumbersAndNull(); print("RAN FullServiceTests.genericJSONPreservesNumbersAndNull") } catch { record("genericJSONPreservesNumbersAndNull: \(error)") }
+19 | do { try await FullServiceTests().formQueryAnd204Handling(); print("RAN FullServiceTests.formQueryAnd204Handling") } catch { record("formQueryAnd204Handling: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:17:144: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+15 | do { try await APIContractTests().invalidRequestedIDNeverSent(); print("RAN APIContractTests.invalidRequestedIDNeverSent") } catch { record("invalidRequestedIDNeverSent: \(error)") }
+16 | do { try await APIContractTests().httpErrorClassification(); print("RAN APIContractTests.httpErrorClassification") } catch { record("httpErrorClassification: \(error)") }
+17 | do { try await APIContractTests().networkAndCancellationClassification(); print("RAN APIContractTests.networkAndCancellationClassification") } catch { record("networkAndCancellationClassification: \(error)") }
+   |                                                                                                                                                `- warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+18 | do { try await FullServiceTests().genericJSONPreservesNumbersAndNull(); print("RAN FullServiceTests.genericJSONPreservesNumbersAndNull") } catch { record("genericJSONPreservesNumbersAndNull: \(error)") }
+19 | do { try await FullServiceTests().formQueryAnd204Handling(); print("RAN FullServiceTests.formQueryAnd204Handling") } catch { record("formQueryAnd204Handling: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:22:6: warning: no calls to throwing functions occur within 'try' expression
+20 | do { try await FullServiceTests().csrfBodyAndNoPrecisionLossOnWrite(); print("RAN FullServiceTests.csrfBodyAndNoPrecisionLossOnWrite") } catch { record("csrfBodyAndNoPrecisionLossOnWrite: \(error)") }
+21 | do { try await FullServiceTests().unauthorizedRefreshThenRetryOnce(); print("RAN FullServiceTests.unauthorizedRefreshThenRetryOnce") } catch { record("unauthorizedRefreshThenRetryOnce: \(error)") }
+22 | do { try await FullServiceTests().httpErrorsKeepCodeAndMessage(); print("RAN FullServiceTests.httpErrorsKeepCodeAndMessage") } catch { record("httpErrorsKeepCodeAndMessage: \(error)") }
+   |      `- warning: no calls to throwing functions occur within 'try' expression
+23 | do { try await FullServiceTests().malformedCSRFNeverWrites(); print("RAN FullServiceTests.malformedCSRFNeverWrites") } catch { record("malformedCSRFNeverWrites: \(error)") }
+24 | do { try await FullServiceTests().mobileExchangeSkipsCSRFAndPreserves204(); print("RAN FullServiceTests.mobileExchangeSkipsCSRFAndPreserves204") } catch { record("mobileExchangeSkipsCSRFAndPreserves204: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:22:128: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+20 | do { try await FullServiceTests().csrfBodyAndNoPrecisionLossOnWrite(); print("RAN FullServiceTests.csrfBodyAndNoPrecisionLossOnWrite") } catch { record("csrfBodyAndNoPrecisionLossOnWrite: \(error)") }
+21 | do { try await FullServiceTests().unauthorizedRefreshThenRetryOnce(); print("RAN FullServiceTests.unauthorizedRefreshThenRetryOnce") } catch { record("unauthorizedRefreshThenRetryOnce: \(error)") }
+22 | do { try await FullServiceTests().httpErrorsKeepCodeAndMessage(); print("RAN FullServiceTests.httpErrorsKeepCodeAndMessage") } catch { record("httpErrorsKeepCodeAndMessage: \(error)") }
+   |                                                                                                                                `- warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+23 | do { try await FullServiceTests().malformedCSRFNeverWrites(); print("RAN FullServiceTests.malformedCSRFNeverWrites") } catch { record("malformedCSRFNeverWrites: \(error)") }
+24 | do { try await FullServiceTests().mobileExchangeSkipsCSRFAndPreserves204(); print("RAN FullServiceTests.mobileExchangeSkipsCSRFAndPreserves204") } catch { record("mobileExchangeSkipsCSRFAndPreserves204: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:23:6: warning: no calls to throwing functions occur within 'try' expression
+21 | do { try await FullServiceTests().unauthorizedRefreshThenRetryOnce(); print("RAN FullServiceTests.unauthorizedRefreshThenRetryOnce") } catch { record("unauthorizedRefreshThenRetryOnce: \(error)") }
+22 | do { try await FullServiceTests().httpErrorsKeepCodeAndMessage(); print("RAN FullServiceTests.httpErrorsKeepCodeAndMessage") } catch { record("httpErrorsKeepCodeAndMessage: \(error)") }
+23 | do { try await FullServiceTests().malformedCSRFNeverWrites(); print("RAN FullServiceTests.malformedCSRFNeverWrites") } catch { record("malformedCSRFNeverWrites: \(error)") }
+   |      `- warning: no calls to throwing functions occur within 'try' expression
+24 | do { try await FullServiceTests().mobileExchangeSkipsCSRFAndPreserves204(); print("RAN FullServiceTests.mobileExchangeSkipsCSRFAndPreserves204") } catch { record("mobileExchangeSkipsCSRFAndPreserves204: \(error)") }
+25 | do { try await FullServiceTests().publicEndpointCatalogMatchesOriginal(); print("RAN FullServiceTests.publicEndpointCatalogMatchesOriginal") } catch { record("publicEndpointCatalogMatchesOriginal: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:23:120: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+21 | do { try await FullServiceTests().unauthorizedRefreshThenRetryOnce(); print("RAN FullServiceTests.unauthorizedRefreshThenRetryOnce") } catch { record("unauthorizedRefreshThenRetryOnce: \(error)") }
+22 | do { try await FullServiceTests().httpErrorsKeepCodeAndMessage(); print("RAN FullServiceTests.httpErrorsKeepCodeAndMessage") } catch { record("httpErrorsKeepCodeAndMessage: \(error)") }
+23 | do { try await FullServiceTests().malformedCSRFNeverWrites(); print("RAN FullServiceTests.malformedCSRFNeverWrites") } catch { record("malformedCSRFNeverWrites: \(error)") }
+   |                                                                                                                        `- warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+24 | do { try await FullServiceTests().mobileExchangeSkipsCSRFAndPreserves204(); print("RAN FullServiceTests.mobileExchangeSkipsCSRFAndPreserves204") } catch { record("mobileExchangeSkipsCSRFAndPreserves204: \(error)") }
+25 | do { try await FullServiceTests().publicEndpointCatalogMatchesOriginal(); print("RAN FullServiceTests.publicEndpointCatalogMatchesOriginal") } catch { record("publicEndpointCatalogMatchesOriginal: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:25:10: warning: no 'async' operations occur within 'await' expression
+23 | do { try await FullServiceTests().malformedCSRFNeverWrites(); print("RAN FullServiceTests.malformedCSRFNeverWrites") } catch { record("malformedCSRFNeverWrites: \(error)") }
+24 | do { try await FullServiceTests().mobileExchangeSkipsCSRFAndPreserves204(); print("RAN FullServiceTests.mobileExchangeSkipsCSRFAndPreserves204") } catch { record("mobileExchangeSkipsCSRFAndPreserves204: \(error)") }
+25 | do { try await FullServiceTests().publicEndpointCatalogMatchesOriginal(); print("RAN FullServiceTests.publicEndpointCatalogMatchesOriginal") } catch { record("publicEndpointCatalogMatchesOriginal: \(error)") }
+   |          `- warning: no 'async' operations occur within 'await' expression
+26 | do { try await FullServiceTests().memberAndWriteEndpointCatalog(); print("RAN FullServiceTests.memberAndWriteEndpointCatalog") } catch { record("memberAndWriteEndpointCatalog: \(error)") }
+27 | do { try await MarketModelTests().debounceTrimsJSWhitespaceAndBlankSkips(); print("RAN MarketModelTests.debounceTrimsJSWhitespaceAndBlankSkips") } catch { record("debounceTrimsJSWhitespaceAndBlankSkips: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:26:10: warning: no 'async' operations occur within 'await' expression
+24 | do { try await FullServiceTests().mobileExchangeSkipsCSRFAndPreserves204(); print("RAN FullServiceTests.mobileExchangeSkipsCSRFAndPreserves204") } catch { record("mobileExchangeSkipsCSRFAndPreserves204: \(error)") }
+25 | do { try await FullServiceTests().publicEndpointCatalogMatchesOriginal(); print("RAN FullServiceTests.publicEndpointCatalogMatchesOriginal") } catch { record("publicEndpointCatalogMatchesOriginal: \(error)") }
+26 | do { try await FullServiceTests().memberAndWriteEndpointCatalog(); print("RAN FullServiceTests.memberAndWriteEndpointCatalog") } catch { record("memberAndWriteEndpointCatalog: \(error)") }
+   |          `- warning: no 'async' operations occur within 'await' expression
+27 | do { try await MarketModelTests().debounceTrimsJSWhitespaceAndBlankSkips(); print("RAN MarketModelTests.debounceTrimsJSWhitespaceAndBlankSkips") } catch { record("debounceTrimsJSWhitespaceAndBlankSkips: \(error)") }
+28 | do { try await MarketModelTests().nelPreservedAndCountryReissues(); print("RAN MarketModelTests.nelPreservedAndCountryReissues") } catch { record("nelPreservedAndCountryReissues: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:27:6: warning: no calls to throwing functions occur within 'try' expression
+25 | do { try await FullServiceTests().publicEndpointCatalogMatchesOriginal(); print("RAN FullServiceTests.publicEndpointCatalogMatchesOriginal") } catch { record("publicEndpointCatalogMatchesOriginal: \(error)") }
+26 | do { try await FullServiceTests().memberAndWriteEndpointCatalog(); print("RAN FullServiceTests.memberAndWriteEndpointCatalog") } catch { record("memberAndWriteEndpointCatalog: \(error)") }
+27 | do { try await MarketModelTests().debounceTrimsJSWhitespaceAndBlankSkips(); print("RAN MarketModelTests.debounceTrimsJSWhitespaceAndBlankSkips") } catch { record("debounceTrimsJSWhitespaceAndBlankSkips: \(error)") }
+   |      `- warning: no calls to throwing functions occur within 'try' expression
+28 | do { try await MarketModelTests().nelPreservedAndCountryReissues(); print("RAN MarketModelTests.nelPreservedAndCountryReissues") } catch { record("nelPreservedAndCountryReissues: \(error)") }
+29 | do { try await MarketModelTests().staleSearchSuccessErrorAndLoadingGuard(); print("RAN MarketModelTests.staleSearchSuccessErrorAndLoadingGuard") } catch { record("staleSearchSuccessErrorAndLoadingGuard: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:27:148: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+25 | do { try await FullServiceTests().publicEndpointCatalogMatchesOriginal(); print("RAN FullServiceTests.publicEndpointCatalogMatchesOriginal") } catch { record("publicEndpointCatalogMatchesOriginal: \(error)") }
+26 | do { try await FullServiceTests().memberAndWriteEndpointCatalog(); print("RAN FullServiceTests.memberAndWriteEndpointCatalog") } catch { record("memberAndWriteEndpointCatalog: \(error)") }
+27 | do { try await MarketModelTests().debounceTrimsJSWhitespaceAndBlankSkips(); print("RAN MarketModelTests.debounceTrimsJSWhitespaceAndBlankSkips") } catch { record("debounceTrimsJSWhitespaceAndBlankSkips: \(error)") }
+   |                                                                                                                                                    `- warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+28 | do { try await MarketModelTests().nelPreservedAndCountryReissues(); print("RAN MarketModelTests.nelPreservedAndCountryReissues") } catch { record("nelPreservedAndCountryReissues: \(error)") }
+29 | do { try await MarketModelTests().staleSearchSuccessErrorAndLoadingGuard(); print("RAN MarketModelTests.staleSearchSuccessErrorAndLoadingGuard") } catch { record("staleSearchSuccessErrorAndLoadingGuard: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:28:6: warning: no calls to throwing functions occur within 'try' expression
+26 | do { try await FullServiceTests().memberAndWriteEndpointCatalog(); print("RAN FullServiceTests.memberAndWriteEndpointCatalog") } catch { record("memberAndWriteEndpointCatalog: \(error)") }
+27 | do { try await MarketModelTests().debounceTrimsJSWhitespaceAndBlankSkips(); print("RAN MarketModelTests.debounceTrimsJSWhitespaceAndBlankSkips") } catch { record("debounceTrimsJSWhitespaceAndBlankSkips: \(error)") }
+28 | do { try await MarketModelTests().nelPreservedAndCountryReissues(); print("RAN MarketModelTests.nelPreservedAndCountryReissues") } catch { record("nelPreservedAndCountryReissues: \(error)") }
+   |      `- warning: no calls to throwing functions occur within 'try' expression
+29 | do { try await MarketModelTests().staleSearchSuccessErrorAndLoadingGuard(); print("RAN MarketModelTests.staleSearchSuccessErrorAndLoadingGuard") } catch { record("staleSearchSuccessErrorAndLoadingGuard: \(error)") }
+30 | do { try await MarketModelTests().selectionAutofillExactAndManualDeletionDirty(); print("RAN MarketModelTests.selectionAutofillExactAndManualDeletionDirty") } catch { record("selectionAutofillExactAndManualDeletionDirty: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:28:132: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+26 | do { try await FullServiceTests().memberAndWriteEndpointCatalog(); print("RAN FullServiceTests.memberAndWriteEndpointCatalog") } catch { record("memberAndWriteEndpointCatalog: \(error)") }
+27 | do { try await MarketModelTests().debounceTrimsJSWhitespaceAndBlankSkips(); print("RAN MarketModelTests.debounceTrimsJSWhitespaceAndBlankSkips") } catch { record("debounceTrimsJSWhitespaceAndBlankSkips: \(error)") }
+28 | do { try await MarketModelTests().nelPreservedAndCountryReissues(); print("RAN MarketModelTests.nelPreservedAndCountryReissues") } catch { record("nelPreservedAndCountryReissues: \(error)") }
+   |                                                                                                                                    `- warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+29 | do { try await MarketModelTests().staleSearchSuccessErrorAndLoadingGuard(); print("RAN MarketModelTests.staleSearchSuccessErrorAndLoadingGuard") } catch { record("staleSearchSuccessErrorAndLoadingGuard: \(error)") }
+30 | do { try await MarketModelTests().selectionAutofillExactAndManualDeletionDirty(); print("RAN MarketModelTests.selectionAutofillExactAndManualDeletionDirty") } catch { record("selectionAutofillExactAndManualDeletionDirty: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:29:6: warning: no calls to throwing functions occur within 'try' expression
+27 | do { try await MarketModelTests().debounceTrimsJSWhitespaceAndBlankSkips(); print("RAN MarketModelTests.debounceTrimsJSWhitespaceAndBlankSkips") } catch { record("debounceTrimsJSWhitespaceAndBlankSkips: \(error)") }
+28 | do { try await MarketModelTests().nelPreservedAndCountryReissues(); print("RAN MarketModelTests.nelPreservedAndCountryReissues") } catch { record("nelPreservedAndCountryReissues: \(error)") }
+29 | do { try await MarketModelTests().staleSearchSuccessErrorAndLoadingGuard(); print("RAN MarketModelTests.staleSearchSuccessErrorAndLoadingGuard") } catch { record("staleSearchSuccessErrorAndLoadingGuard: \(error)") }
+   |      `- warning: no calls to throwing functions occur within 'try' expression
+30 | do { try await MarketModelTests().selectionAutofillExactAndManualDeletionDirty(); print("RAN MarketModelTests.selectionAutofillExactAndManualDeletionDirty") } catch { record("selectionAutofillExactAndManualDeletionDirty: \(error)") }
+31 | do { try await MarketModelTests().nonpositiveQuoteFailsWithoutFilling(); print("RAN MarketModelTests.nonpositiveQuoteFailsWithoutFilling") } catch { record("nonpositiveQuoteFailsWithoutFilling: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:29:148: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+27 | do { try await MarketModelTests().debounceTrimsJSWhitespaceAndBlankSkips(); print("RAN MarketModelTests.debounceTrimsJSWhitespaceAndBlankSkips") } catch { record("debounceTrimsJSWhitespaceAndBlankSkips: \(error)") }
+28 | do { try await MarketModelTests().nelPreservedAndCountryReissues(); print("RAN MarketModelTests.nelPreservedAndCountryReissues") } catch { record("nelPreservedAndCountryReissues: \(error)") }
+29 | do { try await MarketModelTests().staleSearchSuccessErrorAndLoadingGuard(); print("RAN MarketModelTests.staleSearchSuccessErrorAndLoadingGuard") } catch { record("staleSearchSuccessErrorAndLoadingGuard: \(error)") }
+   |                                                                                                                                                    `- warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+30 | do { try await MarketModelTests().selectionAutofillExactAndManualDeletionDirty(); print("RAN MarketModelTests.selectionAutofillExactAndManualDeletionDirty") } catch { record("selectionAutofillExactAndManualDeletionDirty: \(error)") }
+31 | do { try await MarketModelTests().nonpositiveQuoteFailsWithoutFilling(); print("RAN MarketModelTests.nonpositiveQuoteFailsWithoutFilling") } catch { record("nonpositiveQuoteFailsWithoutFilling: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:30:6: warning: no calls to throwing functions occur within 'try' expression
+28 | do { try await MarketModelTests().nelPreservedAndCountryReissues(); print("RAN MarketModelTests.nelPreservedAndCountryReissues") } catch { record("nelPreservedAndCountryReissues: \(error)") }
+29 | do { try await MarketModelTests().staleSearchSuccessErrorAndLoadingGuard(); print("RAN MarketModelTests.staleSearchSuccessErrorAndLoadingGuard") } catch { record("staleSearchSuccessErrorAndLoadingGuard: \(error)") }
+30 | do { try await MarketModelTests().selectionAutofillExactAndManualDeletionDirty(); print("RAN MarketModelTests.selectionAutofillExactAndManualDeletionDirty") } catch { record("selectionAutofillExactAndManualDeletionDirty: \(error)") }
+   |      `- warning: no calls to throwing functions occur within 'try' expression
+31 | do { try await MarketModelTests().nonpositiveQuoteFailsWithoutFilling(); print("RAN MarketModelTests.nonpositiveQuoteFailsWithoutFilling") } catch { record("nonpositiveQuoteFailsWithoutFilling: \(error)") }
+32 | do { try await MarketModelTests().staleQuoteSuccessAndFailureCannotMutateNewSelection(); print("RAN MarketModelTests.staleQuoteSuccessAndFailureCannotMutateNewSelection") } catch { record("staleQuoteSuccessAndFailureCannotMutateNewSelection: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:30:160: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+28 | do { try await MarketModelTests().nelPreservedAndCountryReissues(); print("RAN MarketModelTests.nelPreservedAndCountryReissues") } catch { record("nelPreservedAndCountryReissues: \(error)") }
+29 | do { try await MarketModelTests().staleSearchSuccessErrorAndLoadingGuard(); print("RAN MarketModelTests.staleSearchSuccessErrorAndLoadingGuard") } catch { record("staleSearchSuccessErrorAndLoadingGuard: \(error)") }
+30 | do { try await MarketModelTests().selectionAutofillExactAndManualDeletionDirty(); print("RAN MarketModelTests.selectionAutofillExactAndManualDeletionDirty") } catch { record("selectionAutofillExactAndManualDeletionDirty: \(error)") }
+   |                                                                                                                                                                `- warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+31 | do { try await MarketModelTests().nonpositiveQuoteFailsWithoutFilling(); print("RAN MarketModelTests.nonpositiveQuoteFailsWithoutFilling") } catch { record("nonpositiveQuoteFailsWithoutFilling: \(error)") }
+32 | do { try await MarketModelTests().staleQuoteSuccessAndFailureCannotMutateNewSelection(); print("RAN MarketModelTests.staleQuoteSuccessAndFailureCannotMutateNewSelection") } catch { record("staleQuoteSuccessAndFailureCannotMutateNewSelection: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:31:6: warning: no calls to throwing functions occur within 'try' expression
+29 | do { try await MarketModelTests().staleSearchSuccessErrorAndLoadingGuard(); print("RAN MarketModelTests.staleSearchSuccessErrorAndLoadingGuard") } catch { record("staleSearchSuccessErrorAndLoadingGuard: \(error)") }
+30 | do { try await MarketModelTests().selectionAutofillExactAndManualDeletionDirty(); print("RAN MarketModelTests.selectionAutofillExactAndManualDeletionDirty") } catch { record("selectionAutofillExactAndManualDeletionDirty: \(error)") }
+31 | do { try await MarketModelTests().nonpositiveQuoteFailsWithoutFilling(); print("RAN MarketModelTests.nonpositiveQuoteFailsWithoutFilling") } catch { record("nonpositiveQuoteFailsWithoutFilling: \(error)") }
+   |      `- warning: no calls to throwing functions occur within 'try' expression
+32 | do { try await MarketModelTests().staleQuoteSuccessAndFailureCannotMutateNewSelection(); print("RAN MarketModelTests.staleQuoteSuccessAndFailureCannotMutateNewSelection") } catch { record("staleQuoteSuccessAndFailureCannotMutateNewSelection: \(error)") }
+33 | do { try await MarketModelTests().deactivateBackPreservesDraftAndActivationRefetches(); print("RAN MarketModelTests.deactivateBackPreservesDraftAndActivationRefetches") } catch { record("deactivateBackPreservesDraftAndActivationRefetches: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:31:142: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+29 | do { try await MarketModelTests().staleSearchSuccessErrorAndLoadingGuard(); print("RAN MarketModelTests.staleSearchSuccessErrorAndLoadingGuard") } catch { record("staleSearchSuccessErrorAndLoadingGuard: \(error)") }
+30 | do { try await MarketModelTests().selectionAutofillExactAndManualDeletionDirty(); print("RAN MarketModelTests.selectionAutofillExactAndManualDeletionDirty") } catch { record("selectionAutofillExactAndManualDeletionDirty: \(error)") }
+31 | do { try await MarketModelTests().nonpositiveQuoteFailsWithoutFilling(); print("RAN MarketModelTests.nonpositiveQuoteFailsWithoutFilling") } catch { record("nonpositiveQuoteFailsWithoutFilling: \(error)") }
+   |                                                                                                                                              `- warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+32 | do { try await MarketModelTests().staleQuoteSuccessAndFailureCannotMutateNewSelection(); print("RAN MarketModelTests.staleQuoteSuccessAndFailureCannotMutateNewSelection") } catch { record("staleQuoteSuccessAndFailureCannotMutateNewSelection: \(error)") }
+33 | do { try await MarketModelTests().deactivateBackPreservesDraftAndActivationRefetches(); print("RAN MarketModelTests.deactivateBackPreservesDraftAndActivationRefetches") } catch { record("deactivateBackPreservesDraftAndActivationRefetches: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:32:6: warning: no calls to throwing functions occur within 'try' expression
+30 | do { try await MarketModelTests().selectionAutofillExactAndManualDeletionDirty(); print("RAN MarketModelTests.selectionAutofillExactAndManualDeletionDirty") } catch { record("selectionAutofillExactAndManualDeletionDirty: \(error)") }
+31 | do { try await MarketModelTests().nonpositiveQuoteFailsWithoutFilling(); print("RAN MarketModelTests.nonpositiveQuoteFailsWithoutFilling") } catch { record("nonpositiveQuoteFailsWithoutFilling: \(error)") }
+32 | do { try await MarketModelTests().staleQuoteSuccessAndFailureCannotMutateNewSelection(); print("RAN MarketModelTests.staleQuoteSuccessAndFailureCannotMutateNewSelection") } catch { record("staleQuoteSuccessAndFailureCannotMutateNewSelection: \(error)") }
+   |      `- warning: no calls to throwing functions occur within 'try' expression
+33 | do { try await MarketModelTests().deactivateBackPreservesDraftAndActivationRefetches(); print("RAN MarketModelTests.deactivateBackPreservesDraftAndActivationRefetches") } catch { record("deactivateBackPreservesDraftAndActivationRefetches: \(error)") }
+34 | do { try await MarketModelTests().restoreDirtyEmptyAndChangeStockReset(); print("RAN MarketModelTests.restoreDirtyEmptyAndChangeStockReset") } catch { record("restoreDirtyEmptyAndChangeStockReset: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:32:174: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+30 | do { try await MarketModelTests().selectionAutofillExactAndManualDeletionDirty(); print("RAN MarketModelTests.selectionAutofillExactAndManualDeletionDirty") } catch { record("selectionAutofillExactAndManualDeletionDirty: \(error)") }
+31 | do { try await MarketModelTests().nonpositiveQuoteFailsWithoutFilling(); print("RAN MarketModelTests.nonpositiveQuoteFailsWithoutFilling") } catch { record("nonpositiveQuoteFailsWithoutFilling: \(error)") }
+32 | do { try await MarketModelTests().staleQuoteSuccessAndFailureCannotMutateNewSelection(); print("RAN MarketModelTests.staleQuoteSuccessAndFailureCannotMutateNewSelection") } catch { record("staleQuoteSuccessAndFailureCannotMutateNewSelection: \(error)") }
+   |                                                                                                                                                                              `- warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+33 | do { try await MarketModelTests().deactivateBackPreservesDraftAndActivationRefetches(); print("RAN MarketModelTests.deactivateBackPreservesDraftAndActivationRefetches") } catch { record("deactivateBackPreservesDraftAndActivationRefetches: \(error)") }
+34 | do { try await MarketModelTests().restoreDirtyEmptyAndChangeStockReset(); print("RAN MarketModelTests.restoreDirtyEmptyAndChangeStockReset") } catch { record("restoreDirtyEmptyAndChangeStockReset: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:33:6: warning: no calls to throwing functions occur within 'try' expression
+31 | do { try await MarketModelTests().nonpositiveQuoteFailsWithoutFilling(); print("RAN MarketModelTests.nonpositiveQuoteFailsWithoutFilling") } catch { record("nonpositiveQuoteFailsWithoutFilling: \(error)") }
+32 | do { try await MarketModelTests().staleQuoteSuccessAndFailureCannotMutateNewSelection(); print("RAN MarketModelTests.staleQuoteSuccessAndFailureCannotMutateNewSelection") } catch { record("staleQuoteSuccessAndFailureCannotMutateNewSelection: \(error)") }
+33 | do { try await MarketModelTests().deactivateBackPreservesDraftAndActivationRefetches(); print("RAN MarketModelTests.deactivateBackPreservesDraftAndActivationRefetches") } catch { record("deactivateBackPreservesDraftAndActivationRefetches: \(error)") }
+   |      `- warning: no calls to throwing functions occur within 'try' expression
+34 | do { try await MarketModelTests().restoreDirtyEmptyAndChangeStockReset(); print("RAN MarketModelTests.restoreDirtyEmptyAndChangeStockReset") } catch { record("restoreDirtyEmptyAndChangeStockReset: \(error)") }
+35 | do { try await MarketModelTests().localCategoryFilterRetainsFullResults(); print("RAN MarketModelTests.localCategoryFilterRetainsFullResults") } catch { record("localCategoryFilterRetainsFullResults: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:33:172: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+31 | do { try await MarketModelTests().nonpositiveQuoteFailsWithoutFilling(); print("RAN MarketModelTests.nonpositiveQuoteFailsWithoutFilling") } catch { record("nonpositiveQuoteFailsWithoutFilling: \(error)") }
+32 | do { try await MarketModelTests().staleQuoteSuccessAndFailureCannotMutateNewSelection(); print("RAN MarketModelTests.staleQuoteSuccessAndFailureCannotMutateNewSelection") } catch { record("staleQuoteSuccessAndFailureCannotMutateNewSelection: \(error)") }
+33 | do { try await MarketModelTests().deactivateBackPreservesDraftAndActivationRefetches(); print("RAN MarketModelTests.deactivateBackPreservesDraftAndActivationRefetches") } catch { record("deactivateBackPreservesDraftAndActivationRefetches: \(error)") }
+   |                                                                                                                                                                            `- warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+34 | do { try await MarketModelTests().restoreDirtyEmptyAndChangeStockReset(); print("RAN MarketModelTests.restoreDirtyEmptyAndChangeStockReset") } catch { record("restoreDirtyEmptyAndChangeStockReset: \(error)") }
+35 | do { try await MarketModelTests().localCategoryFilterRetainsFullResults(); print("RAN MarketModelTests.localCategoryFilterRetainsFullResults") } catch { record("localCategoryFilterRetainsFullResults: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:34:6: warning: no calls to throwing functions occur within 'try' expression
+32 | do { try await MarketModelTests().staleQuoteSuccessAndFailureCannotMutateNewSelection(); print("RAN MarketModelTests.staleQuoteSuccessAndFailureCannotMutateNewSelection") } catch { record("staleQuoteSuccessAndFailureCannotMutateNewSelection: \(error)") }
+33 | do { try await MarketModelTests().deactivateBackPreservesDraftAndActivationRefetches(); print("RAN MarketModelTests.deactivateBackPreservesDraftAndActivationRefetches") } catch { record("deactivateBackPreservesDraftAndActivationRefetches: \(error)") }
+34 | do { try await MarketModelTests().restoreDirtyEmptyAndChangeStockReset(); print("RAN MarketModelTests.restoreDirtyEmptyAndChangeStockReset") } catch { record("restoreDirtyEmptyAndChangeStockReset: \(error)") }
+   |      `- warning: no calls to throwing functions occur within 'try' expression
+35 | do { try await MarketModelTests().localCategoryFilterRetainsFullResults(); print("RAN MarketModelTests.localCategoryFilterRetainsFullResults") } catch { record("localCategoryFilterRetainsFullResults: \(error)") }
+36 | do { try await MarketModelTests().completedNewSearchSurvivesLateOldCompletion(); print("RAN MarketModelTests.completedNewSearchSurvivesLateOldCompletion") } catch { record("completedNewSearchSurvivesLateOldCompletion: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:34:144: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+32 | do { try await MarketModelTests().staleQuoteSuccessAndFailureCannotMutateNewSelection(); print("RAN MarketModelTests.staleQuoteSuccessAndFailureCannotMutateNewSelection") } catch { record("staleQuoteSuccessAndFailureCannotMutateNewSelection: \(error)") }
+33 | do { try await MarketModelTests().deactivateBackPreservesDraftAndActivationRefetches(); print("RAN MarketModelTests.deactivateBackPreservesDraftAndActivationRefetches") } catch { record("deactivateBackPreservesDraftAndActivationRefetches: \(error)") }
+34 | do { try await MarketModelTests().restoreDirtyEmptyAndChangeStockReset(); print("RAN MarketModelTests.restoreDirtyEmptyAndChangeStockReset") } catch { record("restoreDirtyEmptyAndChangeStockReset: \(error)") }
+   |                                                                                                                                                `- warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+35 | do { try await MarketModelTests().localCategoryFilterRetainsFullResults(); print("RAN MarketModelTests.localCategoryFilterRetainsFullResults") } catch { record("localCategoryFilterRetainsFullResults: \(error)") }
+36 | do { try await MarketModelTests().completedNewSearchSurvivesLateOldCompletion(); print("RAN MarketModelTests.completedNewSearchSurvivesLateOldCompletion") } catch { record("completedNewSearchSurvivesLateOldCompletion: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:35:6: warning: no calls to throwing functions occur within 'try' expression
+33 | do { try await MarketModelTests().deactivateBackPreservesDraftAndActivationRefetches(); print("RAN MarketModelTests.deactivateBackPreservesDraftAndActivationRefetches") } catch { record("deactivateBackPreservesDraftAndActivationRefetches: \(error)") }
+34 | do { try await MarketModelTests().restoreDirtyEmptyAndChangeStockReset(); print("RAN MarketModelTests.restoreDirtyEmptyAndChangeStockReset") } catch { record("restoreDirtyEmptyAndChangeStockReset: \(error)") }
+35 | do { try await MarketModelTests().localCategoryFilterRetainsFullResults(); print("RAN MarketModelTests.localCategoryFilterRetainsFullResults") } catch { record("localCategoryFilterRetainsFullResults: \(error)") }
+   |      `- warning: no calls to throwing functions occur within 'try' expression
+36 | do { try await MarketModelTests().completedNewSearchSurvivesLateOldCompletion(); print("RAN MarketModelTests.completedNewSearchSurvivesLateOldCompletion") } catch { record("completedNewSearchSurvivesLateOldCompletion: \(error)") }
+37 | do { try await MarketModelTests().restoredNonDirtyNonemptyPricePreserved(); print("RAN MarketModelTests.restoredNonDirtyNonemptyPricePreserved") } catch { record("restoredNonDirtyNonemptyPricePreserved: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:35:146: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+33 | do { try await MarketModelTests().deactivateBackPreservesDraftAndActivationRefetches(); print("RAN MarketModelTests.deactivateBackPreservesDraftAndActivationRefetches") } catch { record("deactivateBackPreservesDraftAndActivationRefetches: \(error)") }
+34 | do { try await MarketModelTests().restoreDirtyEmptyAndChangeStockReset(); print("RAN MarketModelTests.restoreDirtyEmptyAndChangeStockReset") } catch { record("restoreDirtyEmptyAndChangeStockReset: \(error)") }
+35 | do { try await MarketModelTests().localCategoryFilterRetainsFullResults(); print("RAN MarketModelTests.localCategoryFilterRetainsFullResults") } catch { record("localCategoryFilterRetainsFullResults: \(error)") }
+   |                                                                                                                                                  `- warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+36 | do { try await MarketModelTests().completedNewSearchSurvivesLateOldCompletion(); print("RAN MarketModelTests.completedNewSearchSurvivesLateOldCompletion") } catch { record("completedNewSearchSurvivesLateOldCompletion: \(error)") }
+37 | do { try await MarketModelTests().restoredNonDirtyNonemptyPricePreserved(); print("RAN MarketModelTests.restoredNonDirtyNonemptyPricePreserved") } catch { record("restoredNonDirtyNonemptyPricePreserved: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:36:6: warning: no calls to throwing functions occur within 'try' expression
+34 | do { try await MarketModelTests().restoreDirtyEmptyAndChangeStockReset(); print("RAN MarketModelTests.restoreDirtyEmptyAndChangeStockReset") } catch { record("restoreDirtyEmptyAndChangeStockReset: \(error)") }
+35 | do { try await MarketModelTests().localCategoryFilterRetainsFullResults(); print("RAN MarketModelTests.localCategoryFilterRetainsFullResults") } catch { record("localCategoryFilterRetainsFullResults: \(error)") }
+36 | do { try await MarketModelTests().completedNewSearchSurvivesLateOldCompletion(); print("RAN MarketModelTests.completedNewSearchSurvivesLateOldCompletion") } catch { record("completedNewSearchSurvivesLateOldCompletion: \(error)") }
+   |      `- warning: no calls to throwing functions occur within 'try' expression
+37 | do { try await MarketModelTests().restoredNonDirtyNonemptyPricePreserved(); print("RAN MarketModelTests.restoredNonDirtyNonemptyPricePreserved") } catch { record("restoredNonDirtyNonemptyPricePreserved: \(error)") }
+38 | do { try await MarketModelTests().explicitRetryAfterFailureAndNoAutomaticRetry(); print("RAN MarketModelTests.explicitRetryAfterFailureAndNoAutomaticRetry") } catch { record("explicitRetryAfterFailureAndNoAutomaticRetry: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:36:158: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+34 | do { try await MarketModelTests().restoreDirtyEmptyAndChangeStockReset(); print("RAN MarketModelTests.restoreDirtyEmptyAndChangeStockReset") } catch { record("restoreDirtyEmptyAndChangeStockReset: \(error)") }
+35 | do { try await MarketModelTests().localCategoryFilterRetainsFullResults(); print("RAN MarketModelTests.localCategoryFilterRetainsFullResults") } catch { record("localCategoryFilterRetainsFullResults: \(error)") }
+36 | do { try await MarketModelTests().completedNewSearchSurvivesLateOldCompletion(); print("RAN MarketModelTests.completedNewSearchSurvivesLateOldCompletion") } catch { record("completedNewSearchSurvivesLateOldCompletion: \(error)") }
+   |                                                                                                                                                              `- warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+37 | do { try await MarketModelTests().restoredNonDirtyNonemptyPricePreserved(); print("RAN MarketModelTests.restoredNonDirtyNonemptyPricePreserved") } catch { record("restoredNonDirtyNonemptyPricePreserved: \(error)") }
+38 | do { try await MarketModelTests().explicitRetryAfterFailureAndNoAutomaticRetry(); print("RAN MarketModelTests.explicitRetryAfterFailureAndNoAutomaticRetry") } catch { record("explicitRetryAfterFailureAndNoAutomaticRetry: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:37:6: warning: no calls to throwing functions occur within 'try' expression
+35 | do { try await MarketModelTests().localCategoryFilterRetainsFullResults(); print("RAN MarketModelTests.localCategoryFilterRetainsFullResults") } catch { record("localCategoryFilterRetainsFullResults: \(error)") }
+36 | do { try await MarketModelTests().completedNewSearchSurvivesLateOldCompletion(); print("RAN MarketModelTests.completedNewSearchSurvivesLateOldCompletion") } catch { record("completedNewSearchSurvivesLateOldCompletion: \(error)") }
+37 | do { try await MarketModelTests().restoredNonDirtyNonemptyPricePreserved(); print("RAN MarketModelTests.restoredNonDirtyNonemptyPricePreserved") } catch { record("restoredNonDirtyNonemptyPricePreserved: \(error)") }
+   |      `- warning: no calls to throwing functions occur within 'try' expression
+38 | do { try await MarketModelTests().explicitRetryAfterFailureAndNoAutomaticRetry(); print("RAN MarketModelTests.explicitRetryAfterFailureAndNoAutomaticRetry") } catch { record("explicitRetryAfterFailureAndNoAutomaticRetry: \(error)") }
+39 | do { try await QueryEncodingRegressionTests().formDecoderPreservesLiteralPlus(); print("RAN QueryEncodingRegressionTests.formDecoderPreservesLiteralPlus") } catch { record("formDecoderPreservesLiteralPlus: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:37:148: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+35 | do { try await MarketModelTests().localCategoryFilterRetainsFullResults(); print("RAN MarketModelTests.localCategoryFilterRetainsFullResults") } catch { record("localCategoryFilterRetainsFullResults: \(error)") }
+36 | do { try await MarketModelTests().completedNewSearchSurvivesLateOldCompletion(); print("RAN MarketModelTests.completedNewSearchSurvivesLateOldCompletion") } catch { record("completedNewSearchSurvivesLateOldCompletion: \(error)") }
+37 | do { try await MarketModelTests().restoredNonDirtyNonemptyPricePreserved(); print("RAN MarketModelTests.restoredNonDirtyNonemptyPricePreserved") } catch { record("restoredNonDirtyNonemptyPricePreserved: \(error)") }
+   |                                                                                                                                                    `- warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+38 | do { try await MarketModelTests().explicitRetryAfterFailureAndNoAutomaticRetry(); print("RAN MarketModelTests.explicitRetryAfterFailureAndNoAutomaticRetry") } catch { record("explicitRetryAfterFailureAndNoAutomaticRetry: \(error)") }
+39 | do { try await QueryEncodingRegressionTests().formDecoderPreservesLiteralPlus(); print("RAN QueryEncodingRegressionTests.formDecoderPreservesLiteralPlus") } catch { record("formDecoderPreservesLiteralPlus: \(error)") }
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:38:6: warning: no calls to throwing functions occur within 'try' expression
+36 | do { try await MarketModelTests().completedNewSearchSurvivesLateOldCompletion(); print("RAN MarketModelTests.completedNewSearchSurvivesLateOldCompletion") } catch { record("completedNewSearchSurvivesLateOldCompletion: \(error)") }
+37 | do { try await MarketModelTests().restoredNonDirtyNonemptyPricePreserved(); print("RAN MarketModelTests.restoredNonDirtyNonemptyPricePreserved") } catch { record("restoredNonDirtyNonemptyPricePreserved: \(error)") }
+38 | do { try await MarketModelTests().explicitRetryAfterFailureAndNoAutomaticRetry(); print("RAN MarketModelTests.explicitRetryAfterFailureAndNoAutomaticRetry") } catch { record("explicitRetryAfterFailureAndNoAutomaticRetry: \(error)") }
+   |      `- warning: no calls to throwing functions occur within 'try' expression
+39 | do { try await QueryEncodingRegressionTests().formDecoderPreservesLiteralPlus(); print("RAN QueryEncodingRegressionTests.formDecoderPreservesLiteralPlus") } catch { record("formDecoderPreservesLiteralPlus: \(error)") }
+40 | print("HOST TESTS 32; FAILURES \(failures)"); exit(failures == 0 ? 0 : 1)
+
+/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:38:160: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+36 | do { try await MarketModelTests().completedNewSearchSurvivesLateOldCompletion(); print("RAN MarketModelTests.completedNewSearchSurvivesLateOldCompletion") } catch { record("completedNewSearchSurvivesLateOldCompletion: \(error)") }
+37 | do { try await MarketModelTests().restoredNonDirtyNonemptyPricePreserved(); print("RAN MarketModelTests.restoredNonDirtyNonemptyPricePreserved") } catch { record("restoredNonDirtyNonemptyPricePreserved: \(error)") }
+38 | do { try await MarketModelTests().explicitRetryAfterFailureAndNoAutomaticRetry(); print("RAN MarketModelTests.explicitRetryAfterFailureAndNoAutomaticRetry") } catch { record("explicitRetryAfterFailureAndNoAutomaticRetry: \(error)") }
+   |                                                                                                                                                                `- warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+39 | do { try await QueryEncodingRegressionTests().formDecoderPreservesLiteralPlus(); print("RAN QueryEncodingRegressionTests.formDecoderPreservesLiteralPlus") } catch { record("formDecoderPreservesLiteralPlus: \(error)") }
+40 | print("HOST TESTS 32; FAILURES \(failures)"); exit(failures == 0 ? 0 : 1)
+RAN APIContractTests.queryEncodingAndCountry
+RAN APIContractTests.validMarketsAndSafeMaximumID
+RAN APIContractTests.malformedSearchAndIDsRejected
+RAN APIContractTests.jsonLexicalAndShapeBoundaries
+RAN APIContractTests.currencyFallbackPolicy
+RAN APIContractTests.priceLexicalPrecisionAndDateStrings
+RAN APIContractTests.invalidPricesRejected
+RAN APIContractTests.invalidRequestedIDNeverSent
+RAN APIContractTests.httpErrorClassification
+RAN APIContractTests.networkAndCancellationClassification
+FAIL /var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:18 genericJSONPreservesNumbersAndNull: ServiceError(status: 501, code: nil, message: "요청을 처리하지 못했습니다.")
+FAIL /var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:19 formQueryAnd204Handling: ServiceError(status: 501, code: nil, message: "요청을 처리하지 못했습니다.")
+FAIL /var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:20 csrfBodyAndNoPrecisionLossOnWrite: ServiceError(status: 501, code: nil, message: "요청을 처리하지 못했습니다.")
+FAIL /var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:21 unauthorizedRefreshThenRetryOnce: ServiceError(status: 501, code: nil, message: "요청을 처리하지 못했습니다.")
+FAIL /var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/FullServiceTests.swift:57 expectation false
+RAN FullServiceTests.httpErrorsKeepCodeAndMessage
+FAIL /var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/FullServiceTests.swift:62 expectation false
+RAN FullServiceTests.malformedCSRFNeverWrites
+FAIL /var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:24 mobileExchangeSkipsCSRFAndPreserves204: ServiceError(status: 501, code: nil, message: "요청을 처리하지 못했습니다.")
+FAIL /var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:25 publicEndpointCatalogMatchesOriginal: ServiceError(status: 501, code: nil, message: "요청을 처리하지 못했습니다.")
+FAIL /var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/ios-author-harness-2c2g61_a/Harness.swift:26 memberAndWriteEndpointCatalog: ServiceError(status: 501, code: nil, message: "요청을 처리하지 못했습니다.")
+RAN MarketModelTests.debounceTrimsJSWhitespaceAndBlankSkips
+RAN MarketModelTests.nelPreservedAndCountryReissues
+RAN MarketModelTests.staleSearchSuccessErrorAndLoadingGuard
+RAN MarketModelTests.selectionAutofillExactAndManualDeletionDirty
+RAN MarketModelTests.nonpositiveQuoteFailsWithoutFilling
+RAN MarketModelTests.staleQuoteSuccessAndFailureCannotMutateNewSelection
+RAN MarketModelTests.deactivateBackPreservesDraftAndActivationRefetches
+RAN MarketModelTests.restoreDirtyEmptyAndChangeStockReset
+RAN MarketModelTests.localCategoryFilterRetainsFullResults
+RAN MarketModelTests.completedNewSearchSurvivesLateOldCompletion
+RAN MarketModelTests.restoredNonDirtyNonemptyPricePreserved
+RAN MarketModelTests.explicitRetryAfterFailureAndNoAutomaticRetry
+RAN QueryEncodingRegressionTests.formDecoderPreservesLiteralPlus
+HOST TESTS 32; FAILURES 9
+{"exit_code": 1, "elapsed_seconds": 3.734, "canonical_test_count": 32}

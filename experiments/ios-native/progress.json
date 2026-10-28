@@ -1,0 +1,7 @@
+{
+  "recorded_at": "2026-10-28T09:29:30.614380+00:00",
+  "status": "host_and_http_accepted_native_blocked",
+  "result": "acceptance.json",
+  "all_roles": "completed bounded host/source work; native verification blocked",
+  "full_frontend": "remaining modules mapped; not implemented"
+}

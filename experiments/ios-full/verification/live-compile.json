@@ -1,0 +1,38 @@
+{
+  "command": [
+    "swiftc",
+    "-swift-version",
+    "6",
+    "-parse-as-library",
+    "-module-cache-path",
+    "/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-native/verification/module-cache",
+    "/Users/seoyeong/develop/AI/daynomy_agent/clients/ios/Sources/DaynomyCore/API.swift",
+    "/Users/seoyeong/develop/AI/daynomy_agent/clients/ios/Sources/DaynomyCore/Contracts.swift",
+    "/Users/seoyeong/develop/AI/daynomy_agent/clients/ios/Sources/DaynomyCore/MarketModel.swift",
+    "/Users/seoyeong/develop/AI/daynomy_agent/clients/ios/Sources/DaynomyCore/NativeAuthContract.swift",
+    "/Users/seoyeong/develop/AI/daynomy_agent/clients/ios/Sources/DaynomyCore/PortfolioContracts.swift",
+    "/Users/seoyeong/develop/AI/daynomy_agent/clients/ios/Sources/DaynomyCore/PortfolioEngine.swift",
+    "/Users/seoyeong/develop/AI/daynomy_agent/clients/ios/Sources/DaynomyCore/ServiceClient.swift",
+    "/Users/seoyeong/develop/AI/daynomy_agent/clients/ios/Sources/DaynomyCore/ServiceContracts.swift",
+    "/Users/seoyeong/develop/AI/daynomy_agent/clients/ios/Sources/DaynomyCore/ServiceEndpoints.swift",
+    "/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-full/verification/FullLiveHTTP.swift",
+    "-o",
+    "/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-full/verification/full-live"
+  ],
+  "exit_code": 0,
+  "source_hashes": {
+    "clients/ios/Sources/DaynomyCore/API.swift": "d33b9b7c9e4cc21095f8765e66054201d965d683923cf020379c9f842414130d",
+    "clients/ios/Sources/DaynomyCore/Contracts.swift": "a8fd25ed4f714075e8d4c54f126c2b5048b38ab15ae8f2c0fcfe2f3052692640",
+    "clients/ios/Sources/DaynomyCore/MarketModel.swift": "6aa1d0fe9c94f879d565768d7712111ac4533bebfa71641b0682e8174d26bf3c",
+    "clients/ios/Sources/DaynomyCore/NativeAuthContract.swift": "83b9160c72906b9f2b1e78b7f399823584d1ca293d48ebf708afae8f7b2ebb0d",
+    "clients/ios/Sources/DaynomyCore/PortfolioContracts.swift": "8671b6c0fce77b015331c4a5d8b1df509adfc420bc6e2cc9aa21a59c8320105b",
+    "clients/ios/Sources/DaynomyCore/PortfolioEngine.swift": "0bc2f1d62ba11e6d7f6b041ba3c4a6afb9bd288ddd6384afd7fbcf8c9fd839d4",
+    "clients/ios/Sources/DaynomyCore/ServiceClient.swift": "53a271a77e10399223844dd2d0f1c8e2f3e9b11ef4d6ee0d4c7375d543c43db0",
+    "clients/ios/Sources/DaynomyCore/ServiceContracts.swift": "05bc1b533eab09eb927788da082faceb739903bf2ce6e4c15b3c2c2fde69fa53",
+    "clients/ios/Sources/DaynomyCore/ServiceEndpoints.swift": "5a5709a60b29a4f59c0934fb8a52c1da49b45ed4913219896e3dbee901c047a4"
+  },
+  "changed_since_compile": [
+    "clients/ios/Sources/DaynomyCore/PortfolioEngine.swift"
+  ],
+  "binary_sha256": "47ef6a88ec9fdec8b1a672484d67e8e0f8739e8cacf8dcfa2cfbe1d48d998ca6"
+}

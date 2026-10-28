@@ -1,0 +1,15 @@
+{
+  "execution": "desktop_subagents",
+  "max_concurrent_agents_including_coordinator": 4,
+  "scope": ["stock-search", "latest-stored-price", "manual-price-preservation", "native-swiftui-screen"],
+  "roles": {
+    "test_author": {"agent": "ios_tests", "model": "gpt-6.1-sol", "reasoning_effort": "medium"},
+    "implementer": {"agent": "ios_implementer", "model": "gpt-6.1-sol", "reasoning_effort": "medium"},
+    "independent_verifier": {"agent": "ios_verifier", "model": "gpt-6-astra", "reasoning_effort": "high"}
+  },
+  "knowledge_policy": "local KB -> linked original/pinned official source -> unresolved gap only: official web",
+  "knowledge_packet": "experiments/ios-native/knowledge-packet.json",
+  "phases": ["contract-and-stubs", "independent-red-tests", "freeze-test-hashes", "implementation", "actual-verification", "independent-review", "fix-and-reverify"],
+  "scheduling": "Environment checks and implementation preparation overlap test authoring. Behavioral implementation waits for its frozen tests. Verification preparation overlaps implementation. Shared DB/build checks are serialized.",
+  "note": "The current chat dispatches agents. This JSON is a record, not an unattended runner. Test author, implementer and verifier are distinct. Swift host tests do not certify an iOS SDK build or simulator UI execution."
+}

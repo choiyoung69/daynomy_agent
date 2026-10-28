@@ -1,0 +1,61 @@
+{
+  "exit_code": 0,
+  "elapsed_seconds": 0.4901515420060605,
+  "slow_request_observed": true,
+  "socket_disconnect_observed": true,
+  "requests": [
+    {
+      "path": "/api/stocks",
+      "query": {
+        "q": [
+          "삼성 & ETF%_!+?#"
+        ],
+        "country": [
+          "US"
+        ]
+      },
+      "method": "GET"
+    },
+    {
+      "path": "/api/stocks/1/price",
+      "query": {},
+      "method": "GET"
+    },
+    {
+      "path": "/api/stocks/404/price",
+      "query": {},
+      "method": "GET"
+    },
+    {
+      "path": "/api/stocks/405/price",
+      "query": {},
+      "method": "GET"
+    },
+    {
+      "path": "/api/stocks/2/price",
+      "query": {},
+      "method": "GET"
+    },
+    {
+      "path": "/__status",
+      "query": {},
+      "method": "GET"
+    },
+    {
+      "path": "/api/stocks",
+      "query": {
+        "q": [
+          "cancel"
+        ]
+      },
+      "method": "GET"
+    },
+    {
+      "path": "/__status",
+      "query": {},
+      "method": "GET"
+    }
+  ],
+  "binary_sha256": "e9e93d5e21f76e8bb4b5c29fe74e061cee670ff8295d19d3317394f118f2366b",
+  "scope": "macOS URLSession real loopback HTTP; not iOS"
+}
