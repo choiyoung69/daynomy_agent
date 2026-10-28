@@ -1,0 +1,76 @@
+{
+  "checked_at": "2026-10-28T06:55:22.428193+00:00",
+  "scope": "Bounded knowledge baseline structure and saved evidence integrity; not independent semantic or app validation",
+  "commands": [
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "scripts/knowledge.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "stdout": "PASS local source hashes 91/91; wiki pages 39; evaluation questions 25; metadata, source IDs and local links\nExternal sources 49: pinned response hashes 49; live content not checked.\nPlatform mappings 5: structure checked, preparation status assessed by context.\nNo semantic answer evaluation or app/server/DB/UI verification was performed.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "scripts/knowledge.py",
+        "coverage",
+        "--json"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"baseline_structure_complete\": true,\n  \"scope\": \"F01-F13, F14 deferred; five language and five platform knowledge packages\",\n  \"service_features\": 14,\n  \"language_packages\": 5,\n  \"platform_packages\": 5,\n  \"required_documents\": 36,\n  \"external_sources_pinned\": 49,\n  \"controller_count\": 31,\n  \"handler_count\": 81,\n  \"expanded_route_count\": 89,\n  \"implementation_readiness\": \"Use context --require-ready per feature/platform; not certified by coverage\",\n  \"independent_semantic_evaluation\": \"not-run\",\n  \"target_app_runtime_validation\": \"not-run\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "scripts/knowledge_inventory.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "PASS Java/spec mappings: 31 controllers, 81 handlers, 89 routes\n",
+      "stderr": ""
+    }
+  ],
+  "source_hashes": {
+    "scripts/knowledge.py": "446421a8b86bf9cfa52468e10d2d76d38ae6f8e857742df9f11a0ecd9627c6b8",
+    "scripts/knowledge_inventory.py": "337b03997560bf785626e9aaa3f1e6754c676c23c3c0a6277e150dcdce112f1d",
+    "scripts/knowledge_sources.py": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4",
+    "scripts/test_knowledge.py": "751b4613a7f35af2870b43eae5a45e989d46a4e658c4360f50316afbcc61d512",
+    "scripts/test_knowledge_inventory.py": "f2b436dd681100cf2438af5724f9efdea55373a76c3941629550d248c9299698",
+    "scripts/test_knowledge_sources.py": "25060bf0073d020636b301c0407ccb164d5db5bdebe6cbddb9fccf3a23f6b0c1",
+    "knowledge/packs.json": "dc598ac8a39ae8aa0e4daa8c86b04c3e92565dcd131e53f89f29d47dab1c8324",
+    "knowledge/service-map.json": "edbd0a1c6f8bc05def4cdc898912d82be0f834db2e05cc5062ccbd28945f8dfd",
+    "knowledge/contracts/api-index.json": "e8017d9e52116cfa88bfba448faac82d16304b2b132ff76fc0b054320857d4a0",
+    "knowledge/contracts/stock-search-price.json": "03fb14fe1c685b4737eafcb97c4d25aea8becfa07f49040cb87f3c4b937a4921",
+    "knowledge/evals/questions.json": "5bba143525c6ca85197e6fbf8781b0c38afc67496e2bedfc50d4ecb1cc4b5d25"
+  },
+  "evidence_checks": [
+    {
+      "path": "knowledge/evidence/2026-10-28-stock-contract.json",
+      "sha256": "d803a23b77b39e0df8cab4bfae4b2503d889695ef18f8f872c09f17bb24c621c",
+      "source_hashes_match": true
+    },
+    {
+      "path": "knowledge/evidence/2026-10-28-unicode.json",
+      "sha256": "c6c874594e58538c0974f67239c347173219417b49c051ab82c72c7fbba1d40d",
+      "source_hashes_match": true
+    },
+    {
+      "path": "knowledge/evidence/2026-10-28-language-01.json",
+      "sha256": "5e6739c47d3d493317d3883a00fd0fcd3f2911285a0d6db1b12bfa8c0657eb21",
+      "source_hashes_match": true
+    }
+  ],
+  "regression_tests": {
+    "reported_from_previous_actual_tool_calls": true,
+    "selection_and_readiness": 11,
+    "source_capture_and_pin": 6,
+    "api_inventory": 4,
+    "all_exit_codes": 0,
+    "independent_review": false
+  },
+  "implementation_ready_certified": false
+}

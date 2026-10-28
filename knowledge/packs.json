@@ -1,0 +1,764 @@
+{
+  "schema_version": 2,
+  "purpose": "Compose common + feature + language + platform knowledge; not an agent runner",
+  "readiness_scope": "knowledge preparation for implementation, not completed app validation",
+  "features": {
+    "stock-search-price": {
+      "status": "proposed-pilot",
+      "shared_documents": [
+        "wiki/projects/daynomy/stock-search-price.md",
+        "wiki/shared/client-porting-baseline.md",
+        "wiki/shared/error-retry-cancel.md",
+        "wiki/shared/data-semantics.md",
+        "wiki/shared/build-validation.md",
+        "wiki/shared/ui-state-navigation.md",
+        "wiki/shared/testing-migration.md"
+      ],
+      "required_topics": [
+        "language-data",
+        "state-lifecycle",
+        "requests-cancellation",
+        "build-validation"
+      ]
+    },
+    "auth-session": {
+      "status": "documented-baseline",
+      "feature_id": "F01",
+      "shared_documents": [
+        "wiki/projects/daynomy/auth-session.md",
+        "wiki/shared/client-porting-baseline.md",
+        "wiki/shared/error-retry-cancel.md",
+        "wiki/shared/data-semantics.md",
+        "wiki/shared/build-validation.md",
+        "wiki/shared/ui-state-navigation.md",
+        "wiki/shared/testing-migration.md",
+        "wiki/shared/auth-storage.md"
+      ],
+      "required_topics": [
+        "language-data",
+        "state-lifecycle",
+        "requests-cancellation",
+        "build-validation"
+      ]
+    },
+    "account": {
+      "status": "documented-baseline",
+      "feature_id": "F02",
+      "shared_documents": [
+        "wiki/projects/daynomy/account.md",
+        "wiki/shared/client-porting-baseline.md",
+        "wiki/shared/error-retry-cancel.md",
+        "wiki/shared/data-semantics.md",
+        "wiki/shared/build-validation.md",
+        "wiki/shared/ui-state-navigation.md",
+        "wiki/shared/testing-migration.md",
+        "wiki/shared/auth-storage.md",
+        "wiki/shared/transactions-concurrency.md"
+      ],
+      "required_topics": [
+        "language-data",
+        "state-lifecycle",
+        "requests-cancellation",
+        "build-validation"
+      ]
+    },
+    "stocks-exchange": {
+      "status": "documented-baseline",
+      "feature_id": "F03",
+      "shared_documents": [
+        "wiki/projects/daynomy/stocks-exchange.md",
+        "wiki/shared/client-porting-baseline.md",
+        "wiki/shared/error-retry-cancel.md",
+        "wiki/shared/data-semantics.md",
+        "wiki/shared/build-validation.md",
+        "wiki/shared/ui-state-navigation.md",
+        "wiki/shared/testing-migration.md",
+        "wiki/projects/daynomy/stock-search-price.md"
+      ],
+      "required_topics": [
+        "language-data",
+        "state-lifecycle",
+        "requests-cancellation",
+        "build-validation"
+      ]
+    },
+    "portfolio-calculation": {
+      "status": "documented-baseline",
+      "feature_id": "F04",
+      "shared_documents": [
+        "wiki/projects/daynomy/portfolio-calculation.md",
+        "wiki/shared/client-porting-baseline.md",
+        "wiki/shared/error-retry-cancel.md",
+        "wiki/shared/data-semantics.md",
+        "wiki/shared/build-validation.md",
+        "wiki/shared/ui-state-navigation.md",
+        "wiki/shared/testing-migration.md"
+      ],
+      "required_topics": [
+        "language-data",
+        "state-lifecycle",
+        "requests-cancellation",
+        "build-validation"
+      ]
+    },
+    "portfolio-ledger": {
+      "status": "documented-baseline",
+      "feature_id": "F05",
+      "shared_documents": [
+        "wiki/projects/daynomy/portfolio-ledger.md",
+        "wiki/shared/client-porting-baseline.md",
+        "wiki/shared/error-retry-cancel.md",
+        "wiki/shared/data-semantics.md",
+        "wiki/shared/build-validation.md",
+        "wiki/shared/ui-state-navigation.md",
+        "wiki/shared/testing-migration.md",
+        "wiki/shared/auth-storage.md",
+        "wiki/shared/transactions-concurrency.md"
+      ],
+      "required_topics": [
+        "language-data",
+        "state-lifecycle",
+        "requests-cancellation",
+        "build-validation"
+      ]
+    },
+    "portfolio-analysis": {
+      "status": "documented-baseline",
+      "feature_id": "F06",
+      "shared_documents": [
+        "wiki/projects/daynomy/portfolio-analysis.md",
+        "wiki/shared/client-porting-baseline.md",
+        "wiki/shared/error-retry-cancel.md",
+        "wiki/shared/data-semantics.md",
+        "wiki/shared/build-validation.md",
+        "wiki/shared/ui-state-navigation.md",
+        "wiki/shared/testing-migration.md",
+        "wiki/shared/auth-storage.md",
+        "wiki/shared/transactions-concurrency.md"
+      ],
+      "required_topics": [
+        "language-data",
+        "state-lifecycle",
+        "requests-cancellation",
+        "build-validation"
+      ]
+    },
+    "investment-calendar": {
+      "status": "documented-baseline",
+      "feature_id": "F07",
+      "shared_documents": [
+        "wiki/projects/daynomy/investment-calendar.md",
+        "wiki/shared/client-porting-baseline.md",
+        "wiki/shared/error-retry-cancel.md",
+        "wiki/shared/data-semantics.md",
+        "wiki/shared/build-validation.md",
+        "wiki/shared/ui-state-navigation.md",
+        "wiki/shared/testing-migration.md",
+        "wiki/shared/auth-storage.md"
+      ],
+      "required_topics": [
+        "language-data",
+        "state-lifecycle",
+        "requests-cancellation",
+        "build-validation"
+      ]
+    },
+    "news": {
+      "status": "documented-baseline",
+      "feature_id": "F08",
+      "shared_documents": [
+        "wiki/projects/daynomy/news.md",
+        "wiki/shared/client-porting-baseline.md",
+        "wiki/shared/error-retry-cancel.md",
+        "wiki/shared/data-semantics.md",
+        "wiki/shared/build-validation.md",
+        "wiki/shared/ui-state-navigation.md",
+        "wiki/shared/testing-migration.md"
+      ],
+      "required_topics": [
+        "language-data",
+        "state-lifecycle",
+        "requests-cancellation",
+        "build-validation"
+      ]
+    },
+    "content-search": {
+      "status": "documented-baseline",
+      "feature_id": "F09",
+      "shared_documents": [
+        "wiki/projects/daynomy/content-search.md",
+        "wiki/shared/client-porting-baseline.md",
+        "wiki/shared/error-retry-cancel.md",
+        "wiki/shared/data-semantics.md",
+        "wiki/shared/build-validation.md",
+        "wiki/shared/ui-state-navigation.md",
+        "wiki/shared/testing-migration.md"
+      ],
+      "required_topics": [
+        "language-data",
+        "state-lifecycle",
+        "requests-cancellation",
+        "build-validation"
+      ]
+    },
+    "content-people": {
+      "status": "documented-baseline",
+      "feature_id": "F10",
+      "shared_documents": [
+        "wiki/projects/daynomy/content-people.md",
+        "wiki/shared/client-porting-baseline.md",
+        "wiki/shared/error-retry-cancel.md",
+        "wiki/shared/data-semantics.md",
+        "wiki/shared/build-validation.md",
+        "wiki/shared/ui-state-navigation.md",
+        "wiki/shared/testing-migration.md"
+      ],
+      "required_topics": [
+        "language-data",
+        "state-lifecycle",
+        "requests-cancellation",
+        "build-validation"
+      ]
+    },
+    "feedback": {
+      "status": "documented-baseline",
+      "feature_id": "F11",
+      "shared_documents": [
+        "wiki/projects/daynomy/feedback.md",
+        "wiki/shared/client-porting-baseline.md",
+        "wiki/shared/error-retry-cancel.md",
+        "wiki/shared/data-semantics.md",
+        "wiki/shared/build-validation.md",
+        "wiki/shared/ui-state-navigation.md",
+        "wiki/shared/testing-migration.md",
+        "wiki/shared/auth-storage.md"
+      ],
+      "required_topics": [
+        "language-data",
+        "state-lifecycle",
+        "requests-cancellation",
+        "build-validation"
+      ]
+    },
+    "administration": {
+      "status": "documented-baseline",
+      "feature_id": "F12",
+      "shared_documents": [
+        "wiki/projects/daynomy/administration.md",
+        "wiki/shared/client-porting-baseline.md",
+        "wiki/shared/error-retry-cancel.md",
+        "wiki/shared/data-semantics.md",
+        "wiki/shared/build-validation.md",
+        "wiki/shared/ui-state-navigation.md",
+        "wiki/shared/testing-migration.md",
+        "wiki/shared/auth-storage.md",
+        "wiki/shared/transactions-concurrency.md"
+      ],
+      "required_topics": [
+        "language-data",
+        "state-lifecycle",
+        "requests-cancellation",
+        "build-validation"
+      ]
+    },
+    "sync-jobs": {
+      "status": "documented-baseline",
+      "feature_id": "F13",
+      "shared_documents": [
+        "wiki/projects/daynomy/sync-jobs.md",
+        "wiki/shared/client-porting-baseline.md",
+        "wiki/shared/error-retry-cancel.md",
+        "wiki/shared/data-semantics.md",
+        "wiki/shared/build-validation.md",
+        "wiki/shared/ui-state-navigation.md",
+        "wiki/shared/testing-migration.md",
+        "wiki/shared/transactions-concurrency.md"
+      ],
+      "required_topics": [
+        "language-data",
+        "state-lifecycle",
+        "requests-cancellation",
+        "build-validation"
+      ]
+    },
+    "notifications-deferred": {
+      "status": "deferred",
+      "feature_id": "F14",
+      "shared_documents": [
+        "wiki/projects/daynomy/notifications-deferred.md",
+        "wiki/shared/client-porting-baseline.md",
+        "wiki/shared/error-retry-cancel.md",
+        "wiki/shared/data-semantics.md",
+        "wiki/shared/build-validation.md",
+        "wiki/shared/ui-state-navigation.md",
+        "wiki/shared/testing-migration.md",
+        "wiki/shared/auth-storage.md"
+      ],
+      "required_topics": [
+        "language-data",
+        "state-lifecycle",
+        "requests-cancellation",
+        "build-validation"
+      ]
+    }
+  },
+  "platforms": {
+    "android": {
+      "title": "Android 네이티브",
+      "document": "wiki/platforms/android.md",
+      "selected_versions": null,
+      "source_ids": [
+        "E12",
+        "E17"
+      ],
+      "topics": {
+        "language-data": "partial",
+        "state-lifecycle": "documented",
+        "requests-cancellation": "partial",
+        "build-validation": "pending"
+      },
+      "extra_required_topics": [],
+      "pending_decisions": [
+        "지원 Android·Kotlin·Compose 버전과 HTTP·JSON 라이브러리 선택",
+        "숫자·날짜 디코딩과 화면 재생성 후 입력값 유지 정책"
+      ],
+      "runtime_verification": "not-run",
+      "required_version_fields": [
+        "android-min",
+        "kotlin",
+        "compose"
+      ],
+      "language_packages": [
+        "kotlin"
+      ],
+      "implementation_package": "android-kotlin"
+    },
+    "ios": {
+      "title": "iOS 네이티브",
+      "document": "wiki/platforms/ios.md",
+      "selected_versions": null,
+      "source_ids": [
+        "E13",
+        "E18"
+      ],
+      "topics": {
+        "language-data": "partial",
+        "state-lifecycle": "partial",
+        "requests-cancellation": "documented",
+        "build-validation": "pending"
+      },
+      "extra_required_topics": [],
+      "pending_decisions": [
+        "지원 iOS·Swift 버전과 사용 가능한 UI·네트워크 API 선택",
+        "숫자·날짜 디코딩과 UI 상태 격리·보존 정책"
+      ],
+      "runtime_verification": "not-run",
+      "required_version_fields": [
+        "ios-min",
+        "swift",
+        "xcode"
+      ],
+      "language_packages": [
+        "swift"
+      ],
+      "implementation_package": "ios-swift"
+    },
+    "react-native": {
+      "title": "React Native",
+      "document": "wiki/platforms/react-native.md",
+      "selected_versions": null,
+      "source_ids": [
+        "E02",
+        "E14"
+      ],
+      "topics": {
+        "language-data": "partial",
+        "state-lifecycle": "pending",
+        "requests-cancellation": "partial",
+        "build-validation": "pending"
+      },
+      "extra_required_topics": [],
+      "pending_decisions": [
+        "React Native·TypeScript·OS 버전과 런타임 선택",
+        "요청 취소·쿠키·화면 수명과 브라우저 의존 코드 대응"
+      ],
+      "runtime_verification": "not-run",
+      "required_version_fields": [
+        "react-native",
+        "typescript",
+        "android-min",
+        "ios-min"
+      ],
+      "language_packages": [
+        "typescript"
+      ],
+      "implementation_package": "react-native-typescript"
+    },
+    "flutter": {
+      "title": "Flutter",
+      "document": "wiki/platforms/flutter.md",
+      "selected_versions": null,
+      "source_ids": [
+        "E03",
+        "E15",
+        "E16"
+      ],
+      "topics": {
+        "language-data": "partial",
+        "state-lifecycle": "documented",
+        "requests-cancellation": "partial",
+        "build-validation": "pending"
+      },
+      "extra_required_topics": [],
+      "pending_decisions": [
+        "Dart·Flutter·OS 버전과 HTTP·JSON·상태 관리 방식 선택",
+        "숫자·날짜 디코딩과 실제 HTTP 취소 계약"
+      ],
+      "runtime_verification": "not-run",
+      "required_version_fields": [
+        "flutter",
+        "dart",
+        "android-min",
+        "ios-min"
+      ],
+      "language_packages": [
+        "dart"
+      ],
+      "implementation_package": "flutter-dart"
+    },
+    "webview": {
+      "title": "WebView",
+      "document": "wiki/platforms/webview.md",
+      "selected_versions": null,
+      "source_ids": [
+        "E04",
+        "E11"
+      ],
+      "topics": {
+        "language-data": "partial",
+        "state-lifecycle": "partial",
+        "requests-cancellation": "partial",
+        "build-validation": "pending",
+        "host-integration": "partial"
+      },
+      "extra_required_topics": [
+        "host-integration"
+      ],
+      "pending_decisions": [
+        "Android/iOS 호스트 범위·버전과 웹 제공 URL·방식 선택",
+        "쿠키·로그인 복귀·탐색·입력 보존 정책와 빌드·검사 명령"
+      ],
+      "runtime_verification": "not-run",
+      "required_version_fields": [
+        "android-min",
+        "ios-min",
+        "web-bundle"
+      ],
+      "language_packages": [
+        "typescript",
+        "kotlin",
+        "swift"
+      ],
+      "implementation_package": "webview"
+    }
+  },
+  "languages": {
+    "kotlin": {
+      "document": "wiki/languages/kotlin.md",
+      "role": "client",
+      "runtime_validation": "not-run"
+    },
+    "swift": {
+      "document": "wiki/languages/swift.md",
+      "role": "client",
+      "runtime_validation": "partial-example"
+    },
+    "typescript": {
+      "document": "wiki/languages/typescript.md",
+      "role": "client",
+      "runtime_validation": "partial-example"
+    },
+    "dart": {
+      "document": "wiki/languages/dart.md",
+      "role": "client",
+      "runtime_validation": "not-run"
+    },
+    "rust": {
+      "document": "wiki/languages/rust.md",
+      "role": "server",
+      "runtime_validation": "partial-example"
+    }
+  },
+  "baseline_documents": [
+    "wiki/languages/dart.md",
+    "wiki/languages/kotlin.md",
+    "wiki/languages/rust.md",
+    "wiki/languages/swift.md",
+    "wiki/languages/typescript.md",
+    "wiki/platforms/android.md",
+    "wiki/platforms/flutter.md",
+    "wiki/platforms/ios.md",
+    "wiki/platforms/react-native.md",
+    "wiki/platforms/webview.md",
+    "wiki/projects/daynomy/account.md",
+    "wiki/projects/daynomy/administration.md",
+    "wiki/projects/daynomy/auth-session.md",
+    "wiki/projects/daynomy/content-people.md",
+    "wiki/projects/daynomy/content-search.md",
+    "wiki/projects/daynomy/feedback.md",
+    "wiki/projects/daynomy/investment-calendar.md",
+    "wiki/projects/daynomy/news.md",
+    "wiki/projects/daynomy/notifications-deferred.md",
+    "wiki/projects/daynomy/portfolio-analysis.md",
+    "wiki/projects/daynomy/portfolio-calculation.md",
+    "wiki/projects/daynomy/portfolio-ledger.md",
+    "wiki/projects/daynomy/service-catalog.md",
+    "wiki/projects/daynomy/stock-search-price.md",
+    "wiki/projects/daynomy/stocks-exchange.md",
+    "wiki/projects/daynomy/sync-jobs.md",
+    "wiki/shared/auth-storage.md",
+    "wiki/shared/build-validation.md",
+    "wiki/shared/client-porting-baseline.md",
+    "wiki/shared/data-semantics.md",
+    "wiki/shared/error-retry-cancel.md",
+    "wiki/shared/knowledge-maintenance.md",
+    "wiki/shared/package-map.md",
+    "wiki/shared/testing-migration.md",
+    "wiki/shared/transactions-concurrency.md",
+    "wiki/shared/ui-state-navigation.md",
+    "wiki/packages/android-kotlin/index.md",
+    "wiki/packages/android-kotlin/types-and-json.md",
+    "wiki/packages/android-kotlin/numbers-and-money.md",
+    "wiki/packages/android-kotlin/dates-and-unicode.md",
+    "wiki/packages/android-kotlin/collections-and-models.md",
+    "wiki/packages/android-kotlin/async-and-cancellation.md",
+    "wiki/packages/android-kotlin/state-and-navigation.md",
+    "wiki/packages/android-kotlin/errors-and-transactions.md",
+    "wiki/packages/android-kotlin/auth-and-storage.md",
+    "wiki/packages/android-kotlin/modules-and-testing.md",
+    "wiki/packages/ios-swift/index.md",
+    "wiki/packages/ios-swift/types-and-json.md",
+    "wiki/packages/ios-swift/numbers-and-money.md",
+    "wiki/packages/ios-swift/dates-and-unicode.md",
+    "wiki/packages/ios-swift/collections-and-models.md",
+    "wiki/packages/ios-swift/async-and-cancellation.md",
+    "wiki/packages/ios-swift/state-and-navigation.md",
+    "wiki/packages/ios-swift/errors-and-transactions.md",
+    "wiki/packages/ios-swift/auth-and-storage.md",
+    "wiki/packages/ios-swift/modules-and-testing.md",
+    "wiki/packages/react-native-typescript/index.md",
+    "wiki/packages/react-native-typescript/types-and-json.md",
+    "wiki/packages/react-native-typescript/numbers-and-money.md",
+    "wiki/packages/react-native-typescript/dates-and-unicode.md",
+    "wiki/packages/react-native-typescript/collections-and-models.md",
+    "wiki/packages/react-native-typescript/async-and-cancellation.md",
+    "wiki/packages/react-native-typescript/state-and-navigation.md",
+    "wiki/packages/react-native-typescript/errors-and-transactions.md",
+    "wiki/packages/react-native-typescript/auth-and-storage.md",
+    "wiki/packages/react-native-typescript/modules-and-testing.md",
+    "wiki/packages/flutter-dart/index.md",
+    "wiki/packages/flutter-dart/types-and-json.md",
+    "wiki/packages/flutter-dart/numbers-and-money.md",
+    "wiki/packages/flutter-dart/dates-and-unicode.md",
+    "wiki/packages/flutter-dart/collections-and-models.md",
+    "wiki/packages/flutter-dart/async-and-cancellation.md",
+    "wiki/packages/flutter-dart/state-and-navigation.md",
+    "wiki/packages/flutter-dart/errors-and-transactions.md",
+    "wiki/packages/flutter-dart/auth-and-storage.md",
+    "wiki/packages/flutter-dart/modules-and-testing.md",
+    "wiki/packages/webview/index.md",
+    "wiki/packages/webview/types-and-json.md",
+    "wiki/packages/webview/numbers-and-money.md",
+    "wiki/packages/webview/dates-and-unicode.md",
+    "wiki/packages/webview/collections-and-models.md",
+    "wiki/packages/webview/async-and-cancellation.md",
+    "wiki/packages/webview/state-and-navigation.md",
+    "wiki/packages/webview/errors-and-transactions.md",
+    "wiki/packages/webview/auth-and-storage.md",
+    "wiki/packages/webview/modules-and-testing.md",
+    "wiki/packages/rust-backend/index.md",
+    "wiki/packages/rust-backend/types-and-json.md",
+    "wiki/packages/rust-backend/numbers-and-money.md",
+    "wiki/packages/rust-backend/dates-and-unicode.md",
+    "wiki/packages/rust-backend/collections-and-models.md",
+    "wiki/packages/rust-backend/async-and-cancellation.md",
+    "wiki/packages/rust-backend/state-and-navigation.md",
+    "wiki/packages/rust-backend/errors-and-transactions.md",
+    "wiki/packages/rust-backend/auth-and-storage.md",
+    "wiki/packages/rust-backend/modules-and-testing.md"
+  ],
+  "packages": {
+    "android-kotlin": {
+      "index": "wiki/packages/android-kotlin/index.md",
+      "platform": "android",
+      "languages": [
+        "kotlin"
+      ],
+      "topics": {
+        "types-and-json": "wiki/packages/android-kotlin/types-and-json.md",
+        "numbers-and-money": "wiki/packages/android-kotlin/numbers-and-money.md",
+        "dates-and-unicode": "wiki/packages/android-kotlin/dates-and-unicode.md",
+        "collections-and-models": "wiki/packages/android-kotlin/collections-and-models.md",
+        "async-and-cancellation": "wiki/packages/android-kotlin/async-and-cancellation.md",
+        "state-and-navigation": "wiki/packages/android-kotlin/state-and-navigation.md",
+        "errors-and-transactions": "wiki/packages/android-kotlin/errors-and-transactions.md",
+        "auth-and-storage": "wiki/packages/android-kotlin/auth-and-storage.md",
+        "modules-and-testing": "wiki/packages/android-kotlin/modules-and-testing.md"
+      },
+      "default_topics": [
+        "types-and-json",
+        "numbers-and-money",
+        "dates-and-unicode",
+        "collections-and-models",
+        "async-and-cancellation",
+        "state-and-navigation",
+        "errors-and-transactions",
+        "modules-and-testing"
+      ]
+    },
+    "ios-swift": {
+      "index": "wiki/packages/ios-swift/index.md",
+      "platform": "ios",
+      "languages": [
+        "swift"
+      ],
+      "topics": {
+        "types-and-json": "wiki/packages/ios-swift/types-and-json.md",
+        "numbers-and-money": "wiki/packages/ios-swift/numbers-and-money.md",
+        "dates-and-unicode": "wiki/packages/ios-swift/dates-and-unicode.md",
+        "collections-and-models": "wiki/packages/ios-swift/collections-and-models.md",
+        "async-and-cancellation": "wiki/packages/ios-swift/async-and-cancellation.md",
+        "state-and-navigation": "wiki/packages/ios-swift/state-and-navigation.md",
+        "errors-and-transactions": "wiki/packages/ios-swift/errors-and-transactions.md",
+        "auth-and-storage": "wiki/packages/ios-swift/auth-and-storage.md",
+        "modules-and-testing": "wiki/packages/ios-swift/modules-and-testing.md"
+      },
+      "default_topics": [
+        "types-and-json",
+        "numbers-and-money",
+        "dates-and-unicode",
+        "collections-and-models",
+        "async-and-cancellation",
+        "state-and-navigation",
+        "errors-and-transactions",
+        "modules-and-testing"
+      ]
+    },
+    "react-native-typescript": {
+      "index": "wiki/packages/react-native-typescript/index.md",
+      "platform": "react-native",
+      "languages": [
+        "typescript"
+      ],
+      "topics": {
+        "types-and-json": "wiki/packages/react-native-typescript/types-and-json.md",
+        "numbers-and-money": "wiki/packages/react-native-typescript/numbers-and-money.md",
+        "dates-and-unicode": "wiki/packages/react-native-typescript/dates-and-unicode.md",
+        "collections-and-models": "wiki/packages/react-native-typescript/collections-and-models.md",
+        "async-and-cancellation": "wiki/packages/react-native-typescript/async-and-cancellation.md",
+        "state-and-navigation": "wiki/packages/react-native-typescript/state-and-navigation.md",
+        "errors-and-transactions": "wiki/packages/react-native-typescript/errors-and-transactions.md",
+        "auth-and-storage": "wiki/packages/react-native-typescript/auth-and-storage.md",
+        "modules-and-testing": "wiki/packages/react-native-typescript/modules-and-testing.md"
+      },
+      "default_topics": [
+        "types-and-json",
+        "numbers-and-money",
+        "dates-and-unicode",
+        "collections-and-models",
+        "async-and-cancellation",
+        "state-and-navigation",
+        "errors-and-transactions",
+        "modules-and-testing"
+      ]
+    },
+    "flutter-dart": {
+      "index": "wiki/packages/flutter-dart/index.md",
+      "platform": "flutter",
+      "languages": [
+        "dart"
+      ],
+      "topics": {
+        "types-and-json": "wiki/packages/flutter-dart/types-and-json.md",
+        "numbers-and-money": "wiki/packages/flutter-dart/numbers-and-money.md",
+        "dates-and-unicode": "wiki/packages/flutter-dart/dates-and-unicode.md",
+        "collections-and-models": "wiki/packages/flutter-dart/collections-and-models.md",
+        "async-and-cancellation": "wiki/packages/flutter-dart/async-and-cancellation.md",
+        "state-and-navigation": "wiki/packages/flutter-dart/state-and-navigation.md",
+        "errors-and-transactions": "wiki/packages/flutter-dart/errors-and-transactions.md",
+        "auth-and-storage": "wiki/packages/flutter-dart/auth-and-storage.md",
+        "modules-and-testing": "wiki/packages/flutter-dart/modules-and-testing.md"
+      },
+      "default_topics": [
+        "types-and-json",
+        "numbers-and-money",
+        "dates-and-unicode",
+        "collections-and-models",
+        "async-and-cancellation",
+        "state-and-navigation",
+        "errors-and-transactions",
+        "modules-and-testing"
+      ]
+    },
+    "webview": {
+      "index": "wiki/packages/webview/index.md",
+      "platform": "webview",
+      "languages": [
+        "typescript",
+        "kotlin",
+        "swift"
+      ],
+      "topics": {
+        "types-and-json": "wiki/packages/webview/types-and-json.md",
+        "numbers-and-money": "wiki/packages/webview/numbers-and-money.md",
+        "dates-and-unicode": "wiki/packages/webview/dates-and-unicode.md",
+        "collections-and-models": "wiki/packages/webview/collections-and-models.md",
+        "async-and-cancellation": "wiki/packages/webview/async-and-cancellation.md",
+        "state-and-navigation": "wiki/packages/webview/state-and-navigation.md",
+        "errors-and-transactions": "wiki/packages/webview/errors-and-transactions.md",
+        "auth-and-storage": "wiki/packages/webview/auth-and-storage.md",
+        "modules-and-testing": "wiki/packages/webview/modules-and-testing.md"
+      },
+      "default_topics": [
+        "types-and-json",
+        "numbers-and-money",
+        "dates-and-unicode",
+        "collections-and-models",
+        "async-and-cancellation",
+        "state-and-navigation",
+        "errors-and-transactions",
+        "modules-and-testing",
+        "auth-and-storage"
+      ]
+    },
+    "rust-backend": {
+      "index": "wiki/packages/rust-backend/index.md",
+      "platform": null,
+      "languages": [
+        "rust"
+      ],
+      "topics": {
+        "types-and-json": "wiki/packages/rust-backend/types-and-json.md",
+        "numbers-and-money": "wiki/packages/rust-backend/numbers-and-money.md",
+        "dates-and-unicode": "wiki/packages/rust-backend/dates-and-unicode.md",
+        "collections-and-models": "wiki/packages/rust-backend/collections-and-models.md",
+        "async-and-cancellation": "wiki/packages/rust-backend/async-and-cancellation.md",
+        "state-and-navigation": "wiki/packages/rust-backend/state-and-navigation.md",
+        "errors-and-transactions": "wiki/packages/rust-backend/errors-and-transactions.md",
+        "auth-and-storage": "wiki/packages/rust-backend/auth-and-storage.md",
+        "modules-and-testing": "wiki/packages/rust-backend/modules-and-testing.md"
+      },
+      "default_topics": [
+        "types-and-json",
+        "numbers-and-money",
+        "dates-and-unicode",
+        "collections-and-models",
+        "async-and-cancellation",
+        "state-and-navigation",
+        "errors-and-transactions",
+        "modules-and-testing"
+      ]
+    }
+  },
+  "example_evidence": "evidence/2026-10-28-topic-examples-04.json"
+}

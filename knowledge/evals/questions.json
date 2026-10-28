@@ -1,0 +1,546 @@
+{
+  "schema_version": 1,
+  "status": "criteria-only",
+  "created_on": "2026-10-28",
+  "authoring_context": "Same agent as initial wiki author; not independent evaluation",
+  "questions": [
+    {
+      "id": "EV01",
+      "question": "종목 검색 API는 KR과 US를 어떻게 요청하는가?",
+      "expected_points": [
+        "q는 URLSearchParams로 인코딩",
+        "기본 KR은 country 생략",
+        "US일 때 country=US"
+      ],
+      "source_ids": [
+        "F01"
+      ],
+      "claim_ids": [
+        "S01"
+      ]
+    },
+    {
+      "id": "EV02",
+      "question": "빠르게 검색어를 바꾸면 이전 응답이 어떻게 처리되는가?",
+      "expected_points": [
+        "250ms 대기",
+        "effect 정리에서 타이머 해제와 abort",
+        "결과와 오류 및 로딩 반영 전에 aborted 확인",
+        "실제 UI 재현 여부는 별도"
+      ],
+      "source_ids": [
+        "F04"
+      ],
+      "claim_ids": [
+        "S02",
+        "S03"
+      ]
+    },
+    {
+      "id": "EV03",
+      "question": "검색 응답의 ID와 통화는 모두 런타임 검증되는가?",
+      "expected_points": [
+        "assetId는 양의 안전 정수 검사",
+        "category와 market 허용값 검사",
+        "currency는 해당 검사에서 검증하지 않음"
+      ],
+      "source_ids": [
+        "F01",
+        "F02"
+      ],
+      "claim_ids": [
+        "S04",
+        "S09"
+      ]
+    },
+    {
+      "id": "EV04",
+      "question": "최근 종가는 오늘의 실시간 가격을 요청하는가?",
+      "expected_points": [
+        "저장 가격을 baseDate 내림차순으로 선택",
+        "이 조회에서 외부 시세 요청이나 오늘 가격 생성 없음"
+      ],
+      "source_ids": [
+        "B03",
+        "B06",
+        "R01"
+      ],
+      "claim_ids": [
+        "S10",
+        "S12"
+      ]
+    },
+    {
+      "id": "EV05",
+      "question": "저장 종가가 없으면 어떻게 되는가?",
+      "expected_points": [
+        "STOCK_PRICE_NOT_FOUND",
+        "HTTP 404",
+        "실행 성공을 주장하지 않고 소스 근거와 연결"
+      ],
+      "source_ids": [
+        "B03",
+        "B05",
+        "R01"
+      ],
+      "claim_ids": [
+        "S11",
+        "S12"
+      ]
+    },
+    {
+      "id": "EV06",
+      "question": "종가 응답이 늦게 오면 직접 입력한 단가를 덮어쓰는가?",
+      "expected_points": [
+        "priceEdited 또는 기존 unitPrice가 있으면 유지",
+        "취소된 요청의 반영 방지",
+        "실패 시 직접 입력 안내"
+      ],
+      "source_ids": [
+        "F04"
+      ],
+      "claim_ids": [
+        "S06",
+        "S08"
+      ]
+    },
+    {
+      "id": "EV07",
+      "question": "웹 클라이언트는 종가의 날짜 문법과 양수 가격을 모두 검증하는가?",
+      "expected_points": [
+        "baseDate는 문자열 검사만",
+        "closePrice는 유한한 number 검사",
+        "0 이하 가격 거절은 편집기 층",
+        "날짜 전용 값의 대상별 디코딩은 미확인"
+      ],
+      "source_ids": [
+        "F01",
+        "F04",
+        "B04"
+      ],
+      "claim_ids": [
+        "S07",
+        "S08"
+      ]
+    },
+    {
+      "id": "EV08",
+      "question": "currency가 없는 응답에서 웹은 통화를 어떻게 결정하는가?",
+      "expected_points": [
+        "assetCode .US 접미사면 USD",
+        "그 외 KRW",
+        "API 응답의 currency 자체 검증과 fallback은 구별"
+      ],
+      "source_ids": [
+        "F01",
+        "F02"
+      ],
+      "claim_ids": [
+        "S09"
+      ]
+    },
+    {
+      "id": "EV09",
+      "question": "동시에 401 응답이 발생할 때 웹 공통 요청 코드는 어떻게 갱신하는가?",
+      "expected_points": [
+        "refreshPromise 공유",
+        "원 요청은 갱신 후 한 번 재시도",
+        "네이티브나 WebView의 인증 호환성은 추가 검증 필요"
+      ],
+      "source_ids": [
+        "F03"
+      ],
+      "claim_ids": [
+        "S13"
+      ]
+    },
+    {
+      "id": "EV10",
+      "question": "Android WebView 자료만으로 iOS 쿠키와 로그인 복귀도 검증됐다고 할 수 있는가?",
+      "expected_points": [
+        "Android 문서를 iOS 검증 근거로 사용하지 않음",
+        "WKWebView 개요 읽기와 실제 iOS 쿠키·로그인 복귀 검증을 구별",
+        "대상별 공식 계약과 실제 실행 확인 필요"
+      ],
+      "source_ids": [
+        "E04",
+        "E11"
+      ],
+      "claim_ids": []
+    },
+    {
+      "id": "EV11",
+      "question": "변경 요청의 응답을 받지 못했을 때 바로 자동 재전송해도 되는가?",
+      "expected_points": [
+        "응답 유실과 서버 미적용을 동일하게 판단하지 않음",
+        "비멱등 요청은 멱등성 또는 미적용 여부 확인 없이 자동 재시도하지 않음",
+        "해당 API의 결과 확인·중복 방지 계약은 추가 조사 필요"
+      ],
+      "source_ids": [
+        "E19"
+      ],
+      "claim_ids": [
+        "C05"
+      ]
+    },
+    {
+      "id": "EV12",
+      "question": "이전 검색을 취소했다는 사실만으로 늦은 응답의 화면 반영도 막았다고 할 수 있는가?",
+      "expected_points": [
+        "실제 작업 중단과 상태 반영 방지를 각각 확인",
+        "원본은 응답·오류·로딩 반영 전에 aborted 확인",
+        "언어·라이브러리·화면 수명에 따른 실제 검사 필요"
+      ],
+      "source_ids": [
+        "F04",
+        "E13",
+        "E16",
+        "E17"
+      ],
+      "claim_ids": [
+        "S03",
+        "C04"
+      ]
+    },
+    {
+      "id": "EV13",
+      "question": "Swift가 큰 정수 ID를 읽을 수 있으면 기존 웹보다 넓은 범위를 바로 허용해도 되는가?",
+      "expected_points": [
+        "JSON 숫자의 정밀도는 구현별로 다름",
+        "Node에서 9007199254740993의 반올림을 재현",
+        "기존 웹의 양의 안전 정수 계약과 네이티브 디코딩 능력을 구분",
+        "문자열 ID 변경은 별도 API 계약 결정"
+      ],
+      "source_ids": [
+        "E20",
+        "F01",
+        "Q08"
+      ],
+      "claim_ids": [
+        "L01"
+      ]
+    },
+    {
+      "id": "EV14",
+      "question": "누락 필드와 명시 null은 모든 언어의 Optional에서 자동으로 구분되는가?",
+      "expected_points": [
+        "JS 객체의 undefined는 직렬화 시 생략",
+        "Swift 합성 Optional 예제는 누락과 null 모두 nil",
+        "Dart Map 조회만으로 키 누락과 null을 구분할 수 없음",
+        "부분 수정 계약에 필요하면 존재 여부를 보존"
+      ],
+      "source_ids": [
+        "E21",
+        "E25",
+        "Q08"
+      ],
+      "claim_ids": [
+        "L03"
+      ]
+    },
+    {
+      "id": "EV15",
+      "question": "종가의 baseDate를 Date로 만든 뒤 현지 시간대로 표시해도 같은 날짜인가?",
+      "expected_points": [
+        "Node의 UTC 날짜 전용 해석과 LA 표시에서 전날을 재현",
+        "baseDate의 달력 날짜 의미를 유지하도록 제안",
+        "원본 웹은 문자열 검사만 하므로 달력 검증 강화는 별도 결정",
+        "대상 앱 실행은 미검증"
+      ],
+      "source_ids": [
+        "E22",
+        "F01",
+        "B04",
+        "Q08"
+      ],
+      "claim_ids": [
+        "L04"
+      ]
+    },
+    {
+      "id": "EV16",
+      "question": "READ COMMITTED와 BEGIN만 있으면 모든 동시 매도 문제가 해결됐는가?",
+      "expected_points": [
+        "원자성과 동시성 제어를 구분",
+        "Rust 포트폴리오 거래의 회원과 포트폴리오 잠금 경로를 정적 확인",
+        "모든 변경 경로의 잠금 순서와 실제 DB 검사 필요",
+        "기존 동시 매도 검사 소스 읽기와 이번 실행 성공을 구분"
+      ],
+      "source_ids": [
+        "E27",
+        "E28",
+        "R02",
+        "T01"
+      ],
+      "claim_ids": [
+        "TX01",
+        "TX02",
+        "TX06",
+        "TX07"
+      ]
+    },
+    {
+      "id": "EV17",
+      "question": "거래 전송 중 화면을 닫거나 응답이 유실되면 취소 처리 후 재전송해도 되는가?",
+      "expected_points": [
+        "검색 UI 취소와 서버 거래 롤백을 구분",
+        "커밋했지만 응답을 못 받은 상태 가능",
+        "비멱등 요청의 자동 재시도 조건 확인",
+        "DAYNOMY 중복 방지와 결과 조회 계약은 미확정"
+      ],
+      "source_ids": [
+        "E19",
+        "R02",
+        "F04"
+      ],
+      "claim_ids": [
+        "TX03",
+        "TX04",
+        "TX06"
+      ]
+    },
+    {
+      "id": "EV18",
+      "question": "현재 지식베이스는 LLM Wiki의 공식 표준 구현인가? 원문을 수집하면 위키도 자동으로 검증·갱신되는가?",
+      "expected_points": [
+        "Karpathy 원문은 구체적 구현이 아닌 적용 가능한 패턴을 설명",
+        "지식베이스는 축적하는 지식 전체, LLM Wiki는 이를 정리하고 유지하는 방식으로 사용",
+        "원본·위키·운영 규칙과 자료 추가·질의·점검을 현재 구조에 대응",
+        "fetch/pin은 원문 후보 수집과 기준 지정이며 읽음 상태·위키·플랫폼 준비를 자동 승인하지 않음",
+        "현재 원문 수집 도구와 에이전트의 의미 검토를 구분"
+      ],
+      "source_ids": [
+        "E01",
+        "K01"
+      ],
+      "claim_ids": []
+    },
+    {
+      "id": "EV19",
+      "question": "언어별 패키지로만 나누면 WebView와 React Native 이식에 충분한가?",
+      "expected_points": [
+        "공통·기능·언어·플랫폼을 조합",
+        "RN은 TypeScript와 네이티브 플랫폼 차이",
+        "양쪽 WebView 기본 묶음은 TypeScript·Kotlin·Swift와 두 호스트의 차이",
+        "같은 제품 계약을 언어마다 복제하지 않음"
+      ],
+      "source_ids": [
+        "E02",
+        "E04",
+        "E11"
+      ],
+      "claim_ids": []
+    },
+    {
+      "id": "EV20",
+      "question": "Kotlin에서 nullable 모델을 선언하면 누락/null/추가 필드 처리도 웹과 같아지는가?",
+      "expected_points": [
+        "nullable 타입과 JSON 디코더 설정을 구분",
+        "explicitNulls와 기본값에 따라 누락 의미가 달라짐",
+        "ignoreUnknownKeys 기본 false",
+        "공통 응답 사례와 선택한 버전으로 검사"
+      ],
+      "source_ids": [
+        "E24",
+        "E31",
+        "E40"
+      ],
+      "claim_ids": []
+    },
+    {
+      "id": "EV21",
+      "question": "Dart jsonDecode 반환값을 DTO로 cast하면 응답 검증이 완료되는가?",
+      "expected_points": [
+        "dynamic 결과의 Map/List/키/타입/enum 검사 필요",
+        "Map 키 누락과 null 구분",
+        "int/num/double 변환과 안전 정수 검사",
+        "Dart 3.13.7 VM의 독립 JSON/ID 사례 실행(DX09)과 Flutter 앱 디코더·웹 실행을 구별"
+      ],
+      "source_ids": [
+        "E03",
+        "E25",
+        "E41",
+        "DX02",
+        "DX09"
+      ],
+      "claim_ids": []
+    },
+    {
+      "id": "EV22",
+      "question": "거래일과 종가 기준일 검증은 원본 웹에서 같은가?",
+      "expected_points": [
+        "종가 API baseDate는 문자열 검사만",
+        "거래 입력은 달력 유효성과 서울 기준 미래 여부 검사",
+        "서로 다른 검증 층을 하나의 강화된 규칙으로 바꾸지 않음"
+      ],
+      "source_ids": [
+        "F01",
+        "W02",
+        "G04"
+      ],
+      "claim_ids": []
+    },
+    {
+      "id": "EV23",
+      "question": "전체 API 경로 목록과 원본 Java 매핑이 일치하면 전체 기능이 검증된 것인가?",
+      "expected_points": [
+        "31 컨트롤러·81 핸들러·89 경로 조합의 매핑 비교",
+        "DTO·권한 실행·업무 분기·HTTP/DB/UI 검증과 구별",
+        "F14 알림은 원본 백엔드 매핑 없음·보류",
+        "리그 경로 제외"
+      ],
+      "source_ids": [
+        "P02",
+        "G01",
+        "G05"
+      ],
+      "claim_ids": []
+    },
+    {
+      "id": "EV24",
+      "question": "게스트 보유정보를 앱 영구 저장소에 옮기면 기존 수명도 유지되는가?",
+      "expected_points": [
+        "원본 sessionStorage 수명과 앱 영구 저장 수명은 다름",
+        "버전·손상 검증·정리 정책",
+        "게스트/회원·계정 전환을 구분",
+        "인증 비밀과 포트폴리오 임시 데이터 저장 역할 분리"
+      ],
+      "source_ids": [
+        "W03",
+        "W04",
+        "E48",
+        "E49"
+      ],
+      "claim_ids": []
+    },
+    {
+      "id": "EV25",
+      "question": "원본 디코더의 0원 가격과 잘못된 달력 날짜 수용 사례를 왜 남기는가?",
+      "expected_points": [
+        "현행 API 검사와 UI/서버 검사를 구별",
+        "소스 근거를 바꾸지 않고 현행 동작을 기록",
+        "제품 정책 강화는 별도 결정과 기준 변경 근거 필요",
+        "23개 예제는 가짜 request를 사용한 디코더/URL 검사이며 서버/UI 검증은 아님"
+      ],
+      "source_ids": [
+        "F01",
+        "F04",
+        "G02",
+        "G04"
+      ],
+      "claim_ids": []
+    },
+    {
+      "id": "EV26",
+      "question": "컬렉션을 copy/readonly로 바꾸면 이전 UI 상태가 안전한가?",
+      "expected_points": [
+        "Kotlin data copy와 TS readonly는 깊은 불변성을 보장하지 않음",
+        "Dart List.of의 중첩 map은 공유",
+        "Swift struct 배열도 class 요소 참조는 공유 가능",
+        "Rust Arc clone은 같은 할당을 공유",
+        "변경 가능한 요소별 소유권과 복사 경계를 검사"
+      ],
+      "source_ids": [
+        "E50",
+        "E51",
+        "E54",
+        "E61",
+        "E62",
+        "DX09"
+      ],
+      "claim_ids": []
+    },
+    {
+      "id": "EV27",
+      "question": "Dart Future.timeout·JS Promise.race는 원래 요청도 중단하는가?",
+      "expected_points": [
+        "대기 timeout/race와 작업 취소는 별개",
+        "Dart 원래 future 계속 실행 예제",
+        "JS AbortSignal을 실제 어댑터에 연결",
+        "늦은 성공/오류/loading 반영은 세대 검사",
+        "실제 HTTP 취소는 미실행"
+      ],
+      "source_ids": [
+        "E59",
+        "E32",
+        "DX02",
+        "DX04",
+        "DX09"
+      ],
+      "claim_ids": []
+    },
+    {
+      "id": "EV28",
+      "question": "Dart DateTime.parse 성공을 유효한 거래일 검증으로 사용해도 되는가?",
+      "expected_points": [
+        "범위 밖 날짜 정규화 가능",
+        "2026-02-30 정규화와 strict rejection 예제를 구별",
+        "baseDate 문자열 검사와 거래 입력 달력 검증은 다른 기존 계약",
+        "날짜 전용 의미와 시간대 변환을 구분"
+      ],
+      "source_ids": [
+        "E60",
+        "W02",
+        "F01",
+        "DX02",
+        "DX09"
+      ],
+      "claim_ids": []
+    },
+    {
+      "id": "EV29",
+      "question": "WebView 메시지 JSON에 origin이 있으면 네이티브 호출 출처를 신뢰해도 되는가?",
+      "expected_points": [
+        "본문 origin은 신뢰 근거 아님",
+        "addJavascriptInterface는 호출 프레임 origin 확인 한계",
+        "호스트가 관찰한 origin/main frame와 허용 method/payload 필요",
+        "순수 정책 함수와 실제 OS bridge binding 검증을 구별",
+        "현재 호스트 바인딩은 미실행"
+      ],
+      "source_ids": [
+        "E57",
+        "E37",
+        "DX01",
+        "DX03",
+        "DX04",
+        "DX09"
+      ],
+      "claim_ids": []
+    },
+    {
+      "id": "EV30",
+      "question": "취소와 오류를 모든 언어에서 같은 catch로 처리해도 되는가?",
+      "expected_points": [
+        "Kotlin CancellationException 재전파, runCatching이 잡는 예제",
+        "Swift Task 협력 취소와 actor await interleaving",
+        "Tokio abort 후 종료 관찰; 서버 커밋 롤백과 구별",
+        "응답 유실을 서버 미적용으로 단정하지 않음"
+      ],
+      "source_ids": [
+        "E55",
+        "E56",
+        "E58",
+        "E19",
+        "DX09"
+      ],
+      "claim_ids": []
+    },
+    {
+      "id": "EV31",
+      "question": "100개 언어 예제와 54개 상세 문서가 다섯 앱 준비 완료를 의미하는가?",
+      "expected_points": [
+        "언어 예제의 고정 버전은 앱 지원 버전 승인과 다름",
+        "JVM/macOS Swift/Dart VM/Node 검사는 Android/iOS/Flutter/RN 실행이 아님",
+        "가짜 트랜잭션은 실제 DB 검증 아님",
+        "context 준비 가드·앱 통합·독립 의미 평가·시간 비교는 별도"
+      ],
+      "source_ids": [
+        "DX08",
+        "DX09",
+        "DX10",
+        "P02"
+      ],
+      "claim_ids": []
+    }
+  ]
+}
