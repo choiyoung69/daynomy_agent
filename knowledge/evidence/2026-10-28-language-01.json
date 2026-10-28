@@ -1,0 +1,179 @@
+{
+  "started_at": "2026-10-28T06:00:18.033730+00:00",
+  "scope": "synthetic language/decoder examples; not target app, HTTP or DB validation",
+  "source_hashes": {
+    "scripts/knowledge_probes.py": "a52a60cbe37db161031e420ad05fd1c3de823f48c7e627e9c071bac2fd5ec315",
+    "experiments/knowledge-probes/expected.json": "2fec611a224795be9d525fa7555708055b72bc619bb8107b364fd3e30f7f2044",
+    "experiments/knowledge-probes/node.mjs": "861009c9c8a2c50d81be49e31d4bd374e92e0fc5467fadf579b042abb5f52a1e",
+    "experiments/knowledge-probes/rust/Cargo.lock": "4cb5e661348af3eab18310cce8e6f9cce0c9f611133769dc45352e2e6265fc9c",
+    "experiments/knowledge-probes/rust/Cargo.toml": "6740cdda914c7efe21119f881c98a8b3f14de7649080832b84a4d249c47a2387",
+    "experiments/knowledge-probes/rust/src/main.rs": "e51aea381df26f75889b85321dcf79c0cf51d538f087491d518ee217656aed3d",
+    "experiments/knowledge-probes/swift.swift": "84d7357e80de1fccc2c31693f5caa8a95c549d8b710d73f10b59762cbf3a5ca4"
+  },
+  "probes": {
+    "node": {
+      "status": "passed",
+      "version": {
+        "command": [
+          "node",
+          "--version"
+        ],
+        "exit_code": 0,
+        "stdout": "v22.23.1\n",
+        "stderr": ""
+      },
+      "run": {
+        "command": [
+          "node",
+          "/Users/seoyeong/develop/AI/daynomy_agent/experiments/knowledge-probes/node.mjs"
+        ],
+        "exit_code": 0,
+        "stdout": "{\"unsafeIdText\":\"9007199254740992\",\"unsafeIdAccepted\":false,\"binarySum\":\"0.30000000000000004\",\"missingOwnKey\":false,\"nullOwnKey\":true,\"omittedUndefined\":\"{}\",\"explicitNull\":\"{\\\"currency\\\":null}\",\"dateInLosAngeles\":\"2026-10-27\",\"emojiUtf16Length\":2,\"decomposedEqualsComposed\":false}\n",
+        "stderr": ""
+      },
+      "actual": {
+        "unsafeIdText": "9007199254740992",
+        "unsafeIdAccepted": false,
+        "binarySum": "0.30000000000000004",
+        "missingOwnKey": false,
+        "nullOwnKey": true,
+        "omittedUndefined": "{}",
+        "explicitNull": "{\"currency\":null}",
+        "dateInLosAngeles": "2026-10-27",
+        "emojiUtf16Length": 2,
+        "decomposedEqualsComposed": false
+      },
+      "expected": {
+        "unsafeIdText": "9007199254740992",
+        "unsafeIdAccepted": false,
+        "binarySum": "0.30000000000000004",
+        "missingOwnKey": false,
+        "nullOwnKey": true,
+        "omittedUndefined": "{}",
+        "explicitNull": "{\"currency\":null}",
+        "dateInLosAngeles": "2026-10-27",
+        "emojiUtf16Length": 2,
+        "decomposedEqualsComposed": false
+      },
+      "checked_fields": 10
+    },
+    "swift": {
+      "status": "passed",
+      "version": {
+        "command": [
+          "swiftc",
+          "--version"
+        ],
+        "exit_code": 0,
+        "stdout": "Apple Swift version 6.3.3 (swiftlang-6.3.3.1.3 clang-2100.1.1.101)\nTarget: arm64-apple-macosx26.0\n",
+        "stderr": "swift-driver version: 1.148.6 "
+      },
+      "build": {
+        "command": [
+          "swiftc",
+          "-module-cache-path",
+          "/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/knowledge-probes-qhww50t0/cache",
+          "/Users/seoyeong/develop/AI/daynomy_agent/experiments/knowledge-probes/swift.swift",
+          "-o",
+          "/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/knowledge-probes-qhww50t0/swift-probe"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "run": {
+        "command": [
+          "/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/knowledge-probes-qhww50t0/swift-probe"
+        ],
+        "exit_code": 0,
+        "stdout": "{\"decimalSum\":\"0.3\",\"decomposedEqualsComposed\":true,\"emojiCharacterCount\":1,\"emojiUtf16Count\":2,\"int64IdText\":\"9007199254740993\",\"optionalMissingIsNil\":true,\"optionalNullIsNil\":true,\"requiredMissingRejected\":true}\n",
+        "stderr": ""
+      },
+      "actual": {
+        "decimalSum": "0.3",
+        "decomposedEqualsComposed": true,
+        "emojiCharacterCount": 1,
+        "emojiUtf16Count": 2,
+        "int64IdText": "9007199254740993",
+        "optionalMissingIsNil": true,
+        "optionalNullIsNil": true,
+        "requiredMissingRejected": true
+      },
+      "expected": {
+        "int64IdText": "9007199254740993",
+        "optionalMissingIsNil": true,
+        "optionalNullIsNil": true,
+        "requiredMissingRejected": true,
+        "decimalSum": "0.3",
+        "emojiCharacterCount": 1,
+        "emojiUtf16Count": 2,
+        "decomposedEqualsComposed": true
+      },
+      "checked_fields": 8
+    },
+    "rust": {
+      "status": "passed",
+      "version": {
+        "command": [
+          "rustc",
+          "--version"
+        ],
+        "exit_code": 0,
+        "stdout": "rustc 1.92.0 (ded5c06cf 2025-12-08) (Homebrew)\n",
+        "stderr": ""
+      },
+      "run": {
+        "command": [
+          "cargo",
+          "run",
+          "--offline",
+          "--quiet",
+          "--manifest-path",
+          "/Users/seoyeong/develop/AI/daynomy_agent/experiments/knowledge-probes/rust/Cargo.toml"
+        ],
+        "exit_code": 0,
+        "stdout": "{\"decimalLexeme\":\"0.10000000000000000001\",\"decomposedEqualsComposed\":false,\"emojiScalarCount\":1,\"emojiUtf8Bytes\":4,\"idAfterF64Text\":\"9007199254740992\",\"idText\":\"9007199254740993\",\"missingGetIsNone\":true,\"nullGetIsSome\":true}\n",
+        "stderr": ""
+      },
+      "actual": {
+        "decimalLexeme": "0.10000000000000000001",
+        "decomposedEqualsComposed": false,
+        "emojiScalarCount": 1,
+        "emojiUtf8Bytes": 4,
+        "idAfterF64Text": "9007199254740992",
+        "idText": "9007199254740993",
+        "missingGetIsNone": true,
+        "nullGetIsSome": true
+      },
+      "expected": {
+        "idText": "9007199254740993",
+        "idAfterF64Text": "9007199254740992",
+        "decimalLexeme": "0.10000000000000000001",
+        "missingGetIsNone": true,
+        "nullGetIsSome": true,
+        "emojiUtf8Bytes": 4,
+        "emojiScalarCount": 1,
+        "decomposedEqualsComposed": false
+      },
+      "checked_fields": 8
+    },
+    "kotlin": {
+      "status": "unavailable",
+      "note": "No probe implemented; compiler inventory only",
+      "executable": null
+    },
+    "dart": {
+      "status": "unavailable",
+      "note": "No probe implemented; compiler inventory only",
+      "executable": null
+    },
+    "flutter": {
+      "status": "unavailable",
+      "note": "No probe implemented; compiler inventory only",
+      "executable": null
+    }
+  },
+  "ended_at": "2026-10-28T06:00:40.196128+00:00",
+  "available_probes_passed": true,
+  "all_platforms_validated": false
+}

@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "scope": "F01-F13 plus F14 deferred; no league or deployment",
+  "features": {
+    "auth-session": {
+      "feature_id": "F01",
+      "title": "인증·세션",
+      "document": "wiki/projects/daynomy/auth-session.md",
+      "status": "documented-baseline",
+      "handler_count": 4,
+      "route_count": 4
+    },
+    "account": {
+      "feature_id": "F02",
+      "title": "회원 정보·닉네임·탈퇴",
+      "document": "wiki/projects/daynomy/account.md",
+      "status": "documented-baseline",
+      "handler_count": 3,
+      "route_count": 3
+    },
+    "stocks-exchange": {
+      "feature_id": "F03",
+      "title": "종목·종가·환율",
+      "document": "wiki/projects/daynomy/stocks-exchange.md",
+      "status": "documented-baseline",
+      "handler_count": 3,
+      "route_count": 3
+    },
+    "portfolio-calculation": {
+      "feature_id": "F04",
+      "title": "포트폴리오 평가 계산",
+      "document": "wiki/projects/daynomy/portfolio-calculation.md",
+      "status": "documented-baseline",
+      "handler_count": 1,
+      "route_count": 1
+    },
+    "portfolio-ledger": {
+      "feature_id": "F05",
+      "title": "보유자산·거래 원장·수익률",
+      "document": "wiki/projects/daynomy/portfolio-ledger.md",
+      "status": "documented-baseline",
+      "handler_count": 9,
+      "route_count": 17
+    },
+    "portfolio-analysis": {
+      "feature_id": "F06",
+      "title": "AI 분석·재사용·근거·이력",
+      "document": "wiki/projects/daynomy/portfolio-analysis.md",
+      "status": "documented-baseline",
+      "handler_count": 8,
+      "route_count": 8
+    },
+    "investment-calendar": {
+      "feature_id": "F07",
+      "title": "투자 캘린더",
+      "document": "wiki/projects/daynomy/investment-calendar.md",
+      "status": "documented-baseline",
+      "handler_count": 2,
+      "route_count": 2
+    },
+    "news": {
+      "feature_id": "F08",
+      "title": "뉴스·키워드·시장 분석",
+      "document": "wiki/projects/daynomy/news.md",
+      "status": "documented-baseline",
+      "handler_count": 4,
+      "route_count": 4
+    },
+    "content-search": {
+      "feature_id": "F09",
+      "title": "뉴스·통합 검색",
+      "document": "wiki/projects/daynomy/content-search.md",
+      "status": "documented-baseline",
+      "handler_count": 2,
+      "route_count": 2
+    },
+    "content-people": {
+      "feature_id": "F10",
+      "title": "종목 자료·공개 콘텐츠·인물",
+      "document": "wiki/projects/daynomy/content-people.md",
+      "status": "documented-baseline",
+      "handler_count": 3,
+      "route_count": 3
+    },
+    "feedback": {
+      "feature_id": "F11",
+      "title": "피드백",
+      "document": "wiki/projects/daynomy/feedback.md",
+      "status": "documented-baseline",
+      "handler_count": 1,
+      "route_count": 1
+    },
+    "administration": {
+      "feature_id": "F12",
+      "title": "관리자 콘텐츠·피드백",
+      "document": "wiki/projects/daynomy/administration.md",
+      "status": "documented-baseline",
+      "handler_count": 36,
+      "route_count": 36
+    },
+    "sync-jobs": {
+      "feature_id": "F13",
+      "title": "수집·동기화·배치",
+      "document": "wiki/projects/daynomy/sync-jobs.md",
+      "status": "documented-baseline",
+      "handler_count": 5,
+      "route_count": 5
+    },
+    "notifications-deferred": {
+      "feature_id": "F14",
+      "title": "이메일 알림 보류 경계",
+      "document": "wiki/projects/daynomy/notifications-deferred.md",
+      "status": "deferred",
+      "handler_count": 0,
+      "route_count": 0
+    }
+  }
+}

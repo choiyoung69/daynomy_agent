@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "scope": "Current web API decoder acceptance only; UI/HTTP/server not asserted",
+  "source_ids": [
+    "F01",
+    "F04"
+  ],
+  "cases": [
+    {
+      "id": "P01",
+      "kind": "price",
+      "body": "{\"assetId\":1,\"assetCode\":\"005930\",\"name\":\"삼성전자\",\"baseDate\":\"2026-10-28\",\"closePrice\":123.45,\"currency\":\"KRW\"}",
+      "expected_accept": true,
+      "reason": "정상 종가 API 응답",
+      "source_ids": [
+        "F01"
+      ]
+    },
+    {
+      "id": "P02",
+      "kind": "price",
+      "body": "{\"assetId\":9007199254740991,\"assetCode\":\"005930\",\"name\":\"삼성전자\",\"baseDate\":\"2026-10-28\",\"closePrice\":123.45,\"currency\":\"KRW\"}",
+      "expected_accept": true,
+      "reason": "양의 최대 안전 정수 허용",
+      "source_ids": [
+        "F01"
+      ]
+    },
+    {
+      "id": "P03",
+      "kind": "price",
+      "body": "{\"assetId\":9007199254740993,\"assetCode\":\"005930\",\"name\":\"삼성전자\",\"baseDate\":\"2026-10-28\",\"closePrice\":123.45,\"currency\":\"KRW\"}",
+      "expected_accept": false,
+      "reason": "안전 정수 밖 ID 거절",
+      "source_ids": [
+        "F01"
+      ]
+    },
+    {
+      "id": "P04",
+      "kind": "price",
+      "body": "{\"assetId\":0,\"assetCode\":\"005930\",\"name\":\"삼성전자\",\"baseDate\":\"2026-10-28\",\"closePrice\":123.45,\"currency\":\"KRW\"}",
+      "expected_accept": false,
+      "reason": "0 ID 거절",
+      "source_ids": [
+        "F01"
+      ]
+    },
+    {
+      "id": "P05",
+      "kind": "price",
+      "body": "{\"assetId\":1,\"assetCode\":\"005930\",\"name\":\"삼성전자\",\"baseDate\":\"2026-10-28\",\"closePrice\":\"123.45\",\"currency\":\"KRW\"}",
+      "expected_accept": false,
+      "reason": "가격 문자열은 현행 숫자 JSON과 다름",
+      "source_ids": [
+        "F01"
+      ]
+    },
+    {
+      "id": "P06",
+      "kind": "price",
+      "body": "{\"assetId\":1,\"assetCode\":\"005930\",\"name\":\"삼성전자\",\"baseDate\":\"2026-10-28\",\"closePrice\":0,\"currency\":\"KRW\"}",
+      "expected_accept": true,
+      "reason": "0은 API 검사 통과, UI의 양수 검사는 별도",
+      "source_ids": [
+        "F01"
+      ]
+    },
+    {
+      "id": "P07",
+      "kind": "price",
+      "body": "{\"assetId\":1,\"assetCode\":\"005930\",\"name\":\"삼성전자\",\"baseDate\":\"2026-10-28\",\"closePrice\":-1,\"currency\":\"KRW\"}",
+      "expected_accept": true,
+      "reason": "음수도 현행 API finite 검사 통과, UI 검사는 별도",
+      "source_ids": [
+        "F01"
+      ]
+    },
+    {
+      "id": "P08",
+      "kind": "price",
+      "body": "{\"assetId\":1,\"assetCode\":\"005930\",\"name\":\"삼성전자\",\"baseDate\":\"2026-02-30\",\"closePrice\":123.45,\"currency\":\"KRW\"}",
+      "expected_accept": true,
+      "reason": "현행 API는 달력 유효성 검사 없음",
+      "source_ids": [
+        "F01"
+      ]
+    },
+    {
+      "id": "P09",
+      "kind": "price",
+      "body": "{\"assetId\":1,\"assetCode\":\"005930\",\"name\":\"삼성전자\",\"baseDate\":null,\"closePrice\":123.45,\"currency\":\"KRW\"}",
+      "expected_accept": false,
+      "reason": "날짜 null 거절",
+      "source_ids": [
+        "F01"
+      ]
+    },
+    {
+      "id": "P10",
+      "kind": "price",
+      "body": "{\"assetId\":1,\"assetCode\":\"005930\",\"name\":\"삼성전자\",\"closePrice\":123.45,\"currency\":\"KRW\"}",
+      "expected_accept": false,
+      "reason": "날짜 필수",
+      "source_ids": [
+        "F01"
+      ]
+    },
+    {
+      "id": "P11",
+      "kind": "price",
+      "body": "{\"assetId\":1,\"assetCode\":\"005930\",\"name\":\"삼성전자\",\"baseDate\":\"2026-10-28\",\"closePrice\":123.45,\"currency\":\"UNKNOWN\"}",
+      "expected_accept": true,
+      "reason": "현행 API에서 currency 미검사",
+      "source_ids": [
+        "F01"
+      ]
+    },
+    {
+      "id": "P12",
+      "kind": "price",
+      "body": "{\"assetId\":1,\"assetCode\":\"005930\",\"name\":\"삼성전자\",\"baseDate\":\"2026-10-28\",\"closePrice\":123.45,\"currency\":\"KRW\",\"extra\":\"allowed\"}",
+      "expected_accept": true,
+      "reason": "추가 필드 허용",
+      "source_ids": [
+        "F01"
+      ]
+    },
+    {
+      "id": "P13",
+      "kind": "price",
+      "body": "{\"assetId\":1,\"assetCode\":\"X\",\"name\":\"x\",\"baseDate\":\"2026-10-28\",\"closePrice\":1e400}",
+      "expected_accept": false,
+      "reason": "JS JSON 파싱 결과 Infinity를 finite 검사로 거절",
+      "source_ids": [
+        "F01"
+      ]
+    },
+    {
+      "id": "S01",
+      "kind": "search",
+      "body": "{\"stocks\":[{\"assetId\":1,\"assetCode\":\"005930\",\"name\":\"삼성전자\",\"category\":\"STOCK\",\"market\":\"KOSPI\"}]}",
+      "expected_accept": true,
+      "reason": "정상 검색",
+      "source_ids": [
+        "F01"
+      ]
+    },
+    {
+      "id": "S02",
+      "kind": "search",
+      "body": "{\"stocks\":[]}",
+      "expected_accept": true,
+      "reason": "빈 검색 결과",
+      "source_ids": [
+        "F01"
+      ]
+    },
+    {
+      "id": "S03",
+      "kind": "search",
+      "body": "{\"stocks\":[{\"assetId\":1,\"assetCode\":\"005930\",\"name\":\"삼성전자\",\"category\":\"BOND\",\"market\":\"KOSPI\"}]}",
+      "expected_accept": false,
+      "reason": "category 허용값 검사",
+      "source_ids": [
+        "F01"
+      ]
+    },
+    {
+      "id": "S04",
+      "kind": "search",
+      "body": "{\"stocks\":[{\"assetId\":1,\"assetCode\":\"005930\",\"name\":\"삼성전자\",\"category\":\"STOCK\",\"market\":\"OTC\"}]}",
+      "expected_accept": false,
+      "reason": "market 허용값 검사",
+      "source_ids": [
+        "F01"
+      ]
+    },
+    {
+      "id": "S05",
+      "kind": "search",
+      "body": "{\"stocks\":[{\"assetId\":1.5,\"assetCode\":\"005930\",\"name\":\"삼성전자\",\"category\":\"STOCK\",\"market\":\"KOSPI\"}]}",
+      "expected_accept": false,
+      "reason": "소수 ID 거절",
+      "source_ids": [
+        "F01"
+      ]
+    },
+    {
+      "id": "S06",
+      "kind": "search",
+      "body": "{\"stocks\":[{\"assetId\":1,\"assetCode\":\"005930\",\"name\":\"삼성전자\",\"category\":\"STOCK\",\"market\":\"KOSPI\",\"currency\":null}]}",
+      "expected_accept": true,
+      "reason": "검색 currency null도 현행 검증 미대상",
+      "source_ids": [
+        "F01"
+      ]
+    },
+    {
+      "id": "S07",
+      "kind": "search",
+      "body": "{\"stocks\":null}",
+      "expected_accept": false,
+      "reason": "배열 아닌 stocks 거절",
+      "source_ids": [
+        "F01"
+      ]
+    },
+    {
+      "id": "S08",
+      "kind": "search",
+      "body": "[]",
+      "expected_accept": false,
+      "reason": "응답 객체 형식 검사",
+      "source_ids": [
+        "F01"
+      ]
+    }
+  ],
+  "request_cases": [
+    {
+      "keyword": "삼성 & ETF",
+      "country": "KR",
+      "expected_path": "/api/stocks?q=%EC%82%BC%EC%84%B1+%26+ETF"
+    },
+    {
+      "keyword": "AAPL",
+      "country": "US",
+      "expected_path": "/api/stocks?q=AAPL&country=US"
+    }
+  ]
+}

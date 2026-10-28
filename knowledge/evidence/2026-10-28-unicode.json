@@ -1,0 +1,66 @@
+{
+  "scope": "Synthetic Java strip versus Rust trim; original HTTP/DB not run",
+  "checked_at": "2026-10-28T06:49:47.565236+00:00",
+  "commands": [
+    {
+      "command": [
+        "java",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "openjdk 21.0.12 2026-07-21 LTS\nOpenJDK Runtime Environment Microsoft-14653898 (build 21.0.12+8-LTS)\nOpenJDK 64-Bit Server VM Microsoft-14653898 (build 21.0.12+8-LTS, mixed mode, sharing)\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "rustc",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "rustc 1.92.0 (ded5c06cf 2025-12-08) (Homebrew)\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "java",
+        "experiments/knowledge-contracts/UnicodeProbe.java"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"nbspStripUtf16Length\":4,\"emSpaceStripUtf16Length\":2}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "rustc",
+        "experiments/knowledge-contracts/unicode.rs",
+        "-o",
+        "/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/knowledge-unicode-jh7zoah3/unicode-probe"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/knowledge-unicode-jh7zoah3/unicode-probe"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"nbspTrimUtf16Length\":2,\"emSpaceTrimUtf16Length\":2}\n",
+      "stderr": ""
+    }
+  ],
+  "source_hashes": {
+    "experiments/knowledge-contracts/UnicodeProbe.java": "69be73ad19c910855398342e4911d000fa43f3c286d28a6052622d12ac03fb9d",
+    "experiments/knowledge-contracts/unicode.rs": "fca3b69eb8de5f16569c2e2f631d57010e52d5373f309e7129687c64007a9250",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/asset/service/StockSearchService.java": "9e951391d788b6820c55b1dfb8b7c42581174f07d361a2831fd13f22cdd672e1",
+    "app/src/service_market.rs": "72d0e5e6265c284ffed4b2e3f40eee593a5c77c48aea4d4d83caa6ae6f218f79"
+  },
+  "java": {
+    "nbspStripUtf16Length": 4,
+    "emSpaceStripUtf16Length": 2
+  },
+  "rust": {
+    "nbspTrimUtf16Length": 2,
+    "emSpaceTrimUtf16Length": 2
+  }
+}

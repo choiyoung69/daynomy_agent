@@ -1,0 +1,780 @@
+{
+  "schema_version": 1,
+  "scope": "non-league Java HTTP mappings; not DTO/authorization/runtime parity",
+  "controller_count": 31,
+  "handler_count": 81,
+  "expanded_route_count": 89,
+  "source_hashes": {
+    "spec/service.md": "31fed07c550f6bccfa5cd80114c6db56f3bd6489dcfe28eee49893bfc72ad11a",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/asset/controller/StockController.java": "4496cb9c934702d854cd11b375869658ae2a1020100e1668d5e7337ade16eb76",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/asset/controller/StockPriceSyncAdminController.java": "5ccc3d043482f73ebe8812a35923f23040a9ec7ea150d5639d92dbe61fbf1b28",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/asset/controller/StockSyncAdminController.java": "6a83c81466795a5e4019ce5f3f489b9afcdef8a2d9db12a02c65e0e4e74eac91",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/asset/controller/UsStockSyncAdminController.java": "4937f630f0cc1885810cb537967af6e4054b7c25e662560beb6f83169670e01b",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/auth/controller/AuthController.java": "ef2570ed7e0d73b8b1570e6c615b85f28708981b67f4908ba25c4eced710fc5b",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/content/controller/AdminAssetContentController.java": "f69950740b7f5eeea48df9ced3fc19bbf2c8f17f1b5080b748cb5cc3539b2468",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/content/controller/AssetContentController.java": "124cb35935970205177d6f5bf25a51283b08b37386092260259f28f523ddb730",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/content/controller/ContentController.java": "2d9b57a10621c9e30441650cc582321d4901c9601ce0e1c41a1dc00cadb1ae91",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/exchangerate/controller/ExchangeRateController.java": "8894c94a2413ffb39b9ebcf3a95ae418b6120dbc28fbe04ff944e5fa2e7de753",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/feedback/controller/AdminFeedbackController.java": "00fe452a8a410b6010fc6d6012ca61133e7111f51341b1506ec847b842bc61f3",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/feedback/controller/FeedbackController.java": "fac4e041f43203d1e0e48792a48802948a343f6f13e90eb9ab282ec872d01b37",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/investmentcalendar/controller/InvestmentCalendarController.java": "0dab630a41bf0a6b0a91284cb0c29eb3b4be42d8f9b28231387647489777ce59",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/investmentcalendar/controller/PublicInvestmentCalendarController.java": "cdae2c9fb4b553b5edbcbf2fb6c7a352b1368a2f7a0ae275e8a5bfff211ad5cd",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/keyword/controller/KeywordController.java": "c3b39e7e70f071e80e3206452f547ff40150a6f8ac5db85e64085e5786cc7a8c",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/market/controller/MarketAnalysisController.java": "af58db10ceeca845216f6aade918d88af75303f34ff3f26c22f29e1ad05cf735",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/member/controller/MemberController.java": "e01dcbf7a50e41bd02efb2b7e8bda3dfc0671b66d6a6771f0b35c5b91cfb2db7",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/news/controller/AdminNewsController.java": "84c459212134e22e52b851444a4d958deead169e9f3158020fa412a0060cc7c4",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/news/controller/NewsController.java": "c92961bb993b660c5fd54e138fa04532d3e1170e189b98a7c4d10832112884e4",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/person/controller/AdminFeaturedPersonController.java": "3a80dfe79c3dc6ac239aed439b1d00c31b456ac3da9f045cad6d788de357e092",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/person/controller/AdminFeaturedPersonPostCandidateController.java": "8558b6f0d1653ba6dcdb89eaef51f15b2be6e22fa86267bab1053e14b1f97d5b",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/person/controller/AdminFeaturedPersonPostCandidateInboxController.java": "fa40dca957349fa9ac97a12d5cefeba0c9d55e892f53d08a8d45fabf12077665",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/person/controller/FeaturedPersonController.java": "acfe0dff5cec9a24fb3d36bd8a779df09d5ba892d5fe8a742c93ffceafb68837",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/controller/PortfolioAnalysisController.java": "addb3be5516372532fa516d282130c3ae9c1565d0992334a10320993d9a11d2f",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/controller/PortfolioController.java": "f53781c5afa9fb3883d691553f366a3298bd02c790d75ff11d75c8b6cbf7d927",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/controller/SavedPortfolioAnalysisController.java": "df7efb51fb077297a304ece6405ee04e0dca16ad42024f3414f98f0ae9e977d7",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/controller/SavedPortfolioController.java": "0d30f6bed59aca399a738405926763d411142b3ca817d1fdb3f732cfbf994ad0",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/v1/controller/SavedPortfolioAnalysisV1Controller.java": "94dbd17f4e76046b3471954d174b663915be59f936d335f4a84bf1e429e1c477",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/v2/controller/PortfolioTransactionControllerV2.java": "740e6e3711d5ae50a80d27dc62422e730d0e0b4cf998904486402b4cec110410",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/v2/controller/SavedPortfolioAnalysisV2Controller.java": "8897222376188a6705a1a83fae01e2dbb1002e9d51e8dd56dd53cdf0d29e69af",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/search/controller/ContentSearchController.java": "fb95f279c47378915340fcdeeab574a314045b5890d3bea1659777c9bc8aebb2",
+    "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/search/controller/NewsSearchController.java": "251f25cb597ff4bcaf45c6f9c00b5afddf9d7449179d247907e01284c4926d15"
+  },
+  "handlers": [
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/asset/controller/StockController.java",
+      "method": "GET",
+      "paths": [
+        "/api/stocks"
+      ],
+      "description": "국내·미국 주식·ETF 통합 검색",
+      "access": "공개"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/asset/controller/StockController.java",
+      "method": "GET",
+      "paths": [
+        "/api/stocks/{assetId}/price"
+      ],
+      "description": "국내·미국 주식·ETF 최근 종가 조회",
+      "access": "공개"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/asset/controller/StockPriceSyncAdminController.java",
+      "method": "POST",
+      "paths": [
+        "/api/admin/stocks/prices/sync"
+      ],
+      "description": "국내 주식·ETF 종가 동기화",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/asset/controller/StockPriceSyncAdminController.java",
+      "method": "POST",
+      "paths": [
+        "/api/admin/stocks/prices/backfill"
+      ],
+      "description": "국내 주식·ETF 종가 백필",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/asset/controller/StockSyncAdminController.java",
+      "method": "POST",
+      "paths": [
+        "/api/admin/stocks/sync"
+      ],
+      "description": "국내 주식·ETF 종목 동기화",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/asset/controller/UsStockSyncAdminController.java",
+      "method": "POST",
+      "paths": [
+        "/api/admin/stocks/us/sync"
+      ],
+      "description": "미국 주식·ETF 종목 동기화",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/asset/controller/UsStockSyncAdminController.java",
+      "method": "POST",
+      "paths": [
+        "/api/admin/stocks/us/prices/sync"
+      ],
+      "description": "미국 주식·ETF 종가 동기화",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/auth/controller/AuthController.java",
+      "method": "GET",
+      "paths": [
+        "/api/auth/google"
+      ],
+      "description": "Google 로그인",
+      "access": "공개"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/auth/controller/AuthController.java",
+      "method": "GET",
+      "paths": [
+        "/api/auth/csrf"
+      ],
+      "description": "CSRF 토큰 조회",
+      "access": "공개"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/auth/controller/AuthController.java",
+      "method": "POST",
+      "paths": [
+        "/api/auth/refresh"
+      ],
+      "description": "Access Token 재발급",
+      "access": "공개"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/auth/controller/AuthController.java",
+      "method": "POST",
+      "paths": [
+        "/api/auth/logout"
+      ],
+      "description": "로그아웃",
+      "access": "공개"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/content/controller/AdminAssetContentController.java",
+      "method": "POST",
+      "paths": [
+        "/api/admin/assets/{assetId}/contents"
+      ],
+      "description": "종목 관련 자료 등록",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/content/controller/AdminAssetContentController.java",
+      "method": "GET",
+      "paths": [
+        "/api/admin/assets/{assetId}/contents"
+      ],
+      "description": "종목 관련 자료 목록 조회",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/content/controller/AdminAssetContentController.java",
+      "method": "GET",
+      "paths": [
+        "/api/admin/assets/{assetId}/contents/youtube-search"
+      ],
+      "description": "YouTube 영상 검색",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/content/controller/AdminAssetContentController.java",
+      "method": "GET",
+      "paths": [
+        "/api/admin/assets/{assetId}/contents/social-search"
+      ],
+      "description": "Threads·X 게시물 검색",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/content/controller/AdminAssetContentController.java",
+      "method": "DELETE",
+      "paths": [
+        "/api/admin/assets/{assetId}/contents/{contentId}"
+      ],
+      "description": "종목 관련 자료 삭제",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/content/controller/AssetContentController.java",
+      "method": "GET",
+      "paths": [
+        "/api/assets/{assetId}/contents"
+      ],
+      "description": "종목 관련 자료 조회",
+      "access": "공개"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/content/controller/ContentController.java",
+      "method": "GET",
+      "paths": [
+        "/api/contents"
+      ],
+      "description": "소식의 공개 외부 자료 목록",
+      "access": "공개"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/exchangerate/controller/ExchangeRateController.java",
+      "method": "GET",
+      "paths": [
+        "/api/exchange-rates/usd-krw"
+      ],
+      "description": "USD/KRW 날짜별 환율 조회",
+      "access": "공개"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/feedback/controller/AdminFeedbackController.java",
+      "method": "GET",
+      "paths": [
+        "/api/admin/feedbacks"
+      ],
+      "description": "피드백 목록 조회",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/feedback/controller/AdminFeedbackController.java",
+      "method": "GET",
+      "paths": [
+        "/api/admin/feedbacks/{id}"
+      ],
+      "description": "피드백 상세 조회",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/feedback/controller/AdminFeedbackController.java",
+      "method": "PATCH",
+      "paths": [
+        "/api/admin/feedbacks/{id}"
+      ],
+      "description": "피드백 상태 수정",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/feedback/controller/AdminFeedbackController.java",
+      "method": "DELETE",
+      "paths": [
+        "/api/admin/feedbacks/{id}"
+      ],
+      "description": "피드백 삭제",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/feedback/controller/FeedbackController.java",
+      "method": "POST",
+      "paths": [
+        "/api/feedback"
+      ],
+      "description": "피드백 등록",
+      "access": "공개"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/investmentcalendar/controller/InvestmentCalendarController.java",
+      "method": "GET",
+      "paths": [
+        "/api/users/me/investment-calendar"
+      ],
+      "description": "월별 투자 캘린더 조회",
+      "access": "회원"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/investmentcalendar/controller/PublicInvestmentCalendarController.java",
+      "method": "POST",
+      "paths": [
+        "/api/investment-calendar"
+      ],
+      "description": "비회원 월별 투자 캘린더 조회",
+      "access": "공개"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/keyword/controller/KeywordController.java",
+      "method": "GET",
+      "paths": [
+        "/api/news/{newsId}/keywords"
+      ],
+      "description": "뉴스 키워드 조회",
+      "access": "공개"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/market/controller/MarketAnalysisController.java",
+      "method": "GET",
+      "paths": [
+        "/api/news/{newsId}/market-analysis"
+      ],
+      "description": "뉴스 시장 분석 조회",
+      "access": "공개"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/member/controller/MemberController.java",
+      "method": "GET",
+      "paths": [
+        "/api/users/me"
+      ],
+      "description": "내 정보 조회",
+      "access": "회원"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/member/controller/MemberController.java",
+      "method": "PATCH",
+      "paths": [
+        "/api/users/me"
+      ],
+      "description": "내 정보 수정",
+      "access": "회원"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/member/controller/MemberController.java",
+      "method": "DELETE",
+      "paths": [
+        "/api/users/me"
+      ],
+      "description": "회원 탈퇴",
+      "access": "회원"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/news/controller/AdminNewsController.java",
+      "method": "POST",
+      "paths": [
+        "/api/admin/news"
+      ],
+      "description": "뉴스 등록",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/news/controller/AdminNewsController.java",
+      "method": "POST",
+      "paths": [
+        "/api/admin/news/generate/economy/korea"
+      ],
+      "description": "한국 뉴스 초안 생성 실행",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/news/controller/AdminNewsController.java",
+      "method": "POST",
+      "paths": [
+        "/api/admin/news/generate/economy/us"
+      ],
+      "description": "미국 뉴스 초안 생성 실행",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/news/controller/AdminNewsController.java",
+      "method": "GET",
+      "paths": [
+        "/api/admin/news/image-search"
+      ],
+      "description": "Wikimedia Commons 이미지 검색",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/news/controller/AdminNewsController.java",
+      "method": "POST",
+      "paths": [
+        "/api/admin/news/{id}/generate-image"
+      ],
+      "description": "뉴스 이미지 생성",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/news/controller/AdminNewsController.java",
+      "method": "GET",
+      "paths": [
+        "/api/admin/news"
+      ],
+      "description": "관리자 뉴스 목록 조회",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/news/controller/AdminNewsController.java",
+      "method": "GET",
+      "paths": [
+        "/api/admin/news/{id}"
+      ],
+      "description": "관리자 뉴스 상세 조회",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/news/controller/AdminNewsController.java",
+      "method": "POST",
+      "paths": [
+        "/api/admin/news/{id}/publish"
+      ],
+      "description": "뉴스 발행",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/news/controller/AdminNewsController.java",
+      "method": "POST",
+      "paths": [
+        "/api/admin/news/{id}/reject"
+      ],
+      "description": "뉴스 거절",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/news/controller/AdminNewsController.java",
+      "method": "PUT",
+      "paths": [
+        "/api/admin/news/{id}"
+      ],
+      "description": "뉴스 수정",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/news/controller/AdminNewsController.java",
+      "method": "DELETE",
+      "paths": [
+        "/api/admin/news/{id}"
+      ],
+      "description": "뉴스 삭제",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/news/controller/NewsController.java",
+      "method": "GET",
+      "paths": [
+        "/api/news"
+      ],
+      "description": "뉴스 목록 조회",
+      "access": "공개"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/news/controller/NewsController.java",
+      "method": "GET",
+      "paths": [
+        "/api/news/today"
+      ],
+      "description": "오늘의 뉴스 조회",
+      "access": "공개"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/news/controller/NewsController.java",
+      "method": "GET",
+      "paths": [
+        "/api/news/{id}"
+      ],
+      "description": "뉴스 상세 조회",
+      "access": "공개"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/person/controller/AdminFeaturedPersonController.java",
+      "method": "GET",
+      "paths": [
+        "/api/admin/people"
+      ],
+      "description": "주요 인물 목록 조회",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/person/controller/AdminFeaturedPersonController.java",
+      "method": "POST",
+      "paths": [
+        "/api/admin/people"
+      ],
+      "description": "주요 인물 등록",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/person/controller/AdminFeaturedPersonController.java",
+      "method": "PUT",
+      "paths": [
+        "/api/admin/people/{personId}"
+      ],
+      "description": "주요 인물 수정",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/person/controller/AdminFeaturedPersonController.java",
+      "method": "GET",
+      "paths": [
+        "/api/admin/people/{personId}/posts/search"
+      ],
+      "description": "주요 인물 Threads·X 게시물 AI 검색",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/person/controller/AdminFeaturedPersonController.java",
+      "method": "DELETE",
+      "paths": [
+        "/api/admin/people/{personId}"
+      ],
+      "description": "주요 인물 삭제",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/person/controller/AdminFeaturedPersonController.java",
+      "method": "POST",
+      "paths": [
+        "/api/admin/people/{personId}/posts"
+      ],
+      "description": "주요 인물 게시물 등록",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/person/controller/AdminFeaturedPersonController.java",
+      "method": "DELETE",
+      "paths": [
+        "/api/admin/people/{personId}/posts/{postId}"
+      ],
+      "description": "주요 인물 게시물 삭제",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/person/controller/AdminFeaturedPersonPostCandidateController.java",
+      "method": "GET",
+      "paths": [
+        "/api/admin/people/{personId}/post-candidates"
+      ],
+      "description": "승인 대기 중인 주요 인물 게시물 후보 조회",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/person/controller/AdminFeaturedPersonPostCandidateController.java",
+      "method": "POST",
+      "paths": [
+        "/api/admin/people/{personId}/post-candidates/collect"
+      ],
+      "description": "주요 인물 공식 프로필 게시물 즉시 수집",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/person/controller/AdminFeaturedPersonPostCandidateController.java",
+      "method": "POST",
+      "paths": [
+        "/api/admin/people/{personId}/post-candidates/{candidateId}/approve"
+      ],
+      "description": "주요 인물 게시물 후보 승인",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/person/controller/AdminFeaturedPersonPostCandidateController.java",
+      "method": "POST",
+      "paths": [
+        "/api/admin/people/{personId}/post-candidates/{candidateId}/reject"
+      ],
+      "description": "주요 인물 게시물 후보 거절",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/person/controller/AdminFeaturedPersonPostCandidateController.java",
+      "method": "POST",
+      "paths": [
+        "/api/admin/people/{personId}/post-candidates/bulk-approve"
+      ],
+      "description": "주요 인물 게시물 후보 선택 일괄 승인",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/person/controller/AdminFeaturedPersonPostCandidateController.java",
+      "method": "POST",
+      "paths": [
+        "/api/admin/people/{personId}/post-candidates/bulk-reject"
+      ],
+      "description": "주요 인물 게시물 후보 선택 일괄 거절",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/person/controller/AdminFeaturedPersonPostCandidateInboxController.java",
+      "method": "GET",
+      "paths": [
+        "/api/admin/people/post-candidates"
+      ],
+      "description": "전체 주요 인물 승인 대기 게시물 후보 조회",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/person/controller/AdminFeaturedPersonPostCandidateInboxController.java",
+      "method": "POST",
+      "paths": [
+        "/api/admin/people/post-candidates/bulk-approve"
+      ],
+      "description": "전체 주요 인물 게시물 후보 선택 일괄 승인",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/person/controller/AdminFeaturedPersonPostCandidateInboxController.java",
+      "method": "POST",
+      "paths": [
+        "/api/admin/people/post-candidates/bulk-reject"
+      ],
+      "description": "전체 주요 인물 게시물 후보 선택 일괄 거절",
+      "access": "관리자"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/person/controller/FeaturedPersonController.java",
+      "method": "GET",
+      "paths": [
+        "/api/people"
+      ],
+      "description": "주요 인물 목록 조회",
+      "access": "공개"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/controller/PortfolioAnalysisController.java",
+      "method": "POST",
+      "paths": [
+        "/api/portfolio/analysis"
+      ],
+      "description": "포트폴리오 분석",
+      "access": "공개"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/controller/PortfolioController.java",
+      "method": "POST",
+      "paths": [
+        "/api/portfolio/calculate"
+      ],
+      "description": "포트폴리오 계산",
+      "access": "공개"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/controller/SavedPortfolioAnalysisController.java",
+      "method": "GET",
+      "paths": [
+        "/api/users/me/portfolio/analysis/history"
+      ],
+      "description": "내 포트폴리오 분석 변경 이력 조회",
+      "access": "회원"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/controller/SavedPortfolioAnalysisController.java",
+      "method": "GET",
+      "paths": [
+        "/api/users/me/portfolio/analysis"
+      ],
+      "description": "내 포트폴리오 저장 분석 조회",
+      "access": "회원"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/controller/SavedPortfolioAnalysisController.java",
+      "method": "POST",
+      "paths": [
+        "/api/users/me/portfolio/analysis/refresh"
+      ],
+      "description": "내 포트폴리오 새 근거 확인",
+      "access": "회원"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/controller/SavedPortfolioAnalysisController.java",
+      "method": "POST",
+      "paths": [
+        "/api/users/me/portfolio/analysis"
+      ],
+      "description": "내 포트폴리오 분석 생성 또는 재사용",
+      "access": "회원"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/controller/SavedPortfolioController.java",
+      "method": "GET",
+      "paths": [
+        "/api/portfolio",
+        "/api/users/me/portfolio"
+      ],
+      "description": "내 포트폴리오 조회",
+      "access": "회원"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/controller/SavedPortfolioController.java",
+      "method": "POST",
+      "paths": [
+        "/api/portfolio/transactions",
+        "/api/users/me/portfolio/transactions"
+      ],
+      "description": "매수·매도 거래 등록",
+      "access": "회원"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/controller/SavedPortfolioController.java",
+      "method": "PATCH",
+      "paths": [
+        "/api/portfolio/transactions/{transactionId}",
+        "/api/users/me/portfolio/transactions/{transactionId}"
+      ],
+      "description": "매수·매도 거래 수정",
+      "access": "회원"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/controller/SavedPortfolioController.java",
+      "method": "DELETE",
+      "paths": [
+        "/api/portfolio/transactions/{transactionId}",
+        "/api/users/me/portfolio/transactions/{transactionId}"
+      ],
+      "description": "매수·매도 거래 삭제",
+      "access": "회원"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/controller/SavedPortfolioController.java",
+      "method": "PATCH",
+      "paths": [
+        "/api/portfolio/holdings/{assetId}",
+        "/api/users/me/portfolio/holdings/{assetId}"
+      ],
+      "description": "보유자산 수정",
+      "access": "회원"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/controller/SavedPortfolioController.java",
+      "method": "DELETE",
+      "paths": [
+        "/api/portfolio/holdings/{assetId}",
+        "/api/users/me/portfolio/holdings/{assetId}"
+      ],
+      "description": "보유자산 삭제",
+      "access": "회원"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/controller/SavedPortfolioController.java",
+      "method": "GET",
+      "paths": [
+        "/api/portfolio/performance",
+        "/api/users/me/portfolio/performance"
+      ],
+      "description": "기간별 포트폴리오 수익률 조회",
+      "access": "회원"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/controller/SavedPortfolioController.java",
+      "method": "GET",
+      "paths": [
+        "/api/portfolio/histories",
+        "/api/users/me/portfolio/histories"
+      ],
+      "description": "보유자산 변경 이력 조회",
+      "access": "회원"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/v1/controller/SavedPortfolioAnalysisV1Controller.java",
+      "method": "POST",
+      "paths": [
+        "/api/v1/users/me/portfolio/analysis"
+      ],
+      "description": "포트폴리오 분석 V1: 종목별 가격 조회 및 기존 AI 분석",
+      "access": "회원"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/v2/controller/PortfolioTransactionControllerV2.java",
+      "method": "POST",
+      "paths": [
+        "/api/v2/users/me/portfolio/transactions"
+      ],
+      "description": "매수·매도 거래 등록 V2",
+      "access": "회원"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/v2/controller/SavedPortfolioAnalysisV2Controller.java",
+      "method": "POST",
+      "paths": [
+        "/api/v2/users/me/portfolio/analysis"
+      ],
+      "description": "포트폴리오 분석 V2: 가격 일괄 조회 및 최대 5종목 선별 분석",
+      "access": "회원"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/search/controller/ContentSearchController.java",
+      "method": "GET",
+      "paths": [
+        "/api/search/contents"
+      ],
+      "description": "소식 전체 검색",
+      "access": "공개"
+    },
+    {
+      "controller": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/search/controller/NewsSearchController.java",
+      "method": "GET",
+      "paths": [
+        "/api/search/news"
+      ],
+      "description": "뉴스 검색",
+      "access": "공개"
+    }
+  ]
+}

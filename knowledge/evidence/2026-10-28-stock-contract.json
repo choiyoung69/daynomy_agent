@@ -1,0 +1,152 @@
+{
+  "checked_at": "2026-10-28T06:38:33.085Z",
+  "runtime": "v22.23.1",
+  "scope": "Reference web decoder functions and URL generation with fake request; no HTTP/DB/UI or independent evaluation",
+  "transformation": "Built-in TypeScript type stripping; request import replaced by fake; export modifiers removed",
+  "source_hashes": {
+    "reference/2026-DAYNOMY-dev/frontend/src/features/stocks/api.ts": "bd4189b4ae61e779c10beb1eb933d23894385d9a7885aac1eba647384d6c4756",
+    "knowledge/contracts/stock-search-price.json": "03fb14fe1c685b4737eafcb97c4d25aea8becfa07f49040cb87f3c4b937a4921",
+    "experiments/knowledge-contracts/stock-decoder.mjs": "42aee3d550c923c7b843e3b3f081ad03e67f5429b01d0533b6c11d2ba5eaf451"
+  },
+  "observations": [
+    {
+      "id": "P01",
+      "expected": true,
+      "actual": true,
+      "passed": true
+    },
+    {
+      "id": "P02",
+      "expected": true,
+      "actual": true,
+      "passed": true
+    },
+    {
+      "id": "P03",
+      "expected": false,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "id": "P04",
+      "expected": false,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "id": "P05",
+      "expected": false,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "id": "P06",
+      "expected": true,
+      "actual": true,
+      "passed": true
+    },
+    {
+      "id": "P07",
+      "expected": true,
+      "actual": true,
+      "passed": true
+    },
+    {
+      "id": "P08",
+      "expected": true,
+      "actual": true,
+      "passed": true
+    },
+    {
+      "id": "P09",
+      "expected": false,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "id": "P10",
+      "expected": false,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "id": "P11",
+      "expected": true,
+      "actual": true,
+      "passed": true
+    },
+    {
+      "id": "P12",
+      "expected": true,
+      "actual": true,
+      "passed": true
+    },
+    {
+      "id": "P13",
+      "expected": false,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "id": "S01",
+      "expected": true,
+      "actual": true,
+      "passed": true
+    },
+    {
+      "id": "S02",
+      "expected": true,
+      "actual": true,
+      "passed": true
+    },
+    {
+      "id": "S03",
+      "expected": false,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "id": "S04",
+      "expected": false,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "id": "S05",
+      "expected": false,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "id": "S06",
+      "expected": true,
+      "actual": true,
+      "passed": true
+    },
+    {
+      "id": "S07",
+      "expected": false,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "id": "S08",
+      "expected": false,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "id": "URL1",
+      "expected": "/api/stocks?q=%EC%82%BC%EC%84%B1+%26+ETF",
+      "actual": "/api/stocks?q=%EC%82%BC%EC%84%B1+%26+ETF",
+      "passed": true
+    },
+    {
+      "id": "URL2",
+      "expected": "/api/stocks?q=AAPL&country=US",
+      "actual": "/api/stocks?q=AAPL&country=US",
+      "passed": true
+    }
+  ],
+  "passed": true
+}
