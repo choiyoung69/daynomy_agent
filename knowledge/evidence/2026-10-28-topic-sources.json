@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-28T07:09:52.267443+00:00",
+  "collector": {
+    "path": "scripts/knowledge_sources.py",
+    "sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+  },
+  "results": [
+    {
+      "source_id": "E50",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E50/c1c9be631efe798a1209cbc34e37dd37b8d6fb50ae53723d20ef2675b2d5e8b4.html",
+        "sha256": "c1c9be631efe798a1209cbc34e37dd37b8d6fb50ae53723d20ef2675b2d5e8b4",
+        "bytes": 26080,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/docs/collections-overview.html",
+        "retrieved_at": "2026-10-28T07:09:53.456294+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E51",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E51/8a99b6a5b706db4643f67dcb324688af594bddae849892a1371831f101b3c478.html",
+        "sha256": "8a99b6a5b706db4643f67dcb324688af594bddae849892a1371831f101b3c478",
+        "bytes": 14218,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/docs/data-classes.html",
+        "retrieved_at": "2026-10-28T07:09:54.225316+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E52",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E52/8e995131be76c7ca5b5477d22bf404faaacfd2c7ab706080167cdf6c2cb65887.txt",
+        "sha256": "8e995131be76c7ca5b5477d22bf404faaacfd2c7ab706080167cdf6c2cb65887",
+        "bytes": 44996,
+        "media_type": "text/plain",
+        "retrieved_url": "https://raw.githubusercontent.com/swiftlang/swift-book/main/TSPL.docc/LanguageGuide/CollectionTypes.md",
+        "retrieved_at": "2026-10-28T07:09:54.830038+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E53",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E53/941a10d8d594ae41ee276c4e690f83dc94dd2a210439f0538b12bccc74546e9c.html",
+        "sha256": "941a10d8d594ae41ee276c4e690f83dc94dd2a210439f0538b12bccc74546e9c",
+        "bytes": 293906,
+        "media_type": "text/html",
+        "retrieved_url": "https://dart.dev/language/collections",
+        "retrieved_at": "2026-10-28T07:09:55.666522+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E54",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E54/e888c00735b69363b49c6247fb127d0ebc6dfae5059f43c5793867149ea36b7f.html",
+        "sha256": "e888c00735b69363b49c6247fb127d0ebc6dfae5059f43c5793867149ea36b7f",
+        "bytes": 389233,
+        "media_type": "text/html",
+        "retrieved_url": "https://www.typescriptlang.org/docs/handbook/2/objects.html",
+        "retrieved_at": "2026-10-28T07:09:56.148040+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E55",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "status": "unavailable",
+      "error_type": "HTTPError"
+    },
+    {
+      "source_id": "E56",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E56/a01fcb1120386332272c41321c3e2a05b8d34d781d4abb7083c398bc8ee8853a.txt",
+        "sha256": "a01fcb1120386332272c41321c3e2a05b8d34d781d4abb7083c398bc8ee8853a",
+        "bytes": 56558,
+        "media_type": "text/plain",
+        "retrieved_url": "https://raw.githubusercontent.com/swiftlang/swift-book/main/TSPL.docc/LanguageGuide/Concurrency.md",
+        "retrieved_at": "2026-10-28T07:09:56.713454+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    }
+  ],
+  "ended_at": "2026-10-28T07:09:56.713496+00:00"
+}

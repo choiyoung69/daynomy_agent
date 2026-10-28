@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-28T07:14:16.715895+00:00",
+  "collector": {
+    "path": "scripts/knowledge_sources.py",
+    "sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+  },
+  "results": [
+    {
+      "source_id": "E55",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E55/3d1b6b42d5c7212cdeec9a8af688d5d1daafcaba40b55d1ee5278e70fb8989a8.html",
+        "sha256": "3d1b6b42d5c7212cdeec9a8af688d5d1daafcaba40b55d1ee5278e70fb8989a8",
+        "bytes": 279,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/docs/cancellation-and-timeouts.html",
+        "retrieved_at": "2026-10-28T07:14:17.559386+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    }
+  ],
+  "ended_at": "2026-10-28T07:14:17.559441+00:00"
+}

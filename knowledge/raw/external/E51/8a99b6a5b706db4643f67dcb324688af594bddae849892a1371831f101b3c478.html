@@ -1,0 +1,80 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html lang="en-US" data-preset="contrast" data-primary-color="#307FFF" data-external-links-in-new-tab="false"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="built-on" content="2026-10-27T12:17:17.314854858"><meta name="build-number" content="1354"><link rel="canonical" href="/docs/data-classes.html" data-react-helmet="true"><script>
+    (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+        var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&amp;l=' + l : '';
+        j.async = true;
+        j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-5P98');
+</script>
+<script src="https://resources.jetbrains.com/storage/help-app/v6/analytics.js"></script>
+<title>Data classes | Kotlin Documentation</title><script type="application/json" id="virtual-toc-data">[{"id":"properties-declared-in-the-class-body","level":0,"title":"Properties declared in the class body","anchor":"#properties-declared-in-the-class-body"},{"id":"copying","level":0,"title":"Copying","anchor":"#copying"},{"id":"data-classes-and-destructuring-declarations","level":0,"title":"Data classes and destructuring declarations","anchor":"#data-classes-and-destructuring-declarations"},{"id":"standard-data-classes","level":0,"title":"Standard data classes","anchor":"#standard-data-classes"}]</script><script type="application/json" id="topic-shortcuts"></script><link href="custom-frontend-app/app.css?149" rel="stylesheet"><link rel="icon" type="image/svg" sizes="16x16" href="https://kotlinlang.org/assets/images/favicon.svg?v2"><link rel="icon" type="image/x-icon" sizes="32x32" href="https://kotlinlang.org/assets/images/favicon.ico?v2"><link rel="icon" type="image/png" sizes="96x96" href="https://kotlinlang.org/assets/images/apple-touch-icon.png?v2"><link rel="icon" type="image/png" sizes="300x300" href="https://kotlinlang.org/assets/images/apple-touch-icon-72x72.png?v2"><link rel="icon" type="image/png" sizes="500x500" href="https://kotlinlang.org/assets/images/apple-touch-icon-114x114.png?v2"><meta name="image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- Open Graph --><meta property="og:title" content="Data classes | Kotlin"><meta property="og:description" content=""><meta property="og:image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><meta property="og:site_name" content="Kotlin Help"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:url" content="https://kotlinlang.org/docs/data-classes.html"><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@kotlin"><meta name="twitter:title" content="Data classes | Kotlin"><meta name="twitter:description" content=""><meta name="twitter:creator" content="@kotlin"><meta name="twitter:image:src" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- End Twitter Card --><!-- Schema.org WebPage --><script type="application/ld+json">{
+    "@context": "http://schema.org",
+    "@type": "WebPage",
+    "@id": "https://kotlinlang.org/docs/data-classes.html#webpage",
+    "url": "https://kotlinlang.org/docs/data-classes.html",
+    "name": "Data classes | Kotlin",
+    "description": "",
+    "image": "https://kotlinlang.org/assets/images/open-graph/docs.png",
+    "inLanguage":"en-US"
+}</script><!-- End Schema.org --><!-- Schema.org WebSite --><script type="application/ld+json">{
+    "@type": "WebSite",
+    "@id": "https://kotlinlang.org/docs/#website",
+    "url": "https://kotlinlang.org/docs/",
+    "name": "Kotlin Help"
+}</script><!-- End Schema.org --><style>a[href="test-page.html"] { visibility: hidden; }</style></head><body data-id="data-classes" data-main-title="Data classes" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-template="article" data-breadcrumbs="Language guide///Classes and interfaces" data-edit-url="https://github.com/JetBrains/kotlin-web-site/edit/master/docs/topics/data-classes.md"><div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>Kotlin  Help</h3><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="data-classes" id="data-classes.md">Data classes</h1><p id="-u2zw6c_2">Data classes in Kotlin are primarily used to hold data. For each data class, the compiler automatically generates additional member functions that allow you to print an instance to readable output, compare instances, copy instances, and more. Data classes are marked with <code class="code" id="-u2zw6c_16">data</code>:</p><div class="code-block" data-lang="kotlin">
+data class User(val name: String, val age: Int)
+</div><p id="-u2zw6c_4">The compiler automatically derives the following members from all properties declared in the primary constructor:</p><ul class="list _bullet" id="-u2zw6c_5"><li class="list__item" id="-u2zw6c_17"><p id="-u2zw6c_21"><code class="code" id="-u2zw6c_22">equals()</code>/<code class="code" id="-u2zw6c_23">hashCode()</code> pair.</p></li><li class="list__item" id="-u2zw6c_18"><p id="-u2zw6c_24"><code class="code" id="-u2zw6c_25">toString()</code> of the form <code class="code" id="-u2zw6c_26">&quot;User(name=John, age=42)&quot;</code>.</p></li><li class="list__item" id="-u2zw6c_19"><p id="-u2zw6c_27"><a href="destructuring-declarations.html" id="-u2zw6c_28"><code class="code" id="-u2zw6c_29">componentN()</code> functions</a> corresponding to the properties in their order of declaration.</p></li><li class="list__item" id="-u2zw6c_20"><p id="-u2zw6c_30"><a href="#copying" id="-u2zw6c_31"><code class="code" id="-u2zw6c_32">copy()</code> function</a>.</p></li></ul><p id="-u2zw6c_6">To ensure consistency and meaningful behavior of the generated code, data classes have to fulfill the following requirements:</p><ul class="list _bullet" id="-u2zw6c_7"><li class="list__item" id="-u2zw6c_33"><p id="-u2zw6c_36">The primary constructor must have at least one parameter.</p></li><li class="list__item" id="-u2zw6c_34"><p id="-u2zw6c_37">All primary constructor parameters must be marked as <code class="code" id="-u2zw6c_38">val</code> or <code class="code" id="-u2zw6c_39">var</code>.</p></li><li class="list__item" id="-u2zw6c_35"><p id="-u2zw6c_40">Data classes can't be abstract, open, sealed, or inner.</p></li></ul><p id="-u2zw6c_8">Additionally, the generation of data class members follows these rules with regard to the members' inheritance:</p><ul class="list _bullet" id="-u2zw6c_9"><li class="list__item" id="-u2zw6c_41"><p id="-u2zw6c_44">If there are explicit implementations of <code class="code" id="-u2zw6c_45">equals()</code>, <code class="code" id="-u2zw6c_46">hashCode()</code>, or <code class="code" id="-u2zw6c_47">toString()</code> in the data class body or <code class="code" id="-u2zw6c_48">final</code> implementations in a superclass, then these functions are not generated, and the existing implementations are used.</p></li><li class="list__item" id="-u2zw6c_42"><p id="-u2zw6c_49">If a supertype has <code class="code" id="-u2zw6c_50">componentN()</code> functions that are <code class="code" id="-u2zw6c_51">open</code> and return compatible types, the corresponding functions are generated for the data class and override those of the supertype. If the functions of the supertype cannot be overridden due to incompatible signatures or due to their being final, an error is reported.</p></li><li class="list__item" id="-u2zw6c_43"><p id="-u2zw6c_52">Providing explicit implementations for the <code class="code" id="-u2zw6c_53">componentN()</code> and <code class="code" id="-u2zw6c_54">copy()</code> functions is not allowed.</p></li></ul><p id="-u2zw6c_10">Data classes may extend other classes (see <a href="sealed-classes.html" id="-u2zw6c_55">Sealed classes</a> for examples).</p><aside class="prompt" data-type="note" data-title="" id="-u2zw6c_11"><p id="-u2zw6c_56">On the JVM, if the generated class needs to have a parameterless constructor, default values for the properties have to be specified (see <a href="classes.html#constructors-and-initializer-blocks" id="-u2zw6c_58">Constructors</a>):</p><div class="code-block" data-lang="kotlin">
+data class User(val name: String = &quot;&quot;, val age: Int = 0)
+</div></aside><section class="chapter"><h2 id="properties-declared-in-the-class-body" data-toc="properties-declared-in-the-class-body">Properties declared in the class body</h2><p id="-u2zw6c_59">The compiler only uses the properties defined inside the primary constructor for the automatically generated functions. To exclude a property from the generated implementations, declare it inside the class body:</p><div class="code-block" data-lang="kotlin">
+data class Person(val name: String) {
+    var age: Int = 0
+}
+</div><p id="-u2zw6c_61">In the example below, only the <code class="code" id="-u2zw6c_63">name</code> property is used by default inside the <code class="code" id="-u2zw6c_64">toString()</code>, <code class="code" id="-u2zw6c_65">equals()</code>, <code class="code" id="-u2zw6c_66">hashCode()</code>, and <code class="code" id="-u2zw6c_67">copy()</code> implementations, and there is only one component function, <code class="code" id="-u2zw6c_68">component1()</code>. The <code class="code" id="-u2zw6c_69">age</code> property is declared inside the class body and is excluded. Therefore, two <code class="code" id="-u2zw6c_70">Person</code> objects with the same <code class="code" id="-u2zw6c_71">name</code> but different <code class="code" id="-u2zw6c_72">age</code> values are considered equal since <code class="code" id="-u2zw6c_73">equals()</code> only evaluates properties from the primary constructor:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+data class Person(val name: String) {
+    var age: Int = 0
+}
+fun main() {
+//sampleStart
+    val person1 = Person(&quot;John&quot;)
+    val person2 = Person(&quot;John&quot;)
+    person1.age = 10
+    person2.age = 20
+
+    println(&quot;person1 == person2: ${person1 == person2}&quot;)
+    // person1 == person2: true
+  
+    println(&quot;person1 with age ${person1.age}: ${person1}&quot;)
+    // person1 with age 10: Person(name=John)
+  
+    println(&quot;person2 with age ${person2.age}: ${person2}&quot;)
+    // person2 with age 20: Person(name=John)
+//sampleEnd
+}
+</div></section><section class="chapter"><h2 id="copying" data-toc="copying">Copying</h2><p id="-u2zw6c_74">Use the <code class="code" id="-u2zw6c_82">copy()</code> function to copy an object, allowing you to alter <span class="emphasis" id="-u2zw6c_83">some</span> of its properties while keeping the rest unchanged. The implementation of this function for the <code class="code" id="-u2zw6c_84">User</code> class above would be as follows:</p><div class="code-block" data-lang="kotlin">
+fun copy(name: String = this.name, age: Int = this.age) = User(name, age)
+</div><p id="-u2zw6c_76">You can then write the following:</p><div class="code-block" data-lang="kotlin">
+val jack = User(name = &quot;Jack&quot;, age = 1)
+val olderJack = jack.copy(age = 2)
+</div><p id="-u2zw6c_78">The <code class="code" id="-u2zw6c_85">copy()</code> function creates a <span class="emphasis" id="-u2zw6c_86">shallow</span> copy of the instance. In other words, it doesn't copy components recursively. As a result, references to other objects are shared.</p><p id="-u2zw6c_79">For example, if a property holds a mutable list, changes made through the &quot;original&quot; value are also visible through the copy, and changes made through the copy are visible through the original:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+data class Employee(val name: String, val roles: MutableList&lt;String&gt;)
+
+fun main() {
+    val original = Employee(&quot;Jamie&quot;, mutableListOf(&quot;developer&quot;))
+    val duplicate = original.copy()
+
+    duplicate.roles.add(&quot;team lead&quot;)
+
+    println(original) 
+    // Employee(name=Jamie, roles=[developer, team lead])
+    println(duplicate) 
+    // Employee(name=Jamie, roles=[developer, team lead])
+}
+</div><p id="-u2zw6c_81">As you can see, modifying the <code class="code" id="-u2zw6c_87">duplicate.roles</code> property also changes the <code class="code" id="-u2zw6c_88">original.roles</code> property because both properties share the same list reference.</p></section><section class="chapter"><h2 id="data-classes-and-destructuring-declarations" data-toc="data-classes-and-destructuring-declarations">Data classes and destructuring declarations</h2><p id="-u2zw6c_89"><span class="emphasis" id="-u2zw6c_91">Component functions</span> generated for data classes make it possible to use them in <a href="destructuring-declarations.html" id="-u2zw6c_92">destructuring declarations</a>:</p><div class="code-block" data-lang="kotlin">
+val jane = User(&quot;Jane&quot;, 35)
+val (name, age) = jane
+println(&quot;$name, $age years of age&quot;) 
+// Jane, 35 years of age
+</div></section><section class="chapter"><h2 id="standard-data-classes" data-toc="standard-data-classes">Standard data classes</h2><p id="-u2zw6c_93">The standard library provides the <code class="code" id="-u2zw6c_94">Pair</code> and <code class="code" id="-u2zw6c_95">Triple</code> classes. In most cases, though, named data classes are a better design choice because they make the code easier to read by providing meaningful names for the properties.</p></section><div class="last-modified">29 September 2026</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom"><a href="classes.html" class="navigation-links__prev">Classes</a><a href="extensions.html" class="navigation-links__next">Extensions</a></div></article><div id="disqus_thread"></div></div></section></main></div><script src="custom-frontend-app/app.js?149"></script></body></html>

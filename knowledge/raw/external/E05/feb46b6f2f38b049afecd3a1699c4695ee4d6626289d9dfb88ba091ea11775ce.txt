@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE topic SYSTEM "https://resources.jetbrains.com/writerside/1.0/html-entities.dtd">
+
+<topic 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+	title="Kotlin Docs" id="home">
+    <section-starting-page>
+        <title>Kotlin docs</title>
+        <description>
+            Latest stable version: %kotlinVersion%
+        </description>
+        <spotlight>
+            <a href="getting-started.md" summary="Create your first Kotlin project for a platform of your choice in an IDE: IntelliJ IDEA or Android Studio" type="start">Get started with Kotlin</a>
+            <a href="https://play.kotlinlang.org/" summary="Write, edit, run, and share Kotlin code right in the browser" type="install">Try Kotlin online</a>
+        </spotlight>
+        <primary>
+            <title>First steps</title>
+            <a href="basic-syntax.md" summary="A quick introduction to Kotlin syntax: keywords, operators, program structure">Basic syntax</a>
+            <a href="kotlin-tour-welcome.md" summary="Take a tour of the fundamentals of the Kotlin programming language">Kotlin tour</a>
+        </primary>
+        <secondary>
+            <title>Kotlin Multiplatform</title>
+            <a href="https://kotlinlang.org/docs/multiplatform/quickstart.html" summary="Set up your first KMP project">Kotlin Multiplatform quickstart</a>
+            <a href="https://kotlinlang.org/docs/multiplatform/kmp-overview.html" summary="Learn about the features and benefits of Kotlin Multiplatform">What is Kotlin Multiplatform</a>
+            <a href="https://kotlinlang.org/docs/multiplatform/compose-multiplatform-create-first-app.html" summary="Create an application with a shared UI across Android, iOS, and desktop using Compose Multiplatform">Share both logic and UI with Compose Multiplatform</a>
+            <a href="https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html" summary="Use Kotlin Multiplatform to create a mobile app that works on both Android and iOS">Share logic but keep the UI native</a>
+        </secondary>
+        <misc>
+            <cards narrow="false">
+                <title>Featured topics</title>
+                <a href="whatsnew2420.md" summary="New experimental and stable features, performance improvements, and bug fixes">What's new in Kotlin 2.4.20</a>
+                <a href="https://kotlinlang.org/api/latest/jvm/stdlib/" summary="Living essentials for everyday work with Kotlin: IO, files, threading, collections, and much more">Standard library API reference</a>
+                <a href="gradle.md" summary="Learn about Gradle as a build tool to automate and manage building your projects">Gradle</a>
+                <a href="maven.md" summary="Learn about Maven as a build tool to automate and manage building your projects">Maven</a>
+                <a href="collections-overview.md" summary="Collections: lists, sets, and maps">Collections</a>
+                <a href="coroutines-overview.md" summary="Concurrency: coroutines, flows, channels">Coroutines</a>
+            </cards>
+        </misc>
+    </section-starting-page>
+</topic>

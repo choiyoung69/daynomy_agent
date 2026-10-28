@@ -1,0 +1,629 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-28T06:28:10.863023+00:00",
+  "collector": {
+    "path": "scripts/knowledge_sources.py",
+    "sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+  },
+  "results": [
+    {
+      "source_id": "E02",
+      "baseline_sha256": null,
+      "affected_documents": [
+        "knowledge/wiki/platforms/react-native.md",
+        "knowledge/wiki/porting/stock-search-price.md",
+        "knowledge/wiki/shared/reading-list.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E02/f6c6764f47ab8eef81538985bcb607454dee5b181169c9b2399e0903f34bab34.html",
+        "sha256": "f6c6764f47ab8eef81538985bcb607454dee5b181169c9b2399e0903f34bab34",
+        "bytes": 62032,
+        "media_type": "text/html",
+        "retrieved_url": "https://reactnative.dev/docs/platform-specific-code",
+        "retrieved_at": "2026-10-28T06:28:11.989223+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E03",
+      "baseline_sha256": null,
+      "affected_documents": [
+        "knowledge/wiki/platforms/flutter.md",
+        "knowledge/wiki/porting/stock-search-price.md",
+        "knowledge/wiki/shared/data-semantics.md",
+        "knowledge/wiki/shared/reading-list.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E03/8cc19ce22d1e6fbdef980396c6c4bfcf55d80d7729fe89235e0773026db3c364.html",
+        "sha256": "8cc19ce22d1e6fbdef980396c6c4bfcf55d80d7729fe89235e0773026db3c364",
+        "bytes": 111811,
+        "media_type": "text/html",
+        "retrieved_url": "https://dart.dev/resources/language/number-representation",
+        "retrieved_at": "2026-10-28T06:28:12.872487+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E04",
+      "baseline_sha256": null,
+      "affected_documents": [
+        "knowledge/wiki/platforms/webview.md",
+        "knowledge/wiki/porting/stock-search-price.md",
+        "knowledge/wiki/shared/reading-list.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E04/aa3fa4dd7231f8cad30d5ee6fd1662406d94bebb78a20b20978fe19e0eb56a6a.html",
+        "sha256": "aa3fa4dd7231f8cad30d5ee6fd1662406d94bebb78a20b20978fe19e0eb56a6a",
+        "bytes": 397182,
+        "media_type": "text/html",
+        "retrieved_url": "https://developer.android.com/develop/ui/views/layout/webapps/webview",
+        "retrieved_at": "2026-10-28T06:28:14.039218+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E05",
+      "baseline_sha256": null,
+      "affected_documents": [
+        "knowledge/wiki/shared/reading-list.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E05/b1525ee5376d307aff23ea973d22c81e6bc26d3066b733857d8127fa65d1c3ef.html",
+        "sha256": "b1525ee5376d307aff23ea973d22c81e6bc26d3066b733857d8127fa65d1c3ef",
+        "bytes": 3819,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/docs/home.html",
+        "retrieved_at": "2026-10-28T06:28:14.903058+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E06",
+      "baseline_sha256": null,
+      "affected_documents": [
+        "knowledge/wiki/shared/reading-list.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E06/27a82943ed144a592b07755481c9cc5b2e371c3bae0378a1c79081f90ed83430.html",
+        "sha256": "27a82943ed144a592b07755481c9cc5b2e371c3bae0378a1c79081f90ed83430",
+        "bytes": 317325,
+        "media_type": "text/html",
+        "retrieved_url": "https://developer.android.com/compose",
+        "retrieved_at": "2026-10-28T06:28:15.984419+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E07",
+      "baseline_sha256": null,
+      "affected_documents": [
+        "knowledge/wiki/shared/reading-list.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E07/0becd1b48ee0baab2fd3432c70448f0c5edfa5fd1d36fa242aa08c4191391261.txt",
+        "sha256": "0becd1b48ee0baab2fd3432c70448f0c5edfa5fd1d36fa242aa08c4191391261",
+        "bytes": 61065,
+        "media_type": "text/plain",
+        "retrieved_url": "https://raw.githubusercontent.com/swiftlang/swift-book/main/TSPL.docc/GuidedTour/GuidedTour.md",
+        "retrieved_at": "2026-10-28T06:28:16.295569+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E08",
+      "baseline_sha256": null,
+      "affected_documents": [
+        "knowledge/wiki/shared/reading-list.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E08/2617be91b7d4fb42758f183d8d1e656751176f03d1420938841b73f292de45c6.txt",
+        "sha256": "2617be91b7d4fb42758f183d8d1e656751176f03d1420938841b73f292de45c6",
+        "bytes": 10496,
+        "media_type": "text/markdown",
+        "retrieved_url": "https://developer.apple.com/documentation/swiftui.md",
+        "retrieved_at": "2026-10-28T06:28:17.518502+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E09",
+      "baseline_sha256": null,
+      "affected_documents": [
+        "knowledge/wiki/shared/reading-list.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E09/209f016e98366896d75911f821ea8d1d2e9ab2aaf4d169032b32ef09047d1dab.html",
+        "sha256": "209f016e98366896d75911f821ea8d1d2e9ab2aaf4d169032b32ef09047d1dab",
+        "bytes": 233272,
+        "media_type": "text/html",
+        "retrieved_url": "https://dart.dev/language",
+        "retrieved_at": "2026-10-28T06:28:17.843032+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E10",
+      "baseline_sha256": null,
+      "affected_documents": [
+        "knowledge/wiki/shared/reading-list.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E10/b0ee92fa04a242a20d076756b0bd041e6918128e3ebaa7a4ba9329cebb81e3bd.html",
+        "sha256": "b0ee92fa04a242a20d076756b0bd041e6918128e3ebaa7a4ba9329cebb81e3bd",
+        "bytes": 825215,
+        "media_type": "text/html",
+        "retrieved_url": "https://docs.flutter.dev/flutter-for/react-native-devs",
+        "retrieved_at": "2026-10-28T06:28:18.818285+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E11",
+      "baseline_sha256": null,
+      "affected_documents": [
+        "knowledge/wiki/platforms/webview.md",
+        "knowledge/wiki/shared/reading-list.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E11/60a42a0f4cfa6cfc6b841692c2ceeed1b3eae52ebda35814a9044fd5278251a0.txt",
+        "sha256": "60a42a0f4cfa6cfc6b841692c2ceeed1b3eae52ebda35814a9044fd5278251a0",
+        "bytes": 29643,
+        "media_type": "text/markdown",
+        "retrieved_url": "https://developer.apple.com/documentation/webkit/wkwebview.md",
+        "retrieved_at": "2026-10-28T06:28:19.884997+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E12",
+      "baseline_sha256": null,
+      "affected_documents": [
+        "knowledge/wiki/platforms/android.md",
+        "knowledge/wiki/shared/reading-list.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E12/024da75da6c5f4e45c3c72edb15ae7efa41af1f58302ea5338b25234124eacb8.html",
+        "sha256": "024da75da6c5f4e45c3c72edb15ae7efa41af1f58302ea5338b25234124eacb8",
+        "bytes": 442544,
+        "media_type": "text/html",
+        "retrieved_url": "https://developer.android.com/develop/ui/compose/state",
+        "retrieved_at": "2026-10-28T06:28:21.142305+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E14",
+      "baseline_sha256": null,
+      "affected_documents": [
+        "knowledge/wiki/platforms/react-native.md",
+        "knowledge/wiki/shared/reading-list.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E14/6c7db55780d0941ec5b3d6c7589830f729f428e3364b0b5f27f543810c43c89d.html",
+        "sha256": "6c7db55780d0941ec5b3d6c7589830f729f428e3364b0b5f27f543810c43c89d",
+        "bytes": 87460,
+        "media_type": "text/html",
+        "retrieved_url": "https://reactnative.dev/docs/network",
+        "retrieved_at": "2026-10-28T06:28:22.104155+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E15",
+      "baseline_sha256": null,
+      "affected_documents": [
+        "knowledge/wiki/platforms/flutter.md",
+        "knowledge/wiki/shared/reading-list.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E15/5789259825b33ac57aaed6f60b69cf0564a4cd444695a3dfef7d0c7543d49604.html",
+        "sha256": "5789259825b33ac57aaed6f60b69cf0564a4cd444695a3dfef7d0c7543d49604",
+        "bytes": 193058,
+        "media_type": "text/html",
+        "retrieved_url": "https://dart.dev/libraries/async/async-await",
+        "retrieved_at": "2026-10-28T06:28:22.483471+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E16",
+      "baseline_sha256": null,
+      "affected_documents": [
+        "knowledge/wiki/platforms/flutter.md",
+        "knowledge/wiki/shared/reading-list.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E16/81aabfe03c03e6d98ee0fd6115841cc4a776b8b721ef6b6a10897c20d8cfdae7.html",
+        "sha256": "81aabfe03c03e6d98ee0fd6115841cc4a776b8b721ef6b6a10897c20d8cfdae7",
+        "bytes": 16352,
+        "media_type": "text/html",
+        "retrieved_url": "https://api.flutter.dev/flutter/widgets/State/setState.html",
+        "retrieved_at": "2026-10-28T06:28:22.762327+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E17",
+      "baseline_sha256": null,
+      "affected_documents": [
+        "knowledge/wiki/platforms/android.md",
+        "knowledge/wiki/shared/reading-list.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E17/3284e5f2861a2e6bf0426b449578480864ab0f4e884e9ad9910e0cd0a3e006c1.html",
+        "sha256": "3284e5f2861a2e6bf0426b449578480864ab0f4e884e9ad9910e0cd0a3e006c1",
+        "bytes": 48712,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/cancel.html",
+        "retrieved_at": "2026-10-28T06:28:23.822921+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E18",
+      "baseline_sha256": null,
+      "affected_documents": [
+        "knowledge/wiki/platforms/ios.md",
+        "knowledge/wiki/shared/reading-list.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E18/2834dba64d713e7627359dfccdad2d7eb78a7d676f0787f2eb9f54e937e89d20.txt",
+        "sha256": "2834dba64d713e7627359dfccdad2d7eb78a7d676f0787f2eb9f54e937e89d20",
+        "bytes": 4979,
+        "media_type": "text/markdown",
+        "retrieved_url": "https://developer.apple.com/documentation/swiftui/view/task(id:name:priority:file:line:_:).md",
+        "retrieved_at": "2026-10-28T06:28:25.014732+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E21",
+      "baseline_sha256": null,
+      "affected_documents": [
+        "knowledge/wiki/platforms/react-native.md",
+        "knowledge/wiki/platforms/webview.md",
+        "knowledge/wiki/shared/data-semantics.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E21/90683188abaf6810ff92056f8e5cd2a53fc5ff347772ed6c35b75c322aec2c81.html",
+        "sha256": "90683188abaf6810ff92056f8e5cd2a53fc5ff347772ed6c35b75c322aec2c81",
+        "bytes": 960668,
+        "media_type": "text/html",
+        "retrieved_url": "https://tc39.es/ecma262/multipage/structured-data.html#sec-json.stringify",
+        "retrieved_at": "2026-10-28T06:28:26.217460+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E22",
+      "baseline_sha256": null,
+      "affected_documents": [
+        "knowledge/wiki/platforms/react-native.md",
+        "knowledge/wiki/platforms/webview.md",
+        "knowledge/wiki/shared/data-semantics.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E22/bf0a432ab6ec1fdfb42467628f3a7e55852aec875af951f74f074b9e8fcaebcd.html",
+        "sha256": "bf0a432ab6ec1fdfb42467628f3a7e55852aec875af951f74f074b9e8fcaebcd",
+        "bytes": 956070,
+        "media_type": "text/html",
+        "retrieved_url": "https://tc39.es/ecma262/multipage/numbers-and-dates.html#sec-date.parse",
+        "retrieved_at": "2026-10-28T06:28:26.671448+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E23",
+      "baseline_sha256": null,
+      "affected_documents": [
+        "knowledge/wiki/platforms/android.md",
+        "knowledge/wiki/shared/data-semantics.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E23/d8cb45cc423b44311800cd62d42463a51f1944ecd773cd91ea7e3b49f0c5297b.html",
+        "sha256": "d8cb45cc423b44311800cd62d42463a51f1944ecd773cd91ea7e3b49f0c5297b",
+        "bytes": 32902,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/docs/numbers.html",
+        "retrieved_at": "2026-10-28T06:28:27.712470+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E24",
+      "baseline_sha256": null,
+      "affected_documents": [
+        "knowledge/wiki/platforms/android.md",
+        "knowledge/wiki/shared/data-semantics.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E24/b691cc0e8f41c03d56a55f330e64471081019d6dbfcdc285b5be808040b3ef6c.html",
+        "sha256": "b691cc0e8f41c03d56a55f330e64471081019d6dbfcdc285b5be808040b3ef6c",
+        "bytes": 34012,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/docs/null-safety.html",
+        "retrieved_at": "2026-10-28T06:28:28.722308+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E25",
+      "baseline_sha256": null,
+      "affected_documents": [
+        "knowledge/wiki/platforms/flutter.md",
+        "knowledge/wiki/shared/data-semantics.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E25/861c28eef38c69c646e05c7b1adc139c2ab119f999faa2797f2f031b6ec24b64.html",
+        "sha256": "861c28eef38c69c646e05c7b1adc139c2ab119f999faa2797f2f031b6ec24b64",
+        "bytes": 396858,
+        "media_type": "text/html",
+        "retrieved_url": "https://dart.dev/null-safety/understanding-null-safety",
+        "retrieved_at": "2026-10-28T06:28:29.518512+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E29",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E29/054fcc2caa61dab93cae4b792d9a29fd7054653cb2a18998c034a92dff23c9b9.html",
+        "sha256": "054fcc2caa61dab93cae4b792d9a29fd7054653cb2a18998c034a92dff23c9b9",
+        "bytes": 335136,
+        "media_type": "text/html",
+        "retrieved_url": "https://www.typescriptlang.org/docs/handbook/2/narrowing.html",
+        "retrieved_at": "2026-10-28T06:28:29.652420+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E30",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E30/b0db0766c453856720d156cc675ff08e856b5e29b7e3b3b70397ab106f93694b.html",
+        "sha256": "b0db0766c453856720d156cc675ff08e856b5e29b7e3b3b70397ab106f93694b",
+        "bytes": 511854,
+        "media_type": "text/html",
+        "retrieved_url": "https://react.dev/learn/synchronizing-with-effects",
+        "retrieved_at": "2026-10-28T06:28:29.929014+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E31",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E31/78b3270b5e76ebaee9d176818e39f5bb3d49ad08bea24a022418b70ff5aafb88.html",
+        "sha256": "78b3270b5e76ebaee9d176818e39f5bb3d49ad08bea24a022418b70ff5aafb88",
+        "bytes": 41852,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-builder/explicit-nulls.html",
+        "retrieved_at": "2026-10-28T06:28:31.037233+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E32",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E32/7f452b074ff2e8848005896c4d8d2086aa11733730a002f6750b73d992012a1c.html",
+        "sha256": "7f452b074ff2e8848005896c4d8d2086aa11733730a002f6750b73d992012a1c",
+        "bytes": 8455,
+        "media_type": "text/html",
+        "retrieved_url": "https://api.dart.dev/dart-io/HttpClientRequest/abort.html",
+        "retrieved_at": "2026-10-28T06:28:31.450359+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E33",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E33/26cc2d96b4c89f13a5e54c61e76f5c65fcf19de0066a62e521db3992b4ed29cd.txt",
+        "sha256": "26cc2d96b4c89f13a5e54c61e76f5c65fcf19de0066a62e521db3992b4ed29cd",
+        "bytes": 17565,
+        "media_type": "text/markdown",
+        "retrieved_url": "https://developer.apple.com/documentation/swiftui/managing-model-data-in-your-app.md",
+        "retrieved_at": "2026-10-28T06:28:32.618064+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E34",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E34/a6e49a001040dd9955e129e32ba709c6c7030ac7e9f8c42bc04475c9f5aa1eb3.html",
+        "sha256": "a6e49a001040dd9955e129e32ba709c6c7030ac7e9f8c42bc04475c9f5aa1eb3",
+        "bytes": 83832,
+        "media_type": "text/html",
+        "retrieved_url": "https://reactnative.dev/docs/testing-overview",
+        "retrieved_at": "2026-10-28T06:28:33.394733+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E35",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E35/4187e13aceb96c6e4101ebc131c027d0fc4f7d56e1c93e89ca65a5e733cfd328.html",
+        "sha256": "4187e13aceb96c6e4101ebc131c027d0fc4f7d56e1c93e89ca65a5e733cfd328",
+        "bytes": 141392,
+        "media_type": "text/html",
+        "retrieved_url": "https://docs.flutter.dev/testing/overview",
+        "retrieved_at": "2026-10-28T06:28:33.547403+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E36",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E36/c5a30ad2c9f137af9ad75a99db669b9d148ad863935ac8be6b447884df8ccc42.html",
+        "sha256": "c5a30ad2c9f137af9ad75a99db669b9d148ad863935ac8be6b447884df8ccc42",
+        "bytes": 338508,
+        "media_type": "text/html",
+        "retrieved_url": "https://developer.android.com/topic/architecture/recommendations",
+        "retrieved_at": "2026-10-28T06:28:34.832820+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E37",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E37/65afc02f6194ee3d529c0fcc1c3ad3c551ca5aace10f5c4cf90ddb4b7a152b6c.txt",
+        "sha256": "65afc02f6194ee3d529c0fcc1c3ad3c551ca5aace10f5c4cf90ddb4b7a152b6c",
+        "bytes": 2474,
+        "media_type": "text/markdown",
+        "retrieved_url": "https://developer.apple.com/documentation/webkit/wkscriptmessagehandler.md",
+        "retrieved_at": "2026-10-28T06:28:35.557144+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E38",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E38/e3fc7f4e1db60f35be5bf71f915af51863b2ad0ccc5dd0e78debf4ce57e966a5.html",
+        "sha256": "e3fc7f4e1db60f35be5bf71f915af51863b2ad0ccc5dd0e78debf4ce57e966a5",
+        "bytes": 55998,
+        "media_type": "text/html",
+        "retrieved_url": "https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html",
+        "retrieved_at": "2026-10-28T06:28:35.751060+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E39",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E39/3ee5ea6a5f947cf8c8da81c54a9945db85cc0f37f6fd97f274b0fcbbbfb946e2.html",
+        "sha256": "3ee5ea6a5f947cf8c8da81c54a9945db85cc0f37f6fd97f274b0fcbbbfb946e2",
+        "bytes": 59721,
+        "media_type": "text/html",
+        "retrieved_url": "https://doc.rust-lang.org/book/ch09-02-recoverable-errors-with-result.html",
+        "retrieved_at": "2026-10-28T06:28:36.391234+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E40",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E40/123e3be1a8e6e77823b2dc3156be9bf60b337ce173d8b43d2eabc670b21fd3f1.html",
+        "sha256": "123e3be1a8e6e77823b2dc3156be9bf60b337ce173d8b43d2eabc670b21fd3f1",
+        "bytes": 40736,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-builder/ignore-unknown-keys.html",
+        "retrieved_at": "2026-10-28T06:28:37.449889+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E41",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E41/c6ce145e4584fb6c697860d7009662bddaaf3253b000269081f252bb2f4abc62.html",
+        "sha256": "c6ce145e4584fb6c697860d7009662bddaaf3253b000269081f252bb2f4abc62",
+        "bytes": 8660,
+        "media_type": "text/html",
+        "retrieved_url": "https://api.dart.dev/dart-convert/jsonDecode.html",
+        "retrieved_at": "2026-10-28T06:28:37.750837+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E42",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E42/e1a6c055b42735746eea54641e28a33c03571e0f67d57c60fb156666d3479767.txt",
+        "sha256": "e1a6c055b42735746eea54641e28a33c03571e0f67d57c60fb156666d3479767",
+        "bytes": 4923,
+        "media_type": "text/markdown",
+        "retrieved_url": "https://developer.apple.com/documentation/foundation/jsondecoder.md",
+        "retrieved_at": "2026-10-28T06:28:39.142546+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E43",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E43/72bf72d2e694a04e04d8f0e2cb240fff96839b6c3e94ad6e178cdef18ab2207c.txt",
+        "sha256": "72bf72d2e694a04e04d8f0e2cb240fff96839b6c3e94ad6e178cdef18ab2207c",
+        "bytes": 26983,
+        "media_type": "text/markdown",
+        "retrieved_url": "https://developer.apple.com/documentation/foundation/urlsession.md",
+        "retrieved_at": "2026-10-28T06:28:40.464417+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E44",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E44/55c4e54316aa7cbc319e39f188cc274ce37c5707cb4b83d0fb4cdb695bc84d87.html",
+        "sha256": "55c4e54316aa7cbc319e39f188cc274ce37c5707cb4b83d0fb4cdb695bc84d87",
+        "bytes": 274184,
+        "media_type": "text/html",
+        "retrieved_url": "https://developer.android.com/training/testing/fundamentals",
+        "retrieved_at": "2026-10-28T06:28:41.517698+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    }
+  ],
+  "ended_at": "2026-10-28T06:28:41.517738+00:00"
+}

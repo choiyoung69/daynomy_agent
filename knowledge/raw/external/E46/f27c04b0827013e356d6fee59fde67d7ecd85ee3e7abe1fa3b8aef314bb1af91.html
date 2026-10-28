@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en-US" class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8">
+    <title>content | kotlinx.serialization – Kotlin Programming Language</title>
+    <!-- Icons -->
+    <link rel="icon" type="image/svg" sizes="16x16" href="https://kotlinlang.org/assets/images/favicon.svg?v2">
+    <link rel="icon" type="image/x-icon" sizes="32x32" href="https://kotlinlang.org/assets/images/favicon.ico?v2">
+    <link rel="icon" type="image/png" sizes="96x96" href="https://kotlinlang.org/assets/images/apple-touch-icon.png?v2">
+    <link rel="icon" type="image/png" sizes="300x300" href="https://kotlinlang.org/assets/images/apple-touch-icon-72x72.png?v2">
+    <link rel="icon" type="image/png" sizes="500x500" href="https://kotlinlang.org/assets/images/apple-touch-icon-114x114.png?v2">
+    <meta name="image" content="https://kotlinlang.org/assets/images/open-graph/general.png">
+    <!-- Open Graph -->
+    <!-- <meta property="og:title" content="content | Kotlin"> Kotlin -->
+    <!-- <meta property="og:description" content=""> -->
+    <meta property="og:image" content="https://kotlinlang.org/assets/images/open-graph/docs.png">
+    <meta property="og:site_name" content="Kotlin Help">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <!-- <meta property="og:url" content="{}"> -->
+    <!-- End Open Graph -->
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@kotlin">
+    <!-- <meta name="twitter:title" content="Kotlin Docs | Kotlin"> -->
+    <meta name="twitter:description" content="">
+    <meta name="twitter:creator" content="@kotlin">
+    <meta name="twitter:image:src" content="https://kotlinlang.org/assets/images/open-graph/docs.png">
+    <!-- End Twitter Card -->
+    <script>var pathToRoot = "../../../";</script>
+    <link rel="preload" href="navigation.html" as="document" type="text/html">
+    <link rel="preload" href="/_assets/dokka-template.css?dokka-v2" as="style">
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+    <link rel="stylesheet" href="/_assets/dokka-template.css?dokka-v2">
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body class="">
+<div class="root">
+    <!-- ktl_component: {"name": "header", "props": {"searchAlgoliaIndexName":"kotlinx.serialization"} } --> <header class="ktl-header-module_header-menu_wh71L ktl-dokka-header" data-test="header"><div class="ktl-logo-large-module_container_35w4p _rs-text-3_1owszn1_1 _rs-typography_theme_dark_1owszn1_1 _rs-text_hardness_average_1owszn1_1"><a class="ktl-logo-large-module_link_AOGas" href="https://kotlinlang.org" aria-label="Kotlin Home Page"><svg width="98" height="22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M43.314 1.067h-4.031L30.5 10.422V1.098H27.27v20.273H30.5v-9.82l8.814 9.82h4.177l-9.397-10.484 9.22-9.82Z" fill="#fff"></path><path d="M54.303 7.186c-1.153-.66-2.45-.994-3.901-.994-1.478 0-2.803.33-3.973.994a7.042 7.042 0 0 0-2.735 2.758c-.65 1.179-.976 2.515-.976 4.01 0 1.494.325 2.835.972 4.01a6.967 6.967 0 0 0 2.716 2.758c1.166.659 2.486.993 3.964.993 1.46 0 2.766-.33 3.923-.993a6.941 6.941 0 0 0 2.694-2.759c.642-1.178.963-2.515.963-4.01 0-1.494-.32-2.83-.963-4.009a6.949 6.949 0 0 0-2.684-2.758Zm-.204 9.328c-.357.74-.859 1.314-1.505 1.73-.646.415-1.392.622-2.233.622-.85 0-1.604-.207-2.26-.623a4.184 4.184 0 0 1-1.528-1.73c-.361-.74-.542-1.589-.542-2.555 0-.966.185-1.815.551-2.555a4.177 4.177 0 0 1 1.537-1.73c.656-.415 1.415-.623 2.278-.623.832 0 1.573.208 2.22.623a4.125 4.125 0 0 1 1.5 1.73c.353.74.529 1.59.529 2.555-.009.962-.19 1.815-.547 2.556ZM64.555 2.836h-3.132v2.52c0 .397-.095.695-.29.889-.194.198-.492.298-.899.298h-1.537v2.664h2.667v7.978c0 .83.167 1.562.506 2.194a3.591 3.591 0 0 0 1.442 1.472c.624.348 1.36.52 2.21.52h2.391v-2.782h-1.798c-.466 0-.841-.163-1.13-.483-.29-.325-.434-.75-.434-1.282V9.207h3.448V6.543h-3.448V2.836h.004ZM73.68.286h-3.186V21.37h3.187V.286ZM80.498.312H77.28v3.273h3.218V.312ZM80.466 6.544H77.28V21.37h3.186V6.544ZM96.67 8.99a4.969 4.969 0 0 0-1.899-2.054c-.818-.492-1.772-.74-2.866-.74-1.161 0-2.178.284-3.05.848-.697.447-1.257 1.052-1.7 1.797l-.018-2.298H84.09V21.37h3.191v-8.298c0-.8.154-1.513.457-2.136a3.39 3.39 0 0 1 1.293-1.45c.556-.342 1.202-.514 1.948-.514.669 0 1.238.14 1.717.42.48.28.841.682 1.085 1.201.249.52.37 1.142.37 1.87v8.907h3.192v-9.355c0-1.138-.226-2.149-.674-3.025Z" fill="#fff"></path><path d="M20 21H0V1h20L9.793 10.855 20 21Z" fill="url(#kotlin-logo-large_svg__a)"></path><defs><radialGradient id="kotlin-logo-large_svg__a" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(19.335 1.822) scale(22.9097)"><stop offset="0.003" stop-color="#EF4857"></stop><stop offset="0.469" stop-color="#D211EC"></stop><stop offset="1" stop-color="#7F52FF"></stop></radialGradient></defs></svg></a></div><nav class="ktl-horizontal-menu-module_nav_gbA7M ktl-horizontal-menu-module_dark-theme_gfxx6"><ul class="ktl-horizontal-menu-module_menu-list_TJnOF"><li class="ktl-horizontal-menu-module_menu-item-wrap_j6zB-"><span class="ktl-horizontal-menu-module_menu-item_CXDEW _rs-text-2_1owszn1_1 _rs-typography_theme_dark_1owszn1_1 _rs-text_hardness_auto_1owszn1_1">Solutions<svg viewBox="0 0 24 24" class="_icon_i5poj_4 _sizeM_i5poj_22"><path d="M18.707 8.293a1 1 0 0 0-1.414 0L12 13.586 6.707 8.293a1 1 0 0 0-1.414 1.414l6 6a1 1 0 0 0 1.414 0l6-6a1 1 0 0 0 0-1.414"></path></svg></span><ul class="ktl-horizontal-menu-module_dropdown-menu_jwdWI _rs-text-2_1owszn1_1 _rs-typography_theme_dark_1owszn1_1 _rs-text_hardness_auto_1owszn1_1"><li><a class="ktl-horizontal-menu-module_dropdown-menu-item_9gjwH" href="/multiplatform/">Multiplatform</a></li><li><a class="ktl-horizontal-menu-module_dropdown-menu-item_9gjwH" href="/backend/">Backend</a></li><li><a class="ktl-horizontal-menu-module_dropdown-menu-item_9gjwH" href="/docs/android-overview.html">Android</a></li></ul></li><li class="ktl-horizontal-menu-module_menu-item-wrap_j6zB-"><a href="/case-studies/" class="ktl-horizontal-menu-module_menu-item_CXDEW _rs-text-2_1owszn1_1 _rs-typography_theme_dark_1owszn1_1 _rs-text_hardness_auto_1owszn1_1">Case studies</a></li><li class="ktl-horizontal-menu-module_menu-item-wrap_j6zB-"><span class="ktl-horizontal-menu-module_menu-item_CXDEW _rs-text-2_1owszn1_1 _rs-typography_theme_dark_1owszn1_1 _rs-text_hardness_auto_1owszn1_1">Docs<svg viewBox="0 0 24 24" class="_icon_i5poj_4 _sizeM_i5poj_22"><path d="M18.707 8.293a1 1 0 0 0-1.414 0L12 13.586 6.707 8.293a1 1 0 0 0-1.414 1.414l6 6a1 1 0 0 0 1.414 0l6-6a1 1 0 0 0 0-1.414"></path></svg></span><ul class="ktl-horizontal-menu-module_dropdown-menu_jwdWI _rs-text-2_1owszn1_1 _rs-typography_theme_dark_1owszn1_1 _rs-text_hardness_auto_1owszn1_1"><li><a class="ktl-horizontal-menu-module_dropdown-menu-item_9gjwH" href="/docs/home.html">Language guide</a></li><li><a class="ktl-horizontal-menu-module_dropdown-menu-item_9gjwH" href="/docs/multiplatform/get-started.html">Multiplatform development</a></li></ul></li><li class="ktl-horizontal-menu-module_menu-item-wrap_j6zB-"><span class="ktl-horizontal-menu-module_menu-item_CXDEW _rs-text-2_1owszn1_1 _rs-typography_theme_dark_1owszn1_1 _rs-text_hardness_auto_1owszn1_1">API<svg viewBox="0 0 24 24" class="_icon_i5poj_4 _sizeM_i5poj_22"><path d="M18.707 8.293a1 1 0 0 0-1.414 0L12 13.586 6.707 8.293a1 1 0 0 0-1.414 1.414l6 6a1 1 0 0 0 1.414 0l6-6a1 1 0 0 0 0-1.414"></path></svg></span><ul class="ktl-horizontal-menu-module_dropdown-menu_jwdWI _rs-text-2_1owszn1_1 _rs-typography_theme_dark_1owszn1_1 _rs-text_hardness_auto_1owszn1_1"><li><a class="ktl-horizontal-menu-module_dropdown-menu-item_9gjwH" href="/docs/api-references.html">APIs overview</a></li><li><a class="ktl-horizontal-menu-module_dropdown-menu-item_9gjwH" href="/api/core/kotlin-stdlib/">Standard library</a></li><li><a class="ktl-horizontal-menu-module_dropdown-menu-item_9gjwH" href="/api/core/kotlin-test/">Test library</a></li><li><a class="ktl-horizontal-menu-module_dropdown-menu-item_9gjwH" href="/api/kotlinx.coroutines/kotlinx-coroutines-core/">Coroutines</a></li><li><a class="ktl-horizontal-menu-module_dropdown-menu-item_9gjwH" href="/api/kotlinx.serialization/kotlinx-serialization-core/">Serialization</a></li><li><a class="ktl-horizontal-menu-module_dropdown-menu-item_9gjwH" href="/api/kotlinx-io/">Kotlin I/O library</a></li><li><a class="ktl-horizontal-menu-module_dropdown-menu-item_9gjwH" href="/api/kotlinx-datetime/">Date and time</a></li><li><a class="ktl-horizontal-menu-module_dropdown-menu-item_9gjwH" href="/api/kotlinx.collections.immutable/">Collections Immutable</a></li><li><a class="ktl-horizontal-menu-module_dropdown-menu-item_9gjwH" href="/api/kotlinx-metadata-jvm/">JVM Metadata</a></li><li><a class="ktl-horizontal-menu-module_dropdown-menu-item_9gjwH" href="/api/kotlin-gradle-plugin/">Kotlin Gradle plugins</a></li><li><a class="ktl-horizontal-menu-module_dropdown-menu-item_9gjwH" href="https://api.ktor.io/">Ktor</a></li><li><a class="ktl-horizontal-menu-module_dropdown-menu-item_9gjwH" href="https://kotlinlang.org/api/compose-multiplatform/material3/">Compose Multiplatform Material3</a></li></ul></li><li class="ktl-horizontal-menu-module_menu-item-wrap_j6zB-"><a href="/community/" class="ktl-horizontal-menu-module_menu-item_CXDEW _rs-text-2_1owszn1_1 _rs-typography_theme_dark_1owszn1_1 _rs-text_hardness_auto_1owszn1_1">Community</a></li><li class="ktl-horizontal-menu-module_menu-item-wrap_j6zB-"><a href="/education/" class="ktl-horizontal-menu-module_menu-item_CXDEW _rs-text-2_1owszn1_1 _rs-typography_theme_dark_1owszn1_1 _rs-text_hardness_auto_1owszn1_1">Teach</a></li><li class="ktl-horizontal-menu-module_menu-item-wrap_j6zB-"><span class="ktl-horizontal-menu-module_menu-item_CXDEW _rs-text-2_1owszn1_1 _rs-typography_theme_dark_1owszn1_1 _rs-text_hardness_auto_1owszn1_1">Play<svg viewBox="0 0 24 24" class="_icon_i5poj_4 _sizeM_i5poj_22"><path d="M18.707 8.293a1 1 0 0 0-1.414 0L12 13.586 6.707 8.293a1 1 0 0 0-1.414 1.414l6 6a1 1 0 0 0 1.414 0l6-6a1 1 0 0 0 0-1.414"></path></svg></span><ul class="ktl-horizontal-menu-module_dropdown-menu_jwdWI _rs-text-2_1owszn1_1 _rs-typography_theme_dark_1owszn1_1 _rs-text_hardness_auto_1owszn1_1 ktl-horizontal-menu-module_dropdown-menu-align-right_YeB-9"><li><a class="ktl-horizontal-menu-module_dropdown-menu-item_9gjwH" href="https://play.kotlinlang.org/">Playground</a></li><li><a class="ktl-horizontal-menu-module_dropdown-menu-item_9gjwH" href="https://play.kotlinlang.org/koans">Koans</a></li></ul></li></ul></nav><button type="button" class="ktl-search-button-module_button_YHJPv ktl-search-button-module_active_lUmdh" data-test="header-search-button" aria-label="Search"><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.847 6.861A6.99 6.99 0 0 0 9.587 3a6.997 6.997 0 1 0 4.186 12.601l6.106 6.106 1.414-1.414-6.107-6.106a6.99 6.99 0 0 0 .66-7.326ZM14.587 10a5 5 0 1 1-10.001 0 5 5 0 0 1 10 0Z" fill="currentColor"></path></svg></button><a data-test="button" data-testid="ab-hero-button" type="button" href="/docs/getting-started.html" class="_main_1dmt5cy_56 _modeClassic_1dmt5cy_33 _sizeM_1dmt5cy_26 _alignIconLeft_1dmt5cy_49 _dark_1dmt5cy_9 ktl-header-module_abTestButton_Jeac8"><span class="_content_1dmt5cy_224" data-rs-internal="button__content" data-test="button__content">Get started</span></a></header>
+
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../index.html" tabindex="1">
+                    kotlinx-serialization
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">1.12.0
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true" data-filter=":kotlinx-serialization-json/commonMain">common</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":kotlinx-serialization-json/commonMain" data-filter=":kotlinx-serialization-json/commonMain">
+                                <span class="checkbox--icon"></span>
+                                common
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container" data-test="content">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    kotlinx-serialization
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="member" id="content" pageids="kotlinx-serialization-json::kotlinx.serialization.json/JsonPrimitive/content/#/PointingToDeclaration//-1306576346">
+  <div class="breadcrumbs"><a href="../../index.html">kotlinx-serialization-json</a><span class="delimiter">/</span><a href="../index.html">kotlinx.serialization.json</a><span class="delimiter">/</span><a href="index.html">JsonPrimitive</a><span class="delimiter">/</span><span class="current">content</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>content</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kotlinx-serialization-json/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="content.html">content</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="source-link-wrapper"><span class="source-link" data-element-type="source-link">(<a href="https://github.com/Kotlin/kotlinx.serialization/tree/master/formats/json/commonMain/src/kotlinx/serialization/json/JsonElement.kt#L48">source</a>)</span></span></div><p class="paragraph">Content of given element without quotes. For <a href="../-json-null/index.html">JsonNull</a>, this method returns a "null" string. <a href="../content-or-null.html">JsonPrimitive.contentOrNull</a> should be used for <a href="../-json-null/index.html">JsonNull</a> to get a <code class="lang-kotlin">null</code>.</p></div></div>
+</div>
+            <div class="feedback-wrapper">
+                <div class="feedback">
+                    <div class="feedback__block" data-test="feedback-left"><p class="feedback__text">Thanks for your feedback!</p></div>
+                    <div class="feedback__block feedback__block--active" data-test="feedback">
+                        <div class="wt-row wt-row_size_xs wt-row_wide wt-row_wrap wt-row_justify_start">
+                            <div class="wt-col-inline feedback__text">Was this page helpful?</div>
+                            <div class="wt-col-inline">
+                                <button data-test="feedback-yes" type="button" class="_main_joawza_17 _modeOutline_joawza_356 _sizeS_joawza_92 _alignIconLeft_joawza_77 feedback__button">Yes</button>
+                                <button data-test="feedback-no" type="button" class="_main_joawza_17 _modeOutline_joawza_356 _sizeS_joawza_92 _alignIconLeft_joawza_77 feedback__button">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <div data-test="footer">
+        <!-- ktl_component: {"name": "footer", "props": {} } --> <footer class="ktl-footer-module_footer_GHyqk ktl-footer_light"><div class="ktl-footer-module_social-list-area_2f-iy"><div class="_rs-h4_1owszn1_1 _rs-typography_theme_light_1owszn1_1 _rs-text_hardness_auto_1owszn1_1 ktl-footer-module_social-list-title_X7tJv">Stay in touch:</div><div class="ktl-social-list-module_social-list_in8ys"><a target="_blank" class="ktl-social-item-module_social-item_uHRCi" href="https://github.com/JetBrains/kotlin" title="Kotlin on GitHub"><svg width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.9 9.2a8.94 8.94 0 0 1-6.4 8.6.392.392 0 0 1-.4-.4v-3a1.58 1.58 0 0 0-.5-1.2 3.734 3.734 0 0 0 3.9-3.4 4.244 4.244 0 0 0-.9-3.5c.29-.79.217-1.669-.2-2.4a7.24 7.24 0 0 0-2.4.9c-1.44-.4-2.96-.4-4.4 0a4.62 4.62 0 0 0-2.3-.9h-.1A2.75 2.75 0 0 0 4 6.3a4.075 4.075 0 0 0-.9 3.5A3.81 3.81 0 0 0 7 13.2c-.198.148-.34.36-.4.6a2.638 2.638 0 0 0-.1.7 1.943 1.943 0 0 1-2.2-.5c-.5-.8-.9-1.2-1.4-1.3-.5-.1-.6.2-.6.2.079.26.26.476.5.6.387.216.674.575.8 1a1.827 1.827 0 0 0 1.2 1.2 3.915 3.915 0 0 0 1.9 0v1.7a.297.297 0 0 1-.4.3A8.82 8.82 0 0 1 0 9.2a8.95 8.95 0 0 1 17.9 0Z" fill="currentColor"></path></svg></a><a target="_blank" class="ktl-social-item-module_social-item_uHRCi" href="https://x.com/kotlin" title="Kotlin on Twitter"><svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.317 10.775 19.146 4h-1.381l-5.061 5.883L8.662 4H4l6.112 8.896L4 20h1.381l5.344-6.212L14.994 20h4.662l-6.339-9.225zm-1.891 2.199-.62-.886L5.88 5.04H8l3.977 5.688.62.886 5.168 7.393h-2.121l-4.218-6.033z" fill="currentColor"></path></svg></a><a target="_blank" class="ktl-social-item-module_social-item_uHRCi" href="https://bsky.app/profile/kotlinlang.org" title="Kotlin on Bluesky"><svg viewBox="0 0 24 24" class="_icon_i5poj_4 _sizeM_i5poj_22"><path d="M6.902 5.07C8.965 6.625 11.185 9.776 12 11.467v4.467c0-.095-.037.012-.115.244-.426 1.253-2.087 6.144-5.885 2.234-2-2.059-1.074-4.117 2.566-4.739-2.082.356-4.424-.232-5.066-2.535-.185-.663-.5-4.745-.5-5.296C3 3.081 5.413 3.95 6.902 5.07m10.196 0C15.035 6.625 12.815 9.776 12 11.467v4.467c0-.095.037.012.115.244.426 1.253 2.087 6.144 5.885 2.234 2-2.059 1.074-4.117-2.566-4.739 2.082.356 4.424-.232 5.066-2.535.185-.663.5-4.745.5-5.296 0-2.761-2.413-1.893-3.902-.772"></path></svg></a><a target="_blank" class="ktl-social-item-module_social-item_uHRCi" href="https://surveys.jetbrains.com/s3/kotlin-slack-sign-up" title="Kotlin Slack"><svg width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.63 9.49a1.895 1.895 0 0 0-1.89 1.89v4.73a1.89 1.89 0 1 0 3.78 0v-4.73a1.895 1.895 0 0 0-1.89-1.89ZM.01 11.38a1.89 1.89 0 1 0 3.78 0V9.49H1.91a1.897 1.897 0 0 0-1.9 1.89ZM6.63 0a1.89 1.89 0 1 0 0 3.78h1.89v-1.9A1.886 1.886 0 0 0 6.63 0ZM1.89 8.53h4.74a1.89 1.89 0 1 0 0-3.78H1.89a1.89 1.89 0 0 0 0 3.78Zm14.2-3.79a1.895 1.895 0 0 0-1.89 1.89v1.89h1.89a1.89 1.89 0 1 0 0-3.78ZM9.48 1.89v4.74a1.89 1.89 0 1 0 3.78 0V1.89a1.89 1.89 0 1 0-3.78 0Zm3.78 14.22a1.895 1.895 0 0 0-1.89-1.89H9.48v1.89a1.89 1.89 0 1 0 3.78 0Zm2.85-6.62h-4.74a1.89 1.89 0 1 0 0 3.78h4.74a1.89 1.89 0 1 0 0-3.78Z" fill="currentColor"></path></svg></a><a target="_blank" class="ktl-social-item-module_social-item_uHRCi" href="https://www.reddit.com/r/Kotlin/" title="Kotlin on Reddit"><svg width="20" height="18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 9.068a2.183 2.183 0 0 0-2.186-2.186 2.2 2.2 0 0 0-1.524.61c-1.505-1.076-3.566-1.775-5.86-1.865L11.434.932l3.261.699a1.559 1.559 0 0 0 3.119-.072A1.56 1.56 0 0 0 16.254 0c-.609 0-1.147.358-1.397.878l-3.638-.77a.381.381 0 0 0-.287.053.347.347 0 0 0-.161.251L9.659 5.645c-2.33.072-4.426.77-5.95 1.864a2.2 2.2 0 0 0-1.523-.61 2.183 2.183 0 0 0-.896 4.176c-.036.22-.054.441-.053.664 0 3.368 3.924 6.11 8.763 6.11s8.764-2.723 8.764-6.11c0-.223-.018-.444-.054-.664A2.208 2.208 0 0 0 20 9.069Zm-15.018 1.56a1.56 1.56 0 0 1 3.118 0c0 .86-.698 1.559-1.559 1.559-.86.017-1.559-.7-1.559-1.56Zm8.728 4.139c-1.076 1.075-3.119 1.147-3.71 1.147-.61 0-2.652-.09-3.71-1.147a.4.4 0 0 1 0-.573.4.4 0 0 1 .574 0c.68.68 2.115.913 3.136.913 1.022 0 2.473-.232 3.136-.913a.401.401 0 0 1 .574 0 .436.436 0 0 1 0 .573Zm-.287-2.563a1.56 1.56 0 0 1 0-3.118c.86 0 1.56.699 1.56 1.56 0 .841-.7 1.558-1.56 1.558Z" fill="currentColor"></path></svg></a><a target="_blank" class="ktl-social-item-module_social-item_uHRCi" href="https://stackoverflow.com/questions/tagged/kotlin" title="Kotlin on Stack Overflow"><svg width="16" height="19" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.527 17.27V12.19h1.685v6.764H0v-6.763h1.685v5.078h11.842Z" fill="currentColor"></path><path d="m3.546 11.71 8.274 1.73.35-1.664-8.274-1.73-.35 1.664ZM4.64 7.77l7.661 3.568.7-1.532-7.66-3.59-.7 1.554Zm2.123-3.765 6.501 5.407 1.073-1.292-6.501-5.406-1.073 1.291ZM10.966 0 9.609 1.007l5.034 6.785L16 6.785 10.966 0ZM3.37 15.562h8.448v-1.685H3.371v1.685Z" fill="currentColor"></path></svg></a><a target="_blank" class="ktl-social-item-module_social-item_uHRCi" href="https://www.youtube.com/channel/UCP7uiEZIqci43m22KDl0sNw" title="Kotlin on YouTube"><svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M21.005 5.617c.43.633.702 1.36.795 2.119.124 1.146.191 2.299.2 3.452v1.618a34.375 34.375 0 0 1-.2 3.454 4.808 4.808 0 0 1-.795 2.116 2.772 2.772 0 0 1-2.003.904c-2.8.215-7.002.222-7.002.222s-5.2-.05-6.8-.214a3.27 3.27 0 0 1-2.205-.912 4.8 4.8 0 0 1-.795-2.117 34.354 34.354 0 0 1-.2-3.453v-1.618c.009-1.154.075-2.306.2-3.452.093-.76.365-1.486.795-2.12a2.76 2.76 0 0 1 2.003-.901c2.799-.217 6.997-.217 6.997-.217h.01s4.198 0 6.997.217a2.76 2.76 0 0 1 2.003.902ZM15.755 12 9.501 8.249v7.502L15.754 12Z" fill="currentColor"></path></svg></a></div></div><nav class="ktl-footer-module_nav-list-area_Oblb8"><ul class="ktl-nav-list-module_nav-list_6OvZp"><li class="ktl-nav-item-module_nav-item_VvPZQ _rs-text-2_1owszn1_1 _rs-typography_theme_light_1owszn1_1 _rs-text_hardness_auto_1owszn1_1"><a href="https://kotlinlang.org/docs/contribute.html" title="Contributing to Kotlin" class="_rs-link_1owszn1_1 _rs-link_mode_clear_1owszn1_1 _rs-link_hardness_average_1owszn1_1 _rs-typography_theme_light_1owszn1_1">Contributing to Kotlin</a></li><li class="ktl-nav-item-module_nav-item_VvPZQ _rs-text-2_1owszn1_1 _rs-typography_theme_light_1owszn1_1 _rs-text_hardness_auto_1owszn1_1"><a href="https://kotlinlang.org/docs/releases.html" title="Releases" class="_rs-link_1owszn1_1 _rs-link_mode_clear_1owszn1_1 _rs-link_hardness_average_1owszn1_1 _rs-typography_theme_light_1owszn1_1">Releases</a></li><li class="ktl-nav-item-module_nav-item_VvPZQ _rs-text-2_1owszn1_1 _rs-typography_theme_light_1owszn1_1 _rs-text_hardness_auto_1owszn1_1"><a href="https://kotlinlang.org/assets/kotlin-media-kit.pdf" title="Press Kit" class="_rs-link_1owszn1_1 _rs-link_mode_clear_1owszn1_1 _rs-link_hardness_average_1owszn1_1 _rs-typography_theme_light_1owszn1_1">Press Kit</a></li><li class="ktl-nav-item-module_nav-item_VvPZQ _rs-text-2_1owszn1_1 _rs-typography_theme_light_1owszn1_1 _rs-text_hardness_auto_1owszn1_1"><a href="https://kotlinlang.org/docs/security.html" title="Security" class="_rs-link_1owszn1_1 _rs-link_mode_clear_1owszn1_1 _rs-link_hardness_average_1owszn1_1 _rs-typography_theme_light_1owszn1_1">Security</a></li><li class="ktl-nav-item-module_nav-item_VvPZQ _rs-text-2_1owszn1_1 _rs-typography_theme_light_1owszn1_1 _rs-text_hardness_auto_1owszn1_1"><a target="_blank" href="https://blog.jetbrains.com/kotlin/" title="Blog" class="_rs-link_1owszn1_1 _rs-link_mode_clear_1owszn1_1 _rs-link_hardness_average_1owszn1_1 _rs-typography_theme_light_1owszn1_1">Blog</a></li><li class="ktl-nav-item-module_nav-item_VvPZQ _rs-text-2_1owszn1_1 _rs-typography_theme_light_1owszn1_1 _rs-text_hardness_auto_1owszn1_1"><a target="_blank" href="https://youtrack.jetbrains.com/issues/KT" title="Issue Tracker" class="_rs-link_1owszn1_1 _rs-link_mode_clear_1owszn1_1 _rs-link_hardness_average_1owszn1_1 _rs-typography_theme_light_1owszn1_1">Issue Tracker</a></li><li class="ktl-nav-item-module_nav-item_VvPZQ _rs-text-2_1owszn1_1 _rs-typography_theme_light_1owszn1_1 _rs-text_hardness_auto_1owszn1_1"><a target="_blank" href="https://resources.jetbrains.com/storage/products/kotlin/docs/kotlin_logos.zip" title="Brand assets" class="_rs-link_1owszn1_1 _rs-link_mode_clear_1owszn1_1 _rs-link_hardness_average_1owszn1_1 _rs-typography_theme_light_1owszn1_1">Brand assets</a></li><li class="ktl-nav-item-module_nav-item_VvPZQ _rs-text-2_1owszn1_1 _rs-typography_theme_light_1owszn1_1 _rs-text_hardness_auto_1owszn1_1"><a target="_blank" href="https://job-boards.eu.greenhouse.io/jetbrains?field_11295751101%5B%5D=25001078101" title="Careers" class="_rs-link_1owszn1_1 _rs-link_mode_clear_1owszn1_1 _rs-link_hardness_average_1owszn1_1 _rs-typography_theme_light_1owszn1_1">Careers</a></li><li class="ktl-nav-item-module_nav-item_VvPZQ _rs-text-2_1owszn1_1 _rs-typography_theme_light_1owszn1_1 _rs-text_hardness_auto_1owszn1_1"><a target="_blank" href="https://www.jetbrainsmerchandise.com/view-all.html?brand=32" title="Kotlin Merch" class="_rs-link_1owszn1_1 _rs-link_mode_clear_1owszn1_1 _rs-link_hardness_average_1owszn1_1 _rs-typography_theme_light_1owszn1_1">Kotlin Merch</a></li><li class="ktl-nav-item-module_nav-item_VvPZQ _rs-text-2_1owszn1_1 _rs-typography_theme_light_1owszn1_1 _rs-text_hardness_auto_1owszn1_1"><a href="#opt-out" title="Opt-Out" class="_rs-link_1owszn1_1 _rs-link_mode_clear_1owszn1_1 _rs-link_hardness_average_1owszn1_1 _rs-typography_theme_light_1owszn1_1">Opt-Out</a></li></ul></nav><div class="_rs-text-3_1owszn1_1 _rs-typography_theme_light_1owszn1_1 _rs-text_hardness_pale_1owszn1_1 ktl-footer-module_text-area_T8lpL"><div class="ktl-footer-module_copyright_tho-X">Kotlin™ is&nbsp;protected under the<!-- --> <a class="_rs-link_1owszn1_1 _rs-link_mode_clear_1owszn1_1 _rs-link_hardness_pale_1owszn1_1 _rs-typography_theme_light_1owszn1_1 ktl-footer-module_underlined-link_qo8UM" href="https://kotlinlang.org/foundation/kotlin-foundation.html">Kotlin&nbsp;Foundation</a> <!-- -->and licensed under the<!-- --> <a class="_rs-link_1owszn1_1 _rs-link_mode_clear_1owszn1_1 _rs-link_hardness_pale_1owszn1_1 _rs-typography_theme_light_1owszn1_1 ktl-footer-module_underlined-link_qo8UM" target="_blank" href="https://github.com/JetBrains/kotlin-web-site/blob/master/LICENSE">Apache 2&nbsp;license</a>.</div> <div class="ktl-footer-module_motto_6KpB8">Supported and developed by&nbsp;<a class="_rs-link_1owszn1_1 _rs-link_mode_clear_1owszn1_1 _rs-link_hardness_pale_1owszn1_1 _rs-typography_theme_light_1owszn1_1 ktl-footer-module_underlined-link_qo8UM" href="https://www.jetbrains.com/" target="_blank">JetBrains</a></div></div><a href="https://jetbrains.com" target="_blank" class="ktl-footer-module_logo-area_zYm8W ktl-logo-module_link_jGqR8"><svg width="149" height="32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M43.242 20.293c0 .423-.09.797-.269 1.125a1.86 1.86 0 0 1-.756.762c-.33.18-.698.269-1.12.269H39V25.5h2.54c.955 0 1.812-.214 2.574-.642a4.679 4.679 0 0 0 1.792-1.773c.433-.752.652-1.598.652-2.544V10.509h-3.316v9.784Zm8.928-.911h6.946v-2.804H52.17v-3.181h7.678v-2.888h-10.91v14.987h11.124v-2.888H52.17v-3.226Zm8.932-5.9h4.442v12.01h3.316v-12.01h4.421v-2.973H61.097v2.977l.005-.005Zm23.512 4.5a3.94 3.94 0 0 0-.837-.323c.224-.065.438-.144.638-.244a3.18 3.18 0 0 0 1.29-1.195c.308-.513.467-1.1.467-1.768 0-.761-.209-1.444-.622-2.046-.413-.598-.996-1.066-1.743-1.404-.747-.334-1.603-.503-2.56-.503h-6.656v14.987h6.786c1.006 0 1.902-.174 2.694-.528.787-.353 1.4-.841 1.837-1.473.433-.628.653-1.345.653-2.151 0-.742-.17-1.405-.513-1.992a3.525 3.525 0 0 0-1.43-1.364l-.004.005Zm-6.802-4.959h2.943c.408 0 .767.075 1.08.22.314.144.558.353.732.627.175.269.264.587.264.95 0 .364-.09.708-.264.992a1.726 1.726 0 0 1-.732.652 2.41 2.41 0 0 1-1.08.229h-2.943v-3.675.005Zm5.069 9.067c-.19.284-.458.503-.802.658a2.908 2.908 0 0 1-1.195.229h-3.072v-3.844h3.072c.444 0 .837.084 1.185.249.344.164.618.393.807.692.19.299.289.637.289 1.02 0 .384-.095.712-.284.996Zm14.798-2.654c.831-.398 1.474-.96 1.932-1.683.458-.721.687-1.558.687-2.514 0-.956-.224-1.763-.672-2.48-.448-.716-1.086-1.27-1.907-1.662-.822-.394-1.773-.588-2.858-.588h-6.563v14.987h3.321V20.04h2.161l3.043 5.457h3.789l-3.426-5.86c.17-.06.339-.125.498-.2h-.005Zm-1.076-3.062a1.798 1.798 0 0 1-.791.722c-.344.17-.747.254-1.21.254h-2.988v-4.147h2.988c.463 0 .866.084 1.21.249.343.164.607.408.791.717.185.308.28.677.28 1.095 0 .418-.095.787-.28 1.1v.01ZM106.9 10.51l-5.352 14.987h3.371l1.06-3.306h5.557l1.135 3.306h3.306l-5.482-14.987H106.9Zm-.169 9.171 1.723-5.287.204-.961.204.96 1.842 5.288h-3.973Zm10.347 5.816h3.425V10.51h-3.425v14.987Zm15.51-4.85L126.14 10.51h-3.232v14.987h3.027V15.36l6.414 10.137h3.266V10.51h-3.027v10.137Zm15.763-1.678a4.466 4.466 0 0 0-1.364-1.568 4.95 4.95 0 0 0-2.011-.846l-2.55-.523c-.398-.095-.717-.26-.951-.498a1.228 1.228 0 0 1-.353-.891c0-.324.084-.603.259-.842.169-.239.413-.423.722-.558.308-.134.667-.199 1.075-.199.408 0 .777.07 1.091.21.313.139.557.333.731.587.175.254.264.538.264.861h3.321c-.019-.871-.263-1.643-.722-2.31-.458-.672-1.1-1.195-1.916-1.573-.817-.379-1.753-.568-2.799-.568-1.045 0-1.971.194-2.783.588-.812.393-1.449.936-1.902 1.633-.453.697-.682 1.488-.682 2.38 0 .722.144 1.374.438 1.951a3.954 3.954 0 0 0 1.24 1.45 4.906 4.906 0 0 0 1.862.801l2.699.558c.443.104.791.299 1.05.577.259.28.384.623.384 1.041 0 .334-.095.637-.284.901a1.826 1.826 0 0 1-.792.613c-.338.144-.737.214-1.195.214-.458 0-.891-.08-1.265-.24a1.94 1.94 0 0 1-.866-.686 1.72 1.72 0 0 1-.309-1.021h-3.321c.015.936.264 1.757.757 2.474.488.712 1.16 1.27 2.017 1.668.856.399 1.837.598 2.942.598 1.106 0 2.101-.204 2.958-.612.861-.409 1.528-.971 2.011-1.688.483-.717.722-1.529.722-2.435a4.4 4.4 0 0 0-.488-2.052l.01.005Z" fill="#19191C" style="fill:var(--logo-text-color)"></path><path d="m10.17 1.83-8.34 8.34A6.252 6.252 0 0 0 0 14.59V29.5A2.5 2.5 0 0 0 2.5 32h14.91a6.26 6.26 0 0 0 4.42-1.83l8.34-8.34A6.252 6.252 0 0 0 32 17.41V2.5A2.5 2.5 0 0 0 29.5 0H14.59a6.26 6.26 0 0 0-4.42 1.83Z" fill="url(#jetbrains-logo_svg__a)"></path><path d="M24 8H4v20h20V8Z" fill="#000"></path><path d="M15 23.5H6.5v2H15v-2Z" fill="#fff"></path><defs><linearGradient id="jetbrains-logo_svg__a" x1="0.425" y1="31.36" x2="31.31" y2="0.905" gradientUnits="userSpaceOnUse"><stop stop-color="#FF9419"></stop><stop offset="0.43" stop-color="#FF021D"></stop><stop offset="0.99" stop-color="#E600FF"></stop></linearGradient></defs></svg></a></footer>
+
+    </div>
+        </div>
+    </div>
+</div>
+<script defer src="/_assets/shared.js?dokka-v2" type="text/javascript"></script>
+<script defer src="/_assets/dokka-template.js?dokka-v2" type="text/javascript"></script>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5P98');</script>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5P98" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div class="feedback__popup-wrapper app-feedback-popup app-feedback-popup_close">
+    <div class="feedback__popup feedback__popup--theme-light" data-test="feedback-popup">
+        <form autocomplete="on">
+            <div class="feedback__head feedback__head--theme-light" data-test="feedback-head">
+                <legend class="feedback__legend">How can we improve?</legend>
+                <div class="feedback__close-button">
+                    <button data-test="feedback-close" aria-label="Close" title="Close" type="button" class="_main_joawza_17 _modeClear_joawza_434 _sizeS_joawza_92 _alignIconLeft_joawza_77 _withIcon_joawza_119 _withoutText_joawza_113">
+                        <svg viewBox="0 0 24 24" class="wt-icon wt-icon_size_s _icon_joawza_525">
+                            <path d="M19.707 5.707l-1.414-1.414L12 10.586 5.707 4.293 4.293 5.707 10.586 12l-6.293 6.293 1.414 1.414L12 13.414l6.293 6.293 1.414-1.414L13.414 12l6.293-6.293z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="feedback__field"><label class="_labelWrapper_hvg13z_44 _sizeM_hvg13z_98" data-test="textarea">
+                <div class="_wrapper_hvg13z_48">
+                    <textarea name="content" placeholder="Tell us what you think would make this page better" data-test-id="feedback-textarea" title="Content" class="_inner_hvg13z_61" aria-invalid="false" data-test="textarea__input" style="height: 112px !important;"></textarea>
+                </div>
+            </label></div>
+            <div class="feedback__field"><div class="feedback__description feedback__description--theme-light">
+                    Enter your name and email address if you would like to receive a&nbsp;follow-up message or&nbsp;<a class="link" data-test="feedback-support-link" href="https://kotl.in/issue" rel="noreferrer" target="_blank">contact our support</a>.</div></div>
+            <div class="feedback__field">
+                <div class="_container_1fowpgw_10 _container_1fowpgw_10 _classic_1fowpgw_44 _sizeM_1fowpgw_125 _enabled_1fowpgw_27" data-test="input"><label>
+                    <div class="_wrapper_1fowpgw_14"><div class="_field_1fowpgw_161">
+                        <input name="name" data-test="input__inner" autocomplete="name" title="Name" class="_inner_1fowpgw_171" type="text" placeholder="Name" aria-invalid="false" value=""></div>
+                    </div>
+                </label></div>
+            </div>
+            <div class="feedback__field">
+                <div class="_container_1fowpgw_10 _container_1fowpgw_10 _classic_1fowpgw_44 _sizeM_1fowpgw_125 _enabled_1fowpgw_27" data-test="input"><label>
+                    <div class="_wrapper_1fowpgw_14"><div class="_field_1fowpgw_161">
+                        <input name="email" data-test-id="feedback-email" data-test="input__inner" title="Email address" class="_inner_1fowpgw_171" type="email" placeholder="Email address" aria-invalid="false" value="">
+                    </div></div>
+                </label></div>
+            </div>
+            <div class="feedback__field feedback__description feedback__description--theme-light" data-test="feedback-policy">
+                By submitting this form, I agree that JetBrains s.r.o. ("JetBrains") may use my name, email address, phone number, and country of residence to provide support. I agree that JetBrains may process said data using <a href="https://www.jetbrains.com/legal/privacy/third-parties.html" target="_blank">third-party services</a> for this purpose in accordance with the <a href="https://www.jetbrains.com/company/privacy.html" target="_blank">JetBrains Privacy Policy</a>.
+            </div>
+            <div class="feedback__footer">
+                <button data-test="feedback-send" title="Send feedback" name="send" type="submit" disabled class="_main_joawza_17 _modeClassic_joawza_135 _sizeM_joawza_99 _alignIconLeft_joawza_77 _disabled_joawza_61 button_disabled">Send feedback</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

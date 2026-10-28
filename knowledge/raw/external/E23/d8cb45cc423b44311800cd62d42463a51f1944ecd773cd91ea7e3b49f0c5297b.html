@@ -1,0 +1,252 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html lang="en-US" data-preset="contrast" data-primary-color="#307FFF" data-external-links-in-new-tab="false"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="built-on" content="2026-10-27T12:17:15.313980081"><meta name="build-number" content="1354"><link rel="canonical" href="/docs/numbers.html" data-react-helmet="true"><script>
+    (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+        var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&amp;l=' + l : '';
+        j.async = true;
+        j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-5P98');
+</script>
+<script src="https://resources.jetbrains.com/storage/help-app/v6/analytics.js"></script>
+<title>Numbers | Kotlin Documentation</title><script type="application/json" id="virtual-toc-data">[{"id":"choose-a-number-type","level":0,"title":"Choose a number type","anchor":"#choose-a-number-type"},{"id":"integer-types","level":0,"title":"Integer types","anchor":"#integer-types"},{"id":"declare-integer-values","level":1,"title":"Declare integer values","anchor":"#declare-integer-values"},{"id":"floating-point-types","level":0,"title":"Floating-point types","anchor":"#floating-point-types"},{"id":"declare-floating-point-values","level":1,"title":"Declare floating-point values","anchor":"#declare-floating-point-values"},{"id":"arithmetic-operations","level":0,"title":"Arithmetic operations","anchor":"#arithmetic-operations"},{"id":"integer-division","level":1,"title":"Integer division","anchor":"#integer-division"},{"id":"type-conversion","level":0,"title":"Type conversion","anchor":"#type-conversion"},{"id":"mixed-numeric-expressions","level":1,"title":"Mixed numeric expressions","anchor":"#mixed-numeric-expressions"},{"id":"integer-literal-types","level":1,"title":"Integer literal types","anchor":"#integer-literal-types"},{"id":"data-overflow","level":0,"title":"Data overflow","anchor":"#data-overflow"},{"id":"overflow-in-operations","level":1,"title":"Overflow in operations","anchor":"#overflow-in-operations"},{"id":"overflow-in-negation","level":1,"title":"Overflow in negation","anchor":"#overflow-in-negation"},{"id":"narrowing-conversions","level":1,"title":"Narrowing conversions","anchor":"#narrowing-conversions"},{"id":"bitwise-operations","level":0,"title":"Bitwise operations","anchor":"#bitwise-operations"},{"id":"floating-point-number-comparison","level":0,"title":"Floating-point number comparison","anchor":"#floating-point-number-comparison"},{"id":"boxing-and-caching-numbers-on-the-jvm","level":0,"title":"Boxing and caching numbers on the JVM","anchor":"#boxing-and-caching-numbers-on-the-jvm"}]</script><script type="application/json" id="topic-shortcuts"></script><link href="custom-frontend-app/app.css?149" rel="stylesheet"><link rel="icon" type="image/svg" sizes="16x16" href="https://kotlinlang.org/assets/images/favicon.svg?v2"><link rel="icon" type="image/x-icon" sizes="32x32" href="https://kotlinlang.org/assets/images/favicon.ico?v2"><link rel="icon" type="image/png" sizes="96x96" href="https://kotlinlang.org/assets/images/apple-touch-icon.png?v2"><link rel="icon" type="image/png" sizes="300x300" href="https://kotlinlang.org/assets/images/apple-touch-icon-72x72.png?v2"><link rel="icon" type="image/png" sizes="500x500" href="https://kotlinlang.org/assets/images/apple-touch-icon-114x114.png?v2"><meta name="image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- Open Graph --><meta property="og:title" content="Numbers | Kotlin"><meta property="og:description" content=""><meta property="og:image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><meta property="og:site_name" content="Kotlin Help"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:url" content="https://kotlinlang.org/docs/numbers.html"><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@kotlin"><meta name="twitter:title" content="Numbers | Kotlin"><meta name="twitter:description" content=""><meta name="twitter:creator" content="@kotlin"><meta name="twitter:image:src" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- End Twitter Card --><!-- Schema.org WebPage --><script type="application/ld+json">{
+    "@context": "http://schema.org",
+    "@type": "WebPage",
+    "@id": "https://kotlinlang.org/docs/numbers.html#webpage",
+    "url": "https://kotlinlang.org/docs/numbers.html",
+    "name": "Numbers | Kotlin",
+    "description": "",
+    "image": "https://kotlinlang.org/assets/images/open-graph/docs.png",
+    "inLanguage":"en-US"
+}</script><!-- End Schema.org --><!-- Schema.org WebSite --><script type="application/ld+json">{
+    "@type": "WebSite",
+    "@id": "https://kotlinlang.org/docs/#website",
+    "url": "https://kotlinlang.org/docs/",
+    "name": "Kotlin Help"
+}</script><!-- End Schema.org --><style>a[href="test-page.html"] { visibility: hidden; }</style></head><body data-id="numbers" data-main-title="Numbers" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-template="article" data-breadcrumbs="Language guide///Types" data-edit-url="https://github.com/JetBrains/kotlin-web-site/edit/master/docs/topics/numbers.md"><div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>Kotlin  Help</h3><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="numbers" id="numbers.md">Numbers</h1><p id="l9qhs1_3">The Kotlin number types represent:</p><ul class="list _bullet" id="l9qhs1_4"><li class="list__item" id="l9qhs1_15"><p id="l9qhs1_17">Integer values (<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-byte/" id="l9qhs1_18" data-external="true" rel="noopener noreferrer">Byte</a>, <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-short/" id="l9qhs1_19" data-external="true" rel="noopener noreferrer">Short</a>, <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/" id="l9qhs1_20" data-external="true" rel="noopener noreferrer">Int</a>, and <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/" id="l9qhs1_21" data-external="true" rel="noopener noreferrer">Long</a>)</p></li><li class="list__item" id="l9qhs1_16"><p id="l9qhs1_22">Floating-point values (<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/" id="l9qhs1_23" data-external="true" rel="noopener noreferrer">Float</a> and <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/" id="l9qhs1_24" data-external="true" rel="noopener noreferrer">Double</a>)</p></li></ul><p id="l9qhs1_5">Use number types to store and process numeric data, for example, in arithmetic, counters, measurements, and other calculations.</p><section class="chapter"><h2 id="choose-a-number-type" data-toc="choose-a-number-type">Choose a number type</h2><p id="l9qhs1_25">In most cases, you can refer to the following rules to determine the correct number type for your task:</p><ul class="list _bullet" id="l9qhs1_26"><li class="list__item" id="l9qhs1_28"><p id="l9qhs1_33">Use <code class="code" id="l9qhs1_34">Int</code> for whole numbers.</p></li><li class="list__item" id="l9qhs1_29"><p id="l9qhs1_35">Use <code class="code" id="l9qhs1_36">Long</code> for whole numbers outside the <code class="code" id="l9qhs1_37">Int</code> range.</p></li><li class="list__item" id="l9qhs1_30"><p id="l9qhs1_38">Use <code class="code" id="l9qhs1_39">Double</code> for decimal numbers.</p></li><li class="list__item" id="l9qhs1_31"><p id="l9qhs1_40">Use <code class="code" id="l9qhs1_41">Float</code> when lower precision is acceptable or required.</p></li><li class="list__item" id="l9qhs1_32"><p id="l9qhs1_42">Use <code class="code" id="l9qhs1_43">Byte</code> and <code class="code" id="l9qhs1_44">Short</code> when an API or data format requires them.</p></li></ul><aside class="prompt" data-type="tip" data-title="" id="l9qhs1_27"><p id="l9qhs1_45">Kotlin also provides <a href="unsigned-integer-types.html" id="l9qhs1_46">Unsigned integer types</a> as a Beta feature.</p></aside></section><section class="chapter"><h2 id="integer-types" data-toc="integer-types">Integer types</h2><p id="l9qhs1_47">Kotlin provides four integer types with different sizes and value ranges:</p><div class="table-wrapper"><table class="wide" id="l9qhs1_48"><thead><tr class="ijRowHead" id="l9qhs1_50"><th id="l9qhs1_55"><p>Type</p></th><th id="l9qhs1_56"><p>Size (bits)</p></th><th id="l9qhs1_57"><p>Min value</p></th><th id="l9qhs1_58"><p>Max value</p></th></tr></thead><tbody><tr id="l9qhs1_51"><td id="l9qhs1_59"><p><code class="code" id="l9qhs1_63">Byte</code></p></td><td id="l9qhs1_60"><p>8</p></td><td id="l9qhs1_61"><p>-128</p></td><td id="l9qhs1_62"><p>127</p></td></tr><tr id="l9qhs1_52"><td id="l9qhs1_64"><p><code class="code" id="l9qhs1_68">Short</code></p></td><td id="l9qhs1_65"><p>16</p></td><td id="l9qhs1_66"><p>-32768</p></td><td id="l9qhs1_67"><p>32767</p></td></tr><tr id="l9qhs1_53"><td id="l9qhs1_69"><p><code class="code" id="l9qhs1_73">Int</code></p></td><td id="l9qhs1_70"><p>32</p></td><td id="l9qhs1_71"><p>-2,147,483,648 (-2<sup class="superscript" id="l9qhs1_74">31</sup>)</p></td><td id="l9qhs1_72"><p>2,147,483,647 (2<sup class="superscript" id="l9qhs1_75">31</sup> - 1)</p></td></tr><tr id="l9qhs1_54"><td id="l9qhs1_76"><p><code class="code" id="l9qhs1_80">Long</code></p></td><td id="l9qhs1_77"><p>64</p></td><td id="l9qhs1_78"><p>-9,223,372,036,854,775,808 (-2<sup class="superscript" id="l9qhs1_81">63</sup>)</p></td><td id="l9qhs1_79"><p>9,223,372,036,854,775,807 (2<sup class="superscript" id="l9qhs1_82">63</sup> - 1)</p></td></tr></tbody></table></div><section class="chapter"><h3 id="declare-integer-values" data-toc="declare-integer-values">Declare integer values</h3><p id="l9qhs1_83">Kotlin supports the following literal forms for integer values:</p><ul class="list _bullet" id="l9qhs1_84"><li class="list__item" id="l9qhs1_96"><p id="l9qhs1_99">Decimals: <code class="code" id="l9qhs1_100">123</code></p></li><li class="list__item" id="l9qhs1_97"><p id="l9qhs1_101">Hexadecimals: <code class="code" id="l9qhs1_102">0x0F</code></p></li><li class="list__item" id="l9qhs1_98"><p id="l9qhs1_103">Binaries: <code class="code" id="l9qhs1_104">0b00001011</code></p></li></ul><aside class="prompt" data-type="note" data-title="" id="l9qhs1_85"><p id="l9qhs1_105">Kotlin does not support octal literals.</p></aside><p id="l9qhs1_86">To declare a numeric value, specify the type explicitly:</p><div class="code-block" data-lang="kotlin">
+val one: Int = 1
+
+// Use underscores to improve readability
+val oneBillion: Long = 1_000_000_000
+val hexBytes: Int = 0x7F_EC_DE_5E
+val bytes: Int = 0b01010010_01101001_10010100_10010010
+
+val oneByte: Byte = 1
+val oneShort: Short = 1
+</div><p id="l9qhs1_88">You can also append the <code class="code" id="l9qhs1_106">L</code> suffix, to declare a <code class="code" id="l9qhs1_107">Long</code> value:</p><div class="code-block" data-lang="kotlin">
+val oneLong = 1L
+</div><p id="l9qhs1_90">When you declare a numeric type explicitly, the compiler checks that the value fits in the range of that type:</p><div class="code-block" data-lang="kotlin">
+// Value fits in Byte
+val oneByte: Byte = 1
+
+// Error: the value does not fit in Byte
+val tooBig: Byte = 128
+</div><p id="l9qhs1_92">When you do not specify a numeric type, Kotlin infers <code class="code" id="l9qhs1_108">Int</code> if the value fits in the <code class="code" id="l9qhs1_109">Int</code> range. Otherwise, Kotlin infers <code class="code" id="l9qhs1_110">Long</code>:</p><div class="code-block" data-lang="kotlin">
+val million = 1_000_000 // Int
+val threeBillion = 3_000_000_000 // Long
+</div><p id="l9qhs1_94">If a value can be absent, use nullable types:</p><div class="code-block" data-lang="kotlin">
+val maybeAbsent: Int? = null
+</div></section></section><section class="chapter"><h2 id="floating-point-types" data-toc="floating-point-types">Floating-point types</h2><p id="l9qhs1_111">For numbers with a fractional part, Kotlin provides <code class="code" id="l9qhs1_116">Float</code> and <code class="code" id="l9qhs1_117">Double</code>.</p><p id="l9qhs1_112">Floating-point types follow the <a href="https://en.wikipedia.org/wiki/IEEE_754" id="l9qhs1_118" data-external="true" rel="noopener noreferrer">IEEE 754 standard</a>. <code class="code" id="l9qhs1_119">Float</code> reflects the <span class="emphasis" id="l9qhs1_120">single precision</span>. <code class="code" id="l9qhs1_121">Double</code> reflects the <span class="emphasis" id="l9qhs1_122">double precision</span>.</p><p id="l9qhs1_113">Floating-point types differ in size and precision:</p><div class="table-wrapper"><table class="wide" id="l9qhs1_114"><thead><tr class="ijRowHead" id="l9qhs1_123"><th id="l9qhs1_126"><p>Type</p></th><th id="l9qhs1_127"><p>Size (bits)</p></th><th id="l9qhs1_128"><p>Significant bits</p></th><th id="l9qhs1_129"><p>Exponent bits</p></th><th id="l9qhs1_130"><p>Decimal digits</p></th></tr></thead><tbody><tr id="l9qhs1_124"><td id="l9qhs1_131"><p><code class="code" id="l9qhs1_136">Float</code></p></td><td id="l9qhs1_132"><p>32</p></td><td id="l9qhs1_133"><p>24</p></td><td id="l9qhs1_134"><p>8</p></td><td id="l9qhs1_135"><p>6-7</p></td></tr><tr id="l9qhs1_125"><td id="l9qhs1_137"><p><code class="code" id="l9qhs1_142">Double</code></p></td><td id="l9qhs1_138"><p>64</p></td><td id="l9qhs1_139"><p>53</p></td><td id="l9qhs1_140"><p>11</p></td><td id="l9qhs1_141"><p>15-16</p></td></tr></tbody></table></div><section class="chapter"><h3 id="declare-floating-point-values" data-toc="declare-floating-point-values">Declare floating-point values</h3><p id="l9qhs1_143">To declare a floating-point literal, include a decimal point (<code class="code" id="l9qhs1_150">.</code>) or use exponent notation:</p><div class="code-block" data-lang="kotlin">
+val pi = 3.14
+val avogadro = 6.02214076e23
+</div><p id="l9qhs1_145">By default, Kotlin infers floating-point literals as <code class="code" id="l9qhs1_151">Double</code>. To declare a <code class="code" id="l9qhs1_152">Float</code>, add the <code class="code" id="l9qhs1_153">f</code> or <code class="code" id="l9qhs1_154">F</code> suffix:</p><div class="code-block" data-lang="kotlin">
+val pi = 3.14 // Double
+val eFloat = 2.7182817f // Float
+</div><aside class="prompt" data-type="note" data-title="" id="l9qhs1_147"><p id="l9qhs1_155">Kotlin rounds a <code class="code" id="l9qhs1_156">Float</code> literal that contains more precision than <code class="code" id="l9qhs1_157">Float</code> can store.</p></aside><p id="l9qhs1_148">If a value can be absent, use nullable types:</p><div class="code-block" data-lang="kotlin">
+val maybeAbsent: Double? = null
+</div></section></section><section class="chapter"><h2 id="arithmetic-operations" data-toc="arithmetic-operations">Arithmetic operations</h2><p id="l9qhs1_158">Kotlin supports the standard arithmetic operations on numbers: <code class="code" id="l9qhs1_164">+</code>, <code class="code" id="l9qhs1_165">-</code>, <code class="code" id="l9qhs1_166">*</code>, <code class="code" id="l9qhs1_167">/</code>, and <code class="code" id="l9qhs1_168">%</code>.</p><p id="l9qhs1_159">Use these operators to perform common calculations:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    println(1 + 2) // 3
+    println(2_500_000_000L - 1L) // 2499999999
+    println(3.14 * 2.71) // 8.5094
+    println(10.0 / 3) // 3.3333333333333335
+//sampleEnd
+}
+</div><p id="l9qhs1_161">The result type depends on the types of the operands. Learn more in <a href="#mixed-numeric-expressions" id="l9qhs1_169">Mixed numeric expressions</a>.</p><aside class="prompt" data-type="tip" data-title="" id="l9qhs1_162"><p id="l9qhs1_170">You can override these operators in custom number classes. For more information, see <a href="operator-overloading.html" id="l9qhs1_171">Operator overloading</a>.</p></aside><section class="chapter"><h3 id="integer-division" data-toc="integer-division">Integer division</h3><p id="l9qhs1_172">Division between integer values always returns an integer result. The compiler discards the fractional part:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    val intValue = 5 / 2
+    println(intValue) // 2
+    
+    val longValue = 5L / 2
+    println(longValue) // 2
+//sampleEnd
+}
+</div><p id="l9qhs1_174">To return a floating-point result, make at least one operand a <code class="code" id="l9qhs1_176">Float</code> or <code class="code" id="l9qhs1_177">Double</code>:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    val a = 5 / 2.0
+    println(a) // 2.5
+    
+    val b = 5 / 2.toDouble()
+    println(b) // 2.5
+//sampleEnd
+}
+</div></section></section><section class="chapter"><h2 id="type-conversion" data-toc="type-conversion">Type conversion</h2><p id="l9qhs1_178">Numeric types are not subtypes of one another. Kotlin requires explicit conversions to avoid silent data loss and unexpected behavior.</p><p id="l9qhs1_179">For example, a function that expects <code class="code" id="l9qhs1_189">Double</code> cannot accept an <code class="code" id="l9qhs1_190">Int</code> or a <code class="code" id="l9qhs1_191">Float</code> value without conversion:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    fun printDouble(x: Double) { 
+        print(x) 
+    }
+
+    val x = 1.0
+    val xInt = 1
+    val xFloat = 1.0f
+    val one: Double = 1 // Error: initializer type mismatch
+
+    printDouble(x) // OK
+    printDouble(xInt) // Error: argument type mismatch
+    printDouble(xFloat) // Error: argument type mismatch
+//sampleEnd
+}
+</div><p id="l9qhs1_181">All number types support conversions to other number types. To convert a number to another type, use an explicit conversion function:</p><ul class="list _bullet" id="l9qhs1_182"><li class="list__item" id="l9qhs1_192"><p id="l9qhs1_198"><code class="code" id="l9qhs1_199">toByte()</code></p></li><li class="list__item" id="l9qhs1_193"><p id="l9qhs1_200"><code class="code" id="l9qhs1_201">toShort()</code></p></li><li class="list__item" id="l9qhs1_194"><p id="l9qhs1_202"><code class="code" id="l9qhs1_203">toInt()</code></p></li><li class="list__item" id="l9qhs1_195"><p id="l9qhs1_204"><code class="code" id="l9qhs1_205">toLong()</code></p></li><li class="list__item" id="l9qhs1_196"><p id="l9qhs1_206"><code class="code" id="l9qhs1_207">toFloat()</code></p></li><li class="list__item" id="l9qhs1_197"><p id="l9qhs1_208"><code class="code" id="l9qhs1_209">toDouble()</code></p></li></ul><p id="l9qhs1_183">For example, the following code converts an <code class="code" id="l9qhs1_210">Int</code> value to <code class="code" id="l9qhs1_211">Double</code>:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    val intValue: Int = 1
+    val doubleValue = intValue.toDouble()
+    
+    println(doubleValue) // 1.0
+//sampleEnd
+}
+</div><p id="l9qhs1_185">When you convert a floating-point value to an integer type, the compiler discards the fractional part:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    val d: Double = 1.5
+    val l: Long = d.toLong()
+    
+    println(l) // 1
+//sampleEnd    
+}
+</div><section class="chapter"><h3 id="mixed-numeric-expressions" data-toc="mixed-numeric-expressions">Mixed numeric expressions</h3><p id="l9qhs1_212">Kotlin does not support implicit conversion for assignments or function arguments. However, you can combine different numeric types in arithmetic expressions. In such cases, Kotlin determines a result type based on the operand types, and arithmetic operators handle the conversion automatically:</p><div class="code-block" data-lang="kotlin">
+val intNumber: Int = 1
+val longNumber: Long = 1000
+val result = intNumber + longNumber // 1001, Long
+</div><p id="l9qhs1_214">If you try to assign the result to a smaller type, the compiler reports an error:</p><div class="code-block" data-lang="kotlin">
+val intNumber: Int = 1
+val longNumber: Long = 1000
+val result: Int = intNumber + longNumber 
+// Error: Initializer type mismatch
+</div></section><section class="chapter"><h3 id="integer-literal-types" data-toc="integer-literal-types">Integer literal types</h3><p id="l9qhs1_216">During type inference, Kotlin treats unsuffixed integer literals as a special <a href="https://kotlinlang.org/spec/type-system.html#integer-literal-types" id="l9qhs1_223" data-external="true" rel="noopener noreferrer">Integer Literal Type (ILT)</a> until the surrounding context determines a specific type:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+//sampleStart
+fun List&lt;Any&gt;.log() {
+    println(joinToString(&quot; | &quot;) { it::class.simpleName ?: &quot;Unknown&quot; })
+}
+
+fun main() {
+    listOf(1, 2).log()
+    // Int | Int
+    
+    listOf(1L, 2L).log()
+    // Long | Long
+    
+    // Compiler interprets 1 as an ILT and resolves it to Long
+    listOf(1, 2L).log()
+    // Long | Long
+    
+    // .toInt() converts the literal to Int
+    listOf(1.toInt(), 2L).log()
+    // Int | Long
+}
+//sampleEnd
+</div><p id="l9qhs1_218">It's especially easy to miss with the <code class="code" id="l9qhs1_224">Int</code> and <code class="code" id="l9qhs1_225">Long</code> values because they have the same string representation at runtime. To avoid this, specify the expected type or convert values explicitly:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+//sampleStart
+fun List&lt;Any&gt;.log() {
+    println(joinToString(&quot; | &quot;) { it::class.simpleName ?: &quot;Unknown&quot; })
+}
+
+fun main() {
+    val longValues: List&lt;Long&gt; = listOf(1, 2L)
+    longValues.log()
+    // Long | Long
+
+    val numberValues: List&lt;Number&gt; = listOf(1.toInt(), 2L)
+    numberValues.log()
+    // Int | Long
+}
+//sampleEnd
+</div><p id="l9qhs1_220">You can also use an explicit type to catch unintended type inference:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    val intValues: List&lt;Int&gt; = listOf(1, 2L)
+    // Error: initializer type mismatch
+//sampleEnd
+}
+</div><aside class="prompt" data-type="tip" data-title="" id="l9qhs1_222"><p id="l9qhs1_226">Learn more about <a href="https://kotlinlang.org/spec/type-system.html#integer-literal-types" id="l9qhs1_227" data-external="true" rel="noopener noreferrer">Integer literal types</a>.</p></aside></section></section><section class="chapter"><h2 id="data-overflow" data-toc="data-overflow">Data overflow</h2><p id="l9qhs1_228">Numeric types can represent only values within their defined ranges.</p><p id="l9qhs1_229">If the result of an operation falls outside that range, overflow occurs. If you convert a value to a smaller numeric type, the converted value may not preserve the original numeric value.</p><p id="l9qhs1_230">This behavior can affect the result of your code even when the compiler accepts it.</p><section class="chapter"><h3 id="overflow-in-operations" data-toc="overflow-in-operations">Overflow in operations</h3><p id="l9qhs1_234">Each integer type can store only values within its defined range. When the result of an arithmetic operation exceeds that range, <span class="emphasis" id="l9qhs1_238">data overflow</span> occurs:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main(){
+//sampleStart
+    val intNumber: Int = 2147483647
+    // Max Int value is 2147483647
+    println(intNumber + 1) // -2147483648
+//sampleEnd    
+}
+</div><p id="l9qhs1_236">Here, the result wraps around because the value no longer fits in <code class="code" id="l9qhs1_239">Int</code>.</p><aside class="prompt" data-type="note" data-title="" id="l9qhs1_237"><p id="l9qhs1_240">The compiler does not automatically produce an error when integer overflow occurs.</p></aside></section><section class="chapter"><h3 id="overflow-in-negation" data-toc="overflow-in-negation">Overflow in negation</h3><p id="l9qhs1_241">Overflow can also occur during negation. For example, you cannot represent the positive counterpart of <code class="code" id="l9qhs1_243">Int.MIN_VALUE</code> as an <code class="code" id="l9qhs1_244">Int</code>.</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main(){
+//sampleStart
+    val min = Int.MIN_VALUE
+    println(-min) // -2147483648
+//sampleEnd    
+}
+</div></section><section class="chapter"><h3 id="narrowing-conversions" data-toc="narrowing-conversions">Narrowing conversions</h3><p id="l9qhs1_245">When you convert a value to a smaller integer type, the result may not preserve the original numeric value:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    val large: Int = 130
+    val narrowed: Byte = large.toByte()
+
+    println(narrowed) // -126
+//sampleEnd
+}
+</div><p id="l9qhs1_247">However, since floating-point types follow the <a href="https://en.wikipedia.org/wiki/IEEE_754" id="l9qhs1_249" data-external="true" rel="noopener noreferrer">IEEE 754 Standard</a>, very large results can become <code class="code" id="l9qhs1_250">Infinity</code>:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    println(Double.MAX_VALUE * 2) // Infinity
+//sampleEnd    
+}
+</div></section></section><section class="chapter"><h2 id="bitwise-operations" data-toc="bitwise-operations">Bitwise operations</h2><p id="l9qhs1_251">Kotlin provides <span class="emphasis" id="l9qhs1_255">bitwise operations</span> for <code class="code" id="l9qhs1_256">Int</code> and <code class="code" id="l9qhs1_257">Long</code>. These operations are represented by a set of <a href="functions.html#infix-notation" id="l9qhs1_258">infix functions</a> and <code class="code" id="l9qhs1_259">inv()</code>.</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    val x = 1
+    
+    println(x shl 2) // 4
+    println(x and 0x000FF000) // 0
+//sampleEnd
+}
+</div><p id="l9qhs1_253">Bitwise operations include:</p><ul class="list _bullet" id="l9qhs1_254"><li class="list__item" id="l9qhs1_260"><p id="l9qhs1_267"><code class="code" id="l9qhs1_268">shl()</code> &ndash; signed shift left</p></li><li class="list__item" id="l9qhs1_261"><p id="l9qhs1_269"><code class="code" id="l9qhs1_270">shr()</code> &ndash; signed shift right</p></li><li class="list__item" id="l9qhs1_262"><p id="l9qhs1_271"><code class="code" id="l9qhs1_272">ushr()</code> &ndash; unsigned shift right</p></li><li class="list__item" id="l9qhs1_263"><p id="l9qhs1_273"><code class="code" id="l9qhs1_274">and()</code> &ndash; bitwise AND</p></li><li class="list__item" id="l9qhs1_264"><p id="l9qhs1_275"><code class="code" id="l9qhs1_276">or()</code> &ndash; bitwise OR</p></li><li class="list__item" id="l9qhs1_265"><p id="l9qhs1_277"><code class="code" id="l9qhs1_278">xor()</code> &ndash; bitwise XOR</p></li><li class="list__item" id="l9qhs1_266"><p id="l9qhs1_279"><code class="code" id="l9qhs1_280">inv()</code> &ndash; bitwise inversion</p></li></ul></section><section class="chapter"><h2 id="floating-point-number-comparison" data-toc="floating-point-number-comparison">Floating-point number comparison</h2><p id="l9qhs1_281">In Kotlin, floating-point comparison depends on the static type of the operands.</p><p id="l9qhs1_282">When the operands are statically known to be <code class="code" id="l9qhs1_288">Float</code> or <code class="code" id="l9qhs1_289">Double</code>, operations on the numbers and the range that they form follow the <a href="https://en.wikipedia.org/wiki/IEEE_754" id="l9qhs1_290" data-external="true" rel="noopener noreferrer">IEEE 754 Standard for Floating-Point Arithmetic</a>.</p><p id="l9qhs1_283">However, in generic use cases (such as <code class="code" id="l9qhs1_291">Any</code>, <code class="code" id="l9qhs1_292">Comparable&lt;...&gt;</code>, or <code class="code" id="l9qhs1_293">Collection&lt;T&gt;</code>), behavior differs for operands that are not statically typed as floating-point numbers. In these cases, Kotlin uses the <code class="code" id="l9qhs1_294">equals()</code> and <code class="code" id="l9qhs1_295">compareTo()</code> implementations for <code class="code" id="l9qhs1_296">Float</code> and <code class="code" id="l9qhs1_297">Double</code>.</p><p id="l9qhs1_284">As a result:</p><ul class="list _bullet" id="l9qhs1_285"><li class="list__item" id="l9qhs1_298"><p id="l9qhs1_301"><code class="code" id="l9qhs1_302">NaN</code> is considered equal to itself</p></li><li class="list__item" id="l9qhs1_299"><p id="l9qhs1_303"><code class="code" id="l9qhs1_304">NaN</code> is considered greater than any other element including <code class="code" id="l9qhs1_305">POSITIVE_INFINITY</code></p></li><li class="list__item" id="l9qhs1_300"><p id="l9qhs1_306"><code class="code" id="l9qhs1_307">-0.0</code> is considered less than <code class="code" id="l9qhs1_308">0.0</code></p></li></ul><p id="l9qhs1_286">The following example shows the difference between operands statically typed as floating-point numbers and operands used through generic types:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-numbers-floating-comp">
+//sampleStart  
+fun generalizedEquals(a: Any, b: Any): Boolean {
+    return a == b
+}
+
+fun main() {
+    // Operands statically typed as floating-point numbers
+    println(Double.NaN == Double.NaN) // false
+    println(0.0 == -0.0) // true
+
+    // Operands used through a non-floating-point static type
+    println(generalizedEquals(Double.NaN, Double.NaN)) // true
+    println(generalizedEquals(0.0, -0.0)) // false
+}
+//sampleEnd  
+</div></section><section class="chapter"><h2 id="boxing-and-caching-numbers-on-the-jvm" data-toc="boxing-and-caching-numbers-on-the-jvm">Boxing and caching numbers on the JVM</h2><p id="l9qhs1_309">On the JVM, non-nullable numeric values are usually stored using primitive types, such as <code class="code" id="l9qhs1_315">int</code>, <code class="code" id="l9qhs1_316">long</code>, or <code class="code" id="l9qhs1_317">double</code>. However, when you use <a href="generics.html" id="l9qhs1_318">generic types</a> or nullable numeric types like <code class="code" id="l9qhs1_319">Int?</code>, the value is boxed and represented as an object.</p><p id="l9qhs1_310">The JVM applies a <a href="https://docs.oracle.com/javase/specs/jls/se22/html/jls-5.html#jls-5.1.7" id="l9qhs1_320" data-external="true" rel="noopener noreferrer">memory optimization technique</a> to small numbers by caching their boxed representations. As a result, boxed numbers with the same value can be <a href="equality.html#referential-equality" id="l9qhs1_321">referentially equal</a>.</p><p id="l9qhs1_311">For example, the JVM caches boxed <code class="code" id="l9qhs1_322">Integer</code> values in the range <code class="code" id="l9qhs1_323">-128</code> to <code class="code" id="l9qhs1_324">127</code>. Therefore, the following code returns <code class="code" id="l9qhs1_325">true</code>:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    val score: Int = 100
+    val savedScore: Int? = score
+    val displayedScore: Int? = score
+    
+    println(savedScore === displayedScore) // true
+//sampleEnd
+}
+</div><p id="l9qhs1_313">For values outside the cached range, boxed values are separate objects. In that case, they are not referentially equal, even if their values are <a href="equality.html#structural-equality" id="l9qhs1_326">structurally equal</a>. For this reason, use <code class="code" id="l9qhs1_327">==</code> to compare numeric values:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    val score: Int = 10000
+    val savedScore: Int? = score
+    val displayedScore: Int? = score
+
+    println(savedScore === displayedScore) // false
+    println(savedScore == displayedScore) // true
+//sampleEnd
+}
+</div></section><div class="last-modified">29 September 2026</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom"><a href="types-overview.html" class="navigation-links__prev">Types overview</a><a href="unsigned-integer-types.html" class="navigation-links__next">Unsigned integer types</a></div></article><div id="disqus_thread"></div></div></section></main></div><script src="custom-frontend-app/app.js?149"></script></body></html>

@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-28T06:18:04.558049+00:00",
+  "results": [
+    {
+      "source_id": "E01",
+      "baseline_sha256": "dc3efe98ae62f23dd08acad13aba2e95287beb20b6bec2f4af0423557fe37401",
+      "affected_documents": [
+        "knowledge/wiki/index.md",
+        "knowledge/wiki/shared/reading-list.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E01/dc3efe98ae62f23dd08acad13aba2e95287beb20b6bec2f4af0423557fe37401.txt",
+        "sha256": "dc3efe98ae62f23dd08acad13aba2e95287beb20b6bec2f4af0423557fe37401",
+        "bytes": 11985,
+        "media_type": "text/plain",
+        "retrieved_url": "https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/llm-wiki.md",
+        "retrieved_at": "2026-10-28T06:18:04.677020+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "unchanged"
+    },
+    {
+      "source_id": "E13",
+      "baseline_sha256": "a01fcb1120386332272c41321c3e2a05b8d34d781d4abb7083c398bc8ee8853a",
+      "affected_documents": [
+        "knowledge/wiki/platforms/ios.md",
+        "knowledge/wiki/shared/reading-list.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E13/a01fcb1120386332272c41321c3e2a05b8d34d781d4abb7083c398bc8ee8853a.txt",
+        "sha256": "a01fcb1120386332272c41321c3e2a05b8d34d781d4abb7083c398bc8ee8853a",
+        "bytes": 56558,
+        "media_type": "text/plain",
+        "retrieved_url": "https://raw.githubusercontent.com/swiftlang/swift-book/main/TSPL.docc/LanguageGuide/Concurrency.md",
+        "retrieved_at": "2026-10-28T06:18:04.718467+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "unchanged"
+    },
+    {
+      "source_id": "E19",
+      "baseline_sha256": "21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a",
+      "affected_documents": [
+        "knowledge/wiki/shared/error-retry-cancel.md",
+        "knowledge/wiki/shared/transactions-concurrency.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E19/21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a.txt",
+        "sha256": "21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a",
+        "bytes": 502941,
+        "media_type": "text/plain",
+        "retrieved_url": "https://www.rfc-editor.org/rfc/rfc9110.txt",
+        "retrieved_at": "2026-10-28T06:18:05.287242+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "unchanged"
+    },
+    {
+      "source_id": "E20",
+      "baseline_sha256": "61a5378f4255c720beb2a4b4a63b29540147c140f36988bf086291989b4cd2d7",
+      "affected_documents": [
+        "knowledge/wiki/shared/data-semantics.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E20/61a5378f4255c720beb2a4b4a63b29540147c140f36988bf086291989b4cd2d7.txt",
+        "sha256": "61a5378f4255c720beb2a4b4a63b29540147c140f36988bf086291989b4cd2d7",
+        "bytes": 28360,
+        "media_type": "text/plain",
+        "retrieved_url": "https://www.rfc-editor.org/rfc/rfc8259.txt",
+        "retrieved_at": "2026-10-28T06:18:05.612328+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "unchanged"
+    },
+    {
+      "source_id": "E26",
+      "baseline_sha256": "45a009419cda5959c8cce619b3191dc5104440dddc0bdedd9c4e854ddb328b3b",
+      "affected_documents": [
+        "knowledge/wiki/platforms/ios.md",
+        "knowledge/wiki/shared/data-semantics.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E26/45a009419cda5959c8cce619b3191dc5104440dddc0bdedd9c4e854ddb328b3b.txt",
+        "sha256": "45a009419cda5959c8cce619b3191dc5104440dddc0bdedd9c4e854ddb328b3b",
+        "bytes": 52347,
+        "media_type": "text/plain",
+        "retrieved_url": "https://raw.githubusercontent.com/swiftlang/swift-book/main/TSPL.docc/LanguageGuide/StringsAndCharacters.md",
+        "retrieved_at": "2026-10-28T06:18:05.685353+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "unchanged"
+    },
+    {
+      "source_id": "E27",
+      "baseline_sha256": "048b0e8cc108511787e165a37b7f1cc203ced7bbf12927964be577870ff77813",
+      "affected_documents": [
+        "knowledge/wiki/shared/transactions-concurrency.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E27/048b0e8cc108511787e165a37b7f1cc203ced7bbf12927964be577870ff77813.html",
+        "sha256": "048b0e8cc108511787e165a37b7f1cc203ced7bbf12927964be577870ff77813",
+        "bytes": 21339,
+        "media_type": "text/html",
+        "retrieved_url": "https://www.postgresql.org/docs/18/tutorial-transactions.html",
+        "retrieved_at": "2026-10-28T06:18:06.544734+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "unchanged"
+    },
+    {
+      "source_id": "E28",
+      "baseline_sha256": "42a64110b076015643e964bb1bc4e72a4143111916376e4e12991e4b6980c8e9",
+      "affected_documents": [
+        "knowledge/wiki/shared/transactions-concurrency.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E28/42a64110b076015643e964bb1bc4e72a4143111916376e4e12991e4b6980c8e9.html",
+        "sha256": "42a64110b076015643e964bb1bc4e72a4143111916376e4e12991e4b6980c8e9",
+        "bytes": 47642,
+        "media_type": "text/html",
+        "retrieved_url": "https://www.postgresql.org/docs/18/transaction-iso.html",
+        "retrieved_at": "2026-10-28T06:18:07.483550+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "unchanged"
+    }
+  ],
+  "ended_at": "2026-10-28T06:18:07.483623+00:00"
+}

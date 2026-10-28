@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-28T06:31:44.318163+00:00",
+  "collector": {
+    "path": "scripts/knowledge_sources.py",
+    "sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+  },
+  "results": [
+    {
+      "source_id": "E05",
+      "baseline_sha256": null,
+      "affected_documents": [
+        "knowledge/wiki/shared/reading-list.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E05/feb46b6f2f38b049afecd3a1699c4695ee4d6626289d9dfb88ba091ea11775ce.txt",
+        "sha256": "feb46b6f2f38b049afecd3a1699c4695ee4d6626289d9dfb88ba091ea11775ce",
+        "bytes": 3219,
+        "media_type": "text/plain",
+        "retrieved_url": "https://raw.githubusercontent.com/JetBrains/kotlin-web-site/master/docs/topics/home.topic",
+        "retrieved_at": "2026-10-28T06:31:44.592331+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E45",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E45/001ed65e6ec707902b03025e1e5a382ec5eb766606ea7240f0eb64f59bd0ca78.txt",
+        "sha256": "001ed65e6ec707902b03025e1e5a382ec5eb766606ea7240f0eb64f59bd0ca78",
+        "bytes": 49101,
+        "media_type": "text/plain",
+        "retrieved_url": "https://raw.githubusercontent.com/square/okhttp/master/docs/recipes.md",
+        "retrieved_at": "2026-10-28T06:31:44.864633+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    }
+  ],
+  "ended_at": "2026-10-28T06:31:44.864665+00:00"
+}

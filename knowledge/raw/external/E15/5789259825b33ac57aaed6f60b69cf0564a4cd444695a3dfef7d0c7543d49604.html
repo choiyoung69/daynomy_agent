@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Asynchronous programming: futures, async, await</title>
+    <meta name="description" content="Learn about and practice writing asynchronous code in DartPad!"/>
+    <link sizes="64x64" href="/assets/img/logo/dart-64.png" rel="icon"/>
+    <link href="/assets/img/touch-icon-iphone.png" rel="apple-touch-icon"/>
+    <link sizes="152x152" href="/assets/img/touch-icon-ipad.png" rel="apple-touch-icon"/>
+    <link sizes="180x180" href="/assets/img/touch-icon-iphone-retina.png" rel="apple-touch-icon"/>
+    <link sizes="167x167" href="/assets/img/touch-icon-ipad-retina.png" rel="apple-touch-icon"/>
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@dart_lang"/>
+    <meta name="twitter:title" content="Asynchronous programming: futures, async, await"/>
+    <meta name="twitter:description" content="Learn about and practice writing asynchronous code in DartPad!"/>
+    <meta property="og:title" content="Asynchronous programming: futures, async, await"/>
+    <meta property="og:description" content="Learn about and practice writing asynchronous code in DartPad!"/>
+    <meta property="og:url" content="https://dart.dev/libraries/async/async-await"/>
+    <meta property="og:image" content="https://dart.dev/assets/img/logo/dart-logo-for-shares.png"/>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..72,400..700&amp;family=Google+Sans+Code:ital,wght@0,400..700;1,400..700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..72,400..700;1,8..72,400..700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0" rel="stylesheet"/>
+    <link href="https://www.gstatic.com/glue/cookienotificationbar/cookienotificationbar.min.css" rel="stylesheet"/>
+    <link href="/assets/css/main.css?hash=UL_FCI7E2Idm" rel="stylesheet"/>
+    <script defer data-glue-cookie-notification-bar-category="2B" data-glue-cookie-notification-bar-site-id="dart.dev" src="https://www.gstatic.com/glue/cookienotificationbar/cookienotificationbar.min.js"></script>
+    <script type="module" integrity="sha256-Jy0j0fUMJ2T3WxSEs2WjHLrS+3DlO7S9DItQtP55FII=" crossorigin="anonymous" referrerpolicy="no-referrer" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.8.2/lite-youtube.js"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+    </script>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-5VSZM5J');</script>
+    
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    
+    ga('create', 'UA-26406144-4', 'auto');
+    ga('send', 'pageview');
+    </script>
+    
+    <script type="speculationrules">{"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}],"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"selector_matches":".no-prerender"}}]},"eagerness":"conservative"}]}</script>
+    <!--$-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!--/-->
+    <script src="/main.client.dart.js" defer></script>
+    <style>
+      .file-tree {
+        display: block;
+        padding: 1rem;
+        color: var(--file-tree-text);
+        font-size: 0.8125rem;
+        line-height: 1.375rem;
+        background-color: var(--file-tree-bg);
+      }
+      .file-tree ul {
+        padding-left: 0.125rem;
+        margin-left: 0.5rem;
+        border-left-style: solid;
+        border-left-color: var(--file-tree-icon);
+        border-left-width: 1px;
+        list-style-type: none;
+      }
+      .file-tree > ul {
+        padding: 0;
+        margin: 0;
+        border: none;
+      }
+      .file-tree li {
+        margin-top: 0.125rem;
+        margin-bottom: 0.125rem;
+      }
+      .file-tree li.file {
+        display: flex;
+        margin-left: 1.25rem;
+      }
+      .file-tree li svg {
+        display: inline;
+        width: 0.875rem;
+        height: 0.875rem;
+        margin-left: 0.25rem;
+        margin-right: 0.375rem;
+        color: var(--file-tree-icon);
+        vertical-align: middle;
+      }
+      .file-tree li.directory > details {
+        padding-left: 1.5rem;
+        border: none;
+        background-color: transparent;
+      }
+      .file-tree li.directory > details > summary {
+        max-width: 100%;
+        padding-left: 0.625rem;
+        padding-right: 0.625rem;
+        margin-left: -1.5rem;
+        margin-bottom: 0;
+      }
+      .file-tree li.directory > details > summary::marker {
+        color: var(--file-tree-icon);
+      }
+      .file-tree li.directory > details > summary:hover {
+        cursor: pointer;
+        color: var(--file-tree-highlight);
+      }
+      .file-tree li.directory > details > summary:hover svg {
+        color: var(--file-tree-highlight);
+      }
+      .file-tree li.directory > details > summary:hover .tree-entry-name[data-highlighted] svg {
+        color: var(--file-tree-bg);
+      }
+      .file-tree li.directory > details > summary:hover ~ul {
+        border-left-style: solid;
+        border-left-color: var(--file-tree-highlight);
+      }
+      .file-tree .tree-entry {
+        display: inline-flex;
+        align-items: start;
+        gap: 0.5rem;
+        vertical-align: middle;
+      }
+      .file-tree .tree-entry .tree-entry-name {
+        display: inline-flex;
+        align-items: center;
+      }
+      .file-tree .tree-entry .tree-entry-name[data-highlighted] {
+        padding-left: 0.25rem;
+        padding-right: 0.25rem;
+        border-radius: 0.25rem;
+        align-items: center;
+        color: var(--file-tree-bg);
+        background-color: var(--file-tree-highlight);
+      }
+      .file-tree .tree-entry .tree-entry-name[data-highlighted] svg {
+        color: var(--file-tree-bg);
+      }
+      .file-tree .tree-entry .tree-entry-name[data-placeholder] {
+        color: var(--file-tree-icon);
+      }
+      .file-tree .tree-entry .comment {
+        padding-left: 1.5rem;
+        color: var(--file-tree-icon);
+        font-style: italic;
+      }
+      .postbreak {
+        display: flex;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+        justify-content: center;
+        column-gap: 1.25rem;
+      }
+      .postbreak span {
+        width: 4px;
+        height: 4px;
+        border-radius: 4px;
+        background-color: var(--content-headings);
+      }
+    </style>
+  </head>
+  <body class>
+    <script>
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    const storedTheme = window.localStorage.getItem('theme') ?? 'light-mode';
+    if (storedTheme === 'auto-mode') {
+      document.body.classList.add(
+          'auto-mode',
+          prefersDarkMode.matches ? 'dark-mode' : 'light-mode',
+      );
+    } else {
+      document.body.classList.add(storedTheme);
+    }
+    </script>
+          
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5VSZM5J" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    
+    <a id="skip-to-main" class="filled-button" tabindex="1" href="#site-content-title">Skip to main content</a>
+    <header id="site-header" class="always-dark-mode">
+      <nav class="navbar">
+        <span id="site-primary-logo" class="site-wordmark"><a aria-label="Go to the Dart homepage" title="Go to the Dart homepage" href="/"><img width="192" alt="Dart logo" src="/assets/img/logo/dart-192.svg"/><span class="name" translate="no">Dart</span></a><a class="subtype" translate="no" href="/docs">Docs</a></span>
+        <ul class="nav-items">
+          <li><a class="nav-link" href="/overview">Overview</a></li>
+          <li><a class="nav-link active" href="/docs"><span>Docs</span></a></li>
+          <li><a class="nav-link" href="/blog"><span>Blog</span></a></li>
+          <li><a class="nav-link" href="/community">Community</a></li>
+          <li><a class="nav-link" href="/learn">Learn</a></li>
+          <li><a class="nav-link" href="/#try-dart">Try Dart</a></li>
+          <li><a class="nav-link" href="/get-dart">Get Dart</a></li>
+        </ul>
+        <div class="navbar-contents">
+          <form id="header-search" action="/search/">
+            <input id="q" class="search-field" autocomplete="off" placeholder="Search" aria-label="Search" type="search" name="q"/>
+          </form>
+          <a id="fallback-search-button" class="icon-button" aria-label="Navigate to the dart.dev search page." title="Navigate to the dart.dev search page." href="/search"><span class="material-symbols" aria-hidden="true" translate="no">search</span></a>
+          <!--@theme_switcher-->
+          <div id="theme-switcher" class="dropdown" data-expanded="false">
+            <button class="dropdown-button text-button icon-button" aria-controls="theme-switcher-content" aria-expanded="false" title="Select a theme."><span class="material-symbols" aria-hidden="true" translate="no">routine</span></button>
+            <div id="theme-switcher-content" class="dropdown-content">
+              <div class="dropdown-menu">
+                <ul role="listbox">
+                  <li>
+                    <button title="Switch to the light theme." aria-label="Switch to the light theme." aria-selected="true"><span class="material-symbols" aria-hidden="true" translate="no">light_mode</span><span>Light</span></button>
+                  </li>
+                  <li>
+                    <button title="Switch to the dark theme." aria-label="Switch to the dark theme." aria-selected="false"><span class="material-symbols" aria-hidden="true" translate="no">dark_mode</span><span>Dark</span></button>
+                  </li>
+                  <li>
+                    <button title="Match theme to device theme." aria-label="Match theme to device theme." aria-selected="false"><span class="material-symbols" aria-hidden="true" translate="no">night_sight_auto</span><span>Automatic</span></button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!--/@theme_switcher-->
+          <!--@site_switcher-->
+          <div id="site-switcher" class="dropdown" data-expanded="false">
+            <button class="dropdown-button text-button icon-button" aria-controls="site-switcher-content" aria-expanded="false" title="Visit related sites."><span class="material-symbols" aria-hidden="true" translate="no">apps</span></button>
+            <div id="site-switcher-content" class="dropdown-content">
+              <nav class="dropdown-menu" role="menu">
+                <ul>
+                  <li>
+                    <a class="site-wordmark current-site" role="menuitem" title="Navigate to the Dart website." aria-label="Navigate to the Dart website." href="/"><img alt="Dart logo" width="20" height="20" src="/assets/img/logo/dart-192.svg"/><span class="name" translate="no">Dart</span></a>
+                  </li>
+                  <li>
+                    <a class="site-wordmark" role="menuitem" title="Navigate to the Dart API website." aria-label="Navigate to the Dart API website." href="https://api.dart.dev"><img alt="Dart logo" width="20" height="20" src="/assets/img/logo/dart-192.svg"/><span class="name" translate="no">Dart</span><span class="subtype">API</span></a>
+                  </li>
+                  <li>
+                    <a class="site-wordmark" role="menuitem" title="Navigate to the DartPad website." aria-label="Navigate to the DartPad website." href="https://dartpad.dev"><img alt="Dart logo" width="20" height="20" src="/assets/img/logo/dart-192.svg"/><span class="name" translate="no">DartPad</span></a>
+                  </li>
+                  <li>
+                    <a class="site-wordmark" role="menuitem" title="Navigate to the pub.dev website." aria-label="Navigate to the pub.dev website." href="https://pub.dev"><img alt="Dart logo" width="20" height="20" src="/assets/img/logo/dart-192.svg"/><span class="name" translate="no">pub.dev</span></a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <!--/@site_switcher-->
+          <!--@menu_toggle-->
+          <button id="menu-toggle" class="icon-button" aria-controls="sidenav" aria-label="Toggle navigation menu." title="Toggle navigation menu." type="button">
+            <span class="material-symbols" aria-hidden="true" translate="no">menu</span>
+            <span class="material-symbols" aria-hidden="true" translate="no">close</span>
+          </button>
+          <!--/@menu_toggle-->
+        </div>
+      </nav>
+    </header>
+    <div id="site-below-header">
+      <div id="site-main-row">
+        <div id="sidenav">
+          <form class="site-header-search form-inline" action="/search/">
+            <input id="search-side" class="site-header-searchfield search-field" autocomplete="off" placeholder="Search" aria-label="Search" type="search" name="q"/>
+          </form>
+          <ul class="navbar-nav">
+            <li aria-hidden="true"><div class="sidenav-divider"></div></li>
+            <li class="nav-item">
+              <a class="nav-button" href="/overview"><span class="material-symbols" aria-hidden="true" translate="no">asterisk</span>Overview</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-button active" href="/docs"><span class="material-symbols" aria-hidden="true" translate="no">docs</span>Docs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-button" href="/blog"><span class="material-symbols" aria-hidden="true" translate="no">newsmode</span>Blog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-button" href="/community"><span class="material-symbols" aria-hidden="true" translate="no">public</span>Community</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-button" href="/learn"><span class="material-symbols" aria-hidden="true" translate="no">play_lesson</span>Learn Dart</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-button" href="/get-dart"><span class="material-symbols" aria-hidden="true" translate="no">download</span>Get Dart</a>
+            </li>
+            <li aria-hidden="true"><div class="sidenav-divider"></div></li>
+          </ul>
+          <ul class="nav">
+            <li class="nav-item">
+              <button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-1" role="button" aria-expanded="false" aria-controls="docs-1"><span>Language</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-1" class="nav collapse"><li class="nav-item"><a class="nav-link" href="/language"><div><span>Introduction</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/variables"><div><span>Variables</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/operators"><div><span>Operators</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/comments"><div><span>Comments</span></div></a></li><li aria-hidden="true"><div class="sidenav-divider"></div></li><li class="nav-item"><button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-1-6" role="button" aria-expanded="false" aria-controls="docs-1-6"><span>Types</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-1-6" class="nav collapse"><li class="nav-item"><a class="nav-link" href="/language/built-in-types"><div><span>Built-in types</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/records"><div><span>Records</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/collections"><div><span>Collections</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/generics"><div><span>Generics</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/typedefs"><div><span>Typedefs</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/type-system"><div><span>Type system</span></div></a></li></ul></li><li class="nav-item"><button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-1-7" role="button" aria-expanded="false" aria-controls="docs-1-7"><span>Patterns</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-1-7" class="nav collapse"><li class="nav-item"><a class="nav-link" href="/language/patterns"><div><span>Overview &amp; usage</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/pattern-types"><div><span>Pattern types</span></div></a></li><li class="nav-item"><a class="nav-link" rel="noopener" href="https://codelabs.developers.google.com/codelabs/dart-patterns-records" target="_blank"><div><span>Applied tutorial</span><span class="material-symbols" aria-hidden="true" translate="no">open_in_new</span></div></a></li></ul></li><li class="nav-item"><button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-1-8" role="button" aria-expanded="false" aria-controls="docs-1-8"><span>Control flow</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-1-8" class="nav collapse"><li class="nav-item"><a class="nav-link" href="/language/loops"><div><span>Loops</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/branches"><div><span>Branches</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/error-handling"><div><span>Error handling</span></div></a></li></ul></li><li class="nav-item"><a class="nav-link" href="/language/functions"><div><span>Functions</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/metadata"><div><span>Metadata</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/libraries"><div><span>Libraries &amp; imports</span></div></a></li><li class="nav-item"><button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-1-12" role="button" aria-expanded="false" aria-controls="docs-1-12"><span>Classes &amp; objects</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-1-12" class="nav collapse"><li class="nav-item"><a class="nav-link" href="/language/classes"><div><span>Classes</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/constructors"><div><span>Constructors</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/primary-constructors"><div><span>Primary constructors</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/methods"><div><span>Methods</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/extend"><div><span>Extend a class</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/mixins"><div><span>Mixins</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/enums"><div><span>Enums</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/dot-shorthands"><div><span>Dot shorthands</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/extension-methods"><div><span>Extension methods</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/extension-types"><div><span>Extension types</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/callable-objects"><div><span>Callable objects</span></div></a></li></ul></li><li class="nav-item"><button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-1-13" role="button" aria-expanded="false" aria-controls="docs-1-13"><span>Class modifiers</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-1-13" class="nav collapse"><li class="nav-item"><a class="nav-link" href="/language/class-modifiers"><div><span>Overview &amp; usage</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/class-modifiers-for-apis"><div><span>Class modifiers for API maintainers</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/modifier-reference"><div><span>Reference</span></div></a></li></ul></li><li class="nav-item"><button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-1-14" role="button" aria-expanded="false" aria-controls="docs-1-14"><span>Concurrency</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-1-14" class="nav collapse"><li class="nav-item"><a class="nav-link" href="/language/concurrency"><div><span>Overview</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/async"><div><span>Asynchronous programming</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/isolates"><div><span>Isolates</span></div></a></li></ul></li><li aria-hidden="true"><div class="sidenav-divider"></div></li><li class="nav-item"><button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-1-16" role="button" aria-expanded="false" aria-controls="docs-1-16"><span>Null safety</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-1-16" class="nav collapse"><li class="nav-item"><a class="nav-link" href="/null-safety"><div><span>Sound null safety</span></div></a></li><li class="nav-item"><a class="nav-link" href="/null-safety/understanding-null-safety"><div><span>Understanding null safety</span></div></a></li></ul></li><li class="nav-item"><a class="nav-link" href="/language/keywords"><div><span>Dart keywords</span></div></a></li><li class="nav-item"><a class="nav-link" href="/language/versioning"><div><span>Language versioning</span></div></a></li></ul>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link active collapsible" data-toggle="collapse" data-target="#docs-2" role="button" aria-expanded="true" aria-controls="docs-2"><span>Core libraries</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-2" class="nav collapse show"><li class="nav-item"><a class="nav-link" href="/libraries"><div><span>Overview</span></div></a></li><li class="nav-item"><a class="nav-link" href="/libraries/dart-core"><div><span>dart:core</span></div></a></li><li class="nav-item"><a class="nav-link" href="/libraries/dart-async"><div><span>dart:async</span></div></a></li><li class="nav-item"><a class="nav-link" href="/libraries/dart-math"><div><span>dart:math</span></div></a></li><li class="nav-item"><a class="nav-link" href="/libraries/dart-convert"><div><span>dart:convert</span></div></a></li><li class="nav-item"><a class="nav-link" href="/libraries/dart-io"><div><span>dart:io</span></div></a></li><li class="nav-item"><a class="nav-link" href="/interop/js-interop"><div><span>dart:js_interop</span></div></a></li><li aria-hidden="true"><div class="sidenav-divider"></div></li><li class="nav-item"><a class="nav-link" href="/libraries/collections/iterables"><div><span>Iterable collections</span></div></a></li><li class="nav-item"><button class="nav-link active collapsible" data-toggle="collapse" data-target="#docs-2-10" role="button" aria-expanded="true" aria-controls="docs-2-10"><span>Asynchronous programming</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-2-10" class="nav collapse show"><li class="nav-item"><a class="nav-link active" href="/libraries/async/async-await"><div><span>Tutorial</span></div></a></li><li class="nav-item"><a class="nav-link" href="/libraries/async/futures-error-handling"><div><span>Futures and error handling</span></div></a></li><li class="nav-item"><a class="nav-link" href="/libraries/async/using-streams"><div><span>Using streams</span></div></a></li><li class="nav-item"><a class="nav-link" href="/libraries/async/creating-streams"><div><span>Creating streams</span></div></a></li></ul></li></ul>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-3" role="button" aria-expanded="false" aria-controls="docs-3"><span>Effective Dart</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-3" class="nav collapse"><li class="nav-item"><a class="nav-link" href="/effective-dart"><div><span>Overview</span></div></a></li><li class="nav-item"><a class="nav-link" href="/effective-dart/style"><div><span>Style</span></div></a></li><li class="nav-item"><a class="nav-link" href="/effective-dart/documentation"><div><span>Documentation</span></div></a></li><li class="nav-item"><a class="nav-link" href="/effective-dart/usage"><div><span>Usage</span></div></a></li><li class="nav-item"><a class="nav-link" href="/effective-dart/design"><div><span>Design</span></div></a></li></ul>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-4" role="button" aria-expanded="false" aria-controls="docs-4"><span>Packages</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-4" class="nav collapse"><li class="nav-item"><a class="nav-link" href="/tools/pub/packages"><div><span>How to use packages</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/pub/create-packages"><div><span>Creating packages</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/cli-distribution"><div><span>Distributing CLI tools</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/pub/publishing"><div><span>Publishing packages</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/pub/data-driven-fixes"><div><span>Data-driven fixes</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/pub/writing-package-pages"><div><span>Writing package pages</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/pub/workspaces"><div><span>Workspaces (monorepo support)</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/hooks"><div><span>Hooks</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/pub/package-skills"><div><span>Ship skills with packages</span></div></a></li><li class="nav-item"><button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-4-10" role="button" aria-expanded="false" aria-controls="docs-4-10"><span>Package reference</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-4-10" class="nav collapse"><li class="nav-item"><a class="nav-link" href="/tools/pub/dependencies"><div><span>Dependencies</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/pub/package-layout"><div><span>Package layout conventions</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/pub/environment-variables"><div><span>Pub environment variables</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/pub/pubspec"><div><span>Pubspec file</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/pub/troubleshoot"><div><span>Troubleshooting pub</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/pub/verified-publishers"><div><span>Verified publishers</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/pub/security-advisories"><div><span>Security advisories</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/pub/versioning"><div><span>Versioning</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/pub/custom-package-repositories"><div><span>Custom package repositories</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/pub/private-files"><div><span>What not to commit</span></div></a></li></ul></li><li aria-hidden="true"><div class="sidenav-divider"></div></li><li class="nav-item"><a class="nav-link" href="/resources/useful-packages"><div><span>Commonly used packages</span></div></a></li><li class="nav-item"><a class="nav-link" href="/resources/dart-team-packages"><div><span>Dart team packages</span></div></a></li></ul>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-5" role="button" aria-expanded="false" aria-controls="docs-5"><span>Development</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-5" class="nav collapse"><li class="nav-item"><a class="nav-link" href="/libraries/serialization/json"><div><span>JSON serialization</span></div></a></li><li class="nav-item"><a class="nav-link" href="/resources/language/number-representation"><div><span>Number representation</span></div></a></li><li class="nav-item"><a class="nav-link" href="/resources/google-apis"><div><span>Google APIs</span></div></a></li><li class="nav-item"><a class="nav-link" href="/multiplatform-apps"><div><span>Multi-platform apps</span></div></a></li><li class="nav-item"><button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-5-5" role="button" aria-expanded="false" aria-controls="docs-5-5"><span>Command-line &amp; server apps</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-5-5" class="nav collapse"><li class="nav-item"><a class="nav-link" href="/server"><div><span>Overview</span></div></a></li><li class="nav-item"><a class="nav-link" href="/server/fetch-data"><div><span>Fetch data from the internet</span></div></a></li><li class="nav-item"><a class="nav-link" href="/server/libraries"><div><span>Libraries &amp; packages</span></div></a></li><li class="nav-item"><a class="nav-link" href="/server/google-cloud"><div><span>Google Cloud</span></div></a></li></ul></li><li class="nav-item"><button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-5-6" role="button" aria-expanded="false" aria-controls="docs-5-6"><span>Web apps</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-5-6" class="nav collapse"><li class="nav-item"><a class="nav-link" href="/web"><div><span>Overview</span></div></a></li><li class="nav-item"><a class="nav-link" href="/web/get-started"><div><span>Get started</span></div></a></li><li class="nav-item"><a class="nav-link" href="/web/deployment"><div><span>Deployment</span></div></a></li><li class="nav-item"><a class="nav-link" href="/web/libraries"><div><span>Libraries &amp; packages</span></div></a></li><li class="nav-item"><a class="nav-link" href="/web/wasm"><div><span>Wasm compilation</span></div></a></li></ul></li><li class="nav-item"><a class="nav-link" href="/libraries/core/environment-declarations"><div><span>Environment declarations</span></div></a></li></ul>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-6" role="button" aria-expanded="false" aria-controls="docs-6"><span>Interoperability</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-6" class="nav collapse"><li class="nav-item"><a class="nav-link" href="/interop"><div><span>Overview</span></div></a></li><li class="nav-item"><a class="nav-link" href="/interop/c-interop"><div><span>C interop</span></div></a></li><li class="nav-item"><a class="nav-link" href="/interop/objective-c-interop"><div><span>Objective-C &amp; Swift interop</span></div></a></li><li class="nav-item"><a class="nav-link" href="/interop/java-interop"><div><span>Java &amp; Kotlin interop</span></div></a></li><li class="nav-item"><button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-6-5" role="button" aria-expanded="false" aria-controls="docs-6-5"><span>JavaScript interop</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-6-5" class="nav collapse"><li class="nav-item"><a class="nav-link" href="/interop/js-interop"><div><span>Overview</span></div></a></li><li class="nav-item"><a class="nav-link" href="/interop/js-interop/usage"><div><span>Usage</span></div></a></li><li class="nav-item"><a class="nav-link" href="/interop/js-interop/js-types"><div><span>JS types</span></div></a></li><li class="nav-item"><a class="nav-link" href="/interop/js-interop/tutorials"><div><span>Tutorials</span></div></a></li><li class="nav-item"><a class="nav-link" href="/interop/js-interop/past-js-interop"><div><span>Past JS interop</span></div></a></li><li aria-hidden="true"><div class="sidenav-divider"></div></li><li class="nav-item"><a class="nav-link" href="/interop/js-interop/package-web"><div><span>Web interop</span></div></a></li></ul></li></ul>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-7" role="button" aria-expanded="false" aria-controls="docs-7"><span>Tools &amp; techniques</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-7" class="nav collapse"><li class="nav-item"><a class="nav-link" href="/tools"><div><span>Overview</span></div></a></li><li class="nav-item"><button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-7-2" role="button" aria-expanded="false" aria-controls="docs-7-2"><span>Editors &amp; debuggers</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-7-2" class="nav collapse"><li class="nav-item"><a class="nav-link" href="/tools/jetbrains-plugin"><div><span>IntelliJ &amp; Android Studio</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/vs-code"><div><span>VS Code</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/analyzer-performance"><div><span>Troubleshoot analyzer performance</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/dart-devtools"><div><span>Dart DevTools</span></div></a></li><li class="nav-item"><button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-7-2-5" role="button" aria-expanded="false" aria-controls="docs-7-2-5"><span>DartPad</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-7-2-5" class="nav collapse"><li class="nav-item"><a class="nav-link" href="/tools/dartpad"><div><span>Overview</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/dartpad/troubleshoot"><div><span>Troubleshooting DartPad</span></div></a></li></ul></li></ul></li><li class="nav-item"><button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-7-3" role="button" aria-expanded="false" aria-controls="docs-7-3"><span>Command-line tools</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-7-3" class="nav collapse"><li class="nav-item"><button class="nav-link collapsible" data-toggle="collapse" data-target="#docs-7-3-1" role="button" aria-expanded="true" aria-controls="docs-7-3-1"><span>Dart SDK</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-7-3-1" class="nav collapse show"><li class="nav-item"><a class="nav-link" href="/tools/sdk"><div><span>Overview</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/dart-tool"><div><span>dart</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/dart-analyze"><div><span>dart analyze</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/dart-build"><div><span>dart build</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/dart-compile"><div><span>dart compile</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/dart-create"><div><span>dart create</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/dart-doc"><div><span>dart doc</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/dart-fix"><div><span>dart fix</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/dart-format"><div><span>dart format</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/dart-info"><div><span>dart info</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/dart-install"><div><span>dart install</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/pub/cmd"><div><span>dart pub</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/dart-run"><div><span>dart run</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/dart-test"><div><span>dart test</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/dartaotruntime"><div><span>dartaotruntime</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/experiment-flags"><div><span>Experiment flags</span></div></a></li></ul></li><li class="nav-item"><button class="nav-link collapsible" data-toggle="collapse" data-target="#docs-7-3-2" role="button" aria-expanded="true" aria-controls="docs-7-3-2"><span>Other command-line tools</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-7-3-2" class="nav collapse show"><li class="nav-item"><a class="nav-link" href="/tools/build_runner"><div><span>build_runner</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/package-skills"><div><span>package:skills</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/webdev"><div><span>webdev</span></div></a></li></ul></li></ul></li><li class="nav-item"><button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-7-4" role="button" aria-expanded="false" aria-controls="docs-7-4"><span>Static analysis</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-7-4" class="nav collapse"><li class="nav-item"><a class="nav-link" href="/tools/analysis"><div><span>Customizing static analysis</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/non-promotion-reasons"><div><span>Fixing type promotion failures</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/linter-rules"><div><span>Linter rules</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/analyzer-plugins"><div><span>Analyzer plugins</span></div></a></li><li class="nav-item"><a class="nav-link" href="/tools/diagnostics"><div><span>Diagnostic messages</span></div></a></li></ul></li><li class="nav-item"><button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-7-5" role="button" aria-expanded="false" aria-controls="docs-7-5"><span>Testing &amp; optimization</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-7-5" class="nav collapse"><li class="nav-item"><a class="nav-link" href="/tools/testing"><div><span>Testing</span></div></a></li><li class="nav-item"><a class="nav-link" href="/web/debugging"><div><span>Debugging web apps</span></div></a></li></ul></li></ul>
+            </li>
+            <li aria-hidden="true"><div class="sidenav-divider"></div></li>
+            <li class="nav-item">
+              <button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-9" role="button" aria-expanded="false" aria-controls="docs-9"><span>Learn Dart</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-9" class="nav collapse"><li class="nav-item"><a class="nav-link" href="/learn"><div><span>Overview</span></div></a></li><li class="nav-item"><a class="nav-link" href="/learn/tutorial"><div><span>Tutorial</span></div></a></li></ul>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-10" role="button" aria-expanded="false" aria-controls="docs-10"><span>Build with AI</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-10" class="nav collapse"><li class="nav-item"><a class="nav-link" href="/ai"><div><span>Overview</span></div></a></li><li class="nav-item"><a class="nav-link" href="/ai/package-skills"><div><span>Package skills</span></div></a></li><li class="nav-item"><a class="nav-link" rel="noopener" href="https://docs.flutter.dev/ai/mcp-server" target="_blank"><div><span>Dart and Flutter MCP server</span><span class="material-symbols" aria-hidden="true" translate="no">open_in_new</span></div></a></li><li class="nav-item"><a class="nav-link" rel="noopener" href="https://genkit.dev/docs/dart/get-started/" target="_blank"><div><span>Genkit Dart</span><span class="material-symbols" aria-hidden="true" translate="no">open_in_new</span></div></a></li></ul>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-11" role="button" aria-expanded="false" aria-controls="docs-11"><span>Stay up to date</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-11" class="nav collapse"><li class="nav-item"><a class="nav-link" href="/blog"><div><span>Dart Blog</span></div></a></li><li class="nav-item"><a class="nav-link" href="/changelog"><div><span>Changelog</span></div></a></li><li class="nav-item"><a class="nav-link" href="/resources/whats-new"><div><span>What's new in the docs</span></div></a></li></ul>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link collapsible collapsed" data-toggle="collapse" data-target="#docs-12" role="button" aria-expanded="false" aria-controls="docs-12"><span>Resources</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-12" class="nav collapse"><li class="nav-item"><a class="nav-link" href="/resources/dart-cheatsheet"><div><span>Language cheatsheet</span></div></a></li><li class="nav-item"><a class="nav-link" href="/resources/language/spec"><div><span>Language specification</span></div></a></li><li class="nav-item"><a class="nav-link" href="/resources/dart-3-migration"><div><span>Dart 3 migration guide</span></div></a></li><li aria-hidden="true"><div class="sidenav-divider"></div></li><li class="nav-item"><a class="nav-link" href="/resources/glossary"><div><span>Glossary</span></div></a></li><li class="nav-item"><a class="nav-link" href="/resources/books"><div><span>Books</span></div></a></li><li class="nav-item"><a class="nav-link" rel="noopener" href="https://www.youtube.com/@flutterdev" target="_blank"><div><span>Videos</span><span class="material-symbols" aria-hidden="true" translate="no">open_in_new</span></div></a></li></ul>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link collapsible" data-toggle="collapse" data-target="#docs-13" role="button" aria-expanded="true" aria-controls="docs-13"><span>Related sites</span><span class="material-symbols expander" aria-hidden="true" translate="no">expand_more</span></button><ul id="docs-13" class="nav collapse show"><li class="nav-item"><a class="nav-link" rel="noopener" href="https://api.dart.dev" target="_blank"><div><span>API reference</span><span class="material-symbols" aria-hidden="true" translate="no">open_in_new</span></div></a></li><li class="nav-item"><a class="nav-link" rel="noopener" href="https://dartpad.dev" target="_blank"><div><span>DartPad (online editor)</span><span class="material-symbols" aria-hidden="true" translate="no">open_in_new</span></div></a></li><li class="nav-item"><a class="nav-link" rel="noopener" href="https://flutter.dev" target="_blank"><div><span>Flutter</span><span class="material-symbols" aria-hidden="true" translate="no">open_in_new</span></div></a></li><li class="nav-item"><a class="nav-link" rel="noopener" href="https://pub.dev" target="_blank"><div><span>Package site</span><span class="material-symbols" aria-hidden="true" translate="no">open_in_new</span></div></a></li></ul>
+            </li>
+          </ul>
+        </div>
+        <main id="page-content">
+          <div id="toc-top" class="site-toc dropdown">
+            <button class="dropdown-button" title="Toggle the table of contents dropdown" aria-expanded="false" aria-controls="toc-dropdown" aria-label="Toggle the table of contents dropdown">
+              <span class="toc-intro"><span class="material-symbols" aria-hidden="true" translate="no">list</span><span aria-label="On this page">On this page</span></span>
+              <span class="toc-current"><span class="material-symbols" aria-hidden="true" translate="no">chevron_right</span><span id="current-header">Asynchronous programming: futures, async, await</span></span>
+            </button>
+            <div id="toc-dropdown" class="dropdown-content">
+              <a id="return-to-top" href="#site-content-title">
+                <span class="material-symbols" aria-hidden="true" translate="no">vertical_align_top</span>
+                <span>Asynchronous programming: futures, async, await</span>
+              </a>
+              <div class="dropdown-divider" aria-hidden="true" role="separator"></div>
+              <nav role="menu">
+                <ul class="styled-toc-list">
+                  <li>
+                    <span class="sidenav-item"><a href="#why-asynchronous-code-matters">Why asynchronous code matters</a></span><ul><li><span class="sidenav-item"><a href="#example-incorrectly-using-an-asynchronous-function">Example: Incorrectly using an asynchronous function</a></span></li></ul>
+                  </li>
+                  <li>
+                    <span class="sidenav-item"><a href="#what-is-a-future">What is a future?</a></span><ul><li><span class="sidenav-item"><a href="#uncompleted">Uncompleted</a></span></li><li><span class="sidenav-item"><a href="#completed">Completed</a></span></li><li><span class="sidenav-item"><a href="#example-introducing-futures">Example: Introducing futures</a></span></li><li><span class="sidenav-item"><a href="#example-completing-with-an-error">Example: Completing with an error</a></span></li></ul>
+                  </li>
+                  <li>
+                    <span class="sidenav-item"><a href="#working-with-futures-async-and-await">Working with futures: async and await</a></span><ul><li><span class="sidenav-item"><a href="#execution-flow-with-async-and-await">Execution flow with async and await</a></span></li><li><span class="sidenav-item"><a href="#example-execution-within-async-functions">Example: Execution within async functions</a></span></li><li><span class="sidenav-item"><a href="#exercise-practice-using-async-and-await">Exercise: Practice using async and await</a></span></li></ul>
+                  </li>
+                  <li>
+                    <span class="sidenav-item"><a href="#handling-errors">Handling errors</a></span><ul><li><span class="sidenav-item"><a href="#example-async-and-await-with-try-catch">Example: async and await with try-catch</a></span></li><li><span class="sidenav-item"><a href="#exercise-practice-handling-errors">Exercise: Practice handling errors</a></span></li></ul>
+                  </li>
+                  <li>
+                    <span class="sidenav-item"><a href="#exercise-putting-it-all-together">Exercise: Putting it all together</a></span>
+                  </li>
+                  <li>
+                    <span class="sidenav-item"><a href="#which-lints-work-for-futures">Which lints work for futures?</a></span>
+                  </li>
+                  <li><span class="sidenav-item"><a href="#whats-next">What's next?</a></span></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <div id="site-banner" role="alert">
+            <p>
+              <strong>Security update:</strong> Dart 3.13.7 now blocks compromised eMudhra CA keys.<br/> Read the <a href="https://github.com/dart-lang/sdk/security/advisories/GHSA-frr6-h895-5pxp" target="_blank">security advisory</a>.
+            </p>
+          </div>
+          <div class="after-leading-content">
+            <aside id="side-menu">
+              <nav id="toc-side" class="site-toc">
+                <!--@on_this_page_button-->
+                <header>
+                  <span class="material-symbols" aria-hidden="true" translate="no">list</span>
+                  <span>On this page</span>
+                </header>
+                <!--/@on_this_page_button-->
+                <ul class="styled-toc-list">
+                  <li>
+                    <span class="sidenav-item"><a href="#why-asynchronous-code-matters">Why asynchronous code matters</a></span><ul><li><span class="sidenav-item"><a href="#example-incorrectly-using-an-asynchronous-function">Example: Incorrectly using an asynchronous function</a></span></li></ul>
+                  </li>
+                  <li>
+                    <span class="sidenav-item"><a href="#what-is-a-future">What is a future?</a></span><ul><li><span class="sidenav-item"><a href="#uncompleted">Uncompleted</a></span></li><li><span class="sidenav-item"><a href="#completed">Completed</a></span></li><li><span class="sidenav-item"><a href="#example-introducing-futures">Example: Introducing futures</a></span></li><li><span class="sidenav-item"><a href="#example-completing-with-an-error">Example: Completing with an error</a></span></li></ul>
+                  </li>
+                  <li>
+                    <span class="sidenav-item"><a href="#working-with-futures-async-and-await">Working with futures: async and await</a></span><ul><li><span class="sidenav-item"><a href="#execution-flow-with-async-and-await">Execution flow with async and await</a></span></li><li><span class="sidenav-item"><a href="#example-execution-within-async-functions">Example: Execution within async functions</a></span></li><li><span class="sidenav-item"><a href="#exercise-practice-using-async-and-await">Exercise: Practice using async and await</a></span></li></ul>
+                  </li>
+                  <li>
+                    <span class="sidenav-item"><a href="#handling-errors">Handling errors</a></span><ul><li><span class="sidenav-item"><a href="#example-async-and-await-with-try-catch">Example: async and await with try-catch</a></span></li><li><span class="sidenav-item"><a href="#exercise-practice-handling-errors">Exercise: Practice handling errors</a></span></li></ul>
+                  </li>
+                  <li>
+                    <span class="sidenav-item"><a href="#exercise-putting-it-all-together">Exercise: Putting it all together</a></span>
+                  </li>
+                  <li>
+                    <span class="sidenav-item"><a href="#which-lints-work-for-futures">Which lints work for futures?</a></span>
+                  </li>
+                  <li><span class="sidenav-item"><a href="#whats-next">What's next?</a></span></li>
+                </ul>
+              </nav>
+            </aside>
+            <article>
+              <div class="content">
+                <header id="site-content-title" class="wrap">
+                  <nav class="breadcrumbs" aria-label="breadcrumb">
+                    <ol class="breadcrumb-list" vocab="https://schema.org/" typeof="BreadcrumbList">
+                      <li class="breadcrumb-item" property="itemListElement" typeof="ListItem">
+                        <a property="item" typeof="WebPage" href="/libraries"><span property="name">Core libraries</span></a><meta property="position" content="0"/><span class="material-symbols" aria-hidden="true" translate="no">chevron_right</span>
+                      </li>
+                      <li class="breadcrumb-item" property="itemListElement" typeof="ListItem">
+                        <a property="item" typeof="WebPage" href="/libraries/async"><span property="name">Async</span></a><meta property="position" content="1"/><span class="material-symbols" aria-hidden="true" translate="no">chevron_right</span>
+                      </li>
+                      <li class="breadcrumb-item active" property="itemListElement" typeof="ListItem" aria-current="page">
+                        <a property="item" typeof="WebPage" href="/libraries/async/async-await"><span property="name">Futures, async, and await</span></a><meta property="position" content="2"/>
+                      </li>
+                    </ol>
+                  </nav>
+                  <h1 id="document-title">Asynchronous programming: futures, async, await</h1>
+                  <p class="page-description">Learn about and practice writing asynchronous code in DartPad!</p>
+                  <!--@page_header_options data={"title":"Asynchronous programming: futures, async, await","sourceUrl":"https://github.com/dart-lang/site-www/blob/main/src/content/libraries/async/async-await.md","issueUrl":"https://github.com/dart-lang/site-www/issues/new?template=1_page_issue.yml&amp;page-url=https://dart.dev/libraries/async/async-await&amp;page-source=https://github.com/dart-lang/site-www/blob/main/src/content/libraries/async/async-await.md"}-->
+                  <div id="page-header-options" class="dropdown" data-expanded="false">
+                    <button class="dropdown-button text-button icon-button" aria-controls="page-header-options-content" aria-expanded="false" title="View page options."><span class="material-symbols" aria-hidden="true" translate="no">more_vert</span></button>
+                    <div id="page-header-options-content" class="dropdown-content">
+                      <nav class="dropdown-menu" role="menu">
+                        <ul>
+                          <li>
+                            <button class="text-button"><span class="material-symbols" aria-hidden="true" translate="no">content_copy</span>Copy link</button>
+                          </li>
+                          <li>
+                            <a class="text-button" target="_blank" rel="noopener" href="https://github.com/dart-lang/site-www/blob/main/src/content/libraries/async/async-await.md"><span class="material-symbols" aria-hidden="true" translate="no">docs</span>View source</a>
+                          </li>
+                          <li>
+                            <a class="text-button" target="_blank" rel="noopener" href="https://github.com/dart-lang/site-www/issues/new?template=1_page_issue.yml&amp;page-url=https://dart.dev/libraries/async/async-await&amp;page-source=https://github.com/dart-lang/site-www/blob/main/src/content/libraries/async/async-await.md"><span class="material-symbols" aria-hidden="true" translate="no">bug_report</span>Report issue</a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+                  <!--/@page_header_options-->
+                </header>
+                <section class="content">
+                  <!--code-excerpt replace="/ *\/\/\s+ignore_for_file:[^\n]+\n//g; /(^|\n) *\/\/\s+ignore:[^\n]+\n/$1/g; /(\n[^\n]+) *\/\/\s+ignore:[^\n]+\n/$1\n/g"-->
+                  
+                  
+                  <!--code-excerpt plaster="none"-->
+                  <p>
+                    This tutorial teaches you how to write asynchronous code using
+                    futures and the <code>async</code> and <code>await</code> keywords.
+                    Using embedded DartPad editors,
+                    you can test your knowledge by running example code
+                    and completing exercises.
+                  </p>
+                  <p>To get the most out of this tutorial, you should have the following:</p>
+                  <ul>
+                    <li>Knowledge of <a href="/language">basic Dart syntax</a>.</li>
+                    <li>Some experience writing asynchronous code in another language.</li>
+                    <li>
+                      The <a href="/tools/linter-rules/discarded_futures"><code>discarded_futures</code></a> and <a href="/tools/linter-rules/unawaited_futures"><code>unawaited_futures</code></a>
+                       lints enabled.
+                    </li>
+                  </ul>
+                  <p>This tutorial covers the following material:</p>
+                  <ul>
+                    <li>How and when to use the <code>async</code> and <code>await</code> keywords.</li>
+                    <li>How using <code>async</code> and <code>await</code> affects execution order.</li>
+                    <li>
+                      How to handle errors from an asynchronous call
+                      using <code>try-catch</code> expressions in <code>async</code> functions.
+                    </li>
+                  </ul>
+                  <p>Estimated time to complete this tutorial: 40-60 minutes.</p>
+                  <aside class="alert alert-info">
+                    <div class="alert-header"><span class="material-symbols" translate="no" aria-hidden="true">info</span><span>Note</span></div>
+                    <div class="alert-content">
+                      <p>
+                        This page uses embedded DartPads to display examples and exercises.
+                        If you see empty boxes instead of DartPads, go to the
+                        <a href="/tools/dartpad/troubleshoot">DartPad troubleshooting page</a>.
+                      </p>
+                    </div>
+                  </aside>
+                  <p>
+                    The exercises in this tutorial have partially completed code snippets.
+                    You can use DartPad to test your knowledge by completing the code and
+                    clicking the <strong>Run</strong> button.
+                    <strong>Don't edit the test code in the <code>main</code> function or below</strong>.
+                  </p>
+                  <p>
+                    If you need help, expand the <strong>Hint</strong> or <strong>Solution</strong> dropdown
+                    after each exercise.
+                  </p>
+                  <div class="header-wrapper">
+                    <h2 id="why-asynchronous-code-matters">Why asynchronous code matters</h2>
+                    <a class="heading-link" href="#why-asynchronous-code-matters" aria-label="Link to 'Why asynchronous code matters' section">#</a>
+                  </div>
+                  <p>
+                    Asynchronous operations let your program complete work
+                    while waiting for another operation to finish.
+                    Here are some common asynchronous operations:
+                  </p>
+                  <ul>
+                    <li>Fetching data over a network.</li>
+                    <li>Writing to a database.</li>
+                    <li>Reading data from a file.</li>
+                  </ul>
+                  <p>
+                    Such asynchronous computations usually provide their result as a <code>Future</code>
+                    or, if the result has multiple parts, as a <code>Stream</code>.
+                    These computations introduce asynchrony into a program.
+                    To accommodate that initial asynchrony,
+                    other plain Dart functions also need to become asynchronous.
+                  </p>
+                  <p>
+                    To interact with these asynchronous results,
+                    you can use the <code>async</code> and <code>await</code> keywords.
+                    Most asynchronous functions are just async Dart functions
+                    that depend, possibly deep down,
+                    on an inherently asynchronous computation.
+                  </p>
+                  <div class="header-wrapper">
+                    <h3 id="example-incorrectly-using-an-asynchronous-function">Example: Incorrectly using an asynchronous function</h3>
+                    <a class="heading-link" href="#example-incorrectly-using-an-asynchronous-function" aria-label="Link to 'Example: Incorrectly using an asynchronous function' section">#</a>
+                  </div>
+                  <p>
+                    The following example shows the wrong way
+                    to use an asynchronous function (<code>fetchUserOrder()</code>).
+                    Later you'll fix the example using <code>async</code> and <code>await</code>.
+                    Before running this example, try to spot the issue --
+                    what do you think the output will be?
+                  </p>
+                  <!--code-excerpt "async_await/bin/get_order_sync_bad.dart" remove="Fetching"-->
+                  <!--@dartpad_injector data={"title":"Runnable Dart example","theme":null,"height":null,"runAutomatically":false}-->
+                  <pre><code title="Runnable Dart example">// This example shows how *not* to write asynchronous Dart code.
+
+String createOrderMessage() {
+  var order = fetchUserOrder();
+  return 'Your order is: $order';
+}
+
+Future&lt;String&gt; fetchUserOrder() =&gt;
+    // Imagine that this function is more complex and slow.
+    Future.delayed(const Duration(seconds: 2), () =&gt; 'Large Latte');
+
+void main() {
+  print(createOrderMessage());
+}</code></pre>
+                  <!--/@dartpad_injector-->
+                  <p>
+                    Here's why the example fails to print the value
+                    that <code>fetchUserOrder()</code> eventually produces:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>fetchUserOrder()</code> is an asynchronous function that, after a delay,
+                      provides a string that describes the user's order: a "Large Latte".
+                    </li>
+                    <li>
+                      To get the user's order, <code>createOrderMessage()</code> should call <code>fetchUserOrder()</code>
+                      and wait for it to finish. Because <code>createOrderMessage()</code> does <em>not</em>
+                       wait
+                      for <code>fetchUserOrder()</code> to finish, <code>createOrderMessage()</code>
+                       fails to
+                      get the string value that <code>fetchUserOrder()</code> eventually provides.
+                    </li>
+                    <li>
+                      Instead, <code>createOrderMessage()</code> gets a representation of pending work to be
+                      done: an uncompleted future.
+                      You'll learn more about futures in the next section.
+                    </li>
+                    <li>
+                      Because <code>createOrderMessage()</code> fails to get the value describing the user's
+                      order, the example fails to print "Large Latte" to the console, and instead
+                      prints "Your order is: Instance of '_Future&lt;String&gt;'".
+                    </li>
+                  </ul>
+                  <p>
+                    In the next sections you'll learn about futures and about working with futures
+                    (using <code>async</code> and <code>await</code>)
+                    so that you'll be able to write the code necessary to make <code>fetchUserOrder()</code>
+                    
+                    print the desired value ("Large Latte") to the console.
+                  </p>
+                  <aside class="alert alert-secondary">
+                    <div class="alert-header"><span>Key terms</span></div>
+                    <div class="alert-content">
+                      <ul>
+                        <li>
+                          <strong>synchronous operation</strong>: A synchronous operation blocks other operations
+                          from executing until it completes.
+                        </li>
+                        <li>
+                          <strong>synchronous function</strong>: A synchronous function only performs synchronous
+                          operations.
+                        </li>
+                        <li>
+                          <strong>asynchronous operation</strong>: Once initiated, an asynchronous operation allows
+                          other operations to execute before it completes.
+                        </li>
+                        <li>
+                          <strong>asynchronous function</strong>: An asynchronous function performs at least one
+                          asynchronous operation and can also perform <em>synchronous</em> operations.
+                        </li>
+                      </ul>
+                    </div>
+                  </aside>
+                  <div class="header-wrapper">
+                    <h2 id="what-is-a-future">What is a future?</h2>
+                    <a class="heading-link" href="#what-is-a-future" aria-label="Link to 'What is a future?' section">#</a>
+                  </div>
+                  <p>
+                    A future (lower case "f") is an instance
+                    of the <a href="https://api.dart.dev/dart-async/Future-class.html">Future</a> (capitalized "F") class.
+                    A future represents the result of an asynchronous operation,
+                    and can have two states: uncompleted or completed.
+                  </p>
+                  <aside class="alert alert-info">
+                    <div class="alert-header"><span class="material-symbols" translate="no" aria-hidden="true">info</span><span>Note</span></div>
+                    <div class="alert-content">
+                      <p>
+                        <em>Uncompleted</em> is a Dart term referring to the state of a future
+                        before it has produced a value.
+                      </p>
+                    </div>
+                  </aside>
+                  <div class="header-wrapper">
+                    <h3 id="uncompleted">Uncompleted</h3>
+                    <a class="heading-link" href="#uncompleted" aria-label="Link to 'Uncompleted' section">#</a>
+                  </div>
+                  <p>
+                    When you call an asynchronous function, it returns an uncompleted future.
+                    That future is waiting for the function's asynchronous operation
+                    to finish or to throw an error.
+                  </p>
+                  <div class="header-wrapper">
+                    <h3 id="completed">Completed</h3>
+                    <a class="heading-link" href="#completed" aria-label="Link to 'Completed' section">#</a>
+                  </div>
+                  <p>
+                    If the asynchronous operation succeeds,
+                    the future completes with a value.
+                    Otherwise, it completes with an error.
+                  </p>
+                  <div class="header-wrapper">
+                    <h4 id="completing-with-a-value">Completing with a value</h4>
+                    <a class="heading-link" href="#completing-with-a-value" aria-label="Link to 'Completing with a value' section">#</a>
+                  </div>
+                  <p>
+                    A future of type <code>Future&lt;T&gt;</code> completes with a value of type <code>T</code>.
+                    For example, a future with type <code>Future&lt;String&gt;</code> produces a string value.
+                    If a future doesn't produce a usable value,
+                    then the future's type is <code>Future&lt;void&gt;</code>.
+                  </p>
+                  <div class="header-wrapper">
+                    <h4 id="completing-with-an-error">Completing with an error</h4>
+                    <a class="heading-link" href="#completing-with-an-error" aria-label="Link to 'Completing with an error' section">#</a>
+                  </div>
+                  <p>
+                    If the asynchronous operation performed by the function fails for any reason,
+                    the future completes with an error.
+                  </p>
+                  <div class="header-wrapper">
+                    <h3 id="example-introducing-futures">Example: Introducing futures</h3>
+                    <a class="heading-link" href="#example-introducing-futures" aria-label="Link to 'Example: Introducing futures' section">#</a>
+                  </div>
+                  <p>
+                    In the following example, <code>fetchUserOrder()</code> returns a future
+                    that completes after printing to the console.
+                    Because it doesn't return a usable value,
+                    <code>fetchUserOrder()</code> has the type <code>Future&lt;void&gt;</code>.
+                    Before you run the example,
+                    try to predict which will print first:
+                    "Large Latte" or "Fetching user order...".
+                  </p>
+                  <!--code-excerpt "async_await/bin/futures_intro.dart (no-error)"-->
+                  <!--@dartpad_injector data={"title":"Runnable Dart example","theme":null,"height":null,"runAutomatically":false}-->
+                  <pre><code title="Runnable Dart example">Future&lt;void&gt; fetchUserOrder() {
+  // Imagine that this function is fetching user info from another service or database.
+  return Future.delayed(const Duration(seconds: 2), () =&gt; print('Large Latte'));
+}
+
+void main() {
+  fetchUserOrder();
+  print('Fetching user order...');
+}</code></pre>
+                  <!--/@dartpad_injector-->
+                  <p>
+                    In the preceding example,
+                    even though <code>fetchUserOrder()</code> executes before the <code>print()</code>
+                     call on line 8,
+                    the console shows the output from line 8 ("Fetching user order...")
+                    before the output from <code>fetchUserOrder()</code> ("Large Latte").
+                    This is because <code>Future.delayed()</code> schedules its callback to run later,
+                    after <code>main()</code> finishes executing.
+                    Even with a delay of zero, the console prints "Fetching user order..." first.
+                  </p>
+                  <div class="header-wrapper">
+                    <h3 id="example-completing-with-an-error">Example: Completing with an error</h3>
+                    <a class="heading-link" href="#example-completing-with-an-error" aria-label="Link to 'Example: Completing with an error' section">#</a>
+                  </div>
+                  <p>
+                    Run the following example to see how a future completes with an error.
+                    A bit later you'll learn how to handle the error.
+                  </p>
+                  <!--code-excerpt "async_await/bin/futures_intro.dart (error)" replace="/Error//g"-->
+                  <!--@dartpad_injector data={"title":"Runnable Dart example","theme":null,"height":null,"runAutomatically":false}-->
+                  <pre><code title="Runnable Dart example">Future&lt;void&gt; fetchUserOrder() {
+  // Imagine that this function is fetching user info but encounters a bug.
+  return Future.delayed(
+    const Duration(seconds: 2),
+    () =&gt; throw Exception('Logout failed: user ID is invalid'),
+  );
+}
+
+void main() {
+  fetchUserOrder();
+  print('Fetching user order...');
+}</code></pre>
+                  <!--/@dartpad_injector-->
+                  <p>
+                    In this example, <code>fetchUserOrder()</code> completes
+                    with an error indicating that the user ID is invalid.
+                  </p>
+                  <p>
+                    You've learned about futures and how they complete,
+                    but how do you use the results of asynchronous functions?
+                    In the next section you'll learn how to get results
+                    with the <code>async</code> and <code>await</code> keywords.
+                  </p>
+                  <aside class="alert alert-secondary">
+                    <div class="alert-header"><span>Quick review</span></div>
+                    <div class="alert-content">
+                      <ul>
+                        <li>
+                          A <a href="https://api.dart.dev/dart-async/Future-class.html">Future&lt;T&gt;</a> instance produces a value of type 
+                          <code>T</code>.
+                        </li>
+                        <li>
+                          If a future doesn't produce a usable value,
+                          then the future's type is <code>Future&lt;void&gt;</code>.
+                        </li>
+                        <li>A future can be in one of two states: uncompleted or completed.</li>
+                        <li>
+                          When you call a function that returns a future,
+                          the function queues up work to be done and returns an uncompleted future.
+                        </li>
+                        <li>
+                          When a future's operation finishes,
+                          the future completes with a value or with an error.
+                        </li>
+                      </ul>
+                      <p><strong>Key terms:</strong></p>
+                      <ul>
+                        <li>
+                          <strong>Future</strong>: the Dart <a href="https://api.dart.dev/dart-async/Future-class.html">Future</a>
+                           class.
+                        </li>
+                        <li><strong>future</strong>: an instance of the Dart <code>Future</code> class.</li>
+                      </ul>
+                    </div>
+                  </aside>
+                  <div class="header-wrapper">
+                    <h2 id="working-with-futures-async-and-await">Working with futures: async and await</h2>
+                    <a class="heading-link" href="#working-with-futures-async-and-await" aria-label="Link to 'Working with futures: async and await' section">#</a>
+                  </div>
+                  <p>
+                    The <code>async</code> and <code>await</code> keywords provide a declarative way
+                    to define asynchronous functions and use their results.
+                    Remember these two basic guidelines when using <code>async</code> and <code>await</code>:
+                  </p>
+                  <ul>
+                    <li><strong>To define an async function, add <code>async</code> before the function body:</strong></li>
+                    <li><strong>The <code>await</code> keyword works only in <code>async</code> functions.</strong></li>
+                  </ul>
+                  <p>
+                    Here's an example  that converts <code>main()</code>
+                    from a synchronous to asynchronous function.
+                  </p>
+                  <p>First, add the <code>async</code> keyword before the function body:</p>
+                  <!--code-excerpt "async_await/bin/get_order_sync_bad.dart (main-sig)" replace="/main\(\)/$& async/g; /async/[!$&!]/g; /$/ ··· }/g"-->
+                  <div class="code-block-wrapper language-dart">
+                    <div class="code-block-body">
+                      <span class="code-block-language" title="Language dart">dart</span>
+                      <pre class="opal" tabindex="0"><code><span class="line"><span><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">void</span><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">main</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span> </span><mark class="highlight"><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">async</span></mark><span> </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">{</span><span> </span><span>·</span><span>·</span><span>·</span><span> </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">}</span></span>
+</span></code></pre>
+                      <!--@copy_button data={"buttonText":null,"toCopy":null,"classes":[],"title":"Copy code to clipboard"}-->
+                      <button class="text-button icon-button copy-button hidden" title="Copy code to clipboard"><span class="material-symbols" aria-hidden="true" translate="no">content_copy</span></button>
+                      <!--/@copy_button-->
+                    </div>
+                  </div>
+                  <p>
+                    If the function has a declared return type,
+                    then update the type to be <code>Future&lt;T&gt;</code>,
+                    where <code>T</code> is the type of the value that the function returns.
+                    If the function doesn't explicitly return a value,
+                    then the return type is <code>Future&lt;void&gt;</code>:
+                  </p>
+                  <!--code-excerpt "async_await/bin/get_order.dart (main-sig)" replace="/Future<\w+\W/[!$&!]/g;  /$/ ··· }/g"-->
+                  <div class="code-block-wrapper language-dart">
+                    <div class="code-block-body">
+                      <span class="code-block-language" title="Language dart">dart</span>
+                      <pre class="opal" tabindex="0"><code><span class="line"><span><mark class="highlight"><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">Future</span></mark><mark class="highlight"><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">&lt;</span></mark><mark class="highlight"><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">void</span></mark><mark class="highlight"><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">&gt;</span></mark><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">main</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">async</span><span> </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">{</span><span> </span><span>·</span><span>·</span><span>·</span><span> </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">}</span></span>
+</span></code></pre>
+                      <!--@copy_button data={"buttonText":null,"toCopy":null,"classes":[],"title":"Copy code to clipboard"}-->
+                      <button class="text-button icon-button copy-button hidden" title="Copy code to clipboard"><span class="material-symbols" aria-hidden="true" translate="no">content_copy</span></button>
+                      <!--/@copy_button-->
+                    </div>
+                  </div>
+                  <p>
+                    Now that you have an <code>async</code> function,
+                    you can use the <code>await</code> keyword to wait for a future to complete:
+                  </p>
+                  <!--code-excerpt "async_await/bin/get_order.dart (print-order)" replace="/await/[!$&!]/g"-->
+                  <div class="code-block-wrapper language-dart">
+                    <div class="code-block-body">
+                      <span class="code-block-language" title="Language dart">dart</span>
+                      <pre class="opal" tabindex="0"><code><span class="line"><span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">print</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><mark class="highlight"><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">await</span></mark><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">createOrderMessage</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span></code></pre>
+                      <!--@copy_button data={"buttonText":null,"toCopy":null,"classes":[],"title":"Copy code to clipboard"}-->
+                      <button class="text-button icon-button copy-button hidden" title="Copy code to clipboard"><span class="material-symbols" aria-hidden="true" translate="no">content_copy</span></button>
+                      <!--/@copy_button-->
+                    </div>
+                  </div>
+                  <p>
+                    As the following two examples show, the <code>async</code> and <code>await</code> keywords
+                    result in asynchronous code that looks a lot like synchronous code.
+                    The only differences are highlighted in the asynchronous example,
+                    which—if your window is wide enough—is
+                    to the right of the synchronous example.
+                  </p>
+                  <div class="header-wrapper">
+                    <h4 id="example-synchronous-functions">Example: synchronous functions</h4>
+                    <a class="heading-link" href="#example-synchronous-functions" aria-label="Link to 'Example: synchronous functions' section">#</a>
+                  </div>
+                  <!--code-excerpt "async_await/bin/get_order_sync_bad.dart (no-warning)" replace="/(\s+\/\/ )(Imagine.*? is )(.*)/$1$2$1$3/g"-->
+                  <div class="code-block-wrapper language-dart">
+                    <div class="code-block-body">
+                      <span class="code-block-language" title="Language dart">dart</span>
+                      <pre class="opal" tabindex="0"><code><span class="line"><span><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">String</span><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">createOrderMessage</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span> </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">{</span></span>
+</span><span class="line"><span><span>  </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">var</span><span> </span><span>order</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">=</span><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">fetchUserOrder</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span><span>  </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">return</span><span> </span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">Your order is: </span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">$order</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">}</span></span>
+</span><span class="line"><span style="user-select: none; -webkit-user-select: none">​</span>
+</span><span class="line"><span><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">Future</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">&lt;</span><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">String</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">&gt;</span><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">fetchUserOrder</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">=&gt;</span></span>
+</span><span class="line"><span><span>    </span><span style="color: rgba(89, 97, 110, 1.0); --opal-dark-color: rgba(139, 149, 167, 1.0);">// Imagine that this function is</span></span>
+</span><span class="line"><span><span>    </span><span style="color: rgba(89, 97, 110, 1.0); --opal-dark-color: rgba(139, 149, 167, 1.0);">// more complex and slow.</span></span>
+</span><span class="line"><span><span>    </span><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">Future</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">.</span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">delayed</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">const</span><span> </span><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">Duration</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span>seconds</span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">:</span><span> </span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">2</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">,</span><span> </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">=&gt;</span><span> </span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">Large Latte</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span style="user-select: none; -webkit-user-select: none">​</span>
+</span><span class="line"><span><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">void</span><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">main</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span> </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">{</span></span>
+</span><span class="line"><span><span>  </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">print</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">Fetching user order...</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span><span>  </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">print</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">createOrderMessage</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">}</span></span>
+</span></code></pre>
+                      <!--@copy_button data={"buttonText":null,"toCopy":null,"classes":[],"title":"Copy code to clipboard"}-->
+                      <button class="text-button icon-button copy-button hidden" title="Copy code to clipboard"><span class="material-symbols" aria-hidden="true" translate="no">content_copy</span></button>
+                      <!--/@copy_button-->
+                    </div>
+                  </div>
+                  <div class="code-block-wrapper language-plaintext">
+                    <div class="code-block-body">
+                      <pre class="opal" tabindex="0"><code><span class="line"><span><span>Fetching user order...</span></span>
+</span><span class="line"><span><span>Your order is: Instance of 'Future&lt;String&gt;'</span></span>
+</span></code></pre>
+                      <!--@copy_button data={"buttonText":null,"toCopy":null,"classes":[],"title":"Copy code to clipboard"}-->
+                      <button class="text-button icon-button copy-button hidden" title="Copy code to clipboard"><span class="material-symbols" aria-hidden="true" translate="no">content_copy</span></button>
+                      <!--/@copy_button-->
+                    </div>
+                  </div>
+                  <p>
+                    As shown in following two examples,
+                    it operates like synchronous code.
+                  </p>
+                  <div class="header-wrapper">
+                    <h4 id="example-asynchronous-functions">Example: asynchronous functions</h4>
+                    <a class="heading-link" href="#example-asynchronous-functions" aria-label="Link to 'Example: asynchronous functions' section">#</a>
+                  </div>
+                  <!--code-excerpt "async_await/bin/get_order.dart" replace="/(\s+\/\/ )(Imagine.*? is )(.*)/$1$2$1$3/g; /async|await/[!$&!]/g; /(Future<\w+\W)( [^f])/[!$1!]$2/g; /4/2/g"-->
+                  <div class="code-block-wrapper language-dart">
+                    <div class="code-block-body">
+                      <span class="code-block-language" title="Language dart">dart</span>
+                      <pre class="opal" tabindex="0"><code><span class="line"><span><mark class="highlight"><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">Future</span></mark><mark class="highlight"><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">&lt;</span></mark><mark class="highlight"><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">String</span></mark><mark class="highlight"><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">&gt;</span></mark><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">createOrderMessage</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span> </span><mark class="highlight"><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">async</span></mark><span> </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">{</span></span>
+</span><span class="line"><span><span>  </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">var</span><span> </span><span>order</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">=</span><span> </span><mark class="highlight"><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">await</span></mark><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">fetchUserOrder</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span><span>  </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">return</span><span> </span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">Your order is: </span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">$order</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">}</span></span>
+</span><span class="line"><span style="user-select: none; -webkit-user-select: none">​</span>
+</span><span class="line"><span><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">Future</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">&lt;</span><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">String</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">&gt;</span><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">fetchUserOrder</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">=&gt;</span></span>
+</span><span class="line"><span><span>    </span><span style="color: rgba(89, 97, 110, 1.0); --opal-dark-color: rgba(139, 149, 167, 1.0);">// Imagine that this function is</span></span>
+</span><span class="line"><span><span>    </span><span style="color: rgba(89, 97, 110, 1.0); --opal-dark-color: rgba(139, 149, 167, 1.0);">// more complex and slow.</span></span>
+</span><span class="line"><span><span>    </span><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">Future</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">.</span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">delayed</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">const</span><span> </span><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">Duration</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span>seconds</span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">:</span><span> </span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">2</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">,</span><span> </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">=&gt;</span><span> </span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">Large Latte</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span style="user-select: none; -webkit-user-select: none">​</span>
+</span><span class="line"><span><mark class="highlight"><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">Future</span></mark><mark class="highlight"><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">&lt;</span></mark><mark class="highlight"><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">void</span></mark><mark class="highlight"><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">&gt;</span></mark><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">main</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span> </span><mark class="highlight"><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">async</span></mark><span> </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">{</span></span>
+</span><span class="line"><span><span>  </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">print</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">Fetching user order...</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span><span>  </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">print</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><mark class="highlight"><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">await</span></mark><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">createOrderMessage</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">}</span></span>
+</span></code></pre>
+                      <!--@copy_button data={"buttonText":null,"toCopy":null,"classes":[],"title":"Copy code to clipboard"}-->
+                      <button class="text-button icon-button copy-button hidden" title="Copy code to clipboard"><span class="material-symbols" aria-hidden="true" translate="no">content_copy</span></button>
+                      <!--/@copy_button-->
+                    </div>
+                  </div>
+                  <div class="code-block-wrapper language-plaintext">
+                    <div class="code-block-body">
+                      <pre class="opal" tabindex="0"><code><span class="line"><span><span>Fetching user order...</span></span>
+</span><span class="line"><span><span>Your order is: Large Latte</span></span>
+</span></code></pre>
+                      <!--@copy_button data={"buttonText":null,"toCopy":null,"classes":[],"title":"Copy code to clipboard"}-->
+                      <button class="text-button icon-button copy-button hidden" title="Copy code to clipboard"><span class="material-symbols" aria-hidden="true" translate="no">content_copy</span></button>
+                      <!--/@copy_button-->
+                    </div>
+                  </div>
+                  <p>The asynchronous example is different in three ways:</p>
+                  <ul>
+                    <li>
+                      The return type for <code>createOrderMessage()</code> changes
+                      from <code>String</code> to <code>Future&lt;String&gt;</code>.
+                    </li>
+                    <li>
+                      The <strong><code>async</code></strong> keyword appears before the function bodies for
+                      <code>createOrderMessage()</code> and <code>main()</code>.
+                    </li>
+                    <li>
+                      The <strong><code>await</code></strong> keyword appears before calling the asynchronous functions
+                      <code>fetchUserOrder()</code> and <code>createOrderMessage()</code>.
+                    </li>
+                  </ul>
+                  <aside class="alert alert-secondary">
+                    <div class="alert-header"><span>Key terms</span></div>
+                    <div class="alert-content">
+                      <ul>
+                        <li>
+                          <strong>async</strong>: You can use the <code>async</code> keyword before a function's body to mark it as
+                          asynchronous.
+                        </li>
+                        <li>
+                          <strong>async function</strong>:  An <code>async</code> function is a function labeled with the <code>async</code>
+                          
+                          keyword.
+                        </li>
+                        <li>
+                          <strong>await</strong>: You can use the <code>await</code> keyword to get the completed result of an
+                          asynchronous expression. The <code>await</code> keyword only works within an 
+                          <code>async</code> function.
+                        </li>
+                      </ul>
+                    </div>
+                  </aside>
+                  <div class="header-wrapper">
+                    <h3 id="execution-flow-with-async-and-await">Execution flow with async and await</h3>
+                    <a class="heading-link" href="#execution-flow-with-async-and-await" aria-label="Link to 'Execution flow with async and await' section">#</a>
+                  </div>
+                  <p>
+                    An <code>async</code> function runs synchronously until the first <code>await</code> keyword.
+                    This means that within an <code>async</code> function body,
+                    all synchronous code before the first <code>await</code> keyword executes immediately.
+                  </p>
+                  <div class="header-wrapper">
+                    <h3 id="example-execution-within-async-functions">Example: Execution within async functions</h3>
+                    <a class="heading-link" href="#example-execution-within-async-functions" aria-label="Link to 'Example: Execution within async functions' section">#</a>
+                  </div>
+                  <p>
+                    Run the following example to see how execution proceeds
+                    within an <code>async</code> function body.
+                    What do you think the output will be?
+                  </p>
+                  <!--code-excerpt "async_await/bin/async_example.dart" remove="/\/\/ print/"-->
+                  <!--@dartpad_injector data={"title":"Runnable Dart example","theme":null,"height":null,"runAutomatically":false}-->
+                  <pre><code title="Runnable Dart example">Future&lt;void&gt; printOrderMessage() async {
+  print('Awaiting user order...');
+  var order = await fetchUserOrder();
+  print('Your order is: $order');
+}
+
+Future&lt;String&gt; fetchUserOrder() {
+  // Imagine that this function is more complex and slow.
+  return Future.delayed(const Duration(seconds: 4), () =&gt; 'Large Latte');
+}
+
+void main() async {
+  countSeconds(4);
+  await printOrderMessage();
+}
+
+// You can ignore this function - it's here to visualize delay time in this example.
+void countSeconds(int s) {
+  for (var i = 1; i &lt;= s; i++) {
+    Future.delayed(Duration(seconds: i), () =&gt; print(i));
+  }
+}</code></pre>
+                  <!--/@dartpad_injector-->
+                  <p>After running the code in the preceding example, try reversing lines 2 and 3:</p>
+                  <!--code-excerpt "async_await/bin/async_example.dart (swap-stmts)" replace="/\/\/ (print)/$1/g"-->
+                  <div class="code-block-wrapper language-dart">
+                    <div class="code-block-body">
+                      <span class="code-block-language" title="Language dart">dart</span>
+                      <pre class="opal" tabindex="0"><code><span class="line"><span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">var</span><span> </span><span>order</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">=</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">await</span><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">fetchUserOrder</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">print</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">Awaiting user order...</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span></code></pre>
+                      <!--@copy_button data={"buttonText":null,"toCopy":null,"classes":[],"title":"Copy code to clipboard"}-->
+                      <button class="text-button icon-button copy-button hidden" title="Copy code to clipboard"><span class="material-symbols" aria-hidden="true" translate="no">content_copy</span></button>
+                      <!--/@copy_button-->
+                    </div>
+                  </div>
+                  <p>
+                    Notice that timing of the output shifts, now that <code>print('Awaiting user order')</code>
+                    appears after the first <code>await</code> keyword in <code>printOrderMessage()</code>.
+                  </p>
+                  <div class="header-wrapper">
+                    <h3 id="exercise-practice-using-async-and-await">Exercise: Practice using async and await</h3>
+                    <a class="heading-link" href="#exercise-practice-using-async-and-await" aria-label="Link to 'Exercise: Practice using async and await' section">#</a>
+                  </div>
+                  <p>
+                    The following exercise is a failing unit test
+                    that contains partially completed code snippets.
+                    Your task is to complete the exercise by writing code to make the tests pass.
+                    You don't need to implement <code>main()</code>.
+                  </p>
+                  <p>
+                    To simulate asynchronous operations, call the following functions,
+                    which are provided for you:
+                  </p>
+                  <div class="table-wrapper">
+                    <table class="table table-striped">
+                      <thead><tr><th>Function</th><th>Type signature</th><th>Description</th></tr></thead>
+                      <tbody>
+                        <tr>
+                          <td>fetchRole()</td>
+                          <td><code>Future&lt;String&gt; fetchRole()</code></td>
+                          <td>Gets a short description of the user's role.</td>
+                        </tr>
+                        <tr>
+                          <td>fetchLoginAmount()</td>
+                          <td><code>Future&lt;int&gt; fetchLoginAmount()</code></td>
+                          <td>Gets the number of times a user has logged in.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="header-wrapper">
+                    <h4 id="part-1-reportuserrole">Part 1: <code>reportUserRole()</code></h4>
+                    <a class="heading-link" href="#part-1-reportuserrole" aria-label="Link to 'Part 1: reportUserRole()' section">#</a>
+                  </div>
+                  <p>Add code to the <code>reportUserRole()</code> function so that it does the following:</p>
+                  <ul>
+                    <li>
+                      Returns a future that completes with the following
+                      string: <code>"User role: &lt;user role&gt;"</code><ul><li>Note: You must use the actual value returned by <code>fetchRole()</code>;
+                          copying and pasting the example return value won't make the test pass.</li><li>Example return value: <code>"User role: tester"</code></li></ul>
+                    </li>
+                    <li>Gets the user role by calling the provided function <code>fetchRole()</code>.</li>
+                  </ul>
+                  <div class="header-wrapper">
+                    <h4 id="part-2-reportlogins">Part 2: <code>reportLogins()</code></h4>
+                    <a class="heading-link" href="#part-2-reportlogins" aria-label="Link to 'Part 2: reportLogins()' section">#</a>
+                  </div>
+                  <p>Implement an <code>async</code> function <code>reportLogins()</code> so that it does the following:</p>
+                  <ul>
+                    <li>
+                      Returns the string <code>"Total number of logins: &lt;# of logins&gt;"</code>.<ul><li>Note: You must use the actual value returned by <code>fetchLoginAmount()</code>;
+                          copying and pasting the example return value won't make the test pass.</li><li>Example return value from <code>reportLogins()</code>: <code>"Total number of logins: 57"</code></li></ul>
+                    </li>
+                    <li>Gets the number of logins by calling the provided function <code>fetchLoginAmount()</code>.</li>
+                  </ul>
+                  <!--@dartpad_injector data={"title":"Runnable Dart example","theme":"dark","height":null,"runAutomatically":false}-->
+                  <pre><code title="Runnable Dart example">// Part 1
+// Call the provided async function fetchRole()
+// to return the user role.
+Future&lt;String&gt; reportUserRole() async {
+  // TODO: Implement the reportUserRole function here.
+}
+
+// Part 2
+// TODO: Implement the reportLogins function here.
+// Call the provided async function fetchLoginAmount()
+// to return the number of times that the user has logged in.
+reportLogins() {}
+
+// The following functions those provided to you to simulate
+// asynchronous operations that could take a while.
+
+Future&lt;String&gt; fetchRole() =&gt; Future.delayed(_halfSecond, () =&gt; _role);
+Future&lt;int&gt; fetchLoginAmount() =&gt; Future.delayed(_halfSecond, () =&gt; _logins);
+
+// The following code is used to test and provide feedback on your solution.
+// There is no need to read or modify it.
+
+void main() async {
+  print('Testing...');
+  List&lt;String&gt; messages = [];
+  const passed = 'PASSED';
+  const testFailedMessage = 'Test failed for the function:';
+  const typoMessage = 'Test failed! Check for typos in your return value';
+  try {
+    messages
+      ..add(_makeReadable(
+          testLabel: 'Part 1',
+          testResult: await _asyncEquals(
+            expected: 'User role: administrator',
+            actual: await reportUserRole(),
+            typoKeyword: _role,
+          ),
+          readableErrors: {
+            typoMessage: typoMessage,
+            'null':
+                'Test failed! Did you forget to implement or return from reportUserRole?',
+            'User role: Instance of \'Future&lt;String&gt;\'':
+                '$testFailedMessage reportUserRole. Did you use the await keyword?',
+            'User role: Instance of \'_Future&lt;String&gt;\'':
+                '$testFailedMessage reportUserRole. Did you use the await keyword?',
+            'User role:':
+                '$testFailedMessage reportUserRole. Did you return a user role?',
+            'User role: ':
+                '$testFailedMessage reportUserRole. Did you return a user role?',
+            'User role: tester':
+                '$testFailedMessage reportUserRole. Did you invoke fetchRole to fetch the user\'s role?',
+          }))
+      ..add(_makeReadable(
+          testLabel: 'Part 2',
+          testResult: await _asyncEquals(
+            expected: 'Total number of logins: 42',
+            actual: await reportLogins(),
+            typoKeyword: _logins.toString(),
+          ),
+          readableErrors: {
+            typoMessage: typoMessage,
+            'null':
+                'Test failed! Did you forget to implement or return from reportLogins?',
+            'Total number of logins: Instance of \'Future&lt;int&gt;\'':
+                '$testFailedMessage reportLogins. Did you use the await keyword?',
+            'Total number of logins: Instance of \'_Future&lt;int&gt;\'':
+                '$testFailedMessage reportLogins. Did you use the await keyword?',
+            'Total number of logins: ':
+                '$testFailedMessage reportLogins. Did you return the number of logins?',
+            'Total number of logins:':
+                '$testFailedMessage reportLogins. Did you return the number of logins?',
+            'Total number of logins: 57':
+                '$testFailedMessage reportLogins. Did you invoke fetchLoginAmount to fetch the number of user logins?',
+          }))
+      ..removeWhere((m) =&gt; m.contains(passed))
+      ..toList();
+
+    if (messages.isEmpty) {
+      print('Success. All tests passed!');
+    } else {
+      messages.forEach(print);
+    }
+  } on UnimplementedError {
+    print(
+        'Test failed! Did you forget to implement or return from reportUserRole?');
+  } catch (e) {
+    print('Tried to run solution, but received an exception: $e');
+  }
+}
+
+const _role = 'administrator';
+const _logins = 42;
+const _halfSecond = Duration(milliseconds: 500);
+
+// Test helpers.
+String _makeReadable({
+  required String testResult,
+  required Map&lt;String, String&gt; readableErrors,
+  required String testLabel,
+}) {
+  if (readableErrors.containsKey(testResult)) {
+    var readable = readableErrors[testResult];
+    return '$testLabel $readable';
+  } else {
+    return '$testLabel $testResult';
+  }
+}
+
+// Assertions used in tests.
+Future&lt;String&gt; _asyncEquals({
+  required String expected,
+  required dynamic actual,
+  required String typoKeyword,
+}) async {
+  var strActual = actual is String ? actual : actual.toString();
+  try {
+    if (expected == actual) {
+      return 'PASSED';
+    } else if (strActual.contains(typoKeyword)) {
+      return 'Test failed! Check for typos in your return value';
+    } else {
+      return strActual;
+    }
+  } catch (e) {
+    return e.toString();
+  }
+}</code></pre>
+                  <!--/@dartpad_injector-->
+                  <details>
+  <summary title="Expand for a hint on the async-await exercise.">Hint</summary><p>  Did you remember to add the <code>async</code> keyword to the <code>reportUserRole</code> function?</p><p>  Did you remember to use the <code>await</code> keyword before invoking <code>fetchRole()</code>?</p><p>  Remember: <code>reportUserRole</code> needs to return a <code>Future</code>.</p></details>
+                  <details>
+  <summary title="Expand for the solution of the async-await exercise.">Solution</summary><div class="code-block-wrapper language-dart"><div class="code-block-body"><span class="code-block-language" title="Language dart">dart</span><pre class="opal" tabindex="0"><code><span class="line"><span><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">Future</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">&lt;</span><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">String</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">&gt;</span><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">reportUserRole</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">async</span><span> </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">{</span></span>
+</span><span class="line"><span><span>  </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">final</span><span> </span><span>username</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">=</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">await</span><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">fetchRole</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span><span>  </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">return</span><span> </span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">User role: </span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">$username</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">}</span></span>
+</span><span class="line"><span style="user-select: none; -webkit-user-select: none">​</span>
+</span><span class="line"><span><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">Future</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">&lt;</span><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">String</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">&gt;</span><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">reportLogins</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">async</span><span> </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">{</span></span>
+</span><span class="line"><span><span>  </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">final</span><span> </span><span>logins</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">=</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">await</span><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">fetchLoginAmount</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span><span>  </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">return</span><span> </span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">Total number of logins: </span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">$logins</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">}</span></span>
+</span></code></pre><!--@copy_button data={"buttonText":null,"toCopy":null,"classes":[],"title":"Copy code to clipboard"}--><button class="text-button icon-button copy-button hidden" title="Copy code to clipboard"><span class="material-symbols" aria-hidden="true" translate="no">content_copy</span></button><!--/@copy_button--></div></div></details>
+                  <div class="header-wrapper">
+                    <h2 id="handling-errors">Handling errors</h2>
+                    <a class="heading-link" href="#handling-errors" aria-label="Link to 'Handling errors' section">#</a>
+                  </div>
+                  <p>To handle errors in an <code>async</code> function, use try-catch:</p>
+                  <!--code-excerpt "async_await/bin/try_catch.dart (try-catch)" remove="print(order)"-->
+                  <div class="code-block-wrapper language-dart">
+                    <div class="code-block-body">
+                      <span class="code-block-language" title="Language dart">dart</span>
+                      <pre class="opal" tabindex="0"><code><span class="line"><span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">try</span><span> </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">{</span></span>
+</span><span class="line"><span><span>  </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">print</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">Awaiting user order...</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span><span>  </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">var</span><span> </span><span>order</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">=</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">await</span><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">fetchUserOrder</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">}</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">catch</span><span> </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span>err</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span> </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">{</span></span>
+</span><span class="line"><span><span>  </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">print</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">Caught error: </span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">$err</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">}</span></span>
+</span></code></pre>
+                      <!--@copy_button data={"buttonText":null,"toCopy":null,"classes":[],"title":"Copy code to clipboard"}-->
+                      <button class="text-button icon-button copy-button hidden" title="Copy code to clipboard"><span class="material-symbols" aria-hidden="true" translate="no">content_copy</span></button>
+                      <!--/@copy_button-->
+                    </div>
+                  </div>
+                  <p>
+                    Within an <code>async</code> function, you can write
+                    <a href="/language/error-handling#catch">try-catch clauses</a>
+                    the same way you would in synchronous code.
+                  </p>
+                  <div class="header-wrapper">
+                    <h3 id="example-async-and-await-with-try-catch">Example: async and await with try-catch</h3>
+                    <a class="heading-link" href="#example-async-and-await-with-try-catch" aria-label="Link to 'Example: async and await with try-catch' section">#</a>
+                  </div>
+                  <p>
+                    Run the following example to see how to handle an error
+                    from an asynchronous function.
+                    What do you think the output will be?
+                  </p>
+                  <!--code-excerpt "async_await/bin/try_catch.dart"-->
+                  <!--@dartpad_injector data={"title":"Runnable Dart example","theme":null,"height":null,"runAutomatically":false}-->
+                  <pre><code title="Runnable Dart example">Future&lt;void&gt; printOrderMessage() async {
+  try {
+    print('Awaiting user order...');
+    var order = await fetchUserOrder();
+    print(order);
+  } catch (err) {
+    print('Caught error: $err');
+  }
+}
+
+Future&lt;String&gt; fetchUserOrder() {
+  // Imagine that this function is more complex.
+  var str = Future.delayed(
+    const Duration(seconds: 4),
+    () =&gt; throw 'Cannot locate user order',
+  );
+  return str;
+}
+
+void main() async {
+  await printOrderMessage();
+}</code></pre>
+                  <!--/@dartpad_injector-->
+                  <div class="header-wrapper">
+                    <h3 id="exercise-practice-handling-errors">Exercise: Practice handling errors</h3>
+                    <a class="heading-link" href="#exercise-practice-handling-errors" aria-label="Link to 'Exercise: Practice handling errors' section">#</a>
+                  </div>
+                  <p>
+                    The following exercise provides practice handling errors with asynchronous code,
+                    using the approach described in the previous section. To simulate asynchronous
+                    operations, your code will call the following function, which is provided for you:
+                  </p>
+                  <div class="table-wrapper">
+                    <table class="table table-striped">
+                      <thead><tr><th>Function</th><th>Type signature</th><th>Description</th></tr></thead>
+                      <tbody>
+                        <tr>
+                          <td>fetchNewUsername()</td>
+                          <td><code>Future&lt;String&gt; fetchNewUsername()</code></td>
+                          <td>Returns the new username that you can use to replace an old one.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <p>
+                    Use <code>async</code> and <code>await</code> to implement an asynchronous <code>changeUsername()</code>
+                     function
+                    that does the following:
+                  </p>
+                  <ul>
+                    <li>
+                      Calls the provided asynchronous function <code>fetchNewUsername()</code>
+                      and returns its result.<ul><li>Example return value from <code>changeUsername()</code>: <code>"jane_smith_92"</code></li></ul>
+                    </li>
+                    <li>
+                      Catches any error that occurs and returns the string value of the error.<ul><li>You can use the
+                          <a href="https://api.dart.dev/dart-core/ArgumentError/toString.html">toString()</a>
+                          
+                          method to stringify both
+                          <a href="https://api.dart.dev/dart-core/Exception-class.html">Exceptions</a>
+                          
+                          and
+                          <a href="https://api.dart.dev/dart-core/Error-class.html">Errors.</a></li></ul>
+                    </li>
+                  </ul>
+                  <!--@dartpad_injector data={"title":"Runnable Dart example","theme":"dark","height":null,"runAutomatically":false}-->
+                  <pre><code title="Runnable Dart example">// TODO: Implement changeUsername here.
+changeUsername() {}
+
+// The following function is provided to you to simulate
+// an asynchronous operation that could take a while and
+// potentially throw an exception.
+
+Future&lt;String&gt; fetchNewUsername() =&gt;
+    Future.delayed(const Duration(milliseconds: 500), () =&gt; throw UserError());
+
+class UserError implements Exception {
+  @override
+  String toString() =&gt; 'New username is invalid';
+}
+
+// The following code is used to test and provide feedback on your solution.
+// There is no need to read or modify it.
+
+void main() async {
+  final List&lt;String&gt; messages = [];
+  const typoMessage = 'Test failed! Check for typos in your return value';
+
+  print('Testing...');
+  try {
+    messages
+      ..add(_makeReadable(
+          testLabel: '',
+          testResult: await _asyncDidCatchException(changeUsername),
+          readableErrors: {
+            typoMessage: typoMessage,
+            _noCatch:
+                'Did you remember to call fetchNewUsername within a try/catch block?',
+          }))
+      ..add(_makeReadable(
+          testLabel: '',
+          testResult: await _asyncErrorEquals(changeUsername),
+          readableErrors: {
+            typoMessage: typoMessage,
+            _noCatch:
+                'Did you remember to call fetchNewUsername within a try/catch block?',
+          }))
+      ..removeWhere((m) =&gt; m.contains(_passed))
+      ..toList();
+
+    if (messages.isEmpty) {
+      print('Success. All tests passed!');
+    } else {
+      messages.forEach(print);
+    }
+  } catch (e) {
+    print('Tried to run solution, but received an exception: $e');
+  }
+}
+
+// Test helpers.
+String _makeReadable({
+  required String testResult,
+  required Map&lt;String, String&gt; readableErrors,
+  required String testLabel,
+}) {
+  if (readableErrors.containsKey(testResult)) {
+    final readable = readableErrors[testResult];
+    return '$testLabel $readable';
+  } else {
+    return '$testLabel $testResult';
+  }
+}
+
+Future&lt;String&gt; _asyncErrorEquals(Function fn) async {
+  final result = await fn();
+  if (result == UserError().toString()) {
+    return _passed;
+  } else {
+    return 'Test failed! Did you stringify and return the caught error?';
+  }
+}
+
+Future&lt;String&gt; _asyncDidCatchException(Function fn) async {
+  var caught = true;
+  try {
+    await fn();
+  } on UserError catch (_) {
+    caught = false;
+  }
+
+  if (caught == false) {
+    return _noCatch;
+  } else {
+    return _passed;
+  }
+}
+
+const _passed = 'PASSED';
+const _noCatch = 'NO_CATCH';</code></pre>
+                  <!--/@dartpad_injector-->
+                  <details>
+  <summary title="Expand for a hint on the error-handling exercise.">Hint</summary><p>  Implement <code>changeUsername</code> to return the string from <code>fetchNewUsername</code> or,
+  if that fails, the string value of any error that occurs.</p><p>  Remember: You can use a <a href="/language/error-handling#catch">try-catch statement</a>
+  to catch and handle errors.</p></details>
+                  <details>
+  <summary title="Expand for the solution of the error-handling exercise.">Solution</summary><div class="code-block-wrapper language-dart"><div class="code-block-body"><span class="code-block-language" title="Language dart">dart</span><pre class="opal" tabindex="0"><code><span class="line"><span><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">Future</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">&lt;</span><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">String</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">&gt;</span><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">changeUsername</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">async</span><span> </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">{</span></span>
+</span><span class="line"><span><span>  </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">try</span><span> </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">{</span></span>
+</span><span class="line"><span><span>    </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">return</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">await</span><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">fetchNewUsername</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span><span>  </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">}</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">catch</span><span> </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span>err</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span> </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">{</span></span>
+</span><span class="line"><span><span>    </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">return</span><span> </span><span>err</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">.</span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">toString</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span><span>  </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">}</span></span>
+</span><span class="line"><span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">}</span></span>
+</span></code></pre><!--@copy_button data={"buttonText":null,"toCopy":null,"classes":[],"title":"Copy code to clipboard"}--><button class="text-button icon-button copy-button hidden" title="Copy code to clipboard"><span class="material-symbols" aria-hidden="true" translate="no">content_copy</span></button><!--/@copy_button--></div></div></details>
+                  <div class="header-wrapper">
+                    <h2 id="exercise-putting-it-all-together">Exercise: Putting it all together</h2>
+                    <a class="heading-link" href="#exercise-putting-it-all-together" aria-label="Link to 'Exercise: Putting it all together' section">#</a>
+                  </div>
+                  <p>
+                    It's time to practice what you've learned in one final exercise.
+                    To simulate asynchronous operations, this exercise provides the asynchronous
+                    functions <code>fetchUsername()</code> and <code>logoutUser()</code>:
+                  </p>
+                  <div class="table-wrapper">
+                    <table class="table table-striped">
+                      <thead><tr><th>Function</th><th>Type signature</th><th>Description</th></tr></thead>
+                      <tbody>
+                        <tr>
+                          <td>fetchUsername()</td>
+                          <td><code>Future&lt;String&gt; fetchUsername()</code></td>
+                          <td>Returns the name associated with the current user.</td>
+                        </tr>
+                        <tr>
+                          <td>logoutUser()</td>
+                          <td><code>Future&lt;String&gt; logoutUser()</code></td>
+                          <td>Performs logout of current user and returns the username that was logged out.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <p>Write the following:</p>
+                  <div class="header-wrapper">
+                    <h4 id="part-1-addhello">Part 1: <code>addHello()</code></h4>
+                    <a class="heading-link" href="#part-1-addhello" aria-label="Link to 'Part 1: addHello()' section">#</a>
+                  </div>
+                  <ul>
+                    <li>Write a function <code>addHello()</code> that takes a single <code>String</code> argument.</li>
+                    <li>
+                      <code>addHello()</code> returns its <code>String</code> argument preceded by <code>'Hello '</code>.<br/>
+                      
+                      Example: <code>addHello('Jon')</code> returns <code>'Hello Jon'</code>.
+                    </li>
+                  </ul>
+                  <div class="header-wrapper">
+                    <h4 id="part-2-greetuser">Part 2: <code>greetUser()</code></h4>
+                    <a class="heading-link" href="#part-2-greetuser" aria-label="Link to 'Part 2: greetUser()' section">#</a>
+                  </div>
+                  <ul>
+                    <li>Write a function <code>greetUser()</code> that takes no arguments.</li>
+                    <li>
+                      To get the username, <code>greetUser()</code> calls the provided asynchronous
+                      function <code>fetchUsername()</code>.
+                    </li>
+                    <li>
+                      <code>greetUser()</code> creates a greeting for the user by calling <code>addHello()</code>,
+                      passing it the username, and returning the result.<br/>
+                      Example: If <code>fetchUsername()</code> returns <code>'Jenny'</code>, then
+                      <code>greetUser()</code> returns <code>'Hello Jenny'</code>.
+                    </li>
+                  </ul>
+                  <div class="header-wrapper">
+                    <h4 id="part-3-saygoodbye">Part 3: <code>sayGoodbye()</code></h4>
+                    <a class="heading-link" href="#part-3-saygoodbye" aria-label="Link to 'Part 3: sayGoodbye()' section">#</a>
+                  </div>
+                  <ul>
+                    <li>
+                      Write a function <code>sayGoodbye()</code> that does the following:<ul><li>Takes no arguments.</li><li>Catches any errors.</li><li>Calls the provided asynchronous function <code>logoutUser()</code>.</li></ul>
+                    </li>
+                    <li>If <code>logoutUser()</code> fails, <code>sayGoodbye()</code> returns any string you like.</li>
+                    <li>
+                      If <code>logoutUser()</code> succeeds, <code>sayGoodbye()</code> returns the string
+                      <code>'&lt;result&gt; Thanks, see you next time'</code>, where <code>&lt;result&gt;</code>
+                       is
+                      the string value returned by calling <code>logoutUser()</code>.
+                    </li>
+                  </ul>
+                  <!--@dartpad_injector data={"title":"Runnable Dart example","theme":"dark","height":null,"runAutomatically":false}-->
+                  <pre><code title="Runnable Dart example">// Part 1
+addHello(String user) {}
+
+// Part 2
+// Call the provided async function fetchUsername()
+// to return the username.
+greetUser() {}
+
+// Part 3
+// Call the provided async function logoutUser()
+// to log out the user.
+sayGoodbye() {}
+
+// The following functions are provided to you to use in your solutions.
+
+Future&lt;String&gt; fetchUsername() =&gt; Future.delayed(_halfSecond, () =&gt; 'Jean');
+
+Future&lt;String&gt; logoutUser() =&gt; Future.delayed(_halfSecond, _failOnce);
+
+// The following code is used to test and provide feedback on your solution.
+// There is no need to read or modify it.
+
+void main() async {
+  const didNotImplement =
+      'Test failed! Did you forget to implement or return from';
+
+  final List&lt;String&gt; messages = [];
+
+  print('Testing...');
+  try {
+    messages
+      ..add(_makeReadable(
+          testLabel: 'Part 1',
+          testResult: await _asyncEquals(
+              expected: 'Hello Jerry',
+              actual: addHello('Jerry'),
+              typoKeyword: 'Jerry'),
+          readableErrors: {
+            _typoMessage: _typoMessage,
+            'null': '$didNotImplement addHello?',
+            'Hello Instance of \'Future&lt;String&gt;\'':
+                'Looks like you forgot to use the \'await\' keyword!',
+            'Hello Instance of \'_Future&lt;String&gt;\'':
+                'Looks like you forgot to use the \'await\' keyword!',
+          }))
+      ..add(_makeReadable(
+          testLabel: 'Part 2',
+          testResult: await _asyncEquals(
+              expected: 'Hello Jean',
+              actual: await greetUser(),
+              typoKeyword: 'Jean'),
+          readableErrors: {
+            _typoMessage: _typoMessage,
+            'null': '$didNotImplement greetUser?',
+            'HelloJean':
+                'Looks like you forgot the space between \'Hello\' and \'Jean\'',
+            'Hello Instance of \'Future&lt;String&gt;\'':
+                'Looks like you forgot to use the \'await\' keyword!',
+            'Hello Instance of \'_Future&lt;String&gt;\'':
+                'Looks like you forgot to use the \'await\' keyword!',
+            '{Closure: (String) =&gt; dynamic from Function \'addHello\': static.(await fetchUsername())}':
+                'Did you place the \'\$\' character correctly?',
+            '{Closure \'addHello\'(await fetchUsername())}':
+                'Did you place the \'\$\' character correctly?',
+          }))
+      ..add(_makeReadable(
+          testLabel: 'Part 3',
+          testResult: await _asyncDidCatchException(sayGoodbye),
+          readableErrors: {
+            _typoMessage:
+                '$_typoMessage. Did you add the text \'Thanks, see you next time\'?',
+            'null': '$didNotImplement sayGoodbye?',
+            _noCatch:
+                'Did you remember to call logoutUser within a try/catch block?',
+            'Instance of \'Future&lt;String&gt;\' Thanks, see you next time':
+                'Did you remember to use the \'await\' keyword in the sayGoodbye function?',
+            'Instance of \'_Future&lt;String&gt;\' Thanks, see you next time':
+                'Did you remember to use the \'await\' keyword in the sayGoodbye function?',
+          }))
+      ..add(_makeReadable(
+          testLabel: 'Part 3',
+          testResult: await _asyncEquals(
+              expected: 'Success! Thanks, see you next time',
+              actual: await sayGoodbye(),
+              typoKeyword: 'Success'),
+          readableErrors: {
+            _typoMessage:
+                '$_typoMessage. Did you add the text \'Thanks, see you next time\'?',
+            'null': '$didNotImplement sayGoodbye?',
+            _noCatch:
+                'Did you remember to call logoutUser within a try/catch block?',
+            'Instance of \'Future&lt;String&gt;\' Thanks, see you next time':
+                'Did you remember to use the \'await\' keyword in the sayGoodbye function?',
+            'Instance of \'_Future&lt;String&gt;\' Thanks, see you next time':
+                'Did you remember to use the \'await\' keyword in the sayGoodbye function?',
+            'Instance of \'_Exception\'':
+                'CAUGHT Did you remember to return a string?',
+          }))
+      ..removeWhere((m) =&gt; m.contains(_passed))
+      ..toList();
+
+    if (messages.isEmpty) {
+      print('Success. All tests passed!');
+    } else {
+      messages.forEach(print);
+    }
+  } catch (e) {
+    print('Tried to run solution, but received an exception: $e');
+  }
+}
+
+// Test helpers.
+String _makeReadable({
+  required String testResult,
+  required Map&lt;String, String&gt; readableErrors,
+  required String testLabel,
+}) {
+  String? readable;
+  if (readableErrors.containsKey(testResult)) {
+    readable = readableErrors[testResult];
+    return '$testLabel $readable';
+  } else if ((testResult != _passed) &amp;&amp; (testResult.length &lt; 18)) {
+    readable = _typoMessage;
+    return '$testLabel $readable';
+  } else {
+    return '$testLabel $testResult';
+  }
+}
+
+Future&lt;String&gt; _asyncEquals({
+  required String expected,
+  required dynamic actual,
+  required String typoKeyword,
+}) async {
+  final strActual = actual is String ? actual : actual.toString();
+  try {
+    if (expected == actual) {
+      return _passed;
+    } else if (strActual.contains(typoKeyword)) {
+      return _typoMessage;
+    } else {
+      return strActual;
+    }
+  } catch (e) {
+    return e.toString();
+  }
+}
+
+Future&lt;String&gt; _asyncDidCatchException(Function fn) async {
+  var caught = true;
+  try {
+    await fn();
+  } on Exception catch (_) {
+    caught = false;
+  }
+
+  if (caught == true) {
+    return _passed;
+  } else {
+    return _noCatch;
+  }
+}
+
+const _typoMessage = 'Test failed! Check for typos in your return value';
+const _passed = 'PASSED';
+const _noCatch = 'NO_CATCH';
+const _halfSecond = Duration(milliseconds: 500);
+
+String _failOnce() {
+  if (_logoutSucceeds) {
+    return 'Success!';
+  } else {
+    _logoutSucceeds = true;
+    throw Exception('Logout failed');
+  }
+}
+
+bool _logoutSucceeds = false;</code></pre>
+                  <!--/@dartpad_injector-->
+                  <details>
+  <summary title="Expand for a hint on the 'Putting it all together' exercise.">Hint</summary><p>  The <code>greetUser</code> and <code>sayGoodbye</code> functions should be asynchronous,
+  while <code>addHello</code> should be a normal, synchronous function.</p><p>  Remember: You can use a <a href="/language/error-handling#catch">try-catch statement</a>
+  to catch and handle errors.</p></details>
+                  <details>
+  <summary title="Expand for the solution of the 'Putting it all together' exercise.">Solution</summary><div class="code-block-wrapper language-dart"><div class="code-block-body"><span class="code-block-language" title="Language dart">dart</span><pre class="opal" tabindex="0"><code><span class="line"><span><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">String</span><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">addHello</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">String</span><span> </span><span>user</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">=&gt;</span><span> </span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">Hello </span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">$user</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span style="user-select: none; -webkit-user-select: none">​</span>
+</span><span class="line"><span><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">Future</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">&lt;</span><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">String</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">&gt;</span><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">greetUser</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">async</span><span> </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">{</span></span>
+</span><span class="line"><span><span>  </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">final</span><span> </span><span>username</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">=</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">await</span><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">fetchUsername</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span><span>  </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">return</span><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">addHello</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span>username</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">}</span></span>
+</span><span class="line"><span style="user-select: none; -webkit-user-select: none">​</span>
+</span><span class="line"><span><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">Future</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">&lt;</span><span style="color: rgba(20, 107, 205, 1.0); --opal-dark-color: rgba(107, 177, 255, 1.0);">String</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">&gt;</span><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">sayGoodbye</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">async</span><span> </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">{</span></span>
+</span><span class="line"><span><span>  </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">try</span><span> </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">{</span></span>
+</span><span class="line"><span><span>    </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">final</span><span> </span><span>result</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">=</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">await</span><span> </span><span style="color: rgba(98, 0, 238, 1.0); --opal-dark-color: rgba(181, 129, 255, 1.0);">logoutUser</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span><span>    </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">return</span><span> </span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">$result</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);"> Thanks, see you next time</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span><span>  </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">}</span><span> </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">catch</span><span> </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">(</span><span>e</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">)</span><span> </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">{</span></span>
+</span><span class="line"><span><span>    </span><span style="color: rgba(189, 35, 20, 1.0); --opal-dark-color: rgba(255, 137, 126, 1.0);">return</span><span> </span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">Failed to logout user: </span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">$e</span><span style="color: rgba(12, 112, 100, 1.0); --opal-dark-color: rgba(28, 218, 197, 1.0);">'</span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">;</span></span>
+</span><span class="line"><span><span>  </span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">}</span></span>
+</span><span class="line"><span><span style="color: rgba(25, 28, 34, 1.0); --opal-dark-color: rgba(220, 220, 220, 1.0);">}</span></span>
+</span></code></pre><!--@copy_button data={"buttonText":null,"toCopy":null,"classes":[],"title":"Copy code to clipboard"}--><button class="text-button icon-button copy-button hidden" title="Copy code to clipboard"><span class="material-symbols" aria-hidden="true" translate="no">content_copy</span></button><!--/@copy_button--></div></div></details>
+                  <div class="header-wrapper">
+                    <h2 id="which-lints-work-for-futures">Which lints work for futures?</h2>
+                    <a class="heading-link" href="#which-lints-work-for-futures" aria-label="Link to 'Which lints work for futures?' section">#</a>
+                  </div>
+                  <p>
+                    To catch common mistakes that arise while working with async and futures,
+                    <a href="/tools/analysis#individual-rules">enable</a> the following lints:
+                  </p>
+                  <ul>
+                    <li><a href="/tools/linter-rules/discarded_futures"><code>discarded_futures</code></a></li>
+                    <li><a href="/tools/linter-rules/unawaited_futures"><code>unawaited_futures</code></a></li>
+                  </ul>
+                  <div class="header-wrapper">
+                    <h2 id="whats-next">What's next?</h2>
+                    <a class="heading-link" href="#whats-next" aria-label="Link to 'What's next?' section">#</a>
+                  </div>
+                  <p>
+                    Congratulations, you've finished the tutorial! If you'd like to learn more, here
+                    are some suggestions for where to go next:
+                  </p>
+                  <ul>
+                    <li>Play with <a href="https://dartpad.dev">DartPad</a>.</li>
+                    <li>
+                      Learn more about futures and asynchronous code in Dart:<ul><li><a href="/libraries/async/using-streams">Streams tutorial</a>:
+                          Learn how to work with a sequence of asynchronous events.</li><li><a href="/language/concurrency">Concurrency in Dart</a>:
+                          Understand and learn how to implement concurrency in Dart.</li><li><a href="/language/async">Asynchronous programming</a>:
+                          Dive in to Dart's language and library support for asynchronous coding.</li><li><a href="https://www.youtube.com/playlist?list=PLjxrf2q8roU0Net_g1NT5_vOO3s_FR02J">Dart videos from Google</a>:
+                          Watch one or more of the videos about asynchronous coding.</li></ul>
+                    </li>
+                    <li>Get the <a href="/get-dart">Dart SDK</a>!</li>
+                  </ul>
+                </section>
+                <div id="trailing-content" data-nosnippet="true">
+                  <!--@feedback data={"issueUrl":"https://github.com/dart-lang/site-www/issues/new?template=1_page_issue.yml&amp;page-url=https://dart.dev/libraries/async/async-await&amp;page-source=https://github.com/dart-lang/site-www/blob/main/src/content/libraries/async/async-await.md"}-->
+                  <div id="page-feedback">
+                    <div class="feedback">
+                      <div>Was this page's content helpful?</div>
+                      <div class="feedback-buttons">
+                        <button class="text-button icon-button" title="Yes, this page was helpful."><span class="material-symbols" aria-hidden="true" translate="no">thumb_up</span></button>
+                        <button class="text-button icon-button" title="No, this page was not helpful or had an issue"><span class="material-symbols" aria-hidden="true" translate="no">thumb_down</span></button>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/@feedback-->
+                  <p id="page-github-links">
+                    <span>Unless stated otherwise, the documentation on this site reflects Dart 3.13.3. Page last updated on 2026-10-19. </span>
+                    <a target="_blank" rel="noopener" href="https://github.com/dart-lang/site-www/blob/main/src/content/libraries/async/async-await.md">View source</a>
+                    <span> or </span><a title="Report an issue with this page" target="_blank" rel="noopener" href="https://github.com/dart-lang/site-www/issues/new?template=1_page_issue.yml&amp;page-url=https://dart.dev/libraries/async/async-await&amp;page-source=https://github.com/dart-lang/site-www/blob/main/src/content/libraries/async/async-await.md">report an issue</a>.
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </main>
+      </div>
+      <footer id="page-footer" data-nosnippet="true">
+        <div class="footer-section footer-main">
+          <a class="brand" title="Dart" href="/"><img alt="Dart" width="164" src="/assets/img/logo/logo-white-text.svg"/></a>
+          <div class="footer-social-links">
+            <a rel="noopener" title="Dart's GitHub organization" href="https://github.com/dart-lang" target="_blank"><svg><use href="/assets/img/social/github.svg#github"></use></svg></a>
+            <a rel="noopener" title="Dart's Bluesky profile" href="https://bsky.app/profile/dart.dev" target="_blank"><svg><use href="/assets/img/social/bluesky.svg#bluesky"></use></svg></a>
+            <a rel="noopener" title="Dart's X (Twitter) profile" href="https://twitter.com/dart_lang" target="_blank"><svg><use href="/assets/img/social/x.svg#x"></use></svg></a>
+          </div>
+        </div>
+        <div class="footer-section footer-tray">
+          <div class="footer-licenses">
+            Except as otherwise noted, this site is licensed under a 
+            <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License,</a>
+             and code samples are licensed under the 
+            <a href="https://opensource.org/licenses/BSD-3-Clause">3-Clause BSD License.</a>
+          </div>
+          <div class="footer-utility-links">
+            <ul>
+              <li><a title="Terms of use" href="/terms">Terms</a></li>
+              <li>
+                <a rel="noopener" title="Privacy policy" href="https://policies.google.com/privacy" target="_blank">Privacy</a>
+              </li>
+              <li><a title="Security philosophy and practices" href="/security">Security</a></li>
+            </ul>
+            <div class="footer-technology">
+              <a class="jaspr-badge-link" rel="noopener" title="This site is built with the Jaspr web framework for Dart." href="https://jaspr.site" target="_blank">
+                <span><svg fill="none" viewBox="0 0 106 40" width="106px" height="40px"><rect rx="10" width="106" height="40" fill="#F5F5F5"></rect><path stroke-linejoin="round" d="M14.8115 26.0483C14.8115 26.0483 16.5768 27.9534 18.269 29.3852L21.4834 25.4226L22.5262 26.0483C23.9862 23.5455 22.3041 22.096 22.3041 22.096C24.1264 21.8356 23.7359 19.1022 23.7359 19.1022C22.8248 18.0608 22.6946 17.0195 22.8248 16.3687C22.9454 15.8288 22.754 15.2687 22.5644 14.9368L23.7359 13.6352L24.6139 13.7432C24.6139 11.6576 21.2503 10.6148 20.8598 10.6148C20.4693 10.6148 19.4404 11.4224 19.1801 12.3335L16.0561 12.5939C15.6458 8.11202 9.46732 13.0672 9.59749 14.3689L10.6403 13.9517L12.021 15.848C9.93835 17.41 9.59748 20.8342 9.59748 20.8342L11.3702 20.534C10.459 22.3563 10.7193 24.4389 10.7193 24.4389L12.3088 23.7541C12.439 25.4463 13.7687 27.2996 13.7687 27.2996L14.8115 26.0483Z" stroke="#0E1117" stroke-width="1.25"></path><path stroke-linejoin="round" d="M16.0558 12.5941C15.4049 12.5941 15.0197 13.1178 13.9769 14.3691C12.9341 15.6205 13.4524 15.4578 11.6301 16.1086" stroke="#0E1117" stroke-width="1.25"></path><path stroke-linejoin="round" d="M19.1799 12.3338C20.2213 12.5941 21.6531 13.3751 22.5642 14.9371" stroke="#0E1117" stroke-width="1.25"></path><path stroke-linejoin="round" d="M11.3701 20.5339C11.3701 20.5339 12.1511 19.1021 13.8433 18.3211C12.0209 19.1021 11.3701 20.5339 11.3701 20.5339Z" stroke="#0E1117" stroke-width="1.25"></path><path d="M21.5648 18.9821C21.5648 18.9821 20.0028 18.7218 20.2632 19.8933C20.5813 21.3251 22.7363 20.6743 22.6061 19.7631C22.6061 18.9821 21.5648 18.9821 21.5648 18.9821Z" fill="#0E1117"></path><path stroke-linejoin="round" d="M22.4341 22.0961C21.2626 22.0961 18.9826 22.2943 17.7312 21.46C19.1891 22.7114 23.3603 21.0429 22.9432 24.797C23.3603 23.1285 22.5281 22.5028 22.4341 22.0961Z" stroke="#0E1117" stroke-width="1.25"></path><path d="M48.6833 14.4545H51.7231V24.5966C51.7231 25.5341 51.5124 26.3485 51.091 27.0398C50.6743 27.7311 50.0943 28.2637 49.3509 28.6378C48.6075 29.0118 47.7434 29.1989 46.7586 29.1989C45.8826 29.1989 45.0872 29.045 44.3722 28.7372C43.662 28.4247 43.0985 27.9512 42.6819 27.3168C42.2652 26.6776 42.0592 25.875 42.064 24.9091H45.125C45.1345 25.2926 45.2126 25.6217 45.3594 25.8963C45.5109 26.1662 45.7169 26.3745 45.9773 26.5213C46.2425 26.6634 46.555 26.7344 46.9148 26.7344C47.2936 26.7344 47.6132 26.6539 47.8736 26.4929C48.1388 26.3272 48.34 26.0857 48.4773 25.7685C48.6146 25.4512 48.6833 25.0606 48.6833 24.5966V14.4545ZM57.3196 29.206C56.6236 29.206 56.0034 29.0852 55.4589 28.8438C54.9143 28.5975 54.4835 28.2353 54.1662 27.7571C53.8537 27.2741 53.6975 26.6728 53.6975 25.9531C53.6975 25.3471 53.8088 24.8381 54.0313 24.4261C54.2538 24.0142 54.5569 23.6828 54.9404 23.4318C55.3239 23.1809 55.7595 22.9915 56.2472 22.8636C56.7396 22.7358 57.2557 22.6458 57.7955 22.5938C58.43 22.5275 58.9413 22.4659 59.3296 22.4091C59.7178 22.3475 59.9996 22.2576 60.1748 22.1392C60.35 22.0208 60.4375 21.8456 60.4375 21.6136V21.571C60.4375 21.1212 60.2955 20.7732 60.0114 20.527C59.7321 20.2808 59.3343 20.1577 58.8182 20.1577C58.2737 20.1577 57.8405 20.2784 57.5185 20.5199C57.1965 20.7566 56.9835 21.0549 56.8793 21.4148L54.081 21.1875C54.2231 20.5246 54.5024 19.9517 54.9191 19.4688C55.3357 18.9811 55.8732 18.607 56.5313 18.3466C57.1942 18.0814 57.9612 17.9489 58.8324 17.9489C59.4385 17.9489 60.0185 18.0199 60.5725 18.1619C61.1312 18.304 61.626 18.5241 62.0569 18.8224C62.4925 19.1207 62.8357 19.5043 63.0867 19.973C63.3376 20.437 63.4631 20.9934 63.4631 21.642V29H60.5938V27.4872H60.5086C60.3334 27.8281 60.099 28.1288 59.8054 28.3892C59.5119 28.6449 59.1591 28.8461 58.7472 28.9929C58.3353 29.1349 57.8594 29.206 57.3196 29.206ZM58.1861 27.1179C58.6312 27.1179 59.0242 27.0303 59.3651 26.8551C59.706 26.6752 59.9735 26.4337 60.1677 26.1307C60.3618 25.8277 60.4589 25.4844 60.4589 25.1009V23.9432C60.3642 24.0047 60.2339 24.0616 60.0682 24.1136C59.9072 24.161 59.725 24.206 59.5214 24.2486C59.3178 24.2865 59.1142 24.322 58.9106 24.3551C58.707 24.3835 58.5223 24.4096 58.3566 24.4332C58.0015 24.4853 57.6913 24.5682 57.4262 24.6818C57.161 24.7955 56.9551 24.9493 56.8083 25.1435C56.6615 25.3329 56.5881 25.5696 56.5881 25.8537C56.5881 26.2656 56.7373 26.5805 57.0356 26.7983C57.3386 27.0114 57.7221 27.1179 58.1861 27.1179ZM74.8871 21.2017L72.1172 21.3722C72.0699 21.1354 71.9681 20.9223 71.8118 20.733C71.6556 20.5388 71.4496 20.3849 71.1939 20.2713C70.943 20.1529 70.6423 20.0938 70.2919 20.0938C69.8232 20.0938 69.4278 20.1932 69.1059 20.392C68.7839 20.5862 68.6229 20.8466 68.6229 21.1733C68.6229 21.4337 68.7271 21.6539 68.9354 21.8338C69.1437 22.0137 69.5012 22.1581 70.0079 22.267L71.9823 22.6648C73.0429 22.8826 73.8336 23.233 74.3544 23.7159C74.8753 24.1989 75.1357 24.8333 75.1357 25.6193C75.1357 26.3343 74.925 26.9616 74.5036 27.5014C74.0869 28.0412 73.514 28.4626 72.7848 28.7656C72.0604 29.0639 71.2247 29.2131 70.2777 29.2131C68.8336 29.2131 67.683 28.9124 66.826 28.3111C65.9738 27.705 65.4742 26.8812 65.3275 25.8395L68.3033 25.6832C68.3933 26.1236 68.6111 26.4598 68.9567 26.6918C69.3024 26.919 69.7451 27.0327 70.2848 27.0327C70.8151 27.0327 71.2413 26.9309 71.5633 26.7273C71.89 26.5189 72.0557 26.2514 72.0604 25.9247C72.0557 25.6501 71.9397 25.4252 71.7124 25.25C71.4851 25.0701 71.1348 24.9328 70.6613 24.8381L68.7721 24.4616C67.7067 24.2486 66.9136 23.8793 66.3928 23.3537C65.8767 22.8281 65.6187 22.1581 65.6187 21.3438C65.6187 20.643 65.808 20.0393 66.1868 19.5327C66.5704 19.026 67.1078 18.6354 67.7991 18.3608C68.4951 18.0862 69.3095 17.9489 70.2422 17.9489C71.6201 17.9489 72.7044 18.2401 73.4951 18.8224C74.2905 19.4048 74.7545 20.1979 74.8871 21.2017ZM77.0409 33.0909V18.0909H80.0238V19.9233H80.1588C80.2914 19.6297 80.4831 19.3314 80.7341 19.0284C80.9897 18.7206 81.3212 18.465 81.7284 18.2614C82.1403 18.053 82.6517 17.9489 83.2625 17.9489C84.0579 17.9489 84.7918 18.1572 85.4642 18.5739C86.1365 18.9858 86.6739 19.6084 87.0764 20.4418C87.4789 21.2704 87.6801 22.3097 87.6801 23.5597C87.6801 24.7765 87.4836 25.804 87.0906 26.642C86.7023 27.4754 86.172 28.1075 85.4997 28.5384C84.8321 28.9645 84.084 29.1776 83.2554 29.1776C82.6682 29.1776 82.1687 29.0805 81.7568 28.8864C81.3496 28.6922 81.0158 28.4484 80.7554 28.1548C80.495 27.8565 80.2961 27.5559 80.1588 27.2528H80.0665V33.0909H77.0409ZM80.0025 23.5455C80.0025 24.1941 80.0925 24.7599 80.2724 25.2429C80.4523 25.7259 80.7128 26.1023 81.0537 26.3722C81.3946 26.6373 81.8089 26.7699 82.2966 26.7699C82.789 26.7699 83.2057 26.6349 83.5466 26.3651C83.8875 26.0904 84.1455 25.7116 84.3207 25.2287C84.5006 24.741 84.5906 24.1799 84.5906 23.5455C84.5906 22.9157 84.503 22.3617 84.3278 21.8835C84.1526 21.4053 83.8946 21.0312 83.5537 20.7614C83.2128 20.4915 82.7937 20.3565 82.2966 20.3565C81.8041 20.3565 81.3875 20.4867 81.0466 20.7472C80.7104 21.0076 80.4523 21.3769 80.2724 21.8551C80.0925 22.3333 80.0025 22.8968 80.0025 23.5455ZM89.6971 29V18.0909H92.6304V19.9943H92.744C92.9429 19.3172 93.2767 18.8059 93.7454 18.4602C94.2142 18.1098 94.754 17.9347 95.3647 17.9347C95.5163 17.9347 95.6796 17.9441 95.8548 17.9631C96.03 17.982 96.1839 18.008 96.3165 18.0412V20.7259C96.1744 20.6832 95.9779 20.6454 95.727 20.6122C95.476 20.5791 95.2464 20.5625 95.038 20.5625C94.593 20.5625 94.1952 20.6596 93.8449 20.8537C93.4992 21.0431 93.2246 21.3082 93.021 21.6491C92.8221 21.9901 92.7227 22.383 92.7227 22.8281V29H89.6971Z" fill="#0E1117"></path><path d="M56.9197 14V7.45455H59.3167C59.7812 7.45455 60.1658 7.53125 60.4705 7.68466C60.7752 7.83594 61.0032 8.04155 61.1545 8.30149C61.3057 8.5593 61.3814 8.85014 61.3814 9.17401C61.3814 9.44673 61.3313 9.67685 61.2312 9.86435C61.131 10.0497 60.9968 10.1989 60.8285 10.3118C60.6623 10.4226 60.479 10.5036 60.2787 10.5547V10.6186C60.4961 10.6293 60.7081 10.6996 60.9147 10.8295C61.1236 10.9574 61.2961 11.1396 61.4325 11.3761C61.5689 11.6126 61.637 11.9002 61.637 12.239C61.637 12.5735 61.5582 12.8739 61.4005 13.1403C61.245 13.4045 61.0042 13.6143 60.6782 13.7699C60.3522 13.9233 59.9357 14 59.4286 14H56.9197ZM57.9073 13.1531H59.3327C59.8057 13.1531 60.1445 13.0614 60.3491 12.8782C60.5536 12.695 60.6559 12.4659 60.6559 12.1911C60.6559 11.9844 60.6037 11.7947 60.4993 11.6222C60.3949 11.4496 60.2457 11.3121 60.0518 11.2099C59.8601 11.1076 59.6321 11.0565 59.3679 11.0565H57.9073V13.1531ZM57.9073 10.2862H59.2304C59.452 10.2862 59.6513 10.2436 59.8281 10.1584C60.0071 10.0732 60.1488 9.95384 60.2532 9.80043C60.3597 9.64489 60.413 9.46165 60.413 9.25071C60.413 8.98011 60.3182 8.7532 60.1285 8.56996C59.9389 8.38672 59.6481 8.2951 59.256 8.2951H57.9073V10.2862ZM65.8414 11.9641V9.09091H66.8002V14H65.8606V13.1499H65.8095C65.6965 13.4119 65.5154 13.6303 65.2661 13.805C65.019 13.9776 64.7111 14.0639 64.3425 14.0639C64.0271 14.0639 63.748 13.9947 63.5051 13.8562C63.2644 13.7156 63.0747 13.5078 62.9362 13.233C62.7999 12.9581 62.7317 12.6183 62.7317 12.2134V9.09091H63.6873V12.0984C63.6873 12.4329 63.78 12.6992 63.9654 12.8974C64.1507 13.0955 64.3915 13.1946 64.6877 13.1946C64.8666 13.1946 65.0445 13.1499 65.2214 13.0604C65.4004 12.9709 65.5484 12.8356 65.6656 12.6545C65.785 12.4734 65.8435 12.2433 65.8414 11.9641ZM68.0842 14V9.09091H69.0398V14H68.0842ZM68.5668 8.33345C68.4006 8.33345 68.2579 8.27805 68.1386 8.16726C68.0214 8.05433 67.9628 7.9201 67.9628 7.76456C67.9628 7.60689 68.0214 7.47266 68.1386 7.36186C68.2579 7.24893 68.4006 7.19247 68.5668 7.19247C68.733 7.19247 68.8747 7.24893 68.9919 7.36186C69.1112 7.47266 69.1709 7.60689 69.1709 7.76456C69.1709 7.9201 69.1112 8.05433 68.9919 8.16726C68.8747 8.27805 68.733 8.33345 68.5668 8.33345ZM71.281 7.45455V14H70.3254V7.45455H71.281ZM74.8582 9.09091V9.85795H72.1767V9.09091H74.8582ZM72.8958 7.91477H73.8514V12.5586C73.8514 12.744 73.8791 12.8835 73.9345 12.9773C73.9899 13.0689 74.0613 13.1317 74.1487 13.1658C74.2382 13.1978 74.3351 13.2138 74.4395 13.2138C74.5162 13.2138 74.5833 13.2085 74.6409 13.1978C74.6984 13.1871 74.7431 13.1786 74.7751 13.1722L74.9477 13.9616C74.8923 13.983 74.8135 14.0043 74.7112 14.0256C74.6089 14.049 74.4811 14.0618 74.3277 14.0639C74.0762 14.0682 73.8419 14.0234 73.6245 13.9297C73.4072 13.8359 73.2314 13.6911 73.0972 13.495C72.963 13.299 72.8958 13.0529 72.8958 12.7567V7.91477ZM79.3614 14L77.9168 9.09091H78.9044L79.8664 12.696H79.9143L80.8795 9.09091H81.8671L82.8259 12.68H82.8738L83.8294 9.09091H84.817L83.3756 14H82.4008L81.4037 10.4556H81.3301L80.333 14H79.3614ZM85.7239 14V9.09091H86.6795V14H85.7239ZM86.2065 8.33345C86.0403 8.33345 85.8975 8.27805 85.7782 8.16726C85.661 8.05433 85.6024 7.9201 85.6024 7.76456C85.6024 7.60689 85.661 7.47266 85.7782 7.36186C85.8975 7.24893 86.0403 7.19247 86.2065 7.19247C86.3727 7.19247 86.5144 7.24893 86.6315 7.36186C86.7509 7.47266 86.8105 7.60689 86.8105 7.76456C86.8105 7.9201 86.7509 8.05433 86.6315 8.16726C86.5144 8.27805 86.3727 8.33345 86.2065 8.33345ZM90.2566 9.09091V9.85795H87.5752V9.09091H90.2566ZM88.2943 7.91477H89.2499V12.5586C89.2499 12.744 89.2776 12.8835 89.333 12.9773C89.3884 13.0689 89.4598 13.1317 89.5471 13.1658C89.6366 13.1978 89.7336 13.2138 89.838 13.2138C89.9147 13.2138 89.9818 13.2085 90.0393 13.1978C90.0968 13.1871 90.1416 13.1786 90.1735 13.1722L90.3461 13.9616C90.2907 13.983 90.2119 14.0043 90.1096 14.0256C90.0073 14.049 89.8795 14.0618 89.7261 14.0639C89.4747 14.0682 89.2403 14.0234 89.023 13.9297C88.8056 13.8359 88.6299 13.6911 88.4956 13.495C88.3614 13.299 88.2943 13.0529 88.2943 12.7567V7.91477ZM92.3748 11.0852V14H91.4192V7.45455H92.362V9.88991H92.4227C92.5378 9.62571 92.7136 9.41584 92.9501 9.2603C93.1866 9.10476 93.4955 9.02699 93.8769 9.02699C94.2136 9.02699 94.5076 9.09624 94.759 9.23473C95.0126 9.37322 95.2086 9.5799 95.3471 9.85476C95.4877 10.1275 95.558 10.4684 95.558 10.8775V14H94.6024V10.9925C94.6024 10.6325 94.5097 10.3533 94.3244 10.1552C94.139 9.9549 93.8812 9.85476 93.5509 9.85476C93.3251 9.85476 93.1227 9.9027 92.9437 9.99858C92.7668 10.0945 92.6273 10.2351 92.525 10.4205C92.4249 10.6037 92.3748 10.8253 92.3748 11.0852Z" fill="#0E1117"></path></svg></span>
+                <span><svg fill="none" viewBox="0 0 106 40" width="106px" height="40px"><rect rx="10" width="106" height="40" fill="#F5F5F5"></rect><path stroke-linejoin="round" d="M14.8115 26.0483C14.8115 26.0483 16.5768 27.9534 18.269 29.3852L21.4834 25.4226L22.5262 26.0483C23.9862 23.5455 22.3041 22.096 22.3041 22.096C24.1264 21.8356 23.7359 19.1022 23.7359 19.1022C22.8248 18.0608 22.6946 17.0195 22.8248 16.3687C22.9454 15.8288 22.754 15.2687 22.5644 14.9368L23.7359 13.6352L24.6139 13.7432C24.6139 11.6576 21.2503 10.6148 20.8598 10.6148C20.4693 10.6148 19.4404 11.4224 19.1801 12.3335L16.0561 12.5939C15.6458 8.11202 9.46732 13.0672 9.59749 14.3689L10.6403 13.9517L12.021 15.848C9.93835 17.41 9.59748 20.8342 9.59748 20.8342L11.3702 20.534C10.459 22.3563 10.7193 24.4389 10.7193 24.4389L12.3088 23.7541C12.439 25.4463 13.7687 27.2996 13.7687 27.2996L14.8115 26.0483Z" stroke="#0066B4" stroke-width="1.25"></path><path stroke-linejoin="round" d="M16.0558 12.5941C15.4049 12.5941 15.0197 13.1178 13.9769 14.3691C12.9341 15.6205 13.4524 15.4578 11.6301 16.1086" stroke="#0066B4" stroke-width="1.25"></path><path stroke-linejoin="round" d="M19.1799 12.3338C20.2213 12.5941 21.6531 13.3751 22.5642 14.9371" stroke="#0066B4" stroke-width="1.25"></path><path stroke-linejoin="round" d="M11.3701 20.5339C11.3701 20.5339 12.1511 19.1021 13.8433 18.3211C12.0209 19.1021 11.3701 20.5339 11.3701 20.5339Z" stroke="#0066B4" stroke-width="1.25"></path><path d="M21.5648 18.9821C21.5648 18.9821 20.0028 18.7218 20.2632 19.8933C20.5813 21.3251 22.7363 20.6743 22.6061 19.7631C22.6061 18.9821 21.5648 18.9821 21.5648 18.9821Z" fill="#0066B4"></path><path stroke-linejoin="round" d="M22.4341 22.0961C21.2626 22.0961 18.9826 22.2943 17.7312 21.46C19.1891 22.7114 23.3603 21.0429 22.9432 24.797C23.3603 23.1285 22.5281 22.5028 22.4341 22.0961Z" stroke="#0066B4" stroke-width="1.25"></path><path d="M48.6833 14.4545H51.7231V24.5966C51.7231 25.5341 51.5124 26.3485 51.091 27.0398C50.6743 27.7311 50.0943 28.2637 49.3509 28.6378C48.6075 29.0118 47.7434 29.1989 46.7586 29.1989C45.8826 29.1989 45.0872 29.045 44.3722 28.7372C43.662 28.4247 43.0985 27.9512 42.6819 27.3168C42.2652 26.6776 42.0592 25.875 42.064 24.9091H45.125C45.1345 25.2926 45.2126 25.6217 45.3594 25.8963C45.5109 26.1662 45.7169 26.3745 45.9773 26.5213C46.2425 26.6634 46.555 26.7344 46.9148 26.7344C47.2936 26.7344 47.6132 26.6539 47.8736 26.4929C48.1388 26.3272 48.34 26.0857 48.4773 25.7685C48.6146 25.4512 48.6833 25.0606 48.6833 24.5966V14.4545ZM57.3196 29.206C56.6236 29.206 56.0034 29.0852 55.4589 28.8438C54.9143 28.5975 54.4835 28.2353 54.1662 27.7571C53.8537 27.2741 53.6975 26.6728 53.6975 25.9531C53.6975 25.3471 53.8088 24.8381 54.0313 24.4261C54.2538 24.0142 54.5569 23.6828 54.9404 23.4318C55.3239 23.1809 55.7595 22.9915 56.2472 22.8636C56.7396 22.7358 57.2557 22.6458 57.7955 22.5938C58.43 22.5275 58.9413 22.4659 59.3296 22.4091C59.7178 22.3475 59.9996 22.2576 60.1748 22.1392C60.35 22.0208 60.4375 21.8456 60.4375 21.6136V21.571C60.4375 21.1212 60.2955 20.7732 60.0114 20.527C59.7321 20.2808 59.3343 20.1577 58.8182 20.1577C58.2737 20.1577 57.8405 20.2784 57.5185 20.5199C57.1965 20.7566 56.9835 21.0549 56.8793 21.4148L54.081 21.1875C54.2231 20.5246 54.5024 19.9517 54.9191 19.4688C55.3357 18.9811 55.8732 18.607 56.5313 18.3466C57.1942 18.0814 57.9612 17.9489 58.8324 17.9489C59.4385 17.9489 60.0185 18.0199 60.5725 18.1619C61.1312 18.304 61.626 18.5241 62.0569 18.8224C62.4925 19.1207 62.8357 19.5043 63.0867 19.973C63.3376 20.437 63.4631 20.9934 63.4631 21.642V29H60.5938V27.4872H60.5086C60.3334 27.8281 60.099 28.1288 59.8054 28.3892C59.5119 28.6449 59.1591 28.8461 58.7472 28.9929C58.3353 29.1349 57.8594 29.206 57.3196 29.206ZM58.1861 27.1179C58.6312 27.1179 59.0242 27.0303 59.3651 26.8551C59.706 26.6752 59.9735 26.4337 60.1677 26.1307C60.3618 25.8277 60.4589 25.4844 60.4589 25.1009V23.9432C60.3642 24.0047 60.2339 24.0616 60.0682 24.1136C59.9072 24.161 59.725 24.206 59.5214 24.2486C59.3178 24.2865 59.1142 24.322 58.9106 24.3551C58.707 24.3835 58.5223 24.4096 58.3566 24.4332C58.0015 24.4853 57.6913 24.5682 57.4262 24.6818C57.161 24.7955 56.9551 24.9493 56.8083 25.1435C56.6615 25.3329 56.5881 25.5696 56.5881 25.8537C56.5881 26.2656 56.7373 26.5805 57.0356 26.7983C57.3386 27.0114 57.7221 27.1179 58.1861 27.1179ZM74.8871 21.2017L72.1172 21.3722C72.0699 21.1354 71.9681 20.9223 71.8118 20.733C71.6556 20.5388 71.4496 20.3849 71.1939 20.2713C70.943 20.1529 70.6423 20.0938 70.2919 20.0938C69.8232 20.0938 69.4278 20.1932 69.1059 20.392C68.7839 20.5862 68.6229 20.8466 68.6229 21.1733C68.6229 21.4337 68.7271 21.6539 68.9354 21.8338C69.1437 22.0137 69.5012 22.1581 70.0079 22.267L71.9823 22.6648C73.0429 22.8826 73.8336 23.233 74.3544 23.7159C74.8753 24.1989 75.1357 24.8333 75.1357 25.6193C75.1357 26.3343 74.925 26.9616 74.5036 27.5014C74.0869 28.0412 73.514 28.4626 72.7848 28.7656C72.0604 29.0639 71.2247 29.2131 70.2777 29.2131C68.8336 29.2131 67.683 28.9124 66.826 28.3111C65.9738 27.705 65.4742 26.8812 65.3275 25.8395L68.3033 25.6832C68.3933 26.1236 68.6111 26.4598 68.9567 26.6918C69.3024 26.919 69.7451 27.0327 70.2848 27.0327C70.8151 27.0327 71.2413 26.9309 71.5633 26.7273C71.89 26.5189 72.0557 26.2514 72.0604 25.9247C72.0557 25.6501 71.9397 25.4252 71.7124 25.25C71.4851 25.0701 71.1348 24.9328 70.6613 24.8381L68.7721 24.4616C67.7067 24.2486 66.9136 23.8793 66.3928 23.3537C65.8767 22.8281 65.6187 22.1581 65.6187 21.3438C65.6187 20.643 65.808 20.0393 66.1868 19.5327C66.5704 19.026 67.1078 18.6354 67.7991 18.3608C68.4951 18.0862 69.3095 17.9489 70.2422 17.9489C71.6201 17.9489 72.7044 18.2401 73.4951 18.8224C74.2905 19.4048 74.7545 20.1979 74.8871 21.2017ZM77.0409 33.0909V18.0909H80.0238V19.9233H80.1588C80.2914 19.6297 80.4831 19.3314 80.7341 19.0284C80.9897 18.7206 81.3212 18.465 81.7284 18.2614C82.1403 18.053 82.6517 17.9489 83.2625 17.9489C84.0579 17.9489 84.7918 18.1572 85.4642 18.5739C86.1365 18.9858 86.6739 19.6084 87.0764 20.4418C87.4789 21.2704 87.6801 22.3097 87.6801 23.5597C87.6801 24.7765 87.4836 25.804 87.0906 26.642C86.7023 27.4754 86.172 28.1075 85.4997 28.5384C84.8321 28.9645 84.084 29.1776 83.2554 29.1776C82.6682 29.1776 82.1687 29.0805 81.7568 28.8864C81.3496 28.6922 81.0158 28.4484 80.7554 28.1548C80.495 27.8565 80.2961 27.5559 80.1588 27.2528H80.0665V33.0909H77.0409ZM80.0025 23.5455C80.0025 24.1941 80.0925 24.7599 80.2724 25.2429C80.4523 25.7259 80.7128 26.1023 81.0537 26.3722C81.3946 26.6373 81.8089 26.7699 82.2966 26.7699C82.789 26.7699 83.2057 26.6349 83.5466 26.3651C83.8875 26.0904 84.1455 25.7116 84.3207 25.2287C84.5006 24.741 84.5906 24.1799 84.5906 23.5455C84.5906 22.9157 84.503 22.3617 84.3278 21.8835C84.1526 21.4053 83.8946 21.0312 83.5537 20.7614C83.2128 20.4915 82.7937 20.3565 82.2966 20.3565C81.8041 20.3565 81.3875 20.4867 81.0466 20.7472C80.7104 21.0076 80.4523 21.3769 80.2724 21.8551C80.0925 22.3333 80.0025 22.8968 80.0025 23.5455ZM89.6971 29V18.0909H92.6304V19.9943H92.744C92.9429 19.3172 93.2767 18.8059 93.7454 18.4602C94.2142 18.1098 94.754 17.9347 95.3647 17.9347C95.5163 17.9347 95.6796 17.9441 95.8548 17.9631C96.03 17.982 96.1839 18.008 96.3165 18.0412V20.7259C96.1744 20.6832 95.9779 20.6454 95.727 20.6122C95.476 20.5791 95.2464 20.5625 95.038 20.5625C94.593 20.5625 94.1952 20.6596 93.8449 20.8537C93.4992 21.0431 93.2246 21.3082 93.021 21.6491C92.8221 21.9901 92.7227 22.383 92.7227 22.8281V29H89.6971Z" fill="#0E1117"></path><path d="M56.9197 14V7.45455H59.3167C59.7812 7.45455 60.1658 7.53125 60.4705 7.68466C60.7752 7.83594 61.0032 8.04155 61.1545 8.30149C61.3057 8.5593 61.3814 8.85014 61.3814 9.17401C61.3814 9.44673 61.3313 9.67685 61.2312 9.86435C61.131 10.0497 60.9968 10.1989 60.8285 10.3118C60.6623 10.4226 60.479 10.5036 60.2787 10.5547V10.6186C60.4961 10.6293 60.7081 10.6996 60.9147 10.8295C61.1236 10.9574 61.2961 11.1396 61.4325 11.3761C61.5689 11.6126 61.637 11.9002 61.637 12.239C61.637 12.5735 61.5582 12.8739 61.4005 13.1403C61.245 13.4045 61.0042 13.6143 60.6782 13.7699C60.3522 13.9233 59.9357 14 59.4286 14H56.9197ZM57.9073 13.1531H59.3327C59.8057 13.1531 60.1445 13.0614 60.3491 12.8782C60.5536 12.695 60.6559 12.4659 60.6559 12.1911C60.6559 11.9844 60.6037 11.7947 60.4993 11.6222C60.3949 11.4496 60.2457 11.3121 60.0518 11.2099C59.8601 11.1076 59.6321 11.0565 59.3679 11.0565H57.9073V13.1531ZM57.9073 10.2862H59.2304C59.452 10.2862 59.6513 10.2436 59.8281 10.1584C60.0071 10.0732 60.1488 9.95384 60.2532 9.80043C60.3597 9.64489 60.413 9.46165 60.413 9.25071C60.413 8.98011 60.3182 8.7532 60.1285 8.56996C59.9389 8.38672 59.6481 8.2951 59.256 8.2951H57.9073V10.2862ZM65.8414 11.9641V9.09091H66.8002V14H65.8606V13.1499H65.8095C65.6965 13.4119 65.5154 13.6303 65.2661 13.805C65.019 13.9776 64.7111 14.0639 64.3425 14.0639C64.0271 14.0639 63.748 13.9947 63.5051 13.8562C63.2644 13.7156 63.0747 13.5078 62.9362 13.233C62.7999 12.9581 62.7317 12.6183 62.7317 12.2134V9.09091H63.6873V12.0984C63.6873 12.4329 63.78 12.6992 63.9654 12.8974C64.1507 13.0955 64.3915 13.1946 64.6877 13.1946C64.8666 13.1946 65.0445 13.1499 65.2214 13.0604C65.4004 12.9709 65.5484 12.8356 65.6656 12.6545C65.785 12.4734 65.8435 12.2433 65.8414 11.9641ZM68.0842 14V9.09091H69.0398V14H68.0842ZM68.5668 8.33345C68.4006 8.33345 68.2579 8.27805 68.1386 8.16726C68.0214 8.05433 67.9628 7.9201 67.9628 7.76456C67.9628 7.60689 68.0214 7.47266 68.1386 7.36186C68.2579 7.24893 68.4006 7.19247 68.5668 7.19247C68.733 7.19247 68.8747 7.24893 68.9919 7.36186C69.1112 7.47266 69.1709 7.60689 69.1709 7.76456C69.1709 7.9201 69.1112 8.05433 68.9919 8.16726C68.8747 8.27805 68.733 8.33345 68.5668 8.33345ZM71.281 7.45455V14H70.3254V7.45455H71.281ZM74.8582 9.09091V9.85795H72.1767V9.09091H74.8582ZM72.8958 7.91477H73.8514V12.5586C73.8514 12.744 73.8791 12.8835 73.9345 12.9773C73.9899 13.0689 74.0613 13.1317 74.1487 13.1658C74.2382 13.1978 74.3351 13.2138 74.4395 13.2138C74.5162 13.2138 74.5833 13.2085 74.6409 13.1978C74.6984 13.1871 74.7431 13.1786 74.7751 13.1722L74.9477 13.9616C74.8923 13.983 74.8135 14.0043 74.7112 14.0256C74.6089 14.049 74.4811 14.0618 74.3277 14.0639C74.0762 14.0682 73.8419 14.0234 73.6245 13.9297C73.4072 13.8359 73.2314 13.6911 73.0972 13.495C72.963 13.299 72.8958 13.0529 72.8958 12.7567V7.91477ZM79.3614 14L77.9168 9.09091H78.9044L79.8664 12.696H79.9143L80.8795 9.09091H81.8671L82.8259 12.68H82.8738L83.8294 9.09091H84.817L83.3756 14H82.4008L81.4037 10.4556H81.3301L80.333 14H79.3614ZM85.7239 14V9.09091H86.6795V14H85.7239ZM86.2065 8.33345C86.0403 8.33345 85.8975 8.27805 85.7782 8.16726C85.661 8.05433 85.6024 7.9201 85.6024 7.76456C85.6024 7.60689 85.661 7.47266 85.7782 7.36186C85.8975 7.24893 86.0403 7.19247 86.2065 7.19247C86.3727 7.19247 86.5144 7.24893 86.6315 7.36186C86.7509 7.47266 86.8105 7.60689 86.8105 7.76456C86.8105 7.9201 86.7509 8.05433 86.6315 8.16726C86.5144 8.27805 86.3727 8.33345 86.2065 8.33345ZM90.2566 9.09091V9.85795H87.5752V9.09091H90.2566ZM88.2943 7.91477H89.2499V12.5586C89.2499 12.744 89.2776 12.8835 89.333 12.9773C89.3884 13.0689 89.4598 13.1317 89.5471 13.1658C89.6366 13.1978 89.7336 13.2138 89.838 13.2138C89.9147 13.2138 89.9818 13.2085 90.0393 13.1978C90.0968 13.1871 90.1416 13.1786 90.1735 13.1722L90.3461 13.9616C90.2907 13.983 90.2119 14.0043 90.1096 14.0256C90.0073 14.049 89.8795 14.0618 89.7261 14.0639C89.4747 14.0682 89.2403 14.0234 89.023 13.9297C88.8056 13.8359 88.6299 13.6911 88.4956 13.495C88.3614 13.299 88.2943 13.0529 88.2943 12.7567V7.91477ZM92.3748 11.0852V14H91.4192V7.45455H92.362V9.88991H92.4227C92.5378 9.62571 92.7136 9.41584 92.9501 9.2603C93.1866 9.10476 93.4955 9.02699 93.8769 9.02699C94.2136 9.02699 94.5076 9.09624 94.759 9.23473C95.0126 9.37322 95.2086 9.5799 95.3471 9.85476C95.4877 10.1275 95.558 10.4684 95.558 10.8775V14H94.6024V10.9925C94.6024 10.6325 94.5097 10.3533 94.3244 10.1552C94.139 9.9549 93.8812 9.85476 93.5509 9.85476C93.3251 9.85476 93.1227 9.9027 92.9437 9.99858C92.7668 10.0945 92.6273 10.2351 92.525 10.4205C92.4249 10.6037 92.3748 10.8253 92.3748 11.0852Z" fill="#0E1117"></path></svg></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

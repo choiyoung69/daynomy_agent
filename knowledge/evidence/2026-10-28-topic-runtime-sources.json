@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-28T07:17:50.259041+00:00",
+  "collector": {
+    "path": "scripts/knowledge_sources.py",
+    "sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+  },
+  "results": [
+    {
+      "source_id": "E57",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E57/ddda0da89a60bae92ab8dd3a054cb54e01cdbea6707c138b2206295ab491afc3.html",
+        "sha256": "ddda0da89a60bae92ab8dd3a054cb54e01cdbea6707c138b2206295ab491afc3",
+        "bytes": 295153,
+        "media_type": "text/html",
+        "retrieved_url": "https://developer.android.com/privacy-and-security/risks/insecure-webview-native-bridges",
+        "retrieved_at": "2026-10-28T07:17:51.445251+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E58",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E58/60f8aa968177b7501ac6c3f368a4ab03e1c3c40f256b0a992a2fba6c89266fa5.html",
+        "sha256": "60f8aa968177b7501ac6c3f368a4ab03e1c3c40f256b0a992a2fba6c89266fa5",
+        "bytes": 81729,
+        "media_type": "text/html",
+        "retrieved_url": "https://docs.rs/tokio/1.54.0/tokio/task/struct.JoinHandle.html",
+        "retrieved_at": "2026-10-28T07:17:51.809472+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E59",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E59/6a7f426a460a28e77739f8214a1e3d475040a8e1e29957c6be15de1ee150c20f.html",
+        "sha256": "6a7f426a460a28e77739f8214a1e3d475040a8e1e29957c6be15de1ee150c20f",
+        "bytes": 10456,
+        "media_type": "text/html",
+        "retrieved_url": "https://api.dart.dev/dart-async/Future/timeout.html",
+        "retrieved_at": "2026-10-28T07:17:52.281784+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E60",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E60/06284fb09c90c13ec5c90dba35366e2f08950d91e9c43c016249c4307b87ffbd.html",
+        "sha256": "06284fb09c90c13ec5c90dba35366e2f08950d91e9c43c016249c4307b87ffbd",
+        "bytes": 11993,
+        "media_type": "text/html",
+        "retrieved_url": "https://api.dart.dev/dart-core/DateTime/parse.html",
+        "retrieved_at": "2026-10-28T07:17:52.954772+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E61",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E61/3dccadb0090fbe820570193c366a7d1b9ecff725af267b1fa61b0323c0b60de5.txt",
+        "sha256": "3dccadb0090fbe820570193c366a7d1b9ecff725af267b1fa61b0323c0b60de5",
+        "bytes": 22916,
+        "media_type": "text/plain",
+        "retrieved_url": "https://raw.githubusercontent.com/swiftlang/swift-book/main/TSPL.docc/LanguageGuide/ClassesAndStructures.md",
+        "retrieved_at": "2026-10-28T07:17:53.304564+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E62",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E62/23d64fe3895780e88c2ec4c980f62b2ed2ace046247e26810c378b1706d3e8ac.html",
+        "sha256": "23d64fe3895780e88c2ec4c980f62b2ed2ace046247e26810c378b1706d3e8ac",
+        "bytes": 409701,
+        "media_type": "text/html",
+        "retrieved_url": "https://doc.rust-lang.org/std/sync/struct.Arc.html",
+        "retrieved_at": "2026-10-28T07:17:54.258221+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E63",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E63/5b155debcd85d8627010dcce008830118f2d1f779f442bf59d1dff75e1cdde6c.html",
+        "sha256": "5b155debcd85d8627010dcce008830118f2d1f779f442bf59d1dff75e1cdde6c",
+        "bytes": 207302,
+        "media_type": "text/html",
+        "retrieved_url": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/math/BigDecimal.html",
+        "retrieved_at": "2026-10-28T07:17:54.668966+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    }
+  ],
+  "ended_at": "2026-10-28T07:17:54.669009+00:00"
+}

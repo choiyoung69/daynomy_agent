@@ -1,0 +1,153 @@
+<!--
+{
+  "availability" : [
+    "iOS: 8.0.0 -",
+    "iPadOS: 8.0.0 -",
+    "macCatalyst: 8.0.0 -",
+    "macOS: 10.10.0 -",
+    "tvOS: 9.0.0 -",
+    "visionOS: 1.0.0 -",
+    "watchOS: 2.0.0 -"
+  ],
+  "documentType" : "symbol",
+  "framework" : "Foundation",
+  "identifier" : "/documentation/Foundation/JSONDecoder",
+  "metadataVersion" : "0.1.0",
+  "role" : "Class",
+  "symbol" : {
+    "kind" : "Class",
+    "modules" : [
+      "Foundation"
+    ],
+    "preciseIdentifier" : "s:10Foundation11JSONDecoderC"
+  },
+  "title" : "JSONDecoder"
+}
+-->
+
+# JSONDecoder
+
+An object that decodes instances of a data type from JSON objects.
+
+```
+class JSONDecoder
+```
+
+## Overview
+
+The example below shows how to decode an instance of a simple `GroceryProduct` type from a JSON object. The type adopts <doc://com.apple.documentation/documentation/Swift/Codable> so that it’s decodable using a [`JSONDecoder`](/documentation/Foundation/JSONDecoder) instance.
+
+```swift
+struct GroceryProduct: Codable {
+    var name: String
+    var points: Int
+    var description: String?
+}
+
+let json = """
+{
+    "name": "Durian",
+    "points": 600,
+    "description": "A fruit with a distinctive scent."
+}
+""".data(using: .utf8)!
+
+let decoder = JSONDecoder()
+let product = try decoder.decode(GroceryProduct.self, from: json)
+
+print(product.name) // Prints "Durian"
+```
+
+## Topics
+
+### Creating a Decoder
+
+[`init()`](/documentation/Foundation/JSONDecoder/init())
+
+Creates a new, reusable JSON decoder with the default formatting settings and decoding strategies.
+
+### Decoding
+
+[`func decode<T>(T.Type, from: Data) throws -> T`](/documentation/Foundation/JSONDecoder/decode(_:from:))
+
+Returns a value of the type you specify, decoded from a JSON object.
+
+### Customizing Decoding
+
+[`var keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy`](/documentation/Foundation/JSONDecoder/keyDecodingStrategy-swift.property)
+
+A value that determines how to decode a type’s coding keys from JSON keys.
+
+[`enum KeyDecodingStrategy`](/documentation/Foundation/JSONDecoder/KeyDecodingStrategy-swift.enum)
+
+The values that determine how to decode a type’s coding keys from JSON keys.
+
+[`var userInfo: [CodingUserInfoKey : any Sendable]`](/documentation/Foundation/JSONDecoder/userInfo)
+
+A dictionary you use to customize the decoding process by providing contextual information.
+
+[`var allowsJSON5: Bool`](/documentation/Foundation/JSONDecoder/allowsJSON5)
+
+Specifies that decoding supports the JSON5 syntax.
+
+[`var assumesTopLevelDictionary: Bool`](/documentation/Foundation/JSONDecoder/assumesTopLevelDictionary)
+
+Specifies that decoding assumes the top level of the JSON data is a dictionary, even if it doesn’t begin and end with braces.
+
+### Decoding Dates
+
+[`var dateDecodingStrategy: JSONDecoder.DateDecodingStrategy`](/documentation/Foundation/JSONDecoder/dateDecodingStrategy-swift.property)
+
+The strategy used when decoding dates from part of a JSON object.
+
+[`enum DateDecodingStrategy`](/documentation/Foundation/JSONDecoder/DateDecodingStrategy-swift.enum)
+
+The strategies available for formatting dates when decoding them from JSON.
+
+### Decoding Raw Data
+
+[`var dataDecodingStrategy: JSONDecoder.DataDecodingStrategy`](/documentation/Foundation/JSONDecoder/dataDecodingStrategy-swift.property)
+
+The strategy that a decoder uses to decode raw data.
+
+[`enum DataDecodingStrategy`](/documentation/Foundation/JSONDecoder/DataDecodingStrategy-swift.enum)
+
+The strategies for decoding raw data.
+
+### Decoding Exceptional Numbers
+
+[`var nonConformingFloatDecodingStrategy: JSONDecoder.NonConformingFloatDecodingStrategy`](/documentation/Foundation/JSONDecoder/nonConformingFloatDecodingStrategy-swift.property)
+
+The strategy used by a decoder when it encounters exceptional floating-point values.
+
+[`enum NonConformingFloatDecodingStrategy`](/documentation/Foundation/JSONDecoder/NonConformingFloatDecodingStrategy-swift.enum)
+
+The strategies for encoding nonconforming floating-point numbers, also known as IEEE 754 exceptional values.
+
+### Supporting Types
+
+### Instance Methods
+
+[`func decode<T, C>(T.Type, from: Data, configuration: C.Type) throws -> T`](/documentation/Foundation/JSONDecoder/decode(_:from:configuration:)-22lge)
+
+[`func decode<T>(T.Type, from: Data, configuration: T.DecodingConfiguration) throws -> T`](/documentation/Foundation/JSONDecoder/decode(_:from:configuration:)-xsq1)
+
+## Relationships
+
+### Conforms To
+
+[`SendableMetatype`](/documentation/Swift/SendableMetatype)
+
+[`NetworkDecoder`](/documentation/Network/NetworkDecoder)
+
+[`Escapable`](/documentation/Swift/Escapable)
+
+[`Copyable`](/documentation/Swift/Copyable)
+
+[`TopLevelDecoder`](/documentation/Combine/TopLevelDecoder)
+
+[`Sendable`](/documentation/Swift/Sendable)
+
+---
+
+Copyright &copy; 2026 Apple Inc. All rights reserved. | [Terms of Use](https://www.apple.com/legal/internet-services/terms/site.html) | [Privacy Policy](https://www.apple.com/privacy/privacy-policy)

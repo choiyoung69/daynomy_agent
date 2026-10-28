@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-28T06:31:07.768709+00:00",
+  "collector": {
+    "path": "scripts/knowledge_sources.py",
+    "sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+  },
+  "results": [
+    {
+      "source_id": "E45",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "status": "unavailable",
+      "error_type": "HTTPError"
+    },
+    {
+      "source_id": "E46",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E46/f27c04b0827013e356d6fee59fde67d7ecd85ee3e7abe1fa3b8aef314bb1af91.html",
+        "sha256": "f27c04b0827013e356d6fee59fde67d7ecd85ee3e7abe1fa3b8aef314bb1af91",
+        "bytes": 39212,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-primitive/content.html",
+        "retrieved_at": "2026-10-28T06:31:09.097988+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    }
+  ],
+  "ended_at": "2026-10-28T06:31:09.098073+00:00"
+}

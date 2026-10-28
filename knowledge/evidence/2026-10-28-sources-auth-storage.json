@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-28T06:34:11.835893+00:00",
+  "collector": {
+    "path": "scripts/knowledge_sources.py",
+    "sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+  },
+  "results": [
+    {
+      "source_id": "E47",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E47/4233c0650ec7e7918c20e0fde2dc565f85e2aa2d4c18123e3cd834295c2f68d0.txt",
+        "sha256": "4233c0650ec7e7918c20e0fde2dc565f85e2aa2d4c18123e3cd834295c2f68d0",
+        "bytes": 49680,
+        "media_type": "text/plain",
+        "retrieved_url": "https://www.rfc-editor.org/rfc/rfc8252.txt",
+        "retrieved_at": "2026-10-28T06:34:12.131235+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E48",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E48/1ce7bae9eae30422bbe767ea2b8efc0311f76173eb06e9312d9fcc67b6f43b2c.html",
+        "sha256": "1ce7bae9eae30422bbe767ea2b8efc0311f76173eb06e9312d9fcc67b6f43b2c",
+        "bytes": 325313,
+        "media_type": "text/html",
+        "retrieved_url": "https://developer.android.com/privacy-and-security/keystore",
+        "retrieved_at": "2026-10-28T06:34:13.178198+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    },
+    {
+      "source_id": "E49",
+      "baseline_sha256": null,
+      "affected_documents": [],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E49/ab3f36fc07fd6ee58976ba4db5cb8dfe58a1b1f8d0d35255177685bfafbf0cb2.txt",
+        "sha256": "ab3f36fc07fd6ee58976ba4db5cb8dfe58a1b1f8d0d35255177685bfafbf0cb2",
+        "bytes": 2316,
+        "media_type": "text/markdown",
+        "retrieved_url": "https://developer.apple.com/documentation/security/keychain-services.md",
+        "retrieved_at": "2026-10-28T06:34:14.192241+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    }
+  ],
+  "ended_at": "2026-10-28T06:34:14.192276+00:00"
+}

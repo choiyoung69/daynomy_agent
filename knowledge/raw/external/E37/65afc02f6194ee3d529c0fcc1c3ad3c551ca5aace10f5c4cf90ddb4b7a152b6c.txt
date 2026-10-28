@@ -1,0 +1,63 @@
+<!--
+{
+  "availability" : [
+    "iOS: -",
+    "iPadOS: -",
+    "macCatalyst: -",
+    "macOS: -",
+    "visionOS: -"
+  ],
+  "documentType" : "symbol",
+  "framework" : "WebKit",
+  "identifier" : "/documentation/WebKit/WKScriptMessageHandler",
+  "metadataVersion" : "0.1.0",
+  "role" : "Protocol",
+  "symbol" : {
+    "kind" : "Protocol",
+    "modules" : [
+      "WebKit"
+    ],
+    "preciseIdentifier" : "c:objc(pl)WKScriptMessageHandler"
+  },
+  "title" : "WKScriptMessageHandler"
+}
+-->
+
+# WKScriptMessageHandler
+
+An interface for receiving messages from JavaScript code running in a webpage.
+
+```
+@MainActor protocol WKScriptMessageHandler : NSObjectProtocol
+```
+
+## Overview
+
+Adopt the [`WKScriptMessageHandler`](/documentation/WebKit/WKScriptMessageHandler) protocol when your app needs a way to respond to JavaScript messages in the web view. When JavaScript code sends a message that specifically targets your message handler, WebKit calls your handler’s [`userContentController(_:didReceive:)`](/documentation/WebKit/WKScriptMessageHandler/userContentController(_:didReceive:)) method. Use that method to implement your response. For example, you might update other parts of your app in response to web content changes.
+
+To call your message handler from JavaScript, call the function `window.webkit.messageHandlers.<messageHandlerName>.postMessage(<messageBody>)` in your code. You specify the value of `<messageHandlerName>` when you install your message handler in a [`WKUserContentController`](/documentation/WebKit/WKUserContentController) object.
+
+> Note:
+> If you want to provide a response back to JavaScript, implement your message handler using the ``doc://com.apple.webkit/documentation/WebKit/WKScriptMessageHandlerWithReply`` protocol instead.
+
+## Topics
+
+### Receiving Messages
+
+[`func userContentController(WKUserContentController, didReceive: WKScriptMessage)`](/documentation/WebKit/WKScriptMessageHandler/userContentController(_:didReceive:))
+
+Tells the handler that a webpage sent a script message.
+
+[`class WKScriptMessage`](/documentation/WebKit/WKScriptMessage)
+
+An object that encapsulates a message sent by JavaScript code from a webpage.
+
+## Relationships
+
+### Inherits From
+
+[`NSObjectProtocol`](/documentation/ObjectiveC/NSObjectProtocol)
+
+---
+
+Copyright &copy; 2026 Apple Inc. All rights reserved. | [Terms of Use](https://www.apple.com/legal/internet-services/terms/site.html) | [Privacy Policy](https://www.apple.com/privacy/privacy-policy)

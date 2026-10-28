@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-28T07:25:55.514170+00:00",
+  "collector": {
+    "path": "scripts/knowledge_sources.py",
+    "sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+  },
+  "results": [
+    {
+      "source_id": "E55",
+      "baseline_sha256": null,
+      "affected_documents": [
+        "knowledge/wiki/packages/android-kotlin/async-and-cancellation.md"
+      ],
+      "candidate_snapshot": {
+        "path": "knowledge/raw/external/E55/6225c878986d1ff0787b5e8444b351dd38718ca4b4c445110816d7e5887224eb.html",
+        "sha256": "6225c878986d1ff0787b5e8444b351dd38718ca4b4c445110816d7e5887224eb",
+        "bytes": 38630,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/docs/coroutines-cancellation.html",
+        "retrieved_at": "2026-10-28T07:25:56.547522+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "status": "captured"
+    }
+  ],
+  "ended_at": "2026-10-28T07:25:56.547605+00:00"
+}

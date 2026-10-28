@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the jsonDecode function from the dart:convert library, for the Dart programming language.">
+  <title>jsonDecode function - dart:convert library - Dart API</title>
+  <link rel="canonical" href="https://api.dart.dev/dart-convert/jsonDecode.html">
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VVQ8908SJ5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-VVQ8908SJ5');
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Google+Sans+Text:wght@400&family=Google+Sans:wght@500&display=swap" as="style">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Text:wght@400&family=Google+Sans:wght@500&display=swap">
+<link rel="stylesheet" href="https://www.gstatic.com/glue/cookienotificationbar/cookienotificationbar.min.css">
+
+</head>
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">Dart</a></li>
+    <li><a href="../dart-convert/">dart:convert</a></li>
+    <li class="self-crumb">jsonDecode function</li>
+  </ol>
+  <div class="self-name">jsonDecode</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="dart-convert&#47;dart-convert-library-sidebar.html"
+      data-below-sidebar="">
+      <div>
+  <div id="external-links" class="btn-group"><a title="View source code" class="source-link" href="https://github.com/dart-lang/sdk/blob/416e33b0ffaef062a60ec966bb8c82ed2b83f128/sdk/lib/convert/convert.dart#L150"><span class="material-symbols-outlined">description</span></a></div>
+<h1><span class="kind-function">jsonDecode</span> function 
+ 
+</h1></div>
+
+    <section class="multi-line-signature">
+        
+<span class="returntype">dynamic</span>
+<span class="name ">jsonDecode</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="jsonDecode-param-source"><span class="type-annotation"><a href="../dart-core/String-class.html">String</a></span> <span class="parameter-name">source</span>, {</span></li>
+<li><span class="parameter" id="jsonDecode-param-reviver"><span class="type-annotation"><a href="../dart-core/Object-class.html">Object</a>?</span> <span class="parameter-name">reviver</span>(<ol class="parameter-list single-line"> <li><span class="parameter" id="param-key"><span class="type-annotation"><a href="../dart-core/Object-class.html">Object</a>?</span> <span class="parameter-name">key</span>, </span></li>
+<li><span class="parameter" id="param-value"><span class="type-annotation"><a href="../dart-core/Object-class.html">Object</a>?</span> <span class="parameter-name">value</span></span></li>
+</ol>)?, </span></li>
+</ol>})
+
+        
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Parses the string and returns the resulting Json object.</p>
+<p>The optional <code>reviver</code> function is called once for each object or list
+property that has been parsed during decoding. The <code>key</code> argument is either
+the integer list index for a list property, the string map key for object
+properties, or <code>null</code> for the final result.</p>
+<p>The default <code>reviver</code> (when not provided) is the identity function.</p>
+<p>Shorthand for <code>json.decode</code>. Useful if a local variable shadows the global
+<a href="../dart-convert/json-constant.html">json</a> constant.</p>
+<p>Example:</p>
+<pre class="language-dart"><code class="language-dart">const jsonString =
+    '{"text": "foo", "value": 1, "status": false, "extra": null}';
+
+final data = jsonDecode(jsonString);
+print(data['text']); // foo
+print(data['value']); // 1
+print(data['status']); // false
+print(data['extra']); // null
+
+const jsonArray = '''
+  [{"text": "foo", "value": 1, "status": true},
+   {"text": "bar", "value": 2, "status": false}]
+''';
+
+final List&lt;dynamic&gt; dataList = jsonDecode(jsonArray);
+print(dataList[0]); // {text: foo, value: 1, status: true}
+print(dataList[1]); // {text: bar, value: 2, status: false}
+
+final item = dataList[0];
+print(item['text']); // foo
+print(item['value']); // 1
+print(item['status']); // false
+</code></pre>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">dynamic jsonDecode(
+  String source, {
+  Object? Function(Object? key, Object? value)? reviver,
+}) =&gt; json.decode(source, reviver: reviver);</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">Dart</a></li>
+    <li><a href="../dart-convert/">dart:convert</a></li>
+    <li class="self-crumb">jsonDecode function</li>
+</ol>
+
+    <h5>dart:convert library</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-left-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    Dart
+      3.13.7
+  </span>
+  <span class="glue-footer">
+  <span class="no-break">
+    | <a href="https://dart.dev/terms" title="Terms of use">Terms</a>
+  </span>
+  <span class="no-break">
+    | <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" title="Privacy policy"
+      class="no-automatic-external">Privacy</a>
+  </span>
+  <span class="no-break">
+    | <a href="https://dart.dev/security" title="Security philosophy and practices">Security</a>
+  </span>
+
+  <div class="copyright" style="font-size: 0.9em; color: darkgrey; margin-top: 0.5em;">
+    Except as otherwise noted, this site is licensed under a
+    <a style="color: darkgrey;" href="https://creativecommons.org/licenses/by/4.0/">
+      Creative Commons Attribution 4.0 International License</a>
+    and code samples are licensed under the
+    <a style="color: darkgrey;" href="https://opensource.org/licenses/BSD-3-Clause" class="no-automatic-external">
+      3-Clause BSD License</a>
+  </div>
+</span>
+
+</footer>
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+<button aria-hidden="true" class="glue-footer__link glue-cookie-notification-bar-control">
+  Cookies management controls
+</button>
+<script src="https://www.gstatic.com/glue/cookienotificationbar/cookienotificationbar.min.js"
+data-glue-cookie-notification-bar-category="2B">
+</script>
+
+</body>
+</html>
+
