@@ -1,0 +1,354 @@
+{
+  "started_at": "2026-10-28T07:25:56.633142+00:00",
+  "scope": "standalone language/JSON/state/cancellation examples; no UI, real HTTP, DB, host bridge or independent review",
+  "runs": {
+    "kotlin": {
+      "status": "passed",
+      "version": {
+        "command": [
+          "/Users/seoyeong/develop/AI/daynomy_agent/.local/knowledge-sdks/kotlin/kotlinc/bin/kotlinc",
+          "-version"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "info: kotlinc-jvm 2.4.21 (JRE 21.0.12+8-LTS)\n"
+      },
+      "builds": [
+        {
+          "command": [
+            "/Users/seoyeong/develop/AI/daynomy_agent/.local/knowledge-sdks/kotlin/kotlinc/bin/kotlinc",
+            "knowledge/examples/kotlin/Core.kt",
+            "-cp",
+            "/Users/seoyeong/develop/AI/daynomy_agent/.local/knowledge-sdks/kotlinx-serialization-core-jvm-1.12.0.jar:/Users/seoyeong/develop/AI/daynomy_agent/.local/knowledge-sdks/kotlinx-serialization-json-jvm-1.12.0.jar:/Users/seoyeong/develop/AI/daynomy_agent/.local/knowledge-sdks/kotlin/kotlinc/lib/kotlinx-coroutines-core-jvm.jar",
+            "-Xplugin=/Users/seoyeong/develop/AI/daynomy_agent/.local/knowledge-sdks/kotlin/kotlinc/lib/kotlin-serialization-compiler-plugin.jar",
+            "-include-runtime",
+            "-d",
+            "/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/knowledge-topics-8pzruh8i/core.jar"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "knowledge/examples/kotlin/Core.kt:61:50: warning: redundant creation of Json format. Creating instances for each use can be slow.\n    test(\"implicit_null_changes_missing_policy\", Json { explicitNulls = false }.decodeFromString<RequiredCurrency>(\"{}\").currency == null)\n                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nknowledge/examples/kotlin/Core.kt:63:40: warning: redundant creation of Json format. Creating instances for each use can be slow.\n    test(\"unknown_key_can_be_allowed\", Json { ignoreUnknownKeys = true }.decodeFromString<DefaultCurrency>(\"{\\\"extra\\\":1}\").currency == null)\n                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"
+        }
+      ],
+      "run": {
+        "command": [
+          "java",
+          "-cp",
+          "/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/knowledge-topics-8pzruh8i/core.jar:/Users/seoyeong/develop/AI/daynomy_agent/.local/knowledge-sdks/kotlinx-serialization-core-jvm-1.12.0.jar:/Users/seoyeong/develop/AI/daynomy_agent/.local/knowledge-sdks/kotlinx-serialization-json-jvm-1.12.0.jar:/Users/seoyeong/develop/AI/daynomy_agent/.local/knowledge-sdks/kotlin/kotlinc/lib/kotlinx-coroutines-core-jvm.jar",
+          "CoreKt"
+        ],
+        "exit_code": 0,
+        "stdout": "{\"required_nullable_missing_rejected\":true,\"explicit_null_accepted\":true,\"nullable_default_handles_missing\":true,\"implicit_null_changes_missing_policy\":true,\"unknown_key_default_rejected\":true,\"unknown_key_can_be_allowed\":true,\"safe_id\":true,\"large_id_rejected\":true,\"quoted_id_rejected\":true,\"decimal_round_half_up\":true,\"decimal_sum\":true,\"invalid_calendar_rejected\":true,\"emoji_utf16_two\":true,\"kotlin_trim_nbsp\":true,\"data_copy_is_shallow\":true,\"detached_list\":true,\"read_only_is_not_immutable_snapshot\":true,\"newest_result\":true,\"old_result_ignored\":true,\"disposed_ignored\":true,\"cancel_finally\":true,\"run_catching_catches_cancellation\":true}\n",
+        "stderr": ""
+      },
+      "checks": {
+        "required_nullable_missing_rejected": true,
+        "explicit_null_accepted": true,
+        "nullable_default_handles_missing": true,
+        "implicit_null_changes_missing_policy": true,
+        "unknown_key_default_rejected": true,
+        "unknown_key_can_be_allowed": true,
+        "safe_id": true,
+        "large_id_rejected": true,
+        "quoted_id_rejected": true,
+        "decimal_round_half_up": true,
+        "decimal_sum": true,
+        "invalid_calendar_rejected": true,
+        "emoji_utf16_two": true,
+        "kotlin_trim_nbsp": true,
+        "data_copy_is_shallow": true,
+        "detached_list": true,
+        "read_only_is_not_immutable_snapshot": true,
+        "newest_result": true,
+        "old_result_ignored": true,
+        "disposed_ignored": true,
+        "cancel_finally": true,
+        "run_catching_catches_cancellation": true
+      },
+      "checked_cases": 22
+    },
+    "dart": {
+      "status": "passed",
+      "version": {
+        "command": [
+          "/Users/seoyeong/develop/AI/daynomy_agent/.local/knowledge-sdks/dart/dart-sdk/bin/dart",
+          "--version"
+        ],
+        "exit_code": 0,
+        "stdout": "Dart SDK version: 3.13.7 (stable) (Thu Oct 22 14:28:57 2026 -0700) on \"macos_arm64\"\n",
+        "stderr": ""
+      },
+      "builds": [],
+      "run": {
+        "command": [
+          "/Users/seoyeong/develop/AI/daynomy_agent/.local/knowledge-sdks/dart/dart-sdk/bin/dart",
+          "knowledge/examples/dart/core.dart"
+        ],
+        "exit_code": 0,
+        "stdout": "{\"missing_and_null_index_equal\":true,\"missing_presence_distinct\":true,\"null_presence_distinct\":true,\"safe_id\":true,\"large_id_rejected\":true,\"fraction_id_rejected\":true,\"to_int_would_truncate\":true,\"native_large_int_preserved\":true,\"binary_decimal_difference\":true,\"exact_minor_units\":true,\"minor_units_large_value\":true,\"excess_scale_rejected\":true,\"invalid_date_normalizes\":true,\"strict_date_rejects_normalized\":true,\"leap_date_valid\":true,\"emoji_utf16_two\":true,\"list_copy_shares_nested_map\":true,\"detached_nested_map\":true,\"newest_result\":true,\"old_result_ignored\":true,\"disposed_result_ignored\":true,\"timeout_does_not_cancel_original\":true}\n",
+        "stderr": ""
+      },
+      "checks": {
+        "missing_and_null_index_equal": true,
+        "missing_presence_distinct": true,
+        "null_presence_distinct": true,
+        "safe_id": true,
+        "large_id_rejected": true,
+        "fraction_id_rejected": true,
+        "to_int_would_truncate": true,
+        "native_large_int_preserved": true,
+        "binary_decimal_difference": true,
+        "exact_minor_units": true,
+        "minor_units_large_value": true,
+        "excess_scale_rejected": true,
+        "invalid_date_normalizes": true,
+        "strict_date_rejects_normalized": true,
+        "leap_date_valid": true,
+        "emoji_utf16_two": true,
+        "list_copy_shares_nested_map": true,
+        "detached_nested_map": true,
+        "newest_result": true,
+        "old_result_ignored": true,
+        "disposed_result_ignored": true,
+        "timeout_does_not_cancel_original": true
+      },
+      "checked_cases": 22
+    },
+    "swift": {
+      "status": "passed",
+      "version": {
+        "command": [
+          "swiftc",
+          "--version"
+        ],
+        "exit_code": 0,
+        "stdout": "Apple Swift version 6.3.3 (swiftlang-6.3.3.1.3 clang-2100.1.1.101)\nTarget: arm64-apple-macosx26.0\n",
+        "stderr": "swift-driver version: 1.148.6 "
+      },
+      "builds": [
+        {
+          "command": [
+            "swiftc",
+            "-swift-version",
+            "6",
+            "-parse-as-library",
+            "-module-cache-path",
+            "/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/knowledge-topics-8pzruh8i/swift-cache",
+            "knowledge/examples/swift/Core.swift",
+            "-o",
+            "/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/knowledge-topics-8pzruh8i/swift-example"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "run": {
+        "command": [
+          "/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/knowledge-topics-8pzruh8i/swift-example"
+        ],
+        "exit_code": 0,
+        "stdout": "{\"canonical_string_equality\":true,\"decimal_json_sample\":true,\"decimal_round_sample\":true,\"disposed_result_ignored\":true,\"newest_result\":true,\"old_result_ignored\":true,\"optional_missing_nil\":true,\"optional_null_nil\":true,\"patch_missing\":true,\"patch_null\":true,\"patch_value\":true,\"reference_elements_shared\":true,\"sleep_observes_cancellation\":true,\"struct_array_value_copy\":true,\"utf16_vs_character\":true}\n",
+        "stderr": ""
+      },
+      "checks": {
+        "canonical_string_equality": true,
+        "decimal_json_sample": true,
+        "decimal_round_sample": true,
+        "disposed_result_ignored": true,
+        "newest_result": true,
+        "old_result_ignored": true,
+        "optional_missing_nil": true,
+        "optional_null_nil": true,
+        "patch_missing": true,
+        "patch_null": true,
+        "patch_value": true,
+        "reference_elements_shared": true,
+        "sleep_observes_cancellation": true,
+        "struct_array_value_copy": true,
+        "utf16_vs_character": true
+      },
+      "checked_cases": 15
+    },
+    "typescript": {
+      "status": "passed",
+      "version": {
+        "command": [
+          "node",
+          "--version"
+        ],
+        "exit_code": 0,
+        "stdout": "v22.23.1\n",
+        "stderr": ""
+      },
+      "builds": [
+        {
+          "command": [
+            "node",
+            "/Users/seoyeong/develop/AI/daynomy_agent/.local/knowledge-sdks/typescript/package/bin/tsc",
+            "--noEmit",
+            "--strict",
+            "--target",
+            "ES2022",
+            "--module",
+            "ESNext",
+            "--moduleResolution",
+            "bundler",
+            "--lib",
+            "ES2022,DOM",
+            "knowledge/examples/typescript/core.ts"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "node",
+            "--input-type=module",
+            "-e",
+            "import{readFileSync,writeFileSync}from'node:fs';import{stripTypeScriptTypes}from'node:module';writeFileSync(process.argv[2],stripTypeScriptTypes(readFileSync(process.argv[1],'utf8')));",
+            "knowledge/examples/typescript/core.ts",
+            "/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/knowledge-topics-8pzruh8i/core.mjs"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "(node:94078) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        }
+      ],
+      "run": {
+        "command": [
+          "node",
+          "/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/knowledge-topics-8pzruh8i/core.mjs"
+        ],
+        "exit_code": 0,
+        "stdout": "{\"safe_id\":true,\"rounded_large_id_rejected\":true,\"quoted_id_rejected\":true,\"missing_distinct\":true,\"null_distinct\":true,\"undefined_omitted\":true,\"binary_money_difference\":true,\"utf16_length\":true,\"raw_unicode_not_equal\":true,\"readonly_is_alias\":true,\"spread_is_shallow\":true,\"newest_result\":true,\"old_result_ignored\":true,\"disposed_result_ignored\":true,\"abort_adapter_wiring\":true,\"race_does_not_cancel_original\":true,\"bridge_close_accepted\":true,\"bridge_unknown_method_rejected\":true,\"bridge_version_rejected\":true,\"bridge_payload_rejected\":true}\n",
+        "stderr": ""
+      },
+      "checks": {
+        "safe_id": true,
+        "rounded_large_id_rejected": true,
+        "quoted_id_rejected": true,
+        "missing_distinct": true,
+        "null_distinct": true,
+        "undefined_omitted": true,
+        "binary_money_difference": true,
+        "utf16_length": true,
+        "raw_unicode_not_equal": true,
+        "readonly_is_alias": true,
+        "spread_is_shallow": true,
+        "newest_result": true,
+        "old_result_ignored": true,
+        "disposed_result_ignored": true,
+        "abort_adapter_wiring": true,
+        "race_does_not_cancel_original": true,
+        "bridge_close_accepted": true,
+        "bridge_unknown_method_rejected": true,
+        "bridge_version_rejected": true,
+        "bridge_payload_rejected": true
+      },
+      "checked_cases": 20
+    },
+    "rust": {
+      "status": "passed",
+      "version": {
+        "command": [
+          "rustc",
+          "--version"
+        ],
+        "exit_code": 0,
+        "stdout": "rustc 1.92.0 (ded5c06cf 2025-12-08) (Homebrew)\n",
+        "stderr": ""
+      },
+      "builds": [],
+      "run": {
+        "command": [
+          "cargo",
+          "run",
+          "--offline",
+          "--quiet",
+          "--manifest-path",
+          "knowledge/examples/rust/Cargo.toml"
+        ],
+        "exit_code": 0,
+        "stdout": "{\"arc_clone_shares\":true,\"decimal_overflow_rejected\":true,\"error_path_rollback_wiring\":true,\"excess_scale_rejected\":true,\"explicit_null_some\":true,\"large_id_rejected\":true,\"missing_is_none\":true,\"quoted_id_rejected\":true,\"safe_id\":true,\"scaled_decimal\":true,\"stale_generation\":true,\"success_path_commit_wiring\":true,\"task_abort_join_cancelled\":true,\"utf8_and_utf16\":true,\"vec_value_clone\":true}\n",
+        "stderr": ""
+      },
+      "checks": {
+        "arc_clone_shares": true,
+        "decimal_overflow_rejected": true,
+        "error_path_rollback_wiring": true,
+        "excess_scale_rejected": true,
+        "explicit_null_some": true,
+        "large_id_rejected": true,
+        "missing_is_none": true,
+        "quoted_id_rejected": true,
+        "safe_id": true,
+        "scaled_decimal": true,
+        "stale_generation": true,
+        "success_path_commit_wiring": true,
+        "task_abort_join_cancelled": true,
+        "utf8_and_utf16": true,
+        "vec_value_clone": true
+      },
+      "checked_cases": 15
+    }
+  },
+  "source_hashes": {
+    "scripts/knowledge_topic_examples.py": "7266a7b71db3c587267c8a59b0516a6e2ae12166937742e18ae41061ba8d031d",
+    "knowledge/examples/dart/core.dart": "a7bff3154fdccd9ceebac783a833fce62f2972113aa021b3300afe8411f7a78a",
+    "knowledge/examples/kotlin/Core.kt": "b58c868fb9c25bc497b6c3f340b9a520e40b26dafbbf8f1ab4dc8fbd34d91d5a",
+    "knowledge/examples/rust/Cargo.lock": "0c2ea3c5ab1177ba4d70bdaa03473c6c2f8c1a9dad2a7d63b40f913b89265017",
+    "knowledge/examples/rust/Cargo.toml": "a1fcdbcf07676fcd56a835b52640994d6cdd27ff5aaf1d17186212b2cb18d588",
+    "knowledge/examples/rust/src/main.rs": "0fcc9a875da830dd07ca57c0c8c6b05825fc76a9b92b99725bddffb61dd6b108",
+    "knowledge/examples/swift/Core.swift": "7137c3d1e17fb350f3e6689b520da6fca49829e3ab1ef9a52732d69933fb48af",
+    "knowledge/examples/typescript/core.ts": "0cc307a82c580a2571a605f25e978a12f0c8a734c3d28e1e620af5a10b714f4b"
+  },
+  "example_sdk_artifacts": {
+    "scope": "isolated example runtimes, not application version selection",
+    "artifacts": [
+      {
+        "url": "https://github.com/JetBrains/kotlin/releases/download/v2.4.21/kotlin-compiler-2.4.21.zip",
+        "path": ".local/knowledge-sdks/kotlin-compiler-2.4.21.zip",
+        "sha256": "7cc140e76daf416a0424a5557f99afd7ca89ebd463ea1101261e3e01c33e75cd",
+        "bytes": 89733618,
+        "upstream_checksum_algorithm": "sha256",
+        "upstream_checksum": "7cc140e76daf416a0424a5557f99afd7ca89ebd463ea1101261e3e01c33e75cd"
+      },
+      {
+        "url": "https://storage.googleapis.com/dart-archive/channels/stable/release/3.13.7/sdk/dartsdk-macos-arm64-release.zip",
+        "path": ".local/knowledge-sdks/dartsdk-macos-arm64-3.13.7.zip",
+        "sha256": "9f972ee1e1139cb4f845f35c7c77bef269dd2ec727b239fb17a2ebcb66d0fb2f",
+        "bytes": 225890953,
+        "upstream_checksum_algorithm": "sha256",
+        "upstream_checksum": "9f972ee1e1139cb4f845f35c7c77bef269dd2ec727b239fb17a2ebcb66d0fb2f"
+      },
+      {
+        "url": "https://repo.maven.apache.org/maven2/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/1.12.0/kotlinx-serialization-core-jvm-1.12.0.jar",
+        "path": ".local/knowledge-sdks/kotlinx-serialization-core-jvm-1.12.0.jar",
+        "sha256": "bcfddcac76159058ba0953af05938c17111d238cd41be7191874656454d62f1a",
+        "bytes": 416396,
+        "upstream_checksum_algorithm": "sha1",
+        "upstream_checksum": "60e7a99e653c96101a80f817b57bf698e40bf66c"
+      },
+      {
+        "url": "https://repo.maven.apache.org/maven2/org/jetbrains/kotlinx/kotlinx-serialization-json-jvm/1.12.0/kotlinx-serialization-json-jvm-1.12.0.jar",
+        "path": ".local/knowledge-sdks/kotlinx-serialization-json-jvm-1.12.0.jar",
+        "sha256": "879eb73e46cb63253ab0fa7cca4448f5c96bca1a16ff377abcb71ebab60e0631",
+        "bytes": 306230,
+        "upstream_checksum_algorithm": "sha1",
+        "upstream_checksum": "3e4ae142f2e099c52e99d2ea8256f6ad1b9518ce"
+      },
+      {
+        "url": "https://registry.npmjs.org/typescript/-/typescript-6.0.2.tgz",
+        "path": ".local/knowledge-sdks/typescript-6.0.2.tgz",
+        "sha256": "0ae5c188a2f5db22df72fe5e74dcbc122afb52031a86dbac33e78a86db39c65e",
+        "bytes": 4515770,
+        "upstream_checksum_algorithm": "sha512",
+        "upstream_checksum": "6c674022b674c22183a3997c73ef875ad6da3425934b8513bfb45a4c7fd38552208e4bde26df379bbe1b04730992e09bb2563c8b180b05564920e8909504e37d"
+      }
+    ]
+  },
+  "ended_at": "2026-10-28T07:26:19.755407+00:00",
+  "all_five_language_examples_passed": true
+}

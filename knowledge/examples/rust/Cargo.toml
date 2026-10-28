@@ -1,0 +1,9 @@
+[package]
+name = "knowledge-topic-examples"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+serde_json = { version = "=1.0.154", features = ["arbitrary_precision"] }
+tokio = { version = "=1.54.0", features = ["rt", "macros", "time"] }
