@@ -349,6 +349,161 @@ def gate_passes(gate, expected_hash):
     return True
 
 
+def summarize_run(run_dir, coordinator_rollout=None, coordinator_turn=None, coordinator_cwd=None):
+    """Deterministic accounting from explicitly scoped artifacts; never calls a model or gate."""
+    run_dir = Path(run_dir).resolve()
+    if not run_dir.is_dir():
+        raise ValueError('Run directory is missing')
+    if any((coordinator_rollout, coordinator_turn, coordinator_cwd)) and not all((coordinator_rollout, coordinator_turn, coordinator_cwd)):
+        raise ValueError('Coordinator rollout, turn and cwd must be specified together')
+    agent_records, unmeasured, attempt_times = {}, set(), {}
+    files = list(run_dir.rglob('attempts.json'))
+    for path in files:
+        if path.is_symlink() or not (path.parent / 'input.json').is_file():
+            raise ValueError('Invalid agent accounting artifact')
+        for attempt in json.loads(path.read_text()):
+            records = attempt.get('usage_records', [])
+            identity = tuple(attempt.get('session_ids') or [str(path)])
+            attempt_key = (identity, attempt['attempt'])
+            if not records: unmeasured.add(attempt_key)
+            attempt_times[attempt_key] = attempt.get('capture_seconds', 0)
+            for index, usage in enumerate(records):
+                agent_records[(identity, attempt['attempt'], index)] = usage
+    missing, capture_seconds = len(unmeasured), sum(attempt_times.values())
+    def totals(records, unmeasured=0):
+        rows = list(records)
+        if not rows:
+            return {**{k:None for k in ('input_tokens','cached_input_tokens','non_cached_input_tokens','output_tokens','total_tokens')},
+                    'usage_records':0,'unmeasured_attempts':unmeasured}
+        for u in rows:
+            for key in ('input_tokens', 'output_tokens'):
+                if type(u.get(key)) is not int or u[key] < 0:
+                    raise ValueError('Invalid usage counters')
+            if 'total_tokens' in u and (type(u['total_tokens']) is not int or u['total_tokens'] != u['input_tokens'] + u['output_tokens']):
+                raise ValueError('Inconsistent total usage counter')
+            c = u.get('cached_input_tokens')
+            if c is not None and (type(c) is not int or not 0 <= c <= u['input_tokens']):
+                raise ValueError('Invalid cached input counter')
+        inp = sum(u['input_tokens'] for u in rows)
+        out = sum(u['output_tokens'] for u in rows)
+        cached = sum(u['cached_input_tokens'] for u in rows) if all('cached_input_tokens' in u for u in rows) else None
+        return {'input_tokens': inp, 'cached_input_tokens': cached,
+                'non_cached_input_tokens': inp-cached if cached is not None else None,
+                'output_tokens': out, 'total_tokens': inp+out, 'usage_records': len(rows),
+                'unmeasured_attempts': unmeasured}
+    state_path = run_dir / 'state.json'
+    state = json.loads(state_path.read_text()) if state_path.exists() else {}
+    def elapsed(start, end):
+        return (datetime.fromisoformat(end.replace('Z','+00:00')) - datetime.fromisoformat(start.replace('Z','+00:00'))).total_seconds() if start and end else None
+    wall = elapsed(state.get('started_at'), state.get('finished_at'))
+    parent, parent_rows = None, {}
+    parent_complete = False
+    if coordinator_rollout:
+        active, contexts, start, end = False, [], None, None
+        with Path(coordinator_rollout).open() as stream:
+            for line in stream:
+                row = json.loads(line); value = row.get('payload', {})
+                if row['type'] == 'event_msg' and value.get('type') == 'task_started':
+                    active = value.get('turn_id') == coordinator_turn
+                    if active: start = row['timestamp']
+                if not active: continue
+                if row['type'] == 'turn_context': contexts.append(value.get('cwd'))
+                if row['type'] == 'token_usage_record' and value.get('turn_id') == coordinator_turn:
+                    parent_rows[value['response_id']] = value['usage']
+                if row['type'] == 'event_msg' and value.get('type') == 'task_complete' and value.get('turn_id') == coordinator_turn:
+                    end = row['timestamp']
+        expected = Path(coordinator_cwd).resolve()
+        if not start or not contexts or any(not isinstance(c,str) or not Path(c).resolve().is_relative_to(expected) for c in contexts):
+            raise ValueError('Coordinator turn/cwd is not in the authorized scope')
+        parent = totals(parent_rows.values())
+        wall, parent_complete = elapsed(start,end), end is not None
+    combined = totals([*agent_records.values(), *parent_rows.values()], missing)
+    report = {'generated_at': now(),
+              'coordinator_started_at': start if coordinator_rollout else None,
+              'coordinator_finished_at': end if coordinator_rollout else None,
+              'agent': totals(agent_records.values(),missing), 'coordinator': parent,
+              'combined_measured': combined, 'complete': bool(agent_records) and not missing and parent_complete and bool(parent_rows) and combined['cached_input_tokens'] is not None,
+              'elapsed_seconds': wall, 'agent_capture_seconds_sum': capture_seconds,
+              'phase_seconds': state.get('phase_seconds', {}), 'workflow_status': state.get('status'),
+              'scope': 'explicit CLI artifacts plus selected coordinator turn; elapsed times are not added',
+              'sources': {'agent_artifact_count': len(files), 'coordinator_turn': coordinator_turn},
+              'counts_note': 'CLI usage records are not individual model-response counts; missing usage is unknown'}
+    dump(run_dir / 'cost-summary.json',report)
+    lines = ['# Run cost summary', '', 'Measured token totals; not billing. Missing scope/usage is unknown.', '',
+             '| Scope | Input | Cached | Non-cached | Output | Total |', '| --- | ---: | ---: | ---: | ---: | ---: |']
+    for name, value in [('Agents',report['agent']),('Coordinator',parent),('Combined measured',combined)]:
+        if value is None: lines.append('| '+name+' | unknown | unknown | unknown | unknown | unknown |')
+        else: lines.append('| '+name+' | '+' | '.join(('unknown' if value[k] is None else str(value[k])) for k in ('input_tokens','cached_input_tokens','non_cached_input_tokens','output_tokens','total_tokens'))+' |')
+    lines += ['', 'Complete scope: '+str(report['complete']), 'Elapsed seconds: '+str(wall),
+              'Phase seconds: '+json.dumps(report['phase_seconds']), 'Workflow status: '+str(report['workflow_status']), report['counts_note']]
+    (run_dir / 'cost-summary.md').write_text('\n'.join(lines)+'\n')
+    return report
+
+
+def prepare_coordinator(spec_path, root, output, max_bytes=8192):
+    """Create a bounded new-chat entry point, never load referenced source/history."""
+    root = Path(root).resolve()
+    spec = json.loads(Path(spec_path).read_text())
+    required = {'task', 'issue', 'done', 'files', 'checks', 'unverified', 'next'}
+    if set(spec) != required:
+        raise ValueError('Coordinator packet requires task/issue/done/files/checks/unverified/next')
+    for key in ('task', 'issue', 'next'):
+        if not isinstance(spec[key], str) or not spec[key].strip():
+            raise ValueError('Empty coordinator field: ' + key)
+    for key in ('done', 'files', 'checks', 'unverified'):
+        if not isinstance(spec[key], list) or not spec[key] or any(not isinstance(v, str) or not v.strip() for v in spec[key]):
+            raise ValueError('Nonempty string list required: ' + key)
+    for name in spec['files']:
+        path = (root / name).resolve()
+        if Path(name).is_absolute() or not path.is_relative_to(root) or not path.is_file():
+            raise ValueError('Selected file must exist within workspace: ' + name)
+    lines = ['# 새 채팅 인계', '', '작업 공간: ' + str(root),
+             '작업: ' + spec['task'], '연결 Issue/PR: ' + spec['issue'], '',
+             '이 인계와 현재 요청·저장소 지침부터 읽는다. 과거 대화·전체 실험 기록을 초기 입력에 넣지 않는다.',
+             '먼저 브랜치·미커밋 변경·Issue/PR 상태를 묶어 확인하고 기존 변경을 보존한다.',
+             '아래 선택 파일부터 읽고 공백·실패 근거가 있을 때만 조회를 확대한다. 검사를 생략하는 지시가 아니다.']
+    for title, key in [('완료 조건', 'done'), ('선택 파일·근거', 'files'), ('필수 검사', 'checks'), ('미검증·주의', 'unverified')]:
+        lines += ['', '## ' + title] + ['- ' + value for value in spec[key]]
+    lines += ['', '다음 행동: ' + spec['next'], '',
+              '독립 조회·검사는 묶고 완료 알림을 기다린다. 같은 조건에서 통과한 검사는 반복하지 않는다.',
+              '작업 마감에 기존 --summarize-run과 --record를 한 번 실행한다. 실패·누락도 기록하고 자동 머지하지 않는다.',
+              '이 파일 생성은 현재 채팅을 초기화하지 않는다. 새 채팅에 이 파일 경로만 전달한다.']
+    body = '\n'.join(lines) + '\n'
+    size = len(body.encode('utf-8'))
+    if not 1 <= max_bytes <= 8192 or size > max_bytes:
+        raise ValueError('Coordinator handoff exceeds byte budget; narrow scope without dropping acceptance criteria')
+    output = Path(output)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(body)
+    return {'handoff': str(output), 'bytes': size, 'max_bytes': max_bytes,
+            'sha256': hashlib.sha256(body.encode('utf-8')).hexdigest(), 'selected_files': len(spec['files'])}
+
+
+def record_cost(report, run_dir, destination):
+    """Replace this run's short record in place; no model or additional queries."""
+    key = hashlib.sha256(str(Path(run_dir).resolve()).encode()).hexdigest()[:16]
+    start, end = '<!-- workflow-cost:' + key + ' -->', '<!-- /workflow-cost:' + key + ' -->'
+    value = report['combined_measured']
+    def show(v): return '미계측' if v is None else str(v)
+    block = '\n'.join([start, '### 실행 비용 · ' + Path(run_dir).name, '',
+        '| 범위 | 경과(초) | 캐시 입력 | 비캐시 입력 | 출력 | 미계측 시도 |',
+        '| --- | ---: | ---: | ---: | ---: | ---: |',
+        '| ' + ('종료 집계' if report['complete'] else '부분 집계') + ' | ' +
+        ' | '.join(show(v) for v in (report['elapsed_seconds'], value['cached_input_tokens'],
+        value['non_cached_input_tokens'], value['output_tokens'], value['unmeasured_attempts'])) + ' |',
+        '', '조정 모델 응답: ' + show((report['coordinator'] or {}).get('usage_records')) +
+        '. CLI usage record를 모델 호출 수로 세지 않음. 미계측은 0이 아님. 전체 경과는 PR 게시 경과와 별도.', end])
+    path = Path(destination)
+    text = path.read_text() if path.exists() else ''
+    if start in text:
+        a = text.index(start); b = text.index(end, a) + len(end)
+        text = text[:a] + block + text[b:]
+    else:
+        text = text.rstrip() + '\n\n' + block + '\n'
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(text)
+
+
 class Workflow:
     def __init__(self, root, run_dir, task, agent=None, gate=run_gate, rounds=3, demo=False,
                  probe=True):
@@ -536,10 +691,35 @@ class Workflow:
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--prepare-coordinator', type=Path, help='JSON task packet to bounded new-chat handoff; no model/check execution')
+    parser.add_argument('--handoff-output', type=Path)
+    parser.add_argument('--coordinator-root', type=Path, default=ROOT)
+    parser.add_argument('--record', type=Path, help='Update one run block in existing experiment record alongside summary')
+    parser.add_argument('--summarize-run', type=Path, help='Read existing evidence and emit one bounded cost report; no model/check execution')
+    parser.add_argument('--coordinator-rollout', type=Path)
+    parser.add_argument('--coordinator-turn')
+    parser.add_argument('--coordinator-cwd', type=Path)
     parser.add_argument("--task", default="Implement the approved feedback contract without changing its requirements.")
     parser.add_argument("--demo", action="store_true", help="Inject one no-save fault after first implementation")
     parser.add_argument("--rounds", type=int, default=3)
     args = parser.parse_args()
+    if args.prepare_coordinator:
+        if not args.handoff_output or args.summarize_run or args.record or any((args.coordinator_rollout, args.coordinator_turn, args.coordinator_cwd)):
+            parser.error('Prepare requires --handoff-output and cannot summarize/record')
+        print(json.dumps(prepare_coordinator(args.prepare_coordinator, args.coordinator_root, args.handoff_output), ensure_ascii=False))
+        return 0
+    if args.handoff_output:
+        parser.error('--handoff-output requires --prepare-coordinator')
+    if args.record and not args.summarize_run:
+        parser.error('--record requires --summarize-run')
+    if args.summarize_run:
+        report = summarize_run(args.summarize_run,args.coordinator_rollout,args.coordinator_turn,args.coordinator_cwd)
+        if args.record:
+            record_cost(report, args.summarize_run, args.record)
+        print(json.dumps({'report':str(args.summarize_run/'cost-summary.json'),'complete':report['complete'],'elapsed_seconds':report['elapsed_seconds'],'combined_measured':report['combined_measured']},ensure_ascii=False))
+        return 0
+    if any((args.coordinator_rollout,args.coordinator_turn,args.coordinator_cwd)):
+        parser.error('Coordinator arguments require --summarize-run')
     if not 1 <= args.rounds <= 3:
         parser.error("rounds must be 1..3")
     run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + uuid.uuid4().hex[:8]
