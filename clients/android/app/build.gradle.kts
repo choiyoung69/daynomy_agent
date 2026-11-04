@@ -1,5 +1,9 @@
 plugins { id("com.android.application"); kotlin("android"); id("org.jetbrains.kotlin.plugin.compose") }
 android {
+    // Optional side-by-side debug preview for shared emulator environments.
+    buildTypes.getByName("debug") {
+        applicationIdSuffix = providers.gradleProperty("previewApplicationIdSuffix").orNull
+    }
     namespace = "org.daynomy.android"
     compileSdk = 35
     buildToolsVersion = "35.0.0"
