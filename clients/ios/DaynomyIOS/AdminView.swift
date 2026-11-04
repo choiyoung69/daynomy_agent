@@ -470,7 +470,7 @@ private struct NewsSourceField: Identifiable {
         Form {
             Section("뉴스") {
                 TextField("제목", text: $title).accessibilityIdentifier("adminNewsTitle")
-                Picker("분야", selection: $category) { ForEach(newsCategories.filter { $0.0 != "ALL" }, id: \.0) { Text($0.1).tag($0.0) } }
+                Picker("분야", selection: $category) { ForEach(NewsPresentation.adminCategoryCodes.map { ($0, categoryLabel($0)) }, id: \.0) { Text($0.1).tag($0.0) } }
                 TextField("본문", text: $content, axis: .vertical).lineLimit(8...24).accessibilityIdentifier("adminNewsContent")
             }
             Section("출처") {

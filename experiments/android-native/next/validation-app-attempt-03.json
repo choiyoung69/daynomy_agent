@@ -1,0 +1,195 @@
+{
+  "validator": "/root/android_next_validation",
+  "started_at": "2026-10-28T09:30:38Z",
+  "ended_at": "2026-10-28T09:34:12.711007+00:00",
+  "exit_code": 0,
+  "status": "passed",
+  "command": "env JAVA_HOME=/Users/seoyeong/Library/Java/JavaVirtualMachines/ms-21.0.12/Contents/Home GRADLE_USER_HOME=$PWD/.local/android-gradle ANDROID_SERIAL=emulator-5564 clients/android/gradlew -p clients/android --no-daemon :app:assembleDebug :app:assembleDebugAndroidTest :app:connectedDebugAndroidTest :app:lintDebug",
+  "counts": {
+    "name": "org.daynomy.android.DiscoveryScreenAcceptanceTest",
+    "tests": "8",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "16.746",
+    "timestamp": "2026-10-28T09:31:17",
+    "hostname": "localhost"
+  },
+  "cases": [
+    {
+      "class": "org.daynomy.android.DiscoveryScreenAcceptanceTest",
+      "name": "exchangeErrorDoesNotBecomeAQuoteAndExplicitRetryRecovers",
+      "passed": true
+    },
+    {
+      "class": "org.daynomy.android.DiscoveryScreenAcceptanceTest",
+      "name": "exchangeShowsActualFallbackDateAndExactRateAndSurvivesRecreation",
+      "passed": true
+    },
+    {
+      "class": "org.daynomy.android.DiscoveryScreenAcceptanceTest",
+      "name": "newsCategoryPaginationDetailAndBackUseNativeScreenAndKeepSelectedPage",
+      "passed": true
+    },
+    {
+      "class": "org.daynomy.android.MarketScreenAcceptanceTest",
+      "name": "selectingStockDisplaysStoredDateAndAutofillsPlainDecimal",
+      "passed": true
+    },
+    {
+      "class": "org.daynomy.android.MarketScreenAcceptanceTest",
+      "name": "delayedQuoteCannotOverwriteManualInputAndRotationPreservesDirtyDraft",
+      "passed": true
+    },
+    {
+      "class": "org.daynomy.android.MarketScreenAcceptanceTest",
+      "name": "clearedManualInputRemainsEmptyWhenDelayedPriceArrives",
+      "passed": true
+    },
+    {
+      "class": "org.daynomy.android.MarketScreenAcceptanceTest",
+      "name": "missingQuoteShowsErrorAndStillAllowsManualInput",
+      "passed": true
+    },
+    {
+      "class": "org.daynomy.android.MarketScreenAcceptanceTest",
+      "name": "usSearchSendsCountryAndLocalCategoryFilterDoesNotRefetch",
+      "passed": true
+    }
+  ],
+  "hashes_before": {
+    "clients/android/app/src/main/AndroidManifest.xml": "de0af21e2564585c0f39591fa69ace0ee88011834e8a01cd495bb5a5743a8ae2",
+    "clients/android/app/src/debug/AndroidManifest.xml": "28a0d65f750bf61b6583f56dc5cfb35b5e0fd4be5187a323d2b56131d1898993",
+    "clients/android/app/src/debug/res/xml/debug_network_security.xml": "bc63aed497e2445f12ae17077918847224ec3399ecc979b22b685fa5af3c8472",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/MainActivity.kt": "7eb18c3354fd2e3c5fd9d0de332bd6e454638143841f870f5458f81b171e848b",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/DiscoveryViewModel.kt": "dea62fa52cd4459332be0eb354a18c52e26c7dc4cedf81d2facf20d9629f1eec",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/DiscoveryScreens.kt": "2af788dfd7ecbb0cc6dd4d4f46c8a949bcc97c46f36f057a278656f892688b75",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/MarketViewModel.kt": "8717506128596a148f22b4ba3b3ce6b945b6a63f8396fbe46a306b3aebbe9d31",
+    "clients/android/app/src/main/res/values/styles.xml": "b2be39a301bb36472ac6dddb20f1ad96f1029f7b2cdf208629ef21d63372621c",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/DiscoveryScreenAcceptanceTest.kt": "509c429bbc137ee9a11f6cbcf46296377580563a57d7f562c45d6cca4cb8c717",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/MarketScreenAcceptanceTest.kt": "5d8ee4b87f74e201217ce2c9aa0512df622533916622d2c05187e5e9fa9bdb5b",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryModels.kt": "75ee707ceea85c0db6757f1c84ba20e2c9819fb15b7f52774da194c6f88c925e",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/StockPriceClient.kt": "d5c01e106b3d52dedb8167ab966d4e551277f5fb51ab689344ed954f2187851a",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/ExchangeController.kt": "e2ee57f16f7beebd43cca5d218ff26e5ccb1b94003151b1c8156748d4a711901",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryClients.kt": "b3f3e1cd0df42ef8a524e2c2d37b33330a519ca4ef68711fc53eaee864fd8df9",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/StockSearchClient.kt": "84511019db5f57739081aa93ea6698faef767af09637e2015c61f67d83f2c85a",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/MarketController.kt": "fc9d4871f6ec2ed8016b1364822b095e6873ece49f0f04aaa01b17f2924b34ea",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/Models.kt": "673fc14e087949567ed3aff8b2a61b3a360061cb77bd3a5755f22f8687b61a50",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/ExchangeClient.kt": "416a8d3b8ae82cad2494b507829b45b2b293d9a4baeb6ca7f5252375f5e04067",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/OkHttpTransport.kt": "d5c89ef7f1285be0875dd66a6b4aec26a336e7a2dcfc691afc9fd1dbd1394e4d",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryController.kt": "a3f132d48ede90bdd157003278e3ea72d8f2b0772f73687cd0e50aa88a2158c8",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/ExchangeModels.kt": "c9eb006058ca0f2b0ecb2b4c75b6bfacbcb8196392546d242f9562187cee22bc",
+    "clients/android/market-core/src/backendTest/kotlin/org/daynomy/market/DiscoveryBackendAcceptanceTest.kt": "caf3b9b8ad8c185025541222ca7dab8e6b06eb206d6918260f04a285c64e8133",
+    "clients/android/market-core/src/backendTest/kotlin/org/daynomy/market/RustBackendAcceptanceTest.kt": "55bd757ca840b46284e1c41e2ba7561b3414a456a92e4b89cde3032269ebd27e",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/MarketControllerContractTest.kt": "e8201ff7f3b21fcdba473803c02381a22f7584147442ff364e6c858e4cb82199",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/DiscoveryClientContractTest.kt": "cb45b07c464e0efccbd07a58812bff5f0e8d2e043e92ef76710485c0256bd684",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/StockPriceClientContractTest.kt": "1d568f1a3a654baa847beb5fc409bf0d3c2b2d916318a753472cabe833525093",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/StockSearchClientContractTest.kt": "fb3205972876f584cef4d43ba86d2ae16ae9a27feece05daef7edb20628e2566",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/DiscoveryControllerContractTest.kt": "ee15da3fe5a0656ae9834daef7bc19a9895f75e182ea068376e2b10a27138c22",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/ExchangeNumericBoundaryTest.kt": "a6ca3d3685f1739aee4475d632bb69c4feac70328e9365a3a20a52e8ccfce56e",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/OkHttpTransportContractTest.kt": "b80f55ddd41b33270018ab88bc4527a93378f0b6802f1c50098a1b7f8cc7bc4a",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/ExchangeClientContractTest.kt": "d739e52ef477dd455fc599b3cc5982ee407cdeba61f15fced43aa8f06c602353",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/ExchangeControllerContractTest.kt": "bcc5a8a8f8bce5aafb858018598caee4b229301aa0e0649b775090c37b6c8f26",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/MarketControllerRegressionTest.kt": "4e2a6fde6d0d9593ce82a6ecc5cb39b1019c99728bd72eb95612b76c27435b55",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/ContractFixtures.kt": "d9449c31b426a61cbb3afd1afef33577c733845c93f9c76496f0dc40fee59ab3",
+    "clients/android/app/build.gradle.kts": "6322e456a132b33327fbbb854e64d18e512cf04058075ad03757585da669b1ef",
+    "clients/android/app/gradle.lockfile": "b66f38a8990ade6a94d522aee33b5fe3c0cc1dc589ad05b5d1fe356ea2b3f0e7",
+    "clients/android/market-core/build.gradle.kts": "c65968ffde3a334a817a92d749b740449c9c17f4135be8ed7adf24c4299549c4",
+    "scripts/android_knowledge.py": "1f742bc0d62c91ddd103d2c635ca542b71474b91b7e83a18ea577a42999f2915",
+    "agents/android-native.json": "49d3d21e822fa6fbeda2bd84dca6b7954e08aba4a623845f8f7fbb43bf4b6d79"
+  },
+  "hashes_after": {
+    "clients/android/app/src/main/AndroidManifest.xml": "de0af21e2564585c0f39591fa69ace0ee88011834e8a01cd495bb5a5743a8ae2",
+    "clients/android/app/src/debug/AndroidManifest.xml": "28a0d65f750bf61b6583f56dc5cfb35b5e0fd4be5187a323d2b56131d1898993",
+    "clients/android/app/src/debug/res/xml/debug_network_security.xml": "bc63aed497e2445f12ae17077918847224ec3399ecc979b22b685fa5af3c8472",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/MainActivity.kt": "7eb18c3354fd2e3c5fd9d0de332bd6e454638143841f870f5458f81b171e848b",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/DiscoveryViewModel.kt": "dea62fa52cd4459332be0eb354a18c52e26c7dc4cedf81d2facf20d9629f1eec",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/DiscoveryScreens.kt": "2af788dfd7ecbb0cc6dd4d4f46c8a949bcc97c46f36f057a278656f892688b75",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/MarketViewModel.kt": "8717506128596a148f22b4ba3b3ce6b945b6a63f8396fbe46a306b3aebbe9d31",
+    "clients/android/app/src/main/res/values/styles.xml": "b2be39a301bb36472ac6dddb20f1ad96f1029f7b2cdf208629ef21d63372621c",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/DiscoveryScreenAcceptanceTest.kt": "509c429bbc137ee9a11f6cbcf46296377580563a57d7f562c45d6cca4cb8c717",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/MarketScreenAcceptanceTest.kt": "5d8ee4b87f74e201217ce2c9aa0512df622533916622d2c05187e5e9fa9bdb5b",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryModels.kt": "75ee707ceea85c0db6757f1c84ba20e2c9819fb15b7f52774da194c6f88c925e",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/StockPriceClient.kt": "d5c01e106b3d52dedb8167ab966d4e551277f5fb51ab689344ed954f2187851a",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/ExchangeController.kt": "e2ee57f16f7beebd43cca5d218ff26e5ccb1b94003151b1c8156748d4a711901",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryClients.kt": "b3f3e1cd0df42ef8a524e2c2d37b33330a519ca4ef68711fc53eaee864fd8df9",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/StockSearchClient.kt": "84511019db5f57739081aa93ea6698faef767af09637e2015c61f67d83f2c85a",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/MarketController.kt": "fc9d4871f6ec2ed8016b1364822b095e6873ece49f0f04aaa01b17f2924b34ea",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/Models.kt": "673fc14e087949567ed3aff8b2a61b3a360061cb77bd3a5755f22f8687b61a50",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/ExchangeClient.kt": "416a8d3b8ae82cad2494b507829b45b2b293d9a4baeb6ca7f5252375f5e04067",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/OkHttpTransport.kt": "d5c89ef7f1285be0875dd66a6b4aec26a336e7a2dcfc691afc9fd1dbd1394e4d",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryController.kt": "a3f132d48ede90bdd157003278e3ea72d8f2b0772f73687cd0e50aa88a2158c8",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/ExchangeModels.kt": "c9eb006058ca0f2b0ecb2b4c75b6bfacbcb8196392546d242f9562187cee22bc",
+    "clients/android/market-core/src/backendTest/kotlin/org/daynomy/market/DiscoveryBackendAcceptanceTest.kt": "caf3b9b8ad8c185025541222ca7dab8e6b06eb206d6918260f04a285c64e8133",
+    "clients/android/market-core/src/backendTest/kotlin/org/daynomy/market/RustBackendAcceptanceTest.kt": "55bd757ca840b46284e1c41e2ba7561b3414a456a92e4b89cde3032269ebd27e",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/MarketControllerContractTest.kt": "e8201ff7f3b21fcdba473803c02381a22f7584147442ff364e6c858e4cb82199",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/DiscoveryClientContractTest.kt": "cb45b07c464e0efccbd07a58812bff5f0e8d2e043e92ef76710485c0256bd684",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/StockPriceClientContractTest.kt": "1d568f1a3a654baa847beb5fc409bf0d3c2b2d916318a753472cabe833525093",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/StockSearchClientContractTest.kt": "fb3205972876f584cef4d43ba86d2ae16ae9a27feece05daef7edb20628e2566",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/DiscoveryControllerContractTest.kt": "ee15da3fe5a0656ae9834daef7bc19a9895f75e182ea068376e2b10a27138c22",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/ExchangeNumericBoundaryTest.kt": "a6ca3d3685f1739aee4475d632bb69c4feac70328e9365a3a20a52e8ccfce56e",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/OkHttpTransportContractTest.kt": "b80f55ddd41b33270018ab88bc4527a93378f0b6802f1c50098a1b7f8cc7bc4a",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/ExchangeClientContractTest.kt": "d739e52ef477dd455fc599b3cc5982ee407cdeba61f15fced43aa8f06c602353",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/ExchangeControllerContractTest.kt": "bcc5a8a8f8bce5aafb858018598caee4b229301aa0e0649b775090c37b6c8f26",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/MarketControllerRegressionTest.kt": "4e2a6fde6d0d9593ce82a6ecc5cb39b1019c99728bd72eb95612b76c27435b55",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/ContractFixtures.kt": "d9449c31b426a61cbb3afd1afef33577c733845c93f9c76496f0dc40fee59ab3",
+    "clients/android/app/build.gradle.kts": "6322e456a132b33327fbbb854e64d18e512cf04058075ad03757585da669b1ef",
+    "clients/android/app/gradle.lockfile": "b66f38a8990ade6a94d522aee33b5fe3c0cc1dc589ad05b5d1fe356ea2b3f0e7",
+    "clients/android/market-core/build.gradle.kts": "c65968ffde3a334a817a92d749b740449c9c17f4135be8ed7adf24c4299549c4",
+    "scripts/android_knowledge.py": "1f742bc0d62c91ddd103d2c635ca542b71474b91b7e83a18ea577a42999f2915",
+    "agents/android-native.json": "49d3d21e822fa6fbeda2bd84dca6b7954e08aba4a623845f8f7fbb43bf4b6d79"
+  },
+  "source_unchanged": true,
+  "log": ".local/android-next-verification-app-03.log",
+  "log_sha256": "a5cf4dee34297eb15ed56727d4c70c41ebbbe0a57253728d8db86a3521ff1526",
+  "xml_sha256": "bcef506811e13169592f457e1a6e2c59f547162bdca889496d1c4837056c6465",
+  "apk_sha256": "e0470a926cadba75ea84442909a1bcd4b6c8fa9114445be3f2b4ec513d3e2270",
+  "android_test_apk_sha256": "b01c8dc43d3dabb633ab044a91da0eba4107be43592d98dd6c7defb5cca7ff4f",
+  "lint": {
+    "passed": true,
+    "xml_sha256": "d5812dd388eaaaa80749a9c7df70282fa06e445c15e14663631dca0458182eb1",
+    "warnings": [
+      {
+        "id": "GradleDependency",
+        "severity": "Warning"
+      },
+      {
+        "id": "GradleDependency",
+        "severity": "Warning"
+      },
+      {
+        "id": "GradleDependency",
+        "severity": "Warning"
+      },
+      {
+        "id": "GradleDependency",
+        "severity": "Warning"
+      },
+      {
+        "id": "GradleDependency",
+        "severity": "Warning"
+      },
+      {
+        "id": "GradleDependency",
+        "severity": "Warning"
+      },
+      {
+        "id": "GradleDependency",
+        "severity": "Warning"
+      },
+      {
+        "id": "DataExtractionRules",
+        "severity": "Warning"
+      },
+      {
+        "id": "MissingApplicationIcon",
+        "severity": "Warning"
+      }
+    ]
+  },
+  "retry_accounting": {
+    "market_viewport_fix_attempts": 1,
+    "exchange_error_visibility_fix_attempts": 1
+  },
+  "production_or_criteria_edits_by_validator": []
+}

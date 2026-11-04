@@ -1,0 +1,536 @@
+import { useEffect, useMemo, useState } from 'react';
+import type { FormEvent } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ApiError } from '../../api/client';
+import { formatDate } from '../news/newslist/utils';
+import {
+  ADMIN_NEWS_CATEGORY_OPTIONS,
+  ADMIN_NEWS_STATUS_OPTIONS,
+  CATEGORY_LABELS,
+  NEWS_STATUS_LABELS,
+} from './constants';
+import {
+  deleteAdminNews,
+  generateAdminKoreanEconomicNewsDrafts,
+  generateAdminNewsImage,
+  generateAdminUsEconomicNewsDrafts,
+  getAdminNews,
+  publishAdminNews,
+  rejectAdminNews,
+} from './api';
+import type {
+  AdminNewsFilterCategory,
+  AdminNewsFilterStatus,
+  AdminNewsListItemResponse,
+} from './types';
+import './admin.css';
+
+type NewsGenerationRegion = 'korea' | 'us';
+
+function getErrorMessage(error: unknown, fallback: string) {
+  return error instanceof ApiError || error instanceof Error ? error.message : fallback;
+}
+
+function getPaginationPages(page: number, totalPages: number) {
+  const visiblePageCount = Math.min(totalPages, 5);
+  const firstPage = Math.min(
+    Math.max(page - Math.floor(visiblePageCount / 2), 1),
+    Math.max(totalPages - visiblePageCount + 1, 1),
+  );
+
+  return Array.from({ length: visiblePageCount }, (_, index) => firstPage + index);
+}
+
+function StatusBadge({ status }: { status: AdminNewsListItemResponse['status'] }) {
+  return (
+    <span className={`admin-status admin-status-${status.toLowerCase()}`}>
+      {NEWS_STATUS_LABELS[status]}
+    </span>
+  );
+}
+
+function AdminAccessDeniedPage() {
+  return (
+    <main className="admin-state-page">
+      <section className="admin-state-panel">
+        <h1>관리자 권한이 필요합니다.</h1>
+        <p>관리자 계정으로 로그인한 뒤 다시 시도해 주세요.</p>
+        <Link className="admin-secondary-button" to="/">
+          서비스 홈으로
+        </Link>
+      </section>
+    </main>
+  );
+}
+
+export { AdminAccessDeniedPage };
+
+export function AdminNewsPage() {
+  const navigate = useNavigate();
+  const [items, setItems] = useState<AdminNewsListItemResponse[]>([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalElements, setTotalElements] = useState(0);
+  const [status, setStatus] = useState<AdminNewsFilterStatus>('ALL');
+  const [category, setCategory] = useState<AdminNewsFilterCategory>('ALL');
+  const [searchInput, setSearchInput] = useState('');
+  const [keyword, setKeyword] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [publishingId, setPublishingId] = useState<number | null>(null);
+  const [rejectingId, setRejectingId] = useState<number | null>(null);
+  const [deletingId, setDeletingId] = useState<number | null>(null);
+  const [generatingImageId, setGeneratingImageId] = useState<number | null>(null);
+  const [generatingDraftRegion, setGeneratingDraftRegion] = useState<NewsGenerationRegion | null>(
+    null,
+  );
+  const [generatedDraftResult, setGeneratedDraftResult] = useState<{
+    region: NewsGenerationRegion;
+    savedCount: number;
+  } | null>(null);
+  const [generationError, setGenerationError] = useState<{
+    region: NewsGenerationRegion;
+    message: string;
+  } | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [reloadKey, setReloadKey] = useState(0);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    setLoading(true);
+    setErrorMessage(null);
+
+    getAdminNews(page, status, category, controller.signal, keyword)
+      .then((response) => {
+        if (controller.signal.aborted) return;
+        const nextTotalPages = Math.max(1, response.totalPages);
+
+        if (page > nextTotalPages) {
+          setPage(nextTotalPages);
+          return;
+        }
+
+        setItems(response.items);
+        setTotalPages(nextTotalPages);
+        setTotalElements(response.totalElements);
+      })
+      .catch((error) => {
+        if (controller.signal.aborted) return;
+        setItems([]);
+        setTotalPages(1);
+        setTotalElements(0);
+        setErrorMessage(getErrorMessage(error, '관리자 뉴스 목록을 불러오지 못했습니다.'));
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setLoading(false);
+      });
+
+    return () => controller.abort();
+  }, [category, keyword, page, reloadKey, status]);
+
+  const paginationPages = useMemo(() => getPaginationPages(page, totalPages), [page, totalPages]);
+  const hasSearchConditions = Boolean(keyword) || status !== 'ALL' || category !== 'ALL';
+
+  function handleSearch(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setKeyword(searchInput.trim());
+    setPage(1);
+  }
+
+  function clearSearch() {
+    setSearchInput('');
+    setKeyword('');
+    setPage(1);
+  }
+
+  function handleStatusChange(nextStatus: AdminNewsFilterStatus) {
+    setStatus(nextStatus);
+    setPage(1);
+  }
+
+  function handleCategoryChange(nextCategory: AdminNewsFilterCategory) {
+    setCategory(nextCategory);
+    setPage(1);
+  }
+
+  async function handleGenerateDrafts(region: NewsGenerationRegion) {
+    setGeneratingDraftRegion(region);
+    setGeneratedDraftResult(null);
+    setGenerationError(null);
+
+    try {
+      const response =
+        region === 'korea'
+          ? await generateAdminKoreanEconomicNewsDrafts()
+          : await generateAdminUsEconomicNewsDrafts();
+      setGeneratedDraftResult({ region, savedCount: response.savedCount });
+      setReloadKey((current) => current + 1);
+    } catch (error) {
+      const country = region === 'korea' ? '한국' : '미국';
+      setGenerationError({
+        region,
+        message: getErrorMessage(error, `${country} 뉴스 초안을 생성하지 못했습니다.`),
+      });
+    } finally {
+      setGeneratingDraftRegion(null);
+    }
+  }
+
+  async function handleDelete(item: AdminNewsListItemResponse) {
+    if (!window.confirm(`'${item.title}' 뉴스를 삭제할까요?`)) return;
+
+    setDeletingId(item.id);
+    setErrorMessage(null);
+    try {
+      await deleteAdminNews(item.id);
+      setReloadKey((current) => current + 1);
+    } catch (error) {
+      setErrorMessage(getErrorMessage(error, '뉴스를 삭제하지 못했습니다.'));
+    } finally {
+      setDeletingId(null);
+    }
+  }
+
+  async function handlePublish(item: AdminNewsListItemResponse) {
+    if (!window.confirm(`'${item.title}' 뉴스를 발행할까요?`)) return;
+
+    setPublishingId(item.id);
+    setErrorMessage(null);
+    try {
+      await publishAdminNews(item.id);
+      setReloadKey((current) => current + 1);
+    } catch (error) {
+      setErrorMessage(getErrorMessage(error, '뉴스를 발행하지 못했습니다.'));
+    } finally {
+      setPublishingId(null);
+    }
+  }
+
+  async function handleReject(item: AdminNewsListItemResponse) {
+    if (!window.confirm(`'${item.title}' 뉴스를 거절할까요?`)) return;
+
+    setRejectingId(item.id);
+    setErrorMessage(null);
+    try {
+      await rejectAdminNews(item.id);
+      setReloadKey((current) => current + 1);
+    } catch (error) {
+      setErrorMessage(getErrorMessage(error, '뉴스를 거절하지 못했습니다.'));
+    } finally {
+      setRejectingId(null);
+    }
+  }
+
+  async function handleGenerateImage(item: AdminNewsListItemResponse) {
+    if (item.imageUrl && !window.confirm(`'${item.title}' 뉴스 이미지를 새 이미지로 교체할까요?`)) {
+      return;
+    }
+
+    setGeneratingImageId(item.id);
+    setErrorMessage(null);
+    try {
+      await generateAdminNewsImage(item.id);
+      setReloadKey((current) => current + 1);
+    } catch (error) {
+      setErrorMessage(getErrorMessage(error, '뉴스 이미지를 생성하지 못했습니다.'));
+    } finally {
+      setGeneratingImageId(null);
+    }
+  }
+
+  return (
+    <main className="admin-content">
+      <div className="admin-page-heading">
+        <div>
+          <h1>뉴스 관리</h1>
+          <p>뉴스를 등록하고 서비스에 노출되는 콘텐츠를 관리하세요.</p>
+        </div>
+        <Link className="admin-primary-button" to="/admin/news/new">
+          새 뉴스 등록
+        </Link>
+      </div>
+
+      <section className="admin-action-panel" aria-labelledby="economy-news-generation-title">
+        <div>
+          <h2 id="economy-news-generation-title">경제 뉴스 초안 생성</h2>
+          <p>한국 뉴스와 미국 뉴스는 각각 별도 예약 및 수동 실행으로 초안을 생성합니다.</p>
+        </div>
+        <div className="admin-action-panel-buttons">
+          <button
+            type="button"
+            className="admin-secondary-button"
+            disabled={generatingDraftRegion !== null}
+            onClick={() => void handleGenerateDrafts('korea')}
+          >
+            {generatingDraftRegion === 'korea' ? '한국 뉴스 생성 중…' : '한국 뉴스 지금 생성'}
+          </button>
+          <button
+            type="button"
+            className="admin-secondary-button"
+            disabled={generatingDraftRegion !== null}
+            onClick={() => void handleGenerateDrafts('us')}
+          >
+            {generatingDraftRegion === 'us' ? '미국 뉴스 생성 중…' : '미국 뉴스 지금 생성'}
+          </button>
+        </div>
+      </section>
+
+      {generatedDraftResult ? (
+        <section className="admin-success-panel" role="status" aria-live="polite">
+          <strong>
+            {generatedDraftResult.region === 'korea' ? '한국' : '미국'} 뉴스 초안 생성이
+            완료되었습니다.
+          </strong>
+          <p>
+            저장된 초안 수 <span>{generatedDraftResult.savedCount.toLocaleString('ko-KR')}</span>건
+          </p>
+        </section>
+      ) : null}
+
+      {generationError ? (
+        <section className="admin-alert" role="alert">
+          <strong>{generationError.message}</strong>
+          <button
+            type="button"
+            onClick={() => void handleGenerateDrafts(generationError.region)}
+            disabled={generatingDraftRegion !== null}
+          >
+            다시 시도
+          </button>
+        </section>
+      ) : null}
+
+      <section className="admin-toolbar" aria-label="뉴스 목록 필터">
+        <form className="admin-search-form" onSubmit={handleSearch}>
+          <label>
+            <span>뉴스 검색</span>
+            <input
+              type="search"
+              value={searchInput}
+              onChange={(event) => setSearchInput(event.target.value)}
+              placeholder="제목·본문 검색"
+              maxLength={100}
+            />
+          </label>
+          <button type="submit" className="admin-primary-button">
+            검색
+          </button>
+          <button type="button" className="admin-secondary-button" onClick={clearSearch}>
+            초기화
+          </button>
+        </form>
+        <label>
+          <span>상태</span>
+          <select
+            value={status}
+            onChange={(event) => handleStatusChange(event.target.value as AdminNewsFilterStatus)}
+          >
+            {ADMIN_NEWS_STATUS_OPTIONS.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span>카테고리</span>
+          <select
+            value={category}
+            onChange={(event) =>
+              handleCategoryChange(event.target.value as AdminNewsFilterCategory)
+            }
+          >
+            {ADMIN_NEWS_CATEGORY_OPTIONS.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <p className="admin-total-count" aria-live="polite">
+          {hasSearchConditions ? '조회 결과' : '전체'}{' '}
+          <strong>{totalElements.toLocaleString('ko-KR')}</strong>건
+        </p>
+      </section>
+
+      {errorMessage ? (
+        <section className="admin-alert" role="alert">
+          <strong>{errorMessage}</strong>
+          <button type="button" onClick={() => setReloadKey((current) => current + 1)}>
+            다시 시도
+          </button>
+        </section>
+      ) : null}
+
+      <section className="admin-table-panel" aria-label="관리자 뉴스 목록">
+        {loading ? (
+          <div className="admin-table-loading">
+            {keyword ? '뉴스를 검색하는 중입니다.' : '뉴스 목록을 불러오는 중입니다.'}
+          </div>
+        ) : null}
+        {!loading && !errorMessage && items.length === 0 ? (
+          <div className="admin-empty-state">
+            {hasSearchConditions ? (
+              <>
+                <strong>조건에 맞는 뉴스가 없습니다.</strong>
+                <p>검색어 또는 필터를 변경해 다시 확인해 주세요.</p>
+              </>
+            ) : (
+              <>
+                <strong>등록된 뉴스가 없습니다.</strong>
+                <p>새 뉴스를 등록하면 이곳에서 콘텐츠를 관리할 수 있습니다.</p>
+                <Link className="admin-secondary-button" to="/admin/news/new">
+                  첫 뉴스 등록하기
+                </Link>
+              </>
+            )}
+          </div>
+        ) : null}
+        {!loading && items.length > 0 ? (
+          <div className="admin-table-scroll">
+            <table className="admin-news-table">
+              <thead>
+                <tr>
+                  <th scope="col">뉴스</th>
+                  <th scope="col">카테고리</th>
+                  <th scope="col">상태</th>
+                  <th scope="col">등록일</th>
+                  <th scope="col">관리</th>
+                </tr>
+              </thead>
+              <tbody>
+                {items.map((item) => {
+                  const isProcessing =
+                    publishingId === item.id ||
+                    rejectingId === item.id ||
+                    deletingId === item.id ||
+                    generatingImageId === item.id;
+
+                  return (
+                    <tr key={item.id}>
+                      <td data-label="뉴스">
+                        <div className="admin-news-summary">
+                          {item.imageUrl ? (
+                            <img
+                              className="admin-news-thumbnail"
+                              src={item.imageUrl}
+                              alt=""
+                              loading="lazy"
+                            />
+                          ) : (
+                            <span className="admin-news-no-image">이미지 없음</span>
+                          )}
+                          <Link
+                            className="admin-news-title"
+                            to={`/admin/news/${item.id}/edit`}
+                            aria-disabled={isProcessing}
+                            tabIndex={isProcessing ? -1 : undefined}
+                            onClick={(event) => {
+                              if (isProcessing) event.preventDefault();
+                            }}
+                          >
+                            {item.title}
+                          </Link>
+                        </div>
+                      </td>
+                      <td data-label="카테고리">{CATEGORY_LABELS[item.category]}</td>
+                      <td data-label="상태">
+                        <StatusBadge status={item.status} />
+                      </td>
+                      <td data-label="등록일">{formatDate(item.createdAt)}</td>
+                      <td data-label="관리">
+                        <div className="admin-row-actions">
+                          {item.status === 'DRAFT' || item.status === 'PUBLISHED' ? (
+                            <button
+                              type="button"
+                              disabled={isProcessing}
+                              onClick={() => handleGenerateImage(item)}
+                            >
+                              {generatingImageId === item.id
+                                ? item.imageUrl
+                                  ? '이미지 재생성 중'
+                                  : '이미지 생성 중'
+                                : item.imageUrl
+                                  ? '이미지 재생성'
+                                  : '이미지 생성'}
+                            </button>
+                          ) : null}
+                          {item.status === 'DRAFT' ? (
+                            <button
+                              type="button"
+                              className="publish"
+                              disabled={isProcessing}
+                              onClick={() => handlePublish(item)}
+                            >
+                              {publishingId === item.id ? '발행 중' : '발행'}
+                            </button>
+                          ) : null}
+                          {item.status === 'DRAFT' ? (
+                            <button
+                              type="button"
+                              className="reject"
+                              disabled={isProcessing}
+                              onClick={() => handleReject(item)}
+                            >
+                              {rejectingId === item.id ? '거절 중' : '거절'}
+                            </button>
+                          ) : null}
+                          <button
+                            type="button"
+                            disabled={isProcessing}
+                            onClick={() => navigate(`/admin/news/${item.id}/edit`)}
+                          >
+                            수정
+                          </button>
+                          <button
+                            type="button"
+                            className="danger"
+                            disabled={isProcessing}
+                            onClick={() => handleDelete(item)}
+                          >
+                            {deletingId === item.id ? '삭제 중' : '삭제'}
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        ) : null}
+      </section>
+
+      {!loading && items.length > 0 && totalPages > 1 ? (
+        <nav className="admin-pagination" aria-label="관리자 뉴스 페이지네이션">
+          <button
+            type="button"
+            aria-label="이전 페이지"
+            disabled={page === 1}
+            onClick={() => setPage((current) => Math.max(1, current - 1))}
+          >
+            ‹
+          </button>
+          {paginationPages.map((pageNumber) => (
+            <button
+              type="button"
+              key={pageNumber}
+              className={pageNumber === page ? 'active' : undefined}
+              aria-current={pageNumber === page ? 'page' : undefined}
+              onClick={() => setPage(pageNumber)}
+            >
+              {pageNumber}
+            </button>
+          ))}
+          <button
+            type="button"
+            aria-label="다음 페이지"
+            disabled={page === totalPages}
+            onClick={() => setPage((current) => Math.min(totalPages, current + 1))}
+          >
+            ›
+          </button>
+        </nav>
+      ) : null}
+    </main>
+  );
+}

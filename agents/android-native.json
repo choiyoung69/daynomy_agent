@@ -1,0 +1,131 @@
+{
+  "execution": "desktop_subagents",
+  "max_concurrent_agents_including_coordinator": 4,
+  "scope": [
+    "stock-search",
+    "latest-price",
+    "connected-compose-screen"
+  ],
+  "platform": "android-native",
+  "roles": {
+    "implementer": {
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "medium"
+    },
+    "test_author": {
+      "model": "gpt-6-astra",
+      "reasoning_effort": "high"
+    },
+    "validator": {
+      "model": "gpt-6-astra",
+      "reasoning_effort": "high"
+    }
+  },
+  "phases": [
+    "source-spec",
+    "independent-tests",
+    "red-test-and-freeze",
+    "implementation",
+    "actual-verification",
+    "independent-code-review",
+    "fix-and-reverify"
+  ],
+  "note": "Root dispatches separate test-author, implementation, validation desktop agents; workers pipeline independent bundles. Prior first pilot used combined test/review role; preserved in its evidence. Shared Gradle/DB/device operations serialized.",
+  "knowledge": {
+    "feature": "stock-search-price",
+    "platform": "android",
+    "policy": "knowledge-first; use pinned original sources; external lookup only for an unresolved gap, record reason and result",
+    "documents": {
+      "search": [
+        "wiki/projects/daynomy/stock-search-price.md",
+        "wiki/packages/android-kotlin/types-and-json.md",
+        "wiki/packages/android-kotlin/collections-and-models.md"
+      ],
+      "price": [
+        "wiki/projects/daynomy/stock-search-price.md",
+        "wiki/packages/android-kotlin/types-and-json.md",
+        "wiki/packages/android-kotlin/numbers-and-money.md",
+        "wiki/packages/android-kotlin/dates-and-unicode.md"
+      ],
+      "integration": [
+        "wiki/projects/daynomy/stock-search-price.md",
+        "wiki/packages/android-kotlin/async-and-cancellation.md",
+        "wiki/packages/android-kotlin/state-and-navigation.md",
+        "wiki/packages/android-kotlin/errors-and-transactions.md",
+        "wiki/packages/android-kotlin/modules-and-testing.md"
+      ],
+      "news": [
+        "wiki/projects/daynomy/news.md",
+        "wiki/packages/android-kotlin/types-and-json.md",
+        "wiki/packages/android-kotlin/dates-and-unicode.md",
+        "wiki/packages/android-kotlin/async-and-cancellation.md",
+        "wiki/packages/android-kotlin/state-and-navigation.md"
+      ],
+      "exchange": [
+        "wiki/projects/daynomy/stocks-exchange.md",
+        "wiki/packages/android-kotlin/types-and-json.md",
+        "wiki/packages/android-kotlin/numbers-and-money.md",
+        "wiki/packages/android-kotlin/dates-and-unicode.md",
+        "wiki/packages/android-kotlin/async-and-cancellation.md"
+      ],
+      "discovery-ui": [
+        "wiki/projects/daynomy/news.md",
+        "wiki/projects/daynomy/stocks-exchange.md",
+        "wiki/packages/android-kotlin/state-and-navigation.md",
+        "wiki/packages/android-kotlin/async-and-cancellation.md",
+        "wiki/packages/android-kotlin/errors-and-transactions.md"
+      ],
+      "core-session": [
+        "wiki/projects/daynomy/auth-session.md",
+        "wiki/projects/daynomy/account.md",
+        "wiki/packages/android-kotlin/auth-and-storage.md",
+        "wiki/packages/android-kotlin/async-and-cancellation.md",
+        "wiki/packages/android-kotlin/types-and-json.md"
+      ],
+      "core-portfolio": [
+        "wiki/projects/daynomy/portfolio-ledger.md",
+        "wiki/projects/daynomy/portfolio-calculation.md",
+        "wiki/packages/android-kotlin/numbers-and-money.md",
+        "wiki/packages/android-kotlin/errors-and-transactions.md",
+        "wiki/packages/android-kotlin/types-and-json.md"
+      ],
+      "core-ui": [
+        "wiki/projects/daynomy/account.md",
+        "wiki/projects/daynomy/portfolio-ledger.md",
+        "wiki/packages/android-kotlin/state-and-navigation.md",
+        "wiki/packages/android-kotlin/auth-and-storage.md",
+        "wiki/packages/android-kotlin/errors-and-transactions.md"
+      ]
+    },
+    "task_features": {
+      "news": "news",
+      "exchange": "stocks-exchange",
+      "discovery-ui": "news",
+      "core-session": "auth-session",
+      "core-portfolio": "portfolio-ledger",
+      "core-ui": "account"
+    }
+  },
+  "next_increment": {
+    "scope": [
+      "public-news-list",
+      "public-news-detail",
+      "usd-krw-exchange-lookup"
+    ],
+    "tests": "android_next_tests",
+    "implementation": "android_next_implementation",
+    "validation": "android_next_validation",
+    "coordination": "root: interface freeze, KB inputs, environment and navigation integration",
+    "pipeline": "tests exchange -> implement exchange while tests news -> validate exchange while implement news; core validation overlaps native-screen implementation",
+    "no_extra_web_without_gap": true
+  },
+  "core30": {
+    "start": "2026-10-28T09:39:53Z",
+    "deadline": "2026-10-28T10:09:53Z",
+    "priority": "verified auth/account and portfolio core",
+    "test_author": "android30_tests",
+    "implementation": "android30_implementation",
+    "validation": "android30_validation",
+    "scope_policy": "If whole Rust-client parity cannot finish by deadline, report verified core and remaining map."
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "checks": [
+    {
+      "name": "manual-price-preserved-after-delayed-close",
+      "pass": true
+    },
+    {
+      "name": "guest-buy-visible",
+      "pass": true
+    },
+    {
+      "name": "trade-modal-closed-after-save",
+      "pass": true
+    },
+    {
+      "name": "holding-two-shares-visible-outside-modal",
+      "pass": true
+    },
+    {
+      "name": "guest-ledger-survives-browser-reload",
+      "pass": true
+    },
+    {
+      "name": "trade-history-tab",
+      "pass": true
+    },
+    {
+      "name": "news-null-thumbnail-date-render",
+      "pass": true
+    },
+    {
+      "name": "news-detail-navigation",
+      "pass": true
+    },
+    {
+      "name": "explore-stock-search",
+      "pass": true
+    },
+    {
+      "name": "calendar-empty-state",
+      "pass": true
+    },
+    {
+      "name": "more-settings-tab",
+      "pass": true
+    },
+    {
+      "name": "no-horizontal-document-overflow",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "consoleErrors": []
+}

@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="org.daynomy.android.DiscoveryScreenAcceptanceTest" tests="8" failures="5" errors="0" skipped="0" time="47.921" timestamp="2026-10-28T09:24:31" hostname="localhost">
+  <properties>
+    <property name="device" value="Daynomy_Pilot(AVD) - 13" />
+    <property name="flavor" value="" />
+    <property name="project" value=":app" />
+  </properties>
+  <testcase name="exchangeErrorDoesNotBecomeAQuoteAndExplicitRetryRecovers" classname="org.daynomy.android.DiscoveryScreenAcceptanceTest" time="2.528" />
+  <testcase name="exchangeShowsActualFallbackDateAndExactRateAndSurvivesRecreation" classname="org.daynomy.android.DiscoveryScreenAcceptanceTest" time="1.667" />
+  <testcase name="newsCategoryPaginationDetailAndBackUseNativeScreenAndKeepSelectedPage" classname="org.daynomy.android.DiscoveryScreenAcceptanceTest" time="1.535" />
+  <testcase name="selectingStockDisplaysStoredDateAndAutofillsPlainDecimal" classname="org.daynomy.android.MarketScreenAcceptanceTest" time="9.728">
+    <failure>androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 8000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:504)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:339)
+at org.daynomy.android.MarketScreenAcceptanceTest.awaitTag(MarketScreenAcceptanceTest.kt:66)
+at org.daynomy.android.MarketScreenAcceptanceTest.searchAndSelect(MarketScreenAcceptanceTest.kt:76)
+at org.daynomy.android.MarketScreenAcceptanceTest.selectingStockDisplaysStoredDateAndAutofillsPlainDecimal(MarketScreenAcceptanceTest.kt:80)
+</failure>
+  </testcase>
+  <testcase name="delayedQuoteCannotOverwriteManualInputAndRotationPreservesDirtyDraft" classname="org.daynomy.android.MarketScreenAcceptanceTest" time="9.681">
+    <failure>androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 8000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:504)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:339)
+at org.daynomy.android.MarketScreenAcceptanceTest.awaitTag(MarketScreenAcceptanceTest.kt:66)
+at org.daynomy.android.MarketScreenAcceptanceTest.searchAndSelect(MarketScreenAcceptanceTest.kt:76)
+at org.daynomy.android.MarketScreenAcceptanceTest.delayedQuoteCannotOverwriteManualInputAndRotationPreservesDirtyDraft(MarketScreenAcceptanceTest.kt:90)
+</failure>
+  </testcase>
+  <testcase name="clearedManualInputRemainsEmptyWhenDelayedPriceArrives" classname="org.daynomy.android.MarketScreenAcceptanceTest" time="9.577">
+    <failure>androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 8000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:504)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:339)
+at org.daynomy.android.MarketScreenAcceptanceTest.awaitTag(MarketScreenAcceptanceTest.kt:66)
+at org.daynomy.android.MarketScreenAcceptanceTest.searchAndSelect(MarketScreenAcceptanceTest.kt:76)
+at org.daynomy.android.MarketScreenAcceptanceTest.clearedManualInputRemainsEmptyWhenDelayedPriceArrives(MarketScreenAcceptanceTest.kt:107)
+</failure>
+  </testcase>
+  <testcase name="missingQuoteShowsErrorAndStillAllowsManualInput" classname="org.daynomy.android.MarketScreenAcceptanceTest" time="9.819">
+    <failure>androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 8000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:504)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:339)
+at org.daynomy.android.MarketScreenAcceptanceTest.awaitTag(MarketScreenAcceptanceTest.kt:66)
+at org.daynomy.android.MarketScreenAcceptanceTest.searchAndSelect(MarketScreenAcceptanceTest.kt:76)
+at org.daynomy.android.MarketScreenAcceptanceTest.missingQuoteShowsErrorAndStillAllowsManualInput(MarketScreenAcceptanceTest.kt:118)
+</failure>
+  </testcase>
+  <testcase name="usSearchSendsCountryAndLocalCategoryFilterDoesNotRefetch" classname="org.daynomy.android.MarketScreenAcceptanceTest" time="2.014">
+    <failure>java.lang.AssertionError: Assert failed: The component is not displayed!
+at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+at org.daynomy.android.MarketScreenAcceptanceTest.usSearchSendsCountryAndLocalCategoryFilterDoesNotRefetch(MarketScreenAcceptanceTest.kt:138)
+</failure>
+  </testcase>
+</testsuite>

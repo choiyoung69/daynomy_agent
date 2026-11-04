@@ -1,0 +1,111 @@
+{
+  "checkedAt": "2026-10-28T10:29:43.261Z",
+  "sourceFunction": "src/ui/Admin.tsx saveNews extracted with TypeScript transpileModule and injected Node cookie fetch; no RN UI execution",
+  "sourceSha256": "7a8f80cda47c69d96c057cf8104396b83fd6e675bbe08e49b7a6440a5623dc11",
+  "cases": [
+    {
+      "name": "synthetic admin member authenticated",
+      "pass": true
+    },
+    {
+      "name": "actual extracted UI saveNews creates multipart draft",
+      "pass": true
+    },
+    {
+      "name": "actual extracted UI saveNews updates multipart draft preserving links",
+      "pass": true
+    },
+    {
+      "name": "actual admin news publish appears publicly",
+      "pass": false,
+      "error": "서버 내부 오류가 발생했습니다."
+    },
+    {
+      "name": "actual admin news delete removes public detail",
+      "pass": true
+    },
+    {
+      "name": "actual admin feedback state mutation",
+      "pass": true
+    }
+  ],
+  "traffic": [
+    {
+      "path": "/api/auth/mobile/exchange",
+      "method": "POST",
+      "status": 204
+    },
+    {
+      "path": "/api/users/me",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/csrf",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/admin/news",
+      "method": "POST",
+      "status": 201
+    },
+    {
+      "path": "/api/auth/csrf",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/admin/news/1",
+      "method": "PUT",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/csrf",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/admin/news/1/publish",
+      "method": "POST",
+      "status": 500
+    },
+    {
+      "path": "/api/auth/csrf",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/admin/news/1",
+      "method": "DELETE",
+      "status": 204
+    },
+    {
+      "path": "/api/news/1",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "path": "/api/admin/feedbacks",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/csrf",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/admin/feedbacks/1",
+      "method": "PATCH",
+      "status": 200
+    },
+    {
+      "path": "/api/admin/feedbacks/1",
+      "method": "GET",
+      "status": 200
+    }
+  ],
+  "passed": 5,
+  "failed": 1
+}

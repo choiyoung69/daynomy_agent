@@ -1,0 +1,40 @@
+{
+  "checks": [
+    {
+      "manifest": "experiments/webview/full/native-auth/tests/frozen-tests.json",
+      "files": 6,
+      "mismatches": []
+    },
+    {
+      "manifest": "experiments/webview/full/native-auth/implementation/source-hashes.json",
+      "files": 26,
+      "mismatches": []
+    },
+    {
+      "manifest": "experiments/webview/full/implementation/web/revision02/source-hashes.json",
+      "files": 216,
+      "mismatches": []
+    },
+    {
+      "manifest": "experiments/webview/full/frozen-tests.json",
+      "files": 5,
+      "mismatches": []
+    },
+    {
+      "manifest": "experiments/webview/full/frozen-query-tests.json",
+      "files": 3,
+      "mismatches": []
+    },
+    {
+      "manifest": "experiments/webview/full/frozen-native-lifecycle-tests.json",
+      "files": 4,
+      "mismatches": []
+    },
+    {
+      "manifest": "experiments/webview/full/frozen-full-host-policy-tests.json",
+      "files": 5,
+      "mismatches": []
+    }
+  ],
+  "apk_sha256": "2bc9bdf08d9905c1672fd31b76bb512ef0a282abccc5a824cce2dfc479f3b07e"
+}

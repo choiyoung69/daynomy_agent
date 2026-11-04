@@ -1,0 +1,38 @@
+{
+  "started_at": "2026-10-28T08:58:43.127236+00:00",
+  "frozen_tests_all_match": true,
+  "results": [
+    {
+      "name": "web-unit",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "cwd": "/Users/seoyeong/develop/AI/daynomy_agent/clients/webview/web",
+      "exit_code": 0,
+      "seconds": 1.136
+    },
+    {
+      "name": "host-policy",
+      "command": [
+        "node",
+        "--test",
+        "clients/webview/tests/host-policy.test.mjs"
+      ],
+      "cwd": "/Users/seoyeong/develop/AI/daynomy_agent",
+      "exit_code": 0,
+      "seconds": 22.599
+    },
+    {
+      "name": "http-browser",
+      "command": [
+        "node",
+        "--test",
+        "clients/webview/tests/http-browser.test.mjs"
+      ],
+      "cwd": "/Users/seoyeong/develop/AI/daynomy_agent",
+      "exit_code": 1,
+      "seconds": 4.801
+    }
+  ]
+}

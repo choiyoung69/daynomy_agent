@@ -390,15 +390,16 @@ fn unseal_state(raw: &str) -> Result<Value, ApiFault> {
     }
     Ok(value)
 }
-async fn oauth_start(db: &Client) -> Result<AuthReply, ApiFault> {
+async fn oauth_start(db: &Client, mobile: Option<Value>) -> Result<AuthReply, ApiFault> {
     let config = oauth_config()?;
     let state = random_secret();
     let nonce = random_secret();
     let verifier = random_secret();
     let challenge = URL_SAFE_NO_PAD.encode(Sha256::digest(verifier.as_bytes()));
     let expires = now()? + 600;
-    let sealed =
-        seal_state(&json!({"state":state,"nonce":nonce,"verifier":verifier,"exp":expires}))?;
+    let sealed = seal_state(
+        &json!({"state":state,"nonce":nonce,"verifier":verifier,"exp":expires,"mobile":mobile}),
+    )?;
     // Keep server-side replay protection even when the browser keeps an old cookie.
     db.execute(
         "DELETE FROM oauth_login_states WHERE expires_at<=now()",
@@ -607,6 +608,16 @@ async fn oauth_callback(
         let role: String = member.get(1);
         if !matches!(role.as_str(),"USER"|"ADMIN") { return Err(invalid_token()); }
         if let Some(name) = name { db.execute("UPDATE members SET google_name=$2,updated_at=now() WHERE id=$1",&[&id,&name]).await.map_err(|_| internal())?; }
+        if let Some(mobile) = saved.get("mobile").filter(|v| !v.is_null()) {
+            let challenge = mobile["challenge"].as_str().ok_or_else(oauth_invalid)?;
+            let app_state = mobile["state"].as_str().ok_or_else(oauth_invalid)?;
+            let code = random_secret();
+            db.execute("DELETE FROM mobile_auth_codes WHERE expires_at<=now()", &[]).await.map_err(|_| internal())?;
+            db.execute("INSERT INTO mobile_auth_codes(code_hash,member_id,code_challenge,expires_at,created_at) VALUES($1,$2,$3,now()+interval '60 seconds',now())", &[&hash(&code),&id,&challenge]).await.map_err(|_| internal())?;
+            let mut target = reqwest::Url::parse("org.daynomy.app://auth/callback").map_err(|_| internal())?;
+            target.query_pairs_mut().extend_pairs([("code",code.as_str()),("state",app_state)]);
+            return Ok(AuthReply { status:302,body:Value::Null,headers:vec![("location".into(),target.into()),state_cookie("",0)] });
+        }
         let access_age = lifetime("ACCESS_TOKEN_EXPIRATION",1_800_000)?;
         let refresh_age = lifetime("REFRESH_TOKEN_EXPIRATION",1_209_600_000)?;
         let timestamp = now()?;
@@ -614,6 +625,109 @@ async fn oauth_callback(
         let refresh = encode(id,None,"refresh",timestamp+refresh_age)?;
         db.execute("INSERT INTO refresh_tokens(member_id,token_hash,expires_at,created_at) VALUES($1,$2,to_timestamp($3),now())",&[&id,&hash(&refresh),&((timestamp+refresh_age) as f64)]).await.map_err(|_| internal())?;
         Ok(AuthReply { status:302,body:Value::Null,headers:vec![("location".into(),config.success),cookie_header("access_token",&access,"/",access_age),cookie_header("refresh_token",&refresh,"/api/auth",refresh_age),state_cookie("",0)] })
+    }.await;
+    finish_transaction(db, result).await
+}
+
+fn mobile_bad_request() -> ApiFault {
+    fault(
+        400,
+        "INVALID_REQUEST",
+        "모바일 인증 요청이 올바르지 않습니다.",
+    )
+}
+fn mobile_invalid() -> ApiFault {
+    fault(
+        401,
+        "INVALID_MOBILE_AUTH_CODE",
+        "모바일 인증 코드가 올바르지 않거나 만료되었습니다.",
+    )
+}
+fn urlsafe(value: &str, min: usize, max: usize) -> bool {
+    (min..=max).contains(&value.len())
+        && value
+            .bytes()
+            .all(|b| b.is_ascii_alphanumeric() || b == b'-' || b == b'_')
+}
+fn unique_mobile_query(raw: &str) -> Result<std::collections::BTreeMap<String, String>, ApiFault> {
+    let mut result = std::collections::BTreeMap::new();
+    for (key, value) in reqwest::Url::parse(&format!("https://daynomy.invalid/?{raw}"))
+        .map_err(|_| mobile_bad_request())?
+        .query_pairs()
+    {
+        if result
+            .insert(key.into_owned(), value.into_owned())
+            .is_some()
+        {
+            return Err(mobile_bad_request());
+        }
+    }
+    Ok(result)
+}
+async fn mobile_start(query: &str, db: &Client) -> Result<AuthReply, ApiFault> {
+    let params = unique_mobile_query(query)?;
+    let challenge = params
+        .get("code_challenge")
+        .ok_or_else(mobile_bad_request)?;
+    let state = params.get("state").ok_or_else(mobile_bad_request)?;
+    if !urlsafe(challenge, 43, 43) || !urlsafe(state, 32, 128) {
+        return Err(mobile_bad_request());
+    }
+    oauth_start(db, Some(json!({"challenge":challenge,"state":state}))).await
+}
+fn mobile_failure(query: &str, headers: &HeaderMap) -> Option<AuthReply> {
+    let params = unique_mobile_query(query).ok()?;
+    let saved = unseal_state(&cookie(headers, "oauth_state")?).ok()?;
+    let expected = saved["state"].as_str()?;
+    if !bool::from(params.get("state")?.as_bytes().ct_eq(expected.as_bytes())) {
+        return None;
+    }
+    let app_state = saved["mobile"]["state"].as_str()?;
+    let mut target = reqwest::Url::parse("org.daynomy.app://auth/callback").ok()?;
+    target
+        .query_pairs_mut()
+        .extend_pairs([("error", "oauth_failed"), ("state", app_state)]);
+    Some(AuthReply {
+        status: 302,
+        body: Value::Null,
+        headers: vec![("location".into(), target.into()), state_cookie("", 0)],
+    })
+}
+async fn mobile_exchange(body: &[u8], db: &Client) -> Result<AuthReply, ApiFault> {
+    let input: Value = serde_json::from_slice(body).map_err(|_| mobile_bad_request())?;
+    let code = input["code"].as_str().ok_or_else(mobile_bad_request)?;
+    let verifier = input["codeVerifier"]
+        .as_str()
+        .ok_or_else(mobile_bad_request)?;
+    if !urlsafe(code, 32, 128)
+        || !(43..=128).contains(&verifier.len())
+        || !verifier
+            .bytes()
+            .all(|b| b.is_ascii_alphanumeric() || b"-._~".contains(&b))
+    {
+        return Err(mobile_bad_request());
+    }
+    let code_hash = hash(code);
+    let challenge = URL_SAFE_NO_PAD.encode(Sha256::digest(verifier.as_bytes()));
+    db.batch_execute("BEGIN").await.map_err(|_| internal())?;
+    let result = async {
+        // Row locking serializes simultaneous exchanges. Check PKCE before deleting.
+        let row = db.query_opt("SELECT member_id,code_challenge FROM mobile_auth_codes WHERE code_hash=$1 AND expires_at>now() FOR UPDATE", &[&code_hash]).await.map_err(|_| internal())?.ok_or_else(mobile_invalid)?;
+        let expected: String = row.get(1);
+        if !bool::from(challenge.as_bytes().ct_eq(expected.as_bytes())) { return Err(mobile_invalid()); }
+        let id: i64 = row.get(0);
+        let member = db.query_opt("SELECT role,status FROM members WHERE id=$1 FOR UPDATE", &[&id]).await.map_err(|_| internal())?.ok_or_else(mobile_invalid)?;
+        let role: String = member.get(0);
+        if member.get::<_,String>(1) != "ACTIVE" || !matches!(role.as_str(),"USER"|"ADMIN") { return Err(mobile_invalid()); }
+        let access_age = lifetime("ACCESS_TOKEN_EXPIRATION",1_800_000)?;
+        let refresh_age = lifetime("REFRESH_TOKEN_EXPIRATION",1_209_600_000)?;
+        let timestamp = now()?;
+        let access = encode(id,Some(&role),"access",timestamp+access_age)?;
+        let refresh = encode(id,None,"refresh",timestamp+refresh_age)?;
+        db.execute("INSERT INTO refresh_tokens(member_id,token_hash,expires_at,created_at) VALUES($1,$2,to_timestamp($3),now())", &[&id,&hash(&refresh),&((timestamp+refresh_age) as f64)]).await.map_err(|_| internal())?;
+        let consumed = db.execute("DELETE FROM mobile_auth_codes WHERE code_hash=$1", &[&code_hash]).await.map_err(|_| internal())?;
+        if consumed != 1 { return Err(mobile_invalid()); }
+        Ok(AuthReply { status:204,body:Value::Null,headers:vec![cookie_header("access_token",&access,"/",access_age),cookie_header("refresh_token",&refresh,"/api/auth",refresh_age)] })
     }.await;
     finish_transaction(db, result).await
 }
@@ -628,14 +742,17 @@ pub async fn handle(
 ) -> Option<Result<AuthReply, ApiFault>> {
     let (path, query) = path.split_once('?').unwrap_or((path, ""));
     match (method,path) {
+        ("GET","/api/auth/mobile/start") => Some(mobile_start(query,db).await),
+        ("POST","/api/auth/mobile/exchange") => Some(if headers.get(hyper::header::CONTENT_TYPE).and_then(|v| v.to_str().ok()).is_some_and(|v| v.split(';').next().unwrap_or("").trim().eq_ignore_ascii_case("application/json")) { mobile_exchange(body,db).await } else { Err(fault(415,"UNSUPPORTED_MEDIA_TYPE","JSON 요청이 필요합니다.")) }),
         ("GET","/api/auth/google") => {
             let mut response = reply(302,Value::Null);
             response.headers.push(("location".into(),"/oauth2/authorization/google".into()));
             Some(Ok(response))
         },
-        ("GET","/oauth2/authorization/google") => Some(oauth_start(db).await),
+        ("GET","/oauth2/authorization/google") => Some(oauth_start(db, None).await),
         ("GET","/login/oauth2/code/google") => Some(match oauth_callback(query,headers,db).await {
             Err(_) => {
+                if let Some(response) = mobile_failure(query,headers) { return Some(Ok(response)); }
                 let destination=std::env::var("FAILURE_REDIRECT_URI")
                     .unwrap_or_else(|_|"http://localhost:5173/login?error=oauth".to_owned());
                 if !configured_redirect(&destination,true) { return Some(Err(oauth_unavailable())); }

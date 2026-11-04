@@ -1,0 +1,48 @@
+{
+  "role": "/root/flutter_tests",
+  "frozen_before_implementation": true,
+  "criteria_sha256": {
+    "clients/flutter/test/api_client_test.dart": "512e70543f6b559a574a2b665d522dfe9f3e600ab6bd828f66a2ef6f113ba170",
+    "clients/flutter/test/app_widget_test.dart": "604b8f255d68f328491c3baf3b6c6632a32304fde690e02f72e01bd0183e8216",
+    "clients/flutter/test/exact_json_test.dart": "457664382b45cc4ab74f8de8bc01b685aca613a94c5cdfb0b1f3270e49c05095",
+    "clients/flutter/test/native_auth_test.dart": "2030afc39df4acabd9e3e7c74954911963a7defa1edbd31b318fc516cd8a297d",
+    "clients/flutter/test/repository_test.dart": "d4c0a3226f609270bec64e8f8890e42aa939f4f090af9540b6db105dce83b3ae",
+    "clients/flutter/test/search_controller_test.dart": "6e486ee45a883b230cef6216417af356079a495a25dd6132f3b43ffc2e6d363e",
+    "clients/flutter/test/support/fakes.dart": "58a21c4f1b7f1e546f7e82aad3339fad413f09f841f77dc0a4bace9a14f92181",
+    "scripts/flutter_auth_acceptance.py": "5102f33b43dc89eedd695d40b7e57c3921228e982a5200b40f66c39f1be5314d",
+    "spec/flutter/design.md": "61f0c0e7d652a548b36fc94b4fd6fa8923b6d96d2dff2f9cf36e375e4110dd81",
+    "spec/flutter/native-auth.md": "24c871bed39dff656b924c761ebd788ccd2111c543826e70c2063b469cdef054",
+    "spec/flutter/test-author-record.md": "4d5e1e8a51dd475151c0a29470a2df55bdbd298725c58b0573c357e692641851",
+    "spec/flutter/test-contract.md": "68acffba4a5e1ab0ee2a35f5f9f99b9fa42bcfb5602c687b75fdb97d91054795"
+  },
+  "flutter_red": {
+    "phase": "red",
+    "status": "expected_failure",
+    "commands": [
+      {
+        "name": "test",
+        "exit_code": 1,
+        "seconds": 21.51685745792929
+      }
+    ],
+    "started_at": "2026-10-28T09:01:28.164702+00:00",
+    "finished_at": "2026-10-28T09:01:49.700134+00:00"
+  },
+  "limitation": "missing production export compile failure; not behavioral mutation detection",
+  "sdk": {
+    "frameworkVersion": "3.47.8",
+    "channel": "stable",
+    "repositoryUrl": "https://github.com/flutter/flutter.git",
+    "frameworkRevision": "737ba8f885dc774b53b442759999a312c9461e4e",
+    "frameworkCommitDate": "2026-10-22 21:37:31 -0700",
+    "engineRevision": "cf636b1dfb818dd6a3ff16e390e93b1a036969c8",
+    "engineCommitDate": "2026-10-23 02:13:38.000Z",
+    "engineContentHash": "dfd2e6cb7d319db05e3bf1503f3e2ac60f6288a2",
+    "engineBuildDate": "2026-10-22 20:34:48.330",
+    "dartSdkVersion": "3.13.7",
+    "devToolsVersion": "2.60.0",
+    "flutterVersion": "3.47.8",
+    "flutterRoot": "/Users/seoyeong/develop/AI/daynomy_agent/.local/flutter-sdk/flutter",
+    "archive_sha256": "6114edc2dae3636cfefb7e4456a4510399ee856e324149b34dbacb509e329d05"
+  }
+}

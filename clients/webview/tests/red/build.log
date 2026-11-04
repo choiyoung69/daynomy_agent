@@ -1,0 +1,5 @@
+
+> build
+> node ../../../.local/knowledge-sdks/typescript/package/bin/tsc -p tsconfig.json
+
+error TS18003: No inputs were found in config file '/Users/seoyeong/develop/AI/daynomy_agent/clients/webview/web/tsconfig.json'. Specified 'include' paths were '["src/**/*.ts"]' and 'exclude' paths were '["/Users/seoyeong/develop/AI/daynomy_agent/clients/webview/web/dist"]'.

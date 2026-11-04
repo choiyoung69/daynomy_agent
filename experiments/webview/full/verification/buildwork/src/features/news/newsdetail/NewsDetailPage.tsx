@@ -1,0 +1,272 @@
+import { trackLoadResult, useContentImpression } from '../issue/analytics';
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import defaultNewsImage from '../../../assets/default-news-real-estate.webp';
+import { getCategoryLabel } from '../newslist/types.ts';
+import { getNewsDetail } from './api.ts';
+import { KeywordText } from './components/KeywordText.tsx';
+import type {
+  MarketAnalysisResponse,
+  MarketAnalysisState,
+  NewsDetailPayload,
+  NewsImageSource,
+} from './types.ts';
+import './newsDetail.css';
+import { trackEvent } from '../../../analytics';
+
+const MARKET_ANALYSIS_ITEMS: ReadonlyArray<{
+  key: keyof MarketAnalysisResponse;
+  label: string;
+}> = [
+  { key: 'risk', label: '위험' },
+  { key: 'watchPoint', label: '확인할 지표' },
+];
+
+function getNewsIdFromUrl() {
+  return window.location.pathname.match(/^\/news\/([^/]+)$/)?.[1] ?? '1';
+}
+
+function getContentParagraphs(content: string | string[]) {
+  return Array.isArray(content) ? content : content.split('\n').filter(Boolean);
+}
+
+function formatDetailDate(value?: string) {
+  if (!value) {
+    return '';
+  }
+
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return value;
+  }
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+
+  return `${year}.${month}.${day}`;
+}
+
+function NewsImageCredit({ imageSource }: { imageSource?: NewsImageSource }) {
+  if (!imageSource || imageSource.type === 'NONE') {
+    return null;
+  }
+
+  if (imageSource.type === 'AI_GENERATED') {
+    return <p className="news-image-credit">AI로 생성된 이미지입니다.</p>;
+  }
+
+  if (!imageSource.name || !imageSource.url) {
+    return null;
+  }
+
+  return (
+    <p className="news-image-credit">
+      이미지:{' '}
+      <a href={imageSource.url} target="_blank" rel="noopener noreferrer">
+        {imageSource.name}
+      </a>
+      {imageSource.author ? ` · ${imageSource.author}` : null}
+      {imageSource.license ? ' · ' : null}
+      {imageSource.license ? (
+        imageSource.licenseUrl ? (
+          <a href={imageSource.licenseUrl} target="_blank" rel="noopener noreferrer">
+            {imageSource.license}
+          </a>
+        ) : (
+          imageSource.license
+        )
+      ) : null}
+    </p>
+  );
+}
+
+function DetailAnalysisSections({
+  marketAnalysis,
+  newsId,
+}: {
+  marketAnalysis: MarketAnalysisState;
+  newsId: string;
+}) {
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  useContentImpression(
+    titleRef,
+    newsId,
+    'view_market_analysis',
+    {
+      surface: 'news_detail',
+      news_id: newsId,
+    },
+    marketAnalysis.status === 'success' && /^\d+$/.test(newsId),
+  );
+  const analysisItems =
+    marketAnalysis.status === 'success'
+      ? MARKET_ANALYSIS_ITEMS.filter(({ key }) => marketAnalysis.data[key].trim())
+      : [];
+
+  return (
+    <section className="detail-market" aria-labelledby="detail-market-title">
+      <h2 ref={titleRef} id="detail-market-title">
+        시장 분석
+      </h2>
+      {marketAnalysis.status === 'success' ? (
+        <dl className="market-analysis-card">
+          {analysisItems.map(({ key, label }) => (
+            <div className="market-analysis-item" key={key}>
+              <dt>{label}</dt>
+              <dd>{marketAnalysis.data[key]}</dd>
+            </div>
+          ))}
+        </dl>
+      ) : (
+        <p
+          className="market-analysis-card market-analysis-message"
+          role={marketAnalysis.status === 'error' ? 'alert' : 'status'}
+        >
+          {marketAnalysis.status === 'empty'
+            ? '아직 제공된 시장 분석이 없습니다.'
+            : '시장 분석을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.'}
+        </p>
+      )}
+    </section>
+  );
+}
+
+export function NewsDetailPage() {
+  const newsId = getNewsIdFromUrl();
+  const navigate = useNavigate();
+  const [payload, setPayload] = useState<NewsDetailPayload>();
+  const [error, setError] = useState('');
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const goBack = () => {
+    navigate('/news');
+  };
+
+  useEffect(() => {
+    let ignore = false;
+    const controller = new AbortController();
+
+    if (/^\d+$/.test(newsId)) trackEvent('view_news_detail', { news_id: newsId });
+    setPayload(undefined);
+    setError('');
+    getNewsDetail(newsId, controller.signal, (area, startedAt, status, count) => {
+      if (!ignore && /^\d+$/.test(newsId))
+        trackLoadResult('news_detail', area, startedAt, status, count, 0);
+    })
+      .then((nextPayload) => {
+        if (!ignore) {
+          setPayload(nextPayload);
+        }
+      })
+      .catch(() => {
+        if (!ignore) {
+          setPayload(undefined);
+          setError('뉴스를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.');
+        }
+      });
+
+    return () => {
+      ignore = true;
+      controller.abort();
+    };
+  }, [newsId]);
+
+  useEffect(() => {
+    if (!payload) return;
+    const previousTitle = document.title;
+    document.title = `${payload.news.title} | DAYNOMY`;
+    headingRef.current?.focus({ preventScroll: true });
+    return () => {
+      document.title = previousTitle;
+    };
+  }, [payload]);
+
+  if (error) {
+    return (
+      <main className="news-page">
+        <p className="loading" role="alert">
+          {error}
+        </p>
+      </main>
+    );
+  }
+
+  if (!payload) {
+    return (
+      <main className="news-page">
+        <p className="loading" role="status">
+          뉴스를 불러오는 중입니다.
+        </p>
+      </main>
+    );
+  }
+
+  const { news, keywords, marketAnalysis } = payload;
+  const imageUrl = news.imageUrl ?? defaultNewsImage;
+
+  return (
+    <main className="news-page">
+      <article className="news-detail">
+        <button
+          className="detail-close-button"
+          type="button"
+          onClick={goBack}
+          aria-label="전 페이지로 돌아가기"
+        >
+          ×
+        </button>
+
+        <div className="detail-meta">
+          <span className="detail-category">{getCategoryLabel(news.category)}</span>
+          {news.sources.length > 0 ? (
+            <div className="detail-sources">
+              <span>출처:</span>
+              <ul>
+                {news.sources.map((source, index) => (
+                  <li key={`${source.url}-${index}`}>
+                    <a
+                      className="source-link"
+                      href={source.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {source.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+        </div>
+
+        <h1 ref={headingRef} tabIndex={-1}>
+          {news.title}
+        </h1>
+
+        <time className="detail-date" dateTime={news.publishedAt}>
+          {formatDetailDate(news.publishedAt)}
+        </time>
+
+        <img className="news-image" src={imageUrl} alt="" />
+        <NewsImageCredit imageSource={news.imageSource} />
+
+        <section className="body-section" aria-label="뉴스 본문">
+          <div className="body-copy">
+            <KeywordText
+              newsId={newsId}
+              paragraphs={getContentParagraphs(news.content)}
+              keywords={keywords}
+            />
+          </div>
+        </section>
+
+        <div className="analysis-area">
+          <div className="analysis-content">
+            <DetailAnalysisSections key={newsId} newsId={newsId} marketAnalysis={marketAnalysis} />
+          </div>
+        </div>
+      </article>
+    </main>
+  );
+}

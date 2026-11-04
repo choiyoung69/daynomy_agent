@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/Users/seoyeong/develop/AI/daynomy_agent/.local/android-tools/gradle-8.11.1/bin/gradle",
+    "-p",
+    "clients/webview/android",
+    "--offline",
+    "--no-daemon",
+    ":app:assembleDebug"
+  ],
+  "exit_code": 0,
+  "seconds": 5.57
+}

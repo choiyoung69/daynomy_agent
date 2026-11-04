@@ -1,0 +1,7 @@
+{
+  "at": "2026-10-28T10:00:59.258663+00:00",
+  "exit": 1,
+  "stage": "before compile/device test",
+  "failure": "New app serialization-json dependency not in lock state: initial --write-locks build ended with device fixture failure before persistence. Retry authorized --write-locks command.",
+  "source_change": "none"
+}

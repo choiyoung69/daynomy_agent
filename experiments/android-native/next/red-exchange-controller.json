@@ -1,0 +1,63 @@
+{
+  "phase": "red",
+  "validator": "/root/android_next_validation",
+  "started_at": "2026-10-28T09:15:45Z",
+  "ended_at": "2026-10-28T09:16:13.266680+00:00",
+  "exit_code": 1,
+  "genuine_unimplemented_failure": true,
+  "test_count": 7,
+  "failed": 7,
+  "skipped": 0,
+  "test_sha256": "bcc5a8a8f8bce5aafb858018598caee4b229301aa0e0649b775090c37b6c8f26",
+  "stub_sha256": "5a0cae31f12736a589cf6982c6a2e34de65354fa815733e12c2c5454fd5e578c",
+  "knowledge_context_sha256": "5bf02b6548d23ba58289b3ff1476895626898841da65dcb2775371603ecca4c3",
+  "knowledge_manifest_sha256": "d5123463cc60aec16649e6f0a3f5b81a51394150187689880c6bd2e2d6d59556",
+  "command": "env JAVA_HOME=/Users/seoyeong/Library/Java/JavaVirtualMachines/ms-21.0.12/Contents/Home GRADLE_USER_HOME=$PWD/.local/android-gradle clients/android/gradlew -p clients/android --no-daemon :market-core:test --tests org.daynomy.market.ExchangeControllerContractTest",
+  "log": ".local/android-next-red-exchange-controller.log",
+  "xml_sha256": "32f1e3803467579f9499d11d246bcdf9e46e1bfd0fa9fb02728bb485d978392e",
+  "cases": [
+    {
+      "name": "cancellationIsIdleInsteadOfFailure",
+      "failure_type": "kotlin.NotImplementedError",
+      "failure_message": "kotlin.NotImplementedError: An operation is not implemented.",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "activationAndBlankDateHaveNoSpuriousRequestAndPreserveRawDate",
+      "failure_type": "kotlin.NotImplementedError",
+      "failure_message": "kotlin.NotImplementedError: An operation is not implemented.",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "oldFailureCannotClearNewQuote",
+      "failure_type": "kotlin.NotImplementedError",
+      "failure_message": "kotlin.NotImplementedError: An operation is not implemented.",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "closeIsTerminalAndLateSuccessCannotRepopulateState",
+      "failure_type": "kotlin.NotImplementedError",
+      "failure_message": "kotlin.NotImplementedError: An operation is not implemented.",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "loadingThenFailureThenExplicitRetryIsNotEmptySuccessOrAutomaticRetry",
+      "failure_type": "kotlin.NotImplementedError",
+      "failure_message": "kotlin.NotImplementedError: An operation is not implemented.",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "newDateWinsOverNonCooperativeOlderSuccess",
+      "failure_type": "kotlin.NotImplementedError",
+      "failure_message": "kotlin.NotImplementedError: An operation is not implemented.",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "deactivationCancelsJobAndReactivationLoadsCurrentDateOnce",
+      "failure_type": "kotlin.NotImplementedError",
+      "failure_message": "kotlin.NotImplementedError: An operation is not implemented.",
+      "contains_stub_exception": true
+    }
+  ],
+  "approval": "not approved; red test freeze only"
+}

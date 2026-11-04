@@ -1,0 +1,43 @@
+{
+  "context_sha256": "0b42f885fb002a7822fe27b543b42270f10453e80bc7cb87a4ccb9813323292c",
+  "manifest_sha256": "ab6199b1bd5145432df37b6e1315481b8243451d369461dfae8bbd751c826595",
+  "applied_rules": [
+    {
+      "document": "knowledge/wiki/projects/daynomy/auth-session.md",
+      "rule": "Preserve CSRF cookie/header, one shared refresh for simultaneous read401, and reject late login/logout responses.",
+      "implementation": "SessionHttpTransport request/ensureCsrf/refreshMutex/epoch; NativeLogin PKCE + strict callback state"
+    },
+    {
+      "document": "knowledge/wiki/projects/daynomy/account.md",
+      "rule": "Read/update/delete only current member and preserve nickname conflict errors; do not guess missing name.",
+      "implementation": "AccountClient me/updateNickname/delete; profile supports missing/null name, numeric safe ID, USER|ADMIN role"
+    },
+    {
+      "document": "knowledge/wiki/packages/android-kotlin/auth-and-storage.md",
+      "rule": "Use external browser PKCE bridge and memory-only cookies scoped to origin/domain/path/Secure/expiry; clear account state across logout.",
+      "implementation": "NativeLogin begin/complete/cancel; SessionHttpTransport Cookie.parseAll/Cookie.matches/clearSession; root CoreViewModel logout clears account data"
+    },
+    {
+      "document": "knowledge/wiki/packages/android-kotlin/async-and-cancellation.md",
+      "rule": "Connect coroutine cancellation to HTTP cancel and discard late callbacks/results by current generation.",
+      "implementation": "SessionHttpTransport invokeOnCancellation Call.cancel; epoch checked before response/cookie acceptance; root VM catches and rethrows CancellationException"
+    },
+    {
+      "document": "knowledge/wiki/packages/android-kotlin/types-and-json.md",
+      "rule": "Distinguish null and missing names; reject quoted, fractional or unsafe IDs and unknown required enums.",
+      "implementation": "AccountClient profile/coreId/coreText; role USER|ADMIN; raw JSON extra fields retained"
+    }
+  ],
+  "reviewed_at": "2026-10-28T10:00:11.535595+00:00",
+  "chronology": {
+    "direct_kb_read": "All required project/package topic files directly read before production implementation in first implementer tool call. Root confirms own direct UI KB read before UI integration.",
+    "formal_packet": "These context.md/manifest.json packets were materialized after implementation at manifest.created_at, then read and compared with existing rule mappings. This usage receipt is retrospective formal provenance, not evidence packets existed before code."
+  },
+  "limits": [
+    "Mappings declare applied rules; independent test/device/HTTP evidence remains separate.",
+    "Portfolio responses are raw JSON boundary adapters, not exhaustive original web DTO parity.",
+    "Rust accepts rounded average0.00 where original frontend requires>0; existingRust parity retained.",
+    "Mutation503 automatic replay prevented by one-shot body; GET503 Retry-After0 read retry remains possible.",
+    "Actual Google/device login not certified by local signed OIDC fixture."
+  ]
+}

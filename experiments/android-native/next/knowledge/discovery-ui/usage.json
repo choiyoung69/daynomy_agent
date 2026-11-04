@@ -1,0 +1,32 @@
+{
+  "context_sha256": "57f743cacc73113b822c08bbfb1c0cac787480ca53232a4565e2e60a1905408d",
+  "manifest_sha256": "0f381566f8de98c6c45aa3ff48c5eba7072247bd3519788efb3bf8e26306aabc",
+  "applied_rules": [
+    {
+      "document": "knowledge/wiki/projects/daynomy/news.md",
+      "rule": "Preserve public published news list/detail source contracts, server ordering and explicit pagination.",
+      "implementation": "NewsClient.list/detail; NewsController list/detail generation gates"
+    },
+    {
+      "document": "knowledge/wiki/projects/daynomy/stocks-exchange.md",
+      "rule": "Preserve exchange response projection, actual base date and requested input unchanged.",
+      "implementation": "ExchangeRateClient.quote; ExchangeScreen separate requested date and actual base date"
+    },
+    {
+      "document": "knowledge/wiki/packages/android-kotlin/state-and-navigation.md",
+      "rule": "Separate UI drafts, controller request state and ViewModel lifetime; keep back navigation and page selection stable.",
+      "implementation": "NewsController.closeDetail; ExchangeScreen rememberSaveable date; DiscoveryViewModel viewModelScope"
+    },
+    {
+      "document": "knowledge/wiki/packages/android-kotlin/async-and-cancellation.md",
+      "rule": "Cancel Jobs, rethrow CancellationException, suppress stale result/error writes; HTTP cancellation uses existing transport.",
+      "implementation": "NewsController/ExchangeController generation guards; DiscoveryViewModel.onCleared"
+    },
+    {
+      "document": "knowledge/wiki/packages/android-kotlin/errors-and-transactions.md",
+      "rule": "Distinguish loading/ready/error/cancel, show safe messages and allow explicit retry without automatic retransmission.",
+      "implementation": "DiscoveryScreens LoadState branches and retry buttons; controllers fixed safe error strings"
+    }
+  ],
+  "limits": "Mappings declare applied rules; independent tests and device execution belong to validator evidence, not this receipt."
+}

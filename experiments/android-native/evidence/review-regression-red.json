@@ -1,0 +1,21 @@
+{
+  "scope": "independent additive review regressions before fixes",
+  "tests": 3,
+  "failures": 2,
+  "outcome": "two reproduced defects; price grammar control passes",
+  "cases": [
+    {
+      "name": "priceRejectsNonJsonNumericGrammarInBothIdAndPrice",
+      "failure": null
+    },
+    {
+      "name": "searchRejectsBigDecimalTokensThatAreNotJsonNumbers",
+      "failure": "java.lang.AssertionError: Expected ResponseFormatException, got success"
+    },
+    {
+      "name": "changingStockRetainsSearchTextAndReissuesSearchWhileResettingOnlyPriceDraft",
+      "failure": "org.junit.ComparisonFailure: Original change-stock action preserves entered search text expected:<[  삼성  ]> but was:<[]>"
+    }
+  ],
+  "criteria_sha256": "4e2a6fde6d0d9593ce82a6ecc5cb39b1019c99728bd72eb95612b76c27435b55"
+}

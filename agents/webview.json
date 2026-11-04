@@ -1,0 +1,41 @@
+{
+  "execution": "desktop_subagents",
+  "scope": [
+    "stock-search",
+    "latest-price",
+    "manual-unit-price",
+    "android-webview",
+    "ios-wkwebview-source"
+  ],
+  "max_concurrent_agents_including_coordinator": 4,
+  "roles": {
+    "test_author": "webview_tests",
+    "web_implementer": "webview_implementer",
+    "host_implementer": "webview_hosts",
+    "independent_verifier": "webview_verifier",
+    "independent_verifier_recovery": "webview_verifier_recovery",
+    "fresh_finish_reviewer": "impeccable_finish_reviewer",
+    "documentation_auditor": "impeccable_documenter"
+  },
+  "phases": [
+    "knowledge-and-contract",
+    "tests-first-red",
+    "freeze-sha256",
+    "parallel-web-and-host-implementation",
+    "independent-actual-verification",
+    "fix-and-reverify"
+  ],
+  "knowledge_manifest": "experiments/webview/knowledge/manifest.json",
+  "frozen_tests": "experiments/webview/frozen-tests.json",
+  "note": "Root-dispatched desktop agents, not an unattended runner. Initial roles inherited chat settings (exact service ID not measured); explicit reviewer/recovery settings follow repository critical-reviewer role. Test author, implementers, verifier and fresh reviewer are distinct. Frozen red history and failed capacity/environment incidents are preserved.",
+  "role_overrides": {
+    "webview_verifier_recovery": {
+      "model": "gpt-6-astra",
+      "reasoning_effort": "high"
+    },
+    "impeccable_finish_reviewer": {
+      "model": "gpt-6-astra",
+      "reasoning_effort": "high"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+TAP version 13
+# Subtest: encoded slash and backslash in query are preserved, path remains denied
+ok 1 - encoded slash and backslash in query are preserved, path remains denied
+  ---
+  duration_ms: 99.307917
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 187.614333

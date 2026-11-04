@@ -1,0 +1,14 @@
+{
+  "steps": [
+    "actual stock search and guest BUY saved",
+    "guest ledger reload persistence",
+    "guest transaction edit persisted quantity3",
+    "guest transaction delete leaves empty ledger"
+  ],
+  "errors": [],
+  "ledgerShape": [
+    "openingHoldings",
+    "histories"
+  ],
+  "storageHasHoldings": true
+}

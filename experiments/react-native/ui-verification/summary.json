@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-10-28T10:33:02.011Z",
+  "exit_code": 0,
+  "checks": 12,
+  "passed": 12,
+  "uncaught_js_errors": 0,
+  "unexpected_console_errors": 0,
+  "synthetic_http": true,
+  "native_os_execution": false,
+  "frozen_test_hash_preserved": true,
+  "source_hashes_match": true
+}

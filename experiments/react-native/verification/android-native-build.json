@@ -1,0 +1,12 @@
+{
+  "command": [
+    "./gradlew",
+    "--no-daemon",
+    "--console=plain",
+    "-Pandroid.builder.sdkDownload=false",
+    ":app:assembleDebug"
+  ],
+  "exit_code": "timeout",
+  "seconds": 180.02218166703824,
+  "sdk_download_enabled": false
+}

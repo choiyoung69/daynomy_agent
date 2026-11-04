@@ -1,0 +1,239 @@
+.service-header {
+  display: grid;
+  width: 100%;
+  margin: 0 auto;
+  height: 64px;
+  min-height: 64px;
+  max-height: 64px;
+  flex: 0 0 64px;
+  padding: 0 var(--page-side-padding);
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 28px;
+  background: #fff;
+}
+
+.service-brand {
+  justify-self: start;
+  color: #08162e;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 25px;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+}
+
+.service-header-tabs {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 2vw, 32px);
+  justify-content: center;
+  min-width: 0;
+}
+
+.service-header-tab {
+  padding: 22px 0;
+  font-family:
+    'Noto Sans KR',
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+  line-height: 20px;
+  letter-spacing: 0;
+  color: #737885;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.service-header-tab:hover,
+.service-header-tab.active {
+  color: #131417;
+  font-weight: 700;
+}
+
+.service-search-link {
+  display: inline-flex;
+  width: 220px;
+  height: 34px;
+  margin-left: auto;
+  padding: 0 13px;
+  align-items: center;
+  border: 1px solid #dfe5ed;
+  border-radius: 10px;
+  color: #78808f;
+  background: #f3f6f9;
+  cursor: pointer;
+}
+
+.service-header-actions {
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.service-login-link {
+  border: 1px solid var(--button-outline);
+  display: inline-flex;
+  min-width: 68px;
+  height: var(--button-height);
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  color: var(--button-label);
+  background: #fff;
+  font-size: 13px;
+  font-weight: var(--button-weight);
+  text-decoration: none;
+}
+
+.service-login-link:hover {
+  background: var(--button-secondary-hover);
+  border-color: var(--button-label);
+}
+
+.service-profile-link:hover {
+  background: var(--button-primary-hover);
+}
+
+.service-profile-link {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--button-primary);
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.service-search-link svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.service-search-link kbd {
+  font-family: 'Noto Sans KR', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border: 0;
+  border-radius: 7px;
+  background: #e6ebf2;
+}
+
+.service-search-link span {
+  font-family: 'Noto Sans KR', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  margin-left: 8px;
+  white-space: nowrap;
+}
+
+.service-login-link:focus-visible,
+.service-header-tab:focus-visible,
+.service-profile-link:focus-visible,
+.service-search-link:focus-visible,
+.service-brand:focus-visible {
+  outline: 2px solid var(--button-primary);
+  outline-offset: 3px;
+}
+
+@media (max-width: 1100px) {
+  .service-header {
+    padding: 0 var(--page-side-padding);
+    gap: 18px;
+  }
+
+  .service-header-tabs {
+    gap: 18px;
+  }
+
+  .service-search-link {
+    width: 40px;
+    justify-content: center;
+  }
+
+  .service-search-link kbd,
+  .service-search-link span {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .service-header {
+    padding: 0 var(--page-side-padding);
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 12px;
+  }
+
+  .service-brand {
+    font-size: 18px;
+  }
+
+  .service-header-actions {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .service-header-tabs {
+    grid-column: 2;
+    grid-row: 1;
+    gap: 12px;
+  }
+
+  .service-header-tab {
+    padding: 8px 0;
+  }
+}
+
+@media (max-width: 620px) {
+  .service-header {
+    padding: 4px var(--page-side-padding);
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 32px 20px;
+    gap: 4px 12px;
+  }
+
+  .service-header-actions {
+    grid-column: 2;
+    gap: 8px;
+  }
+
+  .service-header-tabs {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    gap: 16px;
+  }
+
+  .service-header-tab {
+    padding: 0;
+    font-size: 13px;
+  }
+
+  .service-search-link,
+  .service-profile-link {
+    width: 32px;
+    height: 32px;
+  }
+
+  .service-search-link {
+    padding: 0;
+  }
+
+  .service-login-link {
+    font-weight: var(--button-weight);
+    border: 1px solid var(--button-outline);
+    height: 32px;
+  }
+}

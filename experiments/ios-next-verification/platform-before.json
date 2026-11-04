@@ -1,0 +1,48 @@
+{
+  "checked_at": "2026-10-28T10:08:50.317029+00:00",
+  "xcode_app_exists": false,
+  "xcode_download_placeholder_exists": true,
+  "commands": [
+    {
+      "command": [
+        "xcode-select",
+        "-p"
+      ],
+      "exit_code": 0,
+      "stdout": "/Library/Developer/CommandLineTools\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcodebuild",
+        "-version"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "xcode-select: error: tool 'xcodebuild' requires Xcode, but active developer directory '/Library/Developer/CommandLineTools' is a command line tools instance\n"
+    },
+    {
+      "command": [
+        "xcrun",
+        "--sdk",
+        "iphonesimulator",
+        "--show-sdk-path"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "xcrun: error: SDK \"iphonesimulator\" cannot be located\nxcrun: error: SDK \"iphonesimulator\" cannot be located\nxcrun: error: unable to lookup item 'Path' in SDK 'iphonesimulator'\n"
+    },
+    {
+      "command": [
+        "xcrun",
+        "--find",
+        "simctl"
+      ],
+      "exit_code": 72,
+      "stdout": "",
+      "stderr": "xcrun: error: unable to find utility \"simctl\", not a developer tool or in PATH\n"
+    }
+  ],
+  "ios_build_executed": false,
+  "ios_ui_tests_executed": false
+}

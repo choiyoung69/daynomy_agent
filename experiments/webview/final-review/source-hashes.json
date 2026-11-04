@@ -1,0 +1,23 @@
+{
+  "reviewed_at": "2026-10-28T09:01:52.500218+00:00",
+  "phase": "source review; runtime/visual pending",
+  "files": {
+    "clients/webview/web/src/market.ts": "c4892615c76e5cc2d4cfd7a537bb34bea7e3d5378994d4a83d1595f7eec4a444",
+    "clients/webview/web/src/app.ts": "cc46332339ade74ea7381a61b17c344f13da783006ec17bc759c841c51f468aa",
+    "clients/webview/web/styles.css": "f9c29963921e3c90265ea8ef2c1f22cabde24de2c01588b7200b9f29590d94c9",
+    "clients/webview/web/index.html": "21e783edbb3c34ac9ab6feb0a86c25f121b6d7e63576ed4c7b96b02a12ea1249",
+    "clients/webview/scripts/serve.mjs": "1707709f87976b543268cab869c500b3c5eb1a155f85d1eb101a898b27c2e8d2",
+    "clients/webview/android/app/src/debug/res/xml/network_security_config.xml": "19c7e0ab73370aae0baf35129c820bd5ffc038015c95b1b2182ffee433836591",
+    "clients/webview/android/app/src/main/AndroidManifest.xml": "de8b22041d6bbe87dfcb2b600f4627702cdd733901f5a89c4ea2edc562435294",
+    "clients/webview/android/app/src/main/java/com/daynomy/webview/MainActivity.kt": "130f77020aca008c635bfc729cd4212e04a6b7017d6b9cf28db6b5fa06c68e66",
+    "clients/webview/android/app/src/main/java/com/daynomy/webview/NavigationPolicy.kt": "b89810163c7b8217e94a01b3546e0d0b9a94a4bc0339a02ba7a5be75c4a235a5",
+    "clients/webview/android/app/src/main/res/xml/network_security_config.xml": "7bd91344689d618bf440dd803fef5d1c05dfbd1b12ea27379625b3388aee1846",
+    "clients/webview/ios/DaynomyWebView/AppDelegate.swift": "2292471cdccede08e3d0ab381bb8fd1163c49c4a39411ddb35c7208033bf28c8",
+    "clients/webview/ios/DaynomyWebView/Info-Debug.plist": "9abc8a426265fdf5c9daadc0f2e613d33a79fa44ed74368c7f07cc3e50bfc61a",
+    "clients/webview/ios/DaynomyWebView/Info-Release.plist": "7e025366c47e606a7b4560e9897e295a0cb445d5c90c6211fc63c5d9236a6bac",
+    "clients/webview/ios/DaynomyWebView/NavigationPolicy.swift": "c088c489e62fce376d829970039f83084e6f62c3b2f610511117c8859e38d18f",
+    "clients/webview/ios/DaynomyWebView/WebViewController.swift": "ada3668c20efc5506046b17d248f24f268de746a4f26604f69b0dc7cd4e3ee95",
+    "clients/webview/ios/DaynomyWebView.xcodeproj/project.pbxproj": "b0fff5a3b318e35b4e99c7832ade770b76f49f063eeac984057661bee7a01dda",
+    "clients/webview/ios/DaynomyWebView.xcodeproj/xcshareddata/xcschemes/DaynomyWebView.xcscheme": "5b0a5c80723705774c74172c5bf6180600be056e2c59a6c0097459b9e4ee323a"
+  }
+}

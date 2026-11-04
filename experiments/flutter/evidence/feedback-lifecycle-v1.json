@@ -1,0 +1,15 @@
+{
+  "finished_at": "2026-10-28T09:46:43.211492+00:00",
+  "passed": [
+    "restart-preserves-row",
+    "storage-error-is-500-without-insert",
+    "recovers-after-statement-error",
+    "app-logs-do-not-echo-probe-input"
+  ],
+  "exit_code": 0,
+  "command_exit_code": 0,
+  "script_sha256": "2f9841c56879add52fdb786185a44fefc6f0ce24effc067168b59a74ca0284f9",
+  "binary_sha256": "8d65466041e901480f515e4977e67572a4d4861a5eaa3f55acb66d153c73fb63",
+  "feedback_profile_path_count": 1,
+  "db_scope": "already-owned disposable Flutter fixture under shared lock; browser mutations paused"
+}

@@ -1,0 +1,114 @@
+import assert from 'node:assert/strict';
+import test from 'node:test';
+import { getNews } from '../../src/features/news/newslist/api.ts';
+
+function jsonResponse(body: unknown): Response {
+  return new Response(JSON.stringify(body), {
+    status: 200,
+    headers: { 'content-type': 'application/json' },
+  });
+}
+
+test('뉴스 목록 API에 1-based page를 요청하고 백엔드 응답을 매핑한다', async () => {
+  const calls: string[] = [];
+  globalThis.fetch = async (input) => {
+    calls.push(String(input));
+    return jsonResponse({
+      items: [
+        {
+          id: 1,
+          title: 'stock news',
+          imageUrl: 'https://example.com/news.png',
+          category: 'STOCK',
+          publishedAt: '2026-08-19T10:00:00',
+        },
+      ],
+      page: 2,
+      size: 15,
+      totalPages: 3,
+      totalElements: 31,
+      hasNext: true,
+    });
+  };
+
+  const page = await getNews('STOCK', 2, 15);
+
+  assert.equal(calls[0], '/api/news?page=2&size=15&category=STOCK');
+  assert.deepEqual(page, {
+    content: [
+      {
+        id: 1,
+        title: 'stock news',
+        category: 'STOCK',
+        imageUrl: 'https://example.com/news.png',
+        publishedAt: '2026-08-19T10:00:00',
+      },
+    ],
+    page: 2,
+    size: 15,
+    totalPages: 3,
+    totalElements: 31,
+  });
+});
+
+test('뉴스 목록 응답 계약이 맞지 않으면 빈 목록으로 처리하지 않는다', async () => {
+  globalThis.fetch = async () =>
+    jsonResponse({
+      page: 1,
+      size: 10,
+      totalPages: 1,
+      totalElements: 0,
+      hasNext: false,
+    });
+
+  await assert.rejects(() => getNews());
+});
+
+test('뉴스 항목의 카테고리가 잘못되면 화면 데이터로 전달하지 않는다', async () => {
+  globalThis.fetch = async () =>
+    jsonResponse({
+      items: [{ id: 1, title: '뉴스', imageUrl: null, category: 'UNKNOWN', publishedAt: null }],
+      page: 1,
+      size: 6,
+      totalPages: 1,
+      totalElements: 1,
+      hasNext: false,
+    });
+
+  await assert.rejects(() => getNews(), /응답 형식이 올바르지 않습니다/);
+});
+
+test('뉴스 목록의 모든 항목과 총 건수를 유지한다', async () => {
+  globalThis.fetch = async () =>
+    jsonResponse({
+      items: [
+        {
+          id: 24,
+          title: '첫 번째 뉴스',
+          imageUrl: null,
+          category: 'STOCK',
+          publishedAt: '2026-09-23T11:05:00Z',
+        },
+        {
+          id: 25,
+          title: '두 번째 뉴스',
+          imageUrl: null,
+          category: 'STOCK',
+          publishedAt: '2026-09-23T11:04:00Z',
+        },
+      ],
+      page: 1,
+      size: 10,
+      totalPages: 1,
+      totalElements: 2,
+      hasNext: false,
+    });
+
+  const page = await getNews();
+
+  assert.deepEqual(
+    page.content.map((item) => item.id),
+    [24, 25],
+  );
+  assert.equal(page.totalElements, 2);
+});

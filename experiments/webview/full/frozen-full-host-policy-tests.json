@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "frozen_at": "2026-10-28T09:46:54.132701+00:00",
+  "role": "independent-test-author",
+  "command": "node --test clients/webview/full-tests/full-host-policy.test.mjs",
+  "syntax_check_exit": 0,
+  "exit": 1,
+  "red_kind": "new full host source missing ENOENT",
+  "actual_tests": 3,
+  "failed": 3,
+  "skipped": 0,
+  "files": {
+    "clients/webview/full-tests/FullResourcePolicyTest.kt": "9bce432523ef5f92f36e6c6fc5d2c376ec3fae6b04797638b688e683cbd4879e",
+    "clients/webview/full-tests/full-resource-swift/main.swift": "1febc205d89727ff28c91dcf72d99f74cce7ee9a14c6d5ae6b5fc561ea462b30",
+    "clients/webview/full-tests/full-host-policy.test.mjs": "7800293efc40e1332c2ea8be2e89e85c32e5c894b811ada5cfb37b594af41d5a",
+    "experiments/webview/full/tests/full-host-missing-red.tap": "912ee82091895d85566b576e6ffd77fa0d9440b62265681ed738ef064bd1173c",
+    "experiments/webview/full/tests/full-host-policy-notes.md": "94f3e37400b6c0a0ebd10fe2884c95a586a8b2199559562ad643282384936aed"
+  }
+}

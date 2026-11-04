@@ -1,0 +1,19 @@
+name: daynomy_flutter
+description: DAYNOMY 사용자 앱. 기존 지식베이스와 Rust API 계약을 사용한다.
+publish_to: none
+version: 0.1.0+1
+environment:
+  sdk: '>=3.13.0 <4.0.0'
+  flutter: '>=3.47.0'
+dependencies:
+  flutter:
+    sdk: flutter
+  crypto: 3.0.7
+  flutter_web_auth_2: 5.1.0
+  url_launcher: 6.3.2
+  web: 1.1.1
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter:
+  uses-material-design: true

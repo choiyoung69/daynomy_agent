@@ -1,0 +1,1 @@
+{"steps":["actual login redirect reached local provider; synthetic authorization registered","UI login through local OIDC signed callback reaches protected mypage","real authenticated nickname PATCH200","real USER blocked before admin data calls","real logout removes protected access"],"errors":[]}

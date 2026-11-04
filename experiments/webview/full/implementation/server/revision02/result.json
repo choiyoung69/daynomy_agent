@@ -1,0 +1,15 @@
+{
+  "at": "2026-10-28T09:42:23.856201+00:00",
+  "previous_sha256": "bbcc524c9e99c213809c4dcb6299ccd99523797fc736d0af749234684f8ccc82",
+  "source_sha256": "7baa7a35a5ac0af3ecbe03fb66b344fcd30b86aa8711ce2bfdb390b658215806",
+  "frozen_initial_and_query_hashes_unchanged": true,
+  "changes": [
+    "Encoded separator rejection scoped to pathname; opaque query bytes preserved",
+    "CSP img-src blob allows original local uploaded image previews"
+  ],
+  "command": "node --test clients/webview/full-tests/server-contract.test.mjs clients/webview/full-tests/query-regression.test.mjs",
+  "exit": 0,
+  "evidence": "experiments/webview/full/implementation/server/revision02/fixed-tests.tap",
+  "independent_red_evidence": "experiments/webview/full/tests/query-red.tap",
+  "runtime_restart": "Root owns running18082; not restarted by implementation role"
+}

@@ -1,0 +1,244 @@
+{
+  "mode": "desktop",
+  "initial": {
+    "visibility": "visible",
+    "text": "DAYNOMY\n종목 조회\n종목과 거래 단가\n\n종목을 고르면 최근 종가를 불러와요. 단가는 언제든 직접 입력할 수 있어요.\n\n종목 찾기\n국가\n한국\n미국\n종목 검색\n\n검색 결과는 최대 20개예요. 유형을 선택해 좁혀 보세요.\n\n전체\n주식\nETF\n검색 결과\n\n종목명 또는 코드를 입력해 주세요.\n\n거래 단가\n\n조회할 종목을 선택해 주세요\n\n검색창에서 종목을 찾아보세요.\n선택한 종목의 최근 저장 종가를 확인할 수 있어요.\n\n현재는 조회와 단가 입력만 가능해요.\n로그인과 거래 저장은 지원하지 않습니다.\n\nDAYNOMY\n나의 자산을 기록하는 첫 단계",
+    "width": 1365,
+    "scrollWidth": 1365,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
+  },
+  "checks": [
+    "KR recent price and date"
+  ],
+  "search": {
+    "text": "DAYNOMY\n종목 조회\n종목과 거래 단가\n\n종목을 고르면 최근 종가를 불러와요. 단가는 언제든 직접 입력할 수 있어요.\n\n종목 찾기\n국가\n한국\n미국\n종목 검색\n\n검색 결과는 최대 20개예요. 유형을 선택해 좁혀 보세요.\n\n전체\n주식\nETF\n검색 결과\n1개\n삼성전자\n005930 · KOSPI · 주식\n거래 단가\n\n조회할 종목을 선택해 주세요\n\n검색창에서 종목을 찾아보세요.\n선택한 종목의 최근 저장 종가를 확인할 수 있어요.\n\n현재는 조회와 단가 입력만 가능해요.\n로그인과 거래 저장은 지원하지 않습니다.\n\nDAYNOMY\n나의 자산을 기록하는 첫 단계",
+    "status": "",
+    "results": 1
+  },
+  "quote": {
+    "value": "71000.125",
+    "date": "2026-10-23"
+  },
+  "deletedValue": "",
+  "us": {
+    "value": "193.4",
+    "currency": "(USD)"
+  },
+  "missingPrice": {
+    "status": "최근 종가를 불러오고 있어요. 직접 입력해도 괜찮아요.",
+    "date": "조회 전",
+    "retry": false
+  },
+  "layout": {
+    "width": 1365,
+    "scrollWidth": 1365,
+    "controls": [
+      {
+        "name": "한국",
+        "height": 48,
+        "width": 243.328125
+      },
+      {
+        "name": "미국",
+        "height": 48,
+        "width": 243.328125
+      },
+      {
+        "name": "stock-query",
+        "height": 52,
+        "width": 498.65625
+      },
+      {
+        "name": "전체",
+        "height": 48,
+        "width": 64
+      },
+      {
+        "name": "주식",
+        "height": 48,
+        "width": 64
+      },
+      {
+        "name": "ETF",
+        "height": 48,
+        "width": 64
+      },
+      {
+        "name": "선택 해제",
+        "height": 48,
+        "width": 56.5625
+      },
+      {
+        "name": "unit-price",
+        "height": 60,
+        "width": 412.34375
+      },
+      {
+        "name": "최근 종가 다시 조회",
+        "height": 48,
+        "width": 142.25
+      }
+    ],
+    "colors": [
+      {
+        "name": "종목과 거래 단가",
+        "color": "rgb(23, 24, 33)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "25.6px"
+      },
+      {
+        "name": "종목을 고르면 최근 종가를 불러와요. 단가는 언제든 직접 입력할 수 있어요.",
+        "color": "rgb(89, 97, 110)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "15px"
+      },
+      {
+        "name": "종목 찾기",
+        "color": "rgb(23, 24, 33)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "18px"
+      },
+      {
+        "name": "한국",
+        "color": "rgb(50, 107, 213)",
+        "background": "rgb(255, 255, 255)",
+        "fontSize": "16px"
+      },
+      {
+        "name": "미국",
+        "color": "rgb(89, 97, 110)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "16px"
+      },
+      {
+        "name": "종목 검색",
+        "color": "rgb(23, 24, 33)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "14px"
+      },
+      {
+        "name": "",
+        "color": "rgb(89, 97, 110)",
+        "background": "rgb(245, 247, 251)",
+        "fontSize": "16px"
+      },
+      {
+        "name": "검색 결과는 최대 20개예요. 유형을 선택해 좁혀 보세요.",
+        "color": "rgb(89, 97, 110)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "13px"
+      },
+      {
+        "name": "전체",
+        "color": "rgb(36, 89, 185)",
+        "background": "rgb(237, 243, 252)",
+        "fontSize": "14px"
+      },
+      {
+        "name": "주식",
+        "color": "rgb(23, 24, 33)",
+        "background": "rgb(255, 255, 255)",
+        "fontSize": "14px"
+      },
+      {
+        "name": "ETF",
+        "color": "rgb(23, 24, 33)",
+        "background": "rgb(255, 255, 255)",
+        "fontSize": "14px"
+      },
+      {
+        "name": "선택한 종목의 단가를 확인해 주세요.",
+        "color": "rgb(89, 97, 110)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "14px"
+      },
+      {
+        "name": "거래 단가",
+        "color": "rgb(23, 24, 33)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "18px"
+      },
+      {
+        "name": "NOPRICE · KOSPI",
+        "color": "rgb(89, 97, 110)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "13px"
+      },
+      {
+        "name": "선택 해제",
+        "color": "rgb(36, 89, 185)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "13px"
+      },
+      {
+        "name": "거래 단가 (KRW)",
+        "color": "rgb(23, 24, 33)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "14px"
+      },
+      {
+        "name": "",
+        "color": "rgb(23, 24, 33)",
+        "background": "rgb(255, 255, 255)",
+        "fontSize": "22px"
+      },
+      {
+        "name": "최근 종가를 불러오지 못했습니다. 거래 단가를 직접 입력해 주세요.",
+        "color": "rgb(179, 44, 58)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "14px"
+      },
+      {
+        "name": "최근 종가 다시 조회",
+        "color": "rgb(23, 24, 33)",
+        "background": "rgb(255, 255, 255)",
+        "fontSize": "14px"
+      },
+      {
+        "name": "직접 입력한 단가는 조회 결과가 바뀌어도 유지돼요.",
+        "color": "rgb(89, 97, 110)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "13px"
+      },
+      {
+        "name": "현재는 조회와 단가 입력만 가능해요.로그인과 거래 저장은 지원하지 않습니다.",
+        "color": "rgb(89, 97, 110)",
+        "background": "rgba(0, 0, 0, 0)",
+        "fontSize": "13px"
+      }
+    ]
+  },
+  "mobileLayout": {
+    "width": 390,
+    "scrollWidth": 390
+  },
+  "events": [
+    {
+      "method": "Log.entryAdded",
+      "params": {
+        "entry": {
+          "source": "network",
+          "level": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+          "timestamp": 1793178224008.695,
+          "url": "http://127.0.0.1:18082/favicon.ico",
+          "networkRequestId": "17044.7"
+        }
+      }
+    },
+    {
+      "method": "Log.entryAdded",
+      "params": {
+        "entry": {
+          "source": "network",
+          "level": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+          "timestamp": 1793178227817.703,
+          "url": "http://127.0.0.1:18082/api/stocks/910003/price",
+          "networkRequestId": "17044.14"
+        }
+      }
+    }
+  ],
+  "status": "passed"
+}

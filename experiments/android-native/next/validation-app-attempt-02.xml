@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="org.daynomy.android.DiscoveryScreenAcceptanceTest" tests="8" failures="1" errors="0" skipped="0" time="15.308" timestamp="2026-10-28T09:27:42" hostname="localhost">
+  <properties>
+    <property name="device" value="Daynomy_Pilot(AVD) - 13" />
+    <property name="flavor" value="" />
+    <property name="project" value=":app" />
+  </properties>
+  <testcase name="exchangeErrorDoesNotBecomeAQuoteAndExplicitRetryRecovers" classname="org.daynomy.android.DiscoveryScreenAcceptanceTest" time="1.991">
+    <failure>java.lang.AssertionError: Assert failed: The component is not displayed!
+at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+at org.daynomy.android.DiscoveryScreenAcceptanceTest.exchangeErrorDoesNotBecomeAQuoteAndExplicitRetryRecovers(DiscoveryScreenAcceptanceTest.kt:105)
+</failure>
+  </testcase>
+  <testcase name="exchangeShowsActualFallbackDateAndExactRateAndSurvivesRecreation" classname="org.daynomy.android.DiscoveryScreenAcceptanceTest" time="1.507" />
+  <testcase name="newsCategoryPaginationDetailAndBackUseNativeScreenAndKeepSelectedPage" classname="org.daynomy.android.DiscoveryScreenAcceptanceTest" time="1.336" />
+  <testcase name="selectingStockDisplaysStoredDateAndAutofillsPlainDecimal" classname="org.daynomy.android.MarketScreenAcceptanceTest" time="1.466" />
+  <testcase name="delayedQuoteCannotOverwriteManualInputAndRotationPreservesDirtyDraft" classname="org.daynomy.android.MarketScreenAcceptanceTest" time="2.044" />
+  <testcase name="clearedManualInputRemainsEmptyWhenDelayedPriceArrives" classname="org.daynomy.android.MarketScreenAcceptanceTest" time="2.525" />
+  <testcase name="missingQuoteShowsErrorAndStillAllowsManualInput" classname="org.daynomy.android.MarketScreenAcceptanceTest" time="1.854" />
+  <testcase name="usSearchSendsCountryAndLocalCategoryFilterDoesNotRefetch" classname="org.daynomy.android.MarketScreenAcceptanceTest" time="1.798" />
+</testsuite>

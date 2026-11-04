@@ -1,0 +1,13 @@
+{
+  "emulator": "emulator-5564",
+  "user_rotation": "0",
+  "accelerometer_rotation": "1",
+  "mInputShown": false,
+  "foreground": "com.daynomy.webview/.MainActivity",
+  "web_state": {
+    "value": "71000.125",
+    "date": "2026-10-23",
+    "cookiesEmpty": true
+  },
+  "settings_changed_by_recovery": false
+}

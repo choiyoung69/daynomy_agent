@@ -1,0 +1,163 @@
+{
+  "role": "independent-test-author",
+  "agent": "/root/android_next_tests",
+  "requested_model": "gpt-6-astra",
+  "requested_reasoning": "high",
+  "started_at": "2026-10-28T09:09:39Z",
+  "finished_at": "2026-10-28T09:19:10.945423+00:00",
+  "status": "authored-not-executed-by-test-author",
+  "knowledge_first": true,
+  "web_queries": 0,
+  "production_files_edited": [],
+  "existing_tests_edited": [],
+  "spec": {
+    "path": "spec/android-native/discovery.md",
+    "sha256": "d467660459a77498332978bc43911fa9b071e9d9953ba23d8ac8c01fe5b32842"
+  },
+  "knowledge_usage": {
+    "exchange": {
+      "manifest": "experiments/android-native/next/knowledge/exchange/manifest.json",
+      "context_sha256": "5bf02b6548d23ba58289b3ff1476895626898841da65dcb2775371603ecca4c3",
+      "applied_rules": [
+        {
+          "document": "knowledge/wiki/projects/daynomy/stocks-exchange.md",
+          "rule": "Preserve actual quote base date across requested-date fallback.",
+          "implementation": "ExchangeClientContractTest and DiscoveryBackendAcceptanceTest compare 2026-10-25 request to 2026-10-23 base date."
+        },
+        {
+          "document": "knowledge/wiki/packages/android-kotlin/types-and-json.md",
+          "rule": "Required nullable fields, missing optional fields, numeric tokens and enum fields have distinct contracts.",
+          "implementation": "DiscoveryClientContractTest and ExchangeClientContractTest reject malformed/null/missing data without accepting empty success; news signed Long is an explicit original-specific exception to stock safe IDs."
+        },
+        {
+          "document": "knowledge/wiki/packages/android-kotlin/numbers-and-money.md",
+          "rule": "Build BigDecimal from numeric JSON text, not a binary floating point intermediate.",
+          "implementation": "ExchangeClientContractTest asserts 1423.123456 and 1.234567890123456789; ExchangeNumericBoundaryTest checks original JS positive-number boundary."
+        },
+        {
+          "document": "knowledge/wiki/packages/android-kotlin/dates-and-unicode.md",
+          "rule": "Calendar dates and timestamps must not shift through the device timezone; validation follows the field contract.",
+          "implementation": "Client tests preserve raw baseDate/timestamp/date values and encode Unicode; server date rejection is checked in backend acceptance."
+        },
+        {
+          "document": "knowledge/wiki/packages/android-kotlin/async-and-cancellation.md",
+          "rule": "Cancellation must propagate, and late noncooperative work must not overwrite current state.",
+          "implementation": "ExchangeControllerContractTest and DiscoveryControllerContractTest hold old requests in NonCancellable gates and assert current state wins."
+        }
+      ]
+    },
+    "news": {
+      "manifest": "experiments/android-native/next/knowledge/news/manifest.json",
+      "context_sha256": "8eaa1e1e552b3d65135aac39d812ed954c6a844eebd1e503a058bb5c1cc8cf0f",
+      "applied_rules": [
+        {
+          "document": "knowledge/wiki/projects/daynomy/news.md",
+          "rule": "Publication, pagination and detail absence must be verified with real HTTP/DB, not inferred from KB status.",
+          "implementation": "DiscoveryBackendAcceptanceTest verifies publication filtering, pagination tie-break, missing detail and original fixture semantics."
+        },
+        {
+          "document": "knowledge/wiki/packages/android-kotlin/types-and-json.md",
+          "rule": "Required nullable fields, missing optional fields, numeric tokens and enum fields have distinct contracts.",
+          "implementation": "DiscoveryClientContractTest and ExchangeClientContractTest reject malformed/null/missing data without accepting empty success; news signed Long is an explicit original-specific exception to stock safe IDs."
+        },
+        {
+          "document": "knowledge/wiki/packages/android-kotlin/dates-and-unicode.md",
+          "rule": "Calendar dates and timestamps must not shift through the device timezone; validation follows the field contract.",
+          "implementation": "Client tests preserve raw baseDate/timestamp/date values and encode Unicode; server date rejection is checked in backend acceptance."
+        },
+        {
+          "document": "knowledge/wiki/packages/android-kotlin/async-and-cancellation.md",
+          "rule": "Cancellation must propagate, and late noncooperative work must not overwrite current state.",
+          "implementation": "ExchangeControllerContractTest and DiscoveryControllerContractTest hold old requests in NonCancellable gates and assert current state wins."
+        },
+        {
+          "document": "knowledge/wiki/packages/android-kotlin/state-and-navigation.md",
+          "rule": "State owner controls selection and request generations; recreation needs device evidence.",
+          "implementation": "DiscoveryControllerContractTest covers detail back, page/category preservation and terminal close; DiscoveryScreenAcceptanceTest covers recreation."
+        }
+      ]
+    },
+    "discovery-ui": {
+      "manifest": "experiments/android-native/next/knowledge/discovery-ui/manifest.json",
+      "context_sha256": "57f743cacc73113b822c08bbfb1c0cac787480ca53232a4565e2e60a1905408d",
+      "applied_rules": [
+        {
+          "document": "knowledge/wiki/projects/daynomy/news.md",
+          "rule": "Publication, pagination and detail absence must be verified with real HTTP/DB, not inferred from KB status.",
+          "implementation": "DiscoveryBackendAcceptanceTest verifies publication filtering, pagination tie-break, missing detail and original fixture semantics."
+        },
+        {
+          "document": "knowledge/wiki/projects/daynomy/stocks-exchange.md",
+          "rule": "Preserve actual quote base date across requested-date fallback.",
+          "implementation": "ExchangeClientContractTest and DiscoveryBackendAcceptanceTest compare 2026-10-25 request to 2026-10-23 base date."
+        },
+        {
+          "document": "knowledge/wiki/packages/android-kotlin/state-and-navigation.md",
+          "rule": "State owner controls selection and request generations; recreation needs device evidence.",
+          "implementation": "DiscoveryControllerContractTest covers detail back, page/category preservation and terminal close; DiscoveryScreenAcceptanceTest covers recreation."
+        },
+        {
+          "document": "knowledge/wiki/packages/android-kotlin/async-and-cancellation.md",
+          "rule": "Cancellation must propagate, and late noncooperative work must not overwrite current state.",
+          "implementation": "ExchangeControllerContractTest and DiscoveryControllerContractTest hold old requests in NonCancellable gates and assert current state wins."
+        },
+        {
+          "document": "knowledge/wiki/packages/android-kotlin/errors-and-transactions.md",
+          "rule": "HTTP failures, decoder errors and cancellation are distinct; raw failure bodies must not reach UI.",
+          "implementation": "Client tests assert failure identity; controller and screen tests require safe Failed state and explicit retry."
+        }
+      ]
+    }
+  },
+  "tests": {
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/DiscoveryScreenAcceptanceTest.kt": {
+      "sha256": "509c429bbc137ee9a11f6cbcf46296377580563a57d7f562c45d6cca4cb8c717",
+      "test_methods": 3,
+      "scope": "device-MockWebServer"
+    },
+    "clients/android/market-core/src/backendTest/kotlin/org/daynomy/market/DiscoveryBackendAcceptanceTest.kt": {
+      "sha256": "caf3b9b8ad8c185025541222ca7dab8e6b06eb206d6918260f04a285c64e8133",
+      "test_methods": 3,
+      "scope": "real-Rust-DB"
+    },
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/DiscoveryClientContractTest.kt": {
+      "sha256": "cb45b07c464e0efccbd07a58812bff5f0e8d2e043e92ef76710485c0256bd684",
+      "test_methods": 14,
+      "scope": "JVM-contract"
+    },
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/DiscoveryControllerContractTest.kt": {
+      "sha256": "ee15da3fe5a0656ae9834daef7bc19a9895f75e182ea068376e2b10a27138c22",
+      "test_methods": 5,
+      "scope": "JVM-contract"
+    },
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/ExchangeClientContractTest.kt": {
+      "sha256": "d739e52ef477dd455fc599b3cc5982ee407cdeba61f15fced43aa8f06c602353",
+      "test_methods": 9,
+      "scope": "JVM-contract"
+    },
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/ExchangeControllerContractTest.kt": {
+      "sha256": "bcc5a8a8f8bce5aafb858018598caee4b229301aa0e0649b775090c37b6c8f26",
+      "test_methods": 7,
+      "scope": "JVM-contract"
+    },
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/ExchangeNumericBoundaryTest.kt": {
+      "sha256": "a6ca3d3685f1739aee4475d632bb69c4feac70328e9365a3a20a52e8ccfce56e",
+      "test_methods": 1,
+      "scope": "JVM-contract"
+    }
+  },
+  "additive_review_regressions": [
+    "ExchangeNumericBoundaryTest: original JS Number underflow 1e-400 rejects, 5e-324 accepts; original frozen ExchangeClientContractTest unchanged."
+  ],
+  "execution": {
+    "gradle": "not run by test author; coordinator assigns serialized validator slot",
+    "adb": "not run by test author",
+    "db": "not run by test author",
+    "preflight": "delegated to coordinator to preserve shared execution slot"
+  },
+  "limitations": [
+    "No claim of test pass, original server runtime parity or complete app coverage.",
+    "UI supports ALL/REAL_ESTATE/STOCK/ETF filters while response decoder preserves all ten original web category values.",
+    "Lifecycle/request state is exercised on controller and recreation device test; process-death persistence is not asserted."
+  ]
+}

@@ -1,0 +1,9 @@
+file:///Users/seoyeong/develop/AI/daynomy_agent/experiments/webview/verification/retry-supplemental.mjs:6
+ const call=(method,params={})=>new Promise((resolve,reject)=>{const i=++id;pending.set(i,{resolve,reject});ws.send(JSON.stringify({id:i,method,params}))});const evaluate=async expression=>{const r=await call('Runtime.evaluate',{expression,awaitPromise:true,returnByValue:true});if(r.exceptionDetails)throw new Error(JSON.stringify(r.exceptionDetails));return r.result.value};const until=async expression=>{for(let n=0;n<100;n++){if(await evaluate(expression))return;await wait(80)}throw new Error('settled condition timeout '+expression)};
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ^
+
+Error: settled condition timeout document.querySelector('#stock-query')
+    at until (file:///Users/seoyeong/develop/AI/daynomy_agent/experiments/webview/verification/retry-supplemental.mjs:6:489)
+    at async file:///Users/seoyeong/develop/AI/daynomy_agent/experiments/webview/verification/retry-supplemental.mjs:7:133
+
+Node.js v22.23.1

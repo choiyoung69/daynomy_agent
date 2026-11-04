@@ -1,0 +1,16 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+browserType.connectOverCDP: socket hang up
+Call log:
+[2m  - <ws preparing> retrieving websocket url from http://127.0.0.1:19276[22m
+
+    at /Users/seoyeong/develop/AI/daynomy_agent/experiments/webview/full/verification/android-core.mjs:2:165 {
+  log: [
+    '  - <ws preparing> retrieving websocket url from http://127.0.0.1:19276'
+  ],
+  name: 'Error'
+}
+
+Node.js v22.23.1

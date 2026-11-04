@@ -1,0 +1,106 @@
+{
+  "provider": "ephemeral local signed OIDC provider, not real Google",
+  "steps": [
+    "actual login redirect reached local provider; synthetic authorization registered",
+    "UI login through local OIDC signed callback reaches protected mypage",
+    "real authenticated nickname PATCH200",
+    "real USER blocked before admin data calls"
+  ],
+  "api": [
+    {
+      "path": "/api/auth/google",
+      "status": 302
+    },
+    {
+      "path": "/api/users/me",
+      "status": 401
+    },
+    {
+      "path": "/api/auth/csrf",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/refresh",
+      "status": 401
+    },
+    {
+      "path": "/api/users/me",
+      "status": 200
+    },
+    {
+      "path": "/api/users/me/portfolio",
+      "status": 200
+    },
+    {
+      "path": "/api/users/me",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/csrf",
+      "status": 200
+    },
+    {
+      "path": "/api/users/me",
+      "status": 200
+    },
+    {
+      "path": "/api/users/me",
+      "status": 200
+    },
+    {
+      "path": "/api/users/me",
+      "status": 200
+    },
+    {
+      "path": "/api/users/me",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/csrf",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/logout",
+      "status": 204
+    },
+    {
+      "path": "/api/auth/csrf",
+      "status": 200
+    },
+    {
+      "path": "/api/people",
+      "status": 200
+    },
+    {
+      "path": "/api/news",
+      "status": 200
+    },
+    {
+      "path": "/api/contents",
+      "status": 200
+    },
+    {
+      "path": "/api/investment-calendar",
+      "status": 200
+    }
+  ],
+  "errors": [],
+  "cookieProperties": [
+    {
+      "name": "XSRF-TOKEN",
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "access_token",
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "failure": {
+    "name": "TimeoutError",
+    "message": "page.waitForURL: Timeout 30000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation to \"[URL redacted] until \"load\"\n  navigated to \"[URL redacted]\n============================================================"
+  }
+}

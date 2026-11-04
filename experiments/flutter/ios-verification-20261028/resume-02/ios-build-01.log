@@ -1,0 +1,51 @@
+Building org.daynomy.app for simulator (ios)...
+Running Xcode build...                                          
+Xcode build done.                                           14.2s
+Failed to build iOS app
+Error output from Xcode build:
+↳
+    ** BUILD FAILED **
+
+
+Xcode's output:
+↳
+    Writing result bundle at path:
+    	/var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T/flutter_tools.YlqQAs/flutter_ios_build_temp_dirdehirc/temporary_xcresult_bundle
+
+    Unhandled exception:
+    Bad state: No element
+    #0      Iterable.first (dart:core/iterable.dart:663:7)
+    #1      firstLineOfStdout (file:///Users/seoyeong/develop/AI/daynomy_agent/.local/flutter-pub-cache/hosted/pub.dev/objective_c-9.6.2/hook/build.dart:194:8)
+    #2      sdkPath (file:///Users/seoyeong/develop/AI/daynomy_agent/.local/flutter-pub-cache/hosted/pub.dev/objective_c-9.6.2/hook/build.dart:185:10)
+    #3      main.<anonymous closure> (file:///Users/seoyeong/develop/AI/daynomy_agent/.local/flutter-pub-cache/hosted/pub.dev/objective_c-9.6.2/hook/build.dart:65:21)
+    #4      build (package:hooks/src/api/build_and_link.dart:250:18)
+    #5      main (file:///Users/seoyeong/develop/AI/daynomy_agent/.local/flutter-pub-cache/hosted/pub.dev/objective_c-9.6.2/hook/build.dart:22:9)
+    #6      _delayEntrypointInvocation.<anonymous closure> (dart:isolate-patch/isolate_patch.dart:311:33)
+    #7      _RawReceivePort._handleMessage (dart:isolate-patch/isolate_patch.dart:192:12)
+
+      Building assets for package:objective_c failed.
+      build.dart returned with exit code: 255.
+      To reproduce run:
+      (cd /Users/seoyeong/develop/AI/daynomy_agent/.local/flutter-pub-cache/hosted/pub.dev/objective_c-9.6.2/; /Users/seoyeong/develop/AI/daynomy_agent/.local/flutter-sdk/flutter/bin/cache/dart-sdk/bin/dart --packages=/Users/seoyeong/develop/AI/daynomy_agent/clients/flutter/.dart_tool/package_config.json /Users/seoyeong/develop/AI/daynomy_agent/clients/flutter/.dart_tool/hooks_runner/objective_c/6e20107924/hook.dill --config=/Users/seoyeong/develop/AI/daynomy_agent/clients/flutter/.dart_tool/hooks_runner/objective_c/6e20107924/input.json )
+      stderr:
+      Unhandled exception:
+    Bad state: No element
+    #0      Iterable.first (dart:core/iterable.dart:663:7)
+    #1      firstLineOfStdout (file:///Users/seoyeong/develop/AI/daynomy_agent/.local/flutter-pub-cache/hosted/pub.dev/objective_c-9.6.2/hook/build.dart:194:8)
+    #2      sdkPath (file:///Users/seoyeong/develop/AI/daynomy_agent/.local/flutter-pub-cache/hosted/pub.dev/objective_c-9.6.2/hook/build.dart:185:10)
+    #3      main.<anonymous closure> (file:///Users/seoyeong/develop/AI/daynomy_agent/.local/flutter-pub-cache/hosted/pub.dev/objective_c-9.6.2/hook/build.dart:65:21)
+    #4      build (package:hooks/src/api/build_and_link.dart:250:18)
+    #5      main (file:///Users/seoyeong/develop/AI/daynomy_agent/.local/flutter-pub-cache/hosted/pub.dev/objective_c-9.6.2/hook/build.dart:22:9)
+    #6      _delayEntrypointInvocation.<anonymous closure> (dart:isolate-patch/isolate_patch.dart:311:33)
+    #7      _RawReceivePort._handleMessage (dart:isolate-patch/isolate_patch.dart:192:12)
+
+      stdout:
+
+
+    Target build_hooks failed: Error: Building native assets failed. See the logs for more details.
+    Failed to package /Users/seoyeong/develop/AI/daynomy_agent/clients/flutter.
+    Command PhaseScriptExecution failed with a nonzero exit code
+    note: Run script build phase 'Run Script' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'Runner' from project 'Runner')
+    note: Run script build phase 'Thin Binary' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'Runner' from project 'Runner')
+
+Encountered error while building for simulator.

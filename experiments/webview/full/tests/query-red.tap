@@ -1,0 +1,148 @@
+TAP version 13
+# Subtest: query separators preserve original navigation/API/OAuth without allowing path separators
+    # Subtest: SPA query /login?returnTo=%2Fmypage
+    not ok 1 - SPA query /login?returnTo=%2Fmypage
+      ---
+      duration_ms: 1.36125
+      type: 'test'
+      location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests/query-regression.test.mjs:27:13'
+      failureType: 'testCodeFailure'
+      error: |-
+        Expected values to be strictly equal:
+        
+        400 !== 200
+        
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected: 200
+      actual: 400
+      operator: 'strictEqual'
+      stack: |-
+        TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests/query-regression.test.mjs:27:88)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests/query-regression.test.mjs:27:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: SPA query /search?q=foo%2Fbar
+    not ok 2 - SPA query /search?q=foo%2Fbar
+      ---
+      duration_ms: 0.918458
+      type: 'test'
+      location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests/query-regression.test.mjs:27:13'
+      failureType: 'testCodeFailure'
+      error: |-
+        Expected values to be strictly equal:
+        
+        400 !== 200
+        
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected: 200
+      actual: 400
+      operator: 'strictEqual'
+      stack: |-
+        TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests/query-regression.test.mjs:27:88)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests/query-regression.test.mjs:27:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: proxy query /api/stocks?q=foo%2Fbar
+    not ok 3 - proxy query /api/stocks?q=foo%2Fbar
+      ---
+      duration_ms: 1.109
+      type: 'test'
+      location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests/query-regression.test.mjs:30:13'
+      failureType: 'testCodeFailure'
+      error: |-
+        Expected values to be strictly equal:
+        
+        400 !== 200
+        
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected: 200
+      actual: 400
+      operator: 'strictEqual'
+      stack: |-
+        TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests/query-regression.test.mjs:30:90)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests/query-regression.test.mjs:30:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: proxy query /login/oauth2/code/google?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email
+    not ok 4 - proxy query /login/oauth2/code/google?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email
+      ---
+      duration_ms: 0.699083
+      type: 'test'
+      location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests/query-regression.test.mjs:30:13'
+      failureType: 'testCodeFailure'
+      error: |-
+        Expected values to be strictly equal:
+        
+        400 !== 302
+        
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected: 302
+      actual: 400
+      operator: 'strictEqual'
+      stack: |-
+        TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests/query-regression.test.mjs:30:90)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests/query-regression.test.mjs:30:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    # Subtest: encoded slash and backslash in pathname stay denied
+    ok 5 - encoded slash and backslash in pathname stay denied
+      ---
+      duration_ms: 2.148333
+      type: 'test'
+      ...
+    # Subtest: CSP allows original local uploaded image blob preview
+    not ok 6 - CSP allows original local uploaded image blob preview
+      ---
+      duration_ms: 0.965916
+      type: 'test'
+      location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests/query-regression.test.mjs:37:11'
+      failureType: 'testCodeFailure'
+      error: 'URL.createObjectURL upload preview requires blob: image source'
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected: true
+      actual: false
+      operator: '=='
+      stack: |-
+        TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests/query-regression.test.mjs:40:66)
+        process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests/query-regression.test.mjs:37:3)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    1..6
+not ok 1 - query separators preserve original navigation/API/OAuth without allowing path separators
+  ---
+  duration_ms: 109.355791
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests/query-regression.test.mjs:13:1'
+  failureType: 'subtestsFailed'
+  error: '5 subtests failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+1..1
+# tests 7
+# suites 0
+# pass 1
+# fail 6
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 190.554292

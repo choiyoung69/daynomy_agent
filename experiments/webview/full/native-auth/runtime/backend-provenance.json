@@ -1,0 +1,9 @@
+{
+  "status": "serving",
+  "base_url": "http://127.0.0.1:18091",
+  "mode": "private disposable local Rust/DB; ephemeral local signed OIDC; no real Google",
+  "binary_sha256": "c6e271bda594bc80c29a5de6632e8ca77b6a3964b2e980f1189e4051543f0acd",
+  "expected_binary_sha256": "c6e271bda594bc80c29a5de6632e8ca77b6a3964b2e980f1189e4051543f0acd",
+  "source_snapshot_matches": true,
+  "shared_db_gate_used": false
+}

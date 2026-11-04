@@ -1,0 +1,56 @@
+TAP version 13
+# Subtest: new full Android pure resource/image policy executes
+not ok 1 - new full Android pure resource/image policy executes
+  ---
+  duration_ms: 1.851667
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests/full-host-policy.test.mjs:12:1'
+  failureType: 'testCodeFailure'
+  error: "ENOENT: no such file or directory, access '/Users/seoyeong/develop/AI/daynomy_agent/clients/webview/android-full/app/src/main/java/com/daynomy/webview/FullResourcePolicy.kt'"
+  code: 'ENOENT'
+  stack: |-
+    async access (node:internal/fs/promises:606:10)
+    async TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests/full-host-policy.test.mjs:13:3)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: new full iOS pure resource/image policy executes
+not ok 2 - new full iOS pure resource/image policy executes
+  ---
+  duration_ms: 0.964334
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests/full-host-policy.test.mjs:17:1'
+  failureType: 'testCodeFailure'
+  error: "ENOENT: no such file or directory, access '/Users/seoyeong/develop/AI/daynomy_agent/clients/webview/ios-full/DaynomyWebView/FullResourcePolicy.swift'"
+  code: 'ENOENT'
+  stack: |-
+    async access (node:internal/fs/promises:606:10)
+    async TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests/full-host-policy.test.mjs:18:3)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: new full hosts add no camera permission or privileged JS bridge
+not ok 3 - new full hosts add no camera permission or privileged JS bridge
+  ---
+  duration_ms: 0.444125
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests/full-host-policy.test.mjs:23:1'
+  failureType: 'testCodeFailure'
+  error: "ENOENT: no such file or directory, open '/Users/seoyeong/develop/AI/daynomy_agent/clients/webview/android-full/app/src/main/AndroidManifest.xml'"
+  code: 'ENOENT'
+  stack: |-
+    async open (node:internal/fs/promises:639:25)
+    async readFile (node:internal/fs/promises:1252:14)
+    async TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests/full-host-policy.test.mjs:24:18)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 0
+# fail 3
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 70.709167

@@ -1,0 +1,22 @@
+TAP version 13
+# Subtest: actual Kotlin policy executes shared trust/port/user-gesture cases
+ok 1 - actual Kotlin policy executes shared trust/port/user-gesture cases
+  ---
+  duration_ms: 2747.994375
+  type: 'test'
+  ...
+# Subtest: actual Swift policy executes shared trust/port/user-gesture cases
+ok 2 - actual Swift policy executes shared trust/port/user-gesture cases
+  ---
+  duration_ms: 19683.441042
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 22514.484875

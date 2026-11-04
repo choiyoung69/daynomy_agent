@@ -1,0 +1,45 @@
+{
+  "name": "frontend",
+  "private": true,
+  "version": "1.1.4",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run build:production",
+    "build:development": "npm run typecheck && vite build --mode development",
+    "build:production": "npm run typecheck && vite build --mode production",
+    "lint": "oxlint",
+    "typecheck": "tsc -b",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "test": "npm run test:unit && npm run test:ui",
+    "test:unit": "node --import tsx --test \"tests/**/*.test.ts\"",
+    "test:ui": "vitest run --exclude 'tests/**/*.test.ts'",
+    "test:e2e": "playwright test",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@sentry/react": "^10.70.0",
+    "axios": "^1.19.0",
+    "posthog-js": "^1.438.8",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@sentry/vite-plugin": "^5.4.0",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.4",
+    "jsdom": "^30.0.1",
+    "oxlint": "^1.75.0",
+    "prettier": "^3.9.6",
+    "tsx": "^4.23.12",
+    "typescript": "~6.0.2",
+    "vite": "^8.2.0",
+    "vitest": "^4.1.11"
+  }
+}

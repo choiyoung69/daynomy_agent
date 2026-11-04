@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-28T09:57:20.850731+00:00",
+  "state": "static review; runtime not yet evaluated",
+  "sha256": {
+    "clients/android/app/src/main/kotlin/org/daynomy/android/CoreViewModel.kt": "05c2c898c5d1be928d6b0e52863a29ff7d39144c6da8a6e8bacc11c22ec78475",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/CoreScreens.kt": "19956658d0fd1b1e3945d1ef7c53f9d9d4be8df7d291b214fb7f08d9b72ede35",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/MainActivity.kt": "5900e69312186b317a2eb2df9b24c47d54c5af24df81f4bccf13a63c4de206e0",
+    "clients/android/app/src/main/AndroidManifest.xml": "15d1f309e79353b7189e202cdd8f6f95612c02380265a493e6ae90ce5769c447",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/Android30CoreScreenTest.kt": "b21314d8416b822bb842646c09dafead169dc9a50833b0f6ca610510bbd6b93a"
+  },
+  "fixed_on_inspection": [
+    "logout now clears loading/searchBusy/drafts and invalidates pending search",
+    "portfolioLoaded gates successful empty-state display",
+    "unknown transaction state centrally blocks writes",
+    "fixed callback scheme/host/path in manifest, browser ACTION_VIEW login and onNewIntent bridge"
+  ],
+  "bounds": [
+    "Real Google provider untested",
+    "UI tests do not perform OAuth; synthetic member fixture accepts GET without session",
+    "Full portfolio mutation/performance/calculation/holding UI flows not yet runtime tested"
+  ]
+}

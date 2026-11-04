@@ -1,0 +1,17 @@
+{
+  "reviewed_at": "2026-10-28T11:10:57.735651+00:00",
+  "source_mismatches": [],
+  "frozen_mismatches": [],
+  "read_input_mismatches": [],
+  "apk_matches": true,
+  "runtime_result_sha256": "93780605e0ab39c1b8d6c0731d859ca08c2361221c7cb6365c1c5a39a82c1697",
+  "runtime_harness_sha256": "cbf7328da08ddfd57024786716fbf37b4e7a91ac07d34684c9e8b6536536011a",
+  "independent_pure_sha256": "3297f74e06920aeaf2658e19c11cbd8b46ea7396fcecf8dc28a384c9fefcf4f2",
+  "decision": "accepted-source-and-controlled-android-scope",
+  "unverified": [
+    "automatic HTTP302-to-app dispatch",
+    "real Google/production",
+    "iOS SDK/runtime",
+    "forced cookie-write and host recreation interleaving"
+  ]
+}

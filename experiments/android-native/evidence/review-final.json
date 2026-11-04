@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "status": "approved",
+  "review_started_at_utc": "2026-10-28T08:56:50+00:00",
+  "review_finished_at_utc": "2026-10-28T09:00:37.448245+00:00",
+  "scope": "Bounded Android native pilot: public stock search, latest stored quote and connected Compose/manual-price draft; local debug APK on API 33. Not complete app, production deployment or all-device approval.",
+  "reviewer": {
+    "role": "separate test author and implementation reviewer",
+    "model": "gpt-6-astra",
+    "reasoning_effort": "high",
+    "independence_limit": "Reviewer did not author production implementation, but authored the initial feature/device criteria and later backend/regression tests. This is not independent certification of the reviewer own test expectations."
+  },
+  "decision_basis": [
+    "Read selected KB packets first, then source/specification and raw verification artifacts. No new web research, Gradle build, device operation or DB operation by this review role.",
+    "All 35 verification-05 source hashes equal current files; current implementation, frozen criteria, additive tests, build/dependency files, specifications and KB gate code are bound below.",
+    "All seven referenced XML hashes match actual XML files. Parsed case counts and failure/error/skipped elements independently match 52 JVM, 7 actual Kotlin-to-Rust/PostgreSQL, and 5 API33 instrumented device tests.",
+    "Both APK hashes and the actual Gradle acceptance log hash match verification-05. Lint XML contains zero errors and nine warnings.",
+    "Actual API33 Compose-to-Rust/PostgreSQL probe passed all four checks. Probe uses exact verified APK, localhost-emulator backend origin, native UI search and selection; screenshot hash matches and screenshot visually shows Samsung, 71000.125 KRW, 2026-10-23, and native input 71000.125.",
+    "Rust fixture report confirms locked/offline build, fresh local DB creation, 53 migrations and synthetic seed success. Current Rust source hashes and built binary equal fixture report. No original server/env or production DB used by fixture script.",
+    "Executed read-only android_knowledge.verify for each actual search/price/integration manifest+usage with expected_task binding: all pass. Current frozen criteria also match."
+  ],
+  "resolved_findings": [
+    {
+      "id": "R1",
+      "status": "resolved",
+      "finding": "clearSelection erased existing search query",
+      "resolution": "Removed query reset; keeps raw query, resets only selected-price draft and reissues normalized current query after 250ms. Additive regression failed before fix, passes now."
+    },
+    {
+      "id": "R2",
+      "status": "resolved",
+      "finding": "KB manifest could omit required document/source/task binding",
+      "resolution": "verify now checks expected task, feature/platform, exact configured document set, derived source set, readiness, source/context hashes and complete nonblank usage map. android_pilot final repeats all three task-bound KB checks and current frozen-criteria checks. 11 gate-specific tests pass; existing 19 knowledge-readiness tests are a separate suite."
+    },
+    {
+      "id": "R3",
+      "status": "resolved",
+      "finding": "search decoder accepted invalid JSON-number grammar",
+      "resolution": "Central regression reproduced accepted invalid token before fix. Search now applies anchored JSON-number grammar before exact BigDecimal-to-Long safe bound. New search grammar and price-control tests pass; original 49 criteria unchanged."
+    }
+  ],
+  "unresolved_findings": [],
+  "results": {
+    "jvm": {
+      "tests": 52,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "rust_http_db": {
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "android_api33_device": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "lint": {
+    "errors": 0,
+    "warnings": 9,
+    "issue_ids": [
+      "DataExtractionRules",
+      "GradleDependency",
+      "MissingApplicationIcon"
+    ]
+  },
+  "direct_device_rust": {
+    "status": "passed",
+    "checks": {
+      "real_stock_search_visible": true,
+      "latest_stored_date_visible": true,
+      "exact_quote_visible": true,
+      "decimal_autofilled_native_input": true
+    },
+    "started_at": "2026-10-28T08:56:13.231205+00:00",
+    "finished_at": "2026-10-28T08:56:23.481257+00:00",
+    "apk_sha256": "f35db75327a3cd827b624642fc32cc79e863c7ebc7eccc70b84be3b72a27f718",
+    "screenshot": {
+      "path": "experiments/android-native/evidence/device-rust-03.png",
+      "sha256": "8f606719ffbeaf94c40b7a04b26568dae3ab112f3134068aef45c6366c81dbc6"
+    },
+    "visual_review": true
+  },
+  "knowledge_gate": {
+    "specific_suite_tests": 11,
+    "specific_suite_exit_code": 0,
+    "separate_existing_knowledge_suite_tests": 19,
+    "actual_packet_bindings_verified": [
+      "search:3 documents/23 source records",
+      "price:4 documents/24 source records",
+      "integration:5 documents/26 source records"
+    ],
+    "limitations": "Packet hashes/use declarations prove materialized inputs and declared mappings, not actual model comprehension. Initial search/price implementation predates the gate; retrospective audit remains labeled as such. Integration packet was required before start."
+  },
+  "prior_failures_preserved": [
+    "Initial API red: 20 failures against independent blank snapshot. Initial core integration red: 49 failures; instrumented tests were authored then but not run at red stage.",
+    "Review regressions: two reproduced defects and one passing price-grammar control before fixes; unchanged new criterion hash now passes.",
+    "Device criteria v2 removed only an invalid top-level import; all assertions unchanged and v1/v2 hashes preserved.",
+    "Earlier build failures (missing app OkHttp dependency, invalid test import, lint includeSubdomains requirements) remain separate from final successful run.",
+    "First direct-device attempt failed setup because instrumentation cleanup removed APK; next attempt failed while IME obscured results. Both prior failure artifacts remain; device-rust-03 is a distinct passing corrected probe."
+  ],
+  "remaining_limits": [
+    "Only one API33 ARM64 emulator tested; no physical-device or other Android-version compatibility claim.",
+    "Activity recreation and dirty draft retention tested; actual OS process-kill restoration, full background/return/device resource-pressure behavior, TalkBack and large-font/IME manual acceptance are not fully validated.",
+    "Release HTTPS endpoint remains intentionally unconfigured; this is a local debug pilot, not a deployable production release. Lint dependency-update, icon and data-extraction-rule warnings remain.",
+    "No login/session/transaction save/exchange-rate/full-service UI implementation or validation.",
+    "The 7 Rust/DB acceptance tests were authored after initial feature implementation; only original 49 JVM criteria are first-implementation test-first. The 3 review regressions were written before their fixes.",
+    "No sequential control run exists, so no quantified speedup/productivity claim is supported.",
+    "KB understanding and reviewer-owned test expectations are not independently certified by metadata, test passes or this review.",
+    "Fixture teardown is coordinator-owned and was still serving when read; passing functional validation does not assert that subsequent cleanup has already occurred."
+  ],
+  "source_hashes": {
+    "agents/android-native.json": "f9b7e135cadd422a9b05b7d3ca42ad189c016c4a1e60509ab04293581d7093b7",
+    "clients/android/app/build.gradle.kts": "6322e456a132b33327fbbb854e64d18e512cf04058075ad03757585da669b1ef",
+    "clients/android/app/gradle.lockfile": "b66f38a8990ade6a94d522aee33b5fe3c0cc1dc589ad05b5d1fe356ea2b3f0e7",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/MarketScreenAcceptanceTest.kt": "5d8ee4b87f74e201217ce2c9aa0512df622533916622d2c05187e5e9fa9bdb5b",
+    "clients/android/app/src/debug/AndroidManifest.xml": "28a0d65f750bf61b6583f56dc5cfb35b5e0fd4be5187a323d2b56131d1898993",
+    "clients/android/app/src/debug/res/xml/debug_network_security.xml": "bc63aed497e2445f12ae17077918847224ec3399ecc979b22b685fa5af3c8472",
+    "clients/android/app/src/main/AndroidManifest.xml": "de0af21e2564585c0f39591fa69ace0ee88011834e8a01cd495bb5a5743a8ae2",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/MainActivity.kt": "96f6873d988423486860cd16d18d8b77e014553fbc8756398d598cc0a16f4d13",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/MarketViewModel.kt": "8717506128596a148f22b4ba3b3ce6b945b6a63f8396fbe46a306b3aebbe9d31",
+    "clients/android/app/src/main/res/values/styles.xml": "b2be39a301bb36472ac6dddb20f1ad96f1029f7b2cdf208629ef21d63372621c",
+    "clients/android/build.gradle.kts": "b10241b49a322d0379e6013749417ce99f4d2094c7ec607a751104199e047929",
+    "clients/android/gradle/wrapper/gradle-wrapper.properties": "fe90ff0d9944879f591a8c37b6dbaf5046d1051ccbb6b26b22081692c321f432",
+    "clients/android/market-core/build.gradle.kts": "c65968ffde3a334a817a92d749b740449c9c17f4135be8ed7adf24c4299549c4",
+    "clients/android/market-core/gradle.lockfile": "d2bad41e080563af0efa8d4fd093ba35bf11eacea0e7464617d04726455bb7b7",
+    "clients/android/market-core/src/backendTest/kotlin/org/daynomy/market/RustBackendAcceptanceTest.kt": "55bd757ca840b46284e1c41e2ba7561b3414a456a92e4b89cde3032269ebd27e",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/MarketController.kt": "fc9d4871f6ec2ed8016b1364822b095e6873ece49f0f04aaa01b17f2924b34ea",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/Models.kt": "673fc14e087949567ed3aff8b2a61b3a360061cb77bd3a5755f22f8687b61a50",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/OkHttpTransport.kt": "d5c89ef7f1285be0875dd66a6b4aec26a336e7a2dcfc691afc9fd1dbd1394e4d",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/StockPriceClient.kt": "d5c01e106b3d52dedb8167ab966d4e551277f5fb51ab689344ed954f2187851a",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/StockSearchClient.kt": "84511019db5f57739081aa93ea6698faef767af09637e2015c61f67d83f2c85a",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/ContractFixtures.kt": "d9449c31b426a61cbb3afd1afef33577c733845c93f9c76496f0dc40fee59ab3",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/MarketControllerContractTest.kt": "e8201ff7f3b21fcdba473803c02381a22f7584147442ff364e6c858e4cb82199",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/MarketControllerRegressionTest.kt": "4e2a6fde6d0d9593ce82a6ecc5cb39b1019c99728bd72eb95612b76c27435b55",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/OkHttpTransportContractTest.kt": "b80f55ddd41b33270018ab88bc4527a93378f0b6802f1c50098a1b7f8cc7bc4a",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/StockPriceClientContractTest.kt": "1d568f1a3a654baa847beb5fc409bf0d3c2b2d916318a753472cabe833525093",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/StockSearchClientContractTest.kt": "fb3205972876f584cef4d43ba86d2ae16ae9a27feece05daef7edb20628e2566",
+    "clients/android/settings.gradle.kts": "acb71f74b0a601914c667de331bbaef378b510a1945b900331f71fa6483b382b",
+    "scripts/android_backend_fixture.py": "23874ab1a7c12bc4504dfe8b252ea8c30d949c25d83a807620936f05c607024d",
+    "scripts/android_knowledge.py": "d8db06cf7dd0c9726717e18ea0fce5ae10f7534c42f26b9df14ad90088a2b944",
+    "scripts/android_pilot.py": "cd381961c739602b3024e14d07ffce114244bd30e9c1b85bad4155488991b5b1",
+    "scripts/test_android_knowledge.py": "d4bbf87e8dfedda105b0a7e5e455efa765f4b1aa9e10e1dfcc317dcb94603d4a",
+    "spec/android-native/README.md": "cc89bcde9c356a121fe9adff42653b3e988cf90ba0f76d7a631abb25c861eeb7",
+    "spec/android-native/price.md": "a89be48ac1090e5ebb3c4cf4509da94efe026d84afbe0081a7d35f376a4193f6",
+    "spec/android-native/search.md": "3a3ffe4489bcc204b9c28242391542a31373da27df37a1d303389b745093c5ad",
+    "spec/android-native/verification-plan.md": "991a962a448bb2535bae2305ee41924baeea6892b4695b97c1ed909b38794e6a",
+    "scripts/android_device_probe.py": "3510648dcdf9f2e94b06a0f2c421084db235f472e2eb19f770f894710c2bb39b"
+  },
+  "verified_apk_hashes": {
+    "clients/android/app/build/outputs/apk/debug/app-debug.apk": "f35db75327a3cd827b624642fc32cc79e863c7ebc7eccc70b84be3b72a27f718",
+    "clients/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk": "1d4edfb1ef65650925ae8d1cea2c7ac3b12c8ad826f6eac00055089281c85eb4"
+  },
+  "verified_xml_hashes": {
+    "clients/android/market-core/build/test-results/test/TEST-org.daynomy.market.StockSearchClientContractTest.xml": "a5599741fef9e46456dbe2e2b7f5027291bc42c3bbb880f6cdc340e12ff4ae76",
+    "clients/android/market-core/build/test-results/test/TEST-org.daynomy.market.OkHttpTransportContractTest.xml": "b22bcf9f8eba1f90d1ab47bdd3ccc2cb9870d707fdd34e595c78d57304082b8b",
+    "clients/android/market-core/build/test-results/test/TEST-org.daynomy.market.StockPriceClientContractTest.xml": "77a65937a055e5e32d1a62069c77b54c8f0d226588979f1b907cad05401ec9fc",
+    "clients/android/market-core/build/test-results/test/TEST-org.daynomy.market.MarketControllerContractTest.xml": "86fd51d047dbadf9a3724604b68ca9fd04f26291b114f2642f43a8e5bcc030d4",
+    "clients/android/market-core/build/test-results/test/TEST-org.daynomy.market.MarketControllerRegressionTest.xml": "285b9e0676a99283198ae1b30cc239ae7e45ddf27477fb7f50049b0e2a27f4c5",
+    "clients/android/market-core/build/test-results/backendTest/TEST-org.daynomy.market.RustBackendAcceptanceTest.xml": "2b24823e1807d0d291b7e5fd32ab1bd9b715f45f3b08ed7faeba56f4dbf41271",
+    "clients/android/app/build/outputs/androidTest-results/connected/debug/TEST-Daynomy_Pilot(AVD) - 13-_app-.xml": "1761280dd5f3db33fc53ffcc6b87a2a3ee02c099a674ec589b9d7a82c7dee7e3"
+  },
+  "knowledge_artifact_hashes": {
+    ".local/android-pilot/knowledge-v1/search/manifest.json": "8324ca8d1749863d6fbad1e1ceebb82332f6fdb9a28f883e6dbbe94037d505ea",
+    ".local/android-pilot/knowledge-v1/search/context.md": "6e8ba17bee57b5d25be837918189861f031a94ed616c4a87bc562b25d0946fdc",
+    ".local/android-pilot/knowledge-v1/search/usage.json": "5888ec871aed2a28d2c21a0913a1b63c9f595d157fa05e00437b25b76ec54a8f",
+    ".local/android-pilot/knowledge-v1/price/manifest.json": "64194f29e3e1349fa3c2f61a872c78568518cade31d095e1693c72a4a5ca676a",
+    ".local/android-pilot/knowledge-v1/price/context.md": "00fd92dc0de885d8405da8027c50ea961264016df403980854bf8f2bcad08cd7",
+    ".local/android-pilot/knowledge-v1/price/usage.json": "f13dc6227205280cb53758661044cb3aa78c9c3a74016e253841c7e963a9875c",
+    ".local/android-pilot/knowledge-v1/integration/manifest.json": "5feedb5d1ed26edf8fc2c2731699881c3b525b216eae737767ef17488ea93cb1",
+    ".local/android-pilot/knowledge-v1/integration/context.md": "8114c9064256709cceba5e9aed7343b749d95e4971067847936df19f42ae5311",
+    ".local/android-pilot/knowledge-v1/integration/usage.json": "5c1207d096998c300ce706b1061ad1e9555286d2f1fe0f51dc38d542ff13be04"
+  },
+  "evidence_hashes": {
+    "experiments/android-native/evidence/verification-05.json": "55f80031195e89f1d940a10a5272556c23dc3f50ac95899bf63334fa5645d655",
+    "experiments/android-native/evidence/review-regression-red.json": "ddf73343dd161275172aed90f16393cac9c63b31c280e9f5f0c00cdf465967f2",
+    "experiments/android-native/evidence/api-red-v1.json": "1e3b6305d98ae7541040fd5c9e975eb5858f7846c9bd7c7aad9d66bfc7f59d94",
+    "experiments/android-native/evidence/integration-red-v1.json": "18a553e22f4eeb27be759d95e13bda0188eabbf6232070ed9e4af4eaa3273f19",
+    "experiments/android-native/evidence/api-criteria-v1.json": "781540107bb202a38825e8e95ca84ad837e46eb58f27ef8b564a02929e35a54b",
+    "experiments/android-native/evidence/integration-criteria-v1.json": "cd0c24113d03577a2416fb18abc1889738d361777719ea89b3d4c9a55e9965cc",
+    "experiments/android-native/evidence/device-criteria-v2.json": "4f8e2b417f27ae905362af0a162dddd5ba10443b7bdd1d2d969b35bfcd9c3ffe",
+    "experiments/android-native/evidence/device-rust-attempt-01.json": "27c4bce7efa301e5d518809cb443bf258fd5b13ee988ba12b7008ad75ae5e25b",
+    "experiments/android-native/evidence/device-rust.json": "e8fc17e06340d8dc2aa1279a6355b1d4fa927abaeb0c5133d4a96c0bb1debe16",
+    "experiments/android-native/evidence/device-rust-03.json": "732db7ffe2f1cb48b55d0f4f1bc8186901fb0500279da5a1e3190eab0b781330",
+    "experiments/android-native/evidence/knowledge-gate-tests.json": "97384b03d960cabb88b562bbc3651378cdddc9b88b9084fdc51d9147f2cae1ca",
+    "experiments/android-native/evidence/review-initial.md": "273c40c9dc92fc1ce48422017238f6d5eb2df4329068d6d1f961dd3b09cb6bc9"
+  },
+  "acceptance_log_sha256": "2c2a7ccadf9a37dc4f10096796c08f1f7a943ae61a73dbb3a023d012a1501b15",
+  "rust_binary_sha256": "c1efb411be410ad64361155794c2a85fa06fe44c5362826d85c875492453276d",
+  "approval_validity": "Approval applies to these exact reviewed source hashes and bounded evidence. Functional source/test/build changes require affected verification and review again; report-only additions do not constitute tested production changes."
+}

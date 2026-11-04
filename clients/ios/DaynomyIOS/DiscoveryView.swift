@@ -12,6 +12,10 @@ extension ServiceValue {
 func publicLink(_ text: String) -> URL? {
     guard let url = URL(string: text), ["http", "https"].contains(url.scheme?.lowercased() ?? ""), url.host != nil, url.user == nil, url.password == nil else { return nil }; return url
 }
+func relatedNewsID(_ value: String) -> String? {
+    guard let path = URLComponents(string: value)?.path.split(separator: "/"), path.count == 2, path[0] == "news", let id = Int64(path[1]), id > 0 else { return nil }
+    return String(id)
+}
 let newsCategories = [("ALL", "전체"), ("STOCK", "주식"), ("ETF", "ETF"), ("ECONOMY", "경제지표"), ("REAL_ESTATE", "부동산"), ("DEPOSIT_SAVINGS", "예금·적금"), ("BOND", "채권"), ("PENSION", "연금"), ("FOREIGN_EXCHANGE", "외화·환율"), ("VIRTUAL_ASSET", "가상자산"), ("GOLD", "금")]
 func categoryLabel(_ value: String) -> String { newsCategories.first(where: { $0.0 == value })?.1 ?? value }
 func friendlyServiceError(_ error: any Error) -> String {
@@ -38,7 +42,10 @@ func friendlyServiceError(_ error: any Error) -> String {
     @State private var loading = false
     @State private var error = ""
     private var requestKey: String { "\(mode)|\(query)|\(category)|\(source)|\(sort)|\(todayOnly)|\(page)|\(retry)" }
-    private var items: [ServiceValue] { mode == "people" ? payload.field("people").rows : payload.field("items").rows }
+    private var items: [ServiceValue] {
+        if mode == "people" { return payload.field("people").rows }
+        return NewsPresentation.items(payload: payload, isNewsSearch: mode == "news" && !todayOnly && !query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+    }
     var body: some View {
         NavigationStack {
             List {
@@ -76,6 +83,8 @@ func friendlyServiceError(_ error: any Error) -> String {
                     ForEach(Array(items.enumerated()), id: \.offset) { _, item in
                         if mode == "news" || item.field("kind").display == "NEWS" {
                             NavigationLink { ContentDetailView(client: client, newsId: item.field("id").display) } label: { DiscoveryItemLabel(item: item) }
+                        } else if item.field("sourceType").display == "INTERNAL_NEWS", let newsId = relatedNewsID(item.field("url").display) {
+                            NavigationLink { ContentDetailView(client: client, newsId: newsId) } label: { DiscoveryItemLabel(item: item) }
                         } else if let url = publicLink(item.field("url").display) {
                             Link(destination: url) { DiscoveryItemLabel(item: item) }.accessibilityHint("원문을 외부 브라우저에서 열기")
                         } else { DiscoveryItemLabel(item: item) }
@@ -177,9 +186,8 @@ struct PersonDetailView: View {
             if !loading && error.isEmpty && contents.isEmpty { Text("연결된 자료가 없어요.").foregroundStyle(.secondary) }
             ForEach(Array(contents.enumerated()), id: \.offset) { _, item in
                 let raw = item.field("url").display
-                let path = URLComponents(string: raw)?.path.split(separator: "/") ?? []
-                if item.field("sourceType").display == "INTERNAL_NEWS", path.count == 2, path[0] == "news", let id = Int64(path[1]), id > 0 {
-                    NavigationLink { ContentDetailView(client: client, newsId: String(id)) } label: { DiscoveryItemLabel(item: item) }
+                if item.field("sourceType").display == "INTERNAL_NEWS", let id = relatedNewsID(raw) {
+                    NavigationLink { ContentDetailView(client: client, newsId: id) } label: { DiscoveryItemLabel(item: item) }
                 } else if let url = publicLink(raw) { Link(destination: url) { DiscoveryItemLabel(item: item) } }
                 else { DiscoveryItemLabel(item: item) }
             }

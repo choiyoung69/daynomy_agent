@@ -1,0 +1,243 @@
+{
+  "recorded_at": "2026-10-28T10:12:14.102040+00:00",
+  "role": "independent-verifier",
+  "status": "core_web_and_full_hosts_verified_with_scope_limits; native OAuth handoff follow-up pending",
+  "full_platform_approved": false,
+  "source_revision": "web revision02 aggregate4848c4190a3264f32f67381ddffeb3e135dda6fc20e2f757bf9fe6f381aeb16b; server revision02 7baa7a35a5ac0af3ecbe03fb66b344fcd30b86aa8711ce2bfdb390b658215806",
+  "checks": [
+    {
+      "command": "python3 scripts/check.py preflight",
+      "exit": 0,
+      "result": "29/29"
+    },
+    {
+      "command": "npm run test:unit",
+      "exit": 0,
+      "result": "35/35",
+      "evidence": "unit.log"
+    },
+    {
+      "command": "npm --prefix experiments/webview/full/verification/buildwork run build",
+      "exit": 0,
+      "result": "production+typecheck and dist16 byte identical",
+      "evidence": "build.log"
+    },
+    {
+      "command": "npm --prefix experiments/webview/full/verification/buildwork run test:ui",
+      "exit": 0,
+      "result": "40files385/385",
+      "evidence": "ui.log"
+    },
+    {
+      "command": "node --test clients/webview/full-tests/server-contract.test.mjs clients/webview/full-tests/query-regression.test.mjs experiments/webview/full/verification/server-extra.mjs experiments/webview/full/verification/server-query.test.mjs",
+      "exit": 0,
+      "result": "19/19",
+      "evidence": "server-final.tap"
+    },
+    {
+      "command": "WEBVIEW_FULL_ORIGIN=http://127.0.0.1:18083 node --import ./experiments/webview/full/verification/browser-preload.mjs clients/webview/full-tests/browser-smoke.mjs",
+      "exit": 0,
+      "result": "frozen mobile synthetic route and gate smoke",
+      "evidence": "browser-smoke.log"
+    },
+    {
+      "command": "node experiments/webview/full/verification/lifecycle-browser.mjs",
+      "exit": 0,
+      "result": "standard pagehide/pageshow and guest sessionStorage; synthetic stock response",
+      "evidence": "lifecycle-browser.json"
+    },
+    {
+      "command": "node experiments/webview/full/verification/browser-inspect.mjs",
+      "exit": 0,
+      "result": "20error-state routes; API502 while disposable fixture not ready",
+      "evidence": "backend-unavailable/browser-inspect.json"
+    },
+    {
+      "command": "node experiments/webview/full/verification/guest-edit.mjs first attempt",
+      "exit": 1,
+      "result": "onboarding hint intercepts click; test harness now dismisses visible hint first",
+      "evidence": "backend-unavailable/guest-edit.log"
+    },
+    {
+      "command": "independent copied revision02 production build+typecheck",
+      "exit": 0,
+      "evidence": "build-revision02.log",
+      "result": "dist16 byte-identical"
+    },
+    {
+      "command": "revision02 test:ui",
+      "exit": 0,
+      "evidence": "ui-revision02.log",
+      "result": "40files385/385"
+    },
+    {
+      "command": "frozen native lifecycle vitest",
+      "exit": 0,
+      "evidence": "native-lifecycle.log",
+      "result": "4/4 skip0"
+    },
+    {
+      "command": "revision02 frozen browser smoke",
+      "exit": 0,
+      "evidence": "browser-smoke-revision02.log"
+    },
+    {
+      "command": "native boolean event Chrome regression",
+      "exit": 0,
+      "evidence": "native-lifecycle-browser.json"
+    },
+    {
+      "command": "independent full-host policy",
+      "exit": 0,
+      "evidence": "full-host-policy.tap",
+      "result": "3/3; Kotlin77+Swift77 assertions"
+    },
+    {
+      "command": "actual-origin20route desktop/mobile browser inspect",
+      "exit": 0,
+      "evidence": "browser-inspect.json",
+      "result": "no page exception/no horizontal overflow; list/calendar200; missing seeded detail404"
+    },
+    {
+      "command": "actual stock API + guest BUY/reload/edit/delete",
+      "exit": 0,
+      "evidence": "guest-edit.json"
+    },
+    {
+      "command": "actual UI guest feedback one POST + DB count",
+      "exit": 0,
+      "evidence": "feedback-db.json",
+      "result": "HTTP204, DB0 to1; no repeat feedback"
+    },
+    {
+      "command": "local signed OIDC UI login/nickname/USERadmin boundary/logout",
+      "exit": 0,
+      "evidence": "auth-feedback.json"
+    },
+    {
+      "command": "actual Android WebView core routes/Activity HOME-resume/guest ledger",
+      "exit": 0,
+      "evidence": "android-core.json",
+      "result": "Chrome109 on Android13; synthetic APIs"
+    },
+    {
+      "command": "actual native image picker original admin form",
+      "exit": 0,
+      "evidence": "android-picker.json",
+      "result": "PNG390744 readable bytes and decoded blob, synthetic ADMIN only"
+    },
+    {
+      "command": "native confirm and external browser supplemental observation",
+      "exit": 1,
+      "evidence": "android-dialog.json",
+      "result": "native confirm true; harness external wait timed out at original dirty form beforeunload; manual Leave then actual Chrome FirstRun Activity observed in android-external-browser-activity.txt; no external page load claim"
+    }
+  ],
+  "pending": [
+    "native external OAuth mobile_start/exchange implementation and revalidation (follow-up active)",
+    "actual Google OAuth",
+    "iOS SDK/UI/content-rule compile (Xcode absent)",
+    "external S3/AI/social embed integrations and production TLS/deployment",
+    "successful populated real news/stock-detail screens (disposable fixture lacks IDs used,404 verified)",
+    "exhaustive member/admin mutation workflows; code imported but not all runtime-executed"
+  ],
+  "initial_hashes": {
+    "frozen": {
+      "count": 5,
+      "mismatches": []
+    },
+    "source": {
+      "count": 216,
+      "mismatches": []
+    },
+    "knowledge": {
+      "count": 36,
+      "mismatches": []
+    }
+  },
+  "provenance": {
+    "count": 212,
+    "original_mismatches": [],
+    "copy_claim_mismatches": [],
+    "changed_after_copy": [
+      "src/App.tsx",
+      "src/features/account/MyPage.tsx",
+      "src/features/admin/AdminStockSyncPage.tsx",
+      "src/features/admin/api.ts",
+      "src/features/landing/LandingPage.tsx",
+      "src/features/landing/ProductMockup.tsx",
+      "src/features/navigation/ServiceHeader.tsx",
+      "src/features/pages/components/InfoPage.tsx",
+      "src/features/portfolio/components/PortfolioTransactionEditor.tsx",
+      "src/main.tsx",
+      "index.html",
+      "vite.config.ts"
+    ]
+  },
+  "feedback_db": {
+    "baseline": 0,
+    "after": 1,
+    "delta": 1,
+    "query_exit": 0,
+    "first_query_error": "wrong singular table name feedback; relation absent; corrected against app/src/main.rs feedbacks"
+  },
+  "harness_corrections": [
+    "first-use guide dismissed via normal button before trade",
+    "WebView CDP noDefaults for unsupported Browser.setDownloadBehavior",
+    "first Android process OS-killed after Google FontsProvider died on new emulator boot; restarted once stable",
+    "browser redirect interception did not emulate local provider; changed verifier to inspect local authorize404 and register synthetic grant in memory then real callback",
+    "logout expected path corrected from / to original /news; first failure preserved",
+    "native confirm automatic Playwright dismiss disabled; click wait extended for manual native action; original dirty form beforeunload acknowledged"
+  ],
+  "cleanup": {
+    "preserve_for_followup": [
+      "root Rust fixture18091",
+      "root fullserver18082",
+      "root emulator-5576",
+      "adb forward tcp19276 to localabstract:webview_devtools_remote_7215",
+      "adb reverse tcp18082 tcp18082"
+    ],
+    "verifier_synthetic_server": {
+      "port": 18083,
+      "pid": 40026,
+      "exec_session": 97342,
+      "command": "node clients/webview/scripts/serve-full.mjs --port18083 --api-origin18091",
+      "cleanup": "kill40026 after confirming command; no other ports or emulator serials"
+    },
+    "browser_sessions": "Playwright scripts close CDP/browser connections in finally; no persistent desktop browser context intentionally retained"
+  },
+  "sealed_hashes": {
+    "web": {
+      "count": 216,
+      "mismatches": []
+    },
+    "hosts": {
+      "count": 24,
+      "mismatches": [
+        "clients/webview/FULL-HOSTS.md"
+      ]
+    },
+    "knowledge": {
+      "count": 36,
+      "mismatches": []
+    },
+    "frozen-full-host-policy-tests.json": {
+      "count": 5,
+      "mismatches": []
+    },
+    "frozen-tests.json": {
+      "count": 5,
+      "mismatches": []
+    },
+    "frozen-native-lifecycle-tests.json": {
+      "count": 4,
+      "mismatches": []
+    },
+    "frozen-query-tests.json": {
+      "count": 3,
+      "mismatches": []
+    },
+    "server_sha256": "7baa7a35a5ac0af3ecbe03fb66b344fcd30b86aa8711ce2bfdb390b658215806",
+    "apk_sha256": "db7b753f460b20c1b63676b6b3b53728e28eb359678b416cb6832d2109c9c4e3"
+  }
+}

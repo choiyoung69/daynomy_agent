@@ -1,0 +1,7 @@
+
+DevTools listening on ws://127.0.0.1:59441/devtools/browser/85ac6546-dab3-4682-8c68-7e3ffbba59bb
+Trying to load the allocator multiple times. This is *not* supported.
+[13255:19364191:1028/175638.769503:ERROR:base/apple/mach_port_rendezvous.cc:257] mach_msg: (ipc/send) invalid destination port (0x10000003)
+[13255:19364191:1028/175638.769808:ERROR:base/memory/shared_memory_switch.cc:261] No rendezvous client, terminating process (parent died?)
+[13254:19364188:1028/175638.770622:ERROR:base/apple/mach_port_rendezvous_mac.cc:256] bootstrap_look_up com.google.Chrome.MachPortRendezvousServer.13231: (os/kern) invalid right (17)
+[13254:19364188:1028/175638.770764:ERROR:base/memory/shared_memory_switch.cc:261] No rendezvous client, terminating process (parent died?)

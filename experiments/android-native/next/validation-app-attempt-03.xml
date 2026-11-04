@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="org.daynomy.android.DiscoveryScreenAcceptanceTest" tests="8" failures="0" errors="0" skipped="0" time="16.746" timestamp="2026-10-28T09:31:17" hostname="localhost">
+  <properties>
+    <property name="device" value="Daynomy_Pilot(AVD) - 13" />
+    <property name="flavor" value="" />
+    <property name="project" value=":app" />
+  </properties>
+  <testcase name="exchangeErrorDoesNotBecomeAQuoteAndExplicitRetryRecovers" classname="org.daynomy.android.DiscoveryScreenAcceptanceTest" time="2.612" />
+  <testcase name="exchangeShowsActualFallbackDateAndExactRateAndSurvivesRecreation" classname="org.daynomy.android.DiscoveryScreenAcceptanceTest" time="2.173" />
+  <testcase name="newsCategoryPaginationDetailAndBackUseNativeScreenAndKeepSelectedPage" classname="org.daynomy.android.DiscoveryScreenAcceptanceTest" time="1.484" />
+  <testcase name="selectingStockDisplaysStoredDateAndAutofillsPlainDecimal" classname="org.daynomy.android.MarketScreenAcceptanceTest" time="1.526" />
+  <testcase name="delayedQuoteCannotOverwriteManualInputAndRotationPreservesDirtyDraft" classname="org.daynomy.android.MarketScreenAcceptanceTest" time="2.038" />
+  <testcase name="clearedManualInputRemainsEmptyWhenDelayedPriceArrives" classname="org.daynomy.android.MarketScreenAcceptanceTest" time="2.364" />
+  <testcase name="missingQuoteShowsErrorAndStillAllowsManualInput" classname="org.daynomy.android.MarketScreenAcceptanceTest" time="2.017" />
+  <testcase name="usSearchSendsCountryAndLocalCategoryFilterDoesNotRefetch" classname="org.daynomy.android.MarketScreenAcceptanceTest" time="1.89" />
+</testsuite>

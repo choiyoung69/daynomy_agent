@@ -1,0 +1,520 @@
+{
+  "measurement_start": "2026-10-28T08:05:15+00:00",
+  "created_at": "2026-10-28T08:19:45.219740+00:00",
+  "dispatch": "root uses desktop subagent tools; this ledger does not launch agents or certify evidence semantics",
+  "tasks": {
+    "spec.search": {
+      "kind": "agent",
+      "deps": [],
+      "status": "passed",
+      "actor": "/root/android_search",
+      "model": "gpt-6.1-sol/medium",
+      "started_at": "2026-10-28T08:06:39+00:00",
+      "finished_at": "2026-10-28T08:10:11+00:00",
+      "seconds": 212.0,
+      "evidence": [
+        "spec/android-native/search.md"
+      ],
+      "evidence_sha256": {
+        "spec/android-native/search.md": "3a3ffe4489bcc204b9c28242391542a31373da27df37a1d303389b745093c5ad"
+      },
+      "time_source": "agent/coordinator reported interval"
+    },
+    "spec.price": {
+      "kind": "agent",
+      "deps": [],
+      "status": "passed",
+      "actor": "/root/android_price",
+      "model": "gpt-6.1-sol/medium",
+      "started_at": "2026-10-28T08:07:26+00:00",
+      "finished_at": "2026-10-28T08:10:07+00:00",
+      "seconds": 161.0,
+      "evidence": [
+        "spec/android-native/price.md"
+      ],
+      "evidence_sha256": {
+        "spec/android-native/price.md": "a89be48ac1090e5ebb3c4cf4509da94efe026d84afbe0081a7d35f376a4193f6"
+      },
+      "time_source": "agent/coordinator reported interval"
+    },
+    "spec.ui": {
+      "kind": "check",
+      "deps": [],
+      "status": "passed",
+      "actor": "coordinator",
+      "model": null,
+      "started_at": null,
+      "finished_at": "2026-10-28T08:18:42.466737+00:00",
+      "seconds": null,
+      "evidence": [
+        "spec/android-native/README.md"
+      ],
+      "evidence_sha256": {
+        "spec/android-native/README.md": "cc89bcde9c356a121fe9adff42653b3e988cf90ba0f76d7a631abb25c861eeb7"
+      },
+      "time_source": "file completion timestamp only; authoring duration not measured"
+    },
+    "environment": {
+      "kind": "check",
+      "deps": [],
+      "status": "passed",
+      "actor": "coordinator",
+      "model": null,
+      "started_at": "2026-10-28T08:05:15+00:00",
+      "finished_at": "2026-10-28T08:16:58.232182+00:00",
+      "seconds": 703.232182,
+      "evidence": [
+        ".local/android-bootstrap.log"
+      ],
+      "evidence_sha256": {
+        ".local/android-bootstrap.log": "8ae871e658fc0ddcf10cb8ced88d5fb52a3d9bce9f63f312503143d2f508bb72"
+      },
+      "time_source": "first central measurement to bootstrap log final write; includes parallel unrelated work"
+    },
+    "tests.api": {
+      "kind": "agent",
+      "deps": [
+        "spec.search",
+        "spec.price",
+        "spec.ui"
+      ],
+      "status": "passed",
+      "actor": "/root/android_test_review",
+      "model": "gpt-6-astra/high",
+      "started_at": null,
+      "finished_at": "2026-10-28T08:19:45.423295+00:00",
+      "seconds": null,
+      "evidence": [
+        "clients/android/market-core/src/test/kotlin/org/daynomy/market/StockSearchClientContractTest.kt",
+        "clients/android/market-core/src/test/kotlin/org/daynomy/market/StockPriceClientContractTest.kt"
+      ],
+      "evidence_sha256": {
+        "clients/android/market-core/src/test/kotlin/org/daynomy/market/StockSearchClientContractTest.kt": "fb3205972876f584cef4d43ba86d2ae16ae9a27feece05daef7edb20628e2566",
+        "clients/android/market-core/src/test/kotlin/org/daynomy/market/StockPriceClientContractTest.kt": "1d568f1a3a654baa847beb5fc409bf0d3c2b2d916318a753472cabe833525093"
+      },
+      "time_source": "completion recorded after agent reported readiness; authoring duration unmeasured"
+    },
+    "tests.integration": {
+      "kind": "agent",
+      "deps": [
+        "spec.search",
+        "spec.price",
+        "spec.ui"
+      ],
+      "status": "passed",
+      "actor": "/root/android_test_review",
+      "model": "gpt-6-astra/high",
+      "started_at": "2026-10-28T08:19:45.457200+00:00",
+      "finished_at": "2026-10-28T08:26:38.358570+00:00",
+      "seconds": 412.90137,
+      "evidence": [
+        "spec/android-native/verification-plan.md"
+      ],
+      "evidence_sha256": {
+        "spec/android-native/verification-plan.md": "991a962a448bb2535bae2305ee41924baeea6892b4695b97c1ed909b38794e6a"
+      },
+      "time_source": "ledger wall clock"
+    },
+    "red.api": {
+      "kind": "check",
+      "deps": [
+        "tests.api",
+        "environment"
+      ],
+      "status": "passed",
+      "actor": "coordinator",
+      "model": null,
+      "started_at": "2026-10-28T08:19:45.489530+00:00",
+      "finished_at": "2026-10-28T08:21:05.333729+00:00",
+      "seconds": 79.844199,
+      "evidence": [
+        "experiments/android-native/evidence/api-red-v1.json"
+      ],
+      "evidence_sha256": {
+        "experiments/android-native/evidence/api-red-v1.json": "1e3b6305d98ae7541040fd5c9e975eb5858f7846c9bd7c7aad9d66bfc7f59d94"
+      },
+      "time_source": "ledger wall clock"
+    },
+    "red.integration": {
+      "kind": "check",
+      "deps": [
+        "tests.integration",
+        "environment"
+      ],
+      "status": "passed",
+      "actor": "coordinator",
+      "model": null,
+      "started_at": "2026-10-28T08:26:38.437217+00:00",
+      "finished_at": "2026-10-28T08:30:11.931199+00:00",
+      "seconds": 213.493982,
+      "evidence": [
+        "experiments/android-native/evidence/integration-red-v1.json"
+      ],
+      "evidence_sha256": {
+        "experiments/android-native/evidence/integration-red-v1.json": "18a553e22f4eeb27be759d95e13bda0188eabbf6232070ed9e4af4eaa3273f19"
+      },
+      "time_source": "ledger wall clock"
+    },
+    "implement.search": {
+      "kind": "agent",
+      "deps": [
+        "red.api"
+      ],
+      "status": "passed",
+      "actor": "/root/android_search",
+      "model": "gpt-6.1-sol/medium",
+      "started_at": "2026-10-28T08:21:05.374351+00:00",
+      "knowledge_manifest": ".local/android-pilot/knowledge-v1/search/manifest.json",
+      "knowledge_enforcement": "legacy initial draft; knowledge audit required before acceptance",
+      "knowledge_usage": ".local/android-pilot/knowledge-v1/search/usage.json",
+      "finished_at": "2026-10-28T08:34:21.935076+00:00",
+      "seconds": 796.560725,
+      "evidence": [
+        "clients/android/market-core/src/main/kotlin/org/daynomy/market/StockSearchClient.kt"
+      ],
+      "evidence_sha256": {
+        "clients/android/market-core/src/main/kotlin/org/daynomy/market/StockSearchClient.kt": "c218f7a6c9d80040b83c74f47783d1b5932cca8f006f4e212c8b71570a2a9b17"
+      },
+      "time_source": "ledger wall clock"
+    },
+    "implement.price": {
+      "kind": "agent",
+      "deps": [
+        "red.api"
+      ],
+      "status": "passed",
+      "actor": "/root/android_price",
+      "model": "gpt-6.1-sol/medium",
+      "started_at": "2026-10-28T08:21:05.415166+00:00",
+      "knowledge_manifest": ".local/android-pilot/knowledge-v1/price/manifest.json",
+      "knowledge_enforcement": "legacy initial draft; knowledge audit required before acceptance",
+      "knowledge_usage": ".local/android-pilot/knowledge-v1/price/usage.json",
+      "finished_at": "2026-10-28T08:34:22.004787+00:00",
+      "seconds": 796.589621,
+      "evidence": [
+        "clients/android/market-core/src/main/kotlin/org/daynomy/market/StockPriceClient.kt"
+      ],
+      "evidence_sha256": {
+        "clients/android/market-core/src/main/kotlin/org/daynomy/market/StockPriceClient.kt": "d5c01e106b3d52dedb8167ab966d4e551277f5fb51ab689344ed954f2187851a"
+      },
+      "time_source": "ledger wall clock"
+    },
+    "implement.integration": {
+      "kind": "agent",
+      "deps": [
+        "red.integration"
+      ],
+      "status": "passed",
+      "actor": "coordinator",
+      "model": null,
+      "started_at": "2026-10-28T08:30:11.973252+00:00",
+      "knowledge_manifest": ".local/android-pilot/knowledge-v1/integration/manifest.json",
+      "knowledge_enforcement": "required context generated before start",
+      "knowledge_usage": ".local/android-pilot/knowledge-v1/integration/usage.json",
+      "finished_at": "2026-10-28T08:34:22.070110+00:00",
+      "seconds": 250.096858,
+      "evidence": [
+        "clients/android/market-core/src/main/kotlin/org/daynomy/market/MarketController.kt",
+        "clients/android/market-core/src/main/kotlin/org/daynomy/market/OkHttpTransport.kt",
+        "clients/android/app/src/main/kotlin/org/daynomy/android/MainActivity.kt"
+      ],
+      "evidence_sha256": {
+        "clients/android/market-core/src/main/kotlin/org/daynomy/market/MarketController.kt": "0eae46b6a275d5bd267e0f6d7153e97b88a5f65d5d51f2baae78421400e9910a",
+        "clients/android/market-core/src/main/kotlin/org/daynomy/market/OkHttpTransport.kt": "d5c89ef7f1285be0875dd66a6b4aec26a336e7a2dcfc691afc9fd1dbd1394e4d",
+        "clients/android/app/src/main/kotlin/org/daynomy/android/MainActivity.kt": "96f6873d988423486860cd16d18d8b77e014553fbc8756398d598cc0a16f4d13"
+      },
+      "time_source": "ledger wall clock"
+    },
+    "verify.local": {
+      "kind": "check",
+      "deps": [
+        "implement.search",
+        "implement.price",
+        "implement.integration"
+      ],
+      "status": "passed",
+      "actor": "coordinator",
+      "model": null,
+      "started_at": "2026-10-28T08:34:22.106835+00:00",
+      "finished_at": "2026-10-28T08:51:29.755286+00:00",
+      "seconds": 1027.648451,
+      "evidence": [
+        "experiments/android-native/evidence/verification-05.json"
+      ],
+      "evidence_sha256": {
+        "experiments/android-native/evidence/verification-05.json": "55f80031195e89f1d940a10a5272556c23dc3f50ac95899bf63334fa5645d655"
+      },
+      "time_source": "ledger wall clock"
+    },
+    "verify.backend": {
+      "kind": "check",
+      "deps": [
+        "verify.local"
+      ],
+      "status": "passed",
+      "actor": "coordinator",
+      "model": null,
+      "started_at": "2026-10-28T08:51:29.791078+00:00",
+      "finished_at": "2026-10-28T08:51:29.825843+00:00",
+      "seconds": 0.034765,
+      "evidence": [
+        "experiments/android-native/evidence/verification-05.json"
+      ],
+      "evidence_sha256": {
+        "experiments/android-native/evidence/verification-05.json": "55f80031195e89f1d940a10a5272556c23dc3f50ac95899bf63334fa5645d655"
+      },
+      "time_source": "ledger wall clock"
+    },
+    "verify.device": {
+      "kind": "check",
+      "deps": [
+        "verify.local"
+      ],
+      "status": "passed",
+      "actor": "coordinator",
+      "model": null,
+      "started_at": "2026-10-28T08:51:29.861209+00:00",
+      "finished_at": "2026-10-28T08:51:29.897186+00:00",
+      "seconds": 0.035977,
+      "evidence": [
+        "experiments/android-native/evidence/verification-05.json"
+      ],
+      "evidence_sha256": {
+        "experiments/android-native/evidence/verification-05.json": "55f80031195e89f1d940a10a5272556c23dc3f50ac95899bf63334fa5645d655"
+      },
+      "time_source": "ledger wall clock"
+    },
+    "review": {
+      "kind": "agent",
+      "deps": [
+        "verify.local"
+      ],
+      "status": "passed",
+      "actor": "/root/android_test_review",
+      "model": "gpt-6-astra/high",
+      "started_at": "2026-10-28T08:51:29.931914+00:00",
+      "finished_at": "2026-10-28T09:06:33.010086+00:00",
+      "seconds": 903.078172,
+      "evidence": [
+        "experiments/android-native/evidence/review-final.json"
+      ],
+      "evidence_sha256": {
+        "experiments/android-native/evidence/review-final.json": "46b04d19ff227c6fbf6a1d79e8b8f7a5e0de280bbe60c7d01f20846f53820407"
+      },
+      "time_source": "ledger wall clock"
+    },
+    "final": {
+      "kind": "check",
+      "deps": [
+        "verify.backend",
+        "verify.device",
+        "review"
+      ],
+      "status": "passed",
+      "actor": "coordinator",
+      "model": null,
+      "started_at": "2026-10-28T09:07:28.160533+00:00",
+      "finished_at": "2026-10-28T09:07:37.061625+00:00",
+      "seconds": 8.901092,
+      "evidence": [
+        "experiments/android-native/evidence/result.json"
+      ],
+      "evidence_sha256": {
+        "experiments/android-native/evidence/result.json": "c11749c92d3312ad012be712f71cfc4a68077dcf2f47143f3a685d50d6f1709c"
+      },
+      "time_source": "ledger wall clock"
+    }
+  },
+  "frozen": {
+    "api-v1": {
+      "clients/android/market-core/src/main/kotlin/org/daynomy/market/Models.kt": "673fc14e087949567ed3aff8b2a61b3a360061cb77bd3a5755f22f8687b61a50",
+      "clients/android/market-core/src/test/kotlin/org/daynomy/market/ContractFixtures.kt": "d9449c31b426a61cbb3afd1afef33577c733845c93f9c76496f0dc40fee59ab3",
+      "clients/android/market-core/src/test/kotlin/org/daynomy/market/StockSearchClientContractTest.kt": "fb3205972876f584cef4d43ba86d2ae16ae9a27feece05daef7edb20628e2566",
+      "clients/android/market-core/src/test/kotlin/org/daynomy/market/StockPriceClientContractTest.kt": "1d568f1a3a654baa847beb5fc409bf0d3c2b2d916318a753472cabe833525093"
+    },
+    "integration-v1": {
+      "clients/android/market-core/src/test/kotlin/org/daynomy/market/MarketControllerContractTest.kt": "e8201ff7f3b21fcdba473803c02381a22f7584147442ff364e6c858e4cb82199",
+      "clients/android/market-core/src/test/kotlin/org/daynomy/market/OkHttpTransportContractTest.kt": "b80f55ddd41b33270018ab88bc4527a93378f0b6802f1c50098a1b7f8cc7bc4a",
+      "clients/android/app/src/androidTest/kotlin/org/daynomy/android/MarketScreenAcceptanceTest.kt": "e6d383dab7244d311c29b0a5daccd117394dfb681f67a8a13b7ee0be245d42e4"
+    },
+    "device-v2": {
+      "clients/android/app/src/androidTest/kotlin/org/daynomy/android/MarketScreenAcceptanceTest.kt": "5d8ee4b87f74e201217ce2c9aa0512df622533916622d2c05187e5e9fa9bdb5b"
+    },
+    "review-regressions-v1": {
+      "clients/android/market-core/src/test/kotlin/org/daynomy/market/MarketControllerRegressionTest.kt": "4e2a6fde6d0d9593ce82a6ecc5cb39b1019c99728bd72eb95612b76c27435b55",
+      "clients/android/market-core/src/backendTest/kotlin/org/daynomy/market/RustBackendAcceptanceTest.kt": "55bd757ca840b46284e1c41e2ba7561b3414a456a92e4b89cde3032269ebd27e"
+    }
+  },
+  "events": [
+    {
+      "at": "2026-10-28T08:19:45.219805+00:00",
+      "action": "init",
+      "task": null
+    },
+    {
+      "at": "2026-10-28T08:19:45.253330+00:00",
+      "action": "record",
+      "task": "spec.search"
+    },
+    {
+      "at": "2026-10-28T08:19:45.286368+00:00",
+      "action": "record",
+      "task": "spec.price"
+    },
+    {
+      "at": "2026-10-28T08:19:45.322737+00:00",
+      "action": "record",
+      "task": "spec.ui"
+    },
+    {
+      "at": "2026-10-28T08:19:45.357682+00:00",
+      "action": "record",
+      "task": "environment"
+    },
+    {
+      "at": "2026-10-28T08:19:45.390649+00:00",
+      "action": "start",
+      "task": "tests.api"
+    },
+    {
+      "at": "2026-10-28T08:19:45.423992+00:00",
+      "action": "finish",
+      "task": "tests.api"
+    },
+    {
+      "at": "2026-10-28T08:19:45.457261+00:00",
+      "action": "start",
+      "task": "tests.integration"
+    },
+    {
+      "at": "2026-10-28T08:19:45.489589+00:00",
+      "action": "start",
+      "task": "red.api"
+    },
+    {
+      "at": "2026-10-28T08:20:38.443865+00:00",
+      "action": "freeze",
+      "task": null
+    },
+    {
+      "at": "2026-10-28T08:21:05.295571+00:00",
+      "action": "timing-correction",
+      "reason": "Removed estimated historical offsets; actual file completion/unknown durations explicit"
+    },
+    {
+      "at": "2026-10-28T08:21:05.333859+00:00",
+      "action": "finish",
+      "task": "red.api"
+    },
+    {
+      "at": "2026-10-28T08:21:05.374419+00:00",
+      "action": "start",
+      "task": "implement.search"
+    },
+    {
+      "at": "2026-10-28T08:21:05.415230+00:00",
+      "action": "start",
+      "task": "implement.price"
+    },
+    {
+      "at": "2026-10-28T08:26:38.359279+00:00",
+      "action": "finish",
+      "task": "tests.integration"
+    },
+    {
+      "at": "2026-10-28T08:26:38.400959+00:00",
+      "action": "freeze",
+      "task": null
+    },
+    {
+      "at": "2026-10-28T08:26:38.437360+00:00",
+      "action": "start",
+      "task": "red.integration"
+    },
+    {
+      "at": "2026-10-28T08:30:11.931776+00:00",
+      "action": "finish",
+      "task": "red.integration"
+    },
+    {
+      "at": "2026-10-28T08:30:12.015949+00:00",
+      "action": "start",
+      "task": "implement.integration"
+    },
+    {
+      "at": "2026-10-28T08:34:21.935422+00:00",
+      "action": "finish",
+      "task": "implement.search"
+    },
+    {
+      "at": "2026-10-28T08:34:22.005109+00:00",
+      "action": "finish",
+      "task": "implement.price"
+    },
+    {
+      "at": "2026-10-28T08:34:22.070649+00:00",
+      "action": "finish",
+      "task": "implement.integration"
+    },
+    {
+      "at": "2026-10-28T08:34:22.106892+00:00",
+      "action": "start",
+      "task": "verify.local"
+    },
+    {
+      "at": "2026-10-28T08:39:29.201304+00:00",
+      "action": "freeze",
+      "task": null
+    },
+    {
+      "at": "2026-10-28T08:46:17.182632+00:00",
+      "action": "freeze",
+      "task": null
+    },
+    {
+      "at": "2026-10-28T08:51:29.755437+00:00",
+      "action": "finish",
+      "task": "verify.local"
+    },
+    {
+      "at": "2026-10-28T08:51:29.791141+00:00",
+      "action": "start",
+      "task": "verify.backend"
+    },
+    {
+      "at": "2026-10-28T08:51:29.825965+00:00",
+      "action": "finish",
+      "task": "verify.backend"
+    },
+    {
+      "at": "2026-10-28T08:51:29.861269+00:00",
+      "action": "start",
+      "task": "verify.device"
+    },
+    {
+      "at": "2026-10-28T08:51:29.897329+00:00",
+      "action": "finish",
+      "task": "verify.device"
+    },
+    {
+      "at": "2026-10-28T08:51:29.931971+00:00",
+      "action": "start",
+      "task": "review"
+    },
+    {
+      "at": "2026-10-28T09:06:33.010446+00:00",
+      "action": "finish",
+      "task": "review"
+    },
+    {
+      "at": "2026-10-28T09:07:28.160631+00:00",
+      "action": "start",
+      "task": "final"
+    },
+    {
+      "at": "2026-10-28T09:07:37.061902+00:00",
+      "action": "finish",
+      "task": "final"
+    }
+  ]
+}

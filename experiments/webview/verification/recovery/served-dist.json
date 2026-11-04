@@ -1,0 +1,14 @@
+{
+  "clients/webview/web/dist/app.js": {
+    "httpStatus": 200,
+    "servedSha256": "15effc6f529679d1bc452c27c0cf8a37a83786db73a72ea5474f0bb887c4cb97",
+    "diskSha256": "15effc6f529679d1bc452c27c0cf8a37a83786db73a72ea5474f0bb887c4cb97",
+    "match": true
+  },
+  "clients/webview/web/dist/market.js": {
+    "httpStatus": 200,
+    "servedSha256": "31fe1e0494e071f7e77522bbf4f82981e0cb14274bc68e832097051434e30a5d",
+    "diskSha256": "31fe1e0494e071f7e77522bbf4f82981e0cb14274bc68e832097051434e30a5d",
+    "match": true
+  }
+}

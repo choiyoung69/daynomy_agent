@@ -1,0 +1,34 @@
+// !$*UTF8*$!
+{
+ archiveVersion = 1;
+ classes = {};
+ objectVersion = 56;
+ objects = {
+  A10000000000000000000006 = {isa = PBXBuildFile; fileRef = A20000000000000000000006; };
+  A20000000000000000000006 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAuthSession.swift; sourceTree = "<group>"; };
+  A10000000000000000000005 = {isa = PBXBuildFile; fileRef = A20000000000000000000005; };
+  A20000000000000000000005 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullResourcePolicy.swift; sourceTree = "<group>"; };
+  A10000000000000000000001 = {isa = PBXBuildFile; fileRef = A20000000000000000000001; };
+  A10000000000000000000002 = {isa = PBXBuildFile; fileRef = A20000000000000000000002; };
+  A10000000000000000000003 = {isa = PBXBuildFile; fileRef = A20000000000000000000003; };
+  A20000000000000000000001 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+  A20000000000000000000002 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+  A20000000000000000000003 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationPolicy.swift; sourceTree = "<group>"; };
+  A20000000000000000000004 = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaynomyWebView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+  A30000000000000000000001 = {isa = PBXGroup; children = (A30000000000000000000002,A30000000000000000000003); sourceTree = "<group>"; };
+  A30000000000000000000002 = {isa = PBXGroup; children = (A20000000000000000000001,A20000000000000000000002,A20000000000000000000003,A20000000000000000000005,A20000000000000000000006); path = DaynomyWebView; sourceTree = "<group>"; };
+  A30000000000000000000003 = {isa = PBXGroup; children = (A20000000000000000000004); name = Products; sourceTree = "<group>"; };
+  A40000000000000000000001 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A10000000000000000000001,A10000000000000000000002,A10000000000000000000003,A10000000000000000000005,A10000000000000000000006); runOnlyForDeploymentPostprocessing = 0; };
+  A40000000000000000000002 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+  A40000000000000000000003 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+  A50000000000000000000001 = {isa = PBXNativeTarget; buildConfigurationList = A70000000000000000000002; buildPhases = (A40000000000000000000001,A40000000000000000000002,A40000000000000000000003); buildRules = (); dependencies = (); name = DaynomyWebView; productName = DaynomyWebView; productReference = A20000000000000000000004; productType = "com.apple.product-type.application"; };
+  A60000000000000000000001 = {isa = PBXProject; attributes = {BuildIndependentTargetsInParallel = YES; LastSwiftUpdateCheck = 1600; LastUpgradeCheck = 1600; }; buildConfigurationList = A70000000000000000000001; compatibilityVersion = "Xcode 14.0"; developmentRegion = ko; hasScannedForEncodings = 0; knownRegions = (ko,en,Base); mainGroup = A30000000000000000000001; productRefGroup = A30000000000000000000003; projectDirPath = ""; projectRoot = ""; targets = (A50000000000000000000001); };
+  A70000000000000000000001 = {isa = XCConfigurationList; buildConfigurations = (A80000000000000000000001,A80000000000000000000002); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+  A70000000000000000000002 = {isa = XCConfigurationList; buildConfigurations = (A80000000000000000000003,A80000000000000000000004); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+  A80000000000000000000001 = {isa = XCBuildConfiguration; buildSettings = {CLANG_ENABLE_MODULES = YES; SDKROOT = iphoneos; IPHONEOS_DEPLOYMENT_TARGET = 15.0; SWIFT_VERSION = 5.0; }; name = Debug; };
+  A80000000000000000000002 = {isa = XCBuildConfiguration; buildSettings = {CLANG_ENABLE_MODULES = YES; SDKROOT = iphoneos; IPHONEOS_DEPLOYMENT_TARGET = 15.0; SWIFT_VERSION = 5.0; }; name = Release; };
+  A80000000000000000000003 = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGN_STYLE = Automatic; INFOPLIST_FILE = "DaynomyWebView/Info-Debug.plist"; PRODUCT_BUNDLE_IDENTIFIER = com.daynomy.webview.full; PRODUCT_NAME = "$(TARGET_NAME)"; TARGETED_DEVICE_FAMILY = "1,2"; SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG; SWIFT_OPTIMIZATION_LEVEL = "-Onone"; DAYNOMY_WEB_ORIGIN = "http://127.0.0.1:18082"; }; name = Debug; };
+  A80000000000000000000004 = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGN_STYLE = Automatic; INFOPLIST_FILE = "DaynomyWebView/Info-Release.plist"; PRODUCT_BUNDLE_IDENTIFIER = com.daynomy.webview.full; PRODUCT_NAME = "$(TARGET_NAME)"; TARGETED_DEVICE_FAMILY = "1,2"; DAYNOMY_WEB_ORIGIN = ""; SWIFT_COMPILATION_MODE = wholemodule; }; name = Release; };
+ };
+ rootObject = A60000000000000000000001;
+}

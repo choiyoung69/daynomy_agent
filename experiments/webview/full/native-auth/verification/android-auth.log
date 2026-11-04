@@ -1,0 +1,9 @@
+actual guest protected MyPage redirects to login
+original login link launches external Chrome while WebView stays trusted
+return from unfinished browser login; native retry cancels and unlocks a fresh login
+wrong-state app callback installs no session before legitimate completion
+external browser callback returns to app; native exchange installs session; actual protected MyPage loads
+OS cookie store retains HttpOnly access and refresh; JavaScript cannot read them
+actual member nickname PATCH200 and USER/admin boundary pass
+actual logout204 removes protected access
+replayed callback after logout does not restore authentication

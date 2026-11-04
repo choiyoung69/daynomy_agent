@@ -1,0 +1,54 @@
+{
+  "status": "blocked_xcode_unavailable",
+  "reason": "Installation intermediate bundle observed; complete Xcode and iOS SDK unavailable. Exact installation completion status remains unconfirmed. App compilation was not reached.",
+  "time": "2026-10-28T10:03:19.891158+00:00",
+  "ios_build": {
+    "exit": 1,
+    "log": "ios-build-01.log",
+    "command": "DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer bash ../../scripts/flutter.sh build ios --simulator --debug --no-pub --dart-define=API_BASE_URL=http://127.0.0.1:18087"
+  },
+  "source_path_count": 72,
+  "source_unchanged": true,
+  "changed_paths": [],
+  "preflight": {
+    "exit": 0,
+    "reference_snapshot_match": "29/29"
+  },
+  "simulator_created": false,
+  "db_started": false,
+  "static_plist_project_lint": "3/3 passed; does not constitute iOS build",
+  "not_verified": [
+    "iOS simulator compilation",
+    "iOS installation and launch",
+    "Five-tab iOS UI",
+    "iOS loopback Rust data flow",
+    "Real Google authentication",
+    "Real AI provider",
+    "Physical iOS device"
+  ],
+  "global_developer_directory_changed": false,
+  "license_or_first_launch_accepted": false,
+  "later_observation": {
+    "path": "/Applications/Xcode.appdownload",
+    "observed_at": "2026-10-28T10:03:56Z",
+    "xcodebuild_exists": false,
+    "status": "download placeholder candidate; complete Xcode.app still absent"
+  },
+  "coordinator_regression": {
+    "path": ".local/flutter-xcode-regression-03/result.json",
+    "passed": true,
+    "tests_passed": 238,
+    "analyze_exit": 0,
+    "web_build_exit": 0,
+    "criteria_and_sources_unchanged": true,
+    "scope": "Flutter host tests and release Web only; does not establish iOS build",
+    "criteria_match_previous_independent03": true
+  },
+  "time_finished": "2026-10-28T10:09:32.787574+00:00",
+  "last_environment_observation": {
+    "time": "2026-10-28T10:09:16.674125+00:00",
+    "app_exists": false,
+    "download_exists": true,
+    "xcodebuild_exists": false
+  }
+}

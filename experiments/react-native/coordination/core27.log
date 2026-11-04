@@ -1,0 +1,176 @@
+
+> daynomy-react-native@0.1.0 test
+> node --experimental-strip-types --test tests/*.test.ts
+
+TAP version 13
+# Subtest: endpoint public news uses source path
+ok 1 - endpoint public news uses source path
+  ---
+  duration_ms: 1.766042
+  type: 'test'
+  ...
+# Subtest: endpoint member transaction mutation requires CSRF
+ok 2 - endpoint member transaction mutation requires CSRF
+  ---
+  duration_ms: 0.075042
+  type: 'test'
+  ...
+# Subtest: endpoint admin publish mutation requires CSRF
+ok 3 - endpoint admin publish mutation requires CSRF
+  ---
+  duration_ms: 0.136083
+  type: 'test'
+  ...
+# Subtest: endpoint rejects missing/unsafe ids and excluded league
+ok 4 - endpoint rejects missing/unsafe ids and excluded league
+  ---
+  duration_ms: 0.238833
+  type: 'test'
+  ...
+# Subtest: URL preserves Korean plus ampersand query values
+ok 5 - URL preserves Korean plus ampersand query values
+  ---
+  duration_ms: 0.432125
+  type: 'test'
+  ...
+# Subtest: URL rejects off-origin paths and credential URLs
+ok 6 - URL rejects off-origin paths and credential URLs
+  ---
+  duration_ms: 0.059792
+  type: 'test'
+  ...
+# Subtest: CSRF bootstrap propagates validated header and credentials
+ok 7 - CSRF bootstrap propagates validated header and credentials
+  ---
+  duration_ms: 30.598125
+  type: 'test'
+  ...
+# Subtest: invalid CSRF header never sends write request
+ok 8 - invalid CSRF header never sends write request
+  ---
+  duration_ms: 0.659667
+  type: 'test'
+  ...
+# Subtest: GET refreshes exactly once and retries
+ok 9 - GET refreshes exactly once and retries
+  ---
+  duration_ms: 1.593042
+  type: 'test'
+  ...
+# Subtest: write 401 is surfaced without automatic replay
+ok 10 - write 401 is surfaced without automatic replay
+  ---
+  duration_ms: 0.589041
+  type: 'test'
+  ...
+# Subtest: failed refresh terminates without recursion
+ok 11 - failed refresh terminates without recursion
+  ---
+  duration_ms: 0.721583
+  type: 'test'
+  ...
+# Subtest: stock decoder accepts source domestic and US markets
+ok 12 - stock decoder accepts source domestic and US markets
+  ---
+  duration_ms: 0.061583
+  type: 'test'
+  ...
+# Subtest: stock decoder rejects unsafe ids and unrecognized market
+ok 13 - stock decoder rejects unsafe ids and unrecognized market
+  ---
+  duration_ms: 0.103
+  type: 'test'
+  ...
+# Subtest: price decoder preserves date and finite zero for UI policy
+ok 14 - price decoder preserves date and finite zero for UI policy
+  ---
+  duration_ms: 0.040458
+  type: 'test'
+  ...
+# Subtest: price decoder rejects numeric string and nonfinite number
+ok 15 - price decoder rejects numeric string and nonfinite number
+  ---
+  duration_ms: 0.048958
+  type: 'test'
+  ...
+# Subtest: news decoder accepts nullable image and published date
+ok 16 - news decoder accepts nullable image and published date
+  ---
+  duration_ms: 0.053583
+  type: 'test'
+  ...
+# Subtest: news decoder rejects missing title
+ok 17 - news decoder rejects missing title
+  ---
+  duration_ms: 0.040208
+  type: 'test'
+  ...
+# Subtest: trade validation accepts source decimal boundaries
+ok 18 - trade validation accepts source decimal boundaries
+  ---
+  duration_ms: 0.96575
+  type: 'test'
+  ...
+# Subtest: trade validation rejects invalid date, future, fraction quantity, scale
+ok 19 - trade validation rejects invalid date, future, fraction quantity, scale
+  ---
+  duration_ms: 0.168084
+  type: 'test'
+  ...
+# Subtest: USD trade requires positive exchange rate
+ok 20 - USD trade requires positive exchange rate
+  ---
+  duration_ms: 0.123166
+  type: 'test'
+  ...
+# Subtest: ledger includes buy fees in rounded average cost
+ok 21 - ledger includes buy fees in rounded average cost
+  ---
+  duration_ms: 0.590791
+  type: 'test'
+  ...
+# Subtest: ledger SELL retains cost and subtracts sell expenses from profit
+ok 22 - ledger SELL retains cost and subtracts sell expenses from profit
+  ---
+  duration_ms: 10.108084
+  type: 'test'
+  ...
+# Subtest: ledger replays by date then id and rejects historical oversell
+ok 23 - ledger replays by date then id and rejects historical oversell
+  ---
+  duration_ms: 0.123791
+  type: 'test'
+  ...
+# Subtest: ledger rejects duplicate id and leaves input immutable
+ok 24 - ledger rejects duplicate id and leaves input immutable
+  ---
+  duration_ms: 0.107333
+  type: 'test'
+  ...
+# Subtest: stock state ignores obsolete search responses
+ok 25 - stock state ignores obsolete search responses
+  ---
+  duration_ms: 0.055875
+  type: 'test'
+  ...
+# Subtest: stock state preserves manual input during latest price request
+ok 26 - stock state preserves manual input during latest price request
+  ---
+  duration_ms: 0.049583
+  type: 'test'
+  ...
+# Subtest: stock state ignores old selection and nonpositive auto price
+ok 27 - stock state ignores old selection and nonpositive auto price
+  ---
+  duration_ms: 0.029167
+  type: 'test'
+  ...
+1..27
+# tests 27
+# suites 0
+# pass 27
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 188.337458

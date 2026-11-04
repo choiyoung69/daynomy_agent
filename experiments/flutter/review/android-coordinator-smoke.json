@@ -1,0 +1,17 @@
+{
+  "device": "emulator-5560 (owned isolated Android13)",
+  "scope": "coordinator native UI supplement; separate from independent verifier",
+  "apk_sha256": "e5c17878246238ef3e457465811a2cce5bdf14b6ecc60f00e32307cdec8299cf",
+  "installed_launched": true,
+  "actual_rust_search_displayed": true,
+  "selected_fixture_asset": "Harness Alpha",
+  "evidence": [
+    "android-final-start-v2.png",
+    "android-final-live-search-v2.png",
+    "android-final-live-selection-v2.png",
+    "android-final-live-price.png"
+  ],
+  "initial_capture_failure": "UI hierarchy file was not yet generated immediately after launch; preserved original failure",
+  "actual_rust_close_price_in_accessibility_hierarchy": true,
+  "visual_limit": "Price field contains 120.2500 in Android EditText hierarchy; final screenshot clips field value at bottom navigation. Screenshot verifies selected asset/date/currency, not visibly readable numeric price."
+}

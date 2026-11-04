@@ -1,0 +1,265 @@
+{
+  "scope": "Pre-implementation frozen backend source tested after DB lock became available",
+  "passed": 1,
+  "failed": 22,
+  "results": [
+    {
+      "case": "mobile-code-durable-hash-schema",
+      "passed": false,
+      "reason": "mobile code persistence table required"
+    },
+    {
+      "case": "mobile-valid-google-pkce-exchange-profile-and-persisted-refresh",
+      "passed": false,
+      "reason": "mobile start must redirect to Google authorization"
+    },
+    {
+      "case": "mobile-code-single-use",
+      "passed": false,
+      "reason": "mobile start must redirect to Google authorization"
+    },
+    {
+      "case": "mobile-wrong-verifier-rejected-without-consuming-valid-code",
+      "passed": false,
+      "reason": "mobile start must redirect to Google authorization"
+    },
+    {
+      "case": "mobile-code-expiry",
+      "passed": false,
+      "reason": "mobile start must redirect to Google authorization"
+    },
+    {
+      "case": "mobile-atomic-concurrent-consume",
+      "passed": false,
+      "reason": "mobile start must redirect to Google authorization"
+    },
+    {
+      "case": "mobile-member-withdrawn-after-code-issue",
+      "passed": false,
+      "reason": "mobile start must redirect to Google authorization"
+    },
+    {
+      "case": "mobile-database-stores-no-code-or-verifier-plaintext",
+      "passed": false,
+      "reason": "mobile start must redirect to Google authorization"
+    },
+    {
+      "case": "mobile-fixed-callback-ignores-arbitrary-redirect",
+      "passed": false,
+      "reason": "mobile start must redirect to Google authorization"
+    },
+    {
+      "case": "mobile-start-input-9",
+      "passed": false,
+      "reason": "malformed mobile start rejected: numeric value differs"
+    },
+    {
+      "case": "mobile-start-input-10",
+      "passed": false,
+      "reason": "malformed mobile start rejected: numeric value differs"
+    },
+    {
+      "case": "mobile-start-input-11",
+      "passed": false,
+      "reason": "malformed mobile start rejected: numeric value differs"
+    },
+    {
+      "case": "mobile-start-input-12",
+      "passed": false,
+      "reason": "malformed mobile start rejected: numeric value differs"
+    },
+    {
+      "case": "mobile-start-input-13",
+      "passed": false,
+      "reason": "malformed mobile start rejected: numeric value differs"
+    },
+    {
+      "case": "mobile-start-input-14",
+      "passed": false,
+      "reason": "malformed mobile start rejected: numeric value differs"
+    },
+    {
+      "case": "mobile-exchange-input-15",
+      "passed": false,
+      "reason": "malformed PKCE exchange rejected: numeric value differs"
+    },
+    {
+      "case": "mobile-exchange-input-16",
+      "passed": false,
+      "reason": "malformed PKCE exchange rejected: numeric value differs"
+    },
+    {
+      "case": "mobile-exchange-input-17",
+      "passed": false,
+      "reason": "malformed PKCE exchange rejected: numeric value differs"
+    },
+    {
+      "case": "mobile-exchange-input-18",
+      "passed": false,
+      "reason": "malformed PKCE exchange rejected: numeric value differs"
+    },
+    {
+      "case": "mobile-unknown-code",
+      "passed": false,
+      "reason": "unknown code rejected: numeric value differs"
+    },
+    {
+      "case": "mobile-csrf-exemption-only-exchange",
+      "passed": false,
+      "reason": "mobile start must redirect to Google authorization"
+    },
+    {
+      "case": "mobile-verified-oauth-state-provider-error-callback",
+      "passed": false,
+      "reason": "mobile start must redirect to Google authorization"
+    },
+    {
+      "case": "existing-web-oauth-login-remains-compatible",
+      "passed": true
+    }
+  ],
+  "source_manifest": {
+    "Cargo.toml": "f870717bcbd437944cd809e7999bdd493ac40fc345db56abc889f7d45f2efcb0",
+    "Cargo.lock": "980389dce06c3e7d610e5b738ca92df14e181ad0d35d2b319bb57e572e222a8d",
+    "README.md": "6edc34524e548cde7ddea3975fa884a68002d301cfa577b3d4f1dc86edc14b0d",
+    "migrations/002_oauth_login_states.sql": "e0fc38ceadef0c4105538de6dc012572b304e57cfc588c62160843d852568d75",
+    "migrations/003_analysis_guest_sessions.sql": "892ad7b64ea460d36a8fac676993723aea2b69d13442a43f3bb55eea9d559c4a",
+    "migrations/001_feedbacks.sql": "1af9f2099832e86b6cdfb37f526d7772797bd5e1288bdaa34f369808c9f1552c",
+    "src/service_dart.rs": "6b877ed13db7a805424ec844510e740bcd06ee1729ef81774c447a8d9a255e24",
+    "src/java_binding.rs": "082388a39895fad225b87e52fad09a4b85adb2d334a8946cd6441a2efc128184",
+    "src/feedback.rs": "6492755566d787529579169ce6eb450c15eb4cd6f6b1921c541e517a4e0f30f3",
+    "src/service_portfolio.rs": "c29b84dde9472aba85b1778949032e9790abbfcd166d3ced4f27920392428b67",
+    "src/csrf.rs": "07ed24054d7528405e759ffefd0584684a3f81fe84aca8474cc92246e0f367b9",
+    "src/multipart.rs": "f598921d628d28d10b161f34f9389c005bcbe3c4153579b83cd6b4b3431de5af",
+    "src/service_auth.rs": "2d73c4d88d8c0bfccd9d2b25ce8d1b4086428f81d2de58f4c6c38a5aa4ab0004",
+    "src/service_sync.rs": "a8b7203ad351761df435accdc5516b2f732ffaeb5b1bf1bb89396225b91a862a",
+    "src/service_admin_content.rs": "cb64ac7e93d188211a43727b4d8eaeeb0ef45b7348e9184d866c8dc92df69766",
+    "src/service_analysis.rs": "4ee145324d303f6629ee86bcdd5cc06d2dfecab83aa60202be0b8b72040555b2",
+    "src/service_admin_feedback.rs": "edfe9a594b5769ea31e7a98c439701737c9cf48846b66f1193f8c07f893cef8c",
+    "src/service_market.rs": "72d0e5e6265c284ffed4b2e3f40eee593a5c77c48aea4d4d83caa6ae6f218f79",
+    "src/service_schedule.rs": "f64c9ebb112cee66156dec373b65fd73bf4832fed4652e60253372f197dbb2bd",
+    "src/service_discovery.rs": "65bc2cf04935bfe5cab67dbd2d4570ab77a755bf189c37606a3221a8d9155b9b",
+    "src/main.rs": "30e192bef544dc089ddad33146127b4b87bd534932f492a185ec0e171e51c966",
+    "src/service_calendar.rs": "feaf1aa8edc7b71b49e678061291f272b27deb4273b4020bc67f21f0d8c3fec8",
+    "src/service_admin_news.rs": "ab574ddf3c630ff77884a114c733a59d7f5ce6c0755adcbbbefc273d1c6b0995",
+    "src/api.rs": "d0eb5f514815abba8947ed459f89232555d7b971d276470ea2c11d600b676148",
+    "src/service_media.rs": "eea925c996a6daaf72bbe6192a97c8fb47c2a9586752d9ccde761bc4f111f8a9",
+    "src/service_social.rs": "7760fdb8073428fe01481fc33aebd35b94b994e24e471563c578fa38176e87cc",
+    "migrations/reference/V18__normalize_stock_content_source_type.sql": "627c4c7b2b3b95da4462df76f5f3b43e138838c3514d59d5615aa76c60cf1544",
+    "migrations/reference/V26__create_financial_learning_records.sql": "0effb3f6287b7b8ac2c51ba37b9acba0e2fad3b08cf704355a00480d01090551",
+    "migrations/reference/V34__structure_market_analysis.sql": "34090e80a7ae1d998af67ae76d93d79b3a9fd5f7b0434f1bd353dee204ee4c66",
+    "migrations/reference/V40__add_featured_person_profile_image.sql": "8d719d93bd8e2e37272394b43f86c80bf77af39af96d7161de2d13bf7cc2b4df",
+    "migrations/reference/V31__complete_league_performance.sql": "db18a95f7be784b1aa82096e9ce8285e339829b772417d8620aa2d0a37a4ee04",
+    "migrations/reference/V21__add_admin_news_search_order_index.sql": "82a8edfcb4f70c7e77c0ce352da04a6f4cd7dc0509b8068cbaefabafca6a424a",
+    "migrations/reference/V24__create_featured_people.sql": "4fb54c653ad2c1a5df16bfb3b8857216b529c02fe06c1d8923fe7c6292d1f6db",
+    "migrations/reference/V48__record_asset_price_history_coverage.sql": "19c13fde89dd4091d24471693ca534eb422b02803ed9e95d34f1c46f86d76766",
+    "migrations/reference/V4__allow_manual_news.sql": "4662c61b1fb102c3e91a21b95ac70ad24cb2d3795e70f6ba843a33e39d4705d8",
+    "migrations/reference/V10__remove_bookmark_features.sql": "01e0a3d16032ab10cedd65af7856c57106ef28ccc526809290c6af753bde40de",
+    "migrations/reference/V19__add_image_url_to_stock_related_contents.sql": "5ba43bd10bf62921f2a866f099db005183419de98726a02389526057e0fcb19f",
+    "migrations/reference/V5__integrate_market_analysis_summary.sql": "c90967bf75dd849ff1a990aa53279d80dbae60cac367ce8d8a7ff324f86d97f6",
+    "migrations/reference/V20__add_news_search_order_index.sql": "c3f9eb4487fe2ca31237534ce5fc7c6a4396364a9392c2c87c7c0fdb34fc797a",
+    "migrations/reference/V43__add_featured_person_post_published_at.sql": "569aefc95b5a96caa7c9915b54e041d0d4078e5fc880448cfed56f498f16f5ff",
+    "migrations/reference/V49__create_featured_person_post_candidates.sql": "de8c9591888eb702697c0c2d63f2db102d767c0803817b051a2d8c3d970317a0",
+    "migrations/reference/V37__add_portfolio_analysis_check_outcome.sql": "e8300ac02d31cc316647842f1e331d10f690b0f4e3ddb17e98f797e9882a1e92",
+    "migrations/reference/V46__add_missing_entity_audit_timestamps.sql": "0e0280451ce339ecb65b03fcaab5eeb74be9473942e2f438cbe7efa9506c0c16",
+    "migrations/reference/V7__remove_news_description.sql": "28050cf96d0fcded6bdc9b6d16619d4dbb30bb363d58b4e180c901782f514263",
+    "migrations/reference/V32__allow_optional_investment_decision_fields.sql": "bd68f80830aef71327f60e9ad3ae788c92b5e2f99be3ab89a5353122692c2159",
+    "migrations/reference/V25__create_feedbacks.sql": "b36368c4370f73ea8723b40fedc962ca502224029d0c3a1b9d17b0f14931017a",
+    "migrations/reference/V33__add_portfolio_transaction_ledger.sql": "03108ff94ab1cebed8b39bcb9944befc52dcc163d6659a4996a3c24b907dad6f",
+    "migrations/reference/V36__add_portfolio_analysis_request_lease.sql": "0ad087f3388ed5ebfcabcb6a883b1f626263f8a6d85fd812138d99d14d804384",
+    "migrations/reference/V47__create_investment_events.sql": "1bec43b8e842c61ea6e47c859405c2184fd35d7650acb0373d045a3befa03062",
+    "migrations/reference/V52__scope_isin_uniqueness_to_domestic_assets.sql": "f7e3882ff06076750c65be8f0ed672dae021e75f666f8f947854b57d61a84e23",
+    "migrations/reference/V39__add_stock_content_published_date.sql": "378dad98eb4f12b84a5bcd5e4cf665ef56be8c1f15d827aab2b50ba42431c3c8",
+    "migrations/reference/V3__add_news_status.sql": "93d2a4bfa71f4d8120919b85d57bfb329a4e4da42d15475de6cea1486e533e6f",
+    "migrations/reference/V12__create_stock_daily_prices.sql": "cf97bbac4759716a44e6e6616268b9ce3fa7e0b97258b4bd1572fe59332ab64e",
+    "migrations/reference/V44__create_portfolio_asset_analyses.sql": "cda965c87c960e0f9e76e5892ccd1e97d2037dd613634c8352bf9d30752f3f97",
+    "migrations/reference/V15__create_portfolio_tracking.sql": "1b5e7e2efd90dedfcd0375939768a3254c22a83132b9d0a8185e53be187f5289",
+    "migrations/reference/V29__create_financial_plans.sql": "da6e36949b1c1d21faab2bcf5c2c7dd9f1105df35a810624a49033ae314f2c84",
+    "migrations/reference/V17__link_asset_contents_to_news.sql": "55cdaf6da57b8bf095528d26527aab2e32d6f836542e0734c9072c513054372b",
+    "migrations/reference/V50__replace_post_candidates_with_post_status.sql": "a0097d3cf8faa8a687d410322218900eeb906326de9f34ad2858880e395fdf46",
+    "migrations/reference/V35__create_portfolio_analyses.sql": "ebb4b4957a82f472dfba5aa33f6572d19342da4e04417d693bcc824b0331aa80",
+    "migrations/reference/V9__remove_news_source_identity_columns.sql": "67640ac3e5af7cde7441ef35e4a3b66207955523f79df075c314372b7fb5cf4d",
+    "migrations/reference/V27__create_investment_league.sql": "fcbbe576109ea5e96a274b181431cb88770d40001ffb170b7c4c29ba9079dd22",
+    "migrations/reference/V14__convert_news_image_source_to_jsonb.sql": "582a32dec3ae018a691c0c08fac9959871b731894811694e4de0ffd4a35d549f",
+    "migrations/reference/V30__separate_private_google_name.sql": "8b4fe8a563ba50cb6fdcaf24b77115c73a653dccd5f00d2d9d98ebfe97de34ca",
+    "migrations/reference/manifest.json": "2e773a3e35dc164ad0333dfc974c5d4f80bf26b6b641a38f476dc6b5238a54c2",
+    "migrations/reference/V42__backfill_and_index_stock_content_published_date.sql": "60cb6a23bb17e939c8e197ac8761aaf8807c15dc5938ac90cb79c69dee81aea7",
+    "migrations/reference/V38__add_portfolio_analysis_evidence_fact_quote.sql": "a61a13b77dc47b1850334b138f3b127674517e399aae2d64e358887a7d4b89a2",
+    "migrations/reference/V16__create_stock_related_contents.sql": "52feaae48e05d83ef17e4246a20f3c0d514cb9ca30210bf53b1604fbf3551ff9",
+    "migrations/reference/V53__support_usd_portfolio_transactions.sql": "f3eafcba1e2905f8f3d08eb0c3be3c039953ed7da20be42341f4b0dd74008686",
+    "migrations/reference/V6__remove_market_analysis_details.sql": "f22593e595ce1dbdd1a6db7b1249672aa606fd0a310e356e3a815232dbd9f3ef",
+    "migrations/reference/V1__init_schema.sql": "8dc827cb863a95cc8cbfeb9559629be5fa221bb108b06fa67c05bafb76a6736e",
+    "migrations/reference/V11__add_stock_master_columns.sql": "77b11c72ada74a47a1a24840eff9020783ac808823121ad81e680edb2fa35fb9",
+    "migrations/reference/V13__add_news_image_source.sql": "f5bd06e94b0b639fc096139c26f5bcdf1b979490e5a4f2d28d74b3d59bd6a59a",
+    "migrations/reference/V51__preserve_us_stock_price_precision.sql": "d444d505a861b897a5c0e2f255dcd5927d547c9c8740c5eed7b236ae8884cea1",
+    "migrations/reference/V45__track_stock_price_collection_attempt.sql": "7dd2cc4f55141bda407ae13e42cf62e52bb17d64ff3526cd8406780594ce48d8",
+    "migrations/reference/V41__add_featured_person_youtube_profile.sql": "5d9de234375345ea39a74d62eaa1f05287bd3710d00df4a06ac914dac2edd7d8",
+    "migrations/reference/V8__migrate_news_sources_to_jsonb.sql": "2d45bf64c2b4496c82eafba8f1278dddf3546d27c48437066d381ea974d64d6d",
+    "migrations/reference/V28__isolate_shared_portfolios.sql": "9b89482ea67fc223668282ba033f85a5f81e83bb706f8d6ccb7e3ccc71138db6",
+    "migrations/reference/V2__add_news_search_indexes.sql": "32757103cb012328fc7e3293d2e53d8098fb474ad2de1fbea82908f98a50050a"
+  },
+  "criteria_manifest": {
+    "flutter_setup.py": "1cb10b0c47f531a7cfd3fc2470c404ff8165382b7d1c80164c234b918d8f921c",
+    "test_sample_feature_gate.py": "2dd9beca215ff4a140ea89986fc0b52603357d86d1b606c5e09772a498d1a8e4",
+    "test_stock_price_workflow.py": "180728f7a97bedb8d3df73788d67feddbe665fea2b79a637a476e173ecf0da6a",
+    "test_admin_feedback_queue.py": "76a30dd393aae0089f33f4b6f1537496ccab4160f2ab7ee414d1de0da0fa8c21",
+    "readonly_runner.py": "120e4fb4a89051861bbf7b4c92ab703be05d10ccbd11decad3ba908b69eda1b3",
+    "service_acceptance.py": "dbaa5494116baa7711ae9213cad01aa7a4a989b7ce794305c2d83eaea084d00b",
+    "service_media_acceptance.py": "0fa5c33af3d3693b525d301b0da89cc525b480295f5046e816a0de9d1181383e",
+    "test_android_knowledge.py": "d4bbf87e8dfedda105b0a7e5e455efa765f4b1aa9e10e1dfcc317dcb94603d4a",
+    "task_queue.py": "929acadc8b1f86cd04e70dd115d908bc092f7685413484668954923b11caf3c3",
+    "workflow_gate.py": "1bef46133d6b14ba826605e5c42cc07838993cbcf099860bac6c67384daabca5",
+    "test_knowledge_inventory.py": "f2b436dd681100cf2438af5724f9efdea55373a76c3941629550d248c9299698",
+    "parallel_features.py": "3f33fe83a63f7f27b7a91da10567f5d5be6f89ceaf0c1fe2bcbe8c013d0493f9",
+    "check.py": "9ac2ec3c553e08ac73d48a958a6207ddf85260c38b02b1c8582ea02b6a3a2ef8",
+    "service_schedule_acceptance.py": "8325c19265a829d636e10bb4485a14c9c9689c3d510ab9820831ff9bc9d5c569",
+    "android_backend_fixture.py": "23874ab1a7c12bc4504dfe8b252ea8c30d949c25d83a807620936f05c607024d",
+    "flutter_preview.py": "dbf72bbc3f5ec36008c4f3415fd02c44ad58cf8a0deaf2f64eb0ae6da8120d0c",
+    "test_agent_workflow.py": "4e38248313970958e4af23da6469feafa98f61fab7d5e9a6eaa7e8a6202d72c7",
+    "compare_feedback.py": "a85405d2ef6ef289e51b946d02c09ee4dd9f7995b8fa16c97f591f5e89979b2b",
+    "android_pilot.py": "cd381961c739602b3024e14d07ffce114244bd30e9c1b85bad4155488991b5b1",
+    "test_task_queue_metrics.py": "92f4331b1487d38e4cb017427b548e125e37f07bc04b1f9bdd40253ebf8922e9",
+    "test_knowledge.py": "32475bf4dba64c9852a022247634db0b696942623e0895a16981a388b17775af",
+    "service_analysis_acceptance.py": "3b008d7b4c735c01308cdb2cc12023836a3cc0f00b51d2dee438f4914e1b5212",
+    "service_sync_acceptance.py": "53147d8c2acea78b3b97ce12c8682d63f8090f2fdd4949ebd4619c8c2dc7442c",
+    "acceptance.py": "d93292cb1e32cb87119257db8a08a097c6d177c5f491ac780608109e86609520",
+    "service_social_acceptance.py": "4c022c99d25123211c9912e0e92a0c2b707f83b7c1b7a23817358bebb22b420b",
+    "sample_features.py": "f54f4ac74617208973630c2b6ec0b97b6ad49f0100d0beea74c0fff3593e91eb",
+    "service_migrate.py": "29728573ecd83efb3774f0bdbbb28b598fb1cfc6cca2daa0c2beee6c1435d438",
+    "sample_feature_gate.py": "fac44da87ce41a6fb6bcfc10e715c3b3df421438eb9e28deb877700c75047163",
+    "android_device_probe.py": "3510648dcdf9f2e94b06a0f2c421084db235f472e2eb19f770f894710c2bb39b",
+    "service_admin_acceptance.py": "0bf45033047c153c3878efea83b5f920e97c0e3d2a8c2e39ace7382a25fd1593",
+    "flutter_auth_acceptance.py": "5102f33b43dc89eedd695d40b7e57c3921228e982a5200b40f66c39f1be5314d",
+    "knowledge_inventory.py": "337b03997560bf785626e9aaa3f1e6754c676c23c3c0a6277e150dcdce112f1d",
+    "stock_price_gate.py": "41320319bb94573cf703d74c618f69fd3d2f30476cf7e642e9f8a72fc8c8776f",
+    "test_admin_feedback_oracle.py": "5dc24b4024e70dd6958441c362facf1e9fc04793098f0c7fd8a99f5d688f4314",
+    "test_knowledge_sources.py": "25060bf0073d020636b301c0407ccb164d5db5bdebe6cbddb9fccf3a23f6b0c1",
+    "test_compare_feedback.py": "f9414990ac42b6b5eab454700bae57e3c059f49d7272e09448a75b4b576bbcb3",
+    "check_lifecycle.py": "2f9841c56879add52fdb786185a44fefc6f0ce24effc067168b59a74ca0284f9",
+    "test_acceptance.py": "89398172cfdfc8ca53da5394b9d4237854ff0096288fae755222abb0bcc0c1a1",
+    "service_calendar_acceptance.py": "74eaa4609cf8c7e5e11a2a76ac16af03894633d0b583c1e0bd7f0df792f42699",
+    "service_fx_acceptance.py": "b49c5467cd2b370df13f178e9d571a5fff8710d3b85467278eaf6cb63f96be0e",
+    "agent_workflow.py": "a40186493ab4ccdcb52a9d8343b45cc7b124c2e084e50c88919b7c02f7701d10",
+    "knowledge_topic_examples.py": "7266a7b71db3c587267c8a59b0516a6e2ae12166937742e18ae41061ba8d031d",
+    "service_binding_acceptance.py": "cc9b57e4a7b9282ba729ba06897c1a1295dceca96fa1131d9a871d30706b83df",
+    "stock_price_workflow.py": "4958d9a14dbdd08bc8ecec7e4a06fc92ae36b8dfd5211a41b7b5c13d33f515e0",
+    "test_parallel_features.py": "dbd95fec42976f1f60066fa7e7f8eaff5e692f2cce4c5bde1cd63de4e0b4701c",
+    "service_gate.py": "718182500d2d829da4472a112fbe01a19f2bdafbf68f79784ef403437ad97fcf",
+    "android_knowledge.py": "d8db06cf7dd0c9726717e18ea0fce5ae10f7534c42f26b9df14ad90088a2b944",
+    "admin_feedback_queue.py": "29757b599fff33eb113a28ff057eb763ae36759c84e7bba1212e407435f2fd31",
+    "test_readonly_runner.py": "98114c62a164f83aa7147712e7ff4209e65efb339172f86763226de8edf7b8bb",
+    "knowledge_example_sdks.py": "e27dcd245b02fbfd1918ae5d3a624ab462c97f9d661ad5e037347325505cdd8a",
+    "test_admin_feedback_gate.py": "2225fd0017e27723a3d4ce58df3f7340f0df65279fcb9a54f71e4bc2ce63caae",
+    "flutter_check.py": "c193ea6251ef1cbe9d2495ee0949e07ccee54152f6dec2ade9c095d211bc7398",
+    "test_service_acceptance.py": "a67cf5a232de794042b9580c4f98f25e4c2b824e096b4389b283d21170fe015d",
+    "knowledge_probes.py": "a52a60cbe37db161031e420ad05fd1c3de823f48c7e627e9c071bac2fd5ec315",
+    "run_comparison.py": "ff8b34d823d198117ba8715910030befe8120f06785c490bd788f5bfcea6719a",
+    "service_core_acceptance.py": "7f081b58942c34185759c4700e77d3c1fc6d131529996be6a581e36ac51d2b13",
+    "knowledge.py": "8b72cba4aa8753514d30cc2e26e3a705f0d9aa4549fb6b4e41d7756dd2abf040",
+    "admin_feedback_gate.py": "1b4cc0c40a85c2390248315a0a3c60215db7e59896fdce87e4f843e5ad35169d",
+    "service_auth_provider_acceptance.py": "f93da3df939ba371aa84d4275abedbe37dd2e2a7cfea2d4939c4a044ce1ff8a2",
+    "knowledge_sources.py": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4",
+    "test_task_queue.py": "5b66d24bb2ff28951038cb29ba035deeeb6cb0d24349206d4a7602aa591482cb",
+    "test_admin_feedback_revision.py": "e7ea806cb99232460ae8bbda38f1b9935c22a514d26e9e78cdccc6cadf58d93e"
+  }
+}

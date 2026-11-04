@@ -1,0 +1,19 @@
+{
+  "count": 212,
+  "original_mismatches": [],
+  "copy_claim_mismatches": [],
+  "changed_after_copy": [
+    "src/App.tsx",
+    "src/features/account/MyPage.tsx",
+    "src/features/admin/AdminStockSyncPage.tsx",
+    "src/features/admin/api.ts",
+    "src/features/landing/LandingPage.tsx",
+    "src/features/landing/ProductMockup.tsx",
+    "src/features/navigation/ServiceHeader.tsx",
+    "src/features/pages/components/InfoPage.tsx",
+    "src/features/portfolio/components/PortfolioTransactionEditor.tsx",
+    "src/main.tsx",
+    "index.html",
+    "vite.config.ts"
+  ]
+}

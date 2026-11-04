@@ -1,0 +1,192 @@
+
+> test
+> npm run build && node --test tests/*.test.mjs
+
+
+> build
+> node ../../../.local/knowledge-sdks/typescript/package/bin/tsc -p tsconfig.json
+
+TAP version 13
+# Subtest: stock guards preserve original seven markets and optional unchecked currency
+ok 1 - stock guards preserve original seven markets and optional unchecked currency
+  ---
+  duration_ms: 1.619458
+  type: 'test'
+  ...
+# Subtest: stock JSON boundary rejects invalid root, fields and unsafe identifiers
+ok 2 - stock JSON boundary rejects invalid root, fields and unsafe identifiers
+  ---
+  duration_ms: 0.235291
+  type: 'test'
+  ...
+# Subtest: latest-price decoder accepts finite nonpositive price and opaque date strings
+ok 3 - latest-price decoder accepts finite nonpositive price and opaque date strings
+  ---
+  duration_ms: 0.081333
+  type: 'test'
+  ...
+# Subtest: latest-price decoder rejects unsafe IDs and numeric strings/nonfinite price
+ok 4 - latest-price decoder rejects unsafe IDs and numeric strings/nonfinite price
+  ---
+  duration_ms: 0.639667
+  type: 'test'
+  ...
+# Subtest: currency is nullish fallback only and .US is case-sensitive
+ok 5 - currency is nullish fallback only and .US is case-sensitive
+  ---
+  duration_ms: 0.106709
+  type: 'test'
+  ...
+# Subtest: API encodes query, omits KR, passes credentials and exact AbortSignal
+ok 6 - API encodes query, omits KR, passes credentials and exact AbortSignal
+  ---
+  duration_ms: 21.476958
+  type: 'test'
+  ...
+# Subtest: price API uses relative path and same credentials/signal
+ok 7 - price API uses relative path and same credentials/signal
+  ---
+  duration_ms: 0.203875
+  type: 'test'
+  ...
+# Subtest: HTTP errors, malformed JSON and invalid successful payload reject without hidden refresh/retry
+ok 8 - HTTP errors, malformed JSON and invalid successful payload reject without hidden refresh/retry
+  ---
+  duration_ms: 0.703208
+  type: 'test'
+  ...
+# Subtest: abort rejection reaches API caller without converting to success
+ok 9 - abort rejection reaches API caller without converting to success
+  ---
+  duration_ms: 0.367583
+  type: 'test'
+  ...
+# Subtest: controller debounces trimmed text and never searches JS whitespace
+ok 10 - controller debounces trimmed text and never searches JS whitespace
+  ---
+  duration_ms: 62.028583
+  type: 'test'
+  ...
+# Subtest: new search invalidates noncooperative stale success and finally
+ok 11 - new search invalidates noncooperative stale success and finally
+  ---
+  duration_ms: 26.630041
+  type: 'test'
+  ...
+# Subtest: stale search rejection/finally cannot corrupt a newer loading or ready result
+ok 12 - stale search rejection/finally cannot corrupt a newer loading or ready result
+  ---
+  duration_ms: 28.008459
+  type: 'test'
+  ...
+# Subtest: category filtering is local and does not refetch or truncate API results
+ok 13 - category filtering is local and does not refetch or truncate API results
+  ---
+  duration_ms: 27.425167
+  type: 'test'
+  ...
+# Subtest: country change cancels search and resets selected draft and starts requested country
+ok 14 - country change cancels search and resets selected draft and starts requested country
+  ---
+  duration_ms: 26.302709
+  type: 'test'
+  ...
+# Subtest: selection fetches immediately, suspends search, fills positive quote/date without timezone conversion
+ok 15 - selection fetches immediately, suspends search, fills positive quote/date without timezone conversion
+  ---
+  duration_ms: 14.754458
+  type: 'test'
+  ...
+# Subtest: manual price including deletion remains exact after late successful quote ("0001.2300000000000000001")
+ok 16 - manual price including deletion remains exact after late successful quote ("0001.2300000000000000001")
+  ---
+  duration_ms: 1.084333
+  type: 'test'
+  ...
+# Subtest: manual price including deletion remains exact after late successful quote ("")
+ok 17 - manual price including deletion remains exact after late successful quote ("")
+  ---
+  duration_ms: 1.464125
+  type: 'test'
+  ...
+# Subtest: manual price including deletion remains exact after late successful quote ("9007199254740993.01")
+ok 18 - manual price including deletion remains exact after late successful quote ("9007199254740993.01")
+  ---
+  duration_ms: 1.492208
+  type: 'test'
+  ...
+# Subtest: late quote for different stock cannot overwrite newer price or status
+ok 19 - late quote for different stock cannot overwrite newer price or status
+  ---
+  duration_ms: 2.761625
+  type: 'test'
+  ...
+# Subtest: late price rejection/finally cannot corrupt newer successful quote
+ok 20 - late price rejection/finally cannot corrupt newer successful quote
+  ---
+  duration_ms: 2.653083
+  type: 'test'
+  ...
+# Subtest: nonpositive quote 0 requires manual input, date null and explicit retry
+ok 21 - nonpositive quote 0 requires manual input, date null and explicit retry
+  ---
+  duration_ms: 14.929625
+  type: 'test'
+  ...
+# Subtest: nonpositive quote -10 requires manual input, date null and explicit retry
+ok 22 - nonpositive quote -10 requires manual input, date null and explicit retry
+  ---
+  duration_ms: 15.859291
+  type: 'test'
+  ...
+# Subtest: network quote error preserves manual input and explicit retry does not overwrite it
+ok 23 - network quote error preserves manual input and explicit retry does not overwrite it
+  ---
+  duration_ms: 2.726083
+  type: 'test'
+  ...
+# Subtest: search errors expose retry and do not spin automatic requests
+ok 24 - search errors expose retry and do not spin automatic requests
+  ---
+  duration_ms: 48.918375
+  type: 'test'
+  ...
+# Subtest: clear selection resets draft, cancels quote and resumes current query
+ok 25 - clear selection resets draft, cancels quote and resumes current query
+  ---
+  duration_ms: 14.157958
+  type: 'test'
+  ...
+# Subtest: inactive invalidates timers and noncooperative quote, retains draft and resumes selected request
+ok 26 - inactive invalidates timers and noncooperative quote, retains draft and resumes selected request
+  ---
+  duration_ms: 15.952959
+  type: 'test'
+  ...
+# Subtest: inactive search discards stale error and re-queries only after becoming active
+ok 27 - inactive search discards stale error and re-queries only after becoming active
+  ---
+  duration_ms: 26.650709
+  type: 'test'
+  ...
+# Subtest: dispose cancels timer/inflight and permanently blocks callbacks and restarts
+ok 28 - dispose cancels timer/inflight and permanently blocks callbacks and restarts
+  ---
+  duration_ms: 27.229916
+  type: 'test'
+  ...
+# Subtest: repeated active values are idempotent and never duplicate in-flight requests
+ok 29 - repeated active values are idempotent and never duplicate in-flight requests
+  ---
+  duration_ms: 0.206
+  type: 'test'
+  ...
+1..29
+# tests 29
+# suites 0
+# pass 29
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 460.737542

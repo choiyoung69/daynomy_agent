@@ -1,0 +1,4 @@
+{
+  "command": "npm --prefix clients/webview/web test",
+  "exit_code": 0
+}

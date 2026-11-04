@@ -1,0 +1,2 @@
+actual guest protected MyPage redirects to login
+{"step":"external-browser-launch","name":"TimeoutError"}

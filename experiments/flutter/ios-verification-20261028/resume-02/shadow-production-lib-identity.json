@@ -1,0 +1,52 @@
+{
+  "time": "2026-10-28T10:33:02.853268+00:00",
+  "matches": true,
+  "different": [],
+  "files": {
+    "lib/daynomy.dart": {
+      "production": "2994385d808adca3a0dea90c5fbca625b8c32259dba8e2473732770a7ce8d669",
+      "instrumented": "2994385d808adca3a0dea90c5fbca625b8c32259dba8e2473732770a7ce8d669"
+    },
+    "lib/main.dart": {
+      "production": "113c649655d6d6874a143cc429675e719d2604cec91d4a0842a0fcca95461ef4",
+      "instrumented": "113c649655d6d6874a143cc429675e719d2604cec91d4a0842a0fcca95461ef4"
+    },
+    "lib/src/native_auth.dart": {
+      "production": "aff61300a9d3e851f3bbe4e36f17bc7579e1ed2dc85dc4960e5aba48fbcc3385",
+      "instrumented": "aff61300a9d3e851f3bbe4e36f17bc7579e1ed2dc85dc4960e5aba48fbcc3385"
+    },
+    "lib/src/transport.dart": {
+      "production": "2e1090ec7f2a28c084e28a53dbfdf23dc9bb6da16a2fb26cab0b0e7182c76ec4",
+      "instrumented": "2e1090ec7f2a28c084e28a53dbfdf23dc9bb6da16a2fb26cab0b0e7182c76ec4"
+    },
+    "lib/src/repository.dart": {
+      "production": "b2c68d747994a3a82a3536fa76c5972610da2c5c06b6fc4b53059e509fffa4c0",
+      "instrumented": "b2c68d747994a3a82a3536fa76c5972610da2c5c06b6fc4b53059e509fffa4c0"
+    },
+    "lib/src/transport_native.dart": {
+      "production": "c814d661b617c1c32fd0d9838807857858bb585388a13536020d67c452856dc9",
+      "instrumented": "c814d661b617c1c32fd0d9838807857858bb585388a13536020d67c452856dc9"
+    },
+    "lib/src/exact_json.dart": {
+      "production": "2b934e84b1b259011557efcbb924f94df5ee46328cd0dc2f9524279452d8d251",
+      "instrumented": "2b934e84b1b259011557efcbb924f94df5ee46328cd0dc2f9524279452d8d251"
+    },
+    "lib/src/transport_web.dart": {
+      "production": "5a417ba8aa20cdfee66b81b6f40c76d57c812c7aa8b7ab7344d48ea249ab1ef8",
+      "instrumented": "5a417ba8aa20cdfee66b81b6f40c76d57c812c7aa8b7ab7344d48ea249ab1ef8"
+    },
+    "lib/src/app.dart": {
+      "production": "56bc7484e381eb925aca768d184620a07caf1d9ade92e3a240d05a38173b1b9f",
+      "instrumented": "56bc7484e381eb925aca768d184620a07caf1d9ade92e3a240d05a38173b1b9f"
+    },
+    "lib/src/search.dart": {
+      "production": "b1230b1630af1630ea0e435c67bb4c83500e95abb9fd65eb31957bd3de174162",
+      "instrumented": "b1230b1630af1630ea0e435c67bb4c83500e95abb9fd65eb31957bd3de174162"
+    },
+    "lib/src/api.dart": {
+      "production": "15139f9be6f906e68d52860cffecd08e192774ef71da0e6482478a0894de9a16",
+      "instrumented": "15139f9be6f906e68d52860cffecd08e192774ef71da0e6482478a0894de9a16"
+    }
+  },
+  "instrumentation_note": "shadow-only integration_test/flutter_driver SDK devdependencies and test target; plugin registrant and generated build settings intentionally differ"
+}

@@ -1,0 +1,643 @@
+--- reference/src/App.tsx
++++ fullweb/src/App.tsx
+@@ -9,19 +9,12 @@
+ import { RealEstateLoanRulePage } from './features/news/newslist/RealEstateLoanRulePage';
+ import SearchPage from './features/search/SearchPage';
+ import { PortfolioPage } from './features/portfolio/PortfolioPage';
+-import { LeaguePage } from './features/league/LeaguePage';
+-import { InvestorProfilePage } from './features/league/InvestorProfilePage';
+-import { PublicationSettingsPage } from './features/league/PublicationSettingsPage';
+-import { LeagueProfilePage } from './features/league/LeagueProfilePage';
+-import { SharedPortfolioPage } from './features/league/SharedPortfolioPage';
+-import { FollowingPage } from './features/league/FollowingPage';
+-import { InvestmentReviewsPage } from './features/league/InvestmentReviewsPage';
++import { InvestmentCalendarPage } from './features/investment-calendar/InvestmentCalendarPage';
+ import { MyPage } from './features/account/MyPage';
+ import { trackPageView } from './analytics';
+ import { AuthProvider } from './auth/AuthProvider';
+ import { safeReturnPath } from './auth/returnPath';
+ import { ServiceHeader } from './features/navigation/ServiceHeader';
+-import { LeagueNavigation } from './features/league/LeagueNavigation';
+ import { Footer } from './components/Footer';
+ import { useAuth } from './hooks/useLoginStatus';
+ import { AdminNewsFormPage } from './features/admin/AdminNewsFormPage';
+@@ -57,7 +50,7 @@
+     location.pathname.startsWith('/news') ||
+     location.pathname.startsWith('/search') ||
+     location.pathname.startsWith('/portfolio') ||
+-    location.pathname.startsWith('/league') ||
++    location.pathname.startsWith('/investment-calendar') ||
+     location.pathname === '/mypage' ||
+     location.pathname.startsWith('/stocks/') ||
+     location.pathname.startsWith('/people') ||
+@@ -197,7 +190,7 @@
+     () => hasStartedService() || loadGuestPortfolioHoldings().length > 0,
+   );
+   const directServiceVisit =
+-    /^\/(?:news|league|stocks|people|search|portfolio|mypage|finance)(?:\/|$)/.test(
++    /^\/(?:news|stocks|people|search|portfolio|mypage|finance)(?:\/|$)/.test(
+       location.pathname,
+     );
+   const awaitingWelcome = location.pathname === '/' && !hasStarted && !isLoggedIn;
+@@ -223,7 +216,6 @@
+       <PostLoginRedirect />
+       <div className="app-shell">
+         {!awaitingWelcome && <AppHeader />}
+-        <LeagueNavigation />
+         <div className="app-content">
+           <Routes>
+             <Route
+@@ -240,54 +232,8 @@
+             />
+ 
+             <Route path="/portfolio" element={<Navigate to="/" replace />} />
+-            <Route path="/investment-calendar" element={<Navigate to="/news" replace />} />
+-            <Route
+-              path="/portfolio/records"
+-              element={<Navigate to="/league/portfolio" replace />}
+-            />
+-            <Route path="/league" element={<LeaguePage />} />
+-            <Route
+-              path="/league/profile"
+-              element={
+-                <AuthenticatedRoute>
+-                  <LeagueProfilePage />
+-                </AuthenticatedRoute>
+-              }
+-            />
+-            <Route
+-              path="/league/portfolio"
+-              element={
+-                <AuthenticatedRoute>
+-                  <SharedPortfolioPage />
+-                </AuthenticatedRoute>
+-              }
+-            />
+-            <Route
+-              path="/portfolio/publication"
+-              element={
+-                <AuthenticatedRoute>
+-                  <PublicationSettingsPage />
+-                </AuthenticatedRoute>
+-              }
+-            />
+-            <Route
+-              path="/league/following"
+-              element={
+-                <AuthenticatedRoute>
+-                  <FollowingPage />
+-                </AuthenticatedRoute>
+-              }
+-            />
+-            <Route
+-              path="/league/reviews"
+-              element={
+-                <AuthenticatedRoute>
+-                  <InvestmentReviewsPage />
+-                </AuthenticatedRoute>
+-              }
+-            />
+-            <Route path="/league/:publicId" element={<InvestorProfilePage />} />
+-            <Route path="/membership" element={<Navigate to="/league" replace />} />
++            <Route path="/investment-calendar" element={<InvestmentCalendarPage />} />
++            <Route path="/portfolio/records" element={<Navigate to="/" replace />} />
+             <Route
+               path="/mypage"
+               element={
+--- reference/src/features/account/MyPage.tsx
++++ fullweb/src/features/account/MyPage.tsx
+@@ -110,28 +110,14 @@
+ 
+   const links = [
+     { to: '/', title: '내 포트폴리오', description: '입력한 원본 자산과 평가금액 확인' },
+-    {
+-      to: '/league/profile',
+-      title: '리그 프로필',
+-      description: '리그 참여와 공개 프로필',
+-    },
+-    {
+-      to: '/league/following',
+-      title: '팔로우한 투자자',
+-      description: '이번 주 수익률과 복기 확인',
+-    },
+-    {
+-      to: '/portfolio/publication',
+-      title: '리그 설정',
+-      description: '공개 범위 · 프로필 · 순위 참여',
+-    },
++
+   ];
+ 
+   return (
+     <main className="mypage">
+       <header className="mypage-heading">
+         <h1>마이페이지</h1>
+-        <p>내 계정과 공유 설정을 한곳에서 관리하세요.</p>
++        <p>내 계정을 한곳에서 관리하세요.</p>
+       </header>
+       <div className="mypage-content">
+         <section className="mypage-account" aria-labelledby="mypage-account-title">
+@@ -241,13 +227,13 @@
+           )}
+           {nicknameNotice ? <p role="status">{nicknameNotice}</p> : null}
+           <p className="mypage-note">
+-            닉네임은 리그에서도 사용하며, 프로필 공개에 동의하면 다른 사용자에게 표시됩니다.
++            닉네임은 회원 계정에 저장됩니다.
+           </p>
+         </section>
+         <div className="mypage-side">
+           <section aria-labelledby="mypage-activity-title">
+-            <h2 id="mypage-activity-title">활동 및 리그</h2>
+-            <nav aria-label="활동 및 리그">
++            <h2 id="mypage-activity-title">내 활동</h2>
++            <nav aria-label="내 활동">
+               {links.map((link) => (
+                 <Link key={link.to} to={link.to}>
+                   <strong>{link.title}</strong>
+--- reference/src/features/admin/AdminStockSyncPage.tsx
++++ fullweb/src/features/admin/AdminStockSyncPage.tsx
+@@ -2,7 +2,6 @@
+ import { ApiError } from '../../api/client';
+ import {
+   backfillAdminStockPrices,
+-  recalculateAdminLeague,
+   syncAdminStockPrices,
+   syncAdminStocks,
+   syncAdminUsStocks,
+@@ -10,13 +9,12 @@
+ } from './api';
+ import type {
+   AdminStockPriceBackfillResponse,
+-  AdminLeagueRecalculationResponse,
+   AdminStockPriceSyncResponse,
+   AdminStockSyncResponse,
+ } from './types';
+ import './admin.css';
+ 
+-type SyncTask = 'stocks' | 'prices' | 'backfill' | 'league' | 'us-stocks' | 'us-prices';
++type SyncTask = 'stocks' | 'prices' | 'backfill' | 'us-stocks' | 'us-prices';
+ 
+ function getErrorMessage(error: unknown, fallback: string) {
+   return error instanceof ApiError || error instanceof Error ? error.message : fallback;
+@@ -44,9 +42,7 @@
+   const [backfillResult, setBackfillResult] = useState<AdminStockPriceBackfillResponse | null>(
+     null,
+   );
+-  const [leagueResult, setLeagueResult] = useState<AdminLeagueRecalculationResponse | null>(null);
+   const [backfillError, setBackfillError] = useState<string | null>(null);
+-  const [leagueError, setLeagueError] = useState<string | null>(null);
+ 
+   async function handleBackfill(event: FormEvent) {
+     event.preventDefault();
+@@ -58,20 +54,6 @@
+       setBackfillResult(await backfillAdminStockPrices(from, to));
+     } catch (error) {
+       setBackfillError(getErrorMessage(error, '기간별 종가 재수집에 실패했습니다.'));
+-    } finally {
+-      setRunningTask(null);
+-    }
+-  }
+-
+-  async function handleLeagueRecalculation() {
+-    if (runningTask !== null) return;
+-    setRunningTask('league');
+-    setLeagueError(null);
+-    setLeagueResult(null);
+-    try {
+-      setLeagueResult(await recalculateAdminLeague());
+-    } catch (error) {
+-      setLeagueError(getErrorMessage(error, '리그 재집계에 실패했습니다.'));
+     } finally {
+       setRunningTask(null);
+     }
+@@ -396,7 +378,7 @@
+             <h2 id="stock-backfill-title">기간별 종가 재수집</h2>
+             <p>
+               이미 수집한 날짜도 다시 확인합니다. 시작일과 종료일을 포함해 최대 31일을 선택하세요.
+-              저장된 종가로 리그 성과도 다시 계산합니다.
++              저장된 종가는 포트폴리오 평가에 사용됩니다.
+             </p>
+           </div>
+           <form
+@@ -478,40 +460,7 @@
+           ) : null}
+         </section>
+ 
+-        <section className="admin-sync-card" aria-labelledby="league-recalculate-title">
+-          <div>
+-            <p className="admin-panel-eyebrow">성과 복구</p>
+-            <h2 id="league-recalculate-title">리그 성과 재집계</h2>
+-            <p>
+-              저장된 종가와 보유 이력으로 전체 기간의 일간 성과와 주간 순위를 다시 계산합니다. 빠진
+-              종가는 먼저 수집해 주세요.
+-            </p>
+-          </div>
+-          <button
+-            type="button"
+-            className="admin-primary-button"
+-            disabled={runningTask !== null}
+-            onClick={handleLeagueRecalculation}
+-          >
+-            {runningTask === 'league' ? '재집계 중…' : '리그 성과 재집계'}
+-          </button>
+-          {leagueResult ? (
+-            <div className="admin-sync-result" role="status">
+-              <strong>리그 재집계 실행 완료</strong>
+-              <p>일간 기록 {leagueResult.calculatedCount.toLocaleString('ko-KR')}건 처리</p>
+-              <p>
+-                종가·보유 기록이 부족한 날짜는 집계 대기로 남습니다. 주간 확정 여부는 리그 화면에서
+-                확인하세요.
+-              </p>
+-            </div>
+-          ) : null}
+-          {leagueError ? (
+-            <div className="admin-alert" role="alert">
+-              <strong>{leagueError}</strong>
+-              <p>일부 참가자의 결과는 저장됐을 수 있습니다. 다시 실행하면 재확인합니다.</p>
+-            </div>
+-          ) : null}
+-        </section>
++
+       </div>
+     </main>
+   );
+--- reference/src/features/admin/api.ts
++++ fullweb/src/features/admin/api.ts
+@@ -17,7 +17,6 @@
+   AdminStockPriceSyncResponse,
+   AdminStockSyncResponse,
+   AdminStockPriceBackfillResponse,
+-  AdminLeagueRecalculationResponse,
+ } from './types';
+ 
+ const DEFAULT_PAGE_SIZE = 15;
+@@ -370,15 +369,3 @@
+   );
+ }
+ 
+-export async function recalculateAdminLeague() {
+-  const response = await requestWithCsrf<unknown>('/api/admin/league/recalculate', {
+-    method: 'POST',
+-  });
+-  return assertResponse(
+-    response,
+-    (value): value is AdminLeagueRecalculationResponse =>
+-      isRecord(value) &&
+-      Number.isSafeInteger(value.calculatedCount) &&
+-      Number(value.calculatedCount) >= 0,
+-  );
+-}
+--- reference/src/features/landing/LandingPage.tsx
++++ fullweb/src/features/landing/LandingPage.tsx
+@@ -11,14 +11,13 @@
+   '거래 기록',
+   '오늘의 소식',
+   '통합 검색',
+-  '리그 준비 중',
++  '투자 캘린더',
+   '투자 기록',
+   '시장 분석',
+ ];
+ const menuItems = [
+   { label: '내 포트폴리오', href: '#portfolio' },
+   { label: '소식', href: '#news' },
+-  { label: '리그', href: '#league' },
+   { label: '이용 안내', href: '#guide' },
+   { label: 'DAYNOMY 시작하기', href: '/' },
+ ];
+@@ -213,7 +212,7 @@
+             </h1>
+             <p className="hero-subtitle">
+               내 포트폴리오를 살펴보고, 오늘의 소식을 읽고,
+-              <br className="wide-only" /> 앞으로 열릴 투자 리그까지 만나보세요.
++              <br className="wide-only" /> 투자 일정까지 확인해 보세요.
+             </p>
+             <div className="cta-row">
+               <a className="primary-cta" href="/" onClick={handleStart}>
+@@ -313,7 +312,7 @@
+           <ol className="service-flow" aria-label="서비스 소개 순서" role="list">
+             <li>01 내 포트폴리오</li>
+             <li>02 소식</li>
+-            <li>03 리그 준비 중</li>
++            <li>03 투자 캘린더</li>
+           </ol>
+         </section>
+ 
+@@ -369,33 +368,6 @@
+           </div>
+         </section>
+ 
+-        <section
+-          className="feature-section league-story"
+-          id="league"
+-          aria-labelledby="league-title"
+-        >
+-          <div className="feature-inner">
+-            <div className="feature-copy">
+-              <span className="feature-number">03 / 리그</span>
+-              <h2 id="league-title">
+-                나의 투자 기록이,
+-                <br />
+-                <span>다른 생각과 만날 때.</span>
+-              </h2>
+-              <p>
+-                투자자의 성과와 기록을 함께 보며 생각을 나눌 수 있는 리그를 준비하고 있어요. 보유
+-                이유와 투자 판단이 쌓이는 공간을 기대해 주세요.
+-              </p>
+-              <Link className="feature-link" to="/league">
+-                리그 준비 화면 보기 <LandingIcon name="ArrowUpRight" size={18} />
+-              </Link>
+-            </div>
+-            <div className="feature-visual">
+-              <ProductMockup device="iphone" screen="league" />
+-            </div>
+-          </div>
+-        </section>
+-
+         <section className="usage-guide" id="guide" aria-labelledby="guide-title">
+           <div>
+             <span className="story-kicker">시작하기 전에</span>
+@@ -434,17 +406,7 @@
+               <p>
+                 로그인 없이 소식과 임시 포트폴리오를 이용할 수 있어요. 비회원의 보유 정보와 거래
+                 기록은 현재 브라우저 탭에 임시 보관됩니다. 기록을 계정에 저장하려면 로그인이
+-                필요해요. 리그는 현재 준비 중입니다.
+-              </p>
+-            </details>
+-            <details>
+-              <summary>
+-                리그는 언제 이용할 수 있나요?
+-                <LandingIcon name="ChevronDown" size={18} />
+-              </summary>
+-              <p>
+-                현재 운영 서비스에서는 리그를 준비 중입니다. 공개 일정과 이용 방법은 서비스의 리그
+-                화면에서 안내할 예정이에요.
++                필요해요.
+               </p>
+             </details>
+             <details>
+--- reference/src/features/landing/ProductMockup.tsx
++++ fullweb/src/features/landing/ProductMockup.tsx
+@@ -7,9 +7,9 @@
+   screen,
+ }: {
+   device: 'iphone' | 'macbook';
+-  screen: 'portfolio' | 'news' | 'league';
++  screen: 'portfolio' | 'news';
+ }) {
+-  const labels = { portfolio: '내 포트폴리오', news: '소식', league: '주간 리그' };
++  const labels = { portfolio: '내 포트폴리오', news: '소식' };
+   return (
+     <figure
+       className={`product-mockup ${device} mockup-${screen}`}
+@@ -37,7 +37,6 @@
+               <div className="mockup-service-tabs">
+                 <span className={screen === 'portfolio' ? 'active' : ''}>포트폴리오</span>
+                 <span className={screen === 'news' ? 'active' : ''}>소식</span>
+-                <span className={screen === 'league' ? 'active' : ''}>투자 리그</span>
+               </div>
+             </div>
+             <div className="mockup-viewport">
+@@ -201,66 +200,7 @@
+                     </section>
+                   </>
+                 )}
+-                {screen === 'league' && (
+-                  <>
+-                    <div className="service-league-heading">
+-                      <h3>주간 리그</h3>
+-                      <b>투자리그 참여하기</b>
+-                    </div>
+-                    <div className="service-league-controls">
+-                      <span>이번 주　⌄</span>
+-                      <small>10.12 – 10.16</small>
+-                    </div>
+-                    <div className="service-league-notice">
+-                      거래일 종가를 기준으로 수익률을 비교해요.
+-                    </div>
+-                    <div className="service-section-title service-ranking-title">
+-                      <b>주간 순위</b>
+-                      <span>3명 · 주간 수익률순</span>
+-                    </div>
+-                    {[
+-                      { name: '꾸준한 하루', rate: '+8.40%' },
+-                      { name: '시장을 읽는 사람', rate: '+6.20%' },
+-                      { name: '내일의 투자자', rate: '+4.70%' },
+-                    ].map((investor, i) => (
+-                      <div
+-                        className={`service-rank mockup-reveal delay-${['one', 'two', 'three'][i]}`}
+-                        key={investor.name}
+-                      >
+-                        <b>{i + 1}</b>
+-                        <i>
+-                          <LandingIcon name="UserRound" size={17} />
+-                        </i>
+-                        <div>
+-                          <b>{investor.name}</b>
+-                          <small>투자 기록 보기 →</small>
+-                        </div>
+-                        <strong>
+-                          {investor.rate}
+-                          <small>주간 수익률</small>
+-                        </strong>
+-                      </div>
+-                    ))}
+-                    <div className="service-record mockup-reveal delay-three">
+-                      <div className="service-section-title">
+-                        <b>투자 기록</b>
+-                        <span>보유 이유</span>
+-                      </div>
+-                      <h4>삼성전자</h4>
+-                      <p>
+-                        실적의 변화와 산업의 흐름을 살펴보며
+-                        <br />
+-                        나의 투자 판단을 기록했어요.
+-                      </p>
+-                      <span>판단과 복기를 함께 살펴보세요.</span>
+-                    </div>
+-                    <div className="service-pagination">
+-                      <span>‹</span>
+-                      <b>1</b>
+-                      <span>›</span>
+-                    </div>
+-                  </>
+-                )}
++
+               </div>
+             </div>
+           </div>
+@@ -273,9 +213,7 @@
+         </div>
+       )}
+       <figcaption>
+-        {screen === 'league'
+-          ? '개발 중인 리그 디자인을 반영한 소개용 화면입니다.'
+-          : 'DAYNOMY 디자인을 반영한 소개용 화면입니다.'}{' '}
++        DAYNOMY 디자인을 반영한 소개용 화면입니다.{' '}
+         데이터는 예시입니다.
+       </figcaption>
+     </figure>
+--- reference/src/features/navigation/ServiceHeader.tsx
++++ fullweb/src/features/navigation/ServiceHeader.tsx
+@@ -56,10 +56,10 @@
+         location.pathname.startsWith('/people'),
+     },
+     {
+-      label: '투자 리그',
+-      to: '/league',
++      label: '투자 캘린더',
++      to: '/investment-calendar',
+       active:
+-        location.pathname.startsWith('/league') || location.pathname.startsWith('/portfolio/'),
++        location.pathname.startsWith('/investment-calendar'),
+     },
+   ];
+ 
+--- reference/src/features/pages/components/InfoPage.tsx
++++ fullweb/src/features/pages/components/InfoPage.tsx
+@@ -52,7 +52,7 @@
+       {
+         title: '제2조 서비스 이용',
+         paragraphs: [
+-          '일반 이용자는 로그인 없이 공개 소식·통합 검색과 임시 포트폴리오·거래 기록을 이용하고 AI 분석을 1회 체험할 수 있습니다. 계정에 연결한 기록 저장, 자산 추이와 회원 분석 조회·갱신은 로그인 후 이용합니다. 공개 투자 리그와 프로필은 로그인 없이 조회할 수 있으며, 리그 참여·종목 관리·판단·복기 작성·팔로우는 로그인 후 이용합니다.',
++          '일반 이용자는 로그인 없이 공개 소식·통합 검색과 임시 포트폴리오·거래 기록을 이용하고 AI 분석을 1회 체험할 수 있습니다. 계정에 연결한 기록 저장, 자산 추이와 회원 분석 조회·갱신은 로그인 후 이용합니다. 이 WebView 버전에서 투자 리그는 제공하지 않습니다.',
+           '서비스를 이용하는 과정에서 관계 법령과 서비스 화면의 안내를 따라야 하며, 다른 이용자나 서비스의 정상적인 이용을 방해해서는 안 됩니다.',
+         ],
+       },
+--- reference/src/features/portfolio/components/PortfolioTransactionEditor.tsx
++++ fullweb/src/features/portfolio/components/PortfolioTransactionEditor.tsx
+@@ -1,4 +1,5 @@
+ import { useEffect, useId, useRef, useState } from 'react';
++import { useWebViewForeground } from '../../../hooks/useWebViewForeground';
+ import { tourStock } from './portfolioTourExample';
+ import { getLatestStockPrice, searchStocks, getUsdKrwRate } from '../../stocks/api';
+ import { trackPortfolioEvent } from '../analytics';
+@@ -34,6 +35,7 @@
+   onDelete,
+   onSave,
+ }: Props) {
++  const foreground = useWebViewForeground();
+   const formRef = useRef<HTMLFormElement>(null);
+   const errorId = useId();
+   const [selected, setSelected] = useState<StockSearchItem | PortfolioHoldingHistory | null>(
+@@ -69,7 +71,7 @@
+   const [saving, setSaving] = useState(false);
+   const [error, setError] = useState('');
+   useEffect(() => {
+-    if (demoStep !== undefined) return;
++    if (demoStep !== undefined || !foreground) return;
+     if (selected || !keyword.trim()) {
+       setResults([]);
+       setSearchLoading(false);
+@@ -99,9 +101,9 @@
+       window.clearTimeout(timer);
+       controller.abort();
+     };
+-  }, [keyword, selected, searchRetry, demoStep, country]);
++  }, [keyword, selected, searchRetry, demoStep, country, foreground]);
+   useEffect(() => {
+-    if (demoStep !== undefined) return;
++    if (demoStep !== undefined || !foreground) return;
+     if (transaction || !selected) {
+       setPriceLoading(false);
+       setPriceError('');
+@@ -129,9 +131,9 @@
+         if (!controller.signal.aborted) setPriceLoading(false);
+       });
+     return () => controller.abort();
+-  }, [selected, transaction, demoStep]);
++  }, [selected, transaction, demoStep, foreground]);
+   useEffect(() => {
+-    if (demoStep !== undefined || currency !== 'USD' || !selected) return;
++    if (demoStep !== undefined || !foreground || currency !== 'USD' || !selected) return;
+     if (transaction && fields.tradeDate === transaction.effectiveDate) {
+       setRateLoading(false);
+       setRateError('');
+@@ -159,7 +161,7 @@
+         if (!controller.signal.aborted) setRateLoading(false);
+       });
+     return () => controller.abort();
+-  }, [selected, currency, fields.tradeDate, transaction, demoStep]);
++  }, [selected, currency, fields.tradeDate, transaction, demoStep, foreground]);
+   const invalid = getTransactionValidationError(fields, currency);
+   const invalidField = error === invalid?.message ? invalid?.field : undefined;
+   const filteredResults = results.filter(
+--- reference/src/main.tsx
++++ fullweb/src/main.tsx
+@@ -2,6 +2,7 @@
+ import { StrictMode } from 'react';
+ import { createRoot } from 'react-dom/client';
+ import './index.css';
++import './webview.css';
+ import App from './App.tsx';
+ import { initSentry } from './monitoring/sentry.ts';
+ 
+--- reference/index.html
++++ fullweb/index.html
+@@ -3,7 +3,7 @@
+   <head>
+     <meta charset="UTF-8" />
+     <link rel="icon" type="image/svg+xml" href="/daynomy-mark.svg" />
+-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
++    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+     <title>DAYNOMY</title>
+   </head>
+   <body>
+--- reference/vite.config.ts
++++ fullweb/vite.config.ts
+@@ -1,46 +1,16 @@
+-import { sentryVitePlugin } from '@sentry/vite-plugin';
+ import react from '@vitejs/plugin-react';
+ import { defineConfig } from 'vite';
+ 
+-const sentryBuildConfigured = [
+-  process.env.SENTRY_AUTH_TOKEN,
+-  process.env.SENTRY_ORG,
+-  process.env.SENTRY_PROJECT,
+-  process.env.SENTRY_RELEASE,
+-].every(Boolean);
+-
+-// https://vite.dev/config/
++// Local, same-origin verification: never load the reference project's env or upload sourcemaps.
+ export default defineConfig({
+-  envPrefix: ['VITE_', 'SENTRY_DSN', 'SENTRY_ENVIRONMENT', 'GA_MEASUREMENT_ID'],
++  envDir: false,
++  envPrefix: 'DAYNOMY_FULLWEB_UNCONFIGURED_',
+   server: {
+-    proxy: {
+-      '/api': {
+-        target: 'http://localhost:8080',
+-        changeOrigin: true,
+-      },
+-      '/oauth2': {
+-        target: 'http://localhost:8080',
+-        changeOrigin: true,
+-      },
+-      '/login/oauth2': {
+-        target: 'http://localhost:8080',
+-        changeOrigin: true,
+-      },
+-    },
++    host: '127.0.0.1',
++    port: 18082,
++    strictPort: true,
++    proxy: Object.fromEntries(['/api', '/oauth2', '/login/oauth2'].map(path => [path, { target: 'http://127.0.0.1:18081', changeOrigin: false }])),
+   },
+-  build: {
+-    sourcemap: sentryBuildConfigured ? 'hidden' : false,
+-  },
+-  plugins: [
+-    react(),
+-    sentryBuildConfigured &&
+-      sentryVitePlugin({
+-        authToken: process.env.SENTRY_AUTH_TOKEN,
+-        org: process.env.SENTRY_ORG,
+-        project: process.env.SENTRY_PROJECT,
+-        release: { name: process.env.SENTRY_RELEASE },
+-        sourcemaps: { filesToDeleteAfterUpload: './dist/**/*.map' },
+-        telemetry: false,
+-      }),
+-  ],
++  build: { sourcemap: false },
++  plugins: [react()],
+ });

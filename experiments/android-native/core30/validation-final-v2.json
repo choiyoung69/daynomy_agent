@@ -1,0 +1,82 @@
+{
+  "at": "2026-10-28T10:09:25.948529+00:00",
+  "role": "independent-validator, distinct from test author and implementer",
+  "verdict": "APPROVED_SCOPED_CORE",
+  "not_full_android_parity": true,
+  "tests": {
+    "jvm": 105,
+    "actual_rust_http_disposable_db": 13,
+    "android13_emulator_compose": 11,
+    "total": 129,
+    "failures": 0,
+    "skipped": 0,
+    "preserved_previous_tests": 106
+  },
+  "gates": {
+    "independent_authored_tests": true,
+    "initial_actual_red": 15,
+    "additional_actual_regression_red": 2,
+    "frozen_source_and_tests_during_final_runs": true,
+    "sdk_build": true,
+    "lint": "0 errors,10 warnings",
+    "additional_ui_actual_regression_red": 1
+  },
+  "evidence": [
+    "validation-red.json",
+    "validation-safety-red.json",
+    "validation-green-final.json",
+    "validation-backend.json",
+    "validation-device-final.json",
+    "validation-isolation-red.json",
+    "validation-device-final-v2.json"
+  ],
+  "review_fixes": [
+    "One-shot write bodies prevent OkHttp HTTP503 Retry-After0 implicit replay",
+    "Account roles limited to original USER/ADMIN enum",
+    "CSRF cache checks matching live cookie",
+    "Logout clears stale loading/search/drafts and blocks old epoch responses",
+    "Unknown mutation state centrally blocks further writes; empty UI only after successful load",
+    "New login start advances epoch, clears transport session, profile/portfolio/history/evaluation/performance/cache state and trade drafts, invalidates old search/read results"
+  ],
+  "test_author_corrections": [
+    "JUnit4 test return type changed to Unit, assertions unchanged",
+    "Backend calculate fixture uses valid holding rather than empty invalid input",
+    "Device stock fixture uses existing stocks envelope rather than raw array; assertions unchanged",
+    "Account isolation fixture calculates MockWebServer URL outside main thread to avoid reverse-DNS NetworkOnMainThreadException; assertions unchanged"
+  ],
+  "source_status": {
+    "core_changed_since_green": [],
+    "app_changed_since_device_run": [],
+    "backend_snapshot_changed": [],
+    "current_backend_differs_from_tested_snapshot": []
+  },
+  "backend_auth_bounds": "Synthetic DB-issued 60-second one-use PKCE code with real Rust exchange/cookies/CSRF/DB. Does not exercise Google OAuth provider or real account/browser-to-app login.",
+  "device_bounds": "New Compose tests verify profile/nickname/logout and unknown trade outcome/non-replay against MockWebServer, separately from host Rust HTTP tests. No combined real-Rust logged-in Android-device journey.",
+  "known_unverified": [
+    "Full original service parity, calendar/AI/content/search beyond existing increment",
+    "Actual Google browser login and callback exchange on physical device",
+    "Full portfolio edit/delete/holding adjustment/performance/calculation UI journeys",
+    "Raw JSON portfolio adapters are not comprehensive original DTO validators",
+    "Original frontend rejects zero saved average, while Rust rounds valid tiny trade price to zero; existing compatibility policy gap preserved",
+    "GET503 Retry-After0 may be retried by OkHttp; writes are one-shot and independently verified",
+    "Initial two UI tests lacked preimplementation red; additional account isolation UI regression was executed red before its fix"
+  ],
+  "apk_sha256": "a62a8fb1a972c2bb7bfd62c9ddcab2aa3573181ec4ed9996e28c1c9733c65083",
+  "supersedes_for_current_app": "validation-final.json (preserved approval limited to earlier source)",
+  "app_source_sha256": {
+    "clients/android/app/src/main/AndroidManifest.xml": "15d1f309e79353b7189e202cdd8f6f95612c02380265a493e6ae90ce5769c447",
+    "clients/android/app/src/debug/AndroidManifest.xml": "28a0d65f750bf61b6583f56dc5cfb35b5e0fd4be5187a323d2b56131d1898993",
+    "clients/android/app/src/debug/res/xml/debug_network_security.xml": "bc63aed497e2445f12ae17077918847224ec3399ecc979b22b685fa5af3c8472",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/MainActivity.kt": "5900e69312186b317a2eb2df9b24c47d54c5af24df81f4bccf13a63c4de206e0",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/DiscoveryViewModel.kt": "dea62fa52cd4459332be0eb354a18c52e26c7dc4cedf81d2facf20d9629f1eec",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/CoreViewModel.kt": "19a604287e4c20968884151c9e0175a866ad6f39c6bf67944e642f04aed6d1f5",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/DiscoveryScreens.kt": "2af788dfd7ecbb0cc6dd4d4f46c8a949bcc97c46f36f057a278656f892688b75",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/CoreScreens.kt": "78251ed93f4dba7e4558c75939b48ae56d82123b058b30ed10032cdd228a2db1",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/MarketViewModel.kt": "8717506128596a148f22b4ba3b3ce6b945b6a63f8396fbe46a306b3aebbe9d31",
+    "clients/android/app/src/main/res/values/styles.xml": "b2be39a301bb36472ac6dddb20f1ad96f1029f7b2cdf208629ef21d63372621c",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/DiscoveryScreenAcceptanceTest.kt": "509c429bbc137ee9a11f6cbcf46296377580563a57d7f562c45d6cca4cb8c717",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/Android30CoreScreenTest.kt": "fb850630b272d24796bb2cde0c44843590021c893fc553ce5c9684ab739543c9",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/MarketScreenAcceptanceTest.kt": "5d8ee4b87f74e201217ce2c9aa0512df622533916622d2c05187e5e9fa9bdb5b",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/Android30AccountIsolationTest.kt": "ab9be67140a90a8df770b6bcbd858362b8d587585aabef1ee76bde2a478a4cc8"
+  }
+}

@@ -1,0 +1,71 @@
+TAP version 13
+# Subtest: full WebView HTTP contract against independent fixture
+    # Subtest: known routes GET and HEAD return SPA only for HTML navigation
+    ok 1 - known routes GET and HEAD return SPA only for HTML navigation
+      ---
+      duration_ms: 161.687916
+      type: 'test'
+      ...
+    # Subtest: static MIME and missing paths never return SPA
+    ok 2 - static MIME and missing paths never return SPA
+      ---
+      duration_ms: 13.957
+      type: 'test'
+      ...
+    # Subtest: dangerous raw request paths are denied and never reach upstream
+    ok 3 - dangerous raw request paths are denied and never reach upstream
+      ---
+      duration_ms: 16.138125
+      type: 'test'
+      ...
+    # Subtest: real mutating JSON requests preserve bytes CSRF cookies method and query
+    ok 4 - real mutating JSON requests preserve bytes CSRF cookies method and query
+      ---
+      duration_ms: 19.610791
+      type: 'test'
+      ...
+    # Subtest: upstream statuses body and separate Set-Cookie survive
+    ok 5 - upstream statuses body and separate Set-Cookie survive
+      ---
+      duration_ms: 12.92775
+      type: 'test'
+      ...
+    # Subtest: OAuth redirect is relayed without follow and without dropping cookies
+    ok 6 - OAuth redirect is relayed without follow and without dropping cookies
+      ---
+      duration_ms: 2.9865
+      type: 'test'
+      ...
+    # Subtest: server logs exclude synthetic body CSRF and cookie values
+    ok 7 - server logs exclude synthetic body CSRF and cookie values
+      ---
+      duration_ms: 0.283625
+      type: 'test'
+      ...
+    # Subtest: upstream unavailable is 502
+    ok 8 - upstream unavailable is 502
+      ---
+      duration_ms: 2.312125
+      type: 'test'
+      ...
+    1..8
+ok 1 - full WebView HTTP contract against independent fixture
+  ---
+  duration_ms: 395.118708
+  type: 'test'
+  ...
+# Subtest: nonloopback or credentialed upstream configuration is rejected
+ok 2 - nonloopback or credentialed upstream configuration is rejected
+  ---
+  duration_ms: 642.221
+  type: 'test'
+  ...
+1..2
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2085.700959

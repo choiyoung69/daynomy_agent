@@ -1,0 +1,26 @@
+{
+  "role": "independent-validation",
+  "at": "2026-10-28T09:42:59.294771+00:00",
+  "state": "audit-only; awaiting exclusive Gradle/ADB slot",
+  "source_sha256": {
+    "spec/service.md": "31fed07c550f6bccfa5cd80114c6db56f3bd6489dcfe28eee49893bfc72ad11a",
+    "spec/flutter/native-auth.md": "24c871bed39dff656b924c761ebd788ccd2111c543826e70c2063b469cdef054",
+    "app/src/service_auth.rs": "ca50065e928882961f8cd932c404e61aee6bc38df0ab9637f52cfc0e3cd331f7",
+    "app/src/service_portfolio.rs": "c29b84dde9472aba85b1778949032e9790abbfcd166d3ced4f27920392428b67",
+    "reference/2026-DAYNOMY-dev/frontend/src/api/client.ts": "f2284ccc24c4394d02f3ae4db3e5c2a55af0754c066a5a254203d6e33dfca59e",
+    "reference/2026-DAYNOMY-dev/frontend/src/features/pages/api.ts": "41fc8b2904338c7c49095bbd21a521efe7f15237b6af98e6fd293af528d56745",
+    "reference/2026-DAYNOMY-dev/frontend/src/features/portfolio/api.ts": "8b499b25dd06d1bcd28b8fcf317c60f91d8e8d9c1168a7a44cc3e887d277b528"
+  },
+  "findings": [
+    "Native exchange is CSRF-exempt, empty 204, cookies required; callback exact scheme/host/path/state + PKCE",
+    "Concurrent 401 must share refresh; session clearing must reject late response cookie/cache writes",
+    "histories returns array; historyId identifies transactions; transaction holding may be null on complete sale",
+    "Nickname max20 UTF-16 units; member name missing/null is compatible",
+    "Money JSON numbers preserved as decimals, field-specific scale; no automatic mutation retry on uncertain delivery"
+  ],
+  "bounds": [
+    "No runtime checks yet",
+    "Synthetic code exchange does not prove Google OIDC or real account login",
+    "Backend may change in other chats; source hashes must be rechecked before conclusions"
+  ]
+}

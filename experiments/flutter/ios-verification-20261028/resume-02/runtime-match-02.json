@@ -1,0 +1,34 @@
+{
+  "appletvos27.0" : {
+    "chosenRuntimeBuild" : "24J360",
+    "defaultBuild" : "24J360",
+    "platform" : "com.apple.platform.appletvos",
+    "sdkBuild" : "24J360",
+    "sdkDirectory" : "\/Applications\/Xcode.app\/Contents\/Developer\/Platforms\/AppleTVOS.platform\/Developer\/SDKs\/AppleTVOS27.0.sdk",
+    "sdkVersion" : "27.0"
+  },
+  "iphoneos27.1" : {
+    "chosenRuntimeBuild" : "24A94232",
+    "defaultBuild" : "24A94232",
+    "platform" : "com.apple.platform.iphoneos",
+    "sdkBuild" : "24A94232",
+    "sdkDirectory" : "\/Applications\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS27.1.sdk",
+    "sdkVersion" : "27.1"
+  },
+  "watchos27.0" : {
+    "chosenRuntimeBuild" : "24R360",
+    "defaultBuild" : "24R360",
+    "platform" : "com.apple.platform.watchos",
+    "sdkBuild" : "24R360",
+    "sdkDirectory" : "\/Applications\/Xcode.app\/Contents\/Developer\/Platforms\/WatchOS.platform\/Developer\/SDKs\/WatchOS27.0.sdk",
+    "sdkVersion" : "27.0"
+  },
+  "xros27.0" : {
+    "chosenRuntimeBuild" : "24M361",
+    "defaultBuild" : "24M361",
+    "platform" : "com.apple.platform.xros",
+    "sdkBuild" : "24M361",
+    "sdkDirectory" : "\/Applications\/Xcode.app\/Contents\/Developer\/Platforms\/XROS.platform\/Developer\/SDKs\/XROS.sdk",
+    "sdkVersion" : "27.0"
+  }
+}

@@ -1,0 +1,22 @@
+TAP version 13
+# Subtest: real web HTTP serves ESM and proxies same-origin API query, cookies and errors
+ok 1 - real web HTTP serves ESM and proxies same-origin API query, cookies and errors
+  ---
+  duration_ms: 133.155875
+  type: 'test'
+  ...
+# Subtest: actual Chromium DOM search → select → price → exact manual deletion, filters and lifecycle
+ok 2 - actual Chromium DOM search → select → price → exact manual deletion, filters and lifecycle
+  ---
+  duration_ms: 2028.649417
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2267.14375

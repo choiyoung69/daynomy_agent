@@ -1,0 +1,43 @@
+{
+  "scope": "API tests executed against independent blank implementation snapshot",
+  "outcome": "expected-red",
+  "command_exit_code": 1,
+  "finished_at": "2026-10-28T08:18:52.626518+00:00",
+  "suites": [
+    {
+      "suite": "org.daynomy.market.StockSearchClientContractTest",
+      "tests": 10,
+      "failures": 10,
+      "errors": 0,
+      "failure_types": [
+        "java.lang.AssertionError",
+        "kotlin.NotImplementedError"
+      ]
+    },
+    {
+      "suite": "org.daynomy.market.StockPriceClientContractTest",
+      "tests": 10,
+      "failures": 10,
+      "errors": 0,
+      "failure_types": [
+        "java.lang.AssertionError",
+        "kotlin.NotImplementedError"
+      ]
+    }
+  ],
+  "criteria": {
+    "scope": "API criteria v1, before feature implementation",
+    "source_paths": {
+      "clients/android/market-core/src/test/kotlin/org/daynomy/market/ContractFixtures.kt": "d9449c31b426a61cbb3afd1afef33577c733845c93f9c76496f0dc40fee59ab3",
+      "clients/android/market-core/src/test/kotlin/org/daynomy/market/StockPriceClientContractTest.kt": "1d568f1a3a654baa847beb5fc409bf0d3c2b2d916318a753472cabe833525093",
+      "clients/android/market-core/src/test/kotlin/org/daynomy/market/StockSearchClientContractTest.kt": "fb3205972876f584cef4d43ba86d2ae16ae9a27feece05daef7edb20628e2566"
+    }
+  },
+  "snapshot_source_hashes": {
+    "market-core/src/main/kotlin/org/daynomy/market/StockPriceClient.kt": "4917a3a2a62dc435cfd91039350672508da31daa3b088ad69cb8dca917c018e5",
+    "market-core/src/main/kotlin/org/daynomy/market/StockSearchClient.kt": "12df1fb66c00365dc8ac0464a3e0845b2510630105162cf014fe9138d256f355",
+    "market-core/src/main/kotlin/org/daynomy/market/MarketController.kt": "c7b5cb7add2611b8fffb8b002007126eca2401f0a33a09217cb2f603c1641ef2",
+    "market-core/src/main/kotlin/org/daynomy/market/Models.kt": "673fc14e087949567ed3aff8b2a61b3a360061cb77bd3a5755f22f8687b61a50",
+    "market-core/src/main/kotlin/org/daynomy/market/OkHttpTransport.kt": "4dd34adb1ccbcd3a285da9d995c65f90428c97972e584fcb32ca7a564adc3ffc"
+  }
+}

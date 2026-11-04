@@ -122,3 +122,22 @@ cargo run --locked --manifest-path app/Cargo.toml -- --job portfolio-snapshots
 
 ZIP은 [공식 문서](https://docs.rs/zip/9.0.5/zip/)에 따라 필요한 DEFLATE 기능만 사용한다.
 의존성 버전은 `Cargo.lock`에 고정한다.
+
+## Flutter 네이티브 로그인 확장
+
+`migrations/004_mobile_auth_codes.sql`을 기존 마이그레이션 이후 적용한다.
+기존 Google/OIDC·JWT·쿠키 설정을 그대로 사용하며 새 Google 자격 증명 종류를 만들지 않는다.
+`OAUTH_REDIRECT_URI`는 기존 서버의 `/login/oauth2/code/google`이고, 모바일 성공/실패는
+서명된 OAuth state를 확인한 뒤 고정 `org.daynomy.app://auth/callback`으로 전달한다.
+요청의 임의 redirect 주소는 사용하지 않는다. 웹 성공/실패 redirect 설정과 기존 웹 흐름은 유지한다.
+
+- `GET /api/auth/mobile/start?code_challenge=...&state=...`: S256 challenge·앱 state 검증 후 외부 Google 인증.
+- `POST /api/auth/mobile/exchange`: JSON `{code, codeVerifier}`를 검증해 기존 쿠키 세션을 발급하는 204 응답.
+
+DB에는 코드 원문/검증자를 저장하지 않고 SHA-256 해시·회원·challenge·60초 만료만 저장한다.
+PKCE·ACTIVE 회원 확인과 단일 코드 소비·refresh 해시 저장은 한 트랜잭션이다. 잘못된 verifier는
+유효한 코드를 소비하지 않으며 동시 교환은 한 요청만 성공한다. CSRF 예외는 exchange 경로만이다.
+모든 인증 응답에 `Cache-Control: no-store`를 적용한다.
+
+실 Google·디바이스 인증과 로컬 서명 OIDC fixture의 HTTP/DB 검사를 구분한다.
+Flutter 실행법과 플랫폼별 제약은 [사용자 앱 안내](../clients/flutter/README.md)를 본다.

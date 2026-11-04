@@ -306,23 +306,30 @@
     "android": {
       "title": "Android 네이티브",
       "document": "wiki/platforms/android.md",
-      "selected_versions": null,
+      "selected_versions": {
+        "android-min": "26 (pilot)",
+        "android-compile-target": "35",
+        "kotlin": "2.1.20",
+        "compose": "BOM 2025.04.01 / compiler plugin 2.1.20",
+        "agp": "8.9.2",
+        "gradle": "8.11.1",
+        "jdk": "21.0.12",
+        "http": "OkHttp 4.12.0",
+        "json": "kotlinx.serialization 1.8.1"
+      },
       "source_ids": [
         "E12",
         "E17"
       ],
       "topics": {
-        "language-data": "partial",
+        "language-data": "documented",
         "state-lifecycle": "documented",
-        "requests-cancellation": "partial",
-        "build-validation": "pending"
+        "requests-cancellation": "documented",
+        "build-validation": "documented"
       },
       "extra_required_topics": [],
-      "pending_decisions": [
-        "지원 Android·Kotlin·Compose 버전과 HTTP·JSON 라이브러리 선택",
-        "숫자·날짜 디코딩과 화면 재생성 후 입력값 유지 정책"
-      ],
-      "runtime_verification": "not-run",
+      "pending_decisions": [],
+      "runtime_verification": "bootstrap-apk-only; feature and device checks pending",
       "required_version_fields": [
         "android-min",
         "kotlin",
@@ -331,7 +338,16 @@
       "language_packages": [
         "kotlin"
       ],
-      "implementation_package": "android-kotlin"
+      "implementation_package": "android-kotlin",
+      "approved_features": [
+        "stock-search-price",
+        "news",
+        "stocks-exchange",
+        "auth-session",
+        "account",
+        "portfolio-ledger",
+        "portfolio-calculation"
+      ]
     },
     "ios": {
       "title": "iOS 네이티브",
@@ -429,26 +445,29 @@
     "webview": {
       "title": "WebView",
       "document": "wiki/platforms/webview.md",
-      "selected_versions": null,
+      "selected_versions": {
+        "android-min": "26 (stock-search-price pilot)",
+        "android-compile-target": "35",
+        "ios-min": "15.0 (source target; Xcode unavailable locally)",
+        "web-bundle": "Original locked React 19 / Vite 8 / TypeScript 6.0.2 / Node 22.23.1; same-origin dist server",
+        "android-build": "AGP 8.9.2 / Gradle 8.11.1 / JDK21; existing isolated tools"
+      },
       "source_ids": [
         "E04",
         "E11"
       ],
       "topics": {
-        "language-data": "partial",
-        "state-lifecycle": "partial",
-        "requests-cancellation": "partial",
-        "build-validation": "pending",
-        "host-integration": "partial"
+        "language-data": "documented",
+        "state-lifecycle": "documented",
+        "requests-cancellation": "documented",
+        "build-validation": "documented",
+        "host-integration": "documented"
       },
       "extra_required_topics": [
         "host-integration"
       ],
-      "pending_decisions": [
-        "Android/iOS 호스트 범위·버전과 웹 제공 URL·방식 선택",
-        "쿠키·로그인 복귀·탐색·입력 보존 정책와 빌드·검사 명령"
-      ],
-      "runtime_verification": "not-run",
+      "pending_decisions": [],
+      "runtime_verification": "Earlier stock-search-price core verified; full nonleague UI extension authorized, implementation/verification in progress; iOS runtime unavailable",
       "required_version_fields": [
         "android-min",
         "ios-min",
@@ -459,7 +478,23 @@
         "kotlin",
         "swift"
       ],
-      "implementation_package": "webview"
+      "implementation_package": "webview",
+      "approved_features": [
+        "stock-search-price",
+        "auth-session",
+        "account",
+        "stocks-exchange",
+        "portfolio-calculation",
+        "portfolio-ledger",
+        "portfolio-analysis",
+        "investment-calendar",
+        "news",
+        "content-search",
+        "content-people",
+        "feedback",
+        "administration",
+        "sync-jobs"
+      ]
     }
   },
   "languages": {

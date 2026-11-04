@@ -1,0 +1,12 @@
+{
+  "source": "reference/2026-DAYNOMY-dev/frontend/src/App.tsx",
+  "scope": "Full nonleague WebView UI; F14 email notification and deployment excluded",
+  "serverSpaExamples": ["/", "/welcome", "/portfolio", "/portfolio/records", "/investment-calendar", "/mypage", "/news", "/news/today", "/news/contents", "/news/real-estate-loan-rule", "/news/42", "/search?q=fixture", "/finance/calculator", "/stocks", "/stocks/42", "/stocks/42/card-preview", "/people", "/login", "/signup", "/about", "/terms", "/privacy", "/standard", "/admin", "/admin/news", "/admin/news/new", "/admin/news/42/edit", "/admin/feedbacks", "/admin/stocks", "/admin/stock-contents", "/admin/people"],
+  "public": ["/", "/welcome", "/portfolio", "/news", "/news/today", "/news/contents", "/news/:newsId", "/search", "/stocks/:assetId", "/people", "/login", "/about", "/terms", "/privacy", "/standard"],
+  "protected": ["/mypage"],
+  "admin": ["/admin", "/admin/news", "/admin/news/new", "/admin/news/:newsId/edit", "/admin/feedbacks", "/admin/stocks", "/admin/stock-contents", "/admin/people"],
+  "excludedOriginalRoutes": ["/league", "/league/profile", "/league/portfolio", "/league/following", "/league/reviews", "/league/:publicId", "/portfolio/publication", "/membership"],
+  "changedOriginalRedirect": {"/portfolio/records": "Original redirects to /league/portfolio; new client must expose its nonleague guest ledger or an explicit unsupported state, never an active league workflow"},
+  "requiredCapabilities": ["guest and member portfolio holdings CRUD", "transactions ledger", "portfolio calculation and analysis", "investment calendar embedded in news", "news detail and list", "cross-content search", "people and posts", "stock content", "session refresh and logout", "account nickname and withdrawal", "CSRF feedback submission", "admin news CRUD", "admin people and stock content", "admin feedback", "admin stock synchronization", "service information"],
+  "gateExpectations": {"guestMypage": "login returnTo=/mypage", "guestAdmin": "login with same-origin returnTo", "userAdmin": "administrator required; no privileged data request", "admin": "server authorization still required"}
+}

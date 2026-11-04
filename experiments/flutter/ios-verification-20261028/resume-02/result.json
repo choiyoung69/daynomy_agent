@@ -1,0 +1,20 @@
+{
+  "status": "running_simulator_verification",
+  "time": "2026-10-28T10:25:17.887711+00:00",
+  "xcode_version": "27.1",
+  "xcode_build": "27A9275",
+  "sdk_and_simctl_exit": 69,
+  "source_unchanged_since_prior": true,
+  "ios_compilation_reached": true,
+  "simulator_created": true,
+  "license_auto_accepted": false,
+  "developer_directory_global_changed": false,
+  "ios_build_exit": 0,
+  "build_log": "ios-build-03.log",
+  "device_udid": "5352DDB4-AE3F-43E5-A7FC-C477BBAB3228",
+  "runtime": "iOS27.1",
+  "runtime_available": true,
+  "install_completed": true,
+  "launch_process_seen": true,
+  "first_frame_confirmed": false
+}

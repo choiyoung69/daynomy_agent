@@ -1,0 +1,201 @@
+{
+  "created_at": "2026-10-28T09:14:35.390579+00:00",
+  "role": "independent verification recovery; implementation and frozen tests untouched",
+  "status": "core_web_android_verified_ios_blocked",
+  "scope": "Stock search → latest stored close → exact manual unit-price string, synthetic local Rust/DB; Android13 WebView109 and desktop Chrome156",
+  "inherited_independent_checks": [
+    {
+      "name": "web-unit",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "exit_code": 0,
+      "seconds": 1.03
+    },
+    {
+      "name": "host-policy",
+      "command": [
+        "node",
+        "--test",
+        "clients/webview/tests/host-policy.test.mjs"
+      ],
+      "exit_code": 0,
+      "seconds": 24.14
+    },
+    {
+      "name": "http-browser",
+      "command": [
+        "node",
+        "--test",
+        "clients/webview/tests/http-browser.test.mjs"
+      ],
+      "exit_code": 0,
+      "seconds": 1.78
+    }
+  ],
+  "inherited_test_counts": {
+    "web_contracts": 29,
+    "host_kotlin_swift_policy": 2,
+    "http_and_real_chromium_dom": 2
+  },
+  "inherited_apk_build": {
+    "command": [
+      "/Users/seoyeong/develop/AI/daynomy_agent/.local/android-tools/gradle-8.11.1/bin/gradle",
+      "-p",
+      "clients/webview/android",
+      "--offline",
+      "--no-daemon",
+      ":app:assembleDebug"
+    ],
+    "exit_code": 0,
+    "seconds": 5.57
+  },
+  "recovery_commands": [
+    {
+      "command": "python3 scripts/check.py preflight",
+      "exit_code": 0,
+      "log": "recovery/preflight.log"
+    },
+    {
+      "command": "env ANDROID_AVD_HOME=/Users/seoyeong/develop/AI/daynomy_agent/.local/android-avd ANDROID_USER_HOME=/Users/seoyeong/develop/AI/daynomy_agent/.local/android-user /Users/seoyeong/Library/Android/sdk/emulator/emulator -avd Daynomy_Pilot -port 5564 -no-window -no-audio -gpu swiftshader_indirect -no-snapshot-save",
+      "exit_code": null,
+      "session_id": 59346,
+      "status": "running; root cleanup owner",
+      "log": "recovery/emulator.log"
+    },
+    {
+      "command": "node experiments/webview/verification/recovery/retry-attempt1.mjs desktop",
+      "exit_code": 1,
+      "log": "recovery/desktop-retry-attempt1.log",
+      "reason": "Diagnostic selected Chrome extension background target via pages[0]; not a product failure."
+    },
+    {
+      "command": "node experiments/webview/verification/recovery/retry.mjs desktop",
+      "exit_code": 0,
+      "log": "recovery/desktop-retry.log"
+    },
+    {
+      "command": "/Users/seoyeong/Library/Android/sdk/platform-tools/adb -s emulator-5564 forward tcp:9225 localabstract:webview_devtools_remote_4305",
+      "exit_code": 0
+    },
+    {
+      "command": "node experiments/webview/verification/recovery/retry.mjs android",
+      "exit_code": 0,
+      "log": "recovery/android-retry.log"
+    }
+  ],
+  "retry": {
+    "desktop": {
+      "mode": "desktop",
+      "initial": {
+        "status": "최근 종가를 불러오지 못했습니다. 거래 단가를 직접 입력해 주세요.",
+        "retry": true,
+        "date": "조회 전"
+      },
+      "explicitRetryClicked": true,
+      "requestsBefore": 1,
+      "requestsAfter": 2,
+      "priceResponses": [
+        {
+          "requestId": "22269.9",
+          "status": 404
+        },
+        {
+          "requestId": "22269.10",
+          "status": 404
+        }
+      ],
+      "settledAfterRetry": {
+        "error": true,
+        "retry": true,
+        "date": "조회 전"
+      }
+    },
+    "android": {
+      "mode": "android",
+      "initial": {
+        "status": "최근 종가를 불러오지 못했습니다. 거래 단가를 직접 입력해 주세요.",
+        "retry": true,
+        "date": "조회 전"
+      },
+      "explicitRetryClicked": true,
+      "requestsBefore": 1,
+      "requestsAfter": 2,
+      "priceResponses": [
+        {
+          "requestId": "4340.15",
+          "status": 404
+        },
+        {
+          "requestId": "4340.16",
+          "status": 404
+        }
+      ],
+      "settledAfterRetry": {
+        "error": true,
+        "retry": true,
+        "date": "조회 전"
+      }
+    }
+  },
+  "integrity": "recovery/integrity.json",
+  "served_dist": "recovery/served-dist.json",
+  "incidents": [
+    "Previous verifier stopped with Selected model is at capacity; previous work preserved, this is a distinct fresh verifier.",
+    "Original shared emulator and Rust fixture stopped before supplemental run; previous ECONNREFUSED evidence preserved; root restarted disposable DB/Rust18091, this verifier rebooted same AVD5564 without wipe.",
+    "Recovery desktop attempt1 targeted Chrome extension; failed evidence preserved; recovery-only diagnostic now filters type page."
+  ],
+  "limitations": [
+    "iOS Xcode app build/device/WKWebView runtime blocked; syntax, plist/project lint and pure Swift policy only.",
+    "Android API26 minimum-version execution, physical device, renderer-process termination recovery, full process-death persistence not verified.",
+    "TalkBack/VoiceOver and comprehensive release HTTPS deployment/TLS behavior not verified.",
+    "External HTTPS dispatch reached Chrome FirstRun only, not external destination rendering.",
+    "Synthetic cookie retention is not login/auth/session verification.",
+    "Invalid repeated-header Android full-page quote screenshot excluded; landscape capture only lower viewport, retention evidenced by JSON.",
+    "No transaction save, login, OAuth, full service or production/deployment approval."
+  ],
+  "device_restoration": {
+    "emulator": "emulator-5564",
+    "user_rotation": "0",
+    "accelerometer_rotation": "1",
+    "mInputShown": false,
+    "foreground": "com.daynomy.webview/.MainActivity",
+    "web_state": {
+      "value": "71000.125",
+      "date": "2026-10-23",
+      "cookiesEmpty": true
+    },
+    "settings_changed_by_recovery": false
+  },
+  "root_cleanup_sessions": {
+    "emulator": 59346,
+    "preview": 29094,
+    "rust_fixture": 13254
+  },
+  "evidence_sha256": {
+    "experiments/webview/verification/android-runtime.json": "03b680ee083458382e7232ecf5296a9413ce95e417bf96017c7bc8b1465bf852",
+    "experiments/webview/verification/desktop-runtime.json": "3bce889939f980ce42b71274fab518040f8902af55be86cc9c5ede28f50a8948",
+    "experiments/webview/verification/recovery/android-restored.json": "e7ac314772e213421ddde52e765b5766972a11f9f590d3b7d5523b459b95ea91",
+    "experiments/webview/verification/recovery/android-retry.json": "06644c19c0eb50b63627680ef84efe1bc0c6f45c5e755b917c2ccee508351786",
+    "experiments/webview/verification/recovery/android-retry.log": "c8f1ce48b9e6b112e6076edc6af09a374f17476958bb3c570327c61de63c8dfa",
+    "experiments/webview/verification/recovery/android-settled-retry.png": "b0cc579023fae4c003f4a073a2c5a290657f82db63a60c8b311fcf06046b95a6",
+    "experiments/webview/verification/recovery/desktop-restored.json": "e7ac314772e213421ddde52e765b5766972a11f9f590d3b7d5523b459b95ea91",
+    "experiments/webview/verification/recovery/desktop-retry-attempt1.log": "89d5267887fd877705786a4f4129cef11ae0540bcc92e941e5e3a2ca77c643d3",
+    "experiments/webview/verification/recovery/desktop-retry.json": "8b054ffe7ee8e636994ed6d4e4dc1b940be99a8edce84c84bf1cba0aa785651b",
+    "experiments/webview/verification/recovery/desktop-retry.log": "f548dae2a2295d8ef9dd15676663469804f385bd65b31f0de0dde8412181cc1c",
+    "experiments/webview/verification/recovery/desktop-settled-retry.png": "be08a351756ec16f0bf6a783de57aa88ab3cd69403be93d32841b4e840aca68c",
+    "experiments/webview/verification/recovery/device-restoration.json": "50a30781dce3d8ca55e9658aa9a62a913b39f4226ca1068d6a52351ba70a21a3",
+    "experiments/webview/verification/recovery/integrity.json": "ed03a9aad8dff0df0a155de829681d8915d59d2ef86d6d6c15ac1758a4a26414",
+    "experiments/webview/verification/recovery/preflight.log": "68ee4899183ce0d1963bb819fc448d70709acc3030a2c2f14f6537a4a2de4740",
+    "experiments/webview/verification/recovery/retry-attempt1.mjs": "08bbfcdcdfb8e94929f82b29b7116fedb33d0a2977b9364dc3399d43d8e4a8fe",
+    "experiments/webview/verification/recovery/retry.mjs": "076a547a58ff0e2b4579831b26c48f988d77af04e8e8d1fbd27229e09278e7a8",
+    "experiments/webview/verification/recovery/served-dist.json": "d3af6cd1584fde51f65b82605eeaf6200e74814e61eebf96c5befcc06f9aa694",
+    "experiments/webview/verification/round02-android-build.json": "4a18db5f7e97e241c28836c7d1961311df4c1d9f0bb902014a1f0b74bfa1eabe",
+    "experiments/webview/verification/round02-android-host.json": "22edb3b288629ff32458986945352bf90f7ae87e81591c98b4b8abd176fb8165",
+    "experiments/webview/verification/round02-host-policy.log": "75fc3babf832043c89d713185eaf11bfbbf500802abc01187c6cadc26f735c72",
+    "experiments/webview/verification/round02-http-browser.log": "2c85dd5b0b548865f62041c1d583c6505821f18b58fbf98513271d8e38d3853c",
+    "experiments/webview/verification/round02-suite-results.json": "b7a7ea14cad4a5191e3016542fb57ada292cff8414823cea28e03c6dbd853412",
+    "experiments/webview/verification/round02-web-unit.log": "d0b1acb1981e139ac9c43bc31c1abf06022e5d7beb6a5b52468caa8b0f3efd90"
+  }
+}

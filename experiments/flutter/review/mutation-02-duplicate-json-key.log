@@ -1,0 +1,62 @@
+00:00 +0: loading /Users/seoyeong/develop/AI/daynomy_agent/experiments/flutter/review/mutations-02/duplicate-json-key/test/exact_json_test.dart
+00:00 +0: JSON 원문 십진수 double로 손실되는 금액·소수·지수의 lexeme를 재귀 보존한다
+00:00 +1: JSON 원문 십진수 객체 key·unicode·null·boolean을 숫자로 오인하지 않는다
+00:00 +2: JSON 원문 십진수 malformed/ambiguous JSON 거절: {"x":01}
+00:00 +3: JSON 원문 십진수 malformed/ambiguous JSON 거절: {"x":NaN}
+00:00 +4: JSON 원문 십진수 malformed/ambiguous JSON 거절: {"x":Infinity}
+00:00 +5: JSON 원문 십진수 malformed/ambiguous JSON 거절: {"x":1,}
+00:00 +6: JSON 원문 십진수 malformed/ambiguous JSON 거절: {"x":1,"x":2}
+00:00 +6 -1: JSON 원문 십진수 malformed/ambiguous JSON 거절: {"x":1,"x":2} [E]
+  Expected: throws <Instance of 'FormatException'>
+    Actual: <Closure: () => Object?>
+     Which: returned {'x': ExactNumber:2}
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/exact_json_test.dart 26:9                      main.<fn>.<fn>
+  
+00:00 +6 -1: JSON 원문 십진수 malformed/ambiguous JSON 거절: [] trailing
+00:00 +7 -1: JSON 원문 십진수 malformed/ambiguous JSON 거절: {"x":1e400}
+00:00 +8 -1: JSON 원문 십진수 ExactNumber에 JSON injection 거절: NaN
+00:00 +9 -1: JSON 원문 십진수 ExactNumber에 JSON injection 거절: Infinity
+00:00 +10 -1: JSON 원문 십진수 ExactNumber에 JSON injection 거절: 1,2
+00:00 +11 -1: JSON 원문 십진수 ExactNumber에 JSON injection 거절: 1}
+00:00 +12 -1: JSON 원문 십진수 ExactNumber에 JSON injection 거절: 01
+00:00 +13 -1: JSON 원문 십진수 ExactNumber에 JSON injection 거절: 
+00:00 +14 -1: JSON 원문 십진수 ExactNumber에 JSON injection 거절: +1
+00:00 +15 -1: JSON 원문 십진수 쓰기도 숫자 JSON을 사용하고 금융값을 문자열로 바꾸지 않는다
+00:00 +16 -1: ID 안전성 최대 safe integer 허용
+00:00 +17 -1: ID 안전성 범위/타입 거절: 0
+00:00 +18 -1: ID 안전성 범위/타입 거절: -1
+00:00 +19 -1: ID 안전성 범위/타입 거절: 1.5
+00:00 +20 -1: ID 안전성 범위/타입 거절: true
+00:00 +21 -1: ID 안전성 범위/타입 거절: null
+00:00 +22 -1: ID 안전성 범위/타입 거절: 1
+00:00 +23 -1: ID 안전성 범위/타입 거절: 9007199254740993
+00:00 +24 -1: ID 안전성 범위/타입 거절: 1.25
+00:00 +25 -1: knowledge 고정 원본 decoder fixture P01: 정상 종가 API 응답
+00:00 +26 -1: knowledge 고정 원본 decoder fixture P02: 양의 최대 안전 정수 허용
+00:00 +27 -1: knowledge 고정 원본 decoder fixture P03: 안전 정수 밖 ID 거절
+00:00 +28 -1: knowledge 고정 원본 decoder fixture P04: 0 ID 거절
+00:00 +29 -1: knowledge 고정 원본 decoder fixture P05: 가격 문자열은 현행 숫자 JSON과 다름
+00:00 +30 -1: knowledge 고정 원본 decoder fixture P06: 0은 API 검사 통과, UI의 양수 검사는 별도
+00:00 +31 -1: knowledge 고정 원본 decoder fixture P07: 음수도 현행 API finite 검사 통과, UI 검사는 별도
+00:00 +32 -1: knowledge 고정 원본 decoder fixture P08: 현행 API는 달력 유효성 검사 없음
+00:00 +33 -1: knowledge 고정 원본 decoder fixture P09: 날짜 null 거절
+00:00 +34 -1: knowledge 고정 원본 decoder fixture P10: 날짜 필수
+00:00 +35 -1: knowledge 고정 원본 decoder fixture P11: 현행 API에서 currency 미검사
+00:00 +36 -1: knowledge 고정 원본 decoder fixture P12: 추가 필드 허용
+00:00 +37 -1: knowledge 고정 원본 decoder fixture P13: JS JSON 파싱 결과 Infinity를 finite 검사로 거절
+00:00 +38 -1: knowledge 고정 원본 decoder fixture S01: 정상 검색
+00:00 +39 -1: knowledge 고정 원본 decoder fixture S02: 빈 검색 결과
+00:00 +40 -1: knowledge 고정 원본 decoder fixture S03: category 허용값 검사
+00:00 +41 -1: knowledge 고정 원본 decoder fixture S04: market 허용값 검사
+00:00 +42 -1: knowledge 고정 원본 decoder fixture S05: 소수 ID 거절
+00:00 +43 -1: knowledge 고정 원본 decoder fixture S06: 검색 currency null도 현행 검증 미대상
+00:00 +44 -1: knowledge 고정 원본 decoder fixture S07: 배열 아닌 stocks 거절
+00:00 +45 -1: knowledge 고정 원본 decoder fixture S08: 응답 객체 형식 검사
+00:00 +46 -1: knowledge 고정 원본 decoder fixture 종가의 날짜 문자열·소수 원문·통화 fallback
+00:00 +47 -1: Some tests failed.
+
+Failing tests:
+  /Users/seoyeong/develop/AI/daynomy_agent/experiments/flutter/review/mutations-02/duplicate-json-key/test/exact_json_test.dart: JSON 원문 십진수 malformed/ambiguous JSON 거절: {"x":1,"x":2}

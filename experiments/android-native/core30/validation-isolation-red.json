@@ -1,0 +1,16 @@
+{
+  "at": "2026-10-28T10:07:25.863375+00:00",
+  "exit": 1,
+  "valid_red_gate": true,
+  "tests": 1,
+  "failures": 1,
+  "skipped": 0,
+  "reason": "Actual assertion: previous member must disappear but AccountProfile(A) remains after loginUrl",
+  "sha256": {
+    "clients/android/app/src/main/kotlin/org/daynomy/android/CoreViewModel.kt": "05c2c898c5d1be928d6b0e52863a29ff7d39144c6da8a6e8bacc11c22ec78475",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/Android30AccountIsolationTest.kt": "ab9be67140a90a8df770b6bcbd858362b8d587585aabef1ee76bde2a478a4cc8"
+  },
+  "xml": {
+    "clients/android/app/build/outputs/androidTest-results/connected/debug/TEST-Daynomy_Pilot(AVD) - 13-_app-.xml": "<?xml version='1.0' encoding='UTF-8' ?>\n<testsuite name=\"org.daynomy.android.Android30AccountIsolationTest\" tests=\"1\" failures=\"1\" errors=\"0\" skipped=\"0\" time=\"0.563\" timestamp=\"2026-10-28T10:07:17\" hostname=\"localhost\">\n  <properties>\n    <property name=\"device\" value=\"Daynomy_Pilot(AVD) - 13\" />\n    <property name=\"flavor\" value=\"\" />\n    <property name=\"project\" value=\":app\" />\n  </properties>\n  <testcase name=\"startingAnotherNativeLoginClearsPreviousAccountPortfolioAndDrafts\" classname=\"org.daynomy.android.Android30AccountIsolationTest\" time=\"0.089\">\n    <failure>java.lang.AssertionError: Previous member must disappear when another login starts expected null, but was:&lt;AccountProfile(id=7, email=account-a&#64;example.invalid, name=null, nickname=A회원, role=USER)&gt;\nat org.junit.Assert.fail(Assert.java:89)\nat org.junit.Assert.failNotNull(Assert.java:756)\nat org.junit.Assert.assertNull(Assert.java:738)\nat org.daynomy.android.Android30AccountIsolationTest.startingAnotherNativeLoginClearsPreviousAccountPortfolioAndDrafts$lambda$6$lambda$4(Android30AccountIsolationTest.kt:53)\nat org.daynomy.android.Android30AccountIsolationTest.$r8$lambda$qijtg1qw7cu8ENg0YuHS-Jr9Gpk(Unknown Source:0)\nat org.daynomy.android.Android30AccountIsolationTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)\nat org.daynomy.android.Android30AccountIsolationTest.startingAnotherNativeLoginClearsPreviousAccountPortfolioAndDrafts$main$lambda$0(Android30AccountIsolationTest.kt:23)\nat org.daynomy.android.Android30AccountIsolationTest.$r8$lambda$UMTHmBFOJX3lGcsNgfynnIFxOio(Unknown Source:0)\nat org.daynomy.android.Android30AccountIsolationTest$$ExternalSyntheticLambda0.run(D8$$SyntheticClass:0)\nat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:463)\nat java.util.concurrent.FutureTask.run(FutureTask.java:264)\nat android.app.Instrumentation$SyncRunnable.run(Instrumentation.java:2379)\nat android.os.Handler.handleCallback(Handler.java:942)\nat android.os.Handler.dispatchMessage(Handler.java:99)\nat android.os.Looper.loopOnce(Looper.java:201)\nat android.os.Looper.loop(Looper.java:288)\nat android.app.ActivityThread.main(ActivityThread.java:7924)\nat java.lang.reflect.Method.invoke(Native Method)\nat com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:548)\nat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:936)\n</failure>\n  </testcase>\n</testsuite>"
+  }
+}

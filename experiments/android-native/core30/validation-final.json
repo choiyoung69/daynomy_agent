@@ -1,0 +1,60 @@
+{
+  "at": "2026-10-28T10:03:29.690959+00:00",
+  "role": "independent-validator, distinct from test author and implementer",
+  "verdict": "APPROVED_SCOPED_CORE",
+  "not_full_android_parity": true,
+  "tests": {
+    "jvm": 105,
+    "actual_rust_http_disposable_db": 13,
+    "android13_emulator_compose": 10,
+    "total": 128,
+    "failures": 0,
+    "skipped": 0,
+    "preserved_previous_tests": 106
+  },
+  "gates": {
+    "independent_authored_tests": true,
+    "initial_actual_red": 15,
+    "additional_actual_regression_red": 2,
+    "frozen_source_and_tests_during_final_runs": true,
+    "sdk_build": true,
+    "lint": "0 errors,10 warnings"
+  },
+  "evidence": [
+    "validation-red.json",
+    "validation-safety-red.json",
+    "validation-green-final.json",
+    "validation-backend.json",
+    "validation-device-final.json"
+  ],
+  "review_fixes": [
+    "One-shot write bodies prevent OkHttp HTTP503 Retry-After0 implicit replay",
+    "Account roles limited to original USER/ADMIN enum",
+    "CSRF cache checks matching live cookie",
+    "Logout clears stale loading/search/drafts and blocks old epoch responses",
+    "Unknown mutation state centrally blocks further writes; empty UI only after successful load"
+  ],
+  "test_author_corrections": [
+    "JUnit4 test return type changed to Unit, assertions unchanged",
+    "Backend calculate fixture uses valid holding rather than empty invalid input",
+    "Device stock fixture uses existing stocks envelope rather than raw array; assertions unchanged"
+  ],
+  "source_status": {
+    "core_changed_since_green": [],
+    "app_changed_since_device_run": [],
+    "backend_snapshot_changed": [],
+    "current_backend_differs_from_tested_snapshot": []
+  },
+  "backend_auth_bounds": "Synthetic DB-issued 60-second one-use PKCE code with real Rust exchange/cookies/CSRF/DB. Does not exercise Google OAuth provider or real account/browser-to-app login.",
+  "device_bounds": "New Compose tests verify profile/nickname/logout and unknown trade outcome/non-replay against MockWebServer, separately from host Rust HTTP tests. No combined real-Rust logged-in Android-device journey.",
+  "known_unverified": [
+    "Full original service parity, calendar/AI/content/search beyond existing increment",
+    "Actual Google browser login and callback exchange on physical device",
+    "Full portfolio edit/delete/holding adjustment/performance/calculation UI journeys",
+    "Raw JSON portfolio adapters are not comprehensive original DTO validators",
+    "Original frontend rejects zero saved average, while Rust rounds valid tiny trade price to zero; existing compatibility policy gap preserved",
+    "GET503 Retry-After0 may be retried by OkHttp; writes are one-shot and independently verified",
+    "No UI-specific red run before root UI implementation; JVM protocol and regression red gates were run"
+  ],
+  "apk_sha256": "8717853a33c1f93a893bc84ebc9ccd64162b01eed4a79e454078b6bcffbe60d7"
+}

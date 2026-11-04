@@ -1,0 +1,6 @@
+{
+  "chrome_exit": null,
+  "devtools_port_created": true,
+  "wait_seconds": 0.84,
+  "scope": "environment-only about:blank; not application verification"
+}

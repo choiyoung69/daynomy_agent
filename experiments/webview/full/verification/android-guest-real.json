@@ -1,0 +1,11 @@
+{
+  "steps": [
+    "actual stock search and guest BUY saved",
+    "guest ledger reload persistence"
+  ],
+  "errors": [],
+  "ledgerShape": [
+    "openingHoldings",
+    "histories"
+  ]
+}

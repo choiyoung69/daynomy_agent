@@ -1,0 +1,26 @@
+{
+  "mode": "desktop",
+  "initial": {
+    "status": "최근 종가를 불러오지 못했습니다. 거래 단가를 직접 입력해 주세요.",
+    "retry": true,
+    "date": "조회 전"
+  },
+  "explicitRetryClicked": true,
+  "requestsBefore": 1,
+  "requestsAfter": 2,
+  "priceResponses": [
+    {
+      "requestId": "22269.9",
+      "status": 404
+    },
+    {
+      "requestId": "22269.10",
+      "status": 404
+    }
+  ],
+  "settledAfterRetry": {
+    "error": true,
+    "retry": true,
+    "date": "조회 전"
+  }
+}

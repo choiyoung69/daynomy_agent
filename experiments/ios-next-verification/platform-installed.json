@@ -1,0 +1,29 @@
+{
+  "checked_at": "2026-10-28T10:11:43.131585+00:00",
+  "developer_dir": "/Applications/Xcode.app/Contents/Developer",
+  "global_developer_dir_changed": false,
+  "results": [
+    {
+      "command": [
+        "xcodebuild",
+        "-version"
+      ],
+      "exit_code": 0,
+      "stdout": "Xcode 27.1\nBuild version 27A9275\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "list",
+        "runtimes"
+      ],
+      "exit_code": 69,
+      "stdout": "",
+      "stderr": "You have not agreed to the Xcode license agreements. Please run 'sudo xcodebuild -license' from within a Terminal window to review and agree to the Xcode and Apple SDKs license.\n"
+    }
+  ],
+  "license_agreed_by_agent": false,
+  "ios_build_executed": false
+}

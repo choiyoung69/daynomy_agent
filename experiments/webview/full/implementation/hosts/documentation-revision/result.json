@@ -1,0 +1,17 @@
+{
+  "recorded_at": "2026-10-28T09:58:04.298932+00:00",
+  "reason": "Independent source review requires distinguishing missing native external OAuth end-to-end implementation from merely pending verification. User-activated external HTTPS dispatch does not implement provider redirects, app callback/deep-link, PKCE, or cookie/session handoff.",
+  "scope": "documentation-only",
+  "changed_files": [
+    "clients/webview/FULL-HOSTS.md"
+  ],
+  "previous_manifest_preserved": "experiments/webview/full/implementation/hosts/source-hashes.json",
+  "previous_manifest_archive": "experiments/webview/full/implementation/hosts/documentation-revision/previous-source-hashes.json",
+  "previous_manifest_sha256": "eb1bf665881f7a0f621430ec12d1fdd646c3d66bf3611c9b101538c134905921",
+  "code_and_configuration_hashes_unchanged": 23,
+  "apk": "clients/webview/android-full/app/build/outputs/apk/debug/app-debug.apk",
+  "apk_sha256_before": "db7b753f460b20c1b63676b6b3b53728e28eb359678b416cb6832d2109c9c4e3",
+  "apk_sha256_after": "db7b753f460b20c1b63676b6b3b53728e28eb359678b416cb6832d2109c9c4e3",
+  "runtime_acceptance_status_changed": false,
+  "limitations": "DB shared-lock wait and current runtime non-passing status unchanged. No new build/runtime test performed for documentation-only change. iOS SDK/WK execution remain unverified."
+}

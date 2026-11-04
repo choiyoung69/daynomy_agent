@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "DAYNOMY",
+    "slug": "daynomy-react-native",
+    "version": "0.1.0",
+    "scheme": "org.daynomy.app",
+    "orientation": "default",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "bundleIdentifier": "org.daynomy.reactnative",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSAllowsLocalNetworking": true
+        }
+      }
+    },
+    "android": {
+      "package": "org.daynomy.reactnative",
+      "usesCleartextTraffic": true
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-web-browser",
+      "expo-status-bar"
+    ]
+  }
+}

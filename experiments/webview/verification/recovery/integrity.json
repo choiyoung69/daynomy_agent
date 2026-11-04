@@ -1,0 +1,356 @@
+{
+  "created_at": "2026-10-28T09:12:23.608034+00:00",
+  "frozen_manifest_sha256": "dd1a0fd772bbb142f58b2fd6dafb9df8711f6460fc85af2f216a3553c68a3fb9",
+  "frozen_files": {
+    "clients/webview/tests/NavigationPolicyTest.kt": {
+      "expected": "e603d17820257826e455231d040ee71333d7a3e5781e863818773ba5aa000ec1",
+      "actual": "e603d17820257826e455231d040ee71333d7a3e5781e863818773ba5aa000ec1",
+      "matches": true
+    },
+    "clients/webview/tests/host-policy.test.mjs": {
+      "expected": "194331d7aa78a4a5d7b10ee7f2dced25c8be9bbb1bf54e7dda10bec51d0a3a6b",
+      "actual": "194331d7aa78a4a5d7b10ee7f2dced25c8be9bbb1bf54e7dda10bec51d0a3a6b",
+      "matches": true
+    },
+    "clients/webview/tests/http-browser.test.mjs": {
+      "expected": "cfaae5cd954caf7cd36dc5fe13c9bd29e373adcb5ee00965e609c55afe1bebd4",
+      "actual": "cfaae5cd954caf7cd36dc5fe13c9bd29e373adcb5ee00965e609c55afe1bebd4",
+      "matches": true
+    },
+    "clients/webview/tests/main.swift": {
+      "expected": "beaed0f87bfc30204c1dfa8b8ee1371d201c3f5a2d335b0a96ef60598899140c",
+      "actual": "beaed0f87bfc30204c1dfa8b8ee1371d201c3f5a2d335b0a96ef60598899140c",
+      "matches": true
+    },
+    "clients/webview/tests/red/build.log": {
+      "expected": "7d31d146760f34825db3144eac2a8edc0e8c1eee0670210899e337d2c73fd7ab",
+      "actual": "7d31d146760f34825db3144eac2a8edc0e8c1eee0670210899e337d2c73fd7ab",
+      "matches": true
+    },
+    "clients/webview/tests/red/hosts.log": {
+      "expected": "50822158c5a9ee411fcc5a99cad86bfd180b845a1ec8d570c2fb1a0173328ab8",
+      "actual": "50822158c5a9ee411fcc5a99cad86bfd180b845a1ec8d570c2fb1a0173328ab8",
+      "matches": true
+    },
+    "clients/webview/tests/red/http-browser.log": {
+      "expected": "313be7f54c579528bcc89a9692b95a6cc528b78f8a8743dd7a6d748671cefb3e",
+      "actual": "313be7f54c579528bcc89a9692b95a6cc528b78f8a8743dd7a6d748671cefb3e",
+      "matches": true
+    },
+    "clients/webview/tests/red/market.log": {
+      "expected": "7fcdfbd0c135941536f375f18b502886398763ca286fe0b220397ea1e5311eb5",
+      "actual": "7fcdfbd0c135941536f375f18b502886398763ca286fe0b220397ea1e5311eb5",
+      "matches": true
+    },
+    "clients/webview/tests/red/results.json": {
+      "expected": "449612d4f28969215f38d4d10fffba7931bf1c0506fdac2f07d56726fa6da616",
+      "actual": "449612d4f28969215f38d4d10fffba7931bf1c0506fdac2f07d56726fa6da616",
+      "matches": true
+    },
+    "clients/webview/tests/red/syntax.log": {
+      "expected": "b0bc386a0ec1d376f9590a846135e9362dea8f8d5be094f908ba04f1e916a68a",
+      "actual": "b0bc386a0ec1d376f9590a846135e9362dea8f8d5be094f908ba04f1e916a68a",
+      "matches": true
+    },
+    "clients/webview/web/package.json": {
+      "expected": "2d45fb68495c222f9f98bca8ad6f9a6ae94defa602e107109413cbe0e7a41b3e",
+      "actual": "2d45fb68495c222f9f98bca8ad6f9a6ae94defa602e107109413cbe0e7a41b3e",
+      "matches": true
+    },
+    "clients/webview/web/tests/market.test.mjs": {
+      "expected": "f20c49c5f3ca3c6108a200f29cb4b528301cd16a31d1ea191f186592569c25a2",
+      "actual": "f20c49c5f3ca3c6108a200f29cb4b528301cd16a31d1ea191f186592569c25a2",
+      "matches": true
+    },
+    "clients/webview/web/tsconfig.json": {
+      "expected": "3ad42bad0840911f36fc5b25605acbb9a90079910f8b426dd5d1af8bf3ff21d5",
+      "actual": "3ad42bad0840911f36fc5b25605acbb9a90079910f8b426dd5d1af8bf3ff21d5",
+      "matches": true
+    }
+  },
+  "revision02_files": {
+    "clients/webview/web/src/app.ts": {
+      "expected": "a7917513b9dd86f2e61841820e0211bd26291e9e988ad788f70169153ef9155a",
+      "actual": "a7917513b9dd86f2e61841820e0211bd26291e9e988ad788f70169153ef9155a",
+      "matches": true
+    },
+    "clients/webview/web/src/market.ts": {
+      "expected": "833fa51d05bc4b20442bb632afe1a27a595430b54390aeb34a0976839ff0eb5d",
+      "actual": "833fa51d05bc4b20442bb632afe1a27a595430b54390aeb34a0976839ff0eb5d",
+      "matches": true
+    },
+    "clients/webview/web/index.html": {
+      "expected": "21e783edbb3c34ac9ab6feb0a86c25f121b6d7e63576ed4c7b96b02a12ea1249",
+      "actual": "21e783edbb3c34ac9ab6feb0a86c25f121b6d7e63576ed4c7b96b02a12ea1249",
+      "matches": true
+    },
+    "clients/webview/web/styles.css": {
+      "expected": "f9c29963921e3c90265ea8ef2c1f22cabde24de2c01588b7200b9f29590d94c9",
+      "actual": "f9c29963921e3c90265ea8ef2c1f22cabde24de2c01588b7200b9f29590d94c9",
+      "matches": true
+    },
+    "clients/webview/scripts/serve.mjs": {
+      "expected": "1707709f87976b543268cab869c500b3c5eb1a155f85d1eb101a898b27c2e8d2",
+      "actual": "1707709f87976b543268cab869c500b3c5eb1a155f85d1eb101a898b27c2e8d2",
+      "matches": true
+    },
+    "clients/webview/PRODUCT.md": {
+      "expected": "a16fdd4fad956d3133f4fa83231ab938816edd8ea507f197b53460f8506de3e1",
+      "actual": "a16fdd4fad956d3133f4fa83231ab938816edd8ea507f197b53460f8506de3e1",
+      "matches": true
+    },
+    "clients/webview/DESIGN.md": {
+      "expected": "c415585cd112f304e449c77f17c0f5c7f2d20605cd874671b4e00cc701faaa97",
+      "actual": "c415585cd112f304e449c77f17c0f5c7f2d20605cd874671b4e00cc701faaa97",
+      "matches": true
+    },
+    "clients/webview/.impeccable/design.json": {
+      "expected": "701ef6c7580ba4f86c32d885e8c5cd761b2458edb047e431cfc723fc4792d0ad",
+      "actual": "701ef6c7580ba4f86c32d885e8c5cd761b2458edb047e431cfc723fc4792d0ad",
+      "matches": true
+    },
+    "clients/webview/README.md": {
+      "expected": "b269624aedc2ff025f981032da3e62f18607d714c25793df5fc98abb119a1053",
+      "actual": "b269624aedc2ff025f981032da3e62f18607d714c25793df5fc98abb119a1053",
+      "matches": true
+    }
+  },
+  "host_files": {
+    "clients/webview/HOSTS.md": {
+      "expected": "6d2177b94acaf8dc582531cebe18ea46f43bcb204b4e7231ae4d124d487155fd",
+      "actual": "6d2177b94acaf8dc582531cebe18ea46f43bcb204b4e7231ae4d124d487155fd",
+      "matches": true
+    },
+    "clients/webview/android/.gitignore": {
+      "expected": "838655f2e91bf2cc39b78e25f41b3706543530eeaca3c710e323d9c7fa5619ca",
+      "actual": "838655f2e91bf2cc39b78e25f41b3706543530eeaca3c710e323d9c7fa5619ca",
+      "matches": true
+    },
+    "clients/webview/android/app/build.gradle.kts": {
+      "expected": "046907885a3404940ac0b18274afaf620273249c626ee1b5aa8fb53bdfb352e9",
+      "actual": "046907885a3404940ac0b18274afaf620273249c626ee1b5aa8fb53bdfb352e9",
+      "matches": true
+    },
+    "clients/webview/android/app/src/debug/res/xml/network_security_config.xml": {
+      "expected": "19c7e0ab73370aae0baf35129c820bd5ffc038015c95b1b2182ffee433836591",
+      "actual": "19c7e0ab73370aae0baf35129c820bd5ffc038015c95b1b2182ffee433836591",
+      "matches": true
+    },
+    "clients/webview/android/app/src/main/AndroidManifest.xml": {
+      "expected": "de8b22041d6bbe87dfcb2b600f4627702cdd733901f5a89c4ea2edc562435294",
+      "actual": "de8b22041d6bbe87dfcb2b600f4627702cdd733901f5a89c4ea2edc562435294",
+      "matches": true
+    },
+    "clients/webview/android/app/src/main/java/com/daynomy/webview/MainActivity.kt": {
+      "expected": "130f77020aca008c635bfc729cd4212e04a6b7017d6b9cf28db6b5fa06c68e66",
+      "actual": "130f77020aca008c635bfc729cd4212e04a6b7017d6b9cf28db6b5fa06c68e66",
+      "matches": true
+    },
+    "clients/webview/android/app/src/main/java/com/daynomy/webview/NavigationPolicy.kt": {
+      "expected": "b89810163c7b8217e94a01b3546e0d0b9a94a4bc0339a02ba7a5be75c4a235a5",
+      "actual": "b89810163c7b8217e94a01b3546e0d0b9a94a4bc0339a02ba7a5be75c4a235a5",
+      "matches": true
+    },
+    "clients/webview/android/app/src/main/res/xml/network_security_config.xml": {
+      "expected": "7bd91344689d618bf440dd803fef5d1c05dfbd1b12ea27379625b3388aee1846",
+      "actual": "7bd91344689d618bf440dd803fef5d1c05dfbd1b12ea27379625b3388aee1846",
+      "matches": true
+    },
+    "clients/webview/android/build.gradle.kts": {
+      "expected": "860b96347408b43b33080b3f4fc32c53e19101d552e570d304805187125e3f02",
+      "actual": "860b96347408b43b33080b3f4fc32c53e19101d552e570d304805187125e3f02",
+      "matches": true
+    },
+    "clients/webview/android/gradle/wrapper/gradle-wrapper.jar": {
+      "expected": "2db75c40782f5e8ba1fc278a5574bab070adccb2d21ca5a6e5ed840888448046",
+      "actual": "2db75c40782f5e8ba1fc278a5574bab070adccb2d21ca5a6e5ed840888448046",
+      "matches": true
+    },
+    "clients/webview/android/gradle/wrapper/gradle-wrapper.properties": {
+      "expected": "fe90ff0d9944879f591a8c37b6dbaf5046d1051ccbb6b26b22081692c321f432",
+      "actual": "fe90ff0d9944879f591a8c37b6dbaf5046d1051ccbb6b26b22081692c321f432",
+      "matches": true
+    },
+    "clients/webview/android/gradle.properties": {
+      "expected": "475969dc6db92d97a4ff483a3b77be04efdfc8b6af22350d9c5d642756b6aea9",
+      "actual": "475969dc6db92d97a4ff483a3b77be04efdfc8b6af22350d9c5d642756b6aea9",
+      "matches": true
+    },
+    "clients/webview/android/gradlew": {
+      "expected": "a3648413b47ef77af21d5ebc36c687c7d103aaef3e17f33de7d4f080a6f300a3",
+      "actual": "a3648413b47ef77af21d5ebc36c687c7d103aaef3e17f33de7d4f080a6f300a3",
+      "matches": true
+    },
+    "clients/webview/android/gradlew.bat": {
+      "expected": "57931b17dd228e5c24dac90e815d0bf82477e831a4618dfab4136f5446b42a9f",
+      "actual": "57931b17dd228e5c24dac90e815d0bf82477e831a4618dfab4136f5446b42a9f",
+      "matches": true
+    },
+    "clients/webview/android/settings.gradle.kts": {
+      "expected": "45acf819df20880370678a80399dadad9274190af13d971a661b4d19d064512d",
+      "actual": "45acf819df20880370678a80399dadad9274190af13d971a661b4d19d064512d",
+      "matches": true
+    },
+    "clients/webview/ios/DaynomyWebView/AppDelegate.swift": {
+      "expected": "2292471cdccede08e3d0ab381bb8fd1163c49c4a39411ddb35c7208033bf28c8",
+      "actual": "2292471cdccede08e3d0ab381bb8fd1163c49c4a39411ddb35c7208033bf28c8",
+      "matches": true
+    },
+    "clients/webview/ios/DaynomyWebView/Info-Debug.plist": {
+      "expected": "9abc8a426265fdf5c9daadc0f2e613d33a79fa44ed74368c7f07cc3e50bfc61a",
+      "actual": "9abc8a426265fdf5c9daadc0f2e613d33a79fa44ed74368c7f07cc3e50bfc61a",
+      "matches": true
+    },
+    "clients/webview/ios/DaynomyWebView/Info-Release.plist": {
+      "expected": "7e025366c47e606a7b4560e9897e295a0cb445d5c90c6211fc63c5d9236a6bac",
+      "actual": "7e025366c47e606a7b4560e9897e295a0cb445d5c90c6211fc63c5d9236a6bac",
+      "matches": true
+    },
+    "clients/webview/ios/DaynomyWebView/NavigationPolicy.swift": {
+      "expected": "c088c489e62fce376d829970039f83084e6f62c3b2f610511117c8859e38d18f",
+      "actual": "c088c489e62fce376d829970039f83084e6f62c3b2f610511117c8859e38d18f",
+      "matches": true
+    },
+    "clients/webview/ios/DaynomyWebView/WebViewController.swift": {
+      "expected": "ada3668c20efc5506046b17d248f24f268de746a4f26604f69b0dc7cd4e3ee95",
+      "actual": "ada3668c20efc5506046b17d248f24f268de746a4f26604f69b0dc7cd4e3ee95",
+      "matches": true
+    },
+    "clients/webview/ios/DaynomyWebView.xcodeproj/project.pbxproj": {
+      "expected": "b0fff5a3b318e35b4e99c7832ade770b76f49f063eeac984057661bee7a01dda",
+      "actual": "b0fff5a3b318e35b4e99c7832ade770b76f49f063eeac984057661bee7a01dda",
+      "matches": true
+    },
+    "clients/webview/ios/DaynomyWebView.xcodeproj/xcshareddata/xcschemes/DaynomyWebView.xcscheme": {
+      "expected": "5b0a5c80723705774c74172c5bf6180600be056e2c59a6c0097459b9e4ee323a",
+      "actual": "5b0a5c80723705774c74172c5bf6180600be056e2c59a6c0097459b9e4ee323a",
+      "matches": true
+    }
+  },
+  "kb_documents": {
+    "knowledge/wiki/projects/daynomy/stock-search-price.md": {
+      "expected": "706a51304f7404dd878a5fa809e5070104f5df914e3b4cfba703ce128131c7cf",
+      "actual": "706a51304f7404dd878a5fa809e5070104f5df914e3b4cfba703ce128131c7cf",
+      "matches": true
+    },
+    "knowledge/wiki/shared/client-porting-baseline.md": {
+      "expected": "ace191323dac9dc5c197d7159dca589822cc3c6a06d8e40dc45ad2257b24652f",
+      "actual": "ace191323dac9dc5c197d7159dca589822cc3c6a06d8e40dc45ad2257b24652f",
+      "matches": true
+    },
+    "knowledge/wiki/shared/error-retry-cancel.md": {
+      "expected": "0ed58c961e6f954cbfefe2b0f3e3935de3bf72cf99b68a656f3ce52753bedcb1",
+      "actual": "0ed58c961e6f954cbfefe2b0f3e3935de3bf72cf99b68a656f3ce52753bedcb1",
+      "matches": true
+    },
+    "knowledge/wiki/shared/data-semantics.md": {
+      "expected": "d180bff29e9217ff8e951f9be327f142abc65811d59761f646b96ebd91fab57b",
+      "actual": "d180bff29e9217ff8e951f9be327f142abc65811d59761f646b96ebd91fab57b",
+      "matches": true
+    },
+    "knowledge/wiki/shared/build-validation.md": {
+      "expected": "7944866a8f93bba0bde214db763cc47970a9d7056803b0e49eec733840376cae",
+      "actual": "7944866a8f93bba0bde214db763cc47970a9d7056803b0e49eec733840376cae",
+      "matches": true
+    },
+    "knowledge/wiki/shared/ui-state-navigation.md": {
+      "expected": "5f0ba960a826013154bead549da222e861c0b8ad6bb31daea1fd913f816b82ba",
+      "actual": "5f0ba960a826013154bead549da222e861c0b8ad6bb31daea1fd913f816b82ba",
+      "matches": true
+    },
+    "knowledge/wiki/shared/testing-migration.md": {
+      "expected": "7945e60fa3ddb4ff837d5371c16353f688a88e912e59157174087f63f9919f09",
+      "actual": "7945e60fa3ddb4ff837d5371c16353f688a88e912e59157174087f63f9919f09",
+      "matches": true
+    },
+    "knowledge/wiki/languages/typescript.md": {
+      "expected": "59e752b89022cf3d28eca99c826a846a81ad8caf4c7692ad295284ce8fcba6cf",
+      "actual": "59e752b89022cf3d28eca99c826a846a81ad8caf4c7692ad295284ce8fcba6cf",
+      "matches": true
+    },
+    "knowledge/wiki/languages/kotlin.md": {
+      "expected": "d3f0f28169cd5cc04de5ab55acd210859143b54d936e33159f169f3b5dfa7323",
+      "actual": "d3f0f28169cd5cc04de5ab55acd210859143b54d936e33159f169f3b5dfa7323",
+      "matches": true
+    },
+    "knowledge/wiki/languages/swift.md": {
+      "expected": "108b26df30fbbee4a5ea9275411e578d2ec1a57a79308821780e3de489236330",
+      "actual": "108b26df30fbbee4a5ea9275411e578d2ec1a57a79308821780e3de489236330",
+      "matches": true
+    },
+    "knowledge/wiki/platforms/webview.md": {
+      "expected": "e7d3b1ab9e4873ece3687fc2cd4563de967ffd51e4262404f84dffba3667bc00",
+      "actual": "e7d3b1ab9e4873ece3687fc2cd4563de967ffd51e4262404f84dffba3667bc00",
+      "matches": true
+    },
+    "knowledge/wiki/packages/webview/index.md": {
+      "expected": "0907e1b702778a56409efdffe6e77be1a0905329349f57e3488697cdb4b744b9",
+      "actual": "0907e1b702778a56409efdffe6e77be1a0905329349f57e3488697cdb4b744b9",
+      "matches": true
+    },
+    "knowledge/wiki/packages/webview/types-and-json.md": {
+      "expected": "6bd9bd537015f00275f80283e549faec4811ecf7b0e0aaa290aa4e88f9cfd2b7",
+      "actual": "6bd9bd537015f00275f80283e549faec4811ecf7b0e0aaa290aa4e88f9cfd2b7",
+      "matches": true
+    },
+    "knowledge/wiki/packages/webview/numbers-and-money.md": {
+      "expected": "0941952fe4a37aa168214a9ccd0a0e895a92a567e667642ac2dbfea683c01cea",
+      "actual": "0941952fe4a37aa168214a9ccd0a0e895a92a567e667642ac2dbfea683c01cea",
+      "matches": true
+    },
+    "knowledge/wiki/packages/webview/dates-and-unicode.md": {
+      "expected": "5cc011343d1d89155b2a3f637e2a36cd75cf89acbe9c114ee736cf1591cf51ef",
+      "actual": "5cc011343d1d89155b2a3f637e2a36cd75cf89acbe9c114ee736cf1591cf51ef",
+      "matches": true
+    },
+    "knowledge/wiki/packages/webview/collections-and-models.md": {
+      "expected": "e4d0a1aeac31068d647ff16339f5d39184170956d18a8148d262c8d1cfc2e645",
+      "actual": "e4d0a1aeac31068d647ff16339f5d39184170956d18a8148d262c8d1cfc2e645",
+      "matches": true
+    },
+    "knowledge/wiki/packages/webview/async-and-cancellation.md": {
+      "expected": "d06783bf89d1c0cf26f14855ae0e5db32bd5a3b217e55297677303dc33c51c62",
+      "actual": "d06783bf89d1c0cf26f14855ae0e5db32bd5a3b217e55297677303dc33c51c62",
+      "matches": true
+    },
+    "knowledge/wiki/packages/webview/state-and-navigation.md": {
+      "expected": "2bd6d5c771ecbd692eb4ccd7c7ca9daeaed7bf3bb8a42d97ec801c60175f7f8e",
+      "actual": "2bd6d5c771ecbd692eb4ccd7c7ca9daeaed7bf3bb8a42d97ec801c60175f7f8e",
+      "matches": true
+    },
+    "knowledge/wiki/packages/webview/errors-and-transactions.md": {
+      "expected": "529d92fdfa224afb65df528e068385e9f0af3834dc736bb980aaf8c70833f974",
+      "actual": "529d92fdfa224afb65df528e068385e9f0af3834dc736bb980aaf8c70833f974",
+      "matches": true
+    },
+    "knowledge/wiki/packages/webview/modules-and-testing.md": {
+      "expected": "5186b4faacd701fbb1f9200f542a2acc688652285712fd9e0b2f634fa2c68a1a",
+      "actual": "5186b4faacd701fbb1f9200f542a2acc688652285712fd9e0b2f634fa2c68a1a",
+      "matches": true
+    },
+    "knowledge/wiki/packages/webview/auth-and-storage.md": {
+      "expected": "0adef0d55254ebf1d3c1f1778e112c47de67d8bd303af73cbb09e1a82aeba7b5",
+      "actual": "0adef0d55254ebf1d3c1f1778e112c47de67d8bd303af73cbb09e1a82aeba7b5",
+      "matches": true
+    }
+  },
+  "kb_context": {
+    "experiments/webview/knowledge/context.md": {
+      "expected": "718834928fd2415c7c66d627395915f6b9904bc4fbbf74f6abfab595f1ec7f4b",
+      "actual": "718834928fd2415c7c66d627395915f6b9904bc4fbbf74f6abfab595f1ec7f4b",
+      "matches": true
+    }
+  },
+  "apk": {
+    "clients/webview/android/app/build/outputs/apk/debug/app-debug.apk": {
+      "expected": "16deb760f1b1dce4613885f09820434b631083d9283eaab72ccb115c474420b2",
+      "actual": "16deb760f1b1dce4613885f09820434b631083d9283eaab72ccb115c474420b2",
+      "matches": true
+    }
+  },
+  "served_dist": {
+    "clients/webview/web/dist/app.js": "15effc6f529679d1bc452c27c0cf8a37a83786db73a72ea5474f0bb887c4cb97",
+    "clients/webview/web/dist/market.js": "31fe1e0494e071f7e77522bbf4f82981e0cb14274bc68e832097051434e30a5d"
+  },
+  "all_match": true
+}

@@ -1,0 +1,51 @@
+{
+  "at": "2026-10-28T10:09:25.948529+00:00",
+  "exit": 0,
+  "command": ":app:assembleDebug :app:assembleDebugAndroidTest :app:connectedDebugAndroidTest :app:lintDebug --no-daemon",
+  "device": "emulator-5564 Daynomy_Pilot Android13",
+  "tests": 11,
+  "failures": 0,
+  "skipped": 0,
+  "source_unchanged": true,
+  "app_source_sha256": {
+    "clients/android/app/src/main/AndroidManifest.xml": "15d1f309e79353b7189e202cdd8f6f95612c02380265a493e6ae90ce5769c447",
+    "clients/android/app/src/debug/AndroidManifest.xml": "28a0d65f750bf61b6583f56dc5cfb35b5e0fd4be5187a323d2b56131d1898993",
+    "clients/android/app/src/debug/res/xml/debug_network_security.xml": "bc63aed497e2445f12ae17077918847224ec3399ecc979b22b685fa5af3c8472",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/MainActivity.kt": "5900e69312186b317a2eb2df9b24c47d54c5af24df81f4bccf13a63c4de206e0",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/DiscoveryViewModel.kt": "dea62fa52cd4459332be0eb354a18c52e26c7dc4cedf81d2facf20d9629f1eec",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/CoreViewModel.kt": "19a604287e4c20968884151c9e0175a866ad6f39c6bf67944e642f04aed6d1f5",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/DiscoveryScreens.kt": "2af788dfd7ecbb0cc6dd4d4f46c8a949bcc97c46f36f057a278656f892688b75",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/CoreScreens.kt": "78251ed93f4dba7e4558c75939b48ae56d82123b058b30ed10032cdd228a2db1",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/MarketViewModel.kt": "8717506128596a148f22b4ba3b3ce6b945b6a63f8396fbe46a306b3aebbe9d31",
+    "clients/android/app/src/main/res/values/styles.xml": "b2be39a301bb36472ac6dddb20f1ad96f1029f7b2cdf208629ef21d63372621c",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/DiscoveryScreenAcceptanceTest.kt": "509c429bbc137ee9a11f6cbcf46296377580563a57d7f562c45d6cca4cb8c717",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/Android30CoreScreenTest.kt": "fb850630b272d24796bb2cde0c44843590021c893fc553ce5c9684ab739543c9",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/MarketScreenAcceptanceTest.kt": "5d8ee4b87f74e201217ce2c9aa0512df622533916622d2c05187e5e9fa9bdb5b",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/Android30AccountIsolationTest.kt": "ab9be67140a90a8df770b6bcbd858362b8d587585aabef1ee76bde2a478a4cc8"
+  },
+  "artifact_sha256": {
+    "clients/android/app/build/outputs/apk/debug/app-debug.apk": "a62a8fb1a972c2bb7bfd62c9ddcab2aa3573181ec4ed9996e28c1c9733c65083",
+    "clients/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk": "8d255a762f7b1eec0cca0adf0d6fc60a83a35485942ab80129b94e69820ed54c"
+  },
+  "reports": {
+    "clients/android/app/build/outputs/androidTest-results/connected/debug/TEST-Daynomy_Pilot(AVD) - 13-_app-.xml": {
+      "sha256": "18a3ac9c9d22c881f264cc197316e84d9e7f0e1770675f0b6f04f92163b3b11a",
+      "counts": {
+        "name": "org.daynomy.android.Android30AccountIsolationTest",
+        "tests": "11",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0",
+        "time": "23.441",
+        "timestamp": "2026-10-28T10:08:50",
+        "hostname": "localhost"
+      },
+      "xml": "<?xml version='1.0' encoding='UTF-8' ?>\n<testsuite name=\"org.daynomy.android.Android30AccountIsolationTest\" tests=\"11\" failures=\"0\" errors=\"0\" skipped=\"0\" time=\"23.441\" timestamp=\"2026-10-28T10:08:50\" hostname=\"localhost\">\n  <properties>\n    <property name=\"device\" value=\"Daynomy_Pilot(AVD) - 13\" />\n    <property name=\"flavor\" value=\"\" />\n    <property name=\"project\" value=\":app\" />\n  </properties>\n  <testcase name=\"startingAnotherNativeLoginClearsPreviousAccountPortfolioAndDrafts\" classname=\"org.daynomy.android.Android30AccountIsolationTest\" time=\"0.121\" />\n  <testcase name=\"lostTradeResponseShowsUnknownOutcomeAndDoesNotResubmitOrClaimSuccess\" classname=\"org.daynomy.android.Android30CoreScreenTest\" time=\"5.839\" />\n  <testcase name=\"actualAccountProfileNicknamePatchAndLogoutClearMemberUi\" classname=\"org.daynomy.android.Android30CoreScreenTest\" time=\"1.658\" />\n  <testcase name=\"exchangeErrorDoesNotBecomeAQuoteAndExplicitRetryRecovers\" classname=\"org.daynomy.android.DiscoveryScreenAcceptanceTest\" time=\"1.707\" />\n  <testcase name=\"exchangeShowsActualFallbackDateAndExactRateAndSurvivesRecreation\" classname=\"org.daynomy.android.DiscoveryScreenAcceptanceTest\" time=\"1.52\" />\n  <testcase name=\"newsCategoryPaginationDetailAndBackUseNativeScreenAndKeepSelectedPage\" classname=\"org.daynomy.android.DiscoveryScreenAcceptanceTest\" time=\"1.425\" />\n  <testcase name=\"selectingStockDisplaysStoredDateAndAutofillsPlainDecimal\" classname=\"org.daynomy.android.MarketScreenAcceptanceTest\" time=\"1.855\" />\n  <testcase name=\"delayedQuoteCannotOverwriteManualInputAndRotationPreservesDirtyDraft\" classname=\"org.daynomy.android.MarketScreenAcceptanceTest\" time=\"1.986\" />\n  <testcase name=\"clearedManualInputRemainsEmptyWhenDelayedPriceArrives\" classname=\"org.daynomy.android.MarketScreenAcceptanceTest\" time=\"2.64\" />\n  <testcase name=\"missingQuoteShowsErrorAndStillAllowsManualInput\" classname=\"org.daynomy.android.MarketScreenAcceptanceTest\" time=\"1.987\" />\n  <testcase name=\"usSearchSendsCountryAndLocalCategoryFilterDoesNotRefetch\" classname=\"org.daynomy.android.MarketScreenAcceptanceTest\" time=\"1.866\" />\n</testsuite>"
+    }
+  },
+  "lint": {
+    "sha256": "2a1e6a6f5c9c2e3fa80aa5cd0f6bb923b4789906ed71206267cb814134f41854",
+    "errors": 0,
+    "warnings": 10
+  }
+}

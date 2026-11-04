@@ -1,0 +1,39 @@
+{
+  "same_artifact": true,
+  "handoff_dist_files": {
+    "index.html": "098c92e304f5af5007168e437ffc24ba18dcaf956b81561a03b57e68278c7549",
+    "daynomy-mark.svg": "68de652168875ac271c7d77f184ea6fffc440813b6b4945a6e3eb2620614f5cc",
+    "daynomy-favicon.png": "92418faf87ce8ac2ec95ad6949fd7f45203d6b3442b664080cafa17da05be3e2",
+    "icons.svg": "b45fa506195cfcdef406ba9f0c77b36ddc1a7c224040926ec70abc2fdea7b93a",
+    "favicon.svg": "61bc9a161de58248288e6905425d7180f0624c2865007b97d763fdac12043a66",
+    "assets/news-home-card-1-C2AU9W_3.jpg": "85b70b3ba5f1c237edb837e9d650a0c3a902138d82c76cc2d87d1e4380ec41ad",
+    "assets/default-news-real-estate-CIeyPcIL.webp": "8ec15c0747f5b9beb5c42a8975152b743eeb089dee7c82076f4c8f30a8d4ea92",
+    "assets/index-C_5bZ-zY.css": "0f0000a0ce5b9ae372575bac393b58d9ed23ed6c39185abe88c72525cfc02e5c",
+    "assets/news-home-card-4-DLJfJ1et.jpg": "9eb89c3f77c0ba0e9c9860bc37a5da594f6f43705ec6471ff5c25c0ebddf8b92",
+    "assets/LandingPage-CdCRSZQo.css": "eaffdb75fd3c8c097d6d8c1344123ef956f948eb4c1d97d869806e741e04b781",
+    "assets/LandingPage-BrC2g8RO.js": "a216107bcc7b1e6a7c8063709e50aec8554c2002992b28e857d3042d6bf93766",
+    "assets/news-home-card-3-DZOQpqJ7.jpg": "f6c8d222aec1819c366a7f43335c3a94a8267078c805f8911984245632bc5d6a",
+    "assets/index-DSNMsdh0.js": "61221d88dbd9baf107f09aa2c20715c0d143ee81d424f89a53016b1bd19dd702",
+    "assets/news-home-card-5-B2uNr1mD.jpg": "c9143f244770efe3ecd66050a35d2d589ef471eeb19d1dbefc1bb220afff0cba",
+    "assets/news-home-card-2-CjY1mQaq.jpg": "993142594291750cdc7f7e34b0b8c8b5689f345f496bae8d4da5be9ad6408d15",
+    "assets/news-home-banner-Dalw9mWi.jpg": "0ac56a098fccb71b1496d92b10e2e8bef19776b522d86e5ad1ffc7914cd9b76a"
+  },
+  "independent_dist_files": {
+    "index.html": "098c92e304f5af5007168e437ffc24ba18dcaf956b81561a03b57e68278c7549",
+    "daynomy-mark.svg": "68de652168875ac271c7d77f184ea6fffc440813b6b4945a6e3eb2620614f5cc",
+    "daynomy-favicon.png": "92418faf87ce8ac2ec95ad6949fd7f45203d6b3442b664080cafa17da05be3e2",
+    "icons.svg": "b45fa506195cfcdef406ba9f0c77b36ddc1a7c224040926ec70abc2fdea7b93a",
+    "favicon.svg": "61bc9a161de58248288e6905425d7180f0624c2865007b97d763fdac12043a66",
+    "assets/news-home-card-1-C2AU9W_3.jpg": "85b70b3ba5f1c237edb837e9d650a0c3a902138d82c76cc2d87d1e4380ec41ad",
+    "assets/default-news-real-estate-CIeyPcIL.webp": "8ec15c0747f5b9beb5c42a8975152b743eeb089dee7c82076f4c8f30a8d4ea92",
+    "assets/index-C_5bZ-zY.css": "0f0000a0ce5b9ae372575bac393b58d9ed23ed6c39185abe88c72525cfc02e5c",
+    "assets/news-home-card-4-DLJfJ1et.jpg": "9eb89c3f77c0ba0e9c9860bc37a5da594f6f43705ec6471ff5c25c0ebddf8b92",
+    "assets/LandingPage-CdCRSZQo.css": "eaffdb75fd3c8c097d6d8c1344123ef956f948eb4c1d97d869806e741e04b781",
+    "assets/LandingPage-BrC2g8RO.js": "a216107bcc7b1e6a7c8063709e50aec8554c2002992b28e857d3042d6bf93766",
+    "assets/news-home-card-3-DZOQpqJ7.jpg": "f6c8d222aec1819c366a7f43335c3a94a8267078c805f8911984245632bc5d6a",
+    "assets/index-DSNMsdh0.js": "61221d88dbd9baf107f09aa2c20715c0d143ee81d424f89a53016b1bd19dd702",
+    "assets/news-home-card-5-B2uNr1mD.jpg": "c9143f244770efe3ecd66050a35d2d589ef471eeb19d1dbefc1bb220afff0cba",
+    "assets/news-home-card-2-CjY1mQaq.jpg": "993142594291750cdc7f7e34b0b8c8b5689f345f496bae8d4da5be9ad6408d15",
+    "assets/news-home-banner-Dalw9mWi.jpg": "0ac56a098fccb71b1496d92b10e2e8bef19776b522d86e5ad1ffc7914cd9b76a"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "command": "python3 -m unittest discover -s scripts -p test_knowledge.py",
+  "before_exit": 1,
+  "after_exit": 0,
+  "tests": 19,
+  "changed_test": "KnowledgeContextTests.test_missing_service_context_fails_coverage",
+  "sha256": {
+    "scripts/test_knowledge.py": "b606715b80dbb7c362b607fe70a0463bf2e4089ea5bdf94e1c715f619e52b291",
+    "scripts/knowledge.py": "8b72cba4aa8753514d30cc2e26e3a705f0d9aa4549fb6b4e41d7756dd2abf040",
+    "knowledge/packs.json": "fd0e692d1ec01c92511a4ad7e1d88badfbdb0d5684c0bf3ed54deb0705373b94",
+    "experiments/webview/full/verification/kb-regression/before.log": "3139ad5133e70444b3bc2fdf090138efb17cc1fa69bc1043702cff1c56273440",
+    "experiments/webview/full/verification/kb-regression/before.exit": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "experiments/webview/full/verification/kb-regression/after.log": "1107d107610d475fa8adff060c00f773a15c1a36617787cfcacf7f89b3eab653",
+    "experiments/webview/full/verification/kb-regression/after.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "experiments/webview/full/verification/kb-regression/report.md": "8e8247c431977bf1570d3ae014978354109c4ea9b389448ff5cd413b8f37a4b9"
+  }
+}

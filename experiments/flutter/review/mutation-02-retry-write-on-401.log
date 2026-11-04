@@ -1,0 +1,60 @@
+00:00 +0: loading /Users/seoyeong/develop/AI/daynomy_agent/experiments/flutter/review/mutations-02/retry-write-on-401/test/api_client_test.dart
+00:00 +0: 요청은 cookie credentials와 취소 토큰을 전송에 전달한다
+00:00 +1: 204는 빈 body를 JSON 파싱하지 않고 null을 반환한다
+00:00 +2: 쓰기 전 CSRF 조회하고 지정 headerName·정확한 금액 JSON을 보낸다
+00:00 +3: malformed CSRF 이후 쓰기를 보내지 않는다: {}
+00:00 +4: malformed CSRF 이후 쓰기를 보내지 않는다: {"headerName":"X-CSRF","token":""}
+00:00 +5: malformed CSRF 이후 쓰기를 보내지 않는다: {"headerName":"","token":"x"}
+00:00 +6: malformed CSRF 이후 쓰기를 보내지 않는다: {"headerName":2,"token":"x"}
+00:00 +7: malformed CSRF 이후 쓰기를 보내지 않는다: []
+00:00 +8: 동시 GET 401은 refresh 1개를 공유하고 각각 1회만 재전송한다
+00:00 +9: refresh 실패는 원래 GET을 다시 보내지 않으며 루프를 만들지 않는다
+00:00 +10: refresh 성공 뒤 GET이 다시 401이면 두 번째 refresh를 보내지 않는다
+00:00 +11: POST 401를 자동 재전송하지 않는다
+00:00 +11 -1: POST 401를 자동 재전송하지 않는다 [E]
+  Expected: empty
+    Actual: WhereIterable<ApiRequest>:[Instance of 'ApiRequest']
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/api_client_test.dart 97:9                      main.<fn>
+  
+00:00 +11 -1: POST 403를 자동 재전송하지 않는다
+00:00 +12 -1: POST 409를 자동 재전송하지 않는다
+00:00 +13 -1: POST 429를 자동 재전송하지 않는다
+00:00 +14 -1: POST 503를 자동 재전송하지 않는다
+00:00 +15 -1: PATCH 401를 자동 재전송하지 않는다
+00:00 +15 -2: PATCH 401를 자동 재전송하지 않는다 [E]
+  Expected: empty
+    Actual: WhereIterable<ApiRequest>:[Instance of 'ApiRequest']
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/api_client_test.dart 97:9                      main.<fn>
+  
+00:00 +15 -2: PATCH 403를 자동 재전송하지 않는다
+00:00 +16 -2: PATCH 409를 자동 재전송하지 않는다
+00:00 +17 -2: PATCH 429를 자동 재전송하지 않는다
+00:00 +18 -2: PATCH 503를 자동 재전송하지 않는다
+00:00 +19 -2: DELETE 401를 자동 재전송하지 않는다
+00:00 +19 -3: DELETE 401를 자동 재전송하지 않는다 [E]
+  Expected: empty
+    Actual: WhereIterable<ApiRequest>:[Instance of 'ApiRequest']
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/api_client_test.dart 97:9                      main.<fn>
+  
+00:00 +19 -3: DELETE 403를 자동 재전송하지 않는다
+00:00 +20 -3: DELETE 409를 자동 재전송하지 않는다
+00:00 +21 -3: DELETE 429를 자동 재전송하지 않는다
+00:00 +22 -3: DELETE 503를 자동 재전송하지 않는다
+00:00 +23 -3: 쓰기 timeout은 처리 여부 불명 상태를 유지하며 반복하지 않는다
+00:00 +24 -3: JSON 에러 code/message를 보존한다
+00:00 +25 -3: HTML 오류 body에도 HTTP status를 잃지 않는다
+00:00 +26 -3: Some tests failed.
+
+Failing tests:
+  /Users/seoyeong/develop/AI/daynomy_agent/experiments/flutter/review/mutations-02/retry-write-on-401/test/api_client_test.dart: DELETE 401를 자동 재전송하지 않는다
+  /Users/seoyeong/develop/AI/daynomy_agent/experiments/flutter/review/mutations-02/retry-write-on-401/test/api_client_test.dart: PATCH 401를 자동 재전송하지 않는다
+  /Users/seoyeong/develop/AI/daynomy_agent/experiments/flutter/review/mutations-02/retry-write-on-401/test/api_client_test.dart: POST 401를 자동 재전송하지 않는다

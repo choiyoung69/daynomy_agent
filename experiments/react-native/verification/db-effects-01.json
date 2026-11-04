@@ -1,0 +1,26 @@
+[
+  {
+    "name": "feedback_exact_one_insert",
+    "exit_code": 0,
+    "value": "1",
+    "error_present": false
+  },
+  {
+    "name": "member_holding_quantity",
+    "exit_code": 0,
+    "value": "2",
+    "error_present": false
+  },
+  {
+    "name": "member_ledger_buy_count",
+    "exit_code": 0,
+    "value": "1",
+    "error_present": false
+  },
+  {
+    "name": "logout_clears_refresh",
+    "exit_code": 0,
+    "value": "0",
+    "error_present": false
+  }
+]

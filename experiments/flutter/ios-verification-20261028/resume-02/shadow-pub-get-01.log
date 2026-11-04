@@ -1,0 +1,10 @@
+Resolving dependencies...
+Downloading packages...
++ file 7.0.1
++ flutter_driver 0.0.0 from sdk flutter
++ fuchsia_remote_debug_protocol 0.0.0 from sdk flutter
++ integration_test 0.0.0 from sdk flutter
++ process 5.0.5
++ sync_http 0.3.1
++ webdriver 3.1.0
+Changed 7 dependencies!

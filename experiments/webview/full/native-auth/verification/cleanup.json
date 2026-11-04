@@ -1,0 +1,54 @@
+{
+  "commands": [
+    {
+      "device": "emulator-5576",
+      "args": [
+        "forward",
+        "--remove",
+        "tcp:19276"
+      ],
+      "exit_code": 0
+    },
+    {
+      "device": "emulator-5576",
+      "args": [
+        "forward",
+        "--remove",
+        "tcp:19376"
+      ],
+      "exit_code": 0
+    },
+    {
+      "device": "emulator-5576",
+      "args": [
+        "reverse",
+        "--remove",
+        "tcp:18082"
+      ],
+      "exit_code": 0
+    },
+    {
+      "device": "emulator-5576",
+      "args": [
+        "reverse",
+        "--remove",
+        "tcp:63011"
+      ],
+      "exit_code": 0
+    },
+    {
+      "device": "emulator-5576",
+      "args": [
+        "emu",
+        "kill"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "kept": [
+    "user manual web preview18082",
+    "private Rust API18091",
+    "private PostgreSQL55449",
+    "all other devices and global ADB server"
+  ]
+}

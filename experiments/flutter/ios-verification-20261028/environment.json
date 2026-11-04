@@ -1,0 +1,78 @@
+{
+  "time": "2026-10-28T10:02:13.300455+00:00",
+  "results": [
+    {
+      "command": [
+        "xcode-select",
+        "-p"
+      ],
+      "exit": 0,
+      "output": "/Library/Developer/CommandLineTools\n"
+    },
+    {
+      "command": [
+        "xcodebuild",
+        "-version"
+      ],
+      "exit": 1,
+      "output": "xcode-select: error: tool 'xcodebuild' requires Xcode, but active developer directory '/Library/Developer/CommandLineTools' is a command line tools instance\n"
+    },
+    {
+      "command": [
+        "xcrun",
+        "--find",
+        "simctl"
+      ],
+      "exit": 72,
+      "output": "xcrun: error: unable to find utility \"simctl\", not a developer tool or in PATH\n"
+    },
+    {
+      "command": [
+        "mdfind",
+        "kMDItemCFBundleIdentifier == \"com.apple.dt.Xcode\""
+      ],
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "command": [
+        "mdfind",
+        "kMDItemFSName == \"*Xcode*\"cd"
+      ],
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "command": [
+        "pkgutil",
+        "--pkgs"
+      ],
+      "exit": 0,
+      "output": "com.apple.pkg.CLTools_SDK_macOS13\ncom.apple.pkg.CLTools_SDK_macOS12\ncom.apple.pkg.CLTools_Executables\ncom.apple.pkg.CLTools_SDK_macOS_LMOS\ncom.apple.pkg.CLTools_SDK_macOS14\ncom.apple.pkg.CLTools_SDK_macOS_NMOS\ncom.apple.pkg.CLTools_SDK_macOS110\ncom.apple.pkg.CLTools_SwiftBackDeploy\ncom.apple.pkg.CLTools_macOS_SDK"
+    },
+    {
+      "command": [
+        "xcodebuild",
+        "-version"
+      ],
+      "environment": {
+        "DEVELOPER_DIR": "/Applications/Xcode.app/Contents/Developer"
+      },
+      "exit": 1,
+      "output": "xcrun: error: missing DEVELOPER_DIR path: /Applications/Xcode.app/Contents/Developer\n"
+    },
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "list",
+        "runtimes"
+      ],
+      "environment": {
+        "DEVELOPER_DIR": "/Applications/Xcode.app/Contents/Developer"
+      },
+      "exit": 1,
+      "output": "xcrun: error: missing DEVELOPER_DIR path: /Applications/Xcode.app/Contents/Developer\n"
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "provider": "ephemeral local signed OIDC provider, not real Google",
+  "steps": [
+    "actual login redirect reached local provider; synthetic authorization registered",
+    "UI login through local OIDC signed callback reaches protected mypage",
+    "real authenticated nickname PATCH200",
+    "real USER blocked before admin data calls",
+    "real logout removes protected access"
+  ],
+  "api": [
+    {
+      "path": "/api/users/me",
+      "status": 401
+    },
+    {
+      "path": "/api/auth/google",
+      "status": 302
+    },
+    {
+      "path": "/api/auth/csrf",
+      "status": 200
+    },
+    {
+      "path": "/api/users/me",
+      "status": 200
+    },
+    {
+      "path": "/api/users/me/portfolio",
+      "status": 200
+    },
+    {
+      "path": "/api/users/me",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/csrf",
+      "status": 200
+    },
+    {
+      "path": "/api/users/me",
+      "status": 200
+    },
+    {
+      "path": "/api/users/me",
+      "status": 200
+    },
+    {
+      "path": "/api/users/me",
+      "status": 200
+    },
+    {
+      "path": "/api/users/me",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/csrf",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/logout",
+      "status": 204
+    },
+    {
+      "path": "/api/users/me",
+      "status": 401
+    },
+    {
+      "path": "/api/auth/csrf",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/refresh",
+      "status": 401
+    }
+  ],
+  "errors": [],
+  "cookieProperties": [
+    {
+      "name": "XSRF-TOKEN",
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "access_token",
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ]
+}

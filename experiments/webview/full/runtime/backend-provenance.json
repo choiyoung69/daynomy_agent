@@ -1,0 +1,5 @@
+{
+  "current_backend_binary_matches_fixture_build": true,
+  "backend_files_changed_after_build_snapshot": [],
+  "scope": "Backend files are owned by other tasks; this task makes no backend edits"
+}

@@ -17,3 +17,11 @@
 
 질문을 해결하면 결정 근거·적용 범위·관련 문서·실행 증거를 추가하고 상태를 바꾼다.
 과거 미결정 기록과 잘못된 설명의 수정 이력은 [작업 이력](log.md)에 보존한다.
+
+## 2026-10-28 WebView 파일럿의 제한된 결정
+
+Q01/Q08의 WebView stock-search-price 착수 범위·버전·로컬 제공은 [플랫폼 문서](wiki/platforms/webview.md)와 [계약](../spec/webview/README.md)에 정했다. Q02는 문자열 그대로, Q03은 기존 웹 Number 디코더와 수동 단가 문자열을 유지한다. Q04/Q09는 독립 테스트·실제 HTTP·OS별 실행으로 검증할 예정이며 아직 통과하지 않았다. Q05 회원 인증/OAuth와 전체 앱 영구 복원은 범위 밖이다. Q11은 Android 도구가 있지만 adb 권한이 필요하고 iOS는 Xcode 부재다. 이 결정은 다른 플랫폼/기능의 미결정을 해결하지 않는다.
+
+### WebView 파일럿 검증 후 보강
+
+Q04/Q09의 stock-search-price 웹·Android 로컬 흐름은 [run013](../runs/013-webview.md)에서 실제 확인했다. Node 모의 fetch가 놓친 브라우저 receiver 결함과, 검증 스크립트의 loading/error 문구 조기 매칭을 각각 수정·보강했다. Q05 로그인/OAuth·특권 브리지의 origin 획득, Q11 iOS Xcode/기기 검증, Q06 같은 범위의 시간 절감 비교는 해결하지 않았다.

@@ -1,0 +1,27 @@
+{
+  "evidence": "Expo web synthetic HTTP route fixtures; NOT actual Rust integration or native OS execution",
+  "timestamp": "2026-10-28T10:27:07.554Z",
+  "checks": [
+    {
+      "name": "scenario-error",
+      "pass": false,
+      "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '삼성전자 · 005930', exact: true })\u001b[22m\n"
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [
+    "Unexpected text node: . A text node cannot be a child of a <View>.",
+    "Unexpected text node: . A text node cannot be a child of a <View>.",
+    "Unexpected text node: . A text node cannot be a child of a <View>.",
+    "Unexpected text node: . A text node cannot be a child of a <View>.",
+    "Unexpected text node: . A text node cannot be a child of a <View>.",
+    "Unexpected text node: . A text node cannot be a child of a <View>.",
+    "Unexpected text node: . A text node cannot be a child of a <View>.",
+    "Unexpected text node: . A text node cannot be a child of a <View>.",
+    "Unexpected text node: . A text node cannot be a child of a <View>.",
+    "Unexpected text node: . A text node cannot be a child of a <View>.",
+    "Unexpected text node: . A text node cannot be a child of a <View>."
+  ],
+  "requests": [],
+  "body": "DAYNOMY•\n게스트 포트폴리오\nMY PORTFOLIO\n오늘의 자산을, 한눈에.\n로그인 없이 시작하세요. 거래 기록은 이 기기에 저장됩니다.\n총 평가금액\n0 원\n투자 손익\n0 원\n+ 거래 기록\n보유 종목\n거래 내역\n보유 종목\n0개 종목 · 최근 저장 종가 기준\n첫 번째 투자를 기록해 보세요\n종목을 검색하고 매수 내역을 추가하면 자산 현황을 확인할 수 있어요.\n투자 인사이트\n자산 추이 확인\n\n내 자산\n\n뉴스\n\n탐색\n\n캘린더\n\n더보기\n거래 기록\n닫기\n입력한 거래로 보유 수량과 평균 매입가를 계산합니다.\n종목 찾기\n국내\n미국\n종목 이름 또는 코드\n종목 검색\n매수\n매도\n거래일 (YYYY-MM-DD)\n수량 (주)\n단가 (USD / KRW)\n수수료\n세금\nFailed to execute 'fetch' on 'Window': Illegal invocation\n거래 저장\n매수·매도 이후의 원장 정합성을 확인하며, 초과 매도는 저장하지 않습니다."
+}

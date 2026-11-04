@@ -1,0 +1,37 @@
+{
+  "web": {
+    "clients/webview/web/src/app.ts": true,
+    "clients/webview/web/src/market.ts": true,
+    "clients/webview/web/index.html": true,
+    "clients/webview/web/styles.css": true,
+    "clients/webview/scripts/serve.mjs": true,
+    "clients/webview/PRODUCT.md": true,
+    "clients/webview/DESIGN.md": true,
+    "clients/webview/.impeccable/design.json": true,
+    "clients/webview/README.md": true
+  },
+  "hosts": {
+    "clients/webview/HOSTS.md": true,
+    "clients/webview/android/.gitignore": true,
+    "clients/webview/android/app/build.gradle.kts": true,
+    "clients/webview/android/app/src/debug/res/xml/network_security_config.xml": true,
+    "clients/webview/android/app/src/main/AndroidManifest.xml": true,
+    "clients/webview/android/app/src/main/java/com/daynomy/webview/MainActivity.kt": true,
+    "clients/webview/android/app/src/main/java/com/daynomy/webview/NavigationPolicy.kt": true,
+    "clients/webview/android/app/src/main/res/xml/network_security_config.xml": true,
+    "clients/webview/android/build.gradle.kts": true,
+    "clients/webview/android/gradle/wrapper/gradle-wrapper.jar": true,
+    "clients/webview/android/gradle/wrapper/gradle-wrapper.properties": true,
+    "clients/webview/android/gradle.properties": true,
+    "clients/webview/android/gradlew": true,
+    "clients/webview/android/gradlew.bat": true,
+    "clients/webview/android/settings.gradle.kts": true,
+    "clients/webview/ios/DaynomyWebView/AppDelegate.swift": true,
+    "clients/webview/ios/DaynomyWebView/Info-Debug.plist": true,
+    "clients/webview/ios/DaynomyWebView/Info-Release.plist": true,
+    "clients/webview/ios/DaynomyWebView/NavigationPolicy.swift": true,
+    "clients/webview/ios/DaynomyWebView/WebViewController.swift": true,
+    "clients/webview/ios/DaynomyWebView.xcodeproj/project.pbxproj": true,
+    "clients/webview/ios/DaynomyWebView.xcodeproj/xcshareddata/xcschemes/DaynomyWebView.xcscheme": true
+  }
+}

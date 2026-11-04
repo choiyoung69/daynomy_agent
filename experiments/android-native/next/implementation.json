@@ -1,0 +1,82 @@
+{
+  "role": "separate implementation agent",
+  "time_basis": "UTC actual observed tool intervals; no whole-turn duration or cost inference",
+  "intervals": [
+    {
+      "bundle": "exchange-client",
+      "start": "2026-10-28T09:15:53Z",
+      "end": "2026-10-28T09:16:03Z"
+    },
+    {
+      "bundle": "exchange-controller",
+      "start": "2026-10-28T09:16:36Z",
+      "end": "2026-10-28T09:16:49Z"
+    },
+    {
+      "bundle": "news-client",
+      "start": "2026-10-28T09:17:51Z",
+      "end": "2026-10-28T09:18:17Z"
+    },
+    {
+      "bundle": "news-controller",
+      "start": "2026-10-28T09:19:56Z",
+      "end": "2026-10-28T09:20:49Z",
+      "note": "Initial apply_patch rejected duplicate delete/add target; no mutation occurred before corrected write."
+    },
+    {
+      "bundle": "discovery-ui",
+      "start": "2026-10-28T09:20:49Z",
+      "end": "2026-10-28T09:21:35Z"
+    }
+  ],
+  "files": {
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryClients.kt": "b3f3e1cd0df42ef8a524e2c2d37b33330a519ca4ef68711fc53eaee864fd8df9",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryController.kt": "a3f132d48ede90bdd157003278e3ea72d8f2b0772f73687cd0e50aa88a2158c8",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/ExchangeClient.kt": "416a8d3b8ae82cad2494b507829b45b2b293d9a4baeb6ca7f5252375f5e04067",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/ExchangeController.kt": "e2ee57f16f7beebd43cca5d218ff26e5ccb1b94003151b1c8156748d4a711901",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/DiscoveryViewModel.kt": "dea62fa52cd4459332be0eb354a18c52e26c7dc4cedf81d2facf20d9629f1eec",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/DiscoveryScreens.kt": "2af788dfd7ecbb0cc6dd4d4f46c8a949bcc97c46f36f057a278656f892688b75"
+  },
+  "knowledge_usage": [
+    "experiments/android-native/next/knowledge/exchange/usage.json",
+    "experiments/android-native/next/knowledge/news/usage.json",
+    "experiments/android-native/next/knowledge/discovery-ui/usage.json"
+  ],
+  "additional_kb_read": [
+    "knowledge/wiki/packages/android-kotlin/errors-and-transactions.md",
+    "knowledge/wiki/packages/android-kotlin/state-and-navigation.md"
+  ],
+  "ui_skill": "/Users/seoyeong/.codex/skills/ui-ux-pro-max/SKILL.md",
+  "checks_run": "Read-only source/KB hashes; no Gradle/ADB/DB execution by implementer. Independent validator owns actual execution.",
+  "status": "implemented-awaiting-independent-validation",
+  "source_contracts": [
+    "reference/2026-DAYNOMY-dev/frontend/src/features/stocks/api.ts",
+    "reference/2026-DAYNOMY-dev/frontend/src/features/news/newslist/api.ts",
+    "reference/2026-DAYNOMY-dev/frontend/src/features/news/newsdetail/api.ts"
+  ],
+  "unsupported_claims": "No runtime pass claimed; no estimated usage or cost.",
+  "repairs": [
+    {
+      "revision": "02",
+      "authorized_by": "root after validator attempt01 device execution finished and failure evidence preserved",
+      "start": "2026-10-28T09:26:15Z",
+      "end": "2026-10-28T09:26:15Z",
+      "failure_evidence": "attempt01 existing market selection regressions: stock click did not expose unit-price before timeout; exact evidence owned by validator",
+      "change": "MarketScreen only: remove duplicate DAYNOMY/description; keep heading; remove nested safeDrawingPadding as root consumes it; padding24->16, gap16->12; no controller/test changes",
+      "file": "clients/android/app/src/main/kotlin/org/daynomy/android/MainActivity.kt",
+      "sha256": "7eb18c3354fd2e3c5fd9d0de332bd6e454638143841f870f5458f81b171e848b",
+      "verification": "awaiting independent full eight-device-test rerun; no duplicate execution by implementer"
+    },
+    {
+      "revision": "03",
+      "authorized_by": "root after attempt02 full device evidence preserved",
+      "start": "2026-10-28T09:29:55Z",
+      "end": "2026-10-28T09:29:55Z",
+      "failure_evidence": "attempt02 7/8 pass; exchange error tag present but not displayed after fast503 with IME/focus active",
+      "change": "ExchangeScreen submit clears focus before hide; removes duplicate brand/description; padding24->16 gap16->12; headline retained; no controller/test changes",
+      "file": "clients/android/app/src/main/kotlin/org/daynomy/android/DiscoveryScreens.kt",
+      "sha256": "2af788dfd7ecbb0cc6dd4d4f46c8a949bcc97c46f36f057a278656f892688b75",
+      "verification": "awaiting independent full device and lint rerun"
+    }
+  ]
+}

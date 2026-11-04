@@ -1,0 +1,33 @@
+{
+  "device": "emulator-5576",
+  "provider": "ephemeral locally signed OIDC; not real Google",
+  "mode": "actual full Android WebView and external Chrome with real Rust/private DB",
+  "steps": [
+    "actual guest protected MyPage redirects to login",
+    "original login link launches external Chrome while WebView stays trusted"
+  ],
+  "api": [
+    {
+      "path": "/api/users/me",
+      "status": 401,
+      "method": "GET"
+    },
+    {
+      "path": "/api/auth/csrf",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/auth/refresh",
+      "status": 401,
+      "method": "POST"
+    }
+  ],
+  "cookieProperties": [],
+  "externalEngine": "Mozilla/5.0 (Linux; Android 13; sdk_gphone64_arm64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36",
+  "status": "failed",
+  "failure": {
+    "step": "cancel-and-retry",
+    "name": "Error"
+  }
+}

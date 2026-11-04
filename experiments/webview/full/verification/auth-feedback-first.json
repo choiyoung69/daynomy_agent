@@ -1,0 +1,49 @@
+{
+  "provider": "ephemeral local signed OIDC provider, not real Google",
+  "steps": [
+    "real guest feedback UI POST204 and success"
+  ],
+  "api": [
+    {
+      "path": "/api/users/me",
+      "status": 401
+    },
+    {
+      "path": "/api/auth/csrf",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/refresh",
+      "status": 401
+    },
+    {
+      "path": "/api/auth/csrf",
+      "status": 200
+    },
+    {
+      "path": "/api/feedback",
+      "status": 204
+    },
+    {
+      "path": "/api/users/me",
+      "status": 401
+    },
+    {
+      "path": "/api/auth/csrf",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/refresh",
+      "status": 401
+    },
+    {
+      "path": "/api/auth/google",
+      "status": 302
+    }
+  ],
+  "errors": [],
+  "failure": {
+    "name": "TimeoutError",
+    "message": "page.waitForURL: Timeout 30000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation to \"[URL redacted] until \"load\"\n============================================================"
+  }
+}

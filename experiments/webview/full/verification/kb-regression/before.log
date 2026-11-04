@@ -1,0 +1,14 @@
+.........F.........
+======================================================================
+FAIL: test_missing_service_context_fails_coverage (test_knowledge.KnowledgeContextTests.test_missing_service_context_fails_coverage)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/seoyeong/develop/AI/daynomy_agent/scripts/test_knowledge.py", line 184, in test_missing_service_context_fails_coverage
+    self.assertIn("feature has no context mapping: account", result.stderr)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'feature has no context mapping: account' not found in 'FAIL knowledge data: android: invalid approved feature scope\n'
+
+----------------------------------------------------------------------
+Ran 19 tests in 7.477s
+
+FAILED (failures=1)

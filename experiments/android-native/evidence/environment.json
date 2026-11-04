@@ -1,0 +1,18 @@
+{
+  "scope": "toolchain bootstrap only, unimplemented API/UI stubs",
+  "finished_at": "2026-10-28T08:16:58.232182+00:00",
+  "command_exit_code": 0,
+  "command": "clients/android/gradlew -p clients/android --no-daemon --write-locks :market-core:compileKotlin :app:assembleDebug",
+  "log_sha256": "8ae871e658fc0ddcf10cb8ced88d5fb52a3d9bce9f63f312503143d2f508bb72",
+  "build_summary": "BUILD SUCCESSFUL in 1m 41s; 39 tasks executed",
+  "gradle_distribution": {
+    "url": "https://services.gradle.org/distributions/gradle-8.11.1-bin.zip",
+    "sha256": "f397b287023acdba1e9f6fc5ea72d22dd63669d59ed4a289a29b1a76eee151c6"
+  },
+  "sdk": {
+    "compile": 35,
+    "build_tools": "35.0.0",
+    "min": 26
+  },
+  "target_feature_validation": "not-run"
+}

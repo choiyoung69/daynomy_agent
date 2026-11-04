@@ -1,0 +1,18 @@
+{
+  "scope": "actual API33 emulator Compose app -> existing Rust -> disposable PostgreSQL",
+  "started_at": "2026-10-28T08:56:13.231205+00:00",
+  "base_url": "http://10.0.2.2:18091/",
+  "checks": {
+    "real_stock_search_visible": true,
+    "latest_stored_date_visible": true,
+    "exact_quote_visible": true,
+    "decimal_autofilled_native_input": true
+  },
+  "status": "passed",
+  "apk_sha256": "f35db75327a3cd827b624642fc32cc79e863c7ebc7eccc70b84be3b72a27f718",
+  "screenshot": {
+    "path": "experiments/android-native/evidence/device-rust-03.png",
+    "sha256": "8f606719ffbeaf94c40b7a04b26568dae3ab112f3134068aef45c6366c81dbc6"
+  },
+  "finished_at": "2026-10-28T08:56:23.481257+00:00"
+}

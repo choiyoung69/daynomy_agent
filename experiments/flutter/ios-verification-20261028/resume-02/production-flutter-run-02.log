@@ -1,0 +1,27 @@
+Launching lib/main.dart on DAYNOMY-Flutter-Verify-iPhone17-20261028 in debug mode...
+[IMPORTANT:flutter/shell/platform/darwin/graphics/FlutterDarwinContextMetalImpeller.mm(45)] Using the Impeller rendering backend (Metal).
+Plugin FlutterWebAuth2Plugin uses deprecated application lifecycle events. Please contact plugin maintainers and request UIScene lifecycle support. This will be required in a future version of Flutter. See https://docs.flutter.dev/release/breaking-changes/uiscenedelegate#migration-guide-for-flutter-plugins
+Syncing files to device DAYNOMY-Flutter-Verify-iPhone17-20261028...        182ms
+
+Flutter run key commands.
+r Hot reload. 🔥🔥🔥
+R Hot restart.
+h List all available interactive commands.
+d Detach (terminate "flutter run" but leave application running).
+c Clear the screen
+q Quit (terminate the application on the device).
+
+A Dart VM Service on DAYNOMY-Flutter-Verify-iPhone17-20261028 is available at: <local-debug-or-api-url-redacted>
+The Flutter DevTools debugger and profiler on DAYNOMY-Flutter-Verify-iPhone17-20261028 is available at: <local-debug-or-api-url-redacted>
+-[WFIsolatedShortcutRunner init] Taking sandbox extensions for execution
+-[WFIsolatedShortcutRunner init]_block_invoke Sandbox extensions acquired
+Indexing for request: <WFToolKitIndexingRequest: 0x1048540c0>, changeset: .partial(updatedCount: 1 removedCount: 0 updated: ["org.daynomy.app"], removed: [], provenance: [VoiceShortcutClient.ToolKitIndexingReason.Changeset.Provenance.launchServicesSnapshot(<LaunchServicesSnapshot uuid=5D5C5AA8-5AC7-4CA8-96A4-05E7CF0D972D, v=736)> ["com.apple.AccessorySetupUI", "com.apple.StoreKitUISceneService", "com.apple.SystemPaperViewService", "com.apple.messages.RemoteAlerts", "com.apple.AskToUIHost", "com.apple.family.FamilyIntents", "com.apple.camera.settings.CameraSettingsAppIntentsExtension", "com.apple.TVRemoteApp.TVRemoteSettingsAppIntents", "com.apple.siri.messages.SiriMessagesAppIntentsExtension", "com.apple.TrackpadAndMouseSettingsIntents", "com.apple.chrono.WidgetRenderer-Snapshots", "com.apple.CompanionViewService", "com.apple.FCAuthenticationUI", "com.apple.siri.SiriVideoAppIntents", "com.apple.chrono.WidgetRenderer-WatchFaces", "com.apple.webapp", "com.apple.GameTrampoline", "com.apple.AmbientTester.AmbientSettingsAppIntentsEx<…>, priority: <decode: missing data>
+Type indexing (params + content items) took 0.000236s
+Action indexing took 0.000131s
+Indexed: 0
+Errored: 0
+Skipped: [:]
+Bundle cache: 0 hits, 0 misses
+Finished in 0.746769s
+-[WFIsolatedShortcutRunner unaliveProcess] Releasing sandbox extensions
+Lost connection to device.

@@ -1,0 +1,61 @@
+{
+  "status": "passed-bounded-pilot",
+  "recorded_at": "2026-10-28T09:07:28.320335+00:00",
+  "scope": "Kotlin native stock search and latest-price connected screen only",
+  "tests": {
+    "jvm": {
+      "tests": 52,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "rust_http_db": {
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "android_api33_device": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "review_status": "approved",
+  "review_sha256": "46b04d19ff227c6fbf6a1d79e8b8f7a5e0de280bbe60c7d01f20846f53820407",
+  "source_hashes_checked": 36,
+  "direct_device_rust": {
+    "status": "passed",
+    "checks": {
+      "real_stock_search_visible": true,
+      "latest_stored_date_visible": true,
+      "exact_quote_visible": true,
+      "decimal_autofilled_native_input": true
+    },
+    "started_at": "2026-10-28T08:56:13.231205+00:00",
+    "finished_at": "2026-10-28T08:56:23.481257+00:00",
+    "apk_sha256": "f35db75327a3cd827b624642fc32cc79e863c7ebc7eccc70b84be3b72a27f718",
+    "screenshot": {
+      "path": "experiments/android-native/evidence/device-rust-03.png",
+      "sha256": "8f606719ffbeaf94c40b7a04b26568dae3ab112f3134068aef45c6366c81dbc6"
+    },
+    "visual_review": true
+  },
+  "cleanup": {
+    "fixture": "stopped",
+    "owned_db_drop_exit": 0,
+    "owned_emulator_kill_exit": 0
+  },
+  "limits": [
+    "Only one API33 ARM64 emulator tested; no physical-device or other Android-version compatibility claim.",
+    "Activity recreation and dirty draft retention tested; actual OS process-kill restoration, full background/return/device resource-pressure behavior, TalkBack and large-font/IME manual acceptance are not fully validated.",
+    "Release HTTPS endpoint remains intentionally unconfigured; this is a local debug pilot, not a deployable production release. Lint dependency-update, icon and data-extraction-rule warnings remain.",
+    "No login/session/transaction save/exchange-rate/full-service UI implementation or validation.",
+    "The 7 Rust/DB acceptance tests were authored after initial feature implementation; only original 49 JVM criteria are first-implementation test-first. The 3 review regressions were written before their fixes.",
+    "No sequential control run exists, so no quantified speedup/productivity claim is supported.",
+    "KB understanding and reviewer-owned test expectations are not independently certified by metadata, test passes or this review.",
+    "Fixture teardown is coordinator-owned and was still serving when read; passing functional validation does not assert that subsequent cleanup has already occurred."
+  ],
+  "timing_note": "Measurement start 08:05:15 UTC to review end 09:00:37 UTC, about 55m22s; includes initial tooling and checks, no sequential control."
+}

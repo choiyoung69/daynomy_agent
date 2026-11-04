@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: full WebView HTTP contract against independent fixture
+not ok 1 - full WebView HTTP contract against independent fixture
+  ---
+  duration_ms: 9.06325
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests/server-contract.test.mjs:31:1'
+  failureType: 'testCodeFailure'
+  error: 'listen EPERM: operation not permitted 127.0.0.1'
+  code: 'EPERM'
+  stack: |-
+    Server.setupListenHandle [as _listen2] (node:net:1919:21)
+    listenInCluster (node:net:1998:12)
+    node:net:2207:7
+    process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+  ...
+# Subtest: nonloopback or credentialed upstream configuration is rejected
+not ok 2 - nonloopback or credentialed upstream configuration is rejected
+  ---
+  duration_ms: 2.690916
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests/server-contract.test.mjs:84:1'
+  failureType: 'testCodeFailure'
+  error: 'listen EPERM: operation not permitted 127.0.0.1'
+  code: 'EPERM'
+  stack: |-
+    Server.setupListenHandle [as _listen2] (node:net:1919:21)
+    listenInCluster (node:net:1998:12)
+    node:net:2207:7
+    process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 0
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 98.468084

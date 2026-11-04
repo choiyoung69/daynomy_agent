@@ -1,0 +1,31 @@
+{
+  "passed": 5,
+  "failed": 1,
+  "cases": [
+    {
+      "name": "synthetic admin member authenticated",
+      "pass": true
+    },
+    {
+      "name": "actual extracted UI saveNews creates multipart draft",
+      "pass": true
+    },
+    {
+      "name": "actual extracted UI saveNews updates multipart draft preserving links",
+      "pass": true
+    },
+    {
+      "name": "actual admin news publish appears publicly",
+      "pass": false,
+      "error": "서버 내부 오류가 발생했습니다."
+    },
+    {
+      "name": "actual admin news delete removes public detail",
+      "pass": true
+    },
+    {
+      "name": "actual admin feedback state mutation",
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "role": "implementation",
+  "scope": "Android native existing Rust auth/account/portfolio core; UI and independent checks by other agents",
+  "kb_read_started_utc": "2026-10-28T09:41:00Z",
+  "session_released_utc": "2026-10-28T09:44:30Z",
+  "core_released_utc": "2026-10-28T09:46:00Z",
+  "candidate_ready_utc": "2026-10-28T09:47:46.451162+00:00",
+  "time_note": "Initial KB and release intervals approximate tool message timestamps; candidate timestamp measured. Deadline root-owned 2026-10-28T10:09:53Z.",
+  "network_sources": "none; local KB and connected local source only",
+  "rule_mapping": {
+    "auth-and-storage": "SessionTransport.kt: memory-only cookies, origin HTTPS/localallowlist, Cookie.matches domain/path/Secure/expiry; NativeLogin external-browser URL S256 state/verifier32SecureRandom bytes, fixed callback, cancel; no secret persistence/logging",
+    "types-and-json": "AccountClient.kt strict numeric safe integer identifiers and explicit null/missing name; PortfolioClient.kt object/array/transaction response boundaries",
+    "numbers-and-money": "JsonElement decimal lexemes retained, numeric BigDecimal construction without Double, no client rounding",
+    "errors-and-transactions": "ApiException status/code preserved; mutation never auto retry; IOException left distinct for UI OutcomeUnknown; DELETE replay body validated",
+    "async-and-cancellation": "OkHttp Call.cancel connected to coroutine cancellation; epoch rejects late response and cookies; concurrent GET401 shares refresh via Mutex/version",
+    "state-and-navigation": "UI/root owns state lifecycle; NativeLogin.cancel plus session.clearSession prevents later login completion; implementation exposes no mutable UI flow",
+    "auth-session": "CSRF cookie/header before every unsafe request except mobileexchange; read401 once-onlyrefresh; no mutation replay",
+    "account": "existing me PATCH/DELETE and logout endpoints; no league migration",
+    "portfolio-ledger": "existing aliases /api/portfolio; create/edit/delete/history/performance; immutable assetId/type stripped from PATCH",
+    "portfolio-calculation": "public calculate remains separate from saved holdings; null and mixed date fields retained in JSON"
+  },
+  "source_files": [
+    "spec/flutter/native-auth.md",
+    "spec/service.md",
+    "app/README.md",
+    "app/src/service_auth.rs",
+    "app/src/service_portfolio.rs",
+    "app/src/main.rs",
+    "app/src/csrf.rs"
+  ],
+  "hashes": {
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/SessionTransport.kt": "047f058c4e85b910d8a5e67180478b36b08c018a2aa604fa95de1c9b5575e73d",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/NativeLogin.kt": "a80024d6ca32e2174394fec08a492949b30078b44a431b2d8e72accb97121ed3",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/AccountClient.kt": "bd84748749d8b6e0191b015dc5cffb9c69e01040e713b63168ad59838d067a79",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/PortfolioClient.kt": "6ebcd1fc26fc21d3bfdeaddbb7a48f17e098324df16df2a2b718204076c9f7ab",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/CoreScreens.kt": "78251ed93f4dba7e4558c75939b48ae56d82123b058b30ed10032cdd228a2db1"
+  },
+  "checks": "Independent validation final core: 105 JVM PASS, 0 skipped; backendTestClasses PASS; 5 production hashes unchanged. Evidence validation-green-final.json. Safety 2 regressions compiled and actually failed before candidate fix. No Gradle/ADB/DB commands duplicated by implementer.",
+  "limitations": [
+    "Raw JSON portfolio responses are route adapters with boundary validation; not full typed exhaustive DTO decoder.",
+    "Optional holding mutation methods implemented; dedicated independent contract coverage still pending.",
+    "Actual Google/device login must be separately checked; host and fixture checks do not certify actual Google login.",
+    "GET HTTP503 Retry-After:0 may still trigger OkHttp read retry; mutation bodies are one-shot and independently verified not to replay. Root informed; core frozen pending any additional release.",
+    "Small phone/landscape/largest font/TalkBack/dark-mode verification belongs to independent device run; implementer did not claim these checks."
+  ],
+  "additional_ui_assignment": "2026-10-28T09:52Z approximate: root released CoreScreens.kt against independent device test v2; device-red bypass explicitly root-owned and must be reported.",
+  "ui_skill": "ui-ux-pro-max full SKILL and pro-rules read. First keyboard form search had no match; retry accessibility touch in jetpack-compose matched native semantics/contentDescription guidance. Existing Material theme preserved, labels/48dp/IME/live regions applied. No version or dependency changes.",
+  "review_corrections": [
+    {
+      "finding": "role must be USER or ADMIN; Http503 Retry-After0 can replay mutation despite retryOnConnectionFailure(false)",
+      "red_evidence": "validation-safety-red.json; independent focused tests both compiled and actually failed before release",
+      "fix": "role enum boundary; one-shot JSON RequestBody and explicit no authenticators",
+      "ready_utc": "2026-10-28T09:56:06.393975+00:00"
+    },
+    {
+      "finding": "CSRF cache must match an unexpired scoped cookie",
+      "fix": "verify cookie before cache return; acquire new token if stale"
+    },
+    {
+      "finding": "frontend averagePurchasePrice>0 conflicts with Rust avg0.00 from valid0.0001 unit price",
+      "decision": "retain >=0 for existingRust parity, explicitly report source mismatch; no silent new rejection policy"
+    }
+  ],
+  "knowledge_chronology": {
+    "direct_topic_read": "Direct topic KB read before implementation; first implementer tool call read all10 project/package docs. Root UI direct pre-read confirmed by root.",
+    "formal_packets_created_at": [
+      "2026-10-28T09:58:10.731873+00:00",
+      "2026-10-28T09:58:10.734359+00:00",
+      "2026-10-28T09:58:10.732472+00:00"
+    ],
+    "formal_packets_read_and_usage_written_at": "2026-10-28T10:00:11.535595+00:00",
+    "interpretation": "Formal context packets materialized after implementation, and were retrospectively reconciled against direct initial reads and actual code. Do not claim formal packets preceded code."
+  },
+  "knowledge_usage_files": [
+    "experiments/android-native/core30/knowledge/core-session/usage.json",
+    "experiments/android-native/core30/knowledge/core-portfolio/usage.json",
+    "experiments/android-native/core30/knowledge/core-ui/usage.json"
+  ]
+}

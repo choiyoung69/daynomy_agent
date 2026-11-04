@@ -1,0 +1,48 @@
+10-28 18:54:09.058   487  3177 I ActivityManager: Process com.android.localtransport (pid 2844) has died: cch+99 CEM 
+10-28 18:54:11.784   487   516 W ActivityManager: Slow operation: 64ms so far, now at startProcess: returned from zygote!
+10-28 18:54:11.784   487   516 W ActivityManager: Slow operation: 64ms so far, now at startProcess: done updating battery stats
+10-28 18:54:11.785   487   516 W ActivityManager: Slow operation: 64ms so far, now at startProcess: building log message
+10-28 18:54:11.785   487   516 I ActivityManager: Start proc 5495:com.daynomy.webview.full/u0a174 for next-top-activity {com.daynomy.webview.full/com.daynomy.webview.MainActivity}
+10-28 18:54:11.785   487   516 W ActivityManager: Slow operation: 64ms so far, now at startProcess: starting to update pids map
+10-28 18:54:11.786   487   516 W ActivityManager: Slow operation: 65ms so far, now at startProcess: done updating pids map
+10-28 18:54:13.673   487  2201 I ActivityManager: Background started FGS: Allowed [callingPackage: com.google.android.inputmethod.latin; callingUid: 10129; uidState: IMPB; intent: Intent { cmp=com.google.android.inputmethod.latin/com.google.android.apps.inputmethod.libs.dataservice.superpacks.SuperpacksForegroundTaskService }; code:BOOT_COMPLETED; tempAllowListReason:<broadcast:1000:android.intent.action.BOOT_COMPLETED,reason:,reasonCode:BOOT_COMPLETED,duration:20000,callingUid:1000>; targetSdkVersion:33; callerTargetSdkVersion:33; startForegroundCount:0; bindFromPackage:null]
+10-28 18:54:13.796   487  2201 W ActivityManager: Foreground service started from background can not have location/camera/microphone access: service com.google.android.inputmethod.latin/com.google.android.apps.inputmethod.libs.dataservice.superpacks.SuperpacksForegroundTaskService
+10-28 18:54:14.236   487   516 W ActivityManager: Slow operation: 129ms so far, now at startProcess: asking zygote to start proc
+10-28 18:54:14.384   487   516 W ActivityManager: Slow operation: 276ms so far, now at startProcess: returned from zygote!
+10-28 18:54:14.384   487   516 W ActivityManager: Slow operation: 277ms so far, now at startProcess: done updating battery stats
+10-28 18:54:14.385   487   516 W ActivityManager: Slow operation: 277ms so far, now at startProcess: building log message
+10-28 18:54:14.385   487   516 I ActivityManager: Start proc 5579:com.google.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0:0/u0ai9000 for  {com.daynomy.webview.full/org.chromium.content.app.SandboxedProcessService0:0}
+10-28 18:54:14.385   487   516 W ActivityManager: Slow operation: 277ms so far, now at startProcess: starting to update pids map
+10-28 18:54:14.385   487   516 W ActivityManager: Slow operation: 277ms so far, now at startProcess: done updating pids map
+10-28 18:54:14.434   487   516 I ActivityManager: Start proc 5604:com.google.android.webview:webview_apk/u0a139 for service {com.google.android.webview/org.chromium.android_webview.nonembedded.AwComponentUpdateService}
+10-28 18:54:15.028   487   516 I ActivityManager: Start proc 5658:com.google.android.apps.maps:server_recovery_process/u0a125 for broadcast {com.google.android.apps.maps/com.google.android.apps.gmm.plugins.serverrecovery.PhenotypeServerRecoveryHandlerImpl}
+--
+10-28 18:54:22.665   487  2224 W ActivityManager: Scheduling restart of crashed service com.google.android.gms/.chimera.GmsApiService in 70000ms for connection
+10-28 18:54:22.665   487  2224 W ActivityManager: Scheduling restart of crashed service com.google.android.gms/.chimera.GmsIntentOperationService in 90000ms for start-requested
+10-28 18:54:22.665   487  2224 W ActivityManager: Scheduling restart of crashed service com.google.android.gms/.wallet.service.PaymentService in 110000ms for connection
+10-28 18:54:22.666   487  2223 I ActivityManager: Process com.google.android.gms.persistent (pid 1070) has died: fg  BTOP
+10-28 18:54:22.669   487  2223 I ActivityManager: Killing 5495:com.daynomy.webview.full/u0a174 (adj 0): depends on provider com.google.android.gms/.fonts.provider.FontsProvider in dying proc com.google.android.gms.persistent (adj -10000)
+10-28 18:54:22.676   487  2223 W ActivityManager: Scheduling restart of crashed service com.google.android.gms/.nearby.sharing.ReceiveSurfaceService in 129989ms for start-requested
+10-28 18:54:22.676   487  2223 W ActivityManager: Scheduling restart of crashed service com.google.android.gms/.location.persistent.LocationPersistentService in 149989ms for start-requested
+10-28 18:54:22.676   487  2223 W ActivityManager: Scheduling restart of crashed service com.google.android.gms/com.google.android.location.fused.FusedLocationService in 169989ms for connection
+10-28 18:54:22.676   487  2223 W ActivityManager: Scheduling restart of crashed service com.google.android.gms/.fido.fido2.pollux.CableAuthenticatorService in 189989ms for start-requested
+--
+10-28 18:54:22.711   487  2223 W ActivityManager: Scheduling restart of crashed service com.google.android.gms/com.google.android.location.internal.server.GoogleLocationService in 549954ms for start-requested
+10-28 18:54:22.711   487  2223 W ActivityManager: Scheduling restart of crashed service com.google.android.gms/.deviceconnection.service.DeviceConnectionWatcherService in 569954ms for start-requested
+10-28 18:54:22.711   487  2223 W ActivityManager: Scheduling restart of crashed service com.google.android.gms/com.google.android.location.internal.server.HardwareArProviderService in 589954ms for connection
+10-28 18:54:22.711   487  2223 W ActivityManager: Scheduling restart of crashed service com.google.android.gms/.chimera.PersistentIntentOperationService in 609954ms for start-requested
+10-28 18:54:22.713   487  3396 W ActivityManager: Exception when unbinding service com.daynomy.webview.full/org.chromium.content.app.SandboxedProcessService0:0
+10-28 18:54:22.713   487  3396 W ActivityManager: android.os.DeadObjectException
+10-28 18:54:22.713   487  3396 W ActivityManager: 	at android.os.BinderProxy.transactNative(Native Method)
+10-28 18:54:22.713   487  3396 W ActivityManager: 	at android.os.BinderProxy.transact(BinderProxy.java:584)
+10-28 18:54:22.713   487  3396 W ActivityManager: 	at android.app.IApplicationThread$Stub$Proxy.scheduleUnbindService(IApplicationThread.java:1346)
+--
+10-28 18:54:22.713   487  3396 W ActivityManager: 	at com.android.server.am.ActivityManagerService$AppDeathRecipient.binderDied(ActivityManagerService.java:1478)
+10-28 18:54:22.713   487  3396 W ActivityManager: 	at android.os.IBinder$DeathRecipient.binderDied(IBinder.java:317)
+10-28 18:54:22.713   487  3396 W ActivityManager: 	at android.os.BinderProxy.sendDeathNotice(BinderProxy.java:704)
+10-28 18:54:22.714   487  3396 I ActivityManager: Killing 5579:com.google.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0:0/u0a174i0 (adj 900): isolated not needed
+10-28 18:54:22.753   487   507 W ActivityManager: setHasOverlayUi called on unknown pid: 5495
+10-28 18:54:22.759   487  2222 I ActivityManager: Start proc 6204:com.google.android.gms.persistent/u0a120 for content provider {com.google.android.gms/com.google.android.gms.chimera.container.GmsModuleProvider}
+10-28 18:54:22.791   487   515 W ActivityManager: Rescheduling restart of crashed service com.google.android.gms/.chimera.GmsBoundBrokerService in 9874ms for other
+10-28 18:54:22.791   487   515 W ActivityManager: Rescheduling restart of crashed service com.google.android.gms/.icing.service.IndexService in 29874ms for other
+10-28 18:54:22.791   487   515 W ActivityManager: Rescheduling restart of crashed service com.google.android.gms/.chimera.container.ExternalFileApkService in 49874ms for other

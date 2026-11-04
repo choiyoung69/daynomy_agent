@@ -1,0 +1,5 @@
+{
+  "database_name": "daynomy_2f22e50bc0_service_test",
+  "first_attempt": "lock deadline after 45 seconds; no inspection or mutation",
+  "status": "shared_lock_still_held_database_left_untouched"
+}

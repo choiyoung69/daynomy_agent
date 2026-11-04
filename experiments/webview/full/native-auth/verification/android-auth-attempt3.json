@@ -1,0 +1,31 @@
+{
+  "device": "emulator-5576",
+  "provider": "ephemeral locally signed OIDC; not real Google",
+  "mode": "actual full Android WebView and external Chrome with real Rust/private DB",
+  "steps": [
+    "actual guest protected MyPage redirects to login"
+  ],
+  "api": [
+    {
+      "path": "/api/users/me",
+      "status": 401,
+      "method": "GET"
+    },
+    {
+      "path": "/api/auth/csrf",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/auth/refresh",
+      "status": 401,
+      "method": "POST"
+    }
+  ],
+  "cookieProperties": [],
+  "status": "failed",
+  "failure": {
+    "step": "external-browser-launch",
+    "name": "TimeoutError"
+  }
+}

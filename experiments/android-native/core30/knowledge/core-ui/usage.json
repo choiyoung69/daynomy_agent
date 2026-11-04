@@ -1,0 +1,43 @@
+{
+  "context_sha256": "68f255c6ed64bdb21f46c66ce69f87ff764a65e5f2065a500122e7d938bd7121",
+  "manifest_sha256": "6432f90b843596f87a1784a818998c14e449fc0eaf098b37ca82c33798c059d3",
+  "applied_rules": [
+    {
+      "document": "knowledge/wiki/projects/daynomy/account.md",
+      "rule": "Expose current account/nickname/logout/withdraw workflows and explicit destructive confirmation.",
+      "implementation": "AccountScreen profile nickname form, save/logout actions and withdrawal AlertDialog"
+    },
+    {
+      "document": "knowledge/wiki/projects/daynomy/portfolio-ledger.md",
+      "rule": "Expose searched selected assets, BUY/SELL, history edit/delete, holding adjustment and distinct evaluation/performance.",
+      "implementation": "PortfolioScreen KR/US search chips, trade inputs, holdings/history lists, destructive confirmations, period fields and summary views"
+    },
+    {
+      "document": "knowledge/wiki/packages/android-kotlin/state-and-navigation.md",
+      "rule": "State has explicit owner; preserve drafts, current selection and generation, do not equate closing dialog with rollback.",
+      "implementation": "Root CoreViewModel owns drafts/query/country/epoch; CoreScreens reads state and uses callbacks, remember dialog-only state, no persistence of secrets"
+    },
+    {
+      "document": "knowledge/wiki/packages/android-kotlin/auth-and-storage.md",
+      "rule": "Do not substitute browser storage with insecure settings; external user agent login and account-bound cache cleanup.",
+      "implementation": "AccountScreen onLogin callback owned by root MainActivity external browser; root VM logout/cancel/session.clearSession; CoreScreens persists no auth data"
+    },
+    {
+      "document": "knowledge/wiki/packages/android-kotlin/errors-and-transactions.md",
+      "rule": "Pending transaction and unknown result differ; duplicate writes remain disabled until explicit reconciliation.",
+      "implementation": "CoreScreens transaction-pending only while busy, transaction-unknown warning and manual refresh, canWrite guards submit/edit/delete/adjust including open confirmations"
+    }
+  ],
+  "reviewed_at": "2026-10-28T10:00:11.535595+00:00",
+  "chronology": {
+    "direct_kb_read": "All required project/package topic files directly read before production implementation in first implementer tool call. Root confirms own direct UI KB read before UI integration.",
+    "formal_packet": "These context.md/manifest.json packets were materialized after implementation at manifest.created_at, then read and compared with existing rule mappings. This usage receipt is retrospective formal provenance, not evidence packets existed before code."
+  },
+  "limits": [
+    "Mappings declare applied rules; independent test/device/HTTP evidence remains separate.",
+    "Portfolio responses are raw JSON boundary adapters, not exhaustive original web DTO parity.",
+    "Rust accepts rounded average0.00 where original frontend requires>0; existingRust parity retained.",
+    "Mutation503 automatic replay prevented by one-shot body; GET503 Retry-After0 read retry remains possible.",
+    "Actual Google/device login not certified by local signed OIDC fixture."
+  ]
+}

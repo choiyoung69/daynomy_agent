@@ -1,0 +1,9 @@
+{
+  "endpoint": "/api/assets/910001/contents",
+  "http_status": 200,
+  "actual_body_sha256": "e0e49715fd57b6536cbd28eae40c9e1a4d722fa715291cb75085076c132b8bce",
+  "source_path": "reference/2026-DAYNOMY-dev/frontend/src/features/stock-content/api.ts",
+  "source_sha256": "6f680aa3d27c1978ca88b5d4b7a10041f70e91a975634377cf95d02bbd084a5f",
+  "source_rule": "isSafeContentUrl resolves relative URL with https://daynomy.local; INTERNAL_NEWS /news/<id> occurs in Rust fixture",
+  "observation": "Flutter UI shows server response format error and hides every related content item"
+}

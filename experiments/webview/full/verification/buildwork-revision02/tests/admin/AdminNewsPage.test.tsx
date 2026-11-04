@@ -1,0 +1,941 @@
+/** @vitest-environment jsdom */
+
+import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
+import type { ReactNode } from 'react';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { AuthContext } from '../../src/auth/AuthContext';
+import { AdminNewsFormPage } from '../../src/features/admin/AdminNewsFormPage';
+import { AdminNewsPage } from '../../src/features/admin/AdminNewsPage';
+
+const listItem = {
+  id: 1,
+  title: '금리 인상 전망에 시장 주목',
+  imageUrl: null,
+  sources: [{ name: 'DART', url: 'https://example.com/news/1' }],
+  category: 'STOCK',
+  publishedAt: null,
+  status: 'DRAFT',
+  createdAt: '2026-08-17T09:00:00Z',
+};
+
+function jsonResponse(body: unknown, status = 200) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { 'content-type': 'application/json' },
+  });
+}
+
+function renderAdmin(element: ReactNode) {
+  return render(
+    <AuthContext.Provider value={{ isLoggedIn: true, loading: false, role: 'ADMIN' }}>
+      <MemoryRouter>{element}</MemoryRouter>
+    </AuthContext.Provider>,
+  );
+}
+
+function renderAdminEdit(element: ReactNode) {
+  return render(
+    <AuthContext.Provider value={{ isLoggedIn: true, loading: false, role: 'ADMIN' }}>
+      <MemoryRouter initialEntries={['/admin/news/7/edit']}>
+        <Routes>
+          <Route path="/admin/news/:newsId/edit" element={element} />
+        </Routes>
+      </MemoryRouter>
+    </AuthContext.Provider>,
+  );
+}
+
+afterEach(() => {
+  cleanup();
+  vi.unstubAllGlobals();
+});
+
+describe('관리자 뉴스 화면', () => {
+  it('한국 뉴스 초안 생성 버튼은 한국 뉴스를 생성하고 결과와 새 목록을 표시한다', async () => {
+    const calls: Array<{ url: string; method?: string }> = [];
+    let listRequestCount = 0;
+
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+        const url = String(input);
+        calls.push({ url, method: init?.method });
+
+        if (url.endsWith('/api/auth/csrf')) {
+          return jsonResponse({ token: 'csrf-token', headerName: 'X-CSRF-TOKEN' });
+        }
+
+        if (url.endsWith('/api/admin/news/generate/economy/korea')) {
+          return jsonResponse({ savedCount: 2 });
+        }
+
+        listRequestCount += 1;
+        return jsonResponse({
+          items: [listItem],
+          page: 1,
+          size: 15,
+          totalPages: 1,
+          totalElements: listRequestCount,
+          hasNext: false,
+        });
+      }),
+    );
+
+    const view = renderAdmin(<AdminNewsPage />);
+    fireEvent.click(await view.findByRole('button', { name: '한국 뉴스 지금 생성' }));
+
+    expect(await view.findByText('한국 뉴스 초안 생성이 완료되었습니다.')).toBeTruthy();
+    expect(view.getByRole('status').textContent).toContain('2');
+    await waitFor(() => expect(listRequestCount).toBe(2));
+    expect(
+      calls.some(
+        ({ url, method }) =>
+          url.endsWith('/api/admin/news/generate/economy/korea') && method === 'POST',
+      ),
+    ).toBe(true);
+  });
+
+  it('미국 뉴스 초안 생성 버튼은 미국 뉴스만 따로 실행한다', async () => {
+    let generatedUsNews = false;
+
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (input: RequestInfo | URL) => {
+        const url = String(input);
+        if (url.endsWith('/api/auth/csrf')) {
+          return jsonResponse({ token: 'csrf-token', headerName: 'X-CSRF-TOKEN' });
+        }
+        if (url.endsWith('/api/admin/news/generate/economy/us')) {
+          generatedUsNews = true;
+          return jsonResponse({ savedCount: 3 });
+        }
+        return jsonResponse({
+          items: [listItem],
+          page: 1,
+          size: 15,
+          totalPages: 1,
+          totalElements: 1,
+          hasNext: false,
+        });
+      }),
+    );
+
+    const view = renderAdmin(<AdminNewsPage />);
+    fireEvent.click(await view.findByRole('button', { name: '미국 뉴스 지금 생성' }));
+
+    expect(await view.findByText('미국 뉴스 초안 생성이 완료되었습니다.')).toBeTruthy();
+    expect(view.getByRole('status').textContent).toContain('3');
+    expect(generatedUsNews).toBe(true);
+  });
+
+  it('뉴스 목록을 표시하고 상태 필터를 API 요청에 반영한다', async () => {
+    const calls: string[] = [];
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (input: RequestInfo | URL) => {
+        calls.push(String(input));
+        return jsonResponse({
+          items: [listItem],
+          page: 1,
+          size: 15,
+          totalPages: 1,
+          totalElements: 1,
+          hasNext: false,
+        });
+      }),
+    );
+
+    const view = renderAdmin(<AdminNewsPage />);
+    expect(await view.findByRole('link', { name: listItem.title })).toBeTruthy();
+
+    fireEvent.change(view.getByLabelText('상태'), { target: { value: 'PUBLISHED' } });
+    await waitFor(() => expect(calls.some((url) => url.includes('status=PUBLISHED'))).toBe(true));
+  });
+
+  it('검색 조건을 페이지·필터 변경에도 유지하고 초기화한다', async () => {
+    const calls: string[] = [];
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (input: RequestInfo | URL) => {
+        const url = String(input);
+        calls.push(url);
+        const page = Number(new URL(url, 'http://localhost').searchParams.get('page'));
+        return jsonResponse({
+          items: [listItem],
+          page,
+          size: 15,
+          totalPages: 3,
+          totalElements: 31,
+          hasNext: page < 3,
+        });
+      }),
+    );
+
+    const view = renderAdmin(<AdminNewsPage />);
+    expect(await view.findByRole('link', { name: listItem.title })).toBeTruthy();
+
+    fireEvent.change(view.getByRole('searchbox', { name: '뉴스 검색' }), {
+      target: { value: ' 금리 ' },
+    });
+    expect(calls).toHaveLength(1);
+    fireEvent.click(view.getByRole('button', { name: '검색' }));
+    await waitFor(() => expect(calls.at(-1)).toContain('q=%EA%B8%88%EB%A6%AC'));
+
+    fireEvent.click(view.getByRole('button', { name: '2' }));
+    await waitFor(() => expect(calls.at(-1)).toContain('page=2&size=15&q=%EA%B8%88%EB%A6%AC'));
+
+    fireEvent.change(view.getByLabelText('상태'), { target: { value: 'DRAFT' } });
+    await waitFor(() => expect(calls.at(-1)).toContain('page=1&size=15&status=DRAFT&q='));
+
+    fireEvent.change(view.getByLabelText('카테고리'), { target: { value: 'STOCK' } });
+    await waitFor(() => expect(calls.at(-1)).toContain('status=DRAFT&category=STOCK&q='));
+
+    fireEvent.click(view.getByRole('button', { name: '초기화' }));
+    await waitFor(() =>
+      expect(calls.at(-1)).toContain('page=1&size=15&status=DRAFT&category=STOCK'),
+    );
+    expect(calls.at(-1)).not.toContain('&q=');
+  });
+
+  it('검색 결과가 없으면 빈 목록 안내를 표시한다', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (input: RequestInfo | URL) => {
+        const hasKeyword = new URL(String(input), 'http://localhost').searchParams.has('q');
+        return jsonResponse({
+          items: hasKeyword ? [] : [listItem],
+          page: 1,
+          size: 15,
+          totalPages: hasKeyword ? 0 : 1,
+          totalElements: hasKeyword ? 0 : 1,
+          hasNext: false,
+        });
+      }),
+    );
+
+    const view = renderAdmin(<AdminNewsPage />);
+    expect(await view.findByRole('link', { name: listItem.title })).toBeTruthy();
+
+    fireEvent.change(view.getByRole('searchbox', { name: '뉴스 검색' }), {
+      target: { value: '없는뉴스' },
+    });
+    fireEvent.click(view.getByRole('button', { name: '검색' }));
+
+    expect(await view.findByText('조건에 맞는 뉴스가 없습니다.')).toBeTruthy();
+    expect(view.queryByRole('link', { name: '첫 뉴스 등록하기' })).toBeNull();
+
+    fireEvent.click(view.getByRole('button', { name: '초기화' }));
+    expect(await view.findByRole('link', { name: listItem.title })).toBeTruthy();
+  });
+
+  it('마지막 뉴스 삭제 후 줄어든 마지막 페이지로 이동한다', async () => {
+    const calls: string[] = [];
+    let listRequestCount = 0;
+    const firstPageItem = { ...listItem, title: '첫 번째 페이지 뉴스' };
+    const lastPageItem = { ...listItem, id: 3, title: '마지막 페이지 뉴스' };
+    const replacementItem = { ...listItem, id: 2, title: '보정된 마지막 페이지 뉴스' };
+
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+        const url = String(input);
+        calls.push(url);
+
+        if (url.endsWith('/api/auth/csrf')) {
+          return jsonResponse({ token: 'csrf-token', headerName: 'X-CSRF-TOKEN' });
+        }
+
+        if (url.endsWith('/api/admin/news/3') && init?.method === 'DELETE') {
+          return new Response(null, { status: 204 });
+        }
+
+        if (url.includes('/api/admin/news?')) {
+          listRequestCount += 1;
+
+          if (listRequestCount === 1) {
+            return jsonResponse({
+              items: [firstPageItem],
+              page: 1,
+              size: 15,
+              totalPages: 3,
+              totalElements: 31,
+              hasNext: true,
+            });
+          }
+
+          if (listRequestCount === 2) {
+            return jsonResponse({
+              items: [lastPageItem],
+              page: 3,
+              size: 15,
+              totalPages: 3,
+              totalElements: 31,
+              hasNext: false,
+            });
+          }
+
+          if (listRequestCount === 3) {
+            return jsonResponse({
+              items: [],
+              page: 3,
+              size: 15,
+              totalPages: 2,
+              totalElements: 30,
+              hasNext: false,
+            });
+          }
+
+          return jsonResponse({
+            items: [replacementItem],
+            page: 2,
+            size: 15,
+            totalPages: 2,
+            totalElements: 30,
+            hasNext: false,
+          });
+        }
+
+        return jsonResponse({}, 404);
+      }),
+    );
+    vi.spyOn(window, 'confirm').mockReturnValue(true);
+
+    const view = renderAdmin(<AdminNewsPage />);
+    expect(await view.findByRole('link', { name: firstPageItem.title })).toBeTruthy();
+
+    fireEvent.click(view.getByRole('button', { name: '3' }));
+    expect(await view.findByRole('link', { name: lastPageItem.title })).toBeTruthy();
+
+    fireEvent.click(view.getByRole('button', { name: '삭제' }));
+
+    await waitFor(() => {
+      expect(calls.some((url) => url.includes('/api/admin/news?page=2&size=15'))).toBe(true);
+      expect(view.getByRole('link', { name: replacementItem.title })).toBeTruthy();
+    });
+    expect(view.getByRole('button', { name: '2' }).getAttribute('aria-current')).toBe('page');
+  });
+
+  it('초안 뉴스 발행 후 목록을 다시 불러온다', async () => {
+    const calls: Array<{ url: string; method?: string }> = [];
+    let listRequestCount = 0;
+    const publishedItem = { ...listItem, status: 'PUBLISHED', publishedAt: '2026-09-06T10:00:00Z' };
+
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+        const url = String(input);
+        calls.push({ url, method: init?.method });
+
+        if (url.endsWith('/api/auth/csrf')) {
+          return jsonResponse({ token: 'csrf-token', headerName: 'X-CSRF-TOKEN' });
+        }
+
+        if (url.endsWith('/api/admin/news/1/publish')) {
+          return jsonResponse({
+            id: 1,
+            title: listItem.title,
+            content: '본문',
+            imageUrl: null,
+            sources: listItem.sources,
+            category: listItem.category,
+            publishedAt: publishedItem.publishedAt,
+            status: 'PUBLISHED',
+          });
+        }
+
+        listRequestCount += 1;
+        return jsonResponse({
+          items: [listRequestCount === 1 ? listItem : publishedItem],
+          page: 1,
+          size: 15,
+          totalPages: 1,
+          totalElements: 1,
+          hasNext: false,
+        });
+      }),
+    );
+    vi.spyOn(window, 'confirm').mockReturnValue(true);
+
+    const view = renderAdmin(<AdminNewsPage />);
+    expect(await view.findByRole('button', { name: '발행' })).toBeTruthy();
+
+    fireEvent.click(view.getByRole('button', { name: '발행' }));
+
+    await waitFor(() => {
+      expect(
+        calls.some(
+          ({ url, method }) => url.endsWith('/api/admin/news/1/publish') && method === 'POST',
+        ),
+      ).toBe(true);
+      expect(view.queryByRole('button', { name: '발행' })).toBeNull();
+      expect(view.container.querySelector('.admin-status-published')?.textContent).toContain(
+        '발행됨',
+      );
+    });
+  });
+
+  it('이미지가 없는 초안에서 이미지를 생성한 뒤 목록을 갱신한다', async () => {
+    const calls: Array<{ url: string; method?: string }> = [];
+    let listRequestCount = 0;
+    const itemWithImage = { ...listItem, imageUrl: 'https://example.com/generated.webp' };
+
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+        const url = String(input);
+        calls.push({ url, method: init?.method });
+
+        if (url.endsWith('/api/auth/csrf')) {
+          return jsonResponse({ token: 'csrf-token', headerName: 'X-CSRF-TOKEN' });
+        }
+
+        if (url.endsWith('/api/admin/news/1/generate-image')) {
+          return jsonResponse({
+            id: 1,
+            title: listItem.title,
+            content: '본문',
+            imageUrl: itemWithImage.imageUrl,
+            sources: listItem.sources,
+            category: listItem.category,
+            publishedAt: null,
+            status: 'DRAFT',
+          });
+        }
+
+        listRequestCount += 1;
+        return jsonResponse({
+          items: [listRequestCount === 1 ? listItem : itemWithImage],
+          page: 1,
+          size: 15,
+          totalPages: 1,
+          totalElements: 1,
+          hasNext: false,
+        });
+      }),
+    );
+
+    const view = renderAdmin(<AdminNewsPage />);
+    fireEvent.click(await view.findByRole('button', { name: '이미지 생성' }));
+
+    await waitFor(() => {
+      expect(
+        calls.some(
+          ({ url, method }) =>
+            url.endsWith('/api/admin/news/1/generate-image') && method === 'POST',
+        ),
+      ).toBe(true);
+      expect(view.queryByRole('button', { name: '이미지 생성' })).toBeNull();
+    });
+  });
+
+  it('이미 발행된 뉴스의 기존 이미지를 확인 후 재생성한다', async () => {
+    const calls: Array<{ url: string; method?: string }> = [];
+    const publishedItem = {
+      ...listItem,
+      status: 'PUBLISHED',
+      publishedAt: '2026-09-06T10:00:00Z',
+      imageUrl: 'https://example.com/old.webp',
+    };
+    const updatedItem = { ...publishedItem, imageUrl: 'https://example.com/new.webp' };
+    let listRequestCount = 0;
+
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+        const url = String(input);
+        calls.push({ url, method: init?.method });
+
+        if (url.endsWith('/api/auth/csrf')) {
+          return jsonResponse({ token: 'csrf-token', headerName: 'X-CSRF-TOKEN' });
+        }
+
+        if (url.endsWith('/api/admin/news/1/generate-image')) {
+          return jsonResponse({
+            id: 1,
+            title: publishedItem.title,
+            content: '본문',
+            imageUrl: updatedItem.imageUrl,
+            sources: publishedItem.sources,
+            category: publishedItem.category,
+            publishedAt: publishedItem.publishedAt,
+            status: 'PUBLISHED',
+          });
+        }
+
+        listRequestCount += 1;
+        return jsonResponse({
+          items: [listRequestCount === 1 ? publishedItem : updatedItem],
+          page: 1,
+          size: 15,
+          totalPages: 1,
+          totalElements: 1,
+          hasNext: false,
+        });
+      }),
+    );
+    const confirm = vi.spyOn(window, 'confirm').mockReturnValue(true);
+
+    const view = renderAdmin(<AdminNewsPage />);
+    fireEvent.click(await view.findByRole('button', { name: '이미지 재생성' }));
+
+    await waitFor(() => {
+      expect(confirm).toHaveBeenCalledWith(
+        `'${publishedItem.title}' 뉴스 이미지를 새 이미지로 교체할까요?`,
+      );
+      expect(
+        calls.some(
+          ({ url, method }) =>
+            url.endsWith('/api/admin/news/1/generate-image') && method === 'POST',
+        ),
+      ).toBe(true);
+      expect(listRequestCount).toBe(2);
+      expect(view.getByRole('button', { name: '이미지 재생성' })).toBeTruthy();
+    });
+  });
+
+  it('뉴스의 액션 처리 중 같은 행의 다른 액션을 비활성화한다', async () => {
+    let resolvePublish: ((response: Response) => void) | undefined;
+    const publishResponse = new Promise<Response>((resolve) => {
+      resolvePublish = resolve;
+    });
+
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+        const url = String(input);
+
+        if (url.endsWith('/api/auth/csrf')) {
+          return jsonResponse({ token: 'csrf-token', headerName: 'X-CSRF-TOKEN' });
+        }
+
+        if (url.endsWith('/api/admin/news/1/publish') && init?.method === 'POST') {
+          return publishResponse;
+        }
+
+        return jsonResponse({
+          items: [listItem],
+          page: 1,
+          size: 15,
+          totalPages: 1,
+          totalElements: 1,
+          hasNext: false,
+        });
+      }),
+    );
+    vi.spyOn(window, 'confirm').mockReturnValue(true);
+
+    const view = renderAdmin(<AdminNewsPage />);
+    expect(await view.findByRole('button', { name: '발행' })).toBeTruthy();
+
+    fireEvent.click(view.getByRole('button', { name: '발행' }));
+
+    await waitFor(() => {
+      expect(view.getByRole('button', { name: '발행 중' })).toHaveProperty('disabled', true);
+      expect(view.getByRole('button', { name: '거절' })).toHaveProperty('disabled', true);
+      expect(view.getByRole('button', { name: '이미지 생성' })).toHaveProperty('disabled', true);
+      expect(view.getByRole('button', { name: '수정' })).toHaveProperty('disabled', true);
+      expect(view.getByRole('button', { name: '삭제' })).toHaveProperty('disabled', true);
+      expect(view.getByRole('link', { name: listItem.title }).getAttribute('aria-disabled')).toBe(
+        'true',
+      );
+    });
+
+    resolvePublish?.(
+      jsonResponse({
+        id: 1,
+        title: listItem.title,
+        content: '본문',
+        imageUrl: null,
+        sources: listItem.sources,
+        category: listItem.category,
+        publishedAt: '2026-09-06T10:00:00Z',
+        status: 'PUBLISHED',
+      }),
+    );
+  });
+
+  it('초안 뉴스 거절 후 목록을 다시 불러온다', async () => {
+    const calls: Array<{ url: string; method?: string }> = [];
+    let listRequestCount = 0;
+    const rejectedItem = { ...listItem, status: 'REJECTED' };
+
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+        const url = String(input);
+        calls.push({ url, method: init?.method });
+
+        if (url.endsWith('/api/auth/csrf')) {
+          return jsonResponse({ token: 'csrf-token', headerName: 'X-CSRF-TOKEN' });
+        }
+
+        if (url.endsWith('/api/admin/news/1/reject')) {
+          return jsonResponse({
+            id: 1,
+            title: listItem.title,
+            content: '본문',
+            imageUrl: null,
+            sources: listItem.sources,
+            category: listItem.category,
+            publishedAt: null,
+            status: 'REJECTED',
+          });
+        }
+
+        listRequestCount += 1;
+        return jsonResponse({
+          items: [listRequestCount === 1 ? listItem : rejectedItem],
+          page: 1,
+          size: 15,
+          totalPages: 1,
+          totalElements: 1,
+          hasNext: false,
+        });
+      }),
+    );
+    vi.spyOn(window, 'confirm').mockReturnValue(true);
+
+    const view = renderAdmin(<AdminNewsPage />);
+    expect(await view.findByRole('button', { name: '거절' })).toBeTruthy();
+
+    fireEvent.click(view.getByRole('button', { name: '거절' }));
+
+    await waitFor(() => {
+      expect(
+        calls.some(
+          ({ url, method }) => url.endsWith('/api/admin/news/1/reject') && method === 'POST',
+        ),
+      ).toBe(true);
+      expect(view.queryByRole('button', { name: '거절' })).toBeNull();
+      expect(view.container.querySelector('.admin-status-rejected')?.textContent).toContain(
+        '반려됨',
+      );
+    });
+  });
+
+  it('새 뉴스에서 저장 후 AI 생성에 실패해도 같은 뉴스로 재시도한다', async () => {
+    const saved = {
+      ...listItem,
+      id: 7,
+      title: 'AI 생성용 뉴스',
+      content: '뉴스 본문',
+      relatedAssets: [],
+    };
+    let generated = false;
+    let generationCalls = 0;
+    const fetchMock = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      const path = String(input);
+      if (path.endsWith('/api/auth/csrf'))
+        return jsonResponse({ token: 'token', headerName: 'X-CSRF-TOKEN' });
+      if (path.endsWith('/generate-image') && init?.method === 'POST') {
+        generationCalls++;
+        if (generationCalls === 1) return jsonResponse({ message: '생성 실패' }, 500);
+        generated = true;
+      }
+      return jsonResponse({ ...saved, imageUrl: generated ? 'https://example.com/ai.webp' : null });
+    });
+    vi.stubGlobal('fetch', fetchMock);
+    const view = render(
+      <MemoryRouter initialEntries={['/admin/news/new']}>
+        <Routes>
+          <Route path="/admin/news/new" element={<AdminNewsFormPage />} />
+          <Route path="/admin/news/:newsId/edit" element={<AdminNewsFormPage />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    fireEvent.change(view.getByPlaceholderText('뉴스 제목을 입력해 주세요'), {
+      target: { value: saved.title },
+    });
+    fireEvent.change(view.getByPlaceholderText('뉴스 본문을 입력해 주세요'), {
+      target: { value: saved.content },
+    });
+    fireEvent.change(view.getByRole('combobox'), { target: { value: 'STOCK' } });
+    fireEvent.change(view.getByLabelText('출처명'), { target: { value: 'DART' } });
+    fireEvent.change(view.getByLabelText('출처 URL'), {
+      target: { value: 'https://example.com/news/1' },
+    });
+    fireEvent.click(view.getByRole('button', { name: 'AI 생성' }));
+    fireEvent.click(view.getByRole('button', { name: '저장하고 AI 이미지 생성' }));
+    await view.findByRole('heading', { name: '뉴스 수정' });
+    expect(await view.findByRole('alert')).toHaveProperty(
+      'textContent',
+      expect.stringContaining('뉴스 내용은 저장되었습니다.'),
+    );
+    expect(view.getByDisplayValue(saved.title)).toBeTruthy();
+    fireEvent.click(view.getByRole('button', { name: '저장하고 AI 이미지 생성' }));
+    await waitFor(() =>
+      expect(view.getByAltText('뉴스 대표 이미지 미리보기').getAttribute('src')).toBe(
+        'https://example.com/ai.webp',
+      ),
+    );
+    expect(await view.findByText('AI 이미지를 생성해 대표 이미지로 저장했습니다.')).toBeTruthy();
+    expect(
+      fetchMock.mock.calls.filter(
+        ([path, init]) => String(path).endsWith('/api/admin/news') && init?.method === 'POST',
+      ),
+    ).toHaveLength(1);
+    expect(
+      fetchMock.mock.calls.filter(
+        ([path, init]) => String(path).endsWith('/api/admin/news/7') && init?.method === 'PUT',
+      ),
+    ).toHaveLength(1);
+    expect(generationCalls).toBe(2);
+  });
+
+  it('AI 이미지 생성도 필수 입력을 검증하고 기존 이미지 교체는 확인한다', async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        ...listItem,
+        id: 7,
+        content: '본문',
+        imageUrl: 'https://example.com/current.webp',
+      }),
+    );
+    vi.stubGlobal('fetch', fetchMock);
+    vi.stubGlobal('confirm', vi.fn().mockReturnValue(false));
+    const view = renderAdminEdit(<AdminNewsFormPage />);
+    await view.findByDisplayValue('본문');
+    fireEvent.click(view.getByRole('button', { name: 'AI 생성' }));
+    fireEvent.click(view.getByRole('button', { name: '저장하고 AI 이미지 생성' }));
+    expect(window.confirm).toHaveBeenCalledOnce();
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    fireEvent.change(view.getByPlaceholderText('뉴스 본문을 입력해 주세요'), {
+      target: { value: '' },
+    });
+    fireEvent.click(view.getByRole('button', { name: '저장하고 AI 이미지 생성' }));
+    expect(await view.findByText('본문을 입력해 주세요.')).toBeTruthy();
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('본문 미리보기와 작성 전환에서 입력을 유지하고 잘못된 폼은 작성 화면으로 돌아온다', async () => {
+    const view = renderAdmin(<AdminNewsFormPage />);
+    fireEvent.change(view.getByPlaceholderText('뉴스 본문을 입력해 주세요'), {
+      target: { value: '첫 문단\n둘째 문단 <script>텍스트</script>' },
+    });
+    fireEvent.click(view.getByRole('button', { name: '미리보기' }));
+    expect(view.getByRole('article', { name: '뉴스 본문 미리보기' })).toBeTruthy();
+    expect(view.getByText('둘째 문단 <script>텍스트</script>')).toBeTruthy();
+    expect(view.container.querySelector('script')).toBeNull();
+    fireEvent.click(view.getByRole('button', { name: '작성' }));
+    expect(
+      (view.getByPlaceholderText('뉴스 본문을 입력해 주세요') as HTMLTextAreaElement).value,
+    ).toBe('첫 문단\n둘째 문단 <script>텍스트</script>');
+    fireEvent.click(view.getByRole('button', { name: '미리보기' }));
+    fireEvent.click(view.getByRole('button', { name: '초안으로 등록' }));
+    expect(view.queryByRole('article')).toBeNull();
+    await waitFor(() =>
+      expect(document.activeElement).toBe(view.getByPlaceholderText('뉴스 제목을 입력해 주세요')),
+    );
+  });
+
+  it('수정 내용을 버리는 취소를 확인하고 저장 실패 후 입력을 유지한다', async () => {
+    const fetchMock = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      if (String(input).endsWith('/api/auth/csrf'))
+        return jsonResponse({ token: 'token', headerName: 'X-CSRF-TOKEN' });
+      if (init?.method === 'PUT') return jsonResponse({ message: '저장 실패' }, 500);
+      return jsonResponse({ ...listItem, id: 7, content: '기존 본문', relatedAssets: [] });
+    });
+    vi.stubGlobal('fetch', fetchMock);
+    vi.stubGlobal('confirm', vi.fn().mockReturnValue(false));
+    const view = renderAdminEdit(<AdminNewsFormPage />);
+    await view.findByDisplayValue('기존 본문');
+    fireEvent.change(view.getByPlaceholderText('뉴스 제목을 입력해 주세요'), {
+      target: { value: '수정한 제목' },
+    });
+    fireEvent.click(view.getByRole('link', { name: '취소' }));
+    expect(window.confirm).toHaveBeenCalledOnce();
+    expect(view.getByDisplayValue('수정한 제목')).toBeTruthy();
+    fireEvent.click(view.getByRole('button', { name: '수정 저장' }));
+    expect(
+      (view.container.querySelector('.admin-editor-fields') as HTMLFieldSetElement).disabled,
+    ).toBe(true);
+    await view.findByRole('alert');
+    expect(view.getByDisplayValue('수정한 제목')).toBeTruthy();
+    expect(
+      fetchMock.mock.calls.some(
+        ([, init]) => init?.method === 'PUT' && init.body instanceof FormData,
+      ),
+    ).toBe(true);
+  });
+
+  it('뉴스 등록 폼은 필수값과 URL 형식을 검증한다', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => jsonResponse({}, 500)),
+    );
+    const view = renderAdmin(<AdminNewsFormPage />);
+
+    fireEvent.click(view.getByRole('button', { name: '초안으로 등록' }));
+
+    expect(await view.findByText('제목을 입력해 주세요.')).toBeTruthy();
+    await waitFor(() =>
+      expect(document.activeElement).toBe(view.getByPlaceholderText('뉴스 제목을 입력해 주세요')),
+    );
+    expect(view.getByText('본문을 입력해 주세요.')).toBeTruthy();
+    expect(view.getByText('출처명을 입력해 주세요.')).toBeTruthy();
+    expect(view.getByText('출처 URL을 입력해 주세요.')).toBeTruthy();
+    expect(view.getByText('카테고리를 선택해 주세요.')).toBeTruthy();
+  });
+
+  it('뉴스 등록 폼에서 출처를 추가하고 삭제할 수 있다', () => {
+    const view = renderAdmin(<AdminNewsFormPage />);
+
+    expect(view.getAllByLabelText('출처명')).toHaveLength(1);
+    fireEvent.click(view.getByRole('button', { name: '+ 출처 추가' }));
+    expect(view.getAllByLabelText('출처명')).toHaveLength(2);
+
+    fireEvent.click(view.getByRole('button', { name: '출처 2 삭제' }));
+    expect(view.getAllByLabelText('출처명')).toHaveLength(1);
+  });
+
+  it('뉴스 등록 폼에서 Wikimedia Commons 이미지를 검색하고 선택할 수 있다', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (input: RequestInfo | URL) => {
+        if (String(input).includes('/api/admin/news/image-search')) {
+          return jsonResponse({
+            items: [
+              {
+                title: 'File:Seoul.jpg',
+                thumbnailUrl: 'https://upload.wikimedia.org/thumb.jpg',
+                sourceUrl: 'https://commons.wikimedia.org/wiki/File:Seoul.jpg',
+                author: 'Jane Doe',
+                license: 'CC BY 4.0',
+                licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
+                width: 1200,
+                height: 800,
+              },
+            ],
+          });
+        }
+
+        return jsonResponse({}, 404);
+      }),
+    );
+
+    const view = renderAdmin(<AdminNewsFormPage />);
+    fireEvent.click(view.getByRole('button', { name: '이미지 검색' }));
+    fireEvent.change(view.getByLabelText('이미지 검색어'), {
+      target: { value: 'Seoul skyline' },
+    });
+    fireEvent.click(view.getByRole('button', { name: '검색' }));
+
+    const candidate = await view.findByRole('button', {
+      name: /File:Seoul\.jpg.*Jane Doe.*CC BY 4\.0/,
+    });
+    fireEvent.click(candidate);
+
+    expect(view.getByAltText('뉴스 대표 이미지 미리보기').getAttribute('src')).toBe(
+      'https://upload.wikimedia.org/thumb.jpg',
+    );
+    expect(view.getByText(/선택됨: Jane Doe · CC BY 4\.0/)).toBeTruthy();
+  });
+
+  it('Wikimedia 이미지 검색은 최신 요청 결과만 표시한다', async () => {
+    let requestCount = 0;
+    let resolveFirst: ((response: Response) => void) | undefined;
+    let resolveSecond: ((response: Response) => void) | undefined;
+    const firstResponse = new Promise<Response>((resolve) => {
+      resolveFirst = resolve;
+    });
+    const secondResponse = new Promise<Response>((resolve) => {
+      resolveSecond = resolve;
+    });
+
+    vi.stubGlobal(
+      'fetch',
+      vi.fn((input: RequestInfo | URL) => {
+        if (String(input).includes('/api/admin/news/image-search')) {
+          requestCount += 1;
+          return requestCount === 1 ? firstResponse : secondResponse;
+        }
+
+        return Promise.resolve(jsonResponse({}, 404));
+      }),
+    );
+
+    const view = renderAdmin(<AdminNewsFormPage />);
+    fireEvent.click(view.getByRole('button', { name: '이미지 검색' }));
+    const input = view.getByLabelText('이미지 검색어');
+    fireEvent.change(input, { target: { value: 'Seoul' } });
+    fireEvent.click(view.getByRole('button', { name: '검색' }));
+    await waitFor(() => expect(requestCount).toBe(1));
+
+    fireEvent.change(input, { target: { value: 'Busan' } });
+    fireEvent.keyDown(input, { key: 'Enter' });
+    await waitFor(() => expect(requestCount).toBe(2));
+
+    resolveSecond?.(
+      jsonResponse({
+        items: [
+          {
+            title: 'File:Busan.jpg',
+            thumbnailUrl: 'https://upload.wikimedia.org/busan.jpg',
+            sourceUrl: 'https://commons.wikimedia.org/wiki/File:Busan.jpg',
+            author: 'Busan Author',
+            license: 'CC BY 4.0',
+            licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
+            width: 1200,
+            height: 800,
+          },
+        ],
+      }),
+    );
+    expect(await view.findByRole('button', { name: /File:Busan\.jpg/ })).toBeTruthy();
+
+    resolveFirst?.(
+      jsonResponse({
+        items: [
+          {
+            title: 'File:Seoul.jpg',
+            thumbnailUrl: 'https://upload.wikimedia.org/seoul.jpg',
+            sourceUrl: 'https://commons.wikimedia.org/wiki/File:Seoul.jpg',
+            author: 'Seoul Author',
+            license: 'CC BY 4.0',
+            licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
+            width: 1200,
+            height: 800,
+          },
+        ],
+      }),
+    );
+
+    await waitFor(() => {
+      expect(view.getByRole('button', { name: /File:Busan\.jpg/ })).toBeTruthy();
+      expect(view.queryByRole('button', { name: /File:Seoul\.jpg/ })).toBeNull();
+    });
+  });
+
+  it('수정 대상 뉴스 상세 조회에 실패하면 폼 대신 오류 화면을 표시한다', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (input: RequestInfo | URL) => {
+        if (String(input).includes('/api/admin/news/7')) {
+          return jsonResponse({ message: '뉴스 정보를 불러오지 못했습니다.' }, 404);
+        }
+
+        return jsonResponse({}, 404);
+      }),
+    );
+
+    const view = renderAdminEdit(<AdminNewsFormPage />);
+
+    expect((await view.findByRole('alert')).textContent).toContain(
+      '뉴스 정보를 불러오지 못했습니다.',
+    );
+    expect(view.getByRole('link', { name: '뉴스 관리로 돌아가기' })).toBeTruthy();
+    expect(view.queryByRole('button', { name: '수정 저장' })).toBeNull();
+  });
+
+  it('뉴스 목록 API 실패 시 오류와 재시도 버튼을 표시한다', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => jsonResponse({}, 500)),
+    );
+    const view = renderAdmin(<AdminNewsPage />);
+
+    expect(await view.findByRole('alert')).toBeTruthy();
+    expect(view.getByRole('button', { name: '다시 시도' })).toBeTruthy();
+  });
+});

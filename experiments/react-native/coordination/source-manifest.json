@@ -1,0 +1,24 @@
+{
+  "checked_at": "2026-10-28T10:33:02.565171+00:00",
+  "implementation_ready_at": "2026-10-28T10:32:21Z",
+  "implementation_elapsed_seconds": 1008,
+  "deadline": "2026-10-28T10:35:33Z",
+  "files": {
+    "clients/react-native/App.tsx": "66ff87b2c7b2e2b1f410655cc096a9c5e040a89987daef63a786678f39168dfa",
+    "clients/react-native/app.json": "d36be4e7f0488ed9eaa2b69b196f02be994398baee317a9c4d1dab89ee591804",
+    "clients/react-native/index.ts": "af10e01cf5fa6d399a83829926cc80d935c1dca8fb01313ab7cb54aab84c028b",
+    "clients/react-native/package-lock.json": "b494f39b9826b34b7ab5cbf069ba74241e6516295d280ee39dca911af739aff1",
+    "clients/react-native/package.json": "06564e0acb43c139ceb0c817c374e96a2c6b7eecc996610eccffd18e238d68d0",
+    "clients/react-native/src/api.ts": "0167949d3a2dedfe97e0db564c5724c9dd3e9e52367d75bd4e270b2f88e23883",
+    "clients/react-native/src/auth.ts": "34031369d46e9d8c0c4060f81833a00012fe79288613c2d34941c27caa461714",
+    "clients/react-native/src/core.ts": "e31fb8cf39a17bfffb44a33e2443aacd845414a6a3144b58f888c4a500f01136",
+    "clients/react-native/src/routes.ts": "7a873e81fcdfd469c22be50be597f1a3bcc239bbc5b84281074f73dada4840dc",
+    "clients/react-native/src/storage.ts": "2b68ddb2ec2228e8ae7d8b38667420774063a7915d7a38839b3fd1f9b605ff7e",
+    "clients/react-native/src/ui/Admin.tsx": "7a8f80cda47c69d96c057cf8104396b83fd6e675bbe08e49b7a6440a5623dc11",
+    "clients/react-native/src/ui/kit.tsx": "650f82d5c85fa742bb71443209c40950362399a3f907698634bc2c453166faaf",
+    "clients/react-native/src/ui/theme.ts": "714ba0ca5ace5df163c5eb3d93a0ad32632115b4336eb3416864cb3cd04716af",
+    "clients/react-native/tests/core.test.ts": "346c27cc3aa445f355293fbcffd87723c21d7828452af06a2748a4790be37d92",
+    "clients/react-native/tsconfig.json": "404cb3f27c9f3f78eb320543dd8ca0952f8d201e125bd7ba9206e8067c49656c"
+  },
+  "frozen_test_matches": true
+}

@@ -1,0 +1,106 @@
+{
+  "phase": "red",
+  "validator": "/root/android_next_validation",
+  "started_at": "2026-10-28T09:16:35Z",
+  "ended_at": "2026-10-28T09:17:05.656782+00:00",
+  "exit_code": 1,
+  "genuine_unimplemented_failure": true,
+  "test_count": 14,
+  "failed": 14,
+  "skipped": 0,
+  "test_sha256": "cb45b07c464e0efccbd07a58812bff5f0e8d2e043e92ef76710485c0256bd684",
+  "stub_sha256": "8e21a7df3ece20b49e9a7c81792e3ec3e605921b9e075acab744818eb10c8249",
+  "knowledge_context_sha256": "8eaa1e1e552b3d65135aac39d812ed954c6a844eebd1e503a058bb5c1cc8cf0f",
+  "knowledge_manifest_sha256": "1d20a50319826f006c9eccd65fe6b82faae78e7d6bc222d6ae1c34e30d65cc0a",
+  "command": "env JAVA_HOME=/Users/seoyeong/Library/Java/JavaVirtualMachines/ms-21.0.12/Contents/Home GRADLE_USER_HOME=$PWD/.local/android-gradle clients/android/gradlew -p clients/android --no-daemon :market-core:test --tests org.daynomy.market.DiscoveryClientContractTest",
+  "log": ".local/android-next-red-news-client.log",
+  "xml_sha256": "2ad5d99c13701204bc93a3f5cf863accfabf65ab35ed0dd193c5b9ab7ed84fdd",
+  "cases": [
+    {
+      "name": "unknownFieldsAndEmptySourceListAreAllowed",
+      "failure_type": "kotlin.NotImplementedError",
+      "failure_message": "kotlin.NotImplementedError: news detail not implemented",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "emptyPageIsSuccessfulAndRetainsPageMetadata",
+      "failure_type": "kotlin.NotImplementedError",
+      "failure_message": "kotlin.NotImplementedError: news list not implemented",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "listNullableFieldsAreRequiredAndEveryRowIsValidated",
+      "failure_type": "java.lang.AssertionError",
+      "failure_message": "java.lang.AssertionError: Expected ResponseFormatException, got NotImplementedError",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "categoryPageAndAllMetadataPreserveServerOrder",
+      "failure_type": "kotlin.NotImplementedError",
+      "failure_message": "kotlin.NotImplementedError: news list not implemented",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "transportAndCancellationFailuresPreserveIdentity",
+      "failure_type": "java.lang.AssertionError",
+      "failure_message": "java.lang.AssertionError: Expected Exception, got NotImplementedError",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "invalidPageAndMissingDetailPropagateServerErrorsWithoutRetry",
+      "failure_type": "java.lang.AssertionError",
+      "failure_message": "java.lang.AssertionError: Expected ApiException, got NotImplementedError",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "defaultListUsesOneBasedPageSixItemsAndOmitsAllCategory",
+      "failure_type": "kotlin.NotImplementedError",
+      "failure_message": "kotlin.NotImplementedError: news list not implemented",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "detailRejectsNullPublishedAtMalformedContentAndMalformedSources",
+      "failure_type": "java.lang.AssertionError",
+      "failure_message": "java.lang.AssertionError: Expected ResponseFormatException, got NotImplementedError",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "detailSingleStringSplitsNewlinesButPreservesWhitespaceParagraph",
+      "failure_type": "kotlin.NotImplementedError",
+      "failure_message": "kotlin.NotImplementedError: news detail not implemented",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "allTenWebCategoriesDecodeAndUnknownCategoryFails",
+      "failure_type": "kotlin.NotImplementedError",
+      "failure_message": "kotlin.NotImplementedError: news list not implemented",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "newsIdsAreExactSignedLongsWithoutStockSafeIdRestriction",
+      "failure_type": "kotlin.NotImplementedError",
+      "failure_message": "kotlin.NotImplementedError: news list not implemented",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "missingMalformedAndWrongTypedPaginationCannotBecomeEmptySuccess",
+      "failure_type": "java.lang.AssertionError",
+      "failure_message": "java.lang.AssertionError: Expected ResponseFormatException, got NotImplementedError",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "detailOptionalImageUrlAllowsExplicitNullButImageSourceDoesNot",
+      "failure_type": "kotlin.NotImplementedError",
+      "failure_message": "kotlin.NotImplementedError: news detail not implemented",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "detailArrayAndImageAttributionArePreserved",
+      "failure_type": "kotlin.NotImplementedError",
+      "failure_message": "kotlin.NotImplementedError: news detail not implemented",
+      "contains_stub_exception": true
+    }
+  ],
+  "note": "Coordinator initially described 15; exact frozen file and actual XML contain 14. No test omitted or skipped.",
+  "approval": "not approved; red test freeze only"
+}

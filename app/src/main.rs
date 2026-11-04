@@ -110,7 +110,11 @@ async fn private_request(request: Request<Incoming>, config: Arc<tokio_postgres:
                     .split_once('=')
                     .is_some_and(|(name, _)| name == "access_token")
             });
-    if unsafe_method && !guest_analysis && !csrf::valid(&headers) {
+    if unsafe_method
+        && !guest_analysis
+        && path != "/api/auth/mobile/exchange"
+        && !csrf::valid(&headers)
+    {
         return outcome_reply(Err(api::fault(403, "FORBIDDEN", "접근 권한이 없습니다.")));
     }
     let (db, connection) = match config.connect(NoTls).await {
@@ -219,6 +223,9 @@ async fn private_request(request: Request<Incoming>, config: Arc<tokio_postgres:
             Err(error) => outcome_reply(Err(error)),
             Ok(reply) => {
                 let mut response = outcome_reply(Ok((reply.status, reply.body)));
+                response
+                    .headers_mut()
+                    .insert(CACHE_CONTROL, HeaderValue::from_static("no-store"));
                 for (name, value) in reply.headers {
                     let Ok(name) = hyper::header::HeaderName::from_bytes(name.as_bytes()) else {
                         return outcome_reply(Err(api::internal()));
@@ -262,6 +269,9 @@ async fn private_request(request: Request<Incoming>, config: Arc<tokio_postgres:
             Err(error) => outcome_reply(Err(error)),
             Ok(reply) => {
                 let mut response = outcome_reply(Ok((reply.status, reply.body)));
+                response
+                    .headers_mut()
+                    .insert(CACHE_CONTROL, HeaderValue::from_static("no-store"));
                 for (name, value) in reply.headers {
                     let Ok(name) = hyper::header::HeaderName::from_bytes(name.as_bytes()) else {
                         return outcome_reply(Err(api::internal()));

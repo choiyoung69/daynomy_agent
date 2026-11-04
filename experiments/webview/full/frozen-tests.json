@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "frozen_at": "2026-10-28T09:30:49.337292+00:00",
+  "role": "independent-test-author",
+  "implementation_present_at_red": false,
+  "commands": [
+    {
+      "command": "node --check clients/webview/full-tests/server-contract.test.mjs",
+      "exit": 0
+    },
+    {
+      "command": "node --check clients/webview/full-tests/browser-smoke.mjs",
+      "exit": 0
+    },
+    {
+      "command": "node --test clients/webview/full-tests/server-contract.test.mjs",
+      "exit": 1,
+      "evidence": "experiments/webview/full/tests/red-server.tap"
+    }
+  ],
+  "files": {
+    "clients/webview/full-tests/browser-smoke.mjs": "6af152305b02c0bff0ac8c8b7fd48562f25d928550c6dfa47943cf53df392a26",
+    "clients/webview/full-tests/route-contract.json": "3c8fdcbd59a07ddc2bf5e7c600df305fbf678c11d07b20dadb5502856f80221f",
+    "clients/webview/full-tests/server-contract.test.mjs": "a870502c8f5d4d1c8c7497f936e547036422a191cb95c2ec766255eaec6ed7fb",
+    "experiments/webview/full/tests/red-server.tap": "2252ad42e90964b7fe7cc7ff7615909a11434f075b640209c2374e754609ea1e",
+    "experiments/webview/full/tests/tests-notes.md": "8c0cb18e2ab8f6c324f9b866596c1a8ad0dbf59ecdf323165a7b805440d157a5"
+  }
+}

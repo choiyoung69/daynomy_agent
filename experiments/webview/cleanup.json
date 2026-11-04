@@ -1,0 +1,36 @@
+{
+  "at": "2026-10-28T09:15:48.706889+00:00",
+  "actions": [
+    {
+      "resource": "owned disposable Rust/DB fixture",
+      "action": "requested graceful stop via owned stop file"
+    },
+    {
+      "resource": "owned preview18082",
+      "action": "SIGTERM sent to verified WebView serve command"
+    },
+    {
+      "resource": "owned emulator5564",
+      "command": [
+        "-s",
+        "emulator-5564",
+        "forward",
+        "--remove",
+        "tcp:9225"
+      ],
+      "exit_code": 0
+    },
+    {
+      "resource": "owned emulator5564",
+      "command": [
+        "-s",
+        "emulator-5564",
+        "emu",
+        "kill"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "owned_fixture_final_exit_code": 0,
+  "owned_fixture_status": "stopped"
+}

@@ -1,0 +1,8 @@
+Building org.daynomy.app for simulator (ios)...
+Running Xcode build...                                          
+Xcode build done.                                           16.0s
+Failed to build iOS app
+Parse Issue (Xcode): Module 'flutter_web_auth_2' not found
+/Users/seoyeong/develop/AI/daynomy_agent/clients/flutter/ios/Runner/GeneratedPluginRegistrant.m:11:8
+
+Encountered error while building for simulator.

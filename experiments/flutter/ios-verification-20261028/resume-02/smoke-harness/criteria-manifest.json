@@ -1,0 +1,26 @@
+{
+  "role": "independent additional integration smoke test author",
+  "production_modified": false,
+  "execution": "preparation only; no Flutter build/device/test execution",
+  "files": {
+    "live_guest_smoke_test.dart": "50f88ab1a8b611b5b1d2d3bdc6cada9324c5364b9639f381abf43467e9c87774",
+    "smoke_driver.dart": "429b161b17bb4d7f794ce7874d1449a8808282c9c5aeb3c81c0e85e2fb2f5277",
+    "prepare_shadow.py": "387e848024960db5821ad11102e77aed0d2fcf88b39b23935d890458b5513256",
+    "README.md": "f689e2f78bcc649e80237de374fdd532ab1a8f932f94a00d59ade745728d8f28"
+  },
+  "prepared_shadow": ".local/flutter-ios-smoke-01/app",
+  "prepare_result": ".local/flutter-ios-smoke-01/preparation.json",
+  "criteria_basis": [
+    "scripts/service_acceptance.py fixture IDs/prices/news",
+    "scripts/flutter_backend_fixture.py current-month CPI seed",
+    "existing fixed app widget tests and internal-news regression",
+    "unchanged production main/NativeTransport and widget labels"
+  ],
+  "syntax_preparation": {
+    "python_py_compile_exit_code": 0,
+    "dart_format_output_none_exit_code": 0,
+    "dart_format_did_not_write_files": true,
+    "initial_dart_cli_attempt": "blocked before parsing by sandbox home analytics configuration creation; retried with repository-local config and analytics suppressed",
+    "does_not_prove": "Dart dependency/type analysis, iOS compile, or live test execution"
+  }
+}

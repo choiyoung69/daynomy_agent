@@ -1,0 +1,102 @@
+{
+  "created_at": "2026-10-28T09:33:11.639949+00:00",
+  "scope": "F01-F13 nonleague full WebView UI; independent actual validation required",
+  "contexts": [
+    {
+      "feature": "stock-search-price",
+      "exit_code": 0
+    },
+    {
+      "feature": "auth-session",
+      "exit_code": 0
+    },
+    {
+      "feature": "account",
+      "exit_code": 0
+    },
+    {
+      "feature": "stocks-exchange",
+      "exit_code": 0
+    },
+    {
+      "feature": "portfolio-calculation",
+      "exit_code": 0
+    },
+    {
+      "feature": "portfolio-ledger",
+      "exit_code": 0
+    },
+    {
+      "feature": "portfolio-analysis",
+      "exit_code": 0
+    },
+    {
+      "feature": "investment-calendar",
+      "exit_code": 0
+    },
+    {
+      "feature": "news",
+      "exit_code": 0
+    },
+    {
+      "feature": "content-search",
+      "exit_code": 0
+    },
+    {
+      "feature": "content-people",
+      "exit_code": 0
+    },
+    {
+      "feature": "feedback",
+      "exit_code": 0
+    },
+    {
+      "feature": "administration",
+      "exit_code": 0
+    },
+    {
+      "feature": "sync-jobs",
+      "exit_code": 0
+    }
+  ],
+  "documents": {
+    "knowledge/wiki/projects/daynomy/stock-search-price.md": "706a51304f7404dd878a5fa809e5070104f5df914e3b4cfba703ce128131c7cf",
+    "knowledge/wiki/shared/client-porting-baseline.md": "ace191323dac9dc5c197d7159dca589822cc3c6a06d8e40dc45ad2257b24652f",
+    "knowledge/wiki/shared/error-retry-cancel.md": "0ed58c961e6f954cbfefe2b0f3e3935de3bf72cf99b68a656f3ce52753bedcb1",
+    "knowledge/wiki/shared/data-semantics.md": "d180bff29e9217ff8e951f9be327f142abc65811d59761f646b96ebd91fab57b",
+    "knowledge/wiki/shared/build-validation.md": "7944866a8f93bba0bde214db763cc47970a9d7056803b0e49eec733840376cae",
+    "knowledge/wiki/shared/ui-state-navigation.md": "5f0ba960a826013154bead549da222e861c0b8ad6bb31daea1fd913f816b82ba",
+    "knowledge/wiki/shared/testing-migration.md": "7945e60fa3ddb4ff837d5371c16353f688a88e912e59157174087f63f9919f09",
+    "knowledge/wiki/languages/typescript.md": "59e752b89022cf3d28eca99c826a846a81ad8caf4c7692ad295284ce8fcba6cf",
+    "knowledge/wiki/languages/kotlin.md": "d3f0f28169cd5cc04de5ab55acd210859143b54d936e33159f169f3b5dfa7323",
+    "knowledge/wiki/languages/swift.md": "108b26df30fbbee4a5ea9275411e578d2ec1a57a79308821780e3de489236330",
+    "knowledge/wiki/platforms/webview.md": "66fef5ae66dc261bdbc307977bf92c17b330c6fecb7b9fd607bd33513d5f4549",
+    "knowledge/wiki/packages/webview/index.md": "0907e1b702778a56409efdffe6e77be1a0905329349f57e3488697cdb4b744b9",
+    "knowledge/wiki/packages/webview/types-and-json.md": "6bd9bd537015f00275f80283e549faec4811ecf7b0e0aaa290aa4e88f9cfd2b7",
+    "knowledge/wiki/packages/webview/numbers-and-money.md": "0941952fe4a37aa168214a9ccd0a0e895a92a567e667642ac2dbfea683c01cea",
+    "knowledge/wiki/packages/webview/dates-and-unicode.md": "5cc011343d1d89155b2a3f637e2a36cd75cf89acbe9c114ee736cf1591cf51ef",
+    "knowledge/wiki/packages/webview/collections-and-models.md": "e4d0a1aeac31068d647ff16339f5d39184170956d18a8148d262c8d1cfc2e645",
+    "knowledge/wiki/packages/webview/async-and-cancellation.md": "d06783bf89d1c0cf26f14855ae0e5db32bd5a3b217e55297677303dc33c51c62",
+    "knowledge/wiki/packages/webview/state-and-navigation.md": "2bd6d5c771ecbd692eb4ccd7c7ca9daeaed7bf3bb8a42d97ec801c60175f7f8e",
+    "knowledge/wiki/packages/webview/errors-and-transactions.md": "529d92fdfa224afb65df528e068385e9f0af3834dc736bb980aaf8c70833f974",
+    "knowledge/wiki/packages/webview/modules-and-testing.md": "5186b4faacd701fbb1f9200f542a2acc688652285712fd9e0b2f634fa2c68a1a",
+    "knowledge/wiki/packages/webview/auth-and-storage.md": "0adef0d55254ebf1d3c1f1778e112c47de67d8bd303af73cbb09e1a82aeba7b5",
+    "knowledge/wiki/projects/daynomy/auth-session.md": "985522e2ab22fd21ec54e5392afb3a29e416765fd278cdd3c649849244f99b4c",
+    "knowledge/wiki/shared/auth-storage.md": "7b2cb276571490d4c9545599f3ad67db27be9d2a64a5060c05e2e07a2a98c586",
+    "knowledge/wiki/projects/daynomy/account.md": "daed4bbf18a233a32d779da1f60364969d6bd2be342151e39e80a0c1644dda48",
+    "knowledge/wiki/shared/transactions-concurrency.md": "e534c38309a070d9cecfde811fa6f8a70ffa26ed282f56f61a10575dc69c7154",
+    "knowledge/wiki/projects/daynomy/stocks-exchange.md": "89d3a5c6d7ae9074f687e1f44a5ed7541057d1f5f119e6a514054d9e602b806d",
+    "knowledge/wiki/projects/daynomy/portfolio-calculation.md": "6607b620f66996fa4394fc1ff8a2ac7cfdf21e30f209d5ce06a999cfc57fe935",
+    "knowledge/wiki/projects/daynomy/portfolio-ledger.md": "f7577b943d96efcc02b2c6c869eb62dbd1890cb8f4b508410f3ea4227c11a958",
+    "knowledge/wiki/projects/daynomy/portfolio-analysis.md": "19ed2f02664e83e7434b9f5a377a330878173bb252af0028c75648b0fccb0295",
+    "knowledge/wiki/projects/daynomy/investment-calendar.md": "807cf4810cb3e787c08c4f9df6cf3ed1f89dc067ae3a8ff1cee2f392282cf47c",
+    "knowledge/wiki/projects/daynomy/news.md": "6d2ffad89ce9ae1864323eaeb25c1c73b190ab95e11bdcfbbe09fb42d227ddbe",
+    "knowledge/wiki/projects/daynomy/content-search.md": "3d83373abec61f61e8f8fee7ffe0c5650d1bb5f6f7a70d5291e23f33fd03754b",
+    "knowledge/wiki/projects/daynomy/content-people.md": "c5c71cab1acc8c234aa862b1cb16456181aa83ba35fec693ef6872a6d537ee9b",
+    "knowledge/wiki/projects/daynomy/feedback.md": "e182154f2ad2117deaaa5c2214a96704621c54d87425d5e72ec7628d63e992a7",
+    "knowledge/wiki/projects/daynomy/administration.md": "1f7e20128f33df0a1ddc884d4a2fd9ffdc65ea7c3d5e99f3380e23e278f16584",
+    "knowledge/wiki/projects/daynomy/sync-jobs.md": "7d80090636cf609a50307a0cd6676af61d54d886b60f4864aa558fbd750ff9ec"
+  },
+  "context_sha256": "c8b40be656ddba97024beabd031a33b1084482819b86d2b2a5ab10c70664d821",
+  "spec_sha256": "5537e4bf262312356b863e6f214374f6518e135ad7bd8b8c9180b08fd6d38388"
+}

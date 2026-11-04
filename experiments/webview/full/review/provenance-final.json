@@ -1,0 +1,42 @@
+{
+  "at": "2026-10-28T10:08:19.522237+00:00",
+  "manifests": {
+    "frozen-tests.json": {
+      "count": 5,
+      "changes": []
+    },
+    "frozen-query-tests.json": {
+      "count": 3,
+      "changes": []
+    },
+    "frozen-native-lifecycle-tests.json": {
+      "count": 4,
+      "changes": []
+    },
+    "frozen-full-host-policy-tests.json": {
+      "count": 5,
+      "changes": []
+    },
+    "implementation/web/revision02/source-hashes.json": {
+      "count": 216,
+      "changes": []
+    },
+    "implementation/hosts/source-hashes.json": {
+      "count": 24,
+      "changes": [
+        {
+          "path": "clients/webview/FULL-HOSTS.md",
+          "expected": "98b961f08f23390cf886342d74f18ff8932ca45a6b3ffa85d4968da6bba22355",
+          "actual": "72aed6b3819966855ac213516a063a49949fba2add85b57589bcdf95b5be4f62"
+        }
+      ]
+    }
+  },
+  "current_files": {
+    "clients/webview/scripts/serve-full.mjs": "7baa7a35a5ac0af3ecbe03fb66b344fcd30b86aa8711ce2bfdb390b658215806",
+    "clients/webview/README.md": "ba096899339c48a813dd69c362cda74dc95e8a1457703bebd0df5baac09c730f",
+    "clients/webview/PILOT.md": "b269624aedc2ff025f981032da3e62f18607d714c25793df5fc98abb119a1053",
+    "clients/webview/FULL-HOSTS.md": "72aed6b3819966855ac213516a063a49949fba2add85b57589bcdf95b5be4f62",
+    "clients/webview/fullweb/.gitignore": "61022f949eb49fe0ee5b774835be844845b3d71d9001f676d9ac82bd433e49a7"
+  }
+}

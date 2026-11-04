@@ -1,0 +1,334 @@
+{
+  "time": "2026-10-28T10:03:50.031949+00:00",
+  "scope": [
+    "/Applications",
+    "/Users/seoyeong/Applications",
+    "/Users/seoyeong/Downloads",
+    "/Users/seoyeong/Desktop",
+    "/Users/Shared",
+    "/Volumes",
+    "/private/var/folders"
+  ],
+  "max_depth": 4,
+  "pruned": [
+    ".app internals",
+    ".git",
+    "node_modules",
+    ".Trash",
+    "Caches"
+  ],
+  "directories_scanned": 382,
+  "candidates": [
+    "/Applications/Xcode.appdownload"
+  ],
+  "read_errors": [
+    {
+      "path": "/private/var/folders/by/nj9x85s13bv0q4p_ds1_7whm0000gr/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/by/nj9x85s13bv0q4p_ds1_7whm0000gr/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000012m00008n/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000012m00008n/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n00000b000002r/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n00000b000002r/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000010r000086/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000010r000086/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n00000sm00006d/0",
+      "error": "Operation not permitted"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n00000sm00006d/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n00000sm00006d/C",
+      "error": "Operation not permitted"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n00000b400002s/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n00000b400002s/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n0000150000098/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n0000150000098/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000012800008k/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000012800008k/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000011h00008c/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000011h00008c/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000003000000r/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000003000000r/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n00000s800006_/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n00000s800006_/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n0000084000021/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n0000084000021/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000013800008t/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000013800008t/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n00000tm00006n/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n00000tm00006n/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000010w000087/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000010w000087/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n00000y800007k/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n00000y800007k/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n0000108000082/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n0000108000082/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000016h00009m/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000016h00009m/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n0000114000089/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n0000114000089/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000003800000t/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000003800000t/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000014r000096/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000014r000096/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n00000z000007r/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n00000z000007r/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000006w00001q/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000006w00001q/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n0000144000091/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n0000144000091/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n00000s0000068/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n00000s0000068/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000012r00008p/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000012r00008p/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000012400008j/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000012400008j/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000015m00009d/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000015m00009d/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n00000xc00007b/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n00000xc00007b/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n0000004000001/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n0000004000001/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000010h000084/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000010h000084/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000016c00009l/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000016c00009l/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n00000yw00007q/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n00000yw00007q/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_ngzzzzzvzzzzzy/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_ngzzzzzvzzzzzy/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n00000bh00002w/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n00000bh00002w/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000011w00008g/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/zz/zyxvpxvq6csfxvn_n000011w00008g/C",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/rq/pw9pq2h911gcxsk71vbsxggr0000gp/T",
+      "error": "Permission denied"
+    },
+    {
+      "path": "/private/var/folders/rq/pw9pq2h911gcxsk71vbsxggr0000gp/C",
+      "error": "Permission denied"
+    }
+  ]
+}

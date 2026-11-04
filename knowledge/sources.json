@@ -3471,11 +3471,61 @@
       "id": "DX14",
       "kind": "local",
       "path": "scripts/knowledge.py",
-      "sha256": "2c8783f637ea9838cae77f759ee4a438f6d4805788fe466ff20e840a9da9a523",
+      "sha256": "8b72cba4aa8753514d30cc2e26e3a705f0d9aa4549fb6b4e41d7756dd2abf040",
       "review_status": "read",
       "reviewed_on": "2026-10-28",
       "reviewed_scope": "Detailed package/topic mapping, preparation guard, current example evidence hash validation; not semantic certification",
       "runtime_verification_this_run": "regression commands in detailed-packages report"
+    },
+    {
+      "id": "AP01",
+      "kind": "local",
+      "path": "spec/android-native/README.md",
+      "sha256": "cc89bcde9c356a121fe9adff42653b3e988cf90ba0f76d7a631abb25c861eeb7",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Scoped Android stock-search-price interfaces, versions and decisions",
+      "runtime_verification_this_run": "see AP03 only; feature checks pending"
+    },
+    {
+      "id": "AP02",
+      "kind": "local",
+      "path": "spec/android-native/verification-plan.md",
+      "sha256": "991a962a448bb2535bae2305ee41924baeea6892b4695b97c1ed909b38794e6a",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Independent original-based test plan; not executed tests",
+      "runtime_verification_this_run": "see AP03 only; feature checks pending"
+    },
+    {
+      "id": "AP03",
+      "kind": "local",
+      "path": "experiments/android-native/evidence/environment.json",
+      "sha256": "2d1388d98dbd594672475eb3e21098ec68999131fa143a0660030976249b0152",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Actual stub APK bootstrap build; no API/UI execution success",
+      "runtime_verification_this_run": "see AP03 only; feature checks pending"
+    },
+    {
+      "id": "AP04",
+      "kind": "local",
+      "path": "experiments/android-native/next/verification-core.json",
+      "sha256": "91a5aab1f3f3d47fbd68c3377cee2e07bd673ba1b2d427295cab0cb29c3cf006",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Separate validation agent actual Android next-increment core and Rust/DB verification; 88 JVM and 10 HTTP/DB methods; not device evidence",
+      "runtime_verification_this_run": "88 JVM / 10 actual Rust HTTP/DB passed, no skips; source and oracle inspected separately from author and implementer"
+    },
+    {
+      "id": "AP05",
+      "kind": "local",
+      "path": "spec/android-native/discovery.md",
+      "sha256": "d467660459a77498332978bc43911fa9b071e9d9953ba23d8ac8c01fe5b32842",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Frozen Android news/exchange request, response, lifecycle and fixture contract authored before implementation; not runtime proof",
+      "runtime_verification_this_run": "AP04 for core and actual Rust/DB; device results separate in runs/015"
     }
   ]
 }

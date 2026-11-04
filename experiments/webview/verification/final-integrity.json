@@ -1,0 +1,21 @@
+{
+  "manifest_sha256": "dd1a0fd772bbb142f58b2fd6dafb9df8711f6460fc85af2f216a3553c68a3fb9",
+  "frozen_all_match": true,
+  "frozen_files": {
+    "clients/webview/tests/NavigationPolicyTest.kt": true,
+    "clients/webview/tests/host-policy.test.mjs": true,
+    "clients/webview/tests/http-browser.test.mjs": true,
+    "clients/webview/tests/main.swift": true,
+    "clients/webview/tests/red/build.log": true,
+    "clients/webview/tests/red/hosts.log": true,
+    "clients/webview/tests/red/http-browser.log": true,
+    "clients/webview/tests/red/market.log": true,
+    "clients/webview/tests/red/results.json": true,
+    "clients/webview/tests/red/syntax.log": true,
+    "clients/webview/web/package.json": true,
+    "clients/webview/web/tests/market.test.mjs": true,
+    "clients/webview/web/tsconfig.json": true
+  },
+  "apk_sha256": "16deb760f1b1dce4613885f09820434b631083d9283eaab72ccb115c474420b2",
+  "note": "Implementation revision02 fetch fix and mobile copy changed after round01; final source hashes recorded separately."
+}

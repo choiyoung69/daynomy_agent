@@ -21,6 +21,11 @@ macOS Swift 검사와 실제 HTTP 검증을 iOS 앱 빌드·화면 실행 성공
 
 초기 피드백·대표 기능·종가·작업 큐 실험은 `runs/001`–`009`의 과거 기록이다.
 
+React Native는 [클라이언트 안내](clients/react-native/README.md),
+[20분 구현·독립 검증 기록](runs/019-react-native-twenty-minute.md)을 본다.
+공통 네이티브 UI·게스트 원장·뉴스/탐색·계정·캘린더와 관리자 기본 화면을 추가했다.
+Metro 번들·웹 UI·Rust HTTP 검증과 실제 iOS/Android 기기 인수는 구분한다.
+
 ## 처음에는 이것만 읽기
 
 리그를 제외한 전체 백엔드의 기능 범위·API·완료 기준은 [전체 기능 명세](spec/service.md)에 있다.

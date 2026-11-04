@@ -1,0 +1,26 @@
+{
+  "created_at": "2026-10-28T09:04:40.140906+00:00",
+  "revision": "02",
+  "scope": "static documentation comparison only; no runtime certification",
+  "previous_record": "experiments/webview/documentation/source-hashes.json",
+  "changed_since_previous_review": [
+    "clients/webview/DESIGN.md",
+    "clients/webview/web/src/app.ts",
+    "clients/webview/web/src/market.ts"
+  ],
+  "implementation_snapshot_matches": true,
+  "files": {
+    "clients/webview/PRODUCT.md": "a16fdd4fad956d3133f4fa83231ab938816edd8ea507f197b53460f8506de3e1",
+    "clients/webview/DESIGN.md": "c415585cd112f304e449c77f17c0f5c7f2d20605cd874671b4e00cc701faaa97",
+    "clients/webview/.impeccable/design.json": "701ef6c7580ba4f86c32d885e8c5cd761b2458edb047e431cfc723fc4792d0ad",
+    "clients/webview/README.md": "b269624aedc2ff025f981032da3e62f18607d714c25793df5fc98abb119a1053",
+    "clients/webview/web/styles.css": "f9c29963921e3c90265ea8ef2c1f22cabde24de2c01588b7200b9f29590d94c9",
+    "clients/webview/web/src/app.ts": "a7917513b9dd86f2e61841820e0211bd26291e9e988ad788f70169153ef9155a",
+    "clients/webview/web/src/market.ts": "833fa51d05bc4b20442bb632afe1a27a595430b54390aeb34a0976839ff0eb5d",
+    "clients/webview/web/index.html": "21e783edbb3c34ac9ab6feb0a86c25f121b6d7e63576ed4c7b96b02a12ea1249",
+    "spec/webview/README.md": "a2c2c9703d40db5a19133bc47fd86e086c20267a90fb2b15a9d31dd7c052cf2d",
+    "reference/2026-DAYNOMY-dev/frontend/src/index.css": "29480737b94b35ec1441a0f2c3f8a253e55e802c718a81d0b1fbaf971d36f292",
+    "reference/2026-DAYNOMY-dev/frontend/src/features/portfolio/portfolio.css": "262b123d98c39f14406e27add65b3de56d276bc97448031845b7be394f6b7442",
+    "reference/2026-DAYNOMY-dev/frontend/src/features/portfolio/components/PortfolioTransactionEditor.tsx": "abacd47444c919ddd4d732951084861d1722bdb1791c271ce5ec6f54ee20154c"
+  }
+}

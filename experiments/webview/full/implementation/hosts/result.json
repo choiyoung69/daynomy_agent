@@ -1,0 +1,58 @@
+{
+  "recorded_at": "2026-10-28T09:51:09.544653+00:00",
+  "role": "implementation-self-check-not-independent-acceptance",
+  "frozen_tests_unchanged": true,
+  "knowledge_manifest_hashes_matched": 36,
+  "preflight_original_snapshot_matches": 29,
+  "commands": [
+    {
+      "command": "python3 scripts/check.py preflight",
+      "exit": 0
+    },
+    {
+      "command": "node --test clients/webview/full-tests/full-host-policy.test.mjs",
+      "exit": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "Gradle offline assembleDebug -PdebugWebOrigin=http://127.0.0.1:18082 (sandbox)",
+      "exit": 1,
+      "reason": "local daemon socket prohibited"
+    },
+    {
+      "command": "Gradle offline assembleDebug -PdebugWebOrigin=http://127.0.0.1:18082 (escalated final)",
+      "exit": 0
+    },
+    {
+      "command": "swiftc -frontend -parse clients/webview/ios-full/DaynomyWebView/*.swift",
+      "exit": 0
+    },
+    {
+      "command": "plutil -lint new pbxproj and both plist files",
+      "exit": 0
+    },
+    {
+      "command": "xcodebuild new iOS project simulator build",
+      "exit": 1,
+      "reason": "Xcode unavailable"
+    }
+  ],
+  "apk": "clients/webview/android-full/app/build/outputs/apk/debug/app-debug.apk",
+  "apk_sha256": "db7b753f460b20c1b63676b6b3b53728e28eb359678b416cb6832d2109c9c4e3",
+  "unverified": [
+    "Independent source review",
+    "Android device page/file picker/confirm/resource/UI runtime",
+    "iOS SDK compile/content-rule compilation/file input/UI runtime",
+    "External Google OAuth cookie callback",
+    "External embed provider behavior"
+  ],
+  "preserved": [
+    "Original hosts",
+    "Original frozen pilot tests",
+    "Other native clients",
+    "app backend",
+    "reference source"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "basis": "Reviewed CSS tokens and independent computed colors; not an automated accessibility audit",
+  "pairs": [
+    {
+      "foreground": "#171821",
+      "background": "#ffffff",
+      "contrast": 17.66
+    },
+    {
+      "foreground": "#59616e",
+      "background": "#ffffff",
+      "contrast": 6.25
+    },
+    {
+      "foreground": "#59616e",
+      "background": "#f5f7fb",
+      "contrast": 5.83
+    },
+    {
+      "foreground": "#326bd5",
+      "background": "#ffffff",
+      "contrast": 5.0
+    },
+    {
+      "foreground": "#2459b9",
+      "background": "#edf3fc",
+      "contrast": 5.88
+    },
+    {
+      "foreground": "#b32c3a",
+      "background": "#ffffff",
+      "contrast": 6.29
+    }
+  ]
+}

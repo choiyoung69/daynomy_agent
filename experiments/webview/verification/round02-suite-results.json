@@ -1,0 +1,31 @@
+[
+  {
+    "name": "web-unit",
+    "command": [
+      "npm",
+      "test"
+    ],
+    "exit_code": 0,
+    "seconds": 1.03
+  },
+  {
+    "name": "host-policy",
+    "command": [
+      "node",
+      "--test",
+      "clients/webview/tests/host-policy.test.mjs"
+    ],
+    "exit_code": 0,
+    "seconds": 24.14
+  },
+  {
+    "name": "http-browser",
+    "command": [
+      "node",
+      "--test",
+      "clients/webview/tests/http-browser.test.mjs"
+    ],
+    "exit_code": 0,
+    "seconds": 1.78
+  }
+]

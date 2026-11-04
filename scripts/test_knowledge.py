@@ -28,9 +28,12 @@ class KnowledgeContextTests(unittest.TestCase):
                 target = self.root / source["path"]
                 target.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(ROOT / source["path"], target)
-        target = self.root / "runs/010-three-hour-service.md"
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text("# Synthetic document link target\n")
+        # WebView pilot metadata links its explicit scope contract.
+        shutil.copytree(ROOT / "spec/webview", self.root / "spec/webview")
+        # Wiki history links grow across runs; preserve their real read-only targets.
+        (self.root / "runs").mkdir(exist_ok=True)
+        for path in (ROOT / "runs").glob("*.md"):
+            shutil.copy2(path, self.root / "runs" / path.name)
 
     def run_context(self, platform="ios", guarded=False):
         args = [sys.executable, str(self.root / "scripts/knowledge.py"), "context",
@@ -82,8 +85,11 @@ class KnowledgeContextTests(unittest.TestCase):
                 ])
                 self.assertNotIn("expected_points", result.stdout)
                 guarded = self.run_context(slug, guarded=True)
-                self.assertEqual(guarded.returncode, 2, guarded.stdout + guarded.stderr)
-                self.assertNotIn("--- knowledge/", guarded.stdout)
+                self.assertEqual(guarded.returncode, 0 if slug in ("android", "webview") else 2, guarded.stdout + guarded.stderr)
+                if slug not in ("android", "webview"):
+                    self.assertNotIn("--- knowledge/", guarded.stdout)
+                else:
+                    self.assertIn("READY FOR IMPLEMENTATION", guarded.stdout)
 
     def test_synthetic_ready_state_can_emit_then_missing_version_blocks(self):
         self.prepare_synthetic_ios()
@@ -171,7 +177,14 @@ class KnowledgeContextTests(unittest.TestCase):
         self.assertNotIn("--- knowledge/", result.stdout)
 
     def test_missing_service_context_fails_coverage(self):
-        self.edit_json("knowledge/packs.json", lambda value: value["features"].pop("account"))
+        def remove_account_context(value):
+            value["features"].pop("account")
+            # Keep platform metadata valid so coverage reaches the missing
+            # service mapping, independently of the live approved feature scope.
+            for platform in value["platforms"].values():
+                if "approved_features" in platform:
+                    platform["approved_features"] = ["stock-search-price"]
+        self.edit_json("knowledge/packs.json", remove_account_context)
         result = subprocess.run([sys.executable, str(self.root / "scripts/knowledge.py"), "coverage"],
                                 cwd=self.root, capture_output=True, text=True)
         self.assertEqual(result.returncode, 1)
@@ -240,6 +253,20 @@ class KnowledgeContextTests(unittest.TestCase):
         self.assertEqual(result.returncode, 1)
         self.assertIn("stale example evidence", result.stderr)
         self.assertNotIn("--- knowledge/", result.stdout)
+
+    def test_pilot_preparation_does_not_approve_other_features(self):
+        for platform in ("android", "webview"):
+            with self.subTest(platform=platform):
+                # Test a deliberately pilot-scoped fixture; live WebView scope can
+                # expand independently after explicit user authorization.
+                self.edit_json("knowledge/packs.json", lambda value: value["platforms"][platform].update(
+                    approved_features=["stock-search-price"]))
+                result = subprocess.run([sys.executable, str(self.root / "scripts/knowledge.py"), "context",
+                                         "--feature", "auth-session", "--platform", platform, "--require-ready"],
+                                        cwd=self.root, capture_output=True, text=True)
+                self.assertEqual(result.returncode, 2, result.stdout + result.stderr)
+                self.assertIn("outside this platform's prepared pilot scope", result.stdout)
+                self.assertNotIn("--- knowledge/", result.stdout)
 
 
 if __name__ == "__main__":

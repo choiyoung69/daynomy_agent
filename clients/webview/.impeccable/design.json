@@ -1,0 +1,11 @@
+{
+  "surface": "stock-search-price",
+  "mode": "operate",
+  "platform": "web",
+  "authority": "reference/2026-DAYNOMY-dev/frontend/src/index.css",
+  "tokens": {
+    "color": { "background": "#ffffff", "text": "#171821", "muted": "#59616e", "border": "#e4e7ef", "action": "#326bd5", "actionSoft": "#edf3fc", "focus": "#5144d8", "error": "#b32c3a" },
+    "font": { "bodyPx": 16, "labelPx": 14, "headingPx": 25.6, "mobileHeadingPx": 22, "sectionPx": 18 },
+    "layout": { "maxWidthPx": 1064, "collapseAtPx": 720, "minimumControlPx": 48, "controlRadiusPx": 8 }
+  }
+}

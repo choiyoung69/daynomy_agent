@@ -1,0 +1,11 @@
+{
+  "start": "2026-10-28T09:39:53Z",
+  "deadline": "2026-10-28T10:09:53Z",
+  "objective": "Android parity with existing Rust, verified core priority if whole cannot finish",
+  "priority": [
+    "session/native-login/account",
+    "portfolio/transaction/history/calculation",
+    "calendar/AI/search/content if time"
+  ],
+  "backend": "Existing Rust, including mobile bridge added by another chat; no backend feature edits"
+}

@@ -1,0 +1,1648 @@
+{
+  "created_at": "2026-10-28T08:49:34.362056+00:00",
+  "command": "python3 scripts/knowledge.py context --feature stock-search-price --platform webview --require-ready",
+  "exit_code": 0,
+  "context_sha256": "718834928fd2415c7c66d627395915f6b9904bc4fbbf74f6abfab595f1ec7f4b",
+  "documents": {
+    "knowledge/wiki/projects/daynomy/stock-search-price.md": "706a51304f7404dd878a5fa809e5070104f5df914e3b4cfba703ce128131c7cf",
+    "knowledge/wiki/shared/client-porting-baseline.md": "ace191323dac9dc5c197d7159dca589822cc3c6a06d8e40dc45ad2257b24652f",
+    "knowledge/wiki/shared/error-retry-cancel.md": "0ed58c961e6f954cbfefe2b0f3e3935de3bf72cf99b68a656f3ce52753bedcb1",
+    "knowledge/wiki/shared/data-semantics.md": "d180bff29e9217ff8e951f9be327f142abc65811d59761f646b96ebd91fab57b",
+    "knowledge/wiki/shared/build-validation.md": "7944866a8f93bba0bde214db763cc47970a9d7056803b0e49eec733840376cae",
+    "knowledge/wiki/shared/ui-state-navigation.md": "5f0ba960a826013154bead549da222e861c0b8ad6bb31daea1fd913f816b82ba",
+    "knowledge/wiki/shared/testing-migration.md": "7945e60fa3ddb4ff837d5371c16353f688a88e912e59157174087f63f9919f09",
+    "knowledge/wiki/languages/typescript.md": "59e752b89022cf3d28eca99c826a846a81ad8caf4c7692ad295284ce8fcba6cf",
+    "knowledge/wiki/languages/kotlin.md": "d3f0f28169cd5cc04de5ab55acd210859143b54d936e33159f169f3b5dfa7323",
+    "knowledge/wiki/languages/swift.md": "108b26df30fbbee4a5ea9275411e578d2ec1a57a79308821780e3de489236330",
+    "knowledge/wiki/platforms/webview.md": "e7d3b1ab9e4873ece3687fc2cd4563de967ffd51e4262404f84dffba3667bc00",
+    "knowledge/wiki/packages/webview/index.md": "0907e1b702778a56409efdffe6e77be1a0905329349f57e3488697cdb4b744b9",
+    "knowledge/wiki/packages/webview/types-and-json.md": "6bd9bd537015f00275f80283e549faec4811ecf7b0e0aaa290aa4e88f9cfd2b7",
+    "knowledge/wiki/packages/webview/numbers-and-money.md": "0941952fe4a37aa168214a9ccd0a0e895a92a567e667642ac2dbfea683c01cea",
+    "knowledge/wiki/packages/webview/dates-and-unicode.md": "5cc011343d1d89155b2a3f637e2a36cd75cf89acbe9c114ee736cf1591cf51ef",
+    "knowledge/wiki/packages/webview/collections-and-models.md": "e4d0a1aeac31068d647ff16339f5d39184170956d18a8148d262c8d1cfc2e645",
+    "knowledge/wiki/packages/webview/async-and-cancellation.md": "d06783bf89d1c0cf26f14855ae0e5db32bd5a3b217e55297677303dc33c51c62",
+    "knowledge/wiki/packages/webview/state-and-navigation.md": "2bd6d5c771ecbd692eb4ccd7c7ca9daeaed7bf3bb8a42d97ec801c60175f7f8e",
+    "knowledge/wiki/packages/webview/errors-and-transactions.md": "529d92fdfa224afb65df528e068385e9f0af3834dc736bb980aaf8c70833f974",
+    "knowledge/wiki/packages/webview/modules-and-testing.md": "5186b4faacd701fbb1f9200f542a2acc688652285712fd9e0b2f634fa2c68a1a",
+    "knowledge/wiki/packages/webview/auth-and-storage.md": "0adef0d55254ebf1d3c1f1778e112c47de67d8bd303af73cbb09e1a82aeba7b5"
+  },
+  "scope": "Required input provenance; runtime not certified",
+  "source_records": {
+    "F01": {
+      "id": "F01",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/frontend/src/features/stocks/api.ts",
+      "sha256": "bd4189b4ae61e779c10beb1eb933d23894385d9a7885aac1eba647384d6c4756",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "종목 API와 런타임 응답 검증",
+      "runtime_verification_this_run": "not-run"
+    },
+    "F02": {
+      "id": "F02",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/frontend/src/features/stocks/types.ts",
+      "sha256": "bf1e18b274488b6f7a9f15d8b10c3a9e78222e48adb49ca9e0ccc8f83d36627f",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "종목 타입과 통화 fallback",
+      "runtime_verification_this_run": "not-run"
+    },
+    "F03": {
+      "id": "F03",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/frontend/src/api/client.ts",
+      "sha256": "f2284ccc24c4394d02f3ae4db3e5c2a55af0754c066a5a254203d6e33dfca59e",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "공통 요청과 쿠키 및 갱신",
+      "runtime_verification_this_run": "not-run"
+    },
+    "F04": {
+      "id": "F04",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/frontend/src/features/portfolio/components/PortfolioTransactionEditor.tsx",
+      "sha256": "abacd47444c919ddd4d732951084861d1722bdb1791c271ce5ec6f54ee20154c",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "검색과 종가 effect 및 수동 입력",
+      "runtime_verification_this_run": "not-run"
+    },
+    "F05": {
+      "id": "F05",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/frontend/tests/stocks/stocksApi.test.ts",
+      "sha256": "d530efa4579efe44e345dfd19622c3e021019be004b5e41ff788aeda9f28bcc6",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "종목 API 테스트 소스 읽기",
+      "runtime_verification_this_run": "not-run"
+    },
+    "B01": {
+      "id": "B01",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/asset/controller/StockController.java",
+      "sha256": "4496cb9c934702d854cd11b375869658ae2a1020100e1668d5e7337ade16eb76",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "검색과 종가 HTTP 진입점",
+      "runtime_verification_this_run": "not-run"
+    },
+    "B02": {
+      "id": "B02",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/asset/service/StockSearchService.java",
+      "sha256": "9e951391d788b6820c55b1dfb8b7c42581174f07d361a2831fd13f22cdd672e1",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "시장별 검색과 정규화",
+      "runtime_verification_this_run": "not-run"
+    },
+    "B03": {
+      "id": "B03",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/asset/service/StockPriceService.java",
+      "sha256": "c03786eabc892a3effcf4545a1d17a8a7c5a59821606f2e271bca6e2e71de8ff",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "최근 저장 종가 선택",
+      "runtime_verification_this_run": "not-run"
+    },
+    "B04": {
+      "id": "B04",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/asset/dto/StockPriceResponse.java",
+      "sha256": "75c6b490f0bc3209dbe6fc99b988e82de05860bf8d02a3ff6e04b87ef1de47bb",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "종가 DTO와 타입",
+      "runtime_verification_this_run": "not-run"
+    },
+    "B05": {
+      "id": "B05",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/asset/exception/AssetErrorCode.java",
+      "sha256": "3af94a4827687f3b687000d7011efe45d59a7d26214aad8c338f033d6d3d2621",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "종가 없음 오류",
+      "runtime_verification_this_run": "not-run"
+    },
+    "B06": {
+      "id": "B06",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/asset/repository/StockDailyPriceRepository.java",
+      "sha256": "82098df76c1446d51cf1e07414b8277df543b3643089554b795e2ed67d59af9e",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "날짜 내림차순 저장 가격 조회",
+      "runtime_verification_this_run": "not-run"
+    },
+    "R01": {
+      "id": "R01",
+      "kind": "local",
+      "path": "app/src/service_market.rs",
+      "sha256": "72d0e5e6265c284ffed4b2e3f40eee593a5c77c48aea4d4d83caa6ae6f218f79",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "현재 Rust 검색과 종가 처리",
+      "runtime_verification_this_run": "not-run"
+    },
+    "P01": {
+      "id": "P01",
+      "kind": "local",
+      "path": "spec/stock-price.md",
+      "sha256": "84e8f31ca1eb500fd09dc366fd8ee58559266636f364140cb2a1d3c25c05b606",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "과거 종가 API 실험 계약",
+      "runtime_verification_this_run": "not-run"
+    },
+    "E03": {
+      "id": "E03",
+      "kind": "external",
+      "title": "Dart Numbers",
+      "url": "https://dart.dev/resources/language/number-representation",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Native and JavaScript web numeric representations and precision",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E03/8cc19ce22d1e6fbdef980396c6c4bfcf55d80d7729fe89235e0773026db3c364.html",
+        "sha256": "8cc19ce22d1e6fbdef980396c6c4bfcf55d80d7729fe89235e0773026db3c364",
+        "bytes": 111811,
+        "media_type": "text/html",
+        "retrieved_url": "https://dart.dev/resources/language/number-representation",
+        "retrieved_at": "2026-10-28T06:28:12.872487+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E03/8cc19ce22d1e6fbdef980396c6c4bfcf55d80d7729fe89235e0773026db3c364.html",
+            "sha256": "8cc19ce22d1e6fbdef980396c6c4bfcf55d80d7729fe89235e0773026db3c364",
+            "bytes": 111811,
+            "media_type": "text/html",
+            "retrieved_url": "https://dart.dev/resources/language/number-representation",
+            "retrieved_at": "2026-10-28T06:28:12.872487+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.875656+00:00",
+          "review_note": "보관 응답의 관련 절 확인: 再確認: Native and JavaScript web numeric representations and precision; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E04": {
+      "id": "E04",
+      "kind": "external",
+      "title": "Android WebView",
+      "url": "https://developer.android.com/develop/ui/views/layout/webapps/webview",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Overview, JavaScript binding and navigation",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E04/aa3fa4dd7231f8cad30d5ee6fd1662406d94bebb78a20b20978fe19e0eb56a6a.html",
+        "sha256": "aa3fa4dd7231f8cad30d5ee6fd1662406d94bebb78a20b20978fe19e0eb56a6a",
+        "bytes": 397182,
+        "media_type": "text/html",
+        "retrieved_url": "https://developer.android.com/develop/ui/views/layout/webapps/webview",
+        "retrieved_at": "2026-10-28T06:28:14.039218+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E04/aa3fa4dd7231f8cad30d5ee6fd1662406d94bebb78a20b20978fe19e0eb56a6a.html",
+            "sha256": "aa3fa4dd7231f8cad30d5ee6fd1662406d94bebb78a20b20978fe19e0eb56a6a",
+            "bytes": 397182,
+            "media_type": "text/html",
+            "retrieved_url": "https://developer.android.com/develop/ui/views/layout/webapps/webview",
+            "retrieved_at": "2026-10-28T06:28:14.039218+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.877650+00:00",
+          "review_note": "보관 응답의 관련 절 확인: 再確認: Overview, JavaScript binding and navigation; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E07": {
+      "id": "E07",
+      "kind": "external",
+      "title": "Swift guided tour",
+      "url": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/guidedtour/",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Guided tour: optional values, control flow, functions and data declarations",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E07/0becd1b48ee0baab2fd3432c70448f0c5edfa5fd1d36fa242aa08c4191391261.txt",
+        "sha256": "0becd1b48ee0baab2fd3432c70448f0c5edfa5fd1d36fa242aa08c4191391261",
+        "bytes": 61065,
+        "media_type": "text/plain",
+        "retrieved_url": "https://raw.githubusercontent.com/swiftlang/swift-book/main/TSPL.docc/GuidedTour/GuidedTour.md",
+        "retrieved_at": "2026-10-28T06:28:16.295569+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_url": "https://raw.githubusercontent.com/swiftlang/swift-book/main/TSPL.docc/GuidedTour/GuidedTour.md",
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E07/0becd1b48ee0baab2fd3432c70448f0c5edfa5fd1d36fa242aa08c4191391261.txt",
+            "sha256": "0becd1b48ee0baab2fd3432c70448f0c5edfa5fd1d36fa242aa08c4191391261",
+            "bytes": 61065,
+            "media_type": "text/plain",
+            "retrieved_url": "https://raw.githubusercontent.com/swiftlang/swift-book/main/TSPL.docc/GuidedTour/GuidedTour.md",
+            "retrieved_at": "2026-10-28T06:28:16.295569+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.881179+00:00",
+          "review_note": "보관 응답의 관련 절 확인: Guided tour: optional values, control flow, functions and data declarations; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E11": {
+      "id": "E11",
+      "kind": "external",
+      "title": "WKWebView",
+      "url": "https://developer.apple.com/documentation/webkit/wkwebview",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "WKWebView full captured overview and navigation/configuration sections; auth runtime not verified",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E11/60a42a0f4cfa6cfc6b841692c2ceeed1b3eae52ebda35814a9044fd5278251a0.txt",
+        "sha256": "60a42a0f4cfa6cfc6b841692c2ceeed1b3eae52ebda35814a9044fd5278251a0",
+        "bytes": 29643,
+        "media_type": "text/markdown",
+        "retrieved_url": "https://developer.apple.com/documentation/webkit/wkwebview.md",
+        "retrieved_at": "2026-10-28T06:28:19.884997+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "reading_note": "Official indexed overview was readable through web search; direct page requires JavaScript.",
+      "snapshot_url": "https://developer.apple.com/tutorials/data/documentation/webkit/wkwebview.md",
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E11/60a42a0f4cfa6cfc6b841692c2ceeed1b3eae52ebda35814a9044fd5278251a0.txt",
+            "sha256": "60a42a0f4cfa6cfc6b841692c2ceeed1b3eae52ebda35814a9044fd5278251a0",
+            "bytes": 29643,
+            "media_type": "text/markdown",
+            "retrieved_url": "https://developer.apple.com/documentation/webkit/wkwebview.md",
+            "retrieved_at": "2026-10-28T06:28:19.884997+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.889143+00:00",
+          "review_note": "보관 응답의 관련 절 확인: WKWebView full captured overview and navigation/configuration sections; auth runtime not verified; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E12": {
+      "id": "E12",
+      "kind": "external",
+      "title": "Compose state",
+      "url": "https://developer.android.com/develop/ui/compose/state",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "State in composables; remember, rememberSaveable",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E12/024da75da6c5f4e45c3c72edb15ae7efa41af1f58302ea5338b25234124eacb8.html",
+        "sha256": "024da75da6c5f4e45c3c72edb15ae7efa41af1f58302ea5338b25234124eacb8",
+        "bytes": 442544,
+        "media_type": "text/html",
+        "retrieved_url": "https://developer.android.com/develop/ui/compose/state",
+        "retrieved_at": "2026-10-28T06:28:21.142305+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E12/024da75da6c5f4e45c3c72edb15ae7efa41af1f58302ea5338b25234124eacb8.html",
+            "sha256": "024da75da6c5f4e45c3c72edb15ae7efa41af1f58302ea5338b25234124eacb8",
+            "bytes": 442544,
+            "media_type": "text/html",
+            "retrieved_url": "https://developer.android.com/develop/ui/compose/state",
+            "retrieved_at": "2026-10-28T06:28:21.142305+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.891456+00:00",
+          "review_note": "보관 응답의 관련 절 확인: 再確認: State in composables; remember, rememberSaveable; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E13": {
+      "id": "E13",
+      "kind": "external",
+      "title": "Swift concurrency",
+      "url": "https://github.com/swiftlang/swift-book/blob/main/TSPL.docc/LanguageGuide/Concurrency.md",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Tasks and Task Groups; Task Cancellation",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E13/a01fcb1120386332272c41321c3e2a05b8d34d781d4abb7083c398bc8ee8853a.txt",
+        "sha256": "a01fcb1120386332272c41321c3e2a05b8d34d781d4abb7083c398bc8ee8853a",
+        "bytes": 56558,
+        "media_type": "text/plain",
+        "retrieved_url": "https://raw.githubusercontent.com/swiftlang/swift-book/main/TSPL.docc/LanguageGuide/Concurrency.md",
+        "retrieved_at": "2026-10-28T06:16:29.112606+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_url": "https://raw.githubusercontent.com/swiftlang/swift-book/main/TSPL.docc/LanguageGuide/Concurrency.md",
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E13/a01fcb1120386332272c41321c3e2a05b8d34d781d4abb7083c398bc8ee8853a.txt",
+            "sha256": "a01fcb1120386332272c41321c3e2a05b8d34d781d4abb7083c398bc8ee8853a",
+            "bytes": 56558,
+            "media_type": "text/plain",
+            "retrieved_url": "https://raw.githubusercontent.com/swiftlang/swift-book/main/TSPL.docc/LanguageGuide/Concurrency.md",
+            "retrieved_at": "2026-10-28T06:16:29.112606+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-initial.json",
+          "reviewed_at": "2026-10-28T06:18:02.329658+00:00",
+          "review_note": "Swift 공식 저장소의 Concurrency.md 본문과 Task Cancellation의 협력적 취소 설명을 확인. 보관 기준만 지정하며 최소 iOS 버전이나 실행 성공을 확정하지 않음."
+        }
+      ]
+    },
+    "E16": {
+      "id": "E16",
+      "kind": "external",
+      "title": "Flutter State.setState",
+      "url": "https://api.flutter.dev/flutter/widgets/State/setState.html",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Synchronous callback, dispose, mounted and cancellation guidance",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E16/81aabfe03c03e6d98ee0fd6115841cc4a776b8b721ef6b6a10897c20d8cfdae7.html",
+        "sha256": "81aabfe03c03e6d98ee0fd6115841cc4a776b8b721ef6b6a10897c20d8cfdae7",
+        "bytes": 16352,
+        "media_type": "text/html",
+        "retrieved_url": "https://api.flutter.dev/flutter/widgets/State/setState.html",
+        "retrieved_at": "2026-10-28T06:28:22.762327+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E16/81aabfe03c03e6d98ee0fd6115841cc4a776b8b721ef6b6a10897c20d8cfdae7.html",
+            "sha256": "81aabfe03c03e6d98ee0fd6115841cc4a776b8b721ef6b6a10897c20d8cfdae7",
+            "bytes": 16352,
+            "media_type": "text/html",
+            "retrieved_url": "https://api.flutter.dev/flutter/widgets/State/setState.html",
+            "retrieved_at": "2026-10-28T06:28:22.762327+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.897372+00:00",
+          "review_note": "보관 응답의 관련 절 확인: 再確認: Synchronous callback, dispose, mounted and cancellation guidance; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E17": {
+      "id": "E17",
+      "kind": "external",
+      "title": "Kotlin CoroutineScope.cancel",
+      "url": "https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/cancel.html",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Official API cancellation description and cooperative cancellation pitfalls",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E17/3284e5f2861a2e6bf0426b449578480864ab0f4e884e9ad9910e0cd0a3e006c1.html",
+        "sha256": "3284e5f2861a2e6bf0426b449578480864ab0f4e884e9ad9910e0cd0a3e006c1",
+        "bytes": 48712,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/cancel.html",
+        "retrieved_at": "2026-10-28T06:28:23.822921+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E17/3284e5f2861a2e6bf0426b449578480864ab0f4e884e9ad9910e0cd0a3e006c1.html",
+            "sha256": "3284e5f2861a2e6bf0426b449578480864ab0f4e884e9ad9910e0cd0a3e006c1",
+            "bytes": 48712,
+            "media_type": "text/html",
+            "retrieved_url": "https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/cancel.html",
+            "retrieved_at": "2026-10-28T06:28:23.822921+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.899525+00:00",
+          "review_note": "보관 응답의 관련 절 확인: 再確認: Official API cancellation description and cooperative cancellation pitfalls; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E19": {
+      "id": "E19",
+      "kind": "external",
+      "title": "RFC 9110 HTTP Semantics",
+      "url": "https://www.rfc-editor.org/rfc/rfc9110.html#section-9.2.2",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "9.2.1 safe methods, 9.2.2 idempotent methods and conditions for automatic retries",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E19/21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a.txt",
+        "sha256": "21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a",
+        "bytes": 502941,
+        "media_type": "text/plain",
+        "retrieved_url": "https://www.rfc-editor.org/rfc/rfc9110.txt",
+        "retrieved_at": "2026-10-28T06:16:29.644973+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_url": "https://www.rfc-editor.org/rfc/rfc9110.txt",
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E19/21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a.txt",
+            "sha256": "21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a",
+            "bytes": 502941,
+            "media_type": "text/plain",
+            "retrieved_url": "https://www.rfc-editor.org/rfc/rfc9110.txt",
+            "retrieved_at": "2026-10-28T06:16:29.644973+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-initial.json",
+          "reviewed_at": "2026-10-28T06:18:02.331108+00:00",
+          "review_note": "RFC Editor의 RFC 9110 텍스트와 9.2.2 비멱등 자동 재시도 조건을 재확인. 전체 RFC 응답 보관, 적용한 절의 범위는 기존 reviewed_scope 유지."
+        }
+      ]
+    },
+    "E20": {
+      "id": "E20",
+      "kind": "external",
+      "title": "RFC 8259 JSON",
+      "url": "https://www.rfc-editor.org/rfc/rfc8259.html",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Section 6 numeric interoperability",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E20/61a5378f4255c720beb2a4b4a63b29540147c140f36988bf086291989b4cd2d7.txt",
+        "sha256": "61a5378f4255c720beb2a4b4a63b29540147c140f36988bf086291989b4cd2d7",
+        "bytes": 28360,
+        "media_type": "text/plain",
+        "retrieved_url": "https://www.rfc-editor.org/rfc/rfc8259.txt",
+        "retrieved_at": "2026-10-28T06:16:30.023659+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_url": "https://www.rfc-editor.org/rfc/rfc8259.txt",
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E20/61a5378f4255c720beb2a4b4a63b29540147c140f36988bf086291989b4cd2d7.txt",
+            "sha256": "61a5378f4255c720beb2a4b4a63b29540147c140f36988bf086291989b4cd2d7",
+            "bytes": 28360,
+            "media_type": "text/plain",
+            "retrieved_url": "https://www.rfc-editor.org/rfc/rfc8259.txt",
+            "retrieved_at": "2026-10-28T06:16:30.023659+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-initial.json",
+          "reviewed_at": "2026-10-28T06:18:02.331970+00:00",
+          "review_note": "RFC Editor의 RFC 8259 텍스트 및 숫자의 구현별 정밀도 제한·2**53 상호 운용성 문단 확인. 기존 데이터 경계 설명과 대조."
+        }
+      ]
+    },
+    "E21": {
+      "id": "E21",
+      "kind": "external",
+      "title": "ECMAScript JSON.stringify",
+      "url": "https://tc39.es/ecma262/multipage/structured-data.html#sec-json.stringify",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "JSON.stringify notes and object/array undefined behavior",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E21/90683188abaf6810ff92056f8e5cd2a53fc5ff347772ed6c35b75c322aec2c81.html",
+        "sha256": "90683188abaf6810ff92056f8e5cd2a53fc5ff347772ed6c35b75c322aec2c81",
+        "bytes": 960668,
+        "media_type": "text/html",
+        "retrieved_url": "https://tc39.es/ecma262/multipage/structured-data.html#sec-json.stringify",
+        "retrieved_at": "2026-10-28T06:28:26.217460+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E21/90683188abaf6810ff92056f8e5cd2a53fc5ff347772ed6c35b75c322aec2c81.html",
+            "sha256": "90683188abaf6810ff92056f8e5cd2a53fc5ff347772ed6c35b75c322aec2c81",
+            "bytes": 960668,
+            "media_type": "text/html",
+            "retrieved_url": "https://tc39.es/ecma262/multipage/structured-data.html#sec-json.stringify",
+            "retrieved_at": "2026-10-28T06:28:26.217460+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.904731+00:00",
+          "review_note": "보관 응답의 관련 절 확인: 再確認: JSON.stringify notes and object/array undefined behavior; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E22": {
+      "id": "E22",
+      "kind": "external",
+      "title": "ECMAScript Date.parse",
+      "url": "https://tc39.es/ecma262/multipage/numbers-and-dates.html#sec-date.parse",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Date-only UTC interpretation",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E22/bf0a432ab6ec1fdfb42467628f3a7e55852aec875af951f74f074b9e8fcaebcd.html",
+        "sha256": "bf0a432ab6ec1fdfb42467628f3a7e55852aec875af951f74f074b9e8fcaebcd",
+        "bytes": 956070,
+        "media_type": "text/html",
+        "retrieved_url": "https://tc39.es/ecma262/multipage/numbers-and-dates.html#sec-date.parse",
+        "retrieved_at": "2026-10-28T06:28:26.671448+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E22/bf0a432ab6ec1fdfb42467628f3a7e55852aec875af951f74f074b9e8fcaebcd.html",
+            "sha256": "bf0a432ab6ec1fdfb42467628f3a7e55852aec875af951f74f074b9e8fcaebcd",
+            "bytes": 956070,
+            "media_type": "text/html",
+            "retrieved_url": "https://tc39.es/ecma262/multipage/numbers-and-dates.html#sec-date.parse",
+            "retrieved_at": "2026-10-28T06:28:26.671448+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.909623+00:00",
+          "review_note": "보관 응답의 관련 절 확인: 再確認: Date-only UTC interpretation; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E23": {
+      "id": "E23",
+      "kind": "external",
+      "title": "Kotlin numbers",
+      "url": "https://kotlinlang.org/docs/numbers.html",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Integer ranges and floating point precision",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E23/d8cb45cc423b44311800cd62d42463a51f1944ecd773cd91ea7e3b49f0c5297b.html",
+        "sha256": "d8cb45cc423b44311800cd62d42463a51f1944ecd773cd91ea7e3b49f0c5297b",
+        "bytes": 32902,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/docs/numbers.html",
+        "retrieved_at": "2026-10-28T06:28:27.712470+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E23/d8cb45cc423b44311800cd62d42463a51f1944ecd773cd91ea7e3b49f0c5297b.html",
+            "sha256": "d8cb45cc423b44311800cd62d42463a51f1944ecd773cd91ea7e3b49f0c5297b",
+            "bytes": 32902,
+            "media_type": "text/html",
+            "retrieved_url": "https://kotlinlang.org/docs/numbers.html",
+            "retrieved_at": "2026-10-28T06:28:27.712470+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.912262+00:00",
+          "review_note": "보관 응답의 관련 절 확인: 再確認: Integer ranges and floating point precision; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E24": {
+      "id": "E24",
+      "kind": "external",
+      "title": "Kotlin null safety",
+      "url": "https://kotlinlang.org/docs/null-safety.html",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Nullable types and Java interoperability caveats",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E24/b691cc0e8f41c03d56a55f330e64471081019d6dbfcdc285b5be808040b3ef6c.html",
+        "sha256": "b691cc0e8f41c03d56a55f330e64471081019d6dbfcdc285b5be808040b3ef6c",
+        "bytes": 34012,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/docs/null-safety.html",
+        "retrieved_at": "2026-10-28T06:28:28.722308+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E24/b691cc0e8f41c03d56a55f330e64471081019d6dbfcdc285b5be808040b3ef6c.html",
+            "sha256": "b691cc0e8f41c03d56a55f330e64471081019d6dbfcdc285b5be808040b3ef6c",
+            "bytes": 34012,
+            "media_type": "text/html",
+            "retrieved_url": "https://kotlinlang.org/docs/null-safety.html",
+            "retrieved_at": "2026-10-28T06:28:28.722308+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.914932+00:00",
+          "review_note": "보관 응답의 관련 절 확인: 再確認: Nullable types and Java interoperability caveats; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E25": {
+      "id": "E25",
+      "kind": "external",
+      "title": "Dart null safety",
+      "url": "https://dart.dev/null-safety/understanding-null-safety",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Nullable types and Map index absence",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E25/861c28eef38c69c646e05c7b1adc139c2ab119f999faa2797f2f031b6ec24b64.html",
+        "sha256": "861c28eef38c69c646e05c7b1adc139c2ab119f999faa2797f2f031b6ec24b64",
+        "bytes": 396858,
+        "media_type": "text/html",
+        "retrieved_url": "https://dart.dev/null-safety/understanding-null-safety",
+        "retrieved_at": "2026-10-28T06:28:29.518512+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E25/861c28eef38c69c646e05c7b1adc139c2ab119f999faa2797f2f031b6ec24b64.html",
+            "sha256": "861c28eef38c69c646e05c7b1adc139c2ab119f999faa2797f2f031b6ec24b64",
+            "bytes": 396858,
+            "media_type": "text/html",
+            "retrieved_url": "https://dart.dev/null-safety/understanding-null-safety",
+            "retrieved_at": "2026-10-28T06:28:29.518512+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.918304+00:00",
+          "review_note": "보관 응답의 관련 절 확인: 再確認: Nullable types and Map index absence; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E26": {
+      "id": "E26",
+      "kind": "external",
+      "title": "Swift strings and characters",
+      "url": "https://github.com/swiftlang/swift-book/blob/main/TSPL.docc/LanguageGuide/StringsAndCharacters.md",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "String/Character equality and canonical equivalence",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E26/45a009419cda5959c8cce619b3191dc5104440dddc0bdedd9c4e854ddb328b3b.txt",
+        "sha256": "45a009419cda5959c8cce619b3191dc5104440dddc0bdedd9c4e854ddb328b3b",
+        "bytes": 52347,
+        "media_type": "text/plain",
+        "retrieved_url": "https://raw.githubusercontent.com/swiftlang/swift-book/main/TSPL.docc/LanguageGuide/StringsAndCharacters.md",
+        "retrieved_at": "2026-10-28T06:16:30.372933+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_url": "https://raw.githubusercontent.com/swiftlang/swift-book/main/TSPL.docc/LanguageGuide/StringsAndCharacters.md",
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E26/45a009419cda5959c8cce619b3191dc5104440dddc0bdedd9c4e854ddb328b3b.txt",
+            "sha256": "45a009419cda5959c8cce619b3191dc5104440dddc0bdedd9c4e854ddb328b3b",
+            "bytes": 52347,
+            "media_type": "text/plain",
+            "retrieved_url": "https://raw.githubusercontent.com/swiftlang/swift-book/main/TSPL.docc/LanguageGuide/StringsAndCharacters.md",
+            "retrieved_at": "2026-10-28T06:16:30.372933+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-initial.json",
+          "reviewed_at": "2026-10-28T06:18:02.332829+00:00",
+          "review_note": "Swift 공식 저장소의 StringsAndCharacters.md와 canonical equivalence 설명 확인. 현재 문자열 예제의 범위와 대조."
+        }
+      ]
+    },
+    "R02": {
+      "id": "R02",
+      "kind": "local",
+      "path": "app/src/service_portfolio.rs",
+      "sha256": "c29b84dde9472aba85b1778949032e9790abbfcd166d3ced4f27920392428b67",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Transaction envelope, member/portfolio lock and ledger/snapshot mutation",
+      "runtime_verification_this_run": "not-run"
+    },
+    "T01": {
+      "id": "T01",
+      "kind": "local",
+      "path": "scripts/service_core_acceptance.py",
+      "sha256": "7f081b58942c34185759c4700e77d3c1fc6d131529996be6a581e36ac51d2b13",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Rollback and concurrent sell test source; not executed this run",
+      "runtime_verification_this_run": "not-run"
+    },
+    "Q01": {
+      "id": "Q01",
+      "kind": "local",
+      "path": "scripts/knowledge_probes.py",
+      "sha256": "a52a60cbe37db161031e420ad05fd1c3de823f48c7e627e9c071bac2fd5ec315",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Synthetic probe orchestration, exact observations and unavailable runtimes",
+      "runtime_verification_this_run": "evidence-linked"
+    },
+    "Q02": {
+      "id": "Q02",
+      "kind": "local",
+      "path": "experiments/knowledge-probes/node.mjs",
+      "sha256": "861009c9c8a2c50d81be49e31d4bd374e92e0fc5467fadf579b042abb5f52a1e",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Node boundary fixture",
+      "runtime_verification_this_run": "evidence-linked"
+    },
+    "Q03": {
+      "id": "Q03",
+      "kind": "local",
+      "path": "experiments/knowledge-probes/swift.swift",
+      "sha256": "84d7357e80de1fccc2c31693f5caa8a95c549d8b710d73f10b59762cbf3a5ca4",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "macOS Foundation boundary fixture",
+      "runtime_verification_this_run": "evidence-linked"
+    },
+    "Q04": {
+      "id": "Q04",
+      "kind": "local",
+      "path": "experiments/knowledge-probes/rust/src/main.rs",
+      "sha256": "e51aea381df26f75889b85321dcf79c0cf51d538f087491d518ee217656aed3d",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Rust serde_json boundary fixture",
+      "runtime_verification_this_run": "evidence-linked"
+    },
+    "Q05": {
+      "id": "Q05",
+      "kind": "local",
+      "path": "experiments/knowledge-probes/rust/Cargo.toml",
+      "sha256": "6740cdda914c7efe21119f881c98a8b3f14de7649080832b84a4d249c47a2387",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Pinned direct dependency and feature",
+      "runtime_verification_this_run": "evidence-linked"
+    },
+    "Q06": {
+      "id": "Q06",
+      "kind": "local",
+      "path": "experiments/knowledge-probes/rust/Cargo.lock",
+      "sha256": "4cb5e661348af3eab18310cce8e6f9cce0c9f611133769dc45352e2e6265fc9c",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Resolved dependency identity",
+      "runtime_verification_this_run": "evidence-linked"
+    },
+    "Q07": {
+      "id": "Q07",
+      "kind": "local",
+      "path": "experiments/knowledge-probes/expected.json",
+      "sha256": "2fec611a224795be9d525fa7555708055b72bc619bb8107b364fd3e30f7f2044",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Synthetic expected observations; not product policy",
+      "runtime_verification_this_run": "evidence-linked"
+    },
+    "Q08": {
+      "id": "Q08",
+      "kind": "local",
+      "path": "knowledge/evidence/2026-10-28-language-01.json",
+      "sha256": "5e6739c47d3d493317d3883a00fd0fcd3f2911285a0d6db1b12bfa8c0657eb21",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Actual probe commands, versions, exit codes, observations and fixture hashes",
+      "runtime_verification_this_run": "evidence-linked"
+    },
+    "Q09": {
+      "id": "Q09",
+      "kind": "local",
+      "path": "knowledge/evidence/2026-10-28-build-inventory.json",
+      "sha256": "2c6b0639765e774c13dd248e67a8c7d8773a5cb8369f35d677c87562e26191dc",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Actual host tool versions and active Xcode/simulator command failures; not target app build",
+      "runtime_verification_this_run": "evidence-linked"
+    },
+    "E29": {
+      "id": "E29",
+      "kind": "external",
+      "title": "TypeScript narrowing",
+      "url": "https://www.typescriptlang.org/docs/handbook/2/narrowing.html",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Narrowing: runtime checks, type guards and type predicates",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E29/054fcc2caa61dab93cae4b792d9a29fd7054653cb2a18998c034a92dff23c9b9.html",
+        "sha256": "054fcc2caa61dab93cae4b792d9a29fd7054653cb2a18998c034a92dff23c9b9",
+        "bytes": 335136,
+        "media_type": "text/html",
+        "retrieved_url": "https://www.typescriptlang.org/docs/handbook/2/narrowing.html",
+        "retrieved_at": "2026-10-28T06:28:29.652420+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E29/054fcc2caa61dab93cae4b792d9a29fd7054653cb2a18998c034a92dff23c9b9.html",
+            "sha256": "054fcc2caa61dab93cae4b792d9a29fd7054653cb2a18998c034a92dff23c9b9",
+            "bytes": 335136,
+            "media_type": "text/html",
+            "retrieved_url": "https://www.typescriptlang.org/docs/handbook/2/narrowing.html",
+            "retrieved_at": "2026-10-28T06:28:29.652420+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.921221+00:00",
+          "review_note": "보관 응답의 관련 절 확인: Narrowing: runtime checks, type guards and type predicates; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E30": {
+      "id": "E30",
+      "kind": "external",
+      "title": "React effect synchronization",
+      "url": "https://react.dev/learn/synchronizing-with-effects",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Effects setup/cleanup, fetch cancellation or ignored results and development reruns",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E30/b0db0766c453856720d156cc675ff08e856b5e29b7e3b3b70397ab106f93694b.html",
+        "sha256": "b0db0766c453856720d156cc675ff08e856b5e29b7e3b3b70397ab106f93694b",
+        "bytes": 511854,
+        "media_type": "text/html",
+        "retrieved_url": "https://react.dev/learn/synchronizing-with-effects",
+        "retrieved_at": "2026-10-28T06:28:29.929014+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E30/b0db0766c453856720d156cc675ff08e856b5e29b7e3b3b70397ab106f93694b.html",
+            "sha256": "b0db0766c453856720d156cc675ff08e856b5e29b7e3b3b70397ab106f93694b",
+            "bytes": 511854,
+            "media_type": "text/html",
+            "retrieved_url": "https://react.dev/learn/synchronizing-with-effects",
+            "retrieved_at": "2026-10-28T06:28:29.929014+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.924584+00:00",
+          "review_note": "보관 응답의 관련 절 확인: Effects setup/cleanup, fetch cancellation or ignored results and development reruns; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E31": {
+      "id": "E31",
+      "kind": "external",
+      "title": "Kotlin JSON explicitNulls",
+      "url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-builder/explicit-nulls.html",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "explicitNulls defaults and absent/null/default decoding differences",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E31/78b3270b5e76ebaee9d176818e39f5bb3d49ad08bea24a022418b70ff5aafb88.html",
+        "sha256": "78b3270b5e76ebaee9d176818e39f5bb3d49ad08bea24a022418b70ff5aafb88",
+        "bytes": 41852,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-builder/explicit-nulls.html",
+        "retrieved_at": "2026-10-28T06:28:31.037233+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E31/78b3270b5e76ebaee9d176818e39f5bb3d49ad08bea24a022418b70ff5aafb88.html",
+            "sha256": "78b3270b5e76ebaee9d176818e39f5bb3d49ad08bea24a022418b70ff5aafb88",
+            "bytes": 41852,
+            "media_type": "text/html",
+            "retrieved_url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-builder/explicit-nulls.html",
+            "retrieved_at": "2026-10-28T06:28:31.037233+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.927394+00:00",
+          "review_note": "보관 응답의 관련 절 확인: explicitNulls defaults and absent/null/default decoding differences; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E33": {
+      "id": "E33",
+      "kind": "external",
+      "title": "SwiftUI model data",
+      "url": "https://developer.apple.com/documentation/swiftui/managing-model-data-in-your-app",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "SwiftUI data model separation and Observation availability iOS17+",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E33/26cc2d96b4c89f13a5e54c61e76f5c65fcf19de0066a62e521db3992b4ed29cd.txt",
+        "sha256": "26cc2d96b4c89f13a5e54c61e76f5c65fcf19de0066a62e521db3992b4ed29cd",
+        "bytes": 17565,
+        "media_type": "text/markdown",
+        "retrieved_url": "https://developer.apple.com/documentation/swiftui/managing-model-data-in-your-app.md",
+        "retrieved_at": "2026-10-28T06:28:32.618064+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_url": "https://developer.apple.com/tutorials/data/documentation/swiftui/managing-model-data-in-your-app.md",
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E33/26cc2d96b4c89f13a5e54c61e76f5c65fcf19de0066a62e521db3992b4ed29cd.txt",
+            "sha256": "26cc2d96b4c89f13a5e54c61e76f5c65fcf19de0066a62e521db3992b4ed29cd",
+            "bytes": 17565,
+            "media_type": "text/markdown",
+            "retrieved_url": "https://developer.apple.com/documentation/swiftui/managing-model-data-in-your-app.md",
+            "retrieved_at": "2026-10-28T06:28:32.618064+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.931851+00:00",
+          "review_note": "보관 응답의 관련 절 확인: SwiftUI data model separation and Observation availability iOS17+; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E34": {
+      "id": "E34",
+      "kind": "external",
+      "title": "React Native testing",
+      "url": "https://reactnative.dev/docs/testing-overview",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "JS unit/component tests versus native/end-to-end test coverage",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E34/a6e49a001040dd9955e129e32ba709c6c7030ac7e9f8c42bc04475c9f5aa1eb3.html",
+        "sha256": "a6e49a001040dd9955e129e32ba709c6c7030ac7e9f8c42bc04475c9f5aa1eb3",
+        "bytes": 83832,
+        "media_type": "text/html",
+        "retrieved_url": "https://reactnative.dev/docs/testing-overview",
+        "retrieved_at": "2026-10-28T06:28:33.394733+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E34/a6e49a001040dd9955e129e32ba709c6c7030ac7e9f8c42bc04475c9f5aa1eb3.html",
+            "sha256": "a6e49a001040dd9955e129e32ba709c6c7030ac7e9f8c42bc04475c9f5aa1eb3",
+            "bytes": 83832,
+            "media_type": "text/html",
+            "retrieved_url": "https://reactnative.dev/docs/testing-overview",
+            "retrieved_at": "2026-10-28T06:28:33.394733+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.934480+00:00",
+          "review_note": "보관 응답의 관련 절 확인: JS unit/component tests versus native/end-to-end test coverage; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E35": {
+      "id": "E35",
+      "kind": "external",
+      "title": "Flutter testing",
+      "url": "https://docs.flutter.dev/testing/overview",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Unit, widget and integration test responsibilities",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E35/4187e13aceb96c6e4101ebc131c027d0fc4f7d56e1c93e89ca65a5e733cfd328.html",
+        "sha256": "4187e13aceb96c6e4101ebc131c027d0fc4f7d56e1c93e89ca65a5e733cfd328",
+        "bytes": 141392,
+        "media_type": "text/html",
+        "retrieved_url": "https://docs.flutter.dev/testing/overview",
+        "retrieved_at": "2026-10-28T06:28:33.547403+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E35/4187e13aceb96c6e4101ebc131c027d0fc4f7d56e1c93e89ca65a5e733cfd328.html",
+            "sha256": "4187e13aceb96c6e4101ebc131c027d0fc4f7d56e1c93e89ca65a5e733cfd328",
+            "bytes": 141392,
+            "media_type": "text/html",
+            "retrieved_url": "https://docs.flutter.dev/testing/overview",
+            "retrieved_at": "2026-10-28T06:28:33.547403+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.936913+00:00",
+          "review_note": "보관 응답의 관련 절 확인: Unit, widget and integration test responsibilities; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E36": {
+      "id": "E36",
+      "kind": "external",
+      "title": "Android architecture recommendations",
+      "url": "https://developer.android.com/topic/architecture/recommendations",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Android UI/data architecture, state holders and unidirectional data flow",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E36/c5a30ad2c9f137af9ad75a99db669b9d148ad863935ac8be6b447884df8ccc42.html",
+        "sha256": "c5a30ad2c9f137af9ad75a99db669b9d148ad863935ac8be6b447884df8ccc42",
+        "bytes": 338508,
+        "media_type": "text/html",
+        "retrieved_url": "https://developer.android.com/topic/architecture/recommendations",
+        "retrieved_at": "2026-10-28T06:28:34.832820+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E36/c5a30ad2c9f137af9ad75a99db669b9d148ad863935ac8be6b447884df8ccc42.html",
+            "sha256": "c5a30ad2c9f137af9ad75a99db669b9d148ad863935ac8be6b447884df8ccc42",
+            "bytes": 338508,
+            "media_type": "text/html",
+            "retrieved_url": "https://developer.android.com/topic/architecture/recommendations",
+            "retrieved_at": "2026-10-28T06:28:34.832820+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.939616+00:00",
+          "review_note": "보관 응답의 관련 절 확인: Android UI/data architecture, state holders and unidirectional data flow; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E37": {
+      "id": "E37",
+      "kind": "external",
+      "title": "WKScriptMessageHandler",
+      "url": "https://developer.apple.com/documentation/webkit/wkscriptmessagehandler",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "WKScriptMessageHandler overview and JavaScript message delivery",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E37/65afc02f6194ee3d529c0fcc1c3ad3c551ca5aace10f5c4cf90ddb4b7a152b6c.txt",
+        "sha256": "65afc02f6194ee3d529c0fcc1c3ad3c551ca5aace10f5c4cf90ddb4b7a152b6c",
+        "bytes": 2474,
+        "media_type": "text/markdown",
+        "retrieved_url": "https://developer.apple.com/documentation/webkit/wkscriptmessagehandler.md",
+        "retrieved_at": "2026-10-28T06:28:35.557144+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_url": "https://developer.apple.com/tutorials/data/documentation/webkit/wkscriptmessagehandler.md",
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E37/65afc02f6194ee3d529c0fcc1c3ad3c551ca5aace10f5c4cf90ddb4b7a152b6c.txt",
+            "sha256": "65afc02f6194ee3d529c0fcc1c3ad3c551ca5aace10f5c4cf90ddb4b7a152b6c",
+            "bytes": 2474,
+            "media_type": "text/markdown",
+            "retrieved_url": "https://developer.apple.com/documentation/webkit/wkscriptmessagehandler.md",
+            "retrieved_at": "2026-10-28T06:28:35.557144+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.941847+00:00",
+          "review_note": "보관 응답의 관련 절 확인: WKScriptMessageHandler overview and JavaScript message delivery; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E40": {
+      "id": "E40",
+      "kind": "external",
+      "title": "Kotlin JSON ignoreUnknownKeys",
+      "url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-builder/ignore-unknown-keys.html",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "ignoreUnknownKeys default false and allowing additional JSON properties",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E40/123e3be1a8e6e77823b2dc3156be9bf60b337ce173d8b43d2eabc670b21fd3f1.html",
+        "sha256": "123e3be1a8e6e77823b2dc3156be9bf60b337ce173d8b43d2eabc670b21fd3f1",
+        "bytes": 40736,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-builder/ignore-unknown-keys.html",
+        "retrieved_at": "2026-10-28T06:28:37.449889+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E40/123e3be1a8e6e77823b2dc3156be9bf60b337ce173d8b43d2eabc670b21fd3f1.html",
+            "sha256": "123e3be1a8e6e77823b2dc3156be9bf60b337ce173d8b43d2eabc670b21fd3f1",
+            "bytes": 40736,
+            "media_type": "text/html",
+            "retrieved_url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-builder/ignore-unknown-keys.html",
+            "retrieved_at": "2026-10-28T06:28:37.449889+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.949572+00:00",
+          "review_note": "보관 응답의 관련 절 확인: ignoreUnknownKeys default false and allowing additional JSON properties; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E42": {
+      "id": "E42",
+      "kind": "external",
+      "title": "Swift JSONDecoder",
+      "url": "https://developer.apple.com/documentation/foundation/jsondecoder",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "JSONDecoder overview and decoding strategies; arbitrary app decimal behavior not tested",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E42/e1a6c055b42735746eea54641e28a33c03571e0f67d57c60fb156666d3479767.txt",
+        "sha256": "e1a6c055b42735746eea54641e28a33c03571e0f67d57c60fb156666d3479767",
+        "bytes": 4923,
+        "media_type": "text/markdown",
+        "retrieved_url": "https://developer.apple.com/documentation/foundation/jsondecoder.md",
+        "retrieved_at": "2026-10-28T06:28:39.142546+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_url": "https://developer.apple.com/tutorials/data/documentation/foundation/jsondecoder.md",
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E42/e1a6c055b42735746eea54641e28a33c03571e0f67d57c60fb156666d3479767.txt",
+            "sha256": "e1a6c055b42735746eea54641e28a33c03571e0f67d57c60fb156666d3479767",
+            "bytes": 4923,
+            "media_type": "text/markdown",
+            "retrieved_url": "https://developer.apple.com/documentation/foundation/jsondecoder.md",
+            "retrieved_at": "2026-10-28T06:28:39.142546+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.954518+00:00",
+          "review_note": "보관 응답의 관련 절 확인: JSONDecoder overview and decoding strategies; arbitrary app decimal behavior not tested; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E43": {
+      "id": "E43",
+      "kind": "external",
+      "title": "Swift URLSession",
+      "url": "https://developer.apple.com/documentation/foundation/urlsession",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "URLSession overview, request/response and session/delegate roles",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E43/72bf72d2e694a04e04d8f0e2cb240fff96839b6c3e94ad6e178cdef18ab2207c.txt",
+        "sha256": "72bf72d2e694a04e04d8f0e2cb240fff96839b6c3e94ad6e178cdef18ab2207c",
+        "bytes": 26983,
+        "media_type": "text/markdown",
+        "retrieved_url": "https://developer.apple.com/documentation/foundation/urlsession.md",
+        "retrieved_at": "2026-10-28T06:28:40.464417+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_url": "https://developer.apple.com/tutorials/data/documentation/foundation/urlsession.md",
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E43/72bf72d2e694a04e04d8f0e2cb240fff96839b6c3e94ad6e178cdef18ab2207c.txt",
+            "sha256": "72bf72d2e694a04e04d8f0e2cb240fff96839b6c3e94ad6e178cdef18ab2207c",
+            "bytes": 26983,
+            "media_type": "text/markdown",
+            "retrieved_url": "https://developer.apple.com/documentation/foundation/urlsession.md",
+            "retrieved_at": "2026-10-28T06:28:40.464417+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.957072+00:00",
+          "review_note": "보관 응답의 관련 절 확인: URLSession overview, request/response and session/delegate roles; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E44": {
+      "id": "E44",
+      "kind": "external",
+      "title": "Android app testing",
+      "url": "https://developer.android.com/training/testing/fundamentals",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Android local versus instrumented test responsibilities",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E44/55c4e54316aa7cbc319e39f188cc274ce37c5707cb4b83d0fb4cdb695bc84d87.html",
+        "sha256": "55c4e54316aa7cbc319e39f188cc274ce37c5707cb4b83d0fb4cdb695bc84d87",
+        "bytes": 274184,
+        "media_type": "text/html",
+        "retrieved_url": "https://developer.android.com/training/testing/fundamentals",
+        "retrieved_at": "2026-10-28T06:28:41.517698+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E44/55c4e54316aa7cbc319e39f188cc274ce37c5707cb4b83d0fb4cdb695bc84d87.html",
+            "sha256": "55c4e54316aa7cbc319e39f188cc274ce37c5707cb4b83d0fb4cdb695bc84d87",
+            "bytes": 274184,
+            "media_type": "text/html",
+            "retrieved_url": "https://developer.android.com/training/testing/fundamentals",
+            "retrieved_at": "2026-10-28T06:28:41.517698+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.960781+00:00",
+          "review_note": "보관 응답의 관련 절 확인: Android local versus instrumented test responsibilities; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E45": {
+      "id": "E45",
+      "kind": "external",
+      "title": "OkHttp recipes and cancellation",
+      "url": "https://github.com/square/okhttp/blob/master/docs/recipes.md",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Official repository recipes Canceling a Call and Call.cancel IOException behavior",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E45/001ed65e6ec707902b03025e1e5a382ec5eb766606ea7240f0eb64f59bd0ca78.txt",
+        "sha256": "001ed65e6ec707902b03025e1e5a382ec5eb766606ea7240f0eb64f59bd0ca78",
+        "bytes": 49101,
+        "media_type": "text/plain",
+        "retrieved_url": "https://raw.githubusercontent.com/square/okhttp/master/docs/recipes.md",
+        "retrieved_at": "2026-10-28T06:31:44.864633+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_url": "https://raw.githubusercontent.com/square/okhttp/master/docs/recipes.md",
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E45/001ed65e6ec707902b03025e1e5a382ec5eb766606ea7240f0eb64f59bd0ca78.txt",
+            "sha256": "001ed65e6ec707902b03025e1e5a382ec5eb766606ea7240f0eb64f59bd0ca78",
+            "bytes": 49101,
+            "media_type": "text/plain",
+            "retrieved_url": "https://raw.githubusercontent.com/square/okhttp/master/docs/recipes.md",
+            "retrieved_at": "2026-10-28T06:31:44.864633+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-canonical.json",
+          "reviewed_at": "2026-10-28T06:44:41.970496+00:00",
+          "review_note": "보관 응답의 관련 절 확인: Official repository recipes Canceling a Call and Call.cancel IOException behavior; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ],
+      "previous_urls": [
+        "https://square.github.io/okhttp/recipes/"
+      ],
+      "reading_note": "Published recipes URL returned 404; used the official repository source. Failed capture retained."
+    },
+    "E46": {
+      "id": "E46",
+      "kind": "external",
+      "title": "Kotlin JSON primitive content",
+      "url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-primitive/content.html",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "JsonPrimitive.content and JsonNull contentOrNull distinction",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E46/f27c04b0827013e356d6fee59fde67d7ecd85ee3e7abe1fa3b8aef314bb1af91.html",
+        "sha256": "f27c04b0827013e356d6fee59fde67d7ecd85ee3e7abe1fa3b8aef314bb1af91",
+        "bytes": 39212,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-primitive/content.html",
+        "retrieved_at": "2026-10-28T06:31:09.097988+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E46/f27c04b0827013e356d6fee59fde67d7ecd85ee3e7abe1fa3b8aef314bb1af91.html",
+            "sha256": "f27c04b0827013e356d6fee59fde67d7ecd85ee3e7abe1fa3b8aef314bb1af91",
+            "bytes": 39212,
+            "media_type": "text/html",
+            "retrieved_url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-primitive/content.html",
+            "retrieved_at": "2026-10-28T06:31:09.097988+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-libraries.json",
+          "reviewed_at": "2026-10-28T06:44:41.963821+00:00",
+          "review_note": "보관 응답의 관련 절 확인: JsonPrimitive.content and JsonNull contentOrNull distinction; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E47": {
+      "id": "E47",
+      "kind": "external",
+      "title": "RFC 8252 native app OAuth",
+      "url": "https://www.rfc-editor.org/rfc/rfc8252.txt",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "RFC8252 native OAuth external user-agent and native app authorization boundary",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E47/4233c0650ec7e7918c20e0fde2dc565f85e2aa2d4c18123e3cd834295c2f68d0.txt",
+        "sha256": "4233c0650ec7e7918c20e0fde2dc565f85e2aa2d4c18123e3cd834295c2f68d0",
+        "bytes": 49680,
+        "media_type": "text/plain",
+        "retrieved_url": "https://www.rfc-editor.org/rfc/rfc8252.txt",
+        "retrieved_at": "2026-10-28T06:34:12.131235+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E47/4233c0650ec7e7918c20e0fde2dc565f85e2aa2d4c18123e3cd834295c2f68d0.txt",
+            "sha256": "4233c0650ec7e7918c20e0fde2dc565f85e2aa2d4c18123e3cd834295c2f68d0",
+            "bytes": 49680,
+            "media_type": "text/plain",
+            "retrieved_url": "https://www.rfc-editor.org/rfc/rfc8252.txt",
+            "retrieved_at": "2026-10-28T06:34:12.131235+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-auth-storage.json",
+          "reviewed_at": "2026-10-28T06:44:41.973522+00:00",
+          "review_note": "보관 응답의 관련 절 확인: RFC8252 native OAuth external user-agent and native app authorization boundary; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "P02": {
+      "id": "P02",
+      "kind": "local",
+      "path": "spec/service.md",
+      "sha256": "31fed07c550f6bccfa5cd80114c6db56f3bd6489dcfe28eee49893bfc72ad11a",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Full non-league service contract, feature sections and API appendix; requirements, not runtime proof",
+      "runtime_verification_this_run": "not-run"
+    },
+    "W01": {
+      "id": "W01",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/frontend/src/App.tsx",
+      "sha256": "31de7e2e424f03ccee4dc0c60ade1c6a1494166a35c4a09a0bb379ffdf4bdebf",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Application route declarations",
+      "runtime_verification_this_run": "not-run"
+    },
+    "W02": {
+      "id": "W02",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/frontend/src/features/portfolio/transactionForm.ts",
+      "sha256": "f2a9d1e34c01fd3199242accc9efc0ceaa324052f786bb50c9ade78ed9fd6493",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Seoul date, input precision, quantity and request conversion",
+      "runtime_verification_this_run": "not-run"
+    },
+    "G11": {
+      "id": "G11",
+      "kind": "local",
+      "path": "knowledge/evidence/2026-10-28-unicode.json",
+      "sha256": "c6c874594e58538c0974f67239c347173219417b49c051ab82c72c7fbba1d40d",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Actual Java/Rust whitespace observations, commands, versions and source hashes",
+      "runtime_verification_this_run": "evidence-linked"
+    },
+    "G12": {
+      "id": "G12",
+      "kind": "local",
+      "path": "experiments/knowledge-contracts/UnicodeProbe.java",
+      "sha256": "69be73ad19c910855398342e4911d000fa43f3c286d28a6052622d12ac03fb9d",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Synthetic Java whitespace observation source",
+      "runtime_verification_this_run": "evidence-linked"
+    },
+    "G13": {
+      "id": "G13",
+      "kind": "local",
+      "path": "experiments/knowledge-contracts/unicode.rs",
+      "sha256": "fca3b69eb8de5f16569c2e2f631d57010e52d5373f309e7129687c64007a9250",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Synthetic Rust whitespace observation source",
+      "runtime_verification_this_run": "evidence-linked"
+    },
+    "E54": {
+      "id": "E54",
+      "kind": "external",
+      "title": "TypeScript object readonly",
+      "url": "https://www.typescriptlang.org/docs/handbook/2/objects.html",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "readonly properties, alias mutation and compile-time-only limits; arrays and object types.",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E54/e888c00735b69363b49c6247fb127d0ebc6dfae5059f43c5793867149ea36b7f.html",
+        "sha256": "e888c00735b69363b49c6247fb127d0ebc6dfae5059f43c5793867149ea36b7f",
+        "bytes": 389233,
+        "media_type": "text/html",
+        "retrieved_url": "https://www.typescriptlang.org/docs/handbook/2/objects.html",
+        "retrieved_at": "2026-10-28T07:09:56.148040+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E54/e888c00735b69363b49c6247fb127d0ebc6dfae5059f43c5793867149ea36b7f.html",
+            "sha256": "e888c00735b69363b49c6247fb127d0ebc6dfae5059f43c5793867149ea36b7f",
+            "bytes": 389233,
+            "media_type": "text/html",
+            "retrieved_url": "https://www.typescriptlang.org/docs/handbook/2/objects.html",
+            "retrieved_at": "2026-10-28T07:09:56.148040+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-topic-sources.json",
+          "reviewed_at": "2026-10-28T07:40:00.255671+00:00",
+          "review_note": "readonly properties, alias mutation and compile-time-only limits; arrays and object types. Topic excerpts checked against captured official body; app target versions unselected.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E57": {
+      "id": "E57",
+      "kind": "external",
+      "title": "Android WebView native bridge risks",
+      "url": "https://developer.android.com/privacy-and-security/risks/insecure-webview-native-bridges",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Native bridge risk: addJavascriptInterface injected frames and no caller-origin verification; restricted content/origin policies.",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E57/ddda0da89a60bae92ab8dd3a054cb54e01cdbea6707c138b2206295ab491afc3.html",
+        "sha256": "ddda0da89a60bae92ab8dd3a054cb54e01cdbea6707c138b2206295ab491afc3",
+        "bytes": 295153,
+        "media_type": "text/html",
+        "retrieved_url": "https://developer.android.com/privacy-and-security/risks/insecure-webview-native-bridges",
+        "retrieved_at": "2026-10-28T07:17:51.445251+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E57/ddda0da89a60bae92ab8dd3a054cb54e01cdbea6707c138b2206295ab491afc3.html",
+            "sha256": "ddda0da89a60bae92ab8dd3a054cb54e01cdbea6707c138b2206295ab491afc3",
+            "bytes": 295153,
+            "media_type": "text/html",
+            "retrieved_url": "https://developer.android.com/privacy-and-security/risks/insecure-webview-native-bridges",
+            "retrieved_at": "2026-10-28T07:17:51.445251+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-topic-runtime-sources.json",
+          "reviewed_at": "2026-10-28T07:40:00.263531+00:00",
+          "review_note": "Native bridge risk: addJavascriptInterface injected frames and no caller-origin verification; restricted content/origin policies. Topic excerpts checked against captured official body; app target versions unselected.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "DX01": {
+      "id": "DX01",
+      "kind": "local",
+      "path": "knowledge/examples/kotlin/Core.kt",
+      "sha256": "496a91da6801f035e94dde8539fa095f84f606f9f5f4db5b691f3f09987270e9",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Kotlin JSON, ownership, cancellation and pure bridge policy examples",
+      "runtime_verification_this_run": "see DX09; integration not-run"
+    },
+    "DX03": {
+      "id": "DX03",
+      "kind": "local",
+      "path": "knowledge/examples/swift/Core.swift",
+      "sha256": "48d64f3d19ed168df86fcaa2f80b80f5568f490f5b659c3d6703de5005c48416",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Swift JSON, Decimal, ownership, task/actor and pure bridge policy examples",
+      "runtime_verification_this_run": "see DX09; integration not-run"
+    },
+    "DX04": {
+      "id": "DX04",
+      "kind": "local",
+      "path": "knowledge/examples/typescript/core.ts",
+      "sha256": "0cc307a82c580a2571a605f25e978a12f0c8a734c3d28e1e620af5a10b714f4b",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "TypeScript strict narrowing, state, cancellation and bridge decoder examples",
+      "runtime_verification_this_run": "see DX09; integration not-run"
+    },
+    "DX09": {
+      "id": "DX09",
+      "kind": "local",
+      "path": "knowledge/evidence/2026-10-28-topic-examples-04.json",
+      "sha256": "62808d5fe2bdc0b4122c16435d76120415121079faf87e08d7ff92680a655c79",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Five-language final example build/run evidence; 100 cases",
+      "runtime_verification_this_run": "see DX09; integration not-run"
+    },
+    "DX10": {
+      "id": "DX10",
+      "kind": "local",
+      "path": "scripts/knowledge_example_sdks.py",
+      "sha256": "e27dcd245b02fbfd1918ae5d3a624ab462c97f9d661ad5e037347325505cdd8a",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Isolated public SDK preparation with upstream checksum checks",
+      "runtime_verification_this_run": "see DX09; integration not-run"
+    }
+  }
+}

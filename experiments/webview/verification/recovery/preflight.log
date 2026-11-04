@@ -1,0 +1,6 @@
+Source snapshot: 29/29 match
+cargo: available
+rustc: available
+psql: available
+Rust implementation: present
+No server/DB/behavior verification was performed by preflight.

@@ -1,0 +1,24 @@
+{
+  "criteria_sha256": "9a7c7cd3be47239c3e7479f833b8af127380a1e16f32f1f683ea909d5943c111",
+  "source_hashes": {
+    "clients/flutter/lib/daynomy.dart": "2994385d808adca3a0dea90c5fbca625b8c32259dba8e2473732770a7ce8d669",
+    "clients/flutter/lib/main.dart": "113c649655d6d6874a143cc429675e719d2604cec91d4a0842a0fcca95461ef4",
+    "clients/flutter/lib/src/native_auth.dart": "aff61300a9d3e851f3bbe4e36f17bc7579e1ed2dc85dc4960e5aba48fbcc3385",
+    "clients/flutter/lib/src/transport.dart": "2e1090ec7f2a28c084e28a53dbfdf23dc9bb6da16a2fb26cab0b0e7182c76ec4",
+    "clients/flutter/lib/src/repository.dart": "1cbeb298e7bb7298850db3dfedbcaae2693979cdeb2dfb239794853df75cd44b",
+    "clients/flutter/lib/src/transport_native.dart": "c814d661b617c1c32fd0d9838807857858bb585388a13536020d67c452856dc9",
+    "clients/flutter/lib/src/exact_json.dart": "2b934e84b1b259011557efcbb924f94df5ee46328cd0dc2f9524279452d8d251",
+    "clients/flutter/lib/src/transport_web.dart": "5a417ba8aa20cdfee66b81b6f40c76d57c812c7aa8b7ab7344d48ea249ab1ef8",
+    "clients/flutter/lib/src/app.dart": "2818364ed3fe97d68dd4654476b1631fa4aedca1a33a839811dc51772c503893",
+    "clients/flutter/lib/src/search.dart": "d766395d13435015096cab8f51a785716107e3456c8d82450526cd1b2cfc7384",
+    "clients/flutter/lib/src/api.dart": "15139f9be6f906e68d52860cffecd08e192774ef71da0e6482478a0894de9a16"
+  },
+  "started_at": "2026-10-28T09:23:56.635938+00:00",
+  "exit_code": 1,
+  "finished_at": "2026-10-28T09:24:01.492277+00:00",
+  "scope": "Additional original-backed USD quote/KRW cost regression, authored separately before this fix",
+  "observed_passed": 1,
+  "observed_failed": 2,
+  "log_sha256": "cf733731e6b717930210bf662a171aeddcc8a3e97f0e8d8c9ab7908dfea03339",
+  "hash_scope": "production hashes captured before command; additional gate will check stable inputs at final verification"
+}

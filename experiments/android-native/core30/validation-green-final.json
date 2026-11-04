@@ -1,0 +1,193 @@
+{
+  "at": "2026-10-28T09:56:06.780429+00:00",
+  "exit": 0,
+  "tests": 105,
+  "failures": 0,
+  "skipped": 0,
+  "command": ":market-core:test :market-core:backendTestClasses --no-daemon",
+  "sha256": {
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/SessionTransport.kt": "047f058c4e85b910d8a5e67180478b36b08c018a2aa604fa95de1c9b5575e73d",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/NativeLogin.kt": "a80024d6ca32e2174394fec08a492949b30078b44a431b2d8e72accb97121ed3",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/AccountClient.kt": "bd84748749d8b6e0191b015dc5cffb9c69e01040e713b63168ad59838d067a79",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/PortfolioClient.kt": "6ebcd1fc26fc21d3bfdeaddbb7a48f17e098324df16df2a2b718204076c9f7ab",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/CoreModels.kt": "d64b607171685d90705f72a1cbe64ec18974c16621890c100e4f766ecd6eeacc",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/Android30SessionContractTest.kt": "dc5ae554d5993c07817930664400f5c8644fc76b2e45d7bd4dc9580e36df3d74",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/Android30CoreClientContractTest.kt": "50bb9fc264966dc6c25deaeb06303281e7a1f79578d1feab23eee7d10cb9524a",
+    "clients/android/market-core/src/backendTest/kotlin/org/daynomy/market/Android30CoreBackendTest.kt": "72976326688f26eee32155a2ce47c9e366d8be962cad55e10199c83ec1e9e5e9",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/Android30SafetyRegressionTest.kt": "b85b6896d2d37d3668180a6b0440d2e7527e1a4197ee4d68e40c0264e66a92ee"
+  },
+  "source_unchanged": true,
+  "reports": {
+    "clients/android/market-core/build/test-results/test/TEST-org.daynomy.market.Android30SafetyRegressionTest.xml": {
+      "sha256": "b83f17e522120ef3c8168688f95cdc4db2fea22ebfb2434aa065f3095f5c8ace",
+      "counts": {
+        "name": "org.daynomy.market.Android30SafetyRegressionTest",
+        "tests": "2",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-28T09:55:53",
+        "hostname": "choeseoyeong-ui-MacBookPro.local",
+        "time": "0.125"
+      }
+    },
+    "clients/android/market-core/build/test-results/test/TEST-org.daynomy.market.DiscoveryClientContractTest.xml": {
+      "sha256": "299a7e89ac1e624dfce6f5741578d307f2c7bc6f9b60ab8235e61d246d2d4dd3",
+      "counts": {
+        "name": "org.daynomy.market.DiscoveryClientContractTest",
+        "tests": "14",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-28T09:55:53",
+        "hostname": "choeseoyeong-ui-MacBookPro.local",
+        "time": "0.034"
+      }
+    },
+    "clients/android/market-core/build/test-results/test/TEST-org.daynomy.market.StockSearchClientContractTest.xml": {
+      "sha256": "504f818be3bb861a21769fda0c08b322b00c2bd97c013908074f1daeb0f3a76c",
+      "counts": {
+        "name": "org.daynomy.market.StockSearchClientContractTest",
+        "tests": "10",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-28T09:55:53",
+        "hostname": "choeseoyeong-ui-MacBookPro.local",
+        "time": "0.01"
+      }
+    },
+    "clients/android/market-core/build/test-results/test/TEST-org.daynomy.market.OkHttpTransportContractTest.xml": {
+      "sha256": "18a349221fc303d5faf6938112787095aaf4a1104dfc264c6e20f78e9b82d106",
+      "counts": {
+        "name": "org.daynomy.market.OkHttpTransportContractTest",
+        "tests": "7",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-28T09:55:53",
+        "hostname": "choeseoyeong-ui-MacBookPro.local",
+        "time": "0.047"
+      }
+    },
+    "clients/android/market-core/build/test-results/test/TEST-org.daynomy.market.ExchangeNumericBoundaryTest.xml": {
+      "sha256": "1a5f6477b07b8c4c0899fbc22ef4934c9d86e341ca642346ba286b217a97274f",
+      "counts": {
+        "name": "org.daynomy.market.ExchangeNumericBoundaryTest",
+        "tests": "1",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-28T09:55:53",
+        "hostname": "choeseoyeong-ui-MacBookPro.local",
+        "time": "0.001"
+      }
+    },
+    "clients/android/market-core/build/test-results/test/TEST-org.daynomy.market.Android30SessionContractTest.xml": {
+      "sha256": "78e029b51d8a4e0a290ca4dd67df58f0a46367b96cf1cfda8c75dffba7fd15d1",
+      "counts": {
+        "name": "org.daynomy.market.Android30SessionContractTest",
+        "tests": "7",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-28T09:55:53",
+        "hostname": "choeseoyeong-ui-MacBookPro.local",
+        "time": "0.051"
+      }
+    },
+    "clients/android/market-core/build/test-results/test/TEST-org.daynomy.market.StockPriceClientContractTest.xml": {
+      "sha256": "c728d498c9e44a049d0ad87a5a52210952b521617d57ac70c67a2477aa0a7985",
+      "counts": {
+        "name": "org.daynomy.market.StockPriceClientContractTest",
+        "tests": "10",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-28T09:55:53",
+        "hostname": "choeseoyeong-ui-MacBookPro.local",
+        "time": "0.01"
+      }
+    },
+    "clients/android/market-core/build/test-results/test/TEST-org.daynomy.market.ExchangeControllerContractTest.xml": {
+      "sha256": "e5dcec7096c3e297d627cbee47367e2811aa3adddeec588a81b0f406a3d79590",
+      "counts": {
+        "name": "org.daynomy.market.ExchangeControllerContractTest",
+        "tests": "7",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-28T09:55:53",
+        "hostname": "choeseoyeong-ui-MacBookPro.local",
+        "time": "0.007"
+      }
+    },
+    "clients/android/market-core/build/test-results/test/TEST-org.daynomy.market.DiscoveryControllerContractTest.xml": {
+      "sha256": "2a841c1d43555f07eddedbb55c8430457b60b2bb69006bc8f05a0d14794a4b96",
+      "counts": {
+        "name": "org.daynomy.market.DiscoveryControllerContractTest",
+        "tests": "5",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-28T09:55:53",
+        "hostname": "choeseoyeong-ui-MacBookPro.local",
+        "time": "0.014"
+      }
+    },
+    "clients/android/market-core/build/test-results/test/TEST-org.daynomy.market.Android30CoreClientContractTest.xml": {
+      "sha256": "9370ef33fcd7073201ac4e709919b3c2881a8d980aa8c8c70e8d684a22fa573f",
+      "counts": {
+        "name": "org.daynomy.market.Android30CoreClientContractTest",
+        "tests": "8",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-28T09:55:53",
+        "hostname": "choeseoyeong-ui-MacBookPro.local",
+        "time": "0.014"
+      }
+    },
+    "clients/android/market-core/build/test-results/test/TEST-org.daynomy.market.MarketControllerContractTest.xml": {
+      "sha256": "7dbef9ef0a02e97a446e273e046ea5852fcd74ac05ccca84975b597234935f10",
+      "counts": {
+        "name": "org.daynomy.market.MarketControllerContractTest",
+        "tests": "22",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-28T09:55:53",
+        "hostname": "choeseoyeong-ui-MacBookPro.local",
+        "time": "0.018"
+      }
+    },
+    "clients/android/market-core/build/test-results/test/TEST-org.daynomy.market.MarketControllerRegressionTest.xml": {
+      "sha256": "da5e3b93d5656494250c59b1ac4c555f9e74facf4edcbc6fdde6e2514d694db4",
+      "counts": {
+        "name": "org.daynomy.market.MarketControllerRegressionTest",
+        "tests": "3",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-28T09:55:53",
+        "hostname": "choeseoyeong-ui-MacBookPro.local",
+        "time": "0.004"
+      }
+    },
+    "clients/android/market-core/build/test-results/test/TEST-org.daynomy.market.ExchangeClientContractTest.xml": {
+      "sha256": "1b0486a6b85250c9f2320cb44e2dc1a1ac0e8a2fa061887b685269cc7cff0b3e",
+      "counts": {
+        "name": "org.daynomy.market.ExchangeClientContractTest",
+        "tests": "9",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-28T09:55:53",
+        "hostname": "choeseoyeong-ui-MacBookPro.local",
+        "time": "0.008"
+      }
+    }
+  },
+  "backend_test_compilation": "passed; backend not executed",
+  "scope": "JVM + MockWebServer only; device and real Rust HTTP pending"
+}

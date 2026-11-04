@@ -1,0 +1,5 @@
+{
+  "mode": "actual Android WebView settled guest portfolio with real Rust calculation",
+  "steps": [],
+  "failure": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('삼성전자', { exact: true }).first() to be visible\u001b[22m\n"
+}

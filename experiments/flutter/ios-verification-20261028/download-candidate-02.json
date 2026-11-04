@@ -1,0 +1,22 @@
+{
+  "time": "2026-10-28T10:03:56.147947+00:00",
+  "path": "/Applications/Xcode.appdownload",
+  "exists": true,
+  "stat": {
+    "size": 128,
+    "mtime_utc": "2026-10-28T10:02:54.108802+00:00"
+  },
+  "entries": [
+    {
+      "name": "Contents",
+      "is_dir": true,
+      "size": 96
+    },
+    {
+      "name": "Icon\r",
+      "is_dir": false,
+      "size": 0
+    }
+  ],
+  "xcodebuild_exists": false
+}

@@ -1,0 +1,46 @@
+[
+  {
+    "name": "build",
+    "command": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "cwd": "/Users/seoyeong/develop/AI/daynomy_agent/clients/webview/web",
+    "exit_code": 2,
+    "log": "clients/webview/tests/red/build.log"
+  },
+  {
+    "name": "market",
+    "command": [
+      "npm",
+      "run",
+      "test:contracts"
+    ],
+    "cwd": "/Users/seoyeong/develop/AI/daynomy_agent/clients/webview/web",
+    "exit_code": 1,
+    "log": "clients/webview/tests/red/market.log"
+  },
+  {
+    "name": "hosts",
+    "command": [
+      "node",
+      "--test",
+      "clients/webview/tests/host-policy.test.mjs"
+    ],
+    "cwd": "/Users/seoyeong/develop/AI/daynomy_agent",
+    "exit_code": 1,
+    "log": "clients/webview/tests/red/hosts.log"
+  },
+  {
+    "name": "http-browser",
+    "command": [
+      "node",
+      "--test",
+      "clients/webview/tests/http-browser.test.mjs"
+    ],
+    "cwd": "/Users/seoyeong/develop/AI/daynomy_agent",
+    "exit_code": 1,
+    "log": "clients/webview/tests/red/http-browser.log"
+  }
+]

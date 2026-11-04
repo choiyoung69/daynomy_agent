@@ -1,0 +1,16 @@
+{
+  "status": "passed-core-only",
+  "counts": {
+    "jvm": 105,
+    "backend": 13,
+    "device": 11
+  },
+  "core_viewmodel_sha256": "19a604287e4c20968884151c9e0175a866ad6f39c6bf67944e642f04aed6d1f5",
+  "scope": "Existing Rust native auth/account and portfolio core; actual Google/full app not approved",
+  "cleanup": "own Rust, private database/cluster and emulator stopped",
+  "independent_review": "validation-final-v2.json",
+  "review_sha256": "d3bd671d74149cc589f3874a44e258feb06388508a8569772bb3de7792a9fa5a",
+  "completed_at": "2026-10-28T10:09:48.416470+00:00",
+  "start": "2026-10-28T09:39:53Z",
+  "deadline": "2026-10-28T10:09:53Z"
+}

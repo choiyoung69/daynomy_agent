@@ -1,0 +1,279 @@
+{
+  "recorded_at": "2026-10-28T09:55:29.991818+00:00",
+  "scope": "DAYNOMY full user Flutter app and Rust native member authentication extension; local verification approval",
+  "roles": {
+    "tests": "/root/flutter_tests",
+    "implementation": "/root/flutter_implementation",
+    "independent_verification": "/root/flutter_verification",
+    "coordination_and_backend_runs": "/root"
+  },
+  "frontend": {
+    "status": "passed",
+    "passed": 238,
+    "breakdown": {
+      "fixed_v1": 207,
+      "currency_regression": 3,
+      "independent_native_http_and_lifecycle": 13,
+      "internal_news_regression": 15
+    },
+    "commands": [
+      {
+        "name": "analyze",
+        "exit_code": 0,
+        "seconds": 4.8565547910984606
+      },
+      {
+        "name": "test",
+        "exit_code": 0,
+        "seconds": 27.686408124980517
+      },
+      {
+        "name": "build-web",
+        "exit_code": 0,
+        "seconds": 15.360673042014241
+      }
+    ],
+    "inputs_unchanged": true,
+    "final_current_input_hash_match_count": 53,
+    "criteria_hashes": {
+      "clients/flutter/test/api_client_test.dart": "512e70543f6b559a574a2b665d522dfe9f3e600ab6bd828f66a2ef6f113ba170",
+      "clients/flutter/test/app_widget_test.dart": "604b8f255d68f328491c3baf3b6c6632a32304fde690e02f72e01bd0183e8216",
+      "clients/flutter/test/exact_json_test.dart": "457664382b45cc4ab74f8de8bc01b685aca613a94c5cdfb0b1f3270e49c05095",
+      "clients/flutter/test/native_auth_test.dart": "2030afc39df4acabd9e3e7c74954911963a7defa1edbd31b318fc516cd8a297d",
+      "clients/flutter/test/repository_test.dart": "d4c0a3226f609270bec64e8f8890e42aa939f4f090af9540b6db105dce83b3ae",
+      "clients/flutter/test/search_controller_test.dart": "6e486ee45a883b230cef6216417af356079a495a25dd6132f3b43ffc2e6d363e",
+      "clients/flutter/test/support/fakes.dart": "58a21c4f1b7f1e546f7e82aad3339fad413f09f841f77dc0a4bace9a14f92181",
+      "scripts/flutter_auth_acceptance.py": "5102f33b43dc89eedd695d40b7e57c3921228e982a5200b40f66c39f1be5314d",
+      "spec/flutter/design.md": "61f0c0e7d652a548b36fc94b4fd6fa8923b6d96d2dff2f9cf36e375e4110dd81",
+      "spec/flutter/native-auth.md": "24c871bed39dff656b924c761ebd788ccd2111c543826e70c2063b469cdef054",
+      "spec/flutter/test-author-record.md": "4d5e1e8a51dd475151c0a29470a2df55bdbd298725c58b0573c357e692641851",
+      "spec/flutter/test-contract.md": "68acffba4a5e1ab0ee2a35f5f9f99b9fa42bcfb5602c687b75fdb97d91054795"
+    },
+    "supplemental_criteria_hashes": {
+      "clients/flutter/review_test/currency_contract_test.dart": "9a7c7cd3be47239c3e7479f833b8af127380a1e16f32f1f683ea909d5943c111",
+      "clients/flutter/review_test/internal_news_contract_test.dart": "c35acd74985aa0326a70a1e047d057c1e365c5da492cf87e296cceebda6cce61",
+      "clients/flutter/verification_test/native_transport_test.dart": "d97ca56b42dcb378cd0a118fa2c1c60781faa4caed976dc145a56e79052da423",
+      "clients/flutter/verification_test/responsive_lifecycle_test.dart": "f38a16b4261a016df45aec9e0f582e60d41b106b28223377d7fd98a7a6567022"
+    },
+    "source_hashes": {
+      "app/migrations/001_feedbacks.sql": "1af9f2099832e86b6cdfb37f526d7772797bd5e1288bdaa34f369808c9f1552c",
+      "app/migrations/002_oauth_login_states.sql": "e0fc38ceadef0c4105538de6dc012572b304e57cfc588c62160843d852568d75",
+      "app/migrations/003_analysis_guest_sessions.sql": "892ad7b64ea460d36a8fac676993723aea2b69d13442a43f3bb55eea9d559c4a",
+      "app/migrations/004_mobile_auth_codes.sql": "9e6363d71340a4e58fec6dc165b15f44c76eb6424878c43be3bc951ac13488c8",
+      "app/src/api.rs": "d0eb5f514815abba8947ed459f89232555d7b971d276470ea2c11d600b676148",
+      "app/src/csrf.rs": "07ed24054d7528405e759ffefd0584684a3f81fe84aca8474cc92246e0f367b9",
+      "app/src/feedback.rs": "6492755566d787529579169ce6eb450c15eb4cd6f6b1921c541e517a4e0f30f3",
+      "app/src/java_binding.rs": "082388a39895fad225b87e52fad09a4b85adb2d334a8946cd6441a2efc128184",
+      "app/src/main.rs": "6b8637836f7ba463a410fc44944760805d0fca9bcb0c3d6300c8eb1f9887c605",
+      "app/src/multipart.rs": "f598921d628d28d10b161f34f9389c005bcbe3c4153579b83cd6b4b3431de5af",
+      "app/src/service_admin_content.rs": "cb64ac7e93d188211a43727b4d8eaeeb0ef45b7348e9184d866c8dc92df69766",
+      "app/src/service_admin_feedback.rs": "edfe9a594b5769ea31e7a98c439701737c9cf48846b66f1193f8c07f893cef8c",
+      "app/src/service_admin_news.rs": "ab574ddf3c630ff77884a114c733a59d7f5ce6c0755adcbbbefc273d1c6b0995",
+      "app/src/service_analysis.rs": "4ee145324d303f6629ee86bcdd5cc06d2dfecab83aa60202be0b8b72040555b2",
+      "app/src/service_auth.rs": "ca50065e928882961f8cd932c404e61aee6bc38df0ab9637f52cfc0e3cd331f7",
+      "app/src/service_calendar.rs": "feaf1aa8edc7b71b49e678061291f272b27deb4273b4020bc67f21f0d8c3fec8",
+      "app/src/service_dart.rs": "6b877ed13db7a805424ec844510e740bcd06ee1729ef81774c447a8d9a255e24",
+      "app/src/service_discovery.rs": "65bc2cf04935bfe5cab67dbd2d4570ab77a755bf189c37606a3221a8d9155b9b",
+      "app/src/service_market.rs": "72d0e5e6265c284ffed4b2e3f40eee593a5c77c48aea4d4d83caa6ae6f218f79",
+      "app/src/service_media.rs": "eea925c996a6daaf72bbe6192a97c8fb47c2a9586752d9ccde761bc4f111f8a9",
+      "app/src/service_portfolio.rs": "c29b84dde9472aba85b1778949032e9790abbfcd166d3ced4f27920392428b67",
+      "app/src/service_schedule.rs": "f64c9ebb112cee66156dec373b65fd73bf4832fed4652e60253372f197dbb2bd",
+      "app/src/service_social.rs": "7760fdb8073428fe01481fc33aebd35b94b994e24e471563c578fa38176e87cc",
+      "app/src/service_sync.rs": "a8b7203ad351761df435accdc5516b2f732ffaeb5b1bf1bb89396225b91a862a",
+      "clients/flutter/lib/daynomy.dart": "2994385d808adca3a0dea90c5fbca625b8c32259dba8e2473732770a7ce8d669",
+      "clients/flutter/lib/main.dart": "113c649655d6d6874a143cc429675e719d2604cec91d4a0842a0fcca95461ef4",
+      "clients/flutter/lib/src/api.dart": "15139f9be6f906e68d52860cffecd08e192774ef71da0e6482478a0894de9a16",
+      "clients/flutter/lib/src/app.dart": "56bc7484e381eb925aca768d184620a07caf1d9ade92e3a240d05a38173b1b9f",
+      "clients/flutter/lib/src/exact_json.dart": "2b934e84b1b259011557efcbb924f94df5ee46328cd0dc2f9524279452d8d251",
+      "clients/flutter/lib/src/native_auth.dart": "aff61300a9d3e851f3bbe4e36f17bc7579e1ed2dc85dc4960e5aba48fbcc3385",
+      "clients/flutter/lib/src/repository.dart": "b2c68d747994a3a82a3536fa76c5972610da2c5c06b6fc4b53059e509fffa4c0",
+      "clients/flutter/lib/src/search.dart": "b1230b1630af1630ea0e435c67bb4c83500e95abb9fd65eb31957bd3de174162",
+      "clients/flutter/lib/src/transport.dart": "2e1090ec7f2a28c084e28a53dbfdf23dc9bb6da16a2fb26cab0b0e7182c76ec4",
+      "clients/flutter/lib/src/transport_native.dart": "c814d661b617c1c32fd0d9838807857858bb585388a13536020d67c452856dc9",
+      "clients/flutter/lib/src/transport_web.dart": "5a417ba8aa20cdfee66b81b6f40c76d57c812c7aa8b7ab7344d48ea249ab1ef8",
+      "clients/flutter/pubspec.lock": "78ec894b60a655c0bf60e8d1a29f180fc2b2f7991d755a7f6dcfeac013a7057d",
+      "clients/flutter/pubspec.yaml": "f5e6f170091017b2089e58f5b40b239b330b8857fbab833d89b91e8c2694b589"
+    }
+  },
+  "backend": {
+    "status": "passed",
+    "suites": {
+      "rust-flutter_auth_acceptance": {
+        "exit_code": 0,
+        "passed": 23,
+        "failed": 0,
+        "report": "/Users/seoyeong/develop/AI/daynomy_agent/.local/flutter-auth-green-02/rust-flutter_auth_acceptance.json"
+      },
+      "rust-service_auth_provider_acceptance": {
+        "exit_code": 0,
+        "passed": 13,
+        "failed": 0,
+        "report": "/Users/seoyeong/develop/AI/daynomy_agent/.local/flutter-auth-green-02/rust-service_auth_provider_acceptance.json"
+      },
+      "rust-core": {
+        "exit_code": 0,
+        "passed": 80,
+        "failed": 0,
+        "report": "/Users/seoyeong/develop/AI/daynomy_agent/.local/flutter-auth-green-02/rust-core.json"
+      }
+    },
+    "total_passed": 116,
+    "current_snapshot_hash_matches": 79,
+    "source_hashes": {
+      "Cargo.toml": "f870717bcbd437944cd809e7999bdd493ac40fc345db56abc889f7d45f2efcb0",
+      "Cargo.lock": "980389dce06c3e7d610e5b738ca92df14e181ad0d35d2b319bb57e572e222a8d",
+      "README.md": "3eb69ef9f22c2ea49ddc203d81670bf3ac34d84a0832d82c3be9619ba60d04e4",
+      "migrations/002_oauth_login_states.sql": "e0fc38ceadef0c4105538de6dc012572b304e57cfc588c62160843d852568d75",
+      "migrations/004_mobile_auth_codes.sql": "9e6363d71340a4e58fec6dc165b15f44c76eb6424878c43be3bc951ac13488c8",
+      "migrations/003_analysis_guest_sessions.sql": "892ad7b64ea460d36a8fac676993723aea2b69d13442a43f3bb55eea9d559c4a",
+      "migrations/001_feedbacks.sql": "1af9f2099832e86b6cdfb37f526d7772797bd5e1288bdaa34f369808c9f1552c",
+      "src/service_dart.rs": "6b877ed13db7a805424ec844510e740bcd06ee1729ef81774c447a8d9a255e24",
+      "src/java_binding.rs": "082388a39895fad225b87e52fad09a4b85adb2d334a8946cd6441a2efc128184",
+      "src/feedback.rs": "6492755566d787529579169ce6eb450c15eb4cd6f6b1921c541e517a4e0f30f3",
+      "src/service_portfolio.rs": "c29b84dde9472aba85b1778949032e9790abbfcd166d3ced4f27920392428b67",
+      "src/csrf.rs": "07ed24054d7528405e759ffefd0584684a3f81fe84aca8474cc92246e0f367b9",
+      "src/multipart.rs": "f598921d628d28d10b161f34f9389c005bcbe3c4153579b83cd6b4b3431de5af",
+      "src/service_auth.rs": "ca50065e928882961f8cd932c404e61aee6bc38df0ab9637f52cfc0e3cd331f7",
+      "src/service_sync.rs": "a8b7203ad351761df435accdc5516b2f732ffaeb5b1bf1bb89396225b91a862a",
+      "src/service_admin_content.rs": "cb64ac7e93d188211a43727b4d8eaeeb0ef45b7348e9184d866c8dc92df69766",
+      "src/service_analysis.rs": "4ee145324d303f6629ee86bcdd5cc06d2dfecab83aa60202be0b8b72040555b2",
+      "src/service_admin_feedback.rs": "edfe9a594b5769ea31e7a98c439701737c9cf48846b66f1193f8c07f893cef8c",
+      "src/service_market.rs": "72d0e5e6265c284ffed4b2e3f40eee593a5c77c48aea4d4d83caa6ae6f218f79",
+      "src/service_schedule.rs": "f64c9ebb112cee66156dec373b65fd73bf4832fed4652e60253372f197dbb2bd",
+      "src/service_discovery.rs": "65bc2cf04935bfe5cab67dbd2d4570ab77a755bf189c37606a3221a8d9155b9b",
+      "src/main.rs": "6b8637836f7ba463a410fc44944760805d0fca9bcb0c3d6300c8eb1f9887c605",
+      "src/service_calendar.rs": "feaf1aa8edc7b71b49e678061291f272b27deb4273b4020bc67f21f0d8c3fec8",
+      "src/service_admin_news.rs": "ab574ddf3c630ff77884a114c733a59d7f5ce6c0755adcbbbefc273d1c6b0995",
+      "src/api.rs": "d0eb5f514815abba8947ed459f89232555d7b971d276470ea2c11d600b676148",
+      "src/service_media.rs": "eea925c996a6daaf72bbe6192a97c8fb47c2a9586752d9ccde761bc4f111f8a9",
+      "src/service_social.rs": "7760fdb8073428fe01481fc33aebd35b94b994e24e471563c578fa38176e87cc",
+      "migrations/reference/V18__normalize_stock_content_source_type.sql": "627c4c7b2b3b95da4462df76f5f3b43e138838c3514d59d5615aa76c60cf1544",
+      "migrations/reference/V26__create_financial_learning_records.sql": "0effb3f6287b7b8ac2c51ba37b9acba0e2fad3b08cf704355a00480d01090551",
+      "migrations/reference/V34__structure_market_analysis.sql": "34090e80a7ae1d998af67ae76d93d79b3a9fd5f7b0434f1bd353dee204ee4c66",
+      "migrations/reference/V40__add_featured_person_profile_image.sql": "8d719d93bd8e2e37272394b43f86c80bf77af39af96d7161de2d13bf7cc2b4df",
+      "migrations/reference/V31__complete_league_performance.sql": "db18a95f7be784b1aa82096e9ce8285e339829b772417d8620aa2d0a37a4ee04",
+      "migrations/reference/V21__add_admin_news_search_order_index.sql": "82a8edfcb4f70c7e77c0ce352da04a6f4cd7dc0509b8068cbaefabafca6a424a",
+      "migrations/reference/V24__create_featured_people.sql": "4fb54c653ad2c1a5df16bfb3b8857216b529c02fe06c1d8923fe7c6292d1f6db",
+      "migrations/reference/V48__record_asset_price_history_coverage.sql": "19c13fde89dd4091d24471693ca534eb422b02803ed9e95d34f1c46f86d76766",
+      "migrations/reference/V4__allow_manual_news.sql": "4662c61b1fb102c3e91a21b95ac70ad24cb2d3795e70f6ba843a33e39d4705d8",
+      "migrations/reference/V10__remove_bookmark_features.sql": "01e0a3d16032ab10cedd65af7856c57106ef28ccc526809290c6af753bde40de",
+      "migrations/reference/V19__add_image_url_to_stock_related_contents.sql": "5ba43bd10bf62921f2a866f099db005183419de98726a02389526057e0fcb19f",
+      "migrations/reference/V5__integrate_market_analysis_summary.sql": "c90967bf75dd849ff1a990aa53279d80dbae60cac367ce8d8a7ff324f86d97f6",
+      "migrations/reference/V20__add_news_search_order_index.sql": "c3f9eb4487fe2ca31237534ce5fc7c6a4396364a9392c2c87c7c0fdb34fc797a",
+      "migrations/reference/V43__add_featured_person_post_published_at.sql": "569aefc95b5a96caa7c9915b54e041d0d4078e5fc880448cfed56f498f16f5ff",
+      "migrations/reference/V49__create_featured_person_post_candidates.sql": "de8c9591888eb702697c0c2d63f2db102d767c0803817b051a2d8c3d970317a0",
+      "migrations/reference/V37__add_portfolio_analysis_check_outcome.sql": "e8300ac02d31cc316647842f1e331d10f690b0f4e3ddb17e98f797e9882a1e92",
+      "migrations/reference/V46__add_missing_entity_audit_timestamps.sql": "0e0280451ce339ecb65b03fcaab5eeb74be9473942e2f438cbe7efa9506c0c16",
+      "migrations/reference/V7__remove_news_description.sql": "28050cf96d0fcded6bdc9b6d16619d4dbb30bb363d58b4e180c901782f514263",
+      "migrations/reference/V32__allow_optional_investment_decision_fields.sql": "bd68f80830aef71327f60e9ad3ae788c92b5e2f99be3ab89a5353122692c2159",
+      "migrations/reference/V25__create_feedbacks.sql": "b36368c4370f73ea8723b40fedc962ca502224029d0c3a1b9d17b0f14931017a",
+      "migrations/reference/V33__add_portfolio_transaction_ledger.sql": "03108ff94ab1cebed8b39bcb9944befc52dcc163d6659a4996a3c24b907dad6f",
+      "migrations/reference/V36__add_portfolio_analysis_request_lease.sql": "0ad087f3388ed5ebfcabcb6a883b1f626263f8a6d85fd812138d99d14d804384",
+      "migrations/reference/V47__create_investment_events.sql": "1bec43b8e842c61ea6e47c859405c2184fd35d7650acb0373d045a3befa03062",
+      "migrations/reference/V52__scope_isin_uniqueness_to_domestic_assets.sql": "f7e3882ff06076750c65be8f0ed672dae021e75f666f8f947854b57d61a84e23",
+      "migrations/reference/V39__add_stock_content_published_date.sql": "378dad98eb4f12b84a5bcd5e4cf665ef56be8c1f15d827aab2b50ba42431c3c8",
+      "migrations/reference/V3__add_news_status.sql": "93d2a4bfa71f4d8120919b85d57bfb329a4e4da42d15475de6cea1486e533e6f",
+      "migrations/reference/V12__create_stock_daily_prices.sql": "cf97bbac4759716a44e6e6616268b9ce3fa7e0b97258b4bd1572fe59332ab64e",
+      "migrations/reference/V44__create_portfolio_asset_analyses.sql": "cda965c87c960e0f9e76e5892ccd1e97d2037dd613634c8352bf9d30752f3f97",
+      "migrations/reference/V15__create_portfolio_tracking.sql": "1b5e7e2efd90dedfcd0375939768a3254c22a83132b9d0a8185e53be187f5289",
+      "migrations/reference/V29__create_financial_plans.sql": "da6e36949b1c1d21faab2bcf5c2c7dd9f1105df35a810624a49033ae314f2c84",
+      "migrations/reference/V17__link_asset_contents_to_news.sql": "55cdaf6da57b8bf095528d26527aab2e32d6f836542e0734c9072c513054372b",
+      "migrations/reference/V50__replace_post_candidates_with_post_status.sql": "a0097d3cf8faa8a687d410322218900eeb906326de9f34ad2858880e395fdf46",
+      "migrations/reference/V35__create_portfolio_analyses.sql": "ebb4b4957a82f472dfba5aa33f6572d19342da4e04417d693bcc824b0331aa80",
+      "migrations/reference/V9__remove_news_source_identity_columns.sql": "67640ac3e5af7cde7441ef35e4a3b66207955523f79df075c314372b7fb5cf4d",
+      "migrations/reference/V27__create_investment_league.sql": "fcbbe576109ea5e96a274b181431cb88770d40001ffb170b7c4c29ba9079dd22",
+      "migrations/reference/V14__convert_news_image_source_to_jsonb.sql": "582a32dec3ae018a691c0c08fac9959871b731894811694e4de0ffd4a35d549f",
+      "migrations/reference/V30__separate_private_google_name.sql": "8b4fe8a563ba50cb6fdcaf24b77115c73a653dccd5f00d2d9d98ebfe97de34ca",
+      "migrations/reference/manifest.json": "2e773a3e35dc164ad0333dfc974c5d4f80bf26b6b641a38f476dc6b5238a54c2",
+      "migrations/reference/V42__backfill_and_index_stock_content_published_date.sql": "60cb6a23bb17e939c8e197ac8761aaf8807c15dc5938ac90cb79c69dee81aea7",
+      "migrations/reference/V38__add_portfolio_analysis_evidence_fact_quote.sql": "a61a13b77dc47b1850334b138f3b127674517e399aae2d64e358887a7d4b89a2",
+      "migrations/reference/V16__create_stock_related_contents.sql": "52feaae48e05d83ef17e4246a20f3c0d514cb9ca30210bf53b1604fbf3551ff9",
+      "migrations/reference/V53__support_usd_portfolio_transactions.sql": "f3eafcba1e2905f8f3d08eb0c3be3c039953ed7da20be42341f4b0dd74008686",
+      "migrations/reference/V6__remove_market_analysis_details.sql": "f22593e595ce1dbdd1a6db7b1249672aa606fd0a310e356e3a815232dbd9f3ef",
+      "migrations/reference/V1__init_schema.sql": "8dc827cb863a95cc8cbfeb9559629be5fa221bb108b06fa67c05bafb76a6736e",
+      "migrations/reference/V11__add_stock_master_columns.sql": "77b11c72ada74a47a1a24840eff9020783ac808823121ad81e680edb2fa35fb9",
+      "migrations/reference/V13__add_news_image_source.sql": "f5bd06e94b0b639fc096139c26f5bcdf1b979490e5a4f2d28d74b3d59bd6a59a",
+      "migrations/reference/V51__preserve_us_stock_price_precision.sql": "d444d505a861b897a5c0e2f255dcd5927d547c9c8740c5eed7b236ae8884cea1",
+      "migrations/reference/V45__track_stock_price_collection_attempt.sql": "7dd2cc4f55141bda407ae13e42cf62e52bb17d64ff3526cd8406780594ce48d8",
+      "migrations/reference/V41__add_featured_person_youtube_profile.sql": "5d9de234375345ea39a74d62eaa1f05287bd3710d00df4a06ac914dac2edd7d8",
+      "migrations/reference/V8__migrate_news_sources_to_jsonb.sql": "2d45bf64c2b4496c82eafba8f1278dddf3546d27c48437066d381ea974d64d6d",
+      "migrations/reference/V28__isolate_shared_portfolios.sql": "9b89482ea67fc223668282ba033f85a5f81e83bb706f8d6ccb7e3ccc71138db6",
+      "migrations/reference/V2__add_news_search_indexes.sql": "32757103cb012328fc7e3293d2e53d8098fb474ad2de1fbea82908f98a50050a"
+    },
+    "evidence": "experiments/flutter/evidence/backend-green-v1.json",
+    "provider_scope": "ephemeral local RSA/JWKS mock OIDC, not real Google"
+  },
+  "feedback": {
+    "exit_code": 0,
+    "complete": true,
+    "http_db_cases": 46,
+    "lifecycle": {
+      "finished_at": "2026-10-28T09:46:43.211492+00:00",
+      "passed": [
+        "restart-preserves-row",
+        "storage-error-is-500-without-insert",
+        "recovers-after-statement-error",
+        "app-logs-do-not-echo-probe-input"
+      ],
+      "exit_code": 0,
+      "command_exit_code": 0,
+      "script_sha256": "2f9841c56879add52fdb786185a44fefc6f0ce24effc067168b59a74ca0284f9",
+      "binary_sha256": "8d65466041e901480f515e4977e67572a4d4861a5eaa3f55acb66d153c73fb63",
+      "feedback_profile_path_count": 1,
+      "db_scope": "already-owned disposable Flutter fixture under shared lock; browser mutations paused"
+    },
+    "fixture_feedback_verify": true
+  },
+  "android": {
+    "artifact": "clients/flutter/build/app/outputs/flutter-apk/app-debug.apk",
+    "sha256": "e5c17878246238ef3e457465811a2cce5bdf14b6ecc60f00e32307cdec8299cf",
+    "debug_api_base": "http://10.0.2.2:18081",
+    "coordinator_smoke": "experiments/flutter/review/android-coordinator-smoke.json",
+    "device": "dedicated emulator-5560 Android13; stopped",
+    "limit": "actual native search/selection and quote EditText accessibility hierarchy; numeric quote clipped in final screenshot"
+  },
+  "independent_review": {
+    "decision": "approved for reviewed local implementation scope",
+    "report": "runs/012-flutter-verification.md",
+    "hash_manifest": "experiments/flutter/review/independent-manifest-final.json",
+    "resolved_findings": [
+      "dispose after guest calculation must not send new AI POST",
+      "late logout/withdraw success must clear global session",
+      "safe relative internal news decoding/navigation"
+    ],
+    "post_review_documentation_change": {
+      "path": "clients/flutter/README.md",
+      "reason": "updated final test count and execution commands/verification limitations only",
+      "sha256": "f4531dcab885fceff5266e17da96383d118d3e133005cffa34cc74268d280f0f",
+      "other_independent_manifest_entries_unchanged": 105
+    }
+  },
+  "cleanup": {
+    "own_fixture_status": "stopped",
+    "commands": [
+      {
+        "name": "fixture-db-drop",
+        "exit_code": 0,
+        "seconds": 0.12881645804736763
+      }
+    ],
+    "dedicated_emulator_emu_kill_exit_code": 0,
+    "shared_postgresql_and_other_tasks": "left running/untouched",
+    "initial_failed_auth_database": {
+      "database_name": "daynomy_2f22e50bc0_service_test",
+      "first_attempt": "lock deadline after 45 seconds; no inspection or mutation",
+      "status": "shared_lock_still_held_database_left_untouched"
+    },
+    "ownership_limit": "Potential leftover from first failed schema run was not inspected or deleted because shared lock remained held after 45s and 300s bounded attempts; no other task contacted or interrupted."
+  },
+  "not_verified": [
+    "real Google account and platform external auth callback completion",
+    "iOS build/device/screens (Xcode unavailable)",
+    "real AI provider response",
+    "full member UI CRUD end-to-end with real login",
+    "complete device screen-reader accessibility",
+    "Web XHR delayed abort dynamic reproduction",
+    "production deployment"
+  ],
+  "evidence_rule": "Earlier blocked, failing red, and preparation errors remain preserved separately; no failed run overwritten as passed; no existing unrelated work changed."
+}

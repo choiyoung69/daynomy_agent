@@ -1,0 +1,7 @@
+{
+  "at": "2026-10-28T10:05:39.408180+00:00",
+  "sha256": {
+    "clients/android/app/src/main/kotlin/org/daynomy/android/CoreViewModel.kt": "05c2c898c5d1be928d6b0e52863a29ff7d39144c6da8a6e8bacc11c22ec78475",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/Android30AccountIsolationTest.kt": "387de5053ecdcfdbabc9f2d410327552e6a3797a6a3a93233cea06ed2fea050c"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "context_sha256": "57f743cacc73113b822c08bbfb1c0cac787480ca53232a4565e2e60a1905408d",
+  "applied_rules": [
+    {
+      "document": "knowledge/wiki/projects/daynomy/news.md",
+      "rule": "Expose only server-supported category requests and preserve list/detail selection.",
+      "implementation": "MainActivity.kt native tabs, LifecycleEventObserver and BackHandler; feature screen implementation separately mapped by implementation agent."
+    },
+    {
+      "document": "knowledge/wiki/projects/daynomy/stocks-exchange.md",
+      "rule": "Keep requested date distinct from actual quote base date.",
+      "implementation": "MainActivity.kt native tabs, LifecycleEventObserver and BackHandler; feature screen implementation separately mapped by implementation agent."
+    },
+    {
+      "document": "knowledge/wiki/packages/android-kotlin/state-and-navigation.md",
+      "rule": "ViewModel owns request state; selected native tab owns active lifecycle; hardware back closes detail.",
+      "implementation": "MainActivity.kt native tabs, LifecycleEventObserver and BackHandler; feature screen implementation separately mapped by implementation agent."
+    },
+    {
+      "document": "knowledge/wiki/packages/android-kotlin/async-and-cancellation.md",
+      "rule": "Deactivate all controllers on owner stop/tab disposal, rejecting stale work.",
+      "implementation": "MainActivity.kt native tabs, LifecycleEventObserver and BackHandler; feature screen implementation separately mapped by implementation agent."
+    },
+    {
+      "document": "knowledge/wiki/packages/android-kotlin/errors-and-transactions.md",
+      "rule": "Surface safe typed failure states and require explicit user retry.",
+      "implementation": "MainActivity.kt native tabs, LifecycleEventObserver and BackHandler; feature screen implementation separately mapped by implementation agent."
+    }
+  ]
+}

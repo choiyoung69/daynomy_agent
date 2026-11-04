@@ -1,0 +1,48 @@
+{
+  "created_at": "2026-10-28T10:31:14.841597+00:00",
+  "role": "implementer-not-independent-verifier",
+  "files": {
+    "clients/webview/FULL-HOSTS.md": "740a34b47704c81839e52845d8c8c0eaa45aed5564041bddb57d3dfb916787ee",
+    "clients/webview/android-full/.gitignore": "838655f2e91bf2cc39b78e25f41b3706543530eeaca3c710e323d9c7fa5619ca",
+    "clients/webview/android-full/app/build.gradle.kts": "5c79b4caad2ad12e007f67a05604962061bdddd453cb44b6ed36e3061199fdbf",
+    "clients/webview/android-full/app/src/debug/res/xml/network_security_config.xml": "19c7e0ab73370aae0baf35129c820bd5ffc038015c95b1b2182ffee433836591",
+    "clients/webview/android-full/app/src/main/AndroidManifest.xml": "51ae1ea08234b114bf356194e587b8f4a8e651b9f546aa99bcd9e1c5d1fa94a7",
+    "clients/webview/android-full/app/src/main/java/com/daynomy/webview/FullResourcePolicy.kt": "8ed8e89ea576e0f39e7e5a1f7e3c3dabbe0e48a8ab6b6699a4f197dca5bbbab2",
+    "clients/webview/android-full/app/src/main/java/com/daynomy/webview/MainActivity.kt": "07ad081c258fb62a0d7bc77ad7f687571be121ded61bb7055d4bff145b1bf47d",
+    "clients/webview/android-full/app/src/main/java/com/daynomy/webview/NativeAuthSession.kt": "f4100d77e45c8c3cba22ae4ef3599a54fb3836fa98a6ef8108d57fd758779507",
+    "clients/webview/android-full/app/src/main/java/com/daynomy/webview/NavigationPolicy.kt": "b89810163c7b8217e94a01b3546e0d0b9a94a4bc0339a02ba7a5be75c4a235a5",
+    "clients/webview/android-full/app/src/main/res/xml/network_security_config.xml": "7bd91344689d618bf440dd803fef5d1c05dfbd1b12ea27379625b3388aee1846",
+    "clients/webview/android-full/build.gradle.kts": "860b96347408b43b33080b3f4fc32c53e19101d552e570d304805187125e3f02",
+    "clients/webview/android-full/gradle.properties": "475969dc6db92d97a4ff483a3b77be04efdfc8b6af22350d9c5d642756b6aea9",
+    "clients/webview/android-full/gradle/wrapper/gradle-wrapper.jar": "2db75c40782f5e8ba1fc278a5574bab070adccb2d21ca5a6e5ed840888448046",
+    "clients/webview/android-full/gradle/wrapper/gradle-wrapper.properties": "fe90ff0d9944879f591a8c37b6dbaf5046d1051ccbb6b26b22081692c321f432",
+    "clients/webview/android-full/gradlew": "a3648413b47ef77af21d5ebc36c687c7d103aaef3e17f33de7d4f080a6f300a3",
+    "clients/webview/android-full/gradlew.bat": "57931b17dd228e5c24dac90e815d0bf82477e831a4618dfab4136f5446b42a9f",
+    "clients/webview/android-full/settings.gradle.kts": "645455b55e23940bf541c688968201155889f44e26cf613316056d0d822cfe58",
+    "clients/webview/ios-full/DaynomyWebView.xcodeproj/project.pbxproj": "946f7632cc3ab4c52ae075040a73942451b275135ef683576aced3d73cc766a8",
+    "clients/webview/ios-full/DaynomyWebView.xcodeproj/xcshareddata/xcschemes/DaynomyWebView.xcscheme": "5b0a5c80723705774c74172c5bf6180600be056e2c59a6c0097459b9e4ee323a",
+    "clients/webview/ios-full/DaynomyWebView/AppDelegate.swift": "2292471cdccede08e3d0ab381bb8fd1163c49c4a39411ddb35c7208033bf28c8",
+    "clients/webview/ios-full/DaynomyWebView/FullResourcePolicy.swift": "eaf22093e39d349506a1e7df4710f3af97937c6e044cde6f3fd984567c1d0b1a",
+    "clients/webview/ios-full/DaynomyWebView/Info-Debug.plist": "9abc8a426265fdf5c9daadc0f2e613d33a79fa44ed74368c7f07cc3e50bfc61a",
+    "clients/webview/ios-full/DaynomyWebView/Info-Release.plist": "7e025366c47e606a7b4560e9897e295a0cb445d5c90c6211fc63c5d9236a6bac",
+    "clients/webview/ios-full/DaynomyWebView/NativeAuthSession.swift": "781e703f11b580c8a73e93a628c3107dc207f96e7a6935184e7401baee1dde96",
+    "clients/webview/ios-full/DaynomyWebView/NavigationPolicy.swift": "c088c489e62fce376d829970039f83084e6f62c3b2f610511117c8859e38d18f",
+    "clients/webview/ios-full/DaynomyWebView/WebViewController.swift": "565eef5990aba26b562f115586ac2fb70ad10c9723186f2d3ba072e1601fc053"
+  },
+  "aggregate_sha256": "fb2e3d2c3d54cb2fa7c16410b11d7fcfbe9aa8244bf7c31fe72fbc2f4e55bf05",
+  "apk": "clients/webview/android-full/app/build/outputs/apk/debug/app-debug.apk",
+  "apk_sha256": "2bc9bdf08d9905c1672fd31b76bb512ef0a282abccc5a824cce2dfc479f3b07e",
+  "frozen_manifest_sha256": "144fac2d952c9ed8674b85a69a8ebbfa4846481654cc89fa0dce7ded0b2f0f81",
+  "frozen_mismatches": [],
+  "changes_from_previous_host_manifest": [
+    "clients/webview/android-full/app/src/main/AndroidManifest.xml",
+    "clients/webview/android-full/app/src/main/java/com/daynomy/webview/MainActivity.kt",
+    "clients/webview/ios-full/DaynomyWebView/WebViewController.swift",
+    "clients/webview/ios-full/DaynomyWebView.xcodeproj/project.pbxproj",
+    "clients/webview/FULL-HOSTS.md"
+  ],
+  "policy_matches_pilot": {
+    "android": true,
+    "ios": true
+  }
+}

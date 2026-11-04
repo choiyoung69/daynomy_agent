@@ -214,6 +214,7 @@ func analysisStatus(_ value: String) -> String {
 
 @MainActor struct PortfolioHistoryView: View {
     let client: ServiceClient
+    @Environment(AppSession.self) private var session
     @State private var from = String(portfolioToday().prefix(4)) + "-01-01"
     @State private var to = portfolioToday()
     @State private var performance: ServiceValue = .null
@@ -221,6 +222,7 @@ func analysisStatus(_ value: String) -> String {
     @State private var loading = false
     @State private var error = ""
     @State private var retry = 0
+    private var accountKey: String { "\(session.isLoggedIn)|\(session.user?.field("id").display ?? "guest")" }
     var body: some View {
         List {
             Section("조회 기간") {
@@ -268,7 +270,8 @@ func analysisStatus(_ value: String) -> String {
             }
         }
         .navigationTitle("자산 추이와 이력")
-        .task(id: retry) { await load() }
+        .onChange(of: accountKey) { _, _ in clearHistory() }
+        .task(id: "\(accountKey)|\(retry)") { await load() }
     }
     private struct PerformanceChartPoint: Identifiable {
         let id: String
@@ -291,16 +294,25 @@ func analysisStatus(_ value: String) -> String {
             return PerformanceChartPoint(id: "\(rawDate)|\(index)", date: date, amount: amount)
         }.sorted { $0.date < $1.date }
     }
+    private func clearHistory() {
+        performance = .null; histories = []; error = ""; loading = false
+    }
     private func load() async {
+        clearHistory()
+        guard session.isLoggedIn else { return }
+        let startedAccount = accountKey
         guard from <= to, to <= portfolioToday(), from.range(of: #"^\d{4}-\d{2}-\d{2}$"#, options: .regularExpression) != nil, to.range(of: #"^\d{4}-\d{2}-\d{2}$"#, options: .regularExpression) != nil else { error = "올바른 날짜 범위를 입력해 주세요."; return }
-        loading = true; error = ""; defer { if !Task.isCancelled { loading = false } }
+        loading = true
+        defer { if !Task.isCancelled && accountKey == startedAccount { loading = false } }
         do {
             let query = ["from": from, "to": to]
             let result = try await client.request(path: "/api/users/me/portfolio/performance", query: query)
-            try Task.checkCancellation(); guard result.field("points").array != nil else { throw MarketError.invalidResponse }; performance = result
+            try Task.checkCancellation(); guard accountKey == startedAccount else { return }
+            guard result.field("points").array != nil else { throw MarketError.invalidResponse }; performance = result
             let history = try await client.request(path: "/api/portfolio/histories", query: query)
-            try Task.checkCancellation(); guard let rows = history.array else { throw MarketError.invalidResponse }; histories = rows
-        } catch { if !Task.isCancelled { self.error = friendlyServiceError(error) } }
+            try Task.checkCancellation(); guard accountKey == startedAccount else { return }
+            guard let rows = history.array else { throw MarketError.invalidResponse }; histories = rows
+        } catch { if !Task.isCancelled && accountKey == startedAccount { self.error = friendlyServiceError(error) } }
     }
     private func historyType(_ value: String) -> String { ["BUY": "매수", "SELL": "매도", "ADJUSTED": "보유 조정", "REMOVED": "보유 삭제", "OPENING_BALANCE": "기초 잔고", "ADDED": "추가", "UPDATED": "수정"][value] ?? value }
 }

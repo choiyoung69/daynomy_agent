@@ -1,0 +1,11 @@
+{
+  "clients/webview/web/src/app.ts": "cc46332339ade74ea7381a61b17c344f13da783006ec17bc759c841c51f468aa",
+  "clients/webview/web/src/market.ts": "c4892615c76e5cc2d4cfd7a537bb34bea7e3d5378994d4a83d1595f7eec4a444",
+  "clients/webview/web/index.html": "21e783edbb3c34ac9ab6feb0a86c25f121b6d7e63576ed4c7b96b02a12ea1249",
+  "clients/webview/web/styles.css": "f9c29963921e3c90265ea8ef2c1f22cabde24de2c01588b7200b9f29590d94c9",
+  "clients/webview/scripts/serve.mjs": "1707709f87976b543268cab869c500b3c5eb1a155f85d1eb101a898b27c2e8d2",
+  "clients/webview/PRODUCT.md": "a16fdd4fad956d3133f4fa83231ab938816edd8ea507f197b53460f8506de3e1",
+  "clients/webview/DESIGN.md": "527b19174d67c5aa164be97f440b4eebd0540859977d02db96539b0193d460cf",
+  "clients/webview/.impeccable/design.json": "701ef6c7580ba4f86c32d885e8c5cd761b2458edb047e431cfc723fc4792d0ad",
+  "clients/webview/README.md": "b269624aedc2ff025f981032da3e62f18607d714c25793df5fc98abb119a1053"
+}

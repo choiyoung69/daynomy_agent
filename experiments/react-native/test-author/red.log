@@ -1,0 +1,489 @@
+TAP version 13
+# Subtest: endpoint public news uses source path
+not ok 1 - endpoint public news uses source path
+  ---
+  duration_ms: 0.708667
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:11:1'
+  failureType: 'testCodeFailure'
+  error: 'NOT_IMPLEMENTED'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    endpoint (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/src/core.ts:5:87)
+    TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:11:67)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: endpoint member transaction mutation requires CSRF
+not ok 2 - endpoint member transaction mutation requires CSRF
+  ---
+  duration_ms: 0.044875
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:12:1'
+  failureType: 'testCodeFailure'
+  error: 'NOT_IMPLEMENTED'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    endpoint (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/src/core.ts:5:87)
+    TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:12:80)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: endpoint admin publish mutation requires CSRF
+not ok 3 - endpoint admin publish mutation requires CSRF
+  ---
+  duration_ms: 0.033625
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:13:1'
+  failureType: 'testCodeFailure'
+  error: 'NOT_IMPLEMENTED'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    endpoint (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/src/core.ts:5:87)
+    TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:13:75)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: endpoint rejects missing/unsafe ids and excluded league
+ok 4 - endpoint rejects missing/unsafe ids and excluded league
+  ---
+  duration_ms: 0.110166
+  type: 'test'
+  ...
+# Subtest: URL preserves Korean plus ampersand query values
+not ok 5 - URL preserves Korean plus ampersand query values
+  ---
+  duration_ms: 0.045958
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:15:1'
+  failureType: 'testCodeFailure'
+  error: 'NOT_IMPLEMENTED'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    buildURL (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/src/core.ts:6:97)
+    TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:15:80)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: URL rejects off-origin paths and credential URLs
+ok 6 - URL rejects off-origin paths and credential URLs
+  ---
+  duration_ms: 0.044625
+  type: 'test'
+  ...
+# Subtest: CSRF bootstrap propagates validated header and credentials
+not ok 7 - CSRF bootstrap propagates validated header and credentials
+  ---
+  duration_ms: 0.175875
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:17:1'
+  failureType: 'testCodeFailure'
+  error: 'NOT_IMPLEMENTED'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    ServiceClient.request (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/src/core.ts:9:76)
+    TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:17:381)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: invalid CSRF header never sends write request
+not ok 8 - invalid CSRF header never sends write request
+  ---
+  duration_ms: 0.563833
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:18:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:18:286)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: GET refreshes exactly once and retries
+not ok 9 - GET refreshes exactly once and retries
+  ---
+  duration_ms: 0.307292
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:19:1'
+  failureType: 'testCodeFailure'
+  error: 'NOT_IMPLEMENTED'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    ServiceClient.request (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/src/core.ts:9:76)
+    TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:19:450)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: write 401 is surfaced without automatic replay
+not ok 10 - write 401 is surfaced without automatic replay
+  ---
+  duration_ms: 1.536125
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:20:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+    + []
+    - [
+    -   '/api/portfolio/transactions'
+    - ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0: '/api/portfolio/transactions'
+  actual:
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:20:335)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: failed refresh terminates without recursion
+not ok 11 - failed refresh terminates without recursion
+  ---
+  duration_ms: 0.157208
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:21:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 3
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 3
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:21:322)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: stock decoder accepts source domestic and US markets
+not ok 12 - stock decoder accepts source domestic and US markets
+  ---
+  duration_ms: 0.052583
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:22:1'
+  failureType: 'testCodeFailure'
+  error: 'NOT_IMPLEMENTED'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    decodeStocks (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/src/core.ts:11:59)
+    TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:22:82)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: stock decoder rejects unsafe ids and unrecognized market
+ok 13 - stock decoder rejects unsafe ids and unrecognized market
+  ---
+  duration_ms: 0.05975
+  type: 'test'
+  ...
+# Subtest: price decoder preserves date and finite zero for UI policy
+not ok 14 - price decoder preserves date and finite zero for UI policy
+  ---
+  duration_ms: 0.035292
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:24:1'
+  failureType: 'testCodeFailure'
+  error: 'NOT_IMPLEMENTED'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    decodePrice (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/src/core.ts:12:130)
+    TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:24:85)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: price decoder rejects numeric string and nonfinite number
+ok 15 - price decoder rejects numeric string and nonfinite number
+  ---
+  duration_ms: 0.046458
+  type: 'test'
+  ...
+# Subtest: news decoder accepts nullable image and published date
+not ok 16 - news decoder accepts nullable image and published date
+  ---
+  duration_ms: 0.031917
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:26:1'
+  failureType: 'testCodeFailure'
+  error: 'NOT_IMPLEMENTED'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    decodeNewsPage (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/src/core.ts:13:95)
+    TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:26:80)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: news decoder rejects missing title
+ok 17 - news decoder rejects missing title
+  ---
+  duration_ms: 0.070833
+  type: 'test'
+  ...
+# Subtest: trade validation accepts source decimal boundaries
+not ok 18 - trade validation accepts source decimal boundaries
+  ---
+  duration_ms: 0.100875
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:28:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Got unwanted exception.
+    Actual message: "NOT_IMPLEMENTED"
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  actual:
+  error: 'NOT_IMPLEMENTED'
+  stack: |-
+    validateTrade (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/src/core.ts:14:70)
+    file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:28:87
+    getActual (node:assert:609:5)
+    Function.doesNotThrow (node:assert:777:32)
+    TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:28:70)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+  operator: 'doesNotThrow'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:28:70)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: trade validation rejects invalid date, future, fraction quantity, scale
+ok 19 - trade validation rejects invalid date, future, fraction quantity, scale
+  ---
+  duration_ms: 0.069417
+  type: 'test'
+  ...
+# Subtest: USD trade requires positive exchange rate
+not ok 20 - USD trade requires positive exchange rate
+  ---
+  duration_ms: 0.060917
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:30:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Got unwanted exception.
+    Actual message: "NOT_IMPLEMENTED"
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  actual:
+  error: 'NOT_IMPLEMENTED'
+  stack: |-
+    validateTrade (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/src/core.ts:14:70)
+    file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:30:142
+    getActual (node:assert:609:5)
+    Function.doesNotThrow (node:assert:777:32)
+    TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:30:125)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+  operator: 'doesNotThrow'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:30:125)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: ledger includes buy fees in rounded average cost
+not ok 21 - ledger includes buy fees in rounded average cost
+  ---
+  duration_ms: 0.034
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:31:1'
+  failureType: 'testCodeFailure'
+  error: 'NOT_IMPLEMENTED'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    replayLedger (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/src/core.ts:15:154)
+    TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:31:75)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: ledger SELL retains cost and subtracts sell expenses from profit
+not ok 22 - ledger SELL retains cost and subtracts sell expenses from profit
+  ---
+  duration_ms: 0.042417
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:32:1'
+  failureType: 'testCodeFailure'
+  error: 'NOT_IMPLEMENTED'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    replayLedger (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/src/core.ts:15:154)
+    TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:32:91)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: ledger replays by date then id and rejects historical oversell
+not ok 23 - ledger replays by date then id and rejects historical oversell
+  ---
+  duration_ms: 0.031833
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:33:1'
+  failureType: 'testCodeFailure'
+  error: 'NOT_IMPLEMENTED'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    replayLedger (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/src/core.ts:15:154)
+    TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:33:89)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: ledger rejects duplicate id and leaves input immutable
+not ok 24 - ledger rejects duplicate id and leaves input immutable
+  ---
+  duration_ms: 0.052375
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:34:1'
+  failureType: 'testCodeFailure'
+  error: 'NOT_IMPLEMENTED'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    replayLedger (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/src/core.ts:15:154)
+    TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:34:171)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: stock state ignores obsolete search responses
+not ok 25 - stock state ignores obsolete search responses
+  ---
+  duration_ms: 0.04
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:35:1'
+  failureType: 'testCodeFailure'
+  error: 'NOT_IMPLEMENTED'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    StockSelection.beginSearch (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/src/core.ts:18:31)
+    TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:35:106)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: stock state preserves manual input during latest price request
+not ok 26 - stock state preserves manual input during latest price request
+  ---
+  duration_ms: 0.037417
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:36:1'
+  failureType: 'testCodeFailure'
+  error: 'NOT_IMPLEMENTED'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    StockSelection.select (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/src/core.ts:20:37)
+    TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:36:132)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: stock state ignores old selection and nonpositive auto price
+not ok 27 - stock state ignores old selection and nonpositive auto price
+  ---
+  duration_ms: 0.033958
+  type: 'test'
+  location: '/Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:37:1'
+  failureType: 'testCodeFailure'
+  error: 'NOT_IMPLEMENTED'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    StockSelection.select (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/src/core.ts:20:37)
+    TestContext.<anonymous> (file:///Users/seoyeong/develop/AI/daynomy_agent/clients/react-native/tests/core.test.ts:37:123)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..27
+# tests 27
+# suites 0
+# pass 6
+# fail 21
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 138.987583

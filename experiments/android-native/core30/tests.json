@@ -1,0 +1,81 @@
+{
+  "created_at": "2026-10-28T09:44:41.170139+00:00",
+  "role": "independent_test_author",
+  "status": "jvm_red_frozen_device_and_backend_pending",
+  "jvm_methods": 17,
+  "backend_methods": 3,
+  "hashes": {
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/Android30SessionContractTest.kt": "dc5ae554d5993c07817930664400f5c8644fc76b2e45d7bd4dc9580e36df3d74",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/Android30CoreClientContractTest.kt": "50bb9fc264966dc6c25deaeb06303281e7a1f79578d1feab23eee7d10cb9524a",
+    "clients/android/market-core/src/backendTest/kotlin/org/daynomy/market/Android30CoreBackendTest.kt": "72976326688f26eee32155a2ce47c9e366d8be962cad55e10199c83ec1e9e5e9",
+    "spec/android-native/core.md": "631e6b58ee78616bb86a0b4de11a77f9b9a43c5ff7a2ba7d6ac92fcf7cbeeff2",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/Android30CoreScreenTest.kt": "fb850630b272d24796bb2cde0c44843590021c893fc553ce5c9684ab739543c9",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/Android30SafetyRegressionTest.kt": "b85b6896d2d37d3668180a6b0440d2e7527e1a4197ee4d68e40c0264e66a92ee",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/Android30AccountIsolationTest.kt": "ab9be67140a90a8df770b6bcbd858362b8d587585aabef1ee76bde2a478a4cc8"
+  },
+  "execution": "Root owns Gradle/ADB/DB shared slot; test author has not run them",
+  "scope_limits": [
+    "Raw JSON portfolio adapters do not certify comprehensive DTO validation",
+    "Real Google login requires separate account/device evidence"
+  ],
+  "preflight": {
+    "command": "python3 scripts/check.py preflight",
+    "exit_code": 0,
+    "source_snapshot": "29/29 match"
+  },
+  "hash_revisions": [
+    {
+      "file": "Android30CoreClientContractTest.kt",
+      "old_sha256": "e7807e5e6a8704542de53d31c8f5aa69697e0bacd354a3a4a986426ad315817d",
+      "new_sha256": "50bb9fc264966dc6c25deaeb06303281e7a1f79578d1feab23eee7d10cb9524a",
+      "reason": "JUnit4 requires void test methods; append Unit to final runBlocking test. Assertions and contract unchanged. Initial class initializationError retained in validator evidence."
+    },
+    {
+      "file": "Android30CoreScreenTest.kt",
+      "old_sha256": "ea74b0c9825957486527f1bdab76113faaae027b8b7f8521bd47a1032de88867",
+      "new_sha256": "b21314d8416b822bb842646c09dafead169dc9a50833b0f6ca610510bbd6b93a",
+      "reason": "Root authorizes original stock-picker parity before UI implementation: search by name/code then select stock result rather than manually type internal asset ID. All pending/unknown/no-replay assertions retained. Previous v1 never executed."
+    },
+    {
+      "file": "Android30CoreBackendTest.kt",
+      "old_sha256": "534b5b6b61b0203ac132d1e09d6ec9c582ada4bd744bc1a6ccab94fa847ebd03",
+      "new_sha256": "72976326688f26eee32155a2ce47c9e366d8be962cad55e10199c83ec1e9e5e9",
+      "reason": "Independent validator found source contract service_market.rs433/500: calculate rejects empty holdings (INVALID_REQUEST400). Correct success request to seeded asset with quantity1/averagePurchasePrice10, retain raw unbootstrapped CSRF403 assertion. No production change."
+    },
+    {
+      "file": "Android30CoreScreenTest.kt",
+      "old_sha256": "b21314d8416b822bb842646c09dafead169dc9a50833b0f6ca610510bbd6b93a",
+      "new_sha256": "fb850630b272d24796bb2cde0c44843590021c893fc553ce5c9684ab739543c9",
+      "reason": "Device first execution: stock picker waits because test fixture used raw array; actual Rust and frozen StockSearchClient require {stocks:[...]}. Correct fixture envelope only. All assertions retained; first device XML failure preserved by validator."
+    },
+    {
+      "file": "Android30AccountIsolationTest.kt",
+      "old_sha256": "387de5053ecdcfdbabc9f2d410327552e6a3797a6a3a93233cea06ed2fea050c",
+      "new_sha256": "ab9be67140a90a8df770b6bcbd858362b8d587585aabef1ee76bde2a478a4cc8",
+      "reason": "Actual device fixture hit NetworkOnMainThreadException in MockWebServer.url reverseDNS; construct base URL on test thread before main-thread CoreViewModel construction. Assertions unchanged. Invalid red attempt retained in validation-isolation-red-attempt01.json."
+    }
+  ],
+  "red_execution": {
+    "role": "independent_validator",
+    "result": "15 executed;15 failures on missing/stub implementations;0 skipped;compilation succeeded",
+    "evidence": "experiments/android-native/core30/validation-red.json"
+  },
+  "device_methods": 3,
+  "device_execution": "Device red gate omitted by root due 30-minute deadline; authoring precedes UI implementation. Android device green required before claiming these flows verified.",
+  "followup_regressions": {
+    "status": "authored_waiting_independent_red",
+    "cases": [
+      "Unknown account role must be rejected (frontend role USER|ADMIN)",
+      "OkHttp HTTP503 Retry-After0 must not automatically replay mutation"
+    ],
+    "deferred": [
+      "Savedholding zero average Rust/frontend mismatch requires policy",
+      "Huge exponent finite-number boundary outside immediate core fix"
+    ]
+  },
+  "account_isolation_regression": {
+    "status": "authored_waiting_independent_device_red",
+    "reason": "Root identified new native login leaves previous account holdings/history and trade drafts in memory; source epoch also unchanged. This test verifies immediate state reset; separate late-response generation assessment remains validator responsibility.",
+    "assertions": "Profile and selection null; holdings/history empty; portfolioLoaded/loading false; quantity/price empty after loginUrl"
+  }
+}

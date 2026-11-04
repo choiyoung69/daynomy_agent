@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "frozen_at": "2026-10-28T09:41:21.854695+00:00",
+  "role": "independent-test-author",
+  "initial_frozen_manifest_preserved": "experiments/webview/full/frozen-tests.json",
+  "commands": [
+    {
+      "command": "node --check clients/webview/full-tests/query-regression.test.mjs",
+      "exit": 0
+    },
+    {
+      "command": "node --test clients/webview/full-tests/query-regression.test.mjs",
+      "exit": 1,
+      "sandbox_permissions": "require_escalated"
+    }
+  ],
+  "implementation_sha256_at_red": "bbcc524c9e99c213809c4dcb6299ccd99523797fc736d0af749234684f8ccc82",
+  "files": {
+    "clients/webview/full-tests/query-regression.test.mjs": "d6b7b0194706ca506b73f64b80e663738991f798ff47c99759afc05ddfb09078",
+    "experiments/webview/full/tests/query-red.tap": "1bf2aeaa85ba2ec1d3a3f565f62f953d72aef9bcc7468ba0a8bd16cd7de0c22a",
+    "experiments/webview/full/tests/query-tests-notes.md": "6a609deafe3f9c35e8ffb5d77f2fed9a7bf633759dc34699a7fe8661465802bc"
+  },
+  "red_results": {
+    "positive_query_failures": 4,
+    "blob_csp_failure": 1,
+    "encoded_path_denial_passed": true,
+    "skipped": 0
+  }
+}

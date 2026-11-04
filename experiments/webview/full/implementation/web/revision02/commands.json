@@ -1,0 +1,24 @@
+[
+  {
+    "command": "node clients/webview/fullweb/node_modules/vitest/vitest.mjs run --config clients/webview/full-tests/native-lifecycle.config.mjs",
+    "exit": 0,
+    "tests": 4,
+    "skipped": 0,
+    "log": "native-lifecycle.log"
+  },
+  {
+    "command": "npm run test:ui",
+    "cwd": "clients/webview/fullweb",
+    "exit": 0,
+    "tests": 385,
+    "files": 40,
+    "log": "ui.log"
+  },
+  {
+    "command": "npm run build",
+    "cwd": "clients/webview/fullweb",
+    "exit": 0,
+    "includes": "npm run typecheck / tsc -b",
+    "log": "build.log"
+  }
+]

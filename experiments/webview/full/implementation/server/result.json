@@ -1,0 +1,38 @@
+{
+  "recorded_at": "2026-10-28T09:33:01.672101+00:00",
+  "frozen_files_match": true,
+  "source_hashes": {
+    "clients/webview/scripts/serve-full.mjs": "bbcc524c9e99c213809c4dcb6299ccd99523797fc736d0af749234684f8ccc82",
+    "clients/webview/FULL-SERVER.md": "8e8cfa2d255e04121e24ba56e1429daee923ee9fd2730f011732644861cde2c2"
+  },
+  "commands": [
+    {
+      "command": "python3 scripts/check.py preflight",
+      "exit": 0,
+      "result": "29/29 source snapshots; no runtime verification"
+    },
+    {
+      "command": "node --test clients/webview/full-tests/server-contract.test.mjs",
+      "exit": 1,
+      "evidence": "experiments/webview/full/implementation/server/first-test.tap",
+      "result": "sandbox EPERM binding loopback; not code failure"
+    },
+    {
+      "command": "node --test clients/webview/full-tests/server-contract.test.mjs (host)",
+      "exit": 0,
+      "evidence": "experiments/webview/full/implementation/server/host-test.tap"
+    },
+    {
+      "command": "node --test clients/webview/full-tests/server-contract.test.mjs (host after canonical target validation)",
+      "exit": 0,
+      "evidence": "experiments/webview/full/implementation/server/final-test.tap"
+    }
+  ],
+  "unverified": [
+    "real Rust DB/API integration",
+    "actual WebView hosts and Google OAuth cookie sharing",
+    "release TLS",
+    "external embeds under native host policy",
+    "independent cancellation and symlink probes pending verifier"
+  ]
+}

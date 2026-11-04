@@ -1,0 +1,13 @@
+{
+  "device": "emulator-5576",
+  "mode": "actual original AdminNewsFormPage + native ACTION_OPEN_DOCUMENT; synthetic ADMIN profile, no API mutation",
+  "steps": [
+    "system picker image returned to original admin form; File bytes readable despite allowContentAccess=false; blob preview decoded"
+  ],
+  "file": {
+    "name": "webview-verification.png",
+    "type": "image/png",
+    "size": 390744,
+    "readBytes": 390744
+  }
+}

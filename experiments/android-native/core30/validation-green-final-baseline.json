@@ -1,0 +1,14 @@
+{
+  "at": "2026-10-28T09:55:38.941650+00:00",
+  "sha256": {
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/SessionTransport.kt": "047f058c4e85b910d8a5e67180478b36b08c018a2aa604fa95de1c9b5575e73d",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/NativeLogin.kt": "a80024d6ca32e2174394fec08a492949b30078b44a431b2d8e72accb97121ed3",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/AccountClient.kt": "bd84748749d8b6e0191b015dc5cffb9c69e01040e713b63168ad59838d067a79",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/PortfolioClient.kt": "6ebcd1fc26fc21d3bfdeaddbb7a48f17e098324df16df2a2b718204076c9f7ab",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/CoreModels.kt": "d64b607171685d90705f72a1cbe64ec18974c16621890c100e4f766ecd6eeacc",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/Android30SessionContractTest.kt": "dc5ae554d5993c07817930664400f5c8644fc76b2e45d7bd4dc9580e36df3d74",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/Android30CoreClientContractTest.kt": "50bb9fc264966dc6c25deaeb06303281e7a1f79578d1feab23eee7d10cb9524a",
+    "clients/android/market-core/src/backendTest/kotlin/org/daynomy/market/Android30CoreBackendTest.kt": "72976326688f26eee32155a2ce47c9e366d8be962cad55e10199c83ec1e9e5e9",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/Android30SafetyRegressionTest.kt": "b85b6896d2d37d3668180a6b0440d2e7527e1a4197ee4d68e40c0264e66a92ee"
+  }
+}

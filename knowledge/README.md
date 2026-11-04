@@ -74,7 +74,7 @@ python3 scripts/knowledge.py search '종가'
 
 지원되는 전체 기능 이름은 [서비스 지도](service-map.json), 선택 규칙은 [packs.json](packs.json)에 있다.
 F14는 문서에 보류 경계를 담지만 준비 완료로 전달하지 않는다.
-`--require-ready` 통과와 앱 실행 성공은 서로 다르며 현재 앱 실행 증거는 없다.
+`--require-ready` 통과와 앱 실행 성공은 서로 다르다. WebView stock-search-price 로컬 파일럿의 별도 실행 범위와 한계는 [실행 기록](../runs/013-webview.md)에 있으며, 다른 플랫폼·전체 앱 실행을 인증하지 않는다.
 
 ## 원문에서 위키로
 
@@ -115,3 +115,7 @@ WebView 정책 예제는 실제 OS 브리지 연결을 검증하지 않았다.
 SDK 준비는 예제 도구를 격리 설치하며 앱 버전·전역 PATH는 변경하지 않는다.
 Kotlin/Dart/TypeScript 배포물의 upstream checksum을 확인하고, serialization JAR는 upstream SHA-1과 로컬 SHA-256을 기록한다.
 Rust 예제는 고정 Cargo.lock과 기존 .local/cargo 캐시를 offline 사용한다. 캐시가 없으면 실패하며 자동 성공 처리하지 않는다.
+
+## WebView 파일럿 사용 결과
+
+[독립 테스트·구현·실제 검증 기록](../runs/013-webview.md)에 자료21개의 입력 해시, 테스트13개 파일의 구현 전 실패·고정 해시, 실제 호스트에서 발견·수정한 fetch receiver 결함과 최종 범위를 기록했다. 해당 기록에 연결한 구현 실행법으로 재현한다. Android 로컬 핵심 흐름과 iOS 미검증을 구분한다. 이 지식베이스 전체의 의미·시간 단축 효과를 검증한 것은 아니다.

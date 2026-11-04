@@ -1,0 +1,83 @@
+{
+  "phase": "verify",
+  "started_at": "2026-10-28T10:02:47.145601+00:00",
+  "status": "passed",
+  "criteria_hashes": {
+    "clients/flutter/test/api_client_test.dart": "512e70543f6b559a574a2b665d522dfe9f3e600ab6bd828f66a2ef6f113ba170",
+    "clients/flutter/test/app_widget_test.dart": "604b8f255d68f328491c3baf3b6c6632a32304fde690e02f72e01bd0183e8216",
+    "clients/flutter/test/exact_json_test.dart": "457664382b45cc4ab74f8de8bc01b685aca613a94c5cdfb0b1f3270e49c05095",
+    "clients/flutter/test/native_auth_test.dart": "2030afc39df4acabd9e3e7c74954911963a7defa1edbd31b318fc516cd8a297d",
+    "clients/flutter/test/repository_test.dart": "d4c0a3226f609270bec64e8f8890e42aa939f4f090af9540b6db105dce83b3ae",
+    "clients/flutter/test/search_controller_test.dart": "6e486ee45a883b230cef6216417af356079a495a25dd6132f3b43ffc2e6d363e",
+    "clients/flutter/test/support/fakes.dart": "58a21c4f1b7f1e546f7e82aad3339fad413f09f841f77dc0a4bace9a14f92181",
+    "scripts/flutter_auth_acceptance.py": "5102f33b43dc89eedd695d40b7e57c3921228e982a5200b40f66c39f1be5314d",
+    "spec/flutter/design.md": "61f0c0e7d652a548b36fc94b4fd6fa8923b6d96d2dff2f9cf36e375e4110dd81",
+    "spec/flutter/native-auth.md": "24c871bed39dff656b924c761ebd788ccd2111c543826e70c2063b469cdef054",
+    "spec/flutter/test-author-record.md": "4d5e1e8a51dd475151c0a29470a2df55bdbd298725c58b0573c357e692641851",
+    "spec/flutter/test-contract.md": "68acffba4a5e1ab0ee2a35f5f9f99b9fa42bcfb5602c687b75fdb97d91054795"
+  },
+  "source_hashes": {
+    "app/migrations/001_feedbacks.sql": "1af9f2099832e86b6cdfb37f526d7772797bd5e1288bdaa34f369808c9f1552c",
+    "app/migrations/002_oauth_login_states.sql": "e0fc38ceadef0c4105538de6dc012572b304e57cfc588c62160843d852568d75",
+    "app/migrations/003_analysis_guest_sessions.sql": "892ad7b64ea460d36a8fac676993723aea2b69d13442a43f3bb55eea9d559c4a",
+    "app/migrations/004_mobile_auth_codes.sql": "9e6363d71340a4e58fec6dc165b15f44c76eb6424878c43be3bc951ac13488c8",
+    "app/src/api.rs": "d0eb5f514815abba8947ed459f89232555d7b971d276470ea2c11d600b676148",
+    "app/src/csrf.rs": "07ed24054d7528405e759ffefd0584684a3f81fe84aca8474cc92246e0f367b9",
+    "app/src/feedback.rs": "6492755566d787529579169ce6eb450c15eb4cd6f6b1921c541e517a4e0f30f3",
+    "app/src/java_binding.rs": "082388a39895fad225b87e52fad09a4b85adb2d334a8946cd6441a2efc128184",
+    "app/src/main.rs": "6b8637836f7ba463a410fc44944760805d0fca9bcb0c3d6300c8eb1f9887c605",
+    "app/src/multipart.rs": "f598921d628d28d10b161f34f9389c005bcbe3c4153579b83cd6b4b3431de5af",
+    "app/src/service_admin_content.rs": "cb64ac7e93d188211a43727b4d8eaeeb0ef45b7348e9184d866c8dc92df69766",
+    "app/src/service_admin_feedback.rs": "edfe9a594b5769ea31e7a98c439701737c9cf48846b66f1193f8c07f893cef8c",
+    "app/src/service_admin_news.rs": "ab574ddf3c630ff77884a114c733a59d7f5ce6c0755adcbbbefc273d1c6b0995",
+    "app/src/service_analysis.rs": "4ee145324d303f6629ee86bcdd5cc06d2dfecab83aa60202be0b8b72040555b2",
+    "app/src/service_auth.rs": "ca50065e928882961f8cd932c404e61aee6bc38df0ab9637f52cfc0e3cd331f7",
+    "app/src/service_calendar.rs": "feaf1aa8edc7b71b49e678061291f272b27deb4273b4020bc67f21f0d8c3fec8",
+    "app/src/service_dart.rs": "6b877ed13db7a805424ec844510e740bcd06ee1729ef81774c447a8d9a255e24",
+    "app/src/service_discovery.rs": "65bc2cf04935bfe5cab67dbd2d4570ab77a755bf189c37606a3221a8d9155b9b",
+    "app/src/service_market.rs": "72d0e5e6265c284ffed4b2e3f40eee593a5c77c48aea4d4d83caa6ae6f218f79",
+    "app/src/service_media.rs": "eea925c996a6daaf72bbe6192a97c8fb47c2a9586752d9ccde761bc4f111f8a9",
+    "app/src/service_portfolio.rs": "c29b84dde9472aba85b1778949032e9790abbfcd166d3ced4f27920392428b67",
+    "app/src/service_schedule.rs": "f64c9ebb112cee66156dec373b65fd73bf4832fed4652e60253372f197dbb2bd",
+    "app/src/service_social.rs": "7760fdb8073428fe01481fc33aebd35b94b994e24e471563c578fa38176e87cc",
+    "app/src/service_sync.rs": "a8b7203ad351761df435accdc5516b2f732ffaeb5b1bf1bb89396225b91a862a",
+    "clients/flutter/lib/daynomy.dart": "2994385d808adca3a0dea90c5fbca625b8c32259dba8e2473732770a7ce8d669",
+    "clients/flutter/lib/main.dart": "113c649655d6d6874a143cc429675e719d2604cec91d4a0842a0fcca95461ef4",
+    "clients/flutter/lib/src/api.dart": "15139f9be6f906e68d52860cffecd08e192774ef71da0e6482478a0894de9a16",
+    "clients/flutter/lib/src/app.dart": "56bc7484e381eb925aca768d184620a07caf1d9ade92e3a240d05a38173b1b9f",
+    "clients/flutter/lib/src/exact_json.dart": "2b934e84b1b259011557efcbb924f94df5ee46328cd0dc2f9524279452d8d251",
+    "clients/flutter/lib/src/native_auth.dart": "aff61300a9d3e851f3bbe4e36f17bc7579e1ed2dc85dc4960e5aba48fbcc3385",
+    "clients/flutter/lib/src/repository.dart": "b2c68d747994a3a82a3536fa76c5972610da2c5c06b6fc4b53059e509fffa4c0",
+    "clients/flutter/lib/src/search.dart": "b1230b1630af1630ea0e435c67bb4c83500e95abb9fd65eb31957bd3de174162",
+    "clients/flutter/lib/src/transport.dart": "2e1090ec7f2a28c084e28a53dbfdf23dc9bb6da16a2fb26cab0b0e7182c76ec4",
+    "clients/flutter/lib/src/transport_native.dart": "c814d661b617c1c32fd0d9838807857858bb585388a13536020d67c452856dc9",
+    "clients/flutter/lib/src/transport_web.dart": "5a417ba8aa20cdfee66b81b6f40c76d57c812c7aa8b7ab7344d48ea249ab1ef8",
+    "clients/flutter/pubspec.lock": "78ec894b60a655c0bf60e8d1a29f180fc2b2f7991d755a7f6dcfeac013a7057d",
+    "clients/flutter/pubspec.yaml": "f5e6f170091017b2089e58f5b40b239b330b8857fbab833d89b91e8c2694b589"
+  },
+  "commands": [
+    {
+      "name": "analyze",
+      "exit_code": 0,
+      "seconds": 4.48625549999997
+    },
+    {
+      "name": "test",
+      "exit_code": 0,
+      "seconds": 28.23771445802413
+    },
+    {
+      "name": "build-web",
+      "exit_code": 0,
+      "seconds": 16.838180708000436
+    }
+  ],
+  "supplemental_criteria_hashes": {
+    "clients/flutter/review_test/currency_contract_test.dart": "9a7c7cd3be47239c3e7479f833b8af127380a1e16f32f1f683ea909d5943c111",
+    "clients/flutter/review_test/internal_news_contract_test.dart": "c35acd74985aa0326a70a1e047d057c1e365c5da492cf87e296cceebda6cce61",
+    "clients/flutter/verification_test/native_transport_test.dart": "d97ca56b42dcb378cd0a118fa2c1c60781faa4caed976dc145a56e79052da423",
+    "clients/flutter/verification_test/responsive_lifecycle_test.dart": "f38a16b4261a016df45aec9e0f582e60d41b106b28223377d7fd98a7a6567022"
+  },
+  "criteria_and_sources_unchanged": true,
+  "finished_at": "2026-10-28T10:03:36.730555+00:00"
+}

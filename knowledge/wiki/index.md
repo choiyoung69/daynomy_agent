@@ -66,6 +66,7 @@ source_ids: ["E01", "P02", "G01", "F01", "F04"]
 | [DAYNOMY 전체 서비스 지식 목록](projects/daynomy/service-catalog.md) | 정적 정리·실행 근거 연결(범위는 문서 참조) |
 | [종목 검색과 최근 종가](projects/daynomy/stock-search-price.md) | 정적 정리 |
 | [종목·종가·환율](projects/daynomy/stocks-exchange.md) | 정적 정리 |
+| [Android 뉴스·환율의 실제 이식 경계](projects/daynomy/android-news-exchange.md) | 별도 역할의 JVM·실제 HTTP/DB 검사, 기기 결과는 실행 기록에서 구분 |
 | [수집·동기화·배치](projects/daynomy/sync-jobs.md) | 정적 정리 |
 
 ## 이식 계획
@@ -101,3 +102,7 @@ source_ids: ["E01", "P02", "G01", "F01", "F04"]
 ### [Rust 백엔드](packages/rust-backend/index.md)
 
 [타입·null·JSON](packages/rust-backend/types-and-json.md) · [숫자·금액](packages/rust-backend/numbers-and-money.md) · [날짜·Unicode](packages/rust-backend/dates-and-unicode.md) · [컬렉션·모델 복사](packages/rust-backend/collections-and-models.md) · [비동기·취소](packages/rust-backend/async-and-cancellation.md) · [상태·탐색·수명](packages/rust-backend/state-and-navigation.md) · [오류·트랜잭션](packages/rust-backend/errors-and-transactions.md) · [인증·저장소](packages/rust-backend/auth-and-storage.md) · [모듈·의존성·검증](packages/rust-backend/modules-and-testing.md)
+
+## 제한된 앱 실행 결과
+
+[WebView 종목 검색·종가 파일럿](../../runs/013-webview.md)은 웹/Android 실제 흐름과 iOS 미검증을 구분한다. 지식 입력·고정 테스트·수정·독립 리뷰 근거를 함께 확인한다. 다른 플랫폼/전체 기능의 실행 완료를 뜻하지 않는다.

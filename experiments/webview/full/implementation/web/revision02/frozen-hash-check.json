@@ -1,0 +1,17 @@
+{
+  "verified": true,
+  "files": {
+    "clients/webview/full-tests/browser-smoke.mjs": "6af152305b02c0bff0ac8c8b7fd48562f25d928550c6dfa47943cf53df392a26",
+    "clients/webview/full-tests/route-contract.json": "3c8fdcbd59a07ddc2bf5e7c600df305fbf678c11d07b20dadb5502856f80221f",
+    "clients/webview/full-tests/server-contract.test.mjs": "a870502c8f5d4d1c8c7497f936e547036422a191cb95c2ec766255eaec6ed7fb",
+    "experiments/webview/full/tests/red-server.tap": "2252ad42e90964b7fe7cc7ff7615909a11434f075b640209c2374e754609ea1e",
+    "experiments/webview/full/tests/tests-notes.md": "8c0cb18e2ab8f6c324f9b866596c1a8ad0dbf59ecdf323165a7b805440d157a5",
+    "clients/webview/full-tests/query-regression.test.mjs": "d6b7b0194706ca506b73f64b80e663738991f798ff47c99759afc05ddfb09078",
+    "experiments/webview/full/tests/query-red.tap": "1bf2aeaa85ba2ec1d3a3f565f62f953d72aef9bcc7468ba0a8bd16cd7de0c22a",
+    "experiments/webview/full/tests/query-tests-notes.md": "6a609deafe3f9c35e8ffb5d77f2fed9a7bf633759dc34699a7fe8661465802bc",
+    "clients/webview/full-tests/native-lifecycle.test.tsx": "a3e7b5a14d3aaf90272f43f3f99736de8ed28513866776273bdcce1dca3577fe",
+    "clients/webview/full-tests/native-lifecycle.config.mjs": "e7e872f763aa875aad193e3d77c197cec722a6d753bbc7c1fcc3213847e4495e",
+    "experiments/webview/full/tests/native-lifecycle-red.log": "6265434a9814807ff012b6c6eb7b8b77a82f1313ee3af54c36873333936dfe6c",
+    "experiments/webview/full/tests/native-lifecycle-notes.md": "e7c4ffcc2a22773bd39bb0ad2ffdd26db0375a8ea918623a3e8063328d4041f9"
+  }
+}

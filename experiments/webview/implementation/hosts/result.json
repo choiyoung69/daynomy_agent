@@ -1,0 +1,79 @@
+{
+  "created_at": "2026-10-28T08:59:02.823409+00:00",
+  "role": "host implementation only; independent verification pending",
+  "frozen_tests_sha256": "dd1a0fd772bbb142f58b2fd6dafb9df8711f6460fc85af2f216a3553c68a3fb9",
+  "frozen_test_files_unchanged": true,
+  "knowledge_manifest_sha256": "e941e26b68e1316e913b636d0cd1377a6fb7b577e2e58604b0e881374e6fc9aa",
+  "files": {
+    "clients/webview/HOSTS.md": "6d2177b94acaf8dc582531cebe18ea46f43bcb204b4e7231ae4d124d487155fd",
+    "clients/webview/android/.gitignore": "838655f2e91bf2cc39b78e25f41b3706543530eeaca3c710e323d9c7fa5619ca",
+    "clients/webview/android/app/build.gradle.kts": "046907885a3404940ac0b18274afaf620273249c626ee1b5aa8fb53bdfb352e9",
+    "clients/webview/android/app/src/debug/res/xml/network_security_config.xml": "19c7e0ab73370aae0baf35129c820bd5ffc038015c95b1b2182ffee433836591",
+    "clients/webview/android/app/src/main/AndroidManifest.xml": "de8b22041d6bbe87dfcb2b600f4627702cdd733901f5a89c4ea2edc562435294",
+    "clients/webview/android/app/src/main/java/com/daynomy/webview/MainActivity.kt": "130f77020aca008c635bfc729cd4212e04a6b7017d6b9cf28db6b5fa06c68e66",
+    "clients/webview/android/app/src/main/java/com/daynomy/webview/NavigationPolicy.kt": "b89810163c7b8217e94a01b3546e0d0b9a94a4bc0339a02ba7a5be75c4a235a5",
+    "clients/webview/android/app/src/main/res/xml/network_security_config.xml": "7bd91344689d618bf440dd803fef5d1c05dfbd1b12ea27379625b3388aee1846",
+    "clients/webview/android/build.gradle.kts": "860b96347408b43b33080b3f4fc32c53e19101d552e570d304805187125e3f02",
+    "clients/webview/android/gradle/wrapper/gradle-wrapper.jar": "2db75c40782f5e8ba1fc278a5574bab070adccb2d21ca5a6e5ed840888448046",
+    "clients/webview/android/gradle/wrapper/gradle-wrapper.properties": "fe90ff0d9944879f591a8c37b6dbaf5046d1051ccbb6b26b22081692c321f432",
+    "clients/webview/android/gradle.properties": "475969dc6db92d97a4ff483a3b77be04efdfc8b6af22350d9c5d642756b6aea9",
+    "clients/webview/android/gradlew": "a3648413b47ef77af21d5ebc36c687c7d103aaef3e17f33de7d4f080a6f300a3",
+    "clients/webview/android/gradlew.bat": "57931b17dd228e5c24dac90e815d0bf82477e831a4618dfab4136f5446b42a9f",
+    "clients/webview/android/settings.gradle.kts": "45acf819df20880370678a80399dadad9274190af13d971a661b4d19d064512d",
+    "clients/webview/ios/DaynomyWebView/AppDelegate.swift": "2292471cdccede08e3d0ab381bb8fd1163c49c4a39411ddb35c7208033bf28c8",
+    "clients/webview/ios/DaynomyWebView/Info-Debug.plist": "9abc8a426265fdf5c9daadc0f2e613d33a79fa44ed74368c7f07cc3e50bfc61a",
+    "clients/webview/ios/DaynomyWebView/Info-Release.plist": "7e025366c47e606a7b4560e9897e295a0cb445d5c90c6211fc63c5d9236a6bac",
+    "clients/webview/ios/DaynomyWebView/NavigationPolicy.swift": "c088c489e62fce376d829970039f83084e6f62c3b2f610511117c8859e38d18f",
+    "clients/webview/ios/DaynomyWebView/WebViewController.swift": "ada3668c20efc5506046b17d248f24f268de746a4f26604f69b0dc7cd4e3ee95",
+    "clients/webview/ios/DaynomyWebView.xcodeproj/project.pbxproj": "b0fff5a3b318e35b4e99c7832ade770b76f49f063eeac984057661bee7a01dda",
+    "clients/webview/ios/DaynomyWebView.xcodeproj/xcshareddata/xcschemes/DaynomyWebView.xcscheme": "5b0a5c80723705774c74172c5bf6180600be056e2c59a6c0097459b9e4ee323a"
+  },
+  "source_tree_sha256": "288ca023b2091bd5a9ae0ac8f0ca2f5d2083dada8643f286090e8c52327b1d16",
+  "apk": {
+    "path": "clients/webview/android/app/build/outputs/apk/debug/app-debug.apk",
+    "sha256": "16deb760f1b1dce4613885f09820434b631083d9283eaab72ccb115c474420b2"
+  },
+  "checks": [
+    {
+      "command": "node --test clients/webview/tests/host-policy.test.mjs",
+      "exit_code": 0,
+      "log": "policy-final.log",
+      "scope": "Kotlin/Swift pure policy; 2 tests passed"
+    },
+    {
+      "command": "env JAVA_HOME=/Users/seoyeong/Library/Java/JavaVirtualMachines/ms-21.0.12/Contents/Home GRADLE_USER_HOME=/Users/seoyeong/develop/AI/daynomy_agent/.local/android-gradle .local/android-tools/gradle-8.11.1/bin/gradle -p clients/webview/android --offline --no-daemon :app:assembleDebug",
+      "initial_sandbox_exit_code": 1,
+      "initial_log": "android-build.log",
+      "escalated_exit_code": 0,
+      "log": "android-build-final.log"
+    },
+    {
+      "command": "swiftc -frontend -parse clients/webview/ios/DaynomyWebView/AppDelegate.swift clients/webview/ios/DaynomyWebView/WebViewController.swift clients/webview/ios/DaynomyWebView/NavigationPolicy.swift",
+      "exit_code": 0,
+      "log": "ios-syntax.log",
+      "scope": "syntax parse only; UIKit/WebKit type checking not performed"
+    },
+    {
+      "command": "plutil -lint clients/webview/ios/DaynomyWebView.xcodeproj/project.pbxproj clients/webview/ios/DaynomyWebView/Info-Debug.plist clients/webview/ios/DaynomyWebView/Info-Release.plist",
+      "exit_code": 0,
+      "log": "ios-project-lint.log"
+    },
+    {
+      "command": "xcodebuild -project clients/webview/ios/DaynomyWebView.xcodeproj -scheme DaynomyWebView -configuration Debug -sdk iphonesimulator CODE_SIGNING_ALLOWED=NO build",
+      "exit_code": 1,
+      "log": "ios-build.log",
+      "blocked_reason": "Xcode is not installed; active developer directory is CommandLineTools"
+    }
+  ],
+  "not_verified": [
+    "Android emulator UI/API flow, rotation, keyboard, native back, external links, cookies, renderer recovery (independent verifier next)",
+    "iOS app build, UIKit/WebKit type checking, content rule compile/runtime, simulator/device UI, cookie behavior, TLS checks",
+    "Process death draft persistence is explicitly not promised"
+  ],
+  "changes": [
+    "Android Activity/WebView app with exact-origin navigation and resource guard; no privileged native bridge",
+    "WKWebView UIKit host with exact-origin pure policy, document delegate and subresource content rules; no privileged native bridge",
+    "Background/foreground CustomEvent, web history back, safe areas/keyboard, explicit error retry, renderer recovery",
+    "Debug HTTP local allowlist; release single configured HTTPS origin; engine-only cookies"
+  ]
+}

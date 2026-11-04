@@ -1,0 +1,26 @@
+{
+  "evidence": "Extracted actual validatedPath pure function; no HTTP/server/browser execution",
+  "serverSha256": "bbcc524c9e99c213809c4dcb6299ccd99523797fc736d0af749234684f8ccc82",
+  "cases": [
+    {
+      "path": "/login?returnTo=%2Fmypage",
+      "validatedPath": null
+    },
+    {
+      "path": "/api/search?q=AI%2FETF",
+      "validatedPath": null
+    },
+    {
+      "path": "/login/oauth2/code/google?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email",
+      "validatedPath": null
+    },
+    {
+      "path": "/assets%2Findex.js",
+      "validatedPath": null
+    },
+    {
+      "path": "/api/search?q=fixture",
+      "validatedPath": "/api/search"
+    }
+  ]
+}

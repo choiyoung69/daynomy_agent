@@ -1,0 +1,9 @@
+{
+  "mode": "native dialog/OS external browser on trusted WebView page; verification-only DOM buttons",
+  "steps": [],
+  "confirmResult": false,
+  "failure": {
+    "name": "AssertionError",
+    "message": "Expected values to be strictly equal:\n\nfalse !== true\n"
+  }
+}

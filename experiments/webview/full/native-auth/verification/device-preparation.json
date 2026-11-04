@@ -1,0 +1,10 @@
+{
+  "device": "emulator-5576",
+  "phase": "before native-auth implementation handoff",
+  "initial_chrome_version": "109.0.5414.123",
+  "initial_webview_devtools_socket_found": true,
+  "failure": "After starting external Chrome about:blank, UI dump did not complete and two independent guest-shell probes each timed out at five seconds. Emulator console still reported running and adb get-state reported device.",
+  "cleanup": "Only the verifier-owned stuck UI dump process was terminated. The subsequent authorized emulator5576 console-stop command returned connection refused: the VM had already exited before that command. No other emulator or ADB server was stopped.",
+  "recovery": "Same AVD booted headless successfully. External Chrome109 initial setup completed without adding an account; chrome_devtools_remote appeared. Only trusted web18082 and current local mock provider were reversed on this device, and Chrome CDP forwarded to19376.",
+  "remaining": "Await implementation APK handoff, then discover/forward its fresh WebView CDP socket and execute native round trip. Other devices, ADB server, preview and private API are untouched."
+}

@@ -1,0 +1,32 @@
+{
+  "context_sha256": "8eaa1e1e552b3d65135aac39d812ed954c6a844eebd1e503a058bb5c1cc8cf0f",
+  "manifest_sha256": "1d20a50319826f006c9eccd65fe6b82faae78e7d6bc222d6ae1c34e30d65cc0a",
+  "applied_rules": [
+    {
+      "document": "knowledge/wiki/projects/daynomy/news.md",
+      "rule": "Preserve public published news list/detail source contracts, server ordering and explicit pagination.",
+      "implementation": "NewsClient.list/detail; NewsController list/detail generation gates"
+    },
+    {
+      "document": "knowledge/wiki/packages/android-kotlin/types-and-json.md",
+      "rule": "Check required fields, distinguish missing from null, validate enums and exact numeric identifiers; news uses signed Long per frozen contract rather than stock safe-ID rule.",
+      "implementation": "NewsClient decoders/newsLong/newsNullableString; ExchangeRateClient.quote"
+    },
+    {
+      "document": "knowledge/wiki/packages/android-kotlin/dates-and-unicode.md",
+      "rule": "Keep date strings and Unicode intact; no timezone or calendar strengthening; preserve paragraph whitespace.",
+      "implementation": "NewsClient.detail newline filter; ExchangeRateClient encoded raw date; ExchangeScreen date draft"
+    },
+    {
+      "document": "knowledge/wiki/packages/android-kotlin/async-and-cancellation.md",
+      "rule": "Cancel Jobs, rethrow CancellationException, suppress stale result/error writes; HTTP cancellation uses existing transport.",
+      "implementation": "NewsController/ExchangeController generation guards; DiscoveryViewModel.onCleared"
+    },
+    {
+      "document": "knowledge/wiki/packages/android-kotlin/state-and-navigation.md",
+      "rule": "Separate UI drafts, controller request state and ViewModel lifetime; keep back navigation and page selection stable.",
+      "implementation": "NewsController.closeDetail; ExchangeScreen rememberSaveable date; DiscoveryViewModel viewModelScope"
+    }
+  ],
+  "limits": "Mappings declare applied rules; independent tests and device execution belong to validator evidence, not this receipt."
+}

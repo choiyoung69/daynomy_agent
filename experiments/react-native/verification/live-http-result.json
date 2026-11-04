@@ -1,0 +1,201 @@
+{
+  "checkedAt": "2026-10-28T10:28:49.967Z",
+  "baseURL": "http://127.0.0.1:18129",
+  "boundary": "Real Rust plus disposable PostgreSQL synthetic fixture. Node-only cookie adapter; not RN OS cookie/device verification.",
+  "cases": [
+    {
+      "name": "actual Rust KR stock search",
+      "pass": true
+    },
+    {
+      "name": "actual Rust US stock search",
+      "pass": true
+    },
+    {
+      "name": "actual Rust latest close price and reference date",
+      "pass": true
+    },
+    {
+      "name": "actual Rust missing saved price surfaces 404",
+      "pass": true
+    },
+    {
+      "name": "actual Rust public news null metadata decoder",
+      "pass": true
+    },
+    {
+      "name": "actual Rust unpublished news not exposed",
+      "pass": true
+    },
+    {
+      "name": "actual Rust public feedback CSRF and 204",
+      "pass": true
+    },
+    {
+      "name": "actual Rust CSRF invalid body remains 400",
+      "pass": true
+    },
+    {
+      "name": "actual Rust public portfolio calculate",
+      "pass": true
+    },
+    {
+      "name": "actual Rust synthetic PKCE exchange installs server cookies in host-only jar",
+      "pass": true
+    },
+    {
+      "name": "actual Rust authenticated member lookup",
+      "pass": true
+    },
+    {
+      "name": "actual Rust member transaction create then portfolio readback",
+      "pass": true
+    },
+    {
+      "name": "actual Rust authenticated nickname patch readback",
+      "pass": true
+    },
+    {
+      "name": "actual Rust member cannot access admin feedback",
+      "pass": true
+    },
+    {
+      "name": "actual Rust logout invalidates member lookup",
+      "pass": true
+    }
+  ],
+  "traffic": [
+    {
+      "path": "/api/stocks",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/stocks",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/stocks/910001/price",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/stocks/910003/price",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "path": "/api/news",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/news/920004",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "path": "/api/auth/csrf",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/feedback",
+      "method": "POST",
+      "status": 204
+    },
+    {
+      "path": "/api/auth/csrf",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/feedback",
+      "method": "POST",
+      "status": 400
+    },
+    {
+      "path": "/api/auth/csrf",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/portfolio/calculate",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/mobile/exchange",
+      "method": "POST",
+      "status": 204
+    },
+    {
+      "path": "/api/users/me",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/csrf",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/portfolio/transactions",
+      "method": "POST",
+      "status": 201
+    },
+    {
+      "path": "/api/users/me/portfolio",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/csrf",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/users/me",
+      "method": "PATCH",
+      "status": 200
+    },
+    {
+      "path": "/api/users/me",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/admin/feedbacks",
+      "method": "GET",
+      "status": 403
+    },
+    {
+      "path": "/api/auth/csrf",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/logout",
+      "method": "POST",
+      "status": 204
+    },
+    {
+      "path": "/api/users/me",
+      "method": "GET",
+      "status": 401
+    },
+    {
+      "path": "/api/auth/csrf",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/refresh",
+      "method": "POST",
+      "status": 401
+    }
+  ],
+  "passed": 15,
+  "failed": 0
+}

@@ -1,0 +1,167 @@
+/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-next-verification/test-author/NewsPresentationContract.swift:15:15: error: cannot find 'NewsPresentation' in scope
+13 |         let listRow = ServiceValue.object(["id": .number("72"), "title": .string("목록 전용 이슈")])
+14 |         let ambiguous = ServiceValue.object(["content": .array([searchRow]), "items": .array([listRow])])
+15 |         check(NewsPresentation.items(payload: .object(["content": .array([searchRow])]), isNewsSearch: true) == [searchRow], "search uses content")
+   |               `- error: cannot find 'NewsPresentation' in scope
+16 |         check(NewsPresentation.items(payload: .object(["items": .array([listRow])]), isNewsSearch: false) == [listRow], "regular list uses items")
+17 |         check(NewsPresentation.items(payload: ambiguous, isNewsSearch: true) == [searchRow], "search cannot prefer unrelated items")
+
+/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-next-verification/test-author/NewsPresentationContract.swift:15:48: error: cannot infer contextual base in reference to member 'object'
+13 |         let listRow = ServiceValue.object(["id": .number("72"), "title": .string("목록 전용 이슈")])
+14 |         let ambiguous = ServiceValue.object(["content": .array([searchRow]), "items": .array([listRow])])
+15 |         check(NewsPresentation.items(payload: .object(["content": .array([searchRow])]), isNewsSearch: true) == [searchRow], "search uses content")
+   |                                                `- error: cannot infer contextual base in reference to member 'object'
+16 |         check(NewsPresentation.items(payload: .object(["items": .array([listRow])]), isNewsSearch: false) == [listRow], "regular list uses items")
+17 |         check(NewsPresentation.items(payload: ambiguous, isNewsSearch: true) == [searchRow], "search cannot prefer unrelated items")
+
+/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-next-verification/test-author/NewsPresentationContract.swift:15:68: error: type 'Any' has no member 'array'
+13 |         let listRow = ServiceValue.object(["id": .number("72"), "title": .string("목록 전용 이슈")])
+14 |         let ambiguous = ServiceValue.object(["content": .array([searchRow]), "items": .array([listRow])])
+15 |         check(NewsPresentation.items(payload: .object(["content": .array([searchRow])]), isNewsSearch: true) == [searchRow], "search uses content")
+   |                                                                    `- error: type 'Any' has no member 'array'
+16 |         check(NewsPresentation.items(payload: .object(["items": .array([listRow])]), isNewsSearch: false) == [listRow], "regular list uses items")
+17 |         check(NewsPresentation.items(payload: ambiguous, isNewsSearch: true) == [searchRow], "search cannot prefer unrelated items")
+
+/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-next-verification/test-author/NewsPresentationContract.swift:16:15: error: cannot find 'NewsPresentation' in scope
+14 |         let ambiguous = ServiceValue.object(["content": .array([searchRow]), "items": .array([listRow])])
+15 |         check(NewsPresentation.items(payload: .object(["content": .array([searchRow])]), isNewsSearch: true) == [searchRow], "search uses content")
+16 |         check(NewsPresentation.items(payload: .object(["items": .array([listRow])]), isNewsSearch: false) == [listRow], "regular list uses items")
+   |               `- error: cannot find 'NewsPresentation' in scope
+17 |         check(NewsPresentation.items(payload: ambiguous, isNewsSearch: true) == [searchRow], "search cannot prefer unrelated items")
+18 |         check(NewsPresentation.items(payload: ambiguous, isNewsSearch: false) == [listRow], "regular list cannot prefer unrelated content")
+
+/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-next-verification/test-author/NewsPresentationContract.swift:16:48: error: cannot infer contextual base in reference to member 'object'
+14 |         let ambiguous = ServiceValue.object(["content": .array([searchRow]), "items": .array([listRow])])
+15 |         check(NewsPresentation.items(payload: .object(["content": .array([searchRow])]), isNewsSearch: true) == [searchRow], "search uses content")
+16 |         check(NewsPresentation.items(payload: .object(["items": .array([listRow])]), isNewsSearch: false) == [listRow], "regular list uses items")
+   |                                                `- error: cannot infer contextual base in reference to member 'object'
+17 |         check(NewsPresentation.items(payload: ambiguous, isNewsSearch: true) == [searchRow], "search cannot prefer unrelated items")
+18 |         check(NewsPresentation.items(payload: ambiguous, isNewsSearch: false) == [listRow], "regular list cannot prefer unrelated content")
+
+/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-next-verification/test-author/NewsPresentationContract.swift:16:66: error: type 'Any' has no member 'array'
+14 |         let ambiguous = ServiceValue.object(["content": .array([searchRow]), "items": .array([listRow])])
+15 |         check(NewsPresentation.items(payload: .object(["content": .array([searchRow])]), isNewsSearch: true) == [searchRow], "search uses content")
+16 |         check(NewsPresentation.items(payload: .object(["items": .array([listRow])]), isNewsSearch: false) == [listRow], "regular list uses items")
+   |                                                                  `- error: type 'Any' has no member 'array'
+17 |         check(NewsPresentation.items(payload: ambiguous, isNewsSearch: true) == [searchRow], "search cannot prefer unrelated items")
+18 |         check(NewsPresentation.items(payload: ambiguous, isNewsSearch: false) == [listRow], "regular list cannot prefer unrelated content")
+
+/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-next-verification/test-author/NewsPresentationContract.swift:17:15: error: cannot find 'NewsPresentation' in scope
+15 |         check(NewsPresentation.items(payload: .object(["content": .array([searchRow])]), isNewsSearch: true) == [searchRow], "search uses content")
+16 |         check(NewsPresentation.items(payload: .object(["items": .array([listRow])]), isNewsSearch: false) == [listRow], "regular list uses items")
+17 |         check(NewsPresentation.items(payload: ambiguous, isNewsSearch: true) == [searchRow], "search cannot prefer unrelated items")
+   |               `- error: cannot find 'NewsPresentation' in scope
+18 |         check(NewsPresentation.items(payload: ambiguous, isNewsSearch: false) == [listRow], "regular list cannot prefer unrelated content")
+19 |         check(NewsPresentation.items(payload: .object(["items": .array([listRow])]), isNewsSearch: true).isEmpty, "wrong search shape does not fallback")
+
+/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-next-verification/test-author/NewsPresentationContract.swift:18:15: error: cannot find 'NewsPresentation' in scope
+16 |         check(NewsPresentation.items(payload: .object(["items": .array([listRow])]), isNewsSearch: false) == [listRow], "regular list uses items")
+17 |         check(NewsPresentation.items(payload: ambiguous, isNewsSearch: true) == [searchRow], "search cannot prefer unrelated items")
+18 |         check(NewsPresentation.items(payload: ambiguous, isNewsSearch: false) == [listRow], "regular list cannot prefer unrelated content")
+   |               `- error: cannot find 'NewsPresentation' in scope
+19 |         check(NewsPresentation.items(payload: .object(["items": .array([listRow])]), isNewsSearch: true).isEmpty, "wrong search shape does not fallback")
+20 |         check(NewsPresentation.items(payload: .object(["content": .array([searchRow])]), isNewsSearch: false).isEmpty, "wrong list shape does not fallback")
+
+/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-next-verification/test-author/NewsPresentationContract.swift:19:15: error: cannot find 'NewsPresentation' in scope
+17 |         check(NewsPresentation.items(payload: ambiguous, isNewsSearch: true) == [searchRow], "search cannot prefer unrelated items")
+18 |         check(NewsPresentation.items(payload: ambiguous, isNewsSearch: false) == [listRow], "regular list cannot prefer unrelated content")
+19 |         check(NewsPresentation.items(payload: .object(["items": .array([listRow])]), isNewsSearch: true).isEmpty, "wrong search shape does not fallback")
+   |               `- error: cannot find 'NewsPresentation' in scope
+20 |         check(NewsPresentation.items(payload: .object(["content": .array([searchRow])]), isNewsSearch: false).isEmpty, "wrong list shape does not fallback")
+21 |         check(NewsPresentation.items(payload: .null, isNewsSearch: true).isEmpty, "null search is empty")
+
+/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-next-verification/test-author/NewsPresentationContract.swift:19:48: error: cannot infer contextual base in reference to member 'object'
+17 |         check(NewsPresentation.items(payload: ambiguous, isNewsSearch: true) == [searchRow], "search cannot prefer unrelated items")
+18 |         check(NewsPresentation.items(payload: ambiguous, isNewsSearch: false) == [listRow], "regular list cannot prefer unrelated content")
+19 |         check(NewsPresentation.items(payload: .object(["items": .array([listRow])]), isNewsSearch: true).isEmpty, "wrong search shape does not fallback")
+   |                                                `- error: cannot infer contextual base in reference to member 'object'
+20 |         check(NewsPresentation.items(payload: .object(["content": .array([searchRow])]), isNewsSearch: false).isEmpty, "wrong list shape does not fallback")
+21 |         check(NewsPresentation.items(payload: .null, isNewsSearch: true).isEmpty, "null search is empty")
+
+/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-next-verification/test-author/NewsPresentationContract.swift:19:66: error: type 'Any' has no member 'array'
+17 |         check(NewsPresentation.items(payload: ambiguous, isNewsSearch: true) == [searchRow], "search cannot prefer unrelated items")
+18 |         check(NewsPresentation.items(payload: ambiguous, isNewsSearch: false) == [listRow], "regular list cannot prefer unrelated content")
+19 |         check(NewsPresentation.items(payload: .object(["items": .array([listRow])]), isNewsSearch: true).isEmpty, "wrong search shape does not fallback")
+   |                                                                  `- error: type 'Any' has no member 'array'
+20 |         check(NewsPresentation.items(payload: .object(["content": .array([searchRow])]), isNewsSearch: false).isEmpty, "wrong list shape does not fallback")
+21 |         check(NewsPresentation.items(payload: .null, isNewsSearch: true).isEmpty, "null search is empty")
+
+/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-next-verification/test-author/NewsPresentationContract.swift:20:15: error: cannot find 'NewsPresentation' in scope
+18 |         check(NewsPresentation.items(payload: ambiguous, isNewsSearch: false) == [listRow], "regular list cannot prefer unrelated content")
+19 |         check(NewsPresentation.items(payload: .object(["items": .array([listRow])]), isNewsSearch: true).isEmpty, "wrong search shape does not fallback")
+20 |         check(NewsPresentation.items(payload: .object(["content": .array([searchRow])]), isNewsSearch: false).isEmpty, "wrong list shape does not fallback")
+   |               `- error: cannot find 'NewsPresentation' in scope
+21 |         check(NewsPresentation.items(payload: .null, isNewsSearch: true).isEmpty, "null search is empty")
+22 |         check(NewsPresentation.items(payload: .object(["content": .string("invalid")]), isNewsSearch: true).isEmpty, "non-array content is empty")
+
+/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-next-verification/test-author/NewsPresentationContract.swift:20:48: error: cannot infer contextual base in reference to member 'object'
+18 |         check(NewsPresentation.items(payload: ambiguous, isNewsSearch: false) == [listRow], "regular list cannot prefer unrelated content")
+19 |         check(NewsPresentation.items(payload: .object(["items": .array([listRow])]), isNewsSearch: true).isEmpty, "wrong search shape does not fallback")
+20 |         check(NewsPresentation.items(payload: .object(["content": .array([searchRow])]), isNewsSearch: false).isEmpty, "wrong list shape does not fallback")
+   |                                                `- error: cannot infer contextual base in reference to member 'object'
+21 |         check(NewsPresentation.items(payload: .null, isNewsSearch: true).isEmpty, "null search is empty")
+22 |         check(NewsPresentation.items(payload: .object(["content": .string("invalid")]), isNewsSearch: true).isEmpty, "non-array content is empty")
+
+/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-next-verification/test-author/NewsPresentationContract.swift:20:68: error: type 'Any' has no member 'array'
+18 |         check(NewsPresentation.items(payload: ambiguous, isNewsSearch: false) == [listRow], "regular list cannot prefer unrelated content")
+19 |         check(NewsPresentation.items(payload: .object(["items": .array([listRow])]), isNewsSearch: true).isEmpty, "wrong search shape does not fallback")
+20 |         check(NewsPresentation.items(payload: .object(["content": .array([searchRow])]), isNewsSearch: false).isEmpty, "wrong list shape does not fallback")
+   |                                                                    `- error: type 'Any' has no member 'array'
+21 |         check(NewsPresentation.items(payload: .null, isNewsSearch: true).isEmpty, "null search is empty")
+22 |         check(NewsPresentation.items(payload: .object(["content": .string("invalid")]), isNewsSearch: true).isEmpty, "non-array content is empty")
+
+/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-next-verification/test-author/NewsPresentationContract.swift:21:15: error: cannot find 'NewsPresentation' in scope
+19 |         check(NewsPresentation.items(payload: .object(["items": .array([listRow])]), isNewsSearch: true).isEmpty, "wrong search shape does not fallback")
+20 |         check(NewsPresentation.items(payload: .object(["content": .array([searchRow])]), isNewsSearch: false).isEmpty, "wrong list shape does not fallback")
+21 |         check(NewsPresentation.items(payload: .null, isNewsSearch: true).isEmpty, "null search is empty")
+   |               `- error: cannot find 'NewsPresentation' in scope
+22 |         check(NewsPresentation.items(payload: .object(["content": .string("invalid")]), isNewsSearch: true).isEmpty, "non-array content is empty")
+23 |         check(NewsPresentation.adminCategoryCodes == ["STOCK", "ETF", "REAL_ESTATE"], "admin codes exactly match accepted backend enum and order")
+
+/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-next-verification/test-author/NewsPresentationContract.swift:21:48: error: cannot infer contextual base in reference to member 'null'
+19 |         check(NewsPresentation.items(payload: .object(["items": .array([listRow])]), isNewsSearch: true).isEmpty, "wrong search shape does not fallback")
+20 |         check(NewsPresentation.items(payload: .object(["content": .array([searchRow])]), isNewsSearch: false).isEmpty, "wrong list shape does not fallback")
+21 |         check(NewsPresentation.items(payload: .null, isNewsSearch: true).isEmpty, "null search is empty")
+   |                                                `- error: cannot infer contextual base in reference to member 'null'
+22 |         check(NewsPresentation.items(payload: .object(["content": .string("invalid")]), isNewsSearch: true).isEmpty, "non-array content is empty")
+23 |         check(NewsPresentation.adminCategoryCodes == ["STOCK", "ETF", "REAL_ESTATE"], "admin codes exactly match accepted backend enum and order")
+
+/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-next-verification/test-author/NewsPresentationContract.swift:22:15: error: cannot find 'NewsPresentation' in scope
+20 |         check(NewsPresentation.items(payload: .object(["content": .array([searchRow])]), isNewsSearch: false).isEmpty, "wrong list shape does not fallback")
+21 |         check(NewsPresentation.items(payload: .null, isNewsSearch: true).isEmpty, "null search is empty")
+22 |         check(NewsPresentation.items(payload: .object(["content": .string("invalid")]), isNewsSearch: true).isEmpty, "non-array content is empty")
+   |               `- error: cannot find 'NewsPresentation' in scope
+23 |         check(NewsPresentation.adminCategoryCodes == ["STOCK", "ETF", "REAL_ESTATE"], "admin codes exactly match accepted backend enum and order")
+24 |         check(!NewsPresentation.adminCategoryCodes.contains("ECONOMY"), "unsupported ECONOMY cannot be authored")
+
+/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-next-verification/test-author/NewsPresentationContract.swift:22:48: error: cannot infer contextual base in reference to member 'object'
+20 |         check(NewsPresentation.items(payload: .object(["content": .array([searchRow])]), isNewsSearch: false).isEmpty, "wrong list shape does not fallback")
+21 |         check(NewsPresentation.items(payload: .null, isNewsSearch: true).isEmpty, "null search is empty")
+22 |         check(NewsPresentation.items(payload: .object(["content": .string("invalid")]), isNewsSearch: true).isEmpty, "non-array content is empty")
+   |                                                `- error: cannot infer contextual base in reference to member 'object'
+23 |         check(NewsPresentation.adminCategoryCodes == ["STOCK", "ETF", "REAL_ESTATE"], "admin codes exactly match accepted backend enum and order")
+24 |         check(!NewsPresentation.adminCategoryCodes.contains("ECONOMY"), "unsupported ECONOMY cannot be authored")
+
+/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-next-verification/test-author/NewsPresentationContract.swift:22:68: error: type 'Any' has no member 'string'
+20 |         check(NewsPresentation.items(payload: .object(["content": .array([searchRow])]), isNewsSearch: false).isEmpty, "wrong list shape does not fallback")
+21 |         check(NewsPresentation.items(payload: .null, isNewsSearch: true).isEmpty, "null search is empty")
+22 |         check(NewsPresentation.items(payload: .object(["content": .string("invalid")]), isNewsSearch: true).isEmpty, "non-array content is empty")
+   |                                                                    `- error: type 'Any' has no member 'string'
+23 |         check(NewsPresentation.adminCategoryCodes == ["STOCK", "ETF", "REAL_ESTATE"], "admin codes exactly match accepted backend enum and order")
+24 |         check(!NewsPresentation.adminCategoryCodes.contains("ECONOMY"), "unsupported ECONOMY cannot be authored")
+
+/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-next-verification/test-author/NewsPresentationContract.swift:23:15: error: cannot find 'NewsPresentation' in scope
+21 |         check(NewsPresentation.items(payload: .null, isNewsSearch: true).isEmpty, "null search is empty")
+22 |         check(NewsPresentation.items(payload: .object(["content": .string("invalid")]), isNewsSearch: true).isEmpty, "non-array content is empty")
+23 |         check(NewsPresentation.adminCategoryCodes == ["STOCK", "ETF", "REAL_ESTATE"], "admin codes exactly match accepted backend enum and order")
+   |               `- error: cannot find 'NewsPresentation' in scope
+24 |         check(!NewsPresentation.adminCategoryCodes.contains("ECONOMY"), "unsupported ECONOMY cannot be authored")
+25 |         print("PRESENTATION CONTRACT 10 checks; failures \(failures)")
+
+/Users/seoyeong/develop/AI/daynomy_agent/experiments/ios-next-verification/test-author/NewsPresentationContract.swift:24:16: error: cannot find 'NewsPresentation' in scope
+22 |         check(NewsPresentation.items(payload: .object(["content": .string("invalid")]), isNewsSearch: true).isEmpty, "non-array content is empty")
+23 |         check(NewsPresentation.adminCategoryCodes == ["STOCK", "ETF", "REAL_ESTATE"], "admin codes exactly match accepted backend enum and order")
+24 |         check(!NewsPresentation.adminCategoryCodes.contains("ECONOMY"), "unsupported ECONOMY cannot be authored")
+   |                `- error: cannot find 'NewsPresentation' in scope
+25 |         print("PRESENTATION CONTRACT 10 checks; failures \(failures)")
+26 |         exit(failures == 0 ? 0 : 1)

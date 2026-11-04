@@ -1,0 +1,6 @@
+{
+  "frozen_test": "clients/react-native/tests/core.test.ts",
+  "expected": "346c27cc3aa445f355293fbcffd87723c21d7828452af06a2748a4790be37d92",
+  "actual": "346c27cc3aa445f355293fbcffd87723c21d7828452af06a2748a4790be37d92",
+  "match": true
+}

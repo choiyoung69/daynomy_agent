@@ -1,0 +1,31 @@
+{
+  "mode": "android",
+  "initial": {
+    "visibility": "visible",
+    "text": "DAYNOMY\n종목 조회\n종목과 거래 단가\n\n종목을 고르면 최근 종가를 불러와요.\n단가는 언제든 직접 입력할 수 있어요.\n\n종목 찾기\n국가\n한국\n미국\n종목 검색\n\n검색 결과는 최대 20개예요. 유형을 선택해 좁혀 보세요.\n\n전체\n주식\nETF\n검색 결과\n\n종목명 또는 코드를 입력해 주세요.\n\n거래 단가\n\n조회할 종목을 선택해 주세요\n\n왼쪽 검색창에서 종목을 찾아보세요.\n선택한 종목의 최근 저장 종가를 확인할 수 있어요.\n\n현재는 조회와 단가 입력만 가능해요.\n로그인과 거래 저장은 지원하지 않습니다.\n\nDAYNOMY\n나의 자산을 기록하는 첫 단계",
+    "width": 412,
+    "scrollWidth": 412,
+    "userAgent": "Mozilla/5.0 (Linux; Android 13; sdk_gphone64_arm64 Build/TE1A.240213.009; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/109.0.5414.123 Mobile Safari/537.36"
+  },
+  "checks": [],
+  "search": {
+    "text": "DAYNOMY\n종목 조회\n종목과 거래 단가\n\n종목을 고르면 최근 종가를 불러와요.\n단가는 언제든 직접 입력할 수 있어요.\n\n종목 찾기\n국가\n한국\n미국\n종목 검색\n\n검색 결과는 최대 20개예요. 유형을 선택해 좁혀 보세요.\n\n전체\n주식\nETF\n검색 결과\n\n검색 결과를 불러오지 못했어요. 연결을 확인하고 다시 시도해 주세요.\n\n검색 다시 시도\n거래 단가\n\n조회할 종목을 선택해 주세요\n\n왼쪽 검색창에서 종목을 찾아보세요.\n선택한 종목의 최근 저장 종가를 확인할 수 있어요.\n\n현재는 조회와 단가 입력만 가능해요.\n로그인과 거래 저장은 지원하지 않습니다.\n\nDAYNOMY\n나의 자산을 기록하는 첫 단계",
+    "status": "검색 결과를 불러오지 못했어요. 연결을 확인하고 다시 시도해 주세요.",
+    "results": 0
+  },
+  "events": [
+    {
+      "method": "Log.entryAdded",
+      "params": {
+        "entry": {
+          "source": "network",
+          "level": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+          "timestamp": 1793177922436.434,
+          "url": "http://10.0.2.2:18082/favicon.ico",
+          "networkRequestId": "13147.7"
+        }
+      }
+    }
+  ]
+}

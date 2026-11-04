@@ -1,0 +1,528 @@
+{
+  "created_at": "2026-10-28T09:13:35.546335+00:00",
+  "task": "news",
+  "feature": "news",
+  "platform": "android",
+  "documents": {
+    "knowledge/wiki/projects/daynomy/news.md": "6d2ffad89ce9ae1864323eaeb25c1c73b190ab95e11bdcfbbe09fb42d227ddbe",
+    "knowledge/wiki/packages/android-kotlin/types-and-json.md": "c65bfd46a9f7918f7b69f7d5efd197d330b3f9e21754686d6cb4da10d7a3ecca",
+    "knowledge/wiki/packages/android-kotlin/dates-and-unicode.md": "f95469cc81002bd139bfb1d9bef57209cfa8befb447ac0242a2c629f475d654e",
+    "knowledge/wiki/packages/android-kotlin/async-and-cancellation.md": "80ae16b4f8c37fd75fdc66aa4ca6068d7132ae889a39141d4ff2a147bbb04ad9",
+    "knowledge/wiki/packages/android-kotlin/state-and-navigation.md": "33d9a43b77cf761885cd5cfb72f6942100858e6193fb7d8f84a03c6906eca5f9"
+  },
+  "source_records": {
+    "B04": {
+      "id": "B04",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/asset/dto/StockPriceResponse.java",
+      "sha256": "75c6b490f0bc3209dbe6fc99b988e82de05860bf8d02a3ff6e04b87ef1de47bb",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "종가 DTO와 타입",
+      "runtime_verification_this_run": "not-run"
+    },
+    "DX01": {
+      "id": "DX01",
+      "kind": "local",
+      "path": "knowledge/examples/kotlin/Core.kt",
+      "sha256": "496a91da6801f035e94dde8539fa095f84f606f9f5f4db5b691f3f09987270e9",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Kotlin JSON, ownership, cancellation and pure bridge policy examples",
+      "runtime_verification_this_run": "see DX09; integration not-run"
+    },
+    "DX09": {
+      "id": "DX09",
+      "kind": "local",
+      "path": "knowledge/evidence/2026-10-28-topic-examples-04.json",
+      "sha256": "62808d5fe2bdc0b4122c16435d76120415121079faf87e08d7ff92680a655c79",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Five-language final example build/run evidence; 100 cases",
+      "runtime_verification_this_run": "see DX09; integration not-run"
+    },
+    "E12": {
+      "id": "E12",
+      "kind": "external",
+      "title": "Compose state",
+      "url": "https://developer.android.com/develop/ui/compose/state",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "State in composables; remember, rememberSaveable",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E12/024da75da6c5f4e45c3c72edb15ae7efa41af1f58302ea5338b25234124eacb8.html",
+        "sha256": "024da75da6c5f4e45c3c72edb15ae7efa41af1f58302ea5338b25234124eacb8",
+        "bytes": 442544,
+        "media_type": "text/html",
+        "retrieved_url": "https://developer.android.com/develop/ui/compose/state",
+        "retrieved_at": "2026-10-28T06:28:21.142305+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E12/024da75da6c5f4e45c3c72edb15ae7efa41af1f58302ea5338b25234124eacb8.html",
+            "sha256": "024da75da6c5f4e45c3c72edb15ae7efa41af1f58302ea5338b25234124eacb8",
+            "bytes": 442544,
+            "media_type": "text/html",
+            "retrieved_url": "https://developer.android.com/develop/ui/compose/state",
+            "retrieved_at": "2026-10-28T06:28:21.142305+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.891456+00:00",
+          "review_note": "보관 응답의 관련 절 확인: 再確認: State in composables; remember, rememberSaveable; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E17": {
+      "id": "E17",
+      "kind": "external",
+      "title": "Kotlin CoroutineScope.cancel",
+      "url": "https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/cancel.html",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Official API cancellation description and cooperative cancellation pitfalls",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E17/3284e5f2861a2e6bf0426b449578480864ab0f4e884e9ad9910e0cd0a3e006c1.html",
+        "sha256": "3284e5f2861a2e6bf0426b449578480864ab0f4e884e9ad9910e0cd0a3e006c1",
+        "bytes": 48712,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/cancel.html",
+        "retrieved_at": "2026-10-28T06:28:23.822921+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E17/3284e5f2861a2e6bf0426b449578480864ab0f4e884e9ad9910e0cd0a3e006c1.html",
+            "sha256": "3284e5f2861a2e6bf0426b449578480864ab0f4e884e9ad9910e0cd0a3e006c1",
+            "bytes": 48712,
+            "media_type": "text/html",
+            "retrieved_url": "https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/cancel.html",
+            "retrieved_at": "2026-10-28T06:28:23.822921+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.899525+00:00",
+          "review_note": "보관 응답의 관련 절 확인: 再確認: Official API cancellation description and cooperative cancellation pitfalls; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E23": {
+      "id": "E23",
+      "kind": "external",
+      "title": "Kotlin numbers",
+      "url": "https://kotlinlang.org/docs/numbers.html",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Integer ranges and floating point precision",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E23/d8cb45cc423b44311800cd62d42463a51f1944ecd773cd91ea7e3b49f0c5297b.html",
+        "sha256": "d8cb45cc423b44311800cd62d42463a51f1944ecd773cd91ea7e3b49f0c5297b",
+        "bytes": 32902,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/docs/numbers.html",
+        "retrieved_at": "2026-10-28T06:28:27.712470+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E23/d8cb45cc423b44311800cd62d42463a51f1944ecd773cd91ea7e3b49f0c5297b.html",
+            "sha256": "d8cb45cc423b44311800cd62d42463a51f1944ecd773cd91ea7e3b49f0c5297b",
+            "bytes": 32902,
+            "media_type": "text/html",
+            "retrieved_url": "https://kotlinlang.org/docs/numbers.html",
+            "retrieved_at": "2026-10-28T06:28:27.712470+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.912262+00:00",
+          "review_note": "보관 응답의 관련 절 확인: 再確認: Integer ranges and floating point precision; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E24": {
+      "id": "E24",
+      "kind": "external",
+      "title": "Kotlin null safety",
+      "url": "https://kotlinlang.org/docs/null-safety.html",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Nullable types and Java interoperability caveats",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E24/b691cc0e8f41c03d56a55f330e64471081019d6dbfcdc285b5be808040b3ef6c.html",
+        "sha256": "b691cc0e8f41c03d56a55f330e64471081019d6dbfcdc285b5be808040b3ef6c",
+        "bytes": 34012,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/docs/null-safety.html",
+        "retrieved_at": "2026-10-28T06:28:28.722308+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E24/b691cc0e8f41c03d56a55f330e64471081019d6dbfcdc285b5be808040b3ef6c.html",
+            "sha256": "b691cc0e8f41c03d56a55f330e64471081019d6dbfcdc285b5be808040b3ef6c",
+            "bytes": 34012,
+            "media_type": "text/html",
+            "retrieved_url": "https://kotlinlang.org/docs/null-safety.html",
+            "retrieved_at": "2026-10-28T06:28:28.722308+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.914932+00:00",
+          "review_note": "보관 응답의 관련 절 확인: 再確認: Nullable types and Java interoperability caveats; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E31": {
+      "id": "E31",
+      "kind": "external",
+      "title": "Kotlin JSON explicitNulls",
+      "url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-builder/explicit-nulls.html",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "explicitNulls defaults and absent/null/default decoding differences",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E31/78b3270b5e76ebaee9d176818e39f5bb3d49ad08bea24a022418b70ff5aafb88.html",
+        "sha256": "78b3270b5e76ebaee9d176818e39f5bb3d49ad08bea24a022418b70ff5aafb88",
+        "bytes": 41852,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-builder/explicit-nulls.html",
+        "retrieved_at": "2026-10-28T06:28:31.037233+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E31/78b3270b5e76ebaee9d176818e39f5bb3d49ad08bea24a022418b70ff5aafb88.html",
+            "sha256": "78b3270b5e76ebaee9d176818e39f5bb3d49ad08bea24a022418b70ff5aafb88",
+            "bytes": 41852,
+            "media_type": "text/html",
+            "retrieved_url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-builder/explicit-nulls.html",
+            "retrieved_at": "2026-10-28T06:28:31.037233+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.927394+00:00",
+          "review_note": "보관 응답의 관련 절 확인: explicitNulls defaults and absent/null/default decoding differences; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E36": {
+      "id": "E36",
+      "kind": "external",
+      "title": "Android architecture recommendations",
+      "url": "https://developer.android.com/topic/architecture/recommendations",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Android UI/data architecture, state holders and unidirectional data flow",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E36/c5a30ad2c9f137af9ad75a99db669b9d148ad863935ac8be6b447884df8ccc42.html",
+        "sha256": "c5a30ad2c9f137af9ad75a99db669b9d148ad863935ac8be6b447884df8ccc42",
+        "bytes": 338508,
+        "media_type": "text/html",
+        "retrieved_url": "https://developer.android.com/topic/architecture/recommendations",
+        "retrieved_at": "2026-10-28T06:28:34.832820+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E36/c5a30ad2c9f137af9ad75a99db669b9d148ad863935ac8be6b447884df8ccc42.html",
+            "sha256": "c5a30ad2c9f137af9ad75a99db669b9d148ad863935ac8be6b447884df8ccc42",
+            "bytes": 338508,
+            "media_type": "text/html",
+            "retrieved_url": "https://developer.android.com/topic/architecture/recommendations",
+            "retrieved_at": "2026-10-28T06:28:34.832820+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.939616+00:00",
+          "review_note": "보관 응답의 관련 절 확인: Android UI/data architecture, state holders and unidirectional data flow; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E40": {
+      "id": "E40",
+      "kind": "external",
+      "title": "Kotlin JSON ignoreUnknownKeys",
+      "url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-builder/ignore-unknown-keys.html",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "ignoreUnknownKeys default false and allowing additional JSON properties",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E40/123e3be1a8e6e77823b2dc3156be9bf60b337ce173d8b43d2eabc670b21fd3f1.html",
+        "sha256": "123e3be1a8e6e77823b2dc3156be9bf60b337ce173d8b43d2eabc670b21fd3f1",
+        "bytes": 40736,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-builder/ignore-unknown-keys.html",
+        "retrieved_at": "2026-10-28T06:28:37.449889+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E40/123e3be1a8e6e77823b2dc3156be9bf60b337ce173d8b43d2eabc670b21fd3f1.html",
+            "sha256": "123e3be1a8e6e77823b2dc3156be9bf60b337ce173d8b43d2eabc670b21fd3f1",
+            "bytes": 40736,
+            "media_type": "text/html",
+            "retrieved_url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-builder/ignore-unknown-keys.html",
+            "retrieved_at": "2026-10-28T06:28:37.449889+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.949572+00:00",
+          "review_note": "보관 응답의 관련 절 확인: ignoreUnknownKeys default false and allowing additional JSON properties; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E45": {
+      "id": "E45",
+      "kind": "external",
+      "title": "OkHttp recipes and cancellation",
+      "url": "https://github.com/square/okhttp/blob/master/docs/recipes.md",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Official repository recipes Canceling a Call and Call.cancel IOException behavior",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E45/001ed65e6ec707902b03025e1e5a382ec5eb766606ea7240f0eb64f59bd0ca78.txt",
+        "sha256": "001ed65e6ec707902b03025e1e5a382ec5eb766606ea7240f0eb64f59bd0ca78",
+        "bytes": 49101,
+        "media_type": "text/plain",
+        "retrieved_url": "https://raw.githubusercontent.com/square/okhttp/master/docs/recipes.md",
+        "retrieved_at": "2026-10-28T06:31:44.864633+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_url": "https://raw.githubusercontent.com/square/okhttp/master/docs/recipes.md",
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E45/001ed65e6ec707902b03025e1e5a382ec5eb766606ea7240f0eb64f59bd0ca78.txt",
+            "sha256": "001ed65e6ec707902b03025e1e5a382ec5eb766606ea7240f0eb64f59bd0ca78",
+            "bytes": 49101,
+            "media_type": "text/plain",
+            "retrieved_url": "https://raw.githubusercontent.com/square/okhttp/master/docs/recipes.md",
+            "retrieved_at": "2026-10-28T06:31:44.864633+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-canonical.json",
+          "reviewed_at": "2026-10-28T06:44:41.970496+00:00",
+          "review_note": "보관 응답의 관련 절 확인: Official repository recipes Canceling a Call and Call.cancel IOException behavior; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ],
+      "previous_urls": [
+        "https://square.github.io/okhttp/recipes/"
+      ],
+      "reading_note": "Published recipes URL returned 404; used the official repository source. Failed capture retained."
+    },
+    "E46": {
+      "id": "E46",
+      "kind": "external",
+      "title": "Kotlin JSON primitive content",
+      "url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-primitive/content.html",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "JsonPrimitive.content and JsonNull contentOrNull distinction",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E46/f27c04b0827013e356d6fee59fde67d7ecd85ee3e7abe1fa3b8aef314bb1af91.html",
+        "sha256": "f27c04b0827013e356d6fee59fde67d7ecd85ee3e7abe1fa3b8aef314bb1af91",
+        "bytes": 39212,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-primitive/content.html",
+        "retrieved_at": "2026-10-28T06:31:09.097988+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E46/f27c04b0827013e356d6fee59fde67d7ecd85ee3e7abe1fa3b8aef314bb1af91.html",
+            "sha256": "f27c04b0827013e356d6fee59fde67d7ecd85ee3e7abe1fa3b8aef314bb1af91",
+            "bytes": 39212,
+            "media_type": "text/html",
+            "retrieved_url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-primitive/content.html",
+            "retrieved_at": "2026-10-28T06:31:09.097988+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-libraries.json",
+          "reviewed_at": "2026-10-28T06:44:41.963821+00:00",
+          "review_note": "보관 응답의 관련 절 확인: JsonPrimitive.content and JsonNull contentOrNull distinction; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E55": {
+      "id": "E55",
+      "kind": "external",
+      "title": "Kotlin structured cancellation",
+      "url": "https://kotlinlang.org/docs/coroutines-cancellation.html",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Cancellation propagation, cooperative checks, CancellationException and finally cleanup. runCatching observation comes from executable DX01, not a quoted claim in this page.",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E55/6225c878986d1ff0787b5e8444b351dd38718ca4b4c445110816d7e5887224eb.html",
+        "sha256": "6225c878986d1ff0787b5e8444b351dd38718ca4b4c445110816d7e5887224eb",
+        "bytes": 38630,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/docs/coroutines-cancellation.html",
+        "retrieved_at": "2026-10-28T07:25:56.547522+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "previous_urls": [
+        "https://kotlinlang.org/docs/cancellation-and-timeouts.html"
+      ],
+      "snapshot_url": "https://kotlinlang.org/docs/coroutines-cancellation.html",
+      "reading_note": "Old document returned an HTML/meta/JavaScript redirect shell; followed its documented target. Failed raw paths and shell report retained.",
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E55/6225c878986d1ff0787b5e8444b351dd38718ca4b4c445110816d7e5887224eb.html",
+            "sha256": "6225c878986d1ff0787b5e8444b351dd38718ca4b4c445110816d7e5887224eb",
+            "bytes": 38630,
+            "media_type": "text/html",
+            "retrieved_url": "https://kotlinlang.org/docs/coroutines-cancellation.html",
+            "retrieved_at": "2026-10-28T07:25:56.547522+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-cancellation-canonical.json",
+          "reviewed_at": "2026-10-28T07:40:00.258110+00:00",
+          "review_note": "Cancellation propagation, cooperative checks, CancellationException and finally cleanup. runCatching observation comes from executable DX01, not a quoted claim in this page. Topic excerpts checked against captured official body; app target versions unselected.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "F01": {
+      "id": "F01",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/frontend/src/features/stocks/api.ts",
+      "sha256": "bd4189b4ae61e779c10beb1eb933d23894385d9a7885aac1eba647384d6c4756",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "종목 API와 런타임 응답 검증",
+      "runtime_verification_this_run": "not-run"
+    },
+    "F04": {
+      "id": "F04",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/frontend/src/features/portfolio/components/PortfolioTransactionEditor.tsx",
+      "sha256": "abacd47444c919ddd4d732951084861d1722bdb1791c271ce5ec6f54ee20154c",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "검색과 종가 effect 및 수동 입력",
+      "runtime_verification_this_run": "not-run"
+    },
+    "G11": {
+      "id": "G11",
+      "kind": "local",
+      "path": "knowledge/evidence/2026-10-28-unicode.json",
+      "sha256": "c6c874594e58538c0974f67239c347173219417b49c051ab82c72c7fbba1d40d",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Actual Java/Rust whitespace observations, commands, versions and source hashes",
+      "runtime_verification_this_run": "evidence-linked"
+    },
+    "JC14": {
+      "id": "JC14",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/keyword/controller/KeywordController.java",
+      "sha256": "c3b39e7e70f071e80e3206452f547ff40150a6f8ac5db85e64085e5786cc7a8c",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "HTTP class/method mapping annotations only; compared programmatically, not full business-service review",
+      "runtime_verification_this_run": "not-run"
+    },
+    "JC18": {
+      "id": "JC18",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/news/controller/NewsController.java",
+      "sha256": "c92961bb993b660c5fd54e138fa04532d3e1170e189b98a7c4d10832112884e4",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "HTTP class/method mapping annotations only; compared programmatically, not full business-service review",
+      "runtime_verification_this_run": "not-run"
+    },
+    "P02": {
+      "id": "P02",
+      "kind": "local",
+      "path": "spec/service.md",
+      "sha256": "31fed07c550f6bccfa5cd80114c6db56f3bd6489dcfe28eee49893bfc72ad11a",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Full non-league service contract, feature sections and API appendix; requirements, not runtime proof",
+      "runtime_verification_this_run": "not-run"
+    },
+    "W02": {
+      "id": "W02",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/frontend/src/features/portfolio/transactionForm.ts",
+      "sha256": "f2a9d1e34c01fd3199242accc9efc0ceaa324052f786bb50c9ade78ed9fd6493",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Seoul date, input precision, quantity and request conversion",
+      "runtime_verification_this_run": "not-run"
+    },
+    "W07": {
+      "id": "W07",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/frontend/src/features/news/newslist/api.ts",
+      "sha256": "3a23d33dd7927f405546040c90055301ba82919b112b6b85988ff73db9d41065",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "News list requests and mapping",
+      "runtime_verification_this_run": "not-run"
+    },
+    "W08": {
+      "id": "W08",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/frontend/src/features/news/newsdetail/api.ts",
+      "sha256": "f9ee57e0bc224656a1943538a896224789eec3faeccdc5697ccffb40e85c840c",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "News detail requests and mapping",
+      "runtime_verification_this_run": "not-run"
+    }
+  },
+  "context": "experiments/android-native/next/knowledge/news/context.md",
+  "context_sha256": "8eaa1e1e552b3d65135aac39d812ed954c6a844eebd1e503a058bb5c1cc8cf0f",
+  "scope": "Required input materialization and provenance; content understanding is tested/reviewed, not mechanically proven"
+}

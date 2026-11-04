@@ -1,0 +1,173 @@
+{
+  "evidence": "Expo web synthetic HTTP route fixtures; NOT actual Rust integration or native OS execution",
+  "timestamp": "2026-10-28T10:33:02.011Z",
+  "checks": [
+    {
+      "name": "manual-price-preserved-after-delayed-close",
+      "pass": true
+    },
+    {
+      "name": "guest-buy-visible",
+      "pass": true
+    },
+    {
+      "name": "trade-modal-closed-after-save",
+      "pass": true
+    },
+    {
+      "name": "holding-two-shares-visible-outside-modal",
+      "pass": true
+    },
+    {
+      "name": "guest-ledger-survives-browser-reload",
+      "pass": true
+    },
+    {
+      "name": "trade-history-tab",
+      "pass": true
+    },
+    {
+      "name": "news-null-thumbnail-date-render",
+      "pass": true
+    },
+    {
+      "name": "news-detail-navigation",
+      "pass": true
+    },
+    {
+      "name": "explore-stock-search",
+      "pass": true
+    },
+    {
+      "name": "calendar-empty-state",
+      "pass": true
+    },
+    {
+      "name": "more-settings-tab",
+      "pass": true
+    },
+    {
+      "name": "no-horizontal-document-overflow",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [],
+  "expectedHttpErrors": [
+    "Failed to load resource: the server responded with a status of 401 (Unauthorized)",
+    "Failed to load resource: the server responded with a status of 401 (Unauthorized)",
+    "Failed to load resource: the server responded with a status of 401 (Unauthorized)",
+    "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+  ],
+  "requests": [
+    {
+      "path": "/api/users/me",
+      "method": "GET",
+      "query": {}
+    },
+    {
+      "path": "/api/auth/csrf",
+      "method": "GET",
+      "query": {}
+    },
+    {
+      "path": "/api/auth/refresh",
+      "method": "POST",
+      "query": {}
+    },
+    {
+      "path": "/api/stocks",
+      "method": "GET",
+      "query": {
+        "q": "삼성",
+        "country": "KR"
+      }
+    },
+    {
+      "path": "/api/stocks/910001/price",
+      "method": "GET",
+      "query": {}
+    },
+    {
+      "path": "/api/auth/csrf",
+      "method": "GET",
+      "query": {}
+    },
+    {
+      "path": "/api/portfolio/calculate",
+      "method": "POST",
+      "query": {}
+    },
+    {
+      "path": "/api/users/me",
+      "method": "GET",
+      "query": {}
+    },
+    {
+      "path": "/api/auth/csrf",
+      "method": "GET",
+      "query": {}
+    },
+    {
+      "path": "/api/auth/csrf",
+      "method": "GET",
+      "query": {}
+    },
+    {
+      "path": "/api/auth/refresh",
+      "method": "POST",
+      "query": {}
+    },
+    {
+      "path": "/api/portfolio/calculate",
+      "method": "POST",
+      "query": {}
+    },
+    {
+      "path": "/api/news",
+      "method": "GET",
+      "query": {
+        "page": "1",
+        "size": "20"
+      }
+    },
+    {
+      "path": "/api/news/501/keywords",
+      "method": "GET",
+      "query": {}
+    },
+    {
+      "path": "/api/news/501/market-analysis",
+      "method": "GET",
+      "query": {}
+    },
+    {
+      "path": "/api/news/501",
+      "method": "GET",
+      "query": {}
+    },
+    {
+      "path": "/api/stocks",
+      "method": "GET",
+      "query": {
+        "q": "삼성",
+        "country": "KR"
+      }
+    },
+    {
+      "path": "/api/auth/csrf",
+      "method": "GET",
+      "query": {}
+    },
+    {
+      "path": "/api/investment-calendar",
+      "method": "POST",
+      "query": {
+        "year": "2026",
+        "month": "10",
+        "scope": "ALL"
+      }
+    }
+  ],
+  "body": "DAYNOMY•\n게스트 포트폴리오\nMY DAYNOMY\n나만의 투자 기록을 이어가세요.\n계정\n게스트 기록은 이 기기에만 저장됩니다. 로그인하면 회원 포트폴리오를 불러옵니다.\nGoogle로 로그인\n외부 브라우저 로그인은 Android/iOS 개발 빌드에서 이용하세요.\n외부 브라우저에서 안전하게 인증합니다. 게스트 데이터는 자동으로 회원 계정에 합쳐지지 않습니다.\n의견을 들려주세요\n피드백 내용 (최대 2,000자)\n피드백 보내기\n앱 연결 설정\n실행 중인 DAYNOMY 백엔드 주소를 입력하세요.\nAPI 서버 주소\n서버 연결 변경\nhttp://127.0.0.1:18129\n게스트 기록은 보존됩니다. 로그인 세션은 앱 종료 후 유지되지 않을 수 있습니다.\n\n내 자산\n\n뉴스\n\n탐색\n\n캘린더\n\n더보기"
+}

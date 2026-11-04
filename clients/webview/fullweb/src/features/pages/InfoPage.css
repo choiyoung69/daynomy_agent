@@ -1,0 +1,100 @@
+.info-page {
+  min-height: calc(100svh - 64px);
+  padding: 72px var(--page-side-padding) 96px;
+  color: #171821;
+  background: #ffffff;
+}
+
+.info-page-content {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.info-card {
+  padding: 0 0 32px;
+}
+
+.info-header {
+  padding-bottom: 48px;
+  border-bottom: 1px solid #e3e6eb;
+}
+
+.info-header h1 {
+  color: #171821;
+  font-size: var(--page-title-size);
+  font-weight: var(--page-title-weight);
+  line-height: var(--page-title-line-height);
+  letter-spacing: var(--page-title-letter-spacing);
+}
+
+.info-lead {
+  max-width: 640px;
+  margin-top: 18px;
+  color: #687386;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 28px;
+}
+
+.info-sections {
+  display: grid;
+}
+
+.info-sections section {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 36px;
+  padding: 40px 0;
+}
+
+.info-sections section + section {
+  border-top: 1px solid #eef0f3;
+}
+
+.info-sections h2 {
+  color: #171821;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 26px;
+  letter-spacing: -0.02em;
+}
+
+.info-section-copy {
+  display: grid;
+  gap: 14px;
+}
+
+.info-sections p {
+  color: #596579;
+  font-size: 15px;
+  line-height: 28px;
+}
+
+@media (max-width: 600px) {
+  .info-page {
+    padding: 48px var(--page-side-padding) 64px;
+  }
+
+  .info-header {
+    padding-bottom: 32px;
+  }
+
+  .info-lead {
+    font-size: 15px;
+    line-height: 25px;
+  }
+
+  .info-sections section {
+    display: block;
+    padding: 32px 0;
+  }
+
+  .info-sections h2 {
+    margin-bottom: 14px;
+  }
+
+  .info-sections p {
+    font-size: 14px;
+    line-height: 25px;
+  }
+}

@@ -1,0 +1,52 @@
+[
+  {
+    "command": "node --test clients/webview/full-tests/native-auth/native-auth.test.mjs",
+    "exit_code": 0,
+    "evidence": "pure-first.tap",
+    "result": "2 tests,211 assertions each"
+  },
+  {
+    "command": "Android assembleDebug first sandbox attempt",
+    "exit_code": 1,
+    "evidence": "android-first.log",
+    "result": "Gradle daemon socket Operation not permitted; no compiler result"
+  },
+  {
+    "command": "Android offline assembleDebug require_escalated",
+    "exit_code": 0,
+    "evidence": "android-build.log"
+  },
+  {
+    "command": "Android offline assembleDebug intermediate cancellation UI revision",
+    "exit_code": 0,
+    "evidence": "android-final.log"
+  },
+  {
+    "command": "Android offline assembleDebug final delivered source",
+    "exit_code": 0,
+    "evidence": "android-handoff.log"
+  },
+  {
+    "command": "node --test clients/webview/full-tests/full-host-policy.test.mjs",
+    "exit_code": 0,
+    "evidence": "host-policy.tap",
+    "result": "3/3"
+  },
+  {
+    "command": "node --test clients/webview/full-tests/native-auth/native-auth.test.mjs final",
+    "exit_code": 0,
+    "evidence": "pure-handoff.tap",
+    "result": "2/2,211 each"
+  },
+  {
+    "command": "swiftc -frontend -parse clients/webview/ios-full/DaynomyWebView/*.swift",
+    "exit_code": 0,
+    "evidence": "swift-parse-handoff.log",
+    "result": "syntax only, not iOS SDK compile"
+  },
+  {
+    "command": "plutil -lint iOS project and Debug/Release plists",
+    "exit_code": 0,
+    "result": "3 OK"
+  }
+]

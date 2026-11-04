@@ -1,0 +1,20 @@
+{
+  "checkedAt": "2026-10-28T10:34:10.377911+00:00",
+  "status": "stopped",
+  "finishedAt": "2026-10-28T10:33:57.115480+00:00",
+  "shutdownCommands": [
+    {
+      "name": "fixture-db-drop",
+      "exit_code": 0,
+      "seconds": 0.07258849998470396
+    },
+    {
+      "name": "private-db-stop",
+      "exit_code": 0,
+      "seconds": 0.13294999999925494
+    }
+  ],
+  "previousFixtureStatus": "stopped",
+  "ownGradleDaemonStop": "No Gradle daemons are running.",
+  "existingServicesTouched": false
+}

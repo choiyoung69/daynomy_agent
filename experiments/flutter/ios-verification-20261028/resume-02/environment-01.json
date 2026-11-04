@@ -1,0 +1,47 @@
+{
+  "time": "2026-10-28T10:14:21.877104+00:00",
+  "environment": {
+    "DEVELOPER_DIR": "/Applications/Xcode.app/Contents/Developer"
+  },
+  "commands": [
+    {
+      "command": [
+        "xcodebuild",
+        "-version"
+      ],
+      "exit": 0,
+      "output": "Xcode 27.1\nBuild version 27A9275\n"
+    },
+    {
+      "command": [
+        "xcodebuild",
+        "-showsdks"
+      ],
+      "exit": 69,
+      "output": "2026-10-28 19:14:21.074 xcodebuild[64362:19694902]  DVTFilePathFSEvents: Failed to start fs event stream.\n2026-10-28 19:14:21.288 xcodebuild[64362:19694897] [MT] DVTDeveloperPaths: Failed to get length of DARWIN_USER_CACHE_DIR from confstr(3), error = Error Domain=NSPOSIXErrorDomain Code=5 \"Input/output error\". Using NSCachesDirectory instead.\nYou have not agreed to the Xcode license agreements. Please run 'sudo xcodebuild -license' from within a Terminal window to review and agree to the Xcode and Apple SDKs license.\n"
+    },
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "list",
+        "runtimes",
+        "-j"
+      ],
+      "exit": 69,
+      "output": "You have not agreed to the Xcode license agreements. Please run 'sudo xcodebuild -license' from within a Terminal window to review and agree to the Xcode and Apple SDKs license.\n"
+    },
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "list",
+        "devices",
+        "available",
+        "-j"
+      ],
+      "exit": 69,
+      "output": "You have not agreed to the Xcode license agreements. Please run 'sudo xcodebuild -license' from within a Terminal window to review and agree to the Xcode and Apple SDKs license.\n"
+    }
+  ]
+}

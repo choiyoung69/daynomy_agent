@@ -1,0 +1,83 @@
+[!] Flutter (Channel stable, 3.47.8, on macOS 26.6.2 25G83 darwin-x64, locale ko-KR) [520ms]
+    ! Flutter is deprecating support for Intel-based Macs. A future version of Flutter will require an Apple Silicon Mac to build applications.
+    • Flutter version 3.47.8 on channel stable at /Users/seoyeong/develop/AI/daynomy_agent/.local/flutter-sdk/flutter
+    ! The flutter binary is not on your path. Consider adding /Users/seoyeong/develop/AI/daynomy_agent/.local/flutter-sdk/flutter/bin to your path.
+    ! The dart binary is not on your path. Consider adding /Users/seoyeong/develop/AI/daynomy_agent/.local/flutter-sdk/flutter/bin to your path.
+    • Upstream repository https://github.com/flutter/flutter.git
+    • Framework revision 737ba8f885 (5 days ago), 2026-10-22 21:37:31 -0700
+    • Engine revision cf636b1dfb
+    • Dart version 3.13.7
+    • DevTools version 2.60.0
+    • Feature flags: enable-web, enable-linux-desktop, enable-macos-desktop, enable-windows-desktop, enable-android, enable-ios, cli-animations, enable-native-assets, enable-record-use, enable-swift-package-manager, omit-legacy-version-file, enable-lldb-debugging, enable-uiscene-migration
+    • If those were intentional, you can disregard the above warnings; however it is recommended to use "git" directly to perform update checks and upgrades.
+
+[!] Android toolchain - develop for Android devices (Android SDK version 36.0.0) [1,163ms]
+    • Android SDK at /Users/seoyeong/develop/AI/daynomy_agent/.local/flutter-android-sdk
+    • Emulator version unknown
+    ✗ cmdline-tools component is missing.
+      Try installing or updating Android Studio.
+      Alternatively, download the tools from https://developer.android.com/studio#command-line-tools-only and make sure to set the ANDROID_HOME environment variable.
+      See https://developer.android.com/studio/command-line for more details.
+    ✗ Android license status unknown.
+      Run `flutter doctor --android-licenses` to accept the SDK licenses.
+      See https://flutter.dev/to/macos-android-setup for more details.
+
+[!] Xcode - develop for iOS and macOS [81ms]
+    ✗ Xcode installation is incomplete; a full installation is necessary for iOS and macOS development.
+      Download at: https://developer.apple.com/xcode/
+      Or install Xcode via the App Store.
+      Once installed, run:
+        sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+        sudo xcodebuild -runFirstLaunch
+    ! CocoaPods not installed.
+        CocoaPods is a package manager for iOS or macOS platform code.
+        Without CocoaPods, plugins will not work on iOS or macOS.
+        For more info, see https://flutter.dev/to/platform-plugins
+      For installation instructions, see https://guides.cocoapods.org/using/getting-started.html#installation
+
+[✓] Chrome - develop for the web [24ms]
+    • Chrome at /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+
+[☠] Connected device (the doctor check crashed)
+    ✗ Due to an error, the doctor check did not complete. If the error message below is not helpful, please let us know about this issue at https://github.com/flutter/flutter/issues.
+    ✗ Error: Unable to run "adb", check your Android SDK installation and ANDROID_HOME environment variable: /Users/seoyeong/develop/AI/daynomy_agent/.local/flutter-android-sdk/platform-tools/adb
+      Error details: Process exited abnormally with exit code 1:
+      * daemon not running; starting now at tcp:5037
+      ADB server didn't ACK
+      Full server startup log: /var/folders/x_/sr4s1_pd4bz_5pwhcs4tqtym0000gn/T//adb.501.log
+      Server had pid: 56874
+      --- adb starting (pid 56874) ---
+      10-28 19:02:21.650 56874 19641480 I adb     : main.cpp:63 Android Debug Bridge version 1.0.41
+      10-28 19:02:21.650 56874 19641480 I adb     : main.cpp:63 Version 35.0.2-12147458
+      10-28 19:02:21.650 56874 19641480 I adb     : main.cpp:63 Installed as /Users/seoyeong/develop/AI/daynomy_agent/.local/flutter-android-sdk/platform-tools/adb
+      10-28 19:02:21.650 56874 19641480 I adb     : main.cpp:63 Running on Darwin 25.6.0 (arm64)
+      10-28 19:02:21.650 56874 19641480 I adb     : main.cpp:63 
+      10-28 19:02:22.174 56874 19641480 F adb     : main.cpp:163 could not install *smartsocket* listener: Operation not permitted
+
+      * failed to start daemon
+      adb: failed to check server version: cannot connect to daemon
+    • #0      throwToolExit (package:flutter_tools/src/base/common.dart:34:3)
+      #1      AndroidDevices.pollingGetDevices (package:flutter_tools/src/android/android_device_discovery.dart:77:7)
+      <asynchronous suspension>
+      #2      PollingDeviceDiscovery._populateDevices (package:flutter_tools/src/device.dart:558:36)
+      <asynchronous suspension>
+      #3      Future.wait.<anonymous closure> (dart:async/future.dart:567:21)
+      <asynchronous suspension>
+      #4      DeviceManager.refreshAllDevices (package:flutter_tools/src/device.dart:201:40)
+      <asynchronous suspension>
+      #5      DeviceValidator.validateImpl (package:flutter_tools/src/doctor.dart:781:34)
+      <asynchronous suspension>
+      #6      DoctorValidator.validate (package:flutter_tools/src/doctor_validator.dart:58:37)
+      <asynchronous suspension>
+      #7      Future.any.onValue (dart:async/future.dart:658:5)
+      <asynchronous suspension>
+
+
+[!] Network resources [37ms]
+    ✗ A network error occurred while checking "https://pub.dev/": Failed host lookup: 'pub.dev'
+    ✗ A network error occurred while checking "https://storage.googleapis.com/": Failed host lookup: 'storage.googleapis.com'
+    ✗ A network error occurred while checking "https://maven.google.com/": Failed host lookup: 'maven.google.com'
+    ✗ A network error occurred while checking "https://cocoapods.org/": Failed host lookup: 'cocoapods.org'
+    ✗ A network error occurred while checking "https://github.com/": Failed host lookup: 'github.com'
+
+! Doctor found issues in 5 categories.

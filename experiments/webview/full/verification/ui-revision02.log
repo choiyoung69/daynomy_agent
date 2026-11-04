@@ -1,0 +1,26 @@
+
+> frontend@1.1.4 test:ui
+> vitest run --exclude 'tests/**/*.test.ts'
+
+
+ RUN  v4.1.11 /Users/seoyeong/develop/AI/daynomy_agent/experiments/webview/full/verification/buildwork-revision02
+
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: navigation to another Document
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+
+ Test Files  40 passed (40)
+      Tests  385 passed (385)
+   Start at  18:49:33
+   Duration  11.31s (transform 5.66s, setup 0ms, import 13.48s, tests 43.52s, environment 34.37s)
+

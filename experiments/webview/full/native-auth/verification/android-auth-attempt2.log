@@ -1,0 +1,3 @@
+actual guest protected MyPage redirects to login
+original login link launches external Chrome while WebView stays trusted
+{"step":"cancel-and-retry","name":"Error"}

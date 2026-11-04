@@ -1,0 +1,392 @@
+{
+  "recorded_at": "2026-10-28T08:51:29.660470+00:00",
+  "scope": "verified Android stock search and latest price pilot; not complete app/deployment",
+  "command_exit_code": 0,
+  "command": "gradlew :market-core:test :market-core:backendTest :app:connectedDebugAndroidTest :app:lintDebug --write-locks",
+  "reports": {
+    "jvm": [
+      {
+        "name": "org.daynomy.market.StockSearchClientContractTest",
+        "tests": 10,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "koreanSearchEncodesExactlyOneUntrimmedQueryAndOmitsCountry",
+            "passed": true
+          },
+          {
+            "name": "cancellationAndTransportAndApiFailuresRemainTransparent",
+            "passed": true
+          },
+          {
+            "name": "invalidIdsAreRejectedWithoutDoubleRoundingOrStringCoercion",
+            "passed": true
+          },
+          {
+            "name": "mandatoryFieldsAreStrictWhileEmptyStringsAndUnknownPropertiesAreAllowed",
+            "passed": true
+          },
+          {
+            "name": "enumValuesAndLiteralMarketTypeAreEnforcedAsDocumentedAndroidDifference",
+            "passed": true
+          },
+          {
+            "name": "malformedCurrencyUsesDocumentedCodeFallbackAndExplicitCurrencyWins",
+            "passed": true
+          },
+          {
+            "name": "numericIntegralIdsIncludingDecimalAndExponentAreAcceptedExactly",
+            "passed": true
+          },
+          {
+            "name": "malformedEnvelopesAndRowsFailTheWholeResponse",
+            "passed": true
+          },
+          {
+            "name": "usSearchAddsCountryAndPreservesUnicode",
+            "passed": true
+          },
+          {
+            "name": "decodesEveryMarketCategoryAndPreservesOrderDuplicatesAndLength",
+            "passed": true
+          }
+        ],
+        "xml_sha256": "a5599741fef9e46456dbe2e2b7f5027291bc42c3bbb880f6cdc340e12ff4ae76"
+      },
+      {
+        "name": "org.daynomy.market.OkHttpTransportContractTest",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "bothApiClientsUseActualHttpAdapter",
+            "passed": true
+          },
+          {
+            "name": "realGetPreservesPathUtf8QueryAndResponseBodyWithoutAuthentication",
+            "passed": true
+          },
+          {
+            "name": "coroutineCancellationCancelsUnderlyingOkHttpCall",
+            "passed": true
+          },
+          {
+            "name": "malformedHtmlEmptyAndNonStringErrorBodiesRemainHttpFailures",
+            "passed": true
+          },
+          {
+            "name": "successfulInvalidJsonAnd204ReachDecoderAndBecomeFormatFailures",
+            "passed": true
+          },
+          {
+            "name": "socketFailureRemainsIOExceptionAndDoesNotBecomeEmptySuccess",
+            "passed": true
+          },
+          {
+            "name": "business404RetainsStatusAndStringCode",
+            "passed": true
+          }
+        ],
+        "xml_sha256": "b22bcf9f8eba1f90d1ab47bdd3ccc2cb9870d707fdd34e595c78d57304082b8b"
+      },
+      {
+        "name": "org.daynomy.market.StockPriceClientContractTest",
+        "tests": 10,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "latestUsesExactIdPathWithoutQueryOrOtherRequests",
+            "passed": true
+          },
+          {
+            "name": "arbitraryDateStringsRemainVerbatimAndUnknownFieldsAreAllowed",
+            "passed": true
+          },
+          {
+            "name": "failuresIncludingCancellationAreNotRemappedToMalformedPayload",
+            "passed": true
+          },
+          {
+            "name": "priceCurrencyFallbackHandlesMissingNullUnknownAndInvalidType",
+            "passed": true
+          },
+          {
+            "name": "nonNumericAndNonFinitePriceTokensAreRejected",
+            "passed": true
+          },
+          {
+            "name": "zeroAndNegativeRemainValidAtApiLayer",
+            "passed": true
+          },
+          {
+            "name": "responseIdIsExactPositiveSafeIntegralNumberButNeedNotMatchRequestedId",
+            "passed": true
+          },
+          {
+            "name": "rawDecimalTokensPreserveValueWithoutBinaryFloatOrForcedRounding",
+            "passed": true
+          },
+          {
+            "name": "invalidRequestedIdsFailBeforeNetwork",
+            "passed": true
+          },
+          {
+            "name": "priceRequiresTypedFieldsAndObjectEnvelope",
+            "passed": true
+          }
+        ],
+        "xml_sha256": "77a65937a055e5e32d1a62069c77b54c8f0d226588979f1b907cad05401ec9fc"
+      },
+      {
+        "name": "org.daynomy.market.MarketControllerContractTest",
+        "tests": 22,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "inactiveSearchDoesNotRestartUntilActive",
+            "passed": true
+          },
+          {
+            "name": "javascriptWhitespaceIsTrimmedButNelAndRawInputArePreserved",
+            "passed": true
+          },
+          {
+            "name": "selectingStockSuppressesSearchAndStartsPriceImmediately",
+            "passed": true
+          },
+          {
+            "name": "userEnteredAndClearedAndZeroPriceSurviveLateQuote",
+            "passed": true
+          },
+          {
+            "name": "cancellationExceptionIsNotUserVisibleFailure",
+            "passed": true
+          },
+          {
+            "name": "countryChangeClearsSelectionAndPriceDraft",
+            "passed": true
+          },
+          {
+            "name": "staleSearchSuccessCannotOverwriteNewerResults",
+            "passed": true
+          },
+          {
+            "name": "newSelectionResetsOnlyPriceDraftAndRejectsOldSuccess",
+            "passed": true
+          },
+          {
+            "name": "stalePriceFailureAndFinallyCannotEndNewPriceLoading",
+            "passed": true
+          },
+          {
+            "name": "restoredNonemptyUneditedPriceIsNotOverwritten",
+            "passed": true
+          },
+          {
+            "name": "countryChangeCancelsPreviousSearchAndRetriesSameTrimmedInput",
+            "passed": true
+          },
+          {
+            "name": "clearSelectionInvalidatesOldPriceAndResetsDraft",
+            "passed": true
+          },
+          {
+            "name": "filterChangesDoNotTriggerAnotherServerRequest",
+            "passed": true
+          },
+          {
+            "name": "explicitRetryRecoversSearchWithoutAutomaticLoop",
+            "passed": true
+          },
+          {
+            "name": "positivePriceFillsPlainDecimalAndPreservesDateWithoutRequiringResponseIdMatch",
+            "passed": true
+          },
+          {
+            "name": "staleSearchErrorAndFinallyCannotEndCurrentLoading",
+            "passed": true
+          },
+          {
+            "name": "inactiveCancelsAndPreservesDraftThenActiveReissuesSuitablePrice",
+            "passed": true
+          },
+          {
+            "name": "debounceWaits250msAndCancelsEarlierTimer",
+            "passed": true
+          },
+          {
+            "name": "nonpositiveQuoteFailsAtUiLayerWithoutAutofillOrVisibleQuoteDate",
+            "passed": true
+          },
+          {
+            "name": "blankInputInvalidatesInflightSearchAndClearsStatus",
+            "passed": true
+          },
+          {
+            "name": "priceFailureSupportsManualEntryAndExplicitRetryPreservesIt",
+            "passed": true
+          },
+          {
+            "name": "closeIsTerminalAndLateCallbacksCannotMutateClosedState",
+            "passed": true
+          }
+        ],
+        "xml_sha256": "86fd51d047dbadf9a3724604b68ca9fd04f26291b114f2642f43a8e5bcc030d4"
+      },
+      {
+        "name": "org.daynomy.market.MarketControllerRegressionTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "priceRejectsNonJsonNumericGrammarInBothIdAndPrice",
+            "passed": true
+          },
+          {
+            "name": "searchRejectsBigDecimalTokensThatAreNotJsonNumbers",
+            "passed": true
+          },
+          {
+            "name": "changingStockRetainsSearchTextAndReissuesSearchWhileResettingOnlyPriceDraft",
+            "passed": true
+          }
+        ],
+        "xml_sha256": "285b9e0676a99283198ae1b30cc239ae7e45ddf27477fb7f50049b0e2a27f4c5"
+      }
+    ],
+    "rust_http_db": [
+      {
+        "name": "org.daynomy.market.RustBackendAcceptanceTest",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "countryQuerySeparatesUsStockAndPreservesUsdQuote",
+            "passed": true
+          },
+          {
+            "name": "invalidQueryIsServer400NotEmptySuccessOrClientFormatFailure",
+            "passed": true
+          },
+          {
+            "name": "listedEtfIsIncludedByRealSearch",
+            "passed": true
+          },
+          {
+            "name": "knownStockWithoutPriceReturnsBusiness404ThroughActualAdapter",
+            "passed": true
+          },
+          {
+            "name": "koreanSearchSelectsListedStockAndLoadsLatestStoredDecimalQuote",
+            "passed": true
+          },
+          {
+            "name": "noMatchingRowsIsAnEmptySuccessFromRealBackend",
+            "passed": true
+          },
+          {
+            "name": "realSearchEnforcesTwentyRowLimitWithoutDelistedResults",
+            "passed": true
+          }
+        ],
+        "xml_sha256": "2b24823e1807d0d291b7e5fd32ab1bd9b715f45f3b08ed7faeba56f4dbf41271"
+      }
+    ],
+    "android_api33_device": [
+      {
+        "name": "org.daynomy.android.MarketScreenAcceptanceTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "selectingStockDisplaysStoredDateAndAutofillsPlainDecimal",
+            "passed": true
+          },
+          {
+            "name": "delayedQuoteCannotOverwriteManualInputAndRotationPreservesDirtyDraft",
+            "passed": true
+          },
+          {
+            "name": "clearedManualInputRemainsEmptyWhenDelayedPriceArrives",
+            "passed": true
+          },
+          {
+            "name": "missingQuoteShowsErrorAndStillAllowsManualInput",
+            "passed": true
+          },
+          {
+            "name": "usSearchSendsCountryAndLocalCategoryFilterDoesNotRefetch",
+            "passed": true
+          }
+        ],
+        "xml_sha256": "1761280dd5f3db33fc53ffcc6b87a2a3ee02c099a674ec589b9d7a82c7dee7e3"
+      }
+    ]
+  },
+  "lint": {
+    "errors": 0,
+    "warnings": 9,
+    "issue_ids": [
+      "DataExtractionRules",
+      "GradleDependency",
+      "MissingApplicationIcon"
+    ]
+  },
+  "apk": {
+    "clients/android/app/build/outputs/apk/debug/app-debug.apk": "f35db75327a3cd827b624642fc32cc79e863c7ebc7eccc70b84be3b72a27f718",
+    "clients/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk": "1d4edfb1ef65650925ae8d1cea2c7ac3b12c8ad826f6eac00055089281c85eb4"
+  },
+  "source_hashes": {
+    "agents/android-native.json": "f9b7e135cadd422a9b05b7d3ca42ad189c016c4a1e60509ab04293581d7093b7",
+    "clients/android/app/build.gradle.kts": "6322e456a132b33327fbbb854e64d18e512cf04058075ad03757585da669b1ef",
+    "clients/android/app/gradle.lockfile": "b66f38a8990ade6a94d522aee33b5fe3c0cc1dc589ad05b5d1fe356ea2b3f0e7",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/MarketScreenAcceptanceTest.kt": "5d8ee4b87f74e201217ce2c9aa0512df622533916622d2c05187e5e9fa9bdb5b",
+    "clients/android/app/src/debug/AndroidManifest.xml": "28a0d65f750bf61b6583f56dc5cfb35b5e0fd4be5187a323d2b56131d1898993",
+    "clients/android/app/src/debug/res/xml/debug_network_security.xml": "bc63aed497e2445f12ae17077918847224ec3399ecc979b22b685fa5af3c8472",
+    "clients/android/app/src/main/AndroidManifest.xml": "de0af21e2564585c0f39591fa69ace0ee88011834e8a01cd495bb5a5743a8ae2",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/MainActivity.kt": "96f6873d988423486860cd16d18d8b77e014553fbc8756398d598cc0a16f4d13",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/MarketViewModel.kt": "8717506128596a148f22b4ba3b3ce6b945b6a63f8396fbe46a306b3aebbe9d31",
+    "clients/android/app/src/main/res/values/styles.xml": "b2be39a301bb36472ac6dddb20f1ad96f1029f7b2cdf208629ef21d63372621c",
+    "clients/android/build.gradle.kts": "b10241b49a322d0379e6013749417ce99f4d2094c7ec607a751104199e047929",
+    "clients/android/gradle/wrapper/gradle-wrapper.properties": "fe90ff0d9944879f591a8c37b6dbaf5046d1051ccbb6b26b22081692c321f432",
+    "clients/android/market-core/build.gradle.kts": "c65968ffde3a334a817a92d749b740449c9c17f4135be8ed7adf24c4299549c4",
+    "clients/android/market-core/gradle.lockfile": "d2bad41e080563af0efa8d4fd093ba35bf11eacea0e7464617d04726455bb7b7",
+    "clients/android/market-core/src/backendTest/kotlin/org/daynomy/market/RustBackendAcceptanceTest.kt": "55bd757ca840b46284e1c41e2ba7561b3414a456a92e4b89cde3032269ebd27e",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/MarketController.kt": "fc9d4871f6ec2ed8016b1364822b095e6873ece49f0f04aaa01b17f2924b34ea",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/Models.kt": "673fc14e087949567ed3aff8b2a61b3a360061cb77bd3a5755f22f8687b61a50",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/OkHttpTransport.kt": "d5c89ef7f1285be0875dd66a6b4aec26a336e7a2dcfc691afc9fd1dbd1394e4d",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/StockPriceClient.kt": "d5c01e106b3d52dedb8167ab966d4e551277f5fb51ab689344ed954f2187851a",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/StockSearchClient.kt": "84511019db5f57739081aa93ea6698faef767af09637e2015c61f67d83f2c85a",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/ContractFixtures.kt": "d9449c31b426a61cbb3afd1afef33577c733845c93f9c76496f0dc40fee59ab3",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/MarketControllerContractTest.kt": "e8201ff7f3b21fcdba473803c02381a22f7584147442ff364e6c858e4cb82199",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/MarketControllerRegressionTest.kt": "4e2a6fde6d0d9593ce82a6ecc5cb39b1019c99728bd72eb95612b76c27435b55",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/OkHttpTransportContractTest.kt": "b80f55ddd41b33270018ab88bc4527a93378f0b6802f1c50098a1b7f8cc7bc4a",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/StockPriceClientContractTest.kt": "1d568f1a3a654baa847beb5fc409bf0d3c2b2d916318a753472cabe833525093",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/StockSearchClientContractTest.kt": "fb3205972876f584cef4d43ba86d2ae16ae9a27feece05daef7edb20628e2566",
+    "clients/android/settings.gradle.kts": "acb71f74b0a601914c667de331bbaef378b510a1945b900331f71fa6483b382b",
+    "scripts/android_backend_fixture.py": "23874ab1a7c12bc4504dfe8b252ea8c30d949c25d83a807620936f05c607024d",
+    "scripts/android_knowledge.py": "d8db06cf7dd0c9726717e18ea0fce5ae10f7534c42f26b9df14ad90088a2b944",
+    "scripts/android_pilot.py": "cd381961c739602b3024e14d07ffce114244bd30e9c1b85bad4155488991b5b1",
+    "scripts/test_android_knowledge.py": "d4bbf87e8dfedda105b0a7e5e455efa765f4b1aa9e10e1dfcc317dcb94603d4a",
+    "spec/android-native/README.md": "cc89bcde9c356a121fe9adff42653b3e988cf90ba0f76d7a631abb25c861eeb7",
+    "spec/android-native/price.md": "a89be48ac1090e5ebb3c4cf4509da94efe026d84afbe0081a7d35f376a4193f6",
+    "spec/android-native/search.md": "3a3ffe4489bcc204b9c28242391542a31373da27df37a1d303389b745093c5ad",
+    "spec/android-native/verification-plan.md": "991a962a448bb2535bae2305ee41924baeea6892b4695b97c1ed909b38794e6a"
+  },
+  "log_sha256": "2c2a7ccadf9a37dc4f10096796c08f1f7a943ae61a73dbb3a023d012a1501b15",
+  "initial_criteria": "49 test-first JVM criteria; 3 additive review regressions; 7 backend acceptance added after implementation; 5 device criteria written before UI"
+}

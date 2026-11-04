@@ -1,0 +1,4 @@
+actual guest protected MyPage redirects to login
+original login link launches external Chrome while WebView stays trusted
+return from unfinished browser login; native retry cancels and unlocks a fresh login
+{"step":"retrieve-real-server-callback","name":"Error"}

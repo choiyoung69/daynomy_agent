@@ -1,0 +1,1 @@
+    topResumedActivity=ActivityRecord{de6192d u0 com.android.chrome/org.chromium.chrome.browser.firstrun.FirstRunActivity} t11}

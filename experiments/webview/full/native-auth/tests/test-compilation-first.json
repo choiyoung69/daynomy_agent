@@ -1,0 +1,12 @@
+[
+  {
+    "language": "kotlin",
+    "exit_code": 0,
+    "scope": "test syntax/typecheck using throwaway ABI-only nil stub; no behavioral test executed"
+  },
+  {
+    "language": "swift",
+    "exit_code": 1,
+    "scope": "test syntax/typecheck using throwaway ABI-only nil stub; no behavioral test executed"
+  }
+]

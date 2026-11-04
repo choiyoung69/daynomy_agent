@@ -1,0 +1,16 @@
+{
+  "execution":"desktop_subagents",
+  "started_at":"2026-10-28T10:15:33Z",
+  "deadline_at":"2026-10-28T10:35:33Z",
+  "max_concurrent_agents_including_coordinator":4,
+  "scope":"React Native nonleague frontend; verified core first within twenty minutes",
+  "roles":{
+    "test_author":{"agent":"rn_tests","model":"inherited","write":"tests, contract, RED evidence; later independent browser checks"},
+    "core_implementation":{"agent":"rn_core","model":"inherited","write":"core/API/auth/storage after frozen RED; then separate admin UI"},
+    "independent_verifier":{"agent":"rn_verifier","model":"inherited","write":"verification evidence only; source read-only"},
+    "coordinator":{"agent":"root","write":"Expo app/UI/integration/dependencies/docs"}
+  },
+  "sequence":"Independent contract tests fail against stubs, freeze SHA256, release core implementation. Root builds UI in parallel; verifier runs regressions and isolated Rust+PostgreSQL HTTP checks. Test author then independently exercises web-rendered native components. Final integration checks cover exact final source hash.",
+  "exclude":["league","email_notifications","deployment"],
+  "note":"This JSON records chat dispatch. It is not an unattended runner. Node, browser, Metro bundles, native builds and real device acceptance are separate evidence levels."
+}

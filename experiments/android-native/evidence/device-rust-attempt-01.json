@@ -1,0 +1,6 @@
+{
+  "status": "failed-setup",
+  "scope": "post-instrumentation direct device probe",
+  "reason": "Gradle device-test cleanup uninstalled target APK. am start returned shell exit 0 with Error type 3; initial probe did not inspect stdout and timed out before any app assertion. Corrected probe reinstalls exact verified APK and validates activity launch.",
+  "app_behavior_claim": "none"
+}

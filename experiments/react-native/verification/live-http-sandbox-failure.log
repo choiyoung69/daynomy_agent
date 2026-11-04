@@ -1,0 +1,81 @@
+{
+  "passed": 0,
+  "failed": 15,
+  "cases": [
+    {
+      "name": "actual Rust KR stock search",
+      "pass": false,
+      "error": "fetch failed"
+    },
+    {
+      "name": "actual Rust US stock search",
+      "pass": false,
+      "error": "fetch failed"
+    },
+    {
+      "name": "actual Rust latest close price and reference date",
+      "pass": false,
+      "error": "fetch failed"
+    },
+    {
+      "name": "actual Rust missing saved price surfaces 404",
+      "pass": false,
+      "error": "The validation function is expected to return \"true\". Received false\n\nCaught error:\n\nTypeError: fetch failed"
+    },
+    {
+      "name": "actual Rust public news null metadata decoder",
+      "pass": false,
+      "error": "fetch failed"
+    },
+    {
+      "name": "actual Rust unpublished news not exposed",
+      "pass": false,
+      "error": "The validation function is expected to return \"true\". Received false\n\nCaught error:\n\nTypeError: fetch failed"
+    },
+    {
+      "name": "actual Rust public feedback CSRF and 204",
+      "pass": false,
+      "error": "fetch failed"
+    },
+    {
+      "name": "actual Rust CSRF invalid body remains 400",
+      "pass": false,
+      "error": "The validation function is expected to return \"true\". Received false\n\nCaught error:\n\nTypeError: fetch failed"
+    },
+    {
+      "name": "actual Rust public portfolio calculate",
+      "pass": false,
+      "error": "fetch failed"
+    },
+    {
+      "name": "actual Rust synthetic PKCE exchange installs server cookies in host-only jar",
+      "pass": false,
+      "error": "fetch failed"
+    },
+    {
+      "name": "actual Rust authenticated member lookup",
+      "pass": false,
+      "error": "fetch failed"
+    },
+    {
+      "name": "actual Rust member transaction create then portfolio readback",
+      "pass": false,
+      "error": "fetch failed"
+    },
+    {
+      "name": "actual Rust authenticated nickname patch readback",
+      "pass": false,
+      "error": "fetch failed"
+    },
+    {
+      "name": "actual Rust member cannot access admin feedback",
+      "pass": false,
+      "error": "The validation function is expected to return \"true\". Received false\n\nCaught error:\n\nTypeError: fetch failed"
+    },
+    {
+      "name": "actual Rust logout invalidates member lookup",
+      "pass": false,
+      "error": "fetch failed"
+    }
+  ]
+}

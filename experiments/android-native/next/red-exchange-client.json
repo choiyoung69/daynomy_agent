@@ -1,0 +1,80 @@
+{
+  "phase": "red",
+  "validator": "/root/android_next_validation",
+  "started_at": "2026-10-28T09:14:15Z",
+  "ended_at": "2026-10-28T09:15:33.228873+00:00",
+  "exit_code": 1,
+  "genuine_unimplemented_failure": true,
+  "test_count": 9,
+  "failed": 9,
+  "skipped": 0,
+  "test_sha256": "d739e52ef477dd455fc599b3cc5982ee407cdeba61f15fced43aa8f06c602353",
+  "stub_sha256": "3070ae04bc14a54a31a9b93367f4fd4c5b531d7323f4a98e67b459b6ce6a570e",
+  "knowledge_context_sha256": "5bf02b6548d23ba58289b3ff1476895626898841da65dcb2775371603ecca4c3",
+  "knowledge_manifest_sha256": "d5123463cc60aec16649e6f0a3f5b81a51394150187689880c6bd2e2d6d59556",
+  "command": "env JAVA_HOME=/Users/seoyeong/Library/Java/JavaVirtualMachines/ms-21.0.12/Contents/Home GRADLE_USER_HOME=$PWD/.local/android-gradle clients/android/gradlew -p clients/android --no-daemon :market-core:test --tests org.daynomy.market.ExchangeClientContractTest",
+  "log": ".local/android-next-red-exchange-client.log",
+  "xml_sha256": "7d2ff8233f377dd757b0a9562e29d809f4f7454a4af094e348ef8a92cacf6856",
+  "cases": [
+    {
+      "name": "malformedJsonNumericGrammarCannotBeAcceptedByBigDecimal",
+      "failure_type": "java.lang.AssertionError",
+      "failure_message": "java.lang.AssertionError: Expected ResponseFormatException, got NotImplementedError",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "dateIsEncodedOnceWithoutChangingUserInput",
+      "failure_type": "kotlin.NotImplementedError",
+      "failure_message": "kotlin.NotImplementedError: exchange not implemented",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "cancellationIsNotConvertedToFormatOrApiFailure",
+      "failure_type": "java.lang.AssertionError",
+      "failure_message": "java.lang.AssertionError: Expected CancellationException, got NotImplementedError",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "nonPositiveAndNonFiniteRatesAreNeverSuccessfulQuotes",
+      "failure_type": "java.lang.AssertionError",
+      "failure_message": "java.lang.AssertionError: Expected ResponseFormatException, got NotImplementedError",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "actualBaseDateAndSixDecimalRateSurviveWithoutBinaryRounding",
+      "failure_type": "kotlin.NotImplementedError",
+      "failure_message": "kotlin.NotImplementedError: exchange not implemented",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "originalWebRequiresOnlyBaseDateAndRateAndDoesNotParseCalendar",
+      "failure_type": "kotlin.NotImplementedError",
+      "failure_message": "kotlin.NotImplementedError: exchange not implemented",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "validExponentNumberIsAcceptedWithoutPrecisionLoss",
+      "failure_type": "kotlin.NotImplementedError",
+      "failure_message": "kotlin.NotImplementedError: exchange not implemented",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "missingNullAndWrongTypedFieldsAreFormatFailures",
+      "failure_type": "java.lang.AssertionError",
+      "failure_message": "java.lang.AssertionError: Expected ResponseFormatException, got NotImplementedError",
+      "contains_stub_exception": true
+    },
+    {
+      "name": "httpErrorsAndIoFailurePropagateUnchangedWithoutRetry",
+      "failure_type": "java.lang.AssertionError",
+      "failure_message": "java.lang.AssertionError: Expected Exception, got NotImplementedError",
+      "contains_stub_exception": true
+    }
+  ],
+  "prior_attempt": {
+    "exit_code": 1,
+    "kind": "sandbox daemon socket denied; not counted as red",
+    "log": ".local/android-next-red-exchange-client-sandbox.log"
+  },
+  "approval": "not approved; red test freeze only"
+}

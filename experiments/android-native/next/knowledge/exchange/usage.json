@@ -1,0 +1,32 @@
+{
+  "context_sha256": "5bf02b6548d23ba58289b3ff1476895626898841da65dcb2775371603ecca4c3",
+  "manifest_sha256": "d5123463cc60aec16649e6f0a3f5b81a51394150187689880c6bd2e2d6d59556",
+  "applied_rules": [
+    {
+      "document": "knowledge/wiki/projects/daynomy/stocks-exchange.md",
+      "rule": "Preserve exchange response projection, actual base date and requested input unchanged.",
+      "implementation": "ExchangeRateClient.quote; ExchangeScreen separate requested date and actual base date"
+    },
+    {
+      "document": "knowledge/wiki/packages/android-kotlin/types-and-json.md",
+      "rule": "Check required fields, distinguish missing from null, validate enums and exact numeric identifiers; news uses signed Long per frozen contract rather than stock safe-ID rule.",
+      "implementation": "NewsClient decoders/newsLong/newsNullableString; ExchangeRateClient.quote"
+    },
+    {
+      "document": "knowledge/wiki/packages/android-kotlin/numbers-and-money.md",
+      "rule": "Construct BigDecimal from numeric JSON source without rounding and enforce web finite positive exchange boundary.",
+      "implementation": "ExchangeRateClient.quote rawRate.content, BigDecimal, sign and finite checks"
+    },
+    {
+      "document": "knowledge/wiki/packages/android-kotlin/dates-and-unicode.md",
+      "rule": "Keep date strings and Unicode intact; no timezone or calendar strengthening; preserve paragraph whitespace.",
+      "implementation": "NewsClient.detail newline filter; ExchangeRateClient encoded raw date; ExchangeScreen date draft"
+    },
+    {
+      "document": "knowledge/wiki/packages/android-kotlin/async-and-cancellation.md",
+      "rule": "Cancel Jobs, rethrow CancellationException, suppress stale result/error writes; HTTP cancellation uses existing transport.",
+      "implementation": "NewsController/ExchangeController generation guards; DiscoveryViewModel.onCleared"
+    }
+  ],
+  "limits": "Mappings declare applied rules; independent tests and device execution belong to validator evidence, not this receipt."
+}

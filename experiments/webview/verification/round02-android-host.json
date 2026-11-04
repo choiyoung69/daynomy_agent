@@ -1,0 +1,37 @@
+{
+  "checks": [
+    {
+      "target": "javascript:window.__policyBypass=1",
+      "blocked": true
+    },
+    {
+      "target": "data:text/html,blocked",
+      "blocked": true
+    },
+    {
+      "target": "file:///sdcard/Download/example.html",
+      "blocked": true
+    },
+    {
+      "target": "http://10.0.2.2:18083/",
+      "blocked": true
+    },
+    {
+      "target": "http://10.0.2.2.evil.invalid:18082/",
+      "blocked": true
+    },
+    {
+      "target": "http://user@10.0.2.2:18082/",
+      "blocked": true
+    }
+  ],
+  "javascriptExecuted": false,
+  "cookieRetained": true,
+  "internal": "?verification-history=1",
+  "afterBack": "",
+  "externalForeground": [
+    "    topResumedActivity=ActivityRecord{4d2d7bc u0 com.android.chrome/org.chromium.chrome.browser.firstrun.FirstRunActivity} t22}"
+  ],
+  "externalStayedInWebview": true,
+  "status": "passed"
+}

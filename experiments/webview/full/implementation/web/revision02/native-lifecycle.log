@@ -1,0 +1,9 @@
+
+ RUN  v4.1.11 /Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests
+
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  18:48:03
+   Duration  793ms (transform 59ms, setup 0ms, import 143ms, tests 67ms, environment 490ms)
+

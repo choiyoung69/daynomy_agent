@@ -1,0 +1,43 @@
+{
+  "context_sha256": "859d7157f87edf85bc71cdc067aa20cd0b99669fd5b17ce3d849dccceea5b3bb",
+  "manifest_sha256": "c7a16fce94f4dc5959c651369f5cdb91b586022653febfca8da91c459390320a",
+  "applied_rules": [
+    {
+      "document": "knowledge/wiki/projects/daynomy/portfolio-ledger.md",
+      "rule": "Use saved portfolio/transaction/history/performance routes; preserve BUY/SELL immutable identity, response replay and uncertain mutation result.",
+      "implementation": "PortfolioClient holdings/create/update/delete/histories/performance; PATCH strips assetId/type; mutation validates transactionId/holding/realized sum"
+    },
+    {
+      "document": "knowledge/wiki/projects/daynomy/portfolio-calculation.md",
+      "rule": "Keep public calculation separate from saved portfolio writes and preserve partial/null/date status.",
+      "implementation": "PortfolioClient.calculate delegates POST /api/portfolio/calculate; CoreScreens evaluation labels partial/mixed dates and nullable totals"
+    },
+    {
+      "document": "knowledge/wiki/packages/android-kotlin/numbers-and-money.md",
+      "rule": "Construct decimal values from source text, preserve numeric JSON lexemes and field precision; never route money through Double.",
+      "implementation": "coreDecimal BigDecimal source content; PortfolioClient raw JsonObject preserves lexemes; UI string drafts and JsonPrimitive(BigDecimal) requests"
+    },
+    {
+      "document": "knowledge/wiki/packages/android-kotlin/errors-and-transactions.md",
+      "rule": "Do not replay writes on network failure; distinguish HTTP rejection, malformed success, cancellation and outcome uncertainty.",
+      "implementation": "SessionHttpTransport one-shot JSON RequestBody; ApiException status/code retained; mutation response boundary; root VM unknown + explicit reload; CoreScreens disables repeat submit"
+    },
+    {
+      "document": "knowledge/wiki/packages/android-kotlin/types-and-json.md",
+      "rule": "Validate root object/array, required safe IDs and mutation shape without collapsing null into missing success.",
+      "implementation": "PortfolioClient holdings/histories/mutation; coreObject/coreElement/coreId; holding null remains legal full-sale result"
+    }
+  ],
+  "reviewed_at": "2026-10-28T10:00:11.535595+00:00",
+  "chronology": {
+    "direct_kb_read": "All required project/package topic files directly read before production implementation in first implementer tool call. Root confirms own direct UI KB read before UI integration.",
+    "formal_packet": "These context.md/manifest.json packets were materialized after implementation at manifest.created_at, then read and compared with existing rule mappings. This usage receipt is retrospective formal provenance, not evidence packets existed before code."
+  },
+  "limits": [
+    "Mappings declare applied rules; independent test/device/HTTP evidence remains separate.",
+    "Portfolio responses are raw JSON boundary adapters, not exhaustive original web DTO parity.",
+    "Rust accepts rounded average0.00 where original frontend requires>0; existingRust parity retained.",
+    "Mutation503 automatic replay prevented by one-shot body; GET503 Retry-After0 read retry remains possible.",
+    "Actual Google/device login not certified by local signed OIDC fixture."
+  ]
+}

@@ -3,12 +3,12 @@ title: Android 네이티브 사전 지식
 confirmed_on: 2026-10-28
 review_status: static-reviewed
 runtime_status: not-run
-source_ids: ["F04", "B04", "E12", "E17", "E23", "E24", "E36", "E44", "E45"]
+source_ids: ["F04", "B04", "E12", "E17", "E23", "E24", "E36", "E44", "E45", "AP01", "AP02", "AP03"]
 ---
 
 # Android 네이티브 사전 지식
 
-Kotlin·Compose는 현재 후보이며 버전은 미정이다. 종목 검색과 최근 종가 조회의 초기 준비 범위다.
+종목 검색·최근 종가 파일럿의 Kotlin/Compose 버전과 계약을 확정했다. 아래 초기 준비 계획과 현재 파일럿 선택을 구분한다. 다른 기능의 Android 준비 완료를 뜻하지 않는다.
 
 ## 공식 근거와 이식 적용
 
@@ -62,3 +62,12 @@ Kotlin의 Long/Double 범위와 nullable 타입을 E23/E24에서 확인했다. J
 ## 상세 패키지
 
 [Android + Kotlin 주제별 문서](../packages/android-kotlin/index.md)를 공통·기능 계약과 함께 선택한다.
+
+## 현재 파일럿 선택 — 2026-10-28
+
+적용 기능은 stock-search-price뿐이다. minSdk26/compile·target35, Kotlin·Compose plugin2.1.20,
+Compose BOM2025.04.01, AGP8.9.2/Gradle8.11.1/JDK21, OkHttp4.12.0/JSON1.8.1을 고정했다.
+[실행 계약](../../../spec/android-native/README.md), [독립 검증 계획](../../../spec/android-native/verification-plan.md),
+[환경 근거](../../../experiments/android-native/evidence/environment.json)를 따른다.
+빈 구현의 APK 생성만 실행했으며 기능 성공이나 기기 검증 완료가 아니다.
+숫자·날짜·취소·초안 복원 정책은 해당 계약에서 정했다. 버전 선택을 Android 전체 기능 준비로 확대하지 않는다.

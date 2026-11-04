@@ -1,0 +1,205 @@
+{
+  "validator": "/root/android_next_validation",
+  "started_at": "2026-10-28T09:18:46Z",
+  "ended_at": "2026-10-28T09:19:23.916736+00:00",
+  "exit_code": 1,
+  "command": "env JAVA_HOME=/Users/seoyeong/Library/Java/JavaVirtualMachines/ms-21.0.12/Contents/Home GRADLE_USER_HOME=$PWD/.local/android-gradle clients/android/gradlew -p clients/android --no-daemon :market-core:test --tests org.daynomy.market.DiscoveryControllerContractTest --tests 'org.daynomy.market.Exchange*'",
+  "log": ".local/android-next-mixed-red-news-green-exchange.log",
+  "news_controller_red": true,
+  "exchange_green": true,
+  "suites": [
+    {
+      "suite": "DiscoveryControllerContractTest",
+      "counts": {
+        "name": "org.daynomy.market.DiscoveryControllerContractTest",
+        "tests": "5",
+        "skipped": "0",
+        "failures": "5",
+        "errors": "0",
+        "timestamp": "2026-10-28T09:18:59",
+        "hostname": "choeseoyeong-ui-MacBookPro.local",
+        "time": "0.054"
+      },
+      "xml_sha256": "23a6fd11fef83a688d478abac57a0a82476c4724adc9a993e57eeb82b0c63b7c",
+      "cases": [
+        {
+          "name": "deactivationCancelsBothRequestsAndReactivationReloadsCurrentSelection",
+          "failure": {
+            "message": "kotlin.NotImplementedError: An operation is not implemented.",
+            "type": "kotlin.NotImplementedError"
+          }
+        },
+        {
+          "name": "failuresAreDistinctFromEmptyReadyAndRetriesAreExplicit",
+          "failure": {
+            "message": "kotlin.NotImplementedError: An operation is not implemented.",
+            "type": "kotlin.NotImplementedError"
+          }
+        },
+        {
+          "name": "activationPaginationCategoryResetAndDetailBackPreserveExpectedSelection",
+          "failure": {
+            "message": "kotlin.NotImplementedError: An operation is not implemented.",
+            "type": "kotlin.NotImplementedError"
+          }
+        },
+        {
+          "name": "latestCategoryAndDetailWinOverNonCooperativeOldSuccesses",
+          "failure": {
+            "message": "kotlin.NotImplementedError: An operation is not implemented.",
+            "type": "kotlin.NotImplementedError"
+          }
+        },
+        {
+          "name": "closingDetailAndControllerDiscardsLateFailureAndCloseIsTerminal",
+          "failure": {
+            "message": "kotlin.NotImplementedError: An operation is not implemented.",
+            "type": "kotlin.NotImplementedError"
+          }
+        }
+      ]
+    },
+    {
+      "suite": "ExchangeClientContractTest",
+      "counts": {
+        "name": "org.daynomy.market.ExchangeClientContractTest",
+        "tests": "9",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-28T09:19:00",
+        "hostname": "choeseoyeong-ui-MacBookPro.local",
+        "time": "0.023"
+      },
+      "xml_sha256": "186bce2a314eec0912121fa998ab548abaca16e8a988443f46f2694a26a86a81",
+      "cases": [
+        {
+          "name": "malformedJsonNumericGrammarCannotBeAcceptedByBigDecimal",
+          "failure": null
+        },
+        {
+          "name": "dateIsEncodedOnceWithoutChangingUserInput",
+          "failure": null
+        },
+        {
+          "name": "cancellationIsNotConvertedToFormatOrApiFailure",
+          "failure": null
+        },
+        {
+          "name": "nonPositiveAndNonFiniteRatesAreNeverSuccessfulQuotes",
+          "failure": null
+        },
+        {
+          "name": "actualBaseDateAndSixDecimalRateSurviveWithoutBinaryRounding",
+          "failure": null
+        },
+        {
+          "name": "originalWebRequiresOnlyBaseDateAndRateAndDoesNotParseCalendar",
+          "failure": null
+        },
+        {
+          "name": "validExponentNumberIsAcceptedWithoutPrecisionLoss",
+          "failure": null
+        },
+        {
+          "name": "missingNullAndWrongTypedFieldsAreFormatFailures",
+          "failure": null
+        },
+        {
+          "name": "httpErrorsAndIoFailurePropagateUnchangedWithoutRetry",
+          "failure": null
+        }
+      ]
+    },
+    {
+      "suite": "ExchangeControllerContractTest",
+      "counts": {
+        "name": "org.daynomy.market.ExchangeControllerContractTest",
+        "tests": "7",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-28T09:19:00",
+        "hostname": "choeseoyeong-ui-MacBookPro.local",
+        "time": "0.008"
+      },
+      "xml_sha256": "204afa70db81726e0ddcb5057db5a4334af38b747921b787bdec8b8c7ad949b5",
+      "cases": [
+        {
+          "name": "cancellationIsIdleInsteadOfFailure",
+          "failure": null
+        },
+        {
+          "name": "activationAndBlankDateHaveNoSpuriousRequestAndPreserveRawDate",
+          "failure": null
+        },
+        {
+          "name": "oldFailureCannotClearNewQuote",
+          "failure": null
+        },
+        {
+          "name": "closeIsTerminalAndLateSuccessCannotRepopulateState",
+          "failure": null
+        },
+        {
+          "name": "loadingThenFailureThenExplicitRetryIsNotEmptySuccessOrAutomaticRetry",
+          "failure": null
+        },
+        {
+          "name": "newDateWinsOverNonCooperativeOlderSuccess",
+          "failure": null
+        },
+        {
+          "name": "deactivationCancelsJobAndReactivationLoadsCurrentDateOnce",
+          "failure": null
+        }
+      ]
+    },
+    {
+      "suite": "ExchangeNumericBoundaryTest",
+      "counts": {
+        "name": "org.daynomy.market.ExchangeNumericBoundaryTest",
+        "tests": "1",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-10-28T09:19:00",
+        "hostname": "choeseoyeong-ui-MacBookPro.local",
+        "time": "0.001"
+      },
+      "xml_sha256": "b153c9c10e73aea0f3a4b594c62aff46402dc6a0ed6e1f2ef8bf602eaf7828bf",
+      "cases": [
+        {
+          "name": "javascriptUnderflowFailsButSmallestPositiveRepresentableNumberSurvives",
+          "failure": null
+        }
+      ]
+    }
+  ],
+  "hashes_after": {
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/ExchangeController.kt": "e2ee57f16f7beebd43cca5d218ff26e5ccb1b94003151b1c8156748d4a711901",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/ExchangeClient.kt": "416a8d3b8ae82cad2494b507829b45b2b293d9a4baeb6ca7f5252375f5e04067",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/ExchangeModels.kt": "c9eb006058ca0f2b0ecb2b4c75b6bfacbcb8196392546d242f9562187cee22bc",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryModels.kt": "75ee707ceea85c0db6757f1c84ba20e2c9819fb15b7f52774da194c6f88c925e",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryClients.kt": "b3f3e1cd0df42ef8a524e2c2d37b33330a519ca4ef68711fc53eaee864fd8df9",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryController.kt": "d51ad785d82e08aed078f36cc2b3d93cf2378aeb465bcd3c37f7bde5ff78994e",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/ExchangeNumericBoundaryTest.kt": "a6ca3d3685f1739aee4475d632bb69c4feac70328e9365a3a20a52e8ccfce56e",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/ExchangeClientContractTest.kt": "d739e52ef477dd455fc599b3cc5982ee407cdeba61f15fced43aa8f06c602353",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/ExchangeControllerContractTest.kt": "bcc5a8a8f8bce5aafb858018598caee4b229301aa0e0649b775090c37b6c8f26",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/DiscoveryControllerContractTest.kt": "ee15da3fe5a0656ae9834daef7bc19a9895f75e182ea068376e2b10a27138c22"
+  },
+  "approval": "News controller red freeze; exchange JVM verified, no device/backend approval",
+  "hashes_before": {
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/ExchangeController.kt": "e2ee57f16f7beebd43cca5d218ff26e5ccb1b94003151b1c8156748d4a711901",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/ExchangeClient.kt": "416a8d3b8ae82cad2494b507829b45b2b293d9a4baeb6ca7f5252375f5e04067",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/ExchangeModels.kt": "c9eb006058ca0f2b0ecb2b4c75b6bfacbcb8196392546d242f9562187cee22bc",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryModels.kt": "75ee707ceea85c0db6757f1c84ba20e2c9819fb15b7f52774da194c6f88c925e",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryClients.kt": "b3f3e1cd0df42ef8a524e2c2d37b33330a519ca4ef68711fc53eaee864fd8df9",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryController.kt": "d51ad785d82e08aed078f36cc2b3d93cf2378aeb465bcd3c37f7bde5ff78994e",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/ExchangeNumericBoundaryTest.kt": "a6ca3d3685f1739aee4475d632bb69c4feac70328e9365a3a20a52e8ccfce56e",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/ExchangeClientContractTest.kt": "d739e52ef477dd455fc599b3cc5982ee407cdeba61f15fced43aa8f06c602353",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/ExchangeControllerContractTest.kt": "bcc5a8a8f8bce5aafb858018598caee4b229301aa0e0649b775090c37b6c8f26",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/DiscoveryControllerContractTest.kt": "ee15da3fe5a0656ae9834daef7bc19a9895f75e182ea068376e2b10a27138c22"
+  },
+  "source_and_tests_unchanged_during_run": true
+}

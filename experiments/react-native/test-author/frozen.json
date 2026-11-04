@@ -1,0 +1,12 @@
+{
+  "frozen_at": "2026-10-28T10:17:51.674945+00:00",
+  "red_exit_code": 1,
+  "red_tests": 27,
+  "red_pass": 6,
+  "red_fail": 21,
+  "note": "6 rejection-only cases pass because the stub always throws; 21 success/state/transport cases fail. Core stub hash is baseline only and changes on implementation. Tests hash must stay fixed.",
+  "sha256": {
+    "clients/react-native/tests/core.test.ts": "346c27cc3aa445f355293fbcffd87723c21d7828452af06a2748a4790be37d92",
+    "clients/react-native/src/core.ts": "e1f47d6d015e0b7ce3871378ab7e925f0cbe2b99aa7a34211707f9303c5b0cfc"
+  }
+}

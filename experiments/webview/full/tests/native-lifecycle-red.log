@@ -1,0 +1,77 @@
+
+ RUN  v4.1.11 /Users/seoyeong/develop/AI/daynomy_agent/clients/webview/full-tests
+
+ ❯ native-lifecycle.test.tsx (4 tests | 4 failed) 79ms
+     × boolean false pauses and boolean true resumes foreground state 16ms
+     × string true and malformed payload cannot resume a paused document 2ms
+     × false aborts search and true reissues one read after debounce; duplicate true is idempotent 47ms
+     × price read cancellation/resume preserves manual price and quantity without replaying save 13ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  native-lifecycle.test.tsx > native boolean lifecycle messages (same document, no privileged bridge) > boolean false pauses and boolean true resumes foreground state
+AssertionError: expected 'true' to be 'false' // Object.is equality
+
+Expected: "false"
+Received: "true"
+
+ ❯ native-lifecycle.test.tsx:14:237
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  native-lifecycle.test.tsx > native boolean lifecycle messages (same document, no privileged bridge) > string true and malformed payload cannot resume a paused document
+AssertionError: expected 'true' to be 'false' // Object.is equality
+
+Expected: "false"
+Received: "true"
+
+ ❯ native-lifecycle.test.tsx:15:250
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  native-lifecycle.test.tsx > native boolean lifecycle messages (same document, no privileged bridge) > false aborts search and true reissues one read after debounce; duplicate true is idempotent
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ native-lifecycle.test.tsx:21:45
+     19|     await act(async()=>{await vi.advanceTimersByTimeAsync(250);});expe…
+     20|     const firstSignal=vi.mocked(searchStocks).mock.calls[0][1]!;expect…
+     21|     host(false);expect(firstSignal.aborted).toBe(true);
+       |                                             ^
+     22|     await act(async()=>{await vi.advanceTimersByTimeAsync(1000);});exp…
+     23|     host(true);await act(async()=>{await vi.advanceTimersByTimeAsync(2…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  native-lifecycle.test.tsx > native boolean lifecycle messages (same document, no privileged bridge) > price read cancellation/resume preserves manual price and quantity without replaying save
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ native-lifecycle.test.tsx:33:51
+     31|     const qty=view.getByLabelText('수량 (주)') as HTMLInputElement;
+     32|     fireEvent.change(price,{target:{value:'70000.50'}});fireEvent.chan…
+     33|     host(false);expect(pending[0].signal.aborted).toBe(true);
+       |                                                   ^
+     34|     host(true);expect(pending).toHaveLength(2);
+     35|     host(true);expect(pending).toHaveLength(2);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed (4)
+   Start at  18:44:41
+   Duration  755ms (transform 57ms, setup 0ms, import 147ms, tests 79ms, environment 431ms)
+

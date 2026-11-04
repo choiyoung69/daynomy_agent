@@ -1,0 +1,30 @@
+{
+  "at": "2026-10-28T10:00:06.212334+00:00",
+  "exit": 1,
+  "apk_build": "passed",
+  "test_apk_build": "passed",
+  "lint": "not completed due connected test failure",
+  "reports": {
+    "clients/android/app/build/outputs/androidTest-results/connected/debug/TEST-Daynomy_Pilot(AVD) - 13-_app-.xml": {
+      "sha256": "0568033f8353ac42c1731e78858652337833acee2752116f37b3b2e55c572565",
+      "counts": {
+        "name": "org.daynomy.android.Android30CoreScreenTest",
+        "tests": "10",
+        "failures": "1",
+        "errors": "0",
+        "skipped": "0",
+        "time": "38.995",
+        "timestamp": "2026-10-28T09:59:26",
+        "hostname": "localhost"
+      },
+      "xml": "<?xml version='1.0' encoding='UTF-8' ?>\n<testsuite name=\"org.daynomy.android.Android30CoreScreenTest\" tests=\"10\" failures=\"1\" errors=\"0\" skipped=\"0\" time=\"38.995\" timestamp=\"2026-10-28T09:59:26\" hostname=\"localhost\">\n  <properties>\n    <property name=\"device\" value=\"Daynomy_Pilot(AVD) - 13\" />\n    <property name=\"flavor\" value=\"\" />\n    <property name=\"project\" value=\":app\" />\n  </properties>\n  <testcase name=\"lostTradeResponseShowsUnknownOutcomeAndDoesNotResubmitOrClaimSuccess\" classname=\"org.daynomy.android.Android30CoreScreenTest\" time=\"12.285\">\n    <failure>androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:504)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:339)\nat org.daynomy.android.Android30CoreScreenTest.awaitTag(Android30CoreScreenTest.kt:56)\nat org.daynomy.android.Android30CoreScreenTest.lostTradeResponseShowsUnknownOutcomeAndDoesNotResubmitOrClaimSuccess(Android30CoreScreenTest.kt:78)\n</failure>\n  </testcase>\n  <testcase name=\"actualAccountProfileNicknamePatchAndLogoutClearMemberUi\" classname=\"org.daynomy.android.Android30CoreScreenTest\" time=\"1.976\" />\n  <testcase name=\"exchangeErrorDoesNotBecomeAQuoteAndExplicitRetryRecovers\" classname=\"org.daynomy.android.DiscoveryScreenAcceptanceTest\" time=\"1.797\" />\n  <testcase name=\"exchangeShowsActualFallbackDateAndExactRateAndSurvivesRecreation\" classname=\"org.daynomy.android.DiscoveryScreenAcceptanceTest\" time=\"1.438\" />\n  <testcase name=\"newsCategoryPaginationDetailAndBackUseNativeScreenAndKeepSelectedPage\" classname=\"org.daynomy.android.DiscoveryScreenAcceptanceTest\" time=\"1.693\" />\n  <testcase name=\"selectingStockDisplaysStoredDateAndAutofillsPlainDecimal\" classname=\"org.daynomy.android.MarketScreenAcceptanceTest\" time=\"2.002\" />\n  <testcase name=\"delayedQuoteCannotOverwriteManualInputAndRotationPreservesDirtyDraft\" classname=\"org.daynomy.android.MarketScreenAcceptanceTest\" time=\"4.162\" />\n  <testcase name=\"clearedManualInputRemainsEmptyWhenDelayedPriceArrives\" classname=\"org.daynomy.android.MarketScreenAcceptanceTest\" time=\"6.742\" />\n  <testcase name=\"missingQuoteShowsErrorAndStillAllowsManualInput\" classname=\"org.daynomy.android.MarketScreenAcceptanceTest\" time=\"3.779\" />\n  <testcase name=\"usSearchSendsCountryAndLocalCategoryFilterDoesNotRefetch\" classname=\"org.daynomy.android.MarketScreenAcceptanceTest\" time=\"1.923\" />\n</testsuite>"
+    }
+  },
+  "source_unchanged": false,
+  "failure": "Test fixture GET /api/stocks returns array but actual contract requires stocks envelope. Timeout before transaction begins. Returned to author; production fix not needed.",
+  "apk_sha256": "8717853a33c1f93a893bc84ebc9ccd64162b01eed4a79e454078b6bcffbe60d7",
+  "changes_after_run_before_record": [
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/Android30CoreScreenTest.kt"
+  ],
+  "note": "Test author corrected fixture after run, before evidence serialization; app source must remain unchanged."
+}

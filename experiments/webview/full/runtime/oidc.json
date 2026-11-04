@@ -1,0 +1,8 @@
+{
+  "started_at": "2026-10-28T10:18:38.116144+00:00",
+  "base_url": "http://127.0.0.1:63011",
+  "control_url": "http://127.0.0.1:63011/__test__/state",
+  "callback": "http://127.0.0.1:18082/login/oauth2/code/google",
+  "mode": "ephemeral local OIDC test provider; not real Google authentication",
+  "helper_source_sha256": "f34e284bafe7e985c13a637ed15e2f4e3b52f0c305694dee2dfa57ff5de4e74b"
+}

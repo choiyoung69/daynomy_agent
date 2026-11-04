@@ -115,6 +115,9 @@ def load_packs():
             raise ValueError(f"{slug}: missing or unexpected detailed package")
         if not isinstance(platform["pending_decisions"], list):
             raise ValueError(f"{slug}: pending_decisions must be a list")
+        if "approved_features" in platform and (not platform["approved_features"] or
+                any(feature not in packs["features"] for feature in platform["approved_features"])):
+            raise ValueError(f"{slug}: invalid approved feature scope")
         if not platform["source_ids"]:
             raise ValueError(f"{slug}: missing platform sources")
         if not platform["required_version_fields"] or not all(isinstance(field, str) and field for field in platform["required_version_fields"]):
@@ -301,6 +304,8 @@ def context(feature_slug, platform_slug, require_ready=False, topics=None):
                      [platform["document"]] + detailed))
     selected_sources = set(platform["source_ids"])
     issues = []
+    if "approved_features" in platform and feature_slug not in platform["approved_features"]:
+        issues.append("feature is outside this platform's prepared pilot scope")
     if feature["status"] == "deferred":
         issues.append("feature is deferred; implementation is outside the approved baseline")
     versions = platform["selected_versions"]

@@ -1,0 +1,396 @@
+{
+  "created_at": "2026-10-28T09:13:35.545902+00:00",
+  "task": "discovery-ui",
+  "feature": "news",
+  "platform": "android",
+  "documents": {
+    "knowledge/wiki/projects/daynomy/news.md": "6d2ffad89ce9ae1864323eaeb25c1c73b190ab95e11bdcfbbe09fb42d227ddbe",
+    "knowledge/wiki/projects/daynomy/stocks-exchange.md": "89d3a5c6d7ae9074f687e1f44a5ed7541057d1f5f119e6a514054d9e602b806d",
+    "knowledge/wiki/packages/android-kotlin/state-and-navigation.md": "33d9a43b77cf761885cd5cfb72f6942100858e6193fb7d8f84a03c6906eca5f9",
+    "knowledge/wiki/packages/android-kotlin/async-and-cancellation.md": "80ae16b4f8c37fd75fdc66aa4ca6068d7132ae889a39141d4ff2a147bbb04ad9",
+    "knowledge/wiki/packages/android-kotlin/errors-and-transactions.md": "f72637b1c47608078112eaab02726f3cf299c36ac4455b3166850838c74ac4fd"
+  },
+  "source_records": {
+    "DX01": {
+      "id": "DX01",
+      "kind": "local",
+      "path": "knowledge/examples/kotlin/Core.kt",
+      "sha256": "496a91da6801f035e94dde8539fa095f84f606f9f5f4db5b691f3f09987270e9",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Kotlin JSON, ownership, cancellation and pure bridge policy examples",
+      "runtime_verification_this_run": "see DX09; integration not-run"
+    },
+    "DX09": {
+      "id": "DX09",
+      "kind": "local",
+      "path": "knowledge/evidence/2026-10-28-topic-examples-04.json",
+      "sha256": "62808d5fe2bdc0b4122c16435d76120415121079faf87e08d7ff92680a655c79",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Five-language final example build/run evidence; 100 cases",
+      "runtime_verification_this_run": "see DX09; integration not-run"
+    },
+    "E12": {
+      "id": "E12",
+      "kind": "external",
+      "title": "Compose state",
+      "url": "https://developer.android.com/develop/ui/compose/state",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "State in composables; remember, rememberSaveable",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E12/024da75da6c5f4e45c3c72edb15ae7efa41af1f58302ea5338b25234124eacb8.html",
+        "sha256": "024da75da6c5f4e45c3c72edb15ae7efa41af1f58302ea5338b25234124eacb8",
+        "bytes": 442544,
+        "media_type": "text/html",
+        "retrieved_url": "https://developer.android.com/develop/ui/compose/state",
+        "retrieved_at": "2026-10-28T06:28:21.142305+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E12/024da75da6c5f4e45c3c72edb15ae7efa41af1f58302ea5338b25234124eacb8.html",
+            "sha256": "024da75da6c5f4e45c3c72edb15ae7efa41af1f58302ea5338b25234124eacb8",
+            "bytes": 442544,
+            "media_type": "text/html",
+            "retrieved_url": "https://developer.android.com/develop/ui/compose/state",
+            "retrieved_at": "2026-10-28T06:28:21.142305+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.891456+00:00",
+          "review_note": "보관 응답의 관련 절 확인: 再確認: State in composables; remember, rememberSaveable; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E17": {
+      "id": "E17",
+      "kind": "external",
+      "title": "Kotlin CoroutineScope.cancel",
+      "url": "https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/cancel.html",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Official API cancellation description and cooperative cancellation pitfalls",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E17/3284e5f2861a2e6bf0426b449578480864ab0f4e884e9ad9910e0cd0a3e006c1.html",
+        "sha256": "3284e5f2861a2e6bf0426b449578480864ab0f4e884e9ad9910e0cd0a3e006c1",
+        "bytes": 48712,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/cancel.html",
+        "retrieved_at": "2026-10-28T06:28:23.822921+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E17/3284e5f2861a2e6bf0426b449578480864ab0f4e884e9ad9910e0cd0a3e006c1.html",
+            "sha256": "3284e5f2861a2e6bf0426b449578480864ab0f4e884e9ad9910e0cd0a3e006c1",
+            "bytes": 48712,
+            "media_type": "text/html",
+            "retrieved_url": "https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/cancel.html",
+            "retrieved_at": "2026-10-28T06:28:23.822921+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.899525+00:00",
+          "review_note": "보관 응답의 관련 절 확인: 再確認: Official API cancellation description and cooperative cancellation pitfalls; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E19": {
+      "id": "E19",
+      "kind": "external",
+      "title": "RFC 9110 HTTP Semantics",
+      "url": "https://www.rfc-editor.org/rfc/rfc9110.html#section-9.2.2",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "9.2.1 safe methods, 9.2.2 idempotent methods and conditions for automatic retries",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E19/21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a.txt",
+        "sha256": "21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a",
+        "bytes": 502941,
+        "media_type": "text/plain",
+        "retrieved_url": "https://www.rfc-editor.org/rfc/rfc9110.txt",
+        "retrieved_at": "2026-10-28T06:16:29.644973+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_url": "https://www.rfc-editor.org/rfc/rfc9110.txt",
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E19/21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a.txt",
+            "sha256": "21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a",
+            "bytes": 502941,
+            "media_type": "text/plain",
+            "retrieved_url": "https://www.rfc-editor.org/rfc/rfc9110.txt",
+            "retrieved_at": "2026-10-28T06:16:29.644973+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-initial.json",
+          "reviewed_at": "2026-10-28T06:18:02.331108+00:00",
+          "review_note": "RFC Editor의 RFC 9110 텍스트와 9.2.2 비멱등 자동 재시도 조건을 재확인. 전체 RFC 응답 보관, 적용한 절의 범위는 기존 reviewed_scope 유지."
+        }
+      ]
+    },
+    "E36": {
+      "id": "E36",
+      "kind": "external",
+      "title": "Android architecture recommendations",
+      "url": "https://developer.android.com/topic/architecture/recommendations",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Android UI/data architecture, state holders and unidirectional data flow",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E36/c5a30ad2c9f137af9ad75a99db669b9d148ad863935ac8be6b447884df8ccc42.html",
+        "sha256": "c5a30ad2c9f137af9ad75a99db669b9d148ad863935ac8be6b447884df8ccc42",
+        "bytes": 338508,
+        "media_type": "text/html",
+        "retrieved_url": "https://developer.android.com/topic/architecture/recommendations",
+        "retrieved_at": "2026-10-28T06:28:34.832820+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E36/c5a30ad2c9f137af9ad75a99db669b9d148ad863935ac8be6b447884df8ccc42.html",
+            "sha256": "c5a30ad2c9f137af9ad75a99db669b9d148ad863935ac8be6b447884df8ccc42",
+            "bytes": 338508,
+            "media_type": "text/html",
+            "retrieved_url": "https://developer.android.com/topic/architecture/recommendations",
+            "retrieved_at": "2026-10-28T06:28:34.832820+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.939616+00:00",
+          "review_note": "보관 응답의 관련 절 확인: Android UI/data architecture, state holders and unidirectional data flow; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E45": {
+      "id": "E45",
+      "kind": "external",
+      "title": "OkHttp recipes and cancellation",
+      "url": "https://github.com/square/okhttp/blob/master/docs/recipes.md",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Official repository recipes Canceling a Call and Call.cancel IOException behavior",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E45/001ed65e6ec707902b03025e1e5a382ec5eb766606ea7240f0eb64f59bd0ca78.txt",
+        "sha256": "001ed65e6ec707902b03025e1e5a382ec5eb766606ea7240f0eb64f59bd0ca78",
+        "bytes": 49101,
+        "media_type": "text/plain",
+        "retrieved_url": "https://raw.githubusercontent.com/square/okhttp/master/docs/recipes.md",
+        "retrieved_at": "2026-10-28T06:31:44.864633+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_url": "https://raw.githubusercontent.com/square/okhttp/master/docs/recipes.md",
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E45/001ed65e6ec707902b03025e1e5a382ec5eb766606ea7240f0eb64f59bd0ca78.txt",
+            "sha256": "001ed65e6ec707902b03025e1e5a382ec5eb766606ea7240f0eb64f59bd0ca78",
+            "bytes": 49101,
+            "media_type": "text/plain",
+            "retrieved_url": "https://raw.githubusercontent.com/square/okhttp/master/docs/recipes.md",
+            "retrieved_at": "2026-10-28T06:31:44.864633+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-canonical.json",
+          "reviewed_at": "2026-10-28T06:44:41.970496+00:00",
+          "review_note": "보관 응답의 관련 절 확인: Official repository recipes Canceling a Call and Call.cancel IOException behavior; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ],
+      "previous_urls": [
+        "https://square.github.io/okhttp/recipes/"
+      ],
+      "reading_note": "Published recipes URL returned 404; used the official repository source. Failed capture retained."
+    },
+    "E55": {
+      "id": "E55",
+      "kind": "external",
+      "title": "Kotlin structured cancellation",
+      "url": "https://kotlinlang.org/docs/coroutines-cancellation.html",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Cancellation propagation, cooperative checks, CancellationException and finally cleanup. runCatching observation comes from executable DX01, not a quoted claim in this page.",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E55/6225c878986d1ff0787b5e8444b351dd38718ca4b4c445110816d7e5887224eb.html",
+        "sha256": "6225c878986d1ff0787b5e8444b351dd38718ca4b4c445110816d7e5887224eb",
+        "bytes": 38630,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/docs/coroutines-cancellation.html",
+        "retrieved_at": "2026-10-28T07:25:56.547522+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "previous_urls": [
+        "https://kotlinlang.org/docs/cancellation-and-timeouts.html"
+      ],
+      "snapshot_url": "https://kotlinlang.org/docs/coroutines-cancellation.html",
+      "reading_note": "Old document returned an HTML/meta/JavaScript redirect shell; followed its documented target. Failed raw paths and shell report retained.",
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E55/6225c878986d1ff0787b5e8444b351dd38718ca4b4c445110816d7e5887224eb.html",
+            "sha256": "6225c878986d1ff0787b5e8444b351dd38718ca4b4c445110816d7e5887224eb",
+            "bytes": 38630,
+            "media_type": "text/html",
+            "retrieved_url": "https://kotlinlang.org/docs/coroutines-cancellation.html",
+            "retrieved_at": "2026-10-28T07:25:56.547522+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-cancellation-canonical.json",
+          "reviewed_at": "2026-10-28T07:40:00.258110+00:00",
+          "review_note": "Cancellation propagation, cooperative checks, CancellationException and finally cleanup. runCatching observation comes from executable DX01, not a quoted claim in this page. Topic excerpts checked against captured official body; app target versions unselected.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "F01": {
+      "id": "F01",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/frontend/src/features/stocks/api.ts",
+      "sha256": "bd4189b4ae61e779c10beb1eb933d23894385d9a7885aac1eba647384d6c4756",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "종목 API와 런타임 응답 검증",
+      "runtime_verification_this_run": "not-run"
+    },
+    "F02": {
+      "id": "F02",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/frontend/src/features/stocks/types.ts",
+      "sha256": "bf1e18b274488b6f7a9f15d8b10c3a9e78222e48adb49ca9e0ccc8f83d36627f",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "종목 타입과 통화 fallback",
+      "runtime_verification_this_run": "not-run"
+    },
+    "F04": {
+      "id": "F04",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/frontend/src/features/portfolio/components/PortfolioTransactionEditor.tsx",
+      "sha256": "abacd47444c919ddd4d732951084861d1722bdb1791c271ce5ec6f54ee20154c",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "검색과 종가 effect 및 수동 입력",
+      "runtime_verification_this_run": "not-run"
+    },
+    "JC01": {
+      "id": "JC01",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/asset/controller/StockController.java",
+      "sha256": "4496cb9c934702d854cd11b375869658ae2a1020100e1668d5e7337ade16eb76",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "HTTP class/method mapping annotations only; compared programmatically, not full business-service review",
+      "runtime_verification_this_run": "not-run"
+    },
+    "JC09": {
+      "id": "JC09",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/exchangerate/controller/ExchangeRateController.java",
+      "sha256": "8894c94a2413ffb39b9ebcf3a95ae418b6120dbc28fbe04ff944e5fa2e7de753",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "HTTP class/method mapping annotations only; compared programmatically, not full business-service review",
+      "runtime_verification_this_run": "not-run"
+    },
+    "JC14": {
+      "id": "JC14",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/keyword/controller/KeywordController.java",
+      "sha256": "c3b39e7e70f071e80e3206452f547ff40150a6f8ac5db85e64085e5786cc7a8c",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "HTTP class/method mapping annotations only; compared programmatically, not full business-service review",
+      "runtime_verification_this_run": "not-run"
+    },
+    "JC18": {
+      "id": "JC18",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/news/controller/NewsController.java",
+      "sha256": "c92961bb993b660c5fd54e138fa04532d3e1170e189b98a7c4d10832112884e4",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "HTTP class/method mapping annotations only; compared programmatically, not full business-service review",
+      "runtime_verification_this_run": "not-run"
+    },
+    "P02": {
+      "id": "P02",
+      "kind": "local",
+      "path": "spec/service.md",
+      "sha256": "31fed07c550f6bccfa5cd80114c6db56f3bd6489dcfe28eee49893bfc72ad11a",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Full non-league service contract, feature sections and API appendix; requirements, not runtime proof",
+      "runtime_verification_this_run": "not-run"
+    },
+    "R02": {
+      "id": "R02",
+      "kind": "local",
+      "path": "app/src/service_portfolio.rs",
+      "sha256": "c29b84dde9472aba85b1778949032e9790abbfcd166d3ced4f27920392428b67",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Transaction envelope, member/portfolio lock and ledger/snapshot mutation",
+      "runtime_verification_this_run": "not-run"
+    },
+    "W05": {
+      "id": "W05",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/frontend/src/features/portfolio/api.ts",
+      "sha256": "8b499b25dd06d1bcd28b8fcf317c60f91d8e8d9c1168a7a44cc3e887d277b528",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Portfolio request paths, response guards, mutation result uncertainty",
+      "runtime_verification_this_run": "not-run"
+    },
+    "W07": {
+      "id": "W07",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/frontend/src/features/news/newslist/api.ts",
+      "sha256": "3a23d33dd7927f405546040c90055301ba82919b112b6b85988ff73db9d41065",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "News list requests and mapping",
+      "runtime_verification_this_run": "not-run"
+    },
+    "W08": {
+      "id": "W08",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/frontend/src/features/news/newsdetail/api.ts",
+      "sha256": "f9ee57e0bc224656a1943538a896224789eec3faeccdc5697ccffb40e85c840c",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "News detail requests and mapping",
+      "runtime_verification_this_run": "not-run"
+    }
+  },
+  "context": "experiments/android-native/next/knowledge/discovery-ui/context.md",
+  "context_sha256": "57f743cacc73113b822c08bbfb1c0cac787480ca53232a4565e2e60a1905408d",
+  "scope": "Required input materialization and provenance; content understanding is tested/reviewed, not mechanically proven"
+}

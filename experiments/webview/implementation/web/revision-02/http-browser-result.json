@@ -1,0 +1,4 @@
+{
+  "command": "node --test clients/webview/tests/http-browser.test.mjs",
+  "exit_code": 0
+}

@@ -1,0 +1,36 @@
+{
+  "at": "2026-10-28T09:58:14.040317+00:00",
+  "checks": {
+    "frozen-tests.json": {
+      "count": 5,
+      "mismatches": []
+    },
+    "frozen-query-tests.json": {
+      "count": 3,
+      "mismatches": []
+    },
+    "frozen-native-lifecycle-tests.json": {
+      "count": 4,
+      "mismatches": []
+    },
+    "frozen-full-host-policy-tests.json": {
+      "count": 5,
+      "mismatches": []
+    },
+    "implementation/web/revision02/source-hashes.json": {
+      "count": 216,
+      "mismatches": []
+    },
+    "implementation/hosts/source-hashes.json": {
+      "count": 24,
+      "mismatches": [
+        "clients/webview/FULL-HOSTS.md"
+      ]
+    }
+  },
+  "server_sha256": "7baa7a35a5ac0af3ecbe03fb66b344fcd30b86aa8711ce2bfdb390b658215806",
+  "pilot_navigation_unchanged": {
+    "android": true,
+    "ios": true
+  }
+}

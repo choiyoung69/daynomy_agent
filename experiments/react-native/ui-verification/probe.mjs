@@ -1,0 +1,13 @@
+import {chromium} from '/Users/seoyeong/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.mjs';
+import fs from 'node:fs/promises';
+const out='/Users/seoyeong/develop/AI/daynomy_agent/experiments/react-native/ui-verification';
+const browser=await chromium.launch({headless:true,executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'});
+const page=await browser.newPage({viewport:{width:375,height:812},deviceScaleFactor:1});
+const errors=[],requests=[];
+page.on('pageerror',e=>errors.push(e.message));
+page.on('response',r=>{if(r.url().includes('/api/'))requests.push({url:r.url(),status:r.status()})});
+await page.goto('http://localhost:18139',{waitUntil:'networkidle',timeout:90000});
+await page.screenshot({path:out+'/01-initial-375.png',fullPage:true});
+await fs.writeFile(out+'/initial.json',JSON.stringify({errors,requests,body:await page.locator('body').innerText()},null,2));
+console.log(await page.locator('body').innerText());
+await browser.close();

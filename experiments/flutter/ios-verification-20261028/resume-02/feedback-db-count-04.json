@@ -1,0 +1,6 @@
+{
+  "scope": "coordinator-owned synthetic fixture; shared gate held by fixture04",
+  "before": 0,
+  "query": "count only, no request body/token/cookie copied",
+  "query_exit_code": 0
+}

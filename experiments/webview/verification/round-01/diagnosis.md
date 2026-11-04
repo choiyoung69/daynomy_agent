@@ -1,0 +1,1 @@
+첫 독립 검사: unit 29/29, host policy 2/2, HTTP 1/1 통과. frozen Chromium DOM과 실제 Android109/desktop156 검색 실패. 실제 WebView 기본 MarketApi에서 Window.fetch receiver 오류 Illegal invocation, bound fetch 주입은 synthetic HTTP 성공. 구현 source/tests 수정 없음. 최초 install/launch는 성공, 직후 pidof race exit1은 준비 진단 오류이며 재확인 PID13061 정상.

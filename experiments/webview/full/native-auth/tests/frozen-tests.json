@@ -1,0 +1,46 @@
+{
+  "created_at": "2026-10-28T10:22:18.317953+00:00",
+  "role": "independent-test-author",
+  "scope": "native WebView OAuth pure session; no OS/browser/HTTP/DB success claimed",
+  "command": "node --test clients/webview/full-tests/native-auth/native-auth.test.mjs",
+  "red": {
+    "exit_code": 1,
+    "tests": 2,
+    "passed": 0,
+    "failed": 2,
+    "skipped": 0,
+    "cause": "both production NativeAuthSession sources absent"
+  },
+  "missing_sources": {
+    "clients/webview/android-full/app/src/main/java/com/daynomy/webview/NativeAuthSession.kt": true,
+    "clients/webview/ios-full/DaynomyWebView/NativeAuthSession.swift": true
+  },
+  "files": {
+    "clients/webview/full-tests/native-auth/native-auth.test.mjs": "f12b9e66524430ef58ff2f03d741edc83786120b1256137719def3243c802f18",
+    "clients/webview/full-tests/native-auth/NativeAuthSessionTest.kt": "c2cab10b5ae0ed6a01df1271fc5be65fe23ec9be0620ed6388bc6c767460573f",
+    "clients/webview/full-tests/native-auth/swift/main.swift": "024231bf219db5573d31365e89b31ffe9da33741ef4261cfd7e27293a5f2072e",
+    "clients/webview/full-tests/native-auth/README.md": "f395c55d3ea792e76295ee2a04989d40ce660ee71d36510b7a8e0953f4ca8223",
+    "spec/webview/native-auth.md": "dc01ddaa8b537165589873669228edf4e8f392ae1c4beb6491847094a0ca1437",
+    "experiments/webview/full/native-auth/tests/red.tap": "7cd875710f65bb0e9644ce0e5fec5eebdcb465f9b41d49173f25b820fbeb9ded"
+  },
+  "read_inputs": {
+    "app/src/service_auth.rs": "ca50065e928882961f8cd932c404e61aee6bc38df0ab9637f52cfc0e3cd331f7",
+    "knowledge/wiki/projects/daynomy/auth-session.md": "985522e2ab22fd21ec54e5392afb3a29e416765fd278cdd3c649849244f99b4c",
+    "knowledge/wiki/shared/auth-storage.md": "7b2cb276571490d4c9545599f3ad67db27be9d2a64a5060c05e2e07a2a98c586",
+    "knowledge/wiki/platforms/webview.md": "66fef5ae66dc261bdbc307977bf92c17b330c6fecb7b9fd607bd33513d5f4549",
+    "knowledge/wiki/packages/webview/auth-and-storage.md": "0adef0d55254ebf1d3c1f1778e112c47de67d8bd303af73cbb09e1a82aeba7b5"
+  },
+  "additional_primary_source": "https://www.rfc-editor.org/rfc/rfc7636.txt Appendix B checked for S256 example",
+  "test_compile_only": [
+    {
+      "language": "kotlin",
+      "exit_code": 0,
+      "scope": "test syntax/typecheck using throwaway ABI-only nil stub; no behavioral test executed"
+    },
+    {
+      "language": "swift",
+      "exit_code": 0,
+      "scope": "test syntax/typecheck using throwaway ABI-only nil stub; no behavioral test executed"
+    }
+  ]
+}

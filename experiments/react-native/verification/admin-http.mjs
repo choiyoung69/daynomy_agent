@@ -1,0 +1,38 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import {execFileSync} from 'node:child_process';
+import {createRequire} from 'node:module';
+import {createHash} from 'node:crypto';
+import {ServiceClient,ApiError,buildURL} from '../../../clients/react-native/src/core.ts';
+const base='http://127.0.0.1:18129',fixture=new URL('./rust-fixture-04/',import.meta.url);
+const pg='/opt/homebrew/opt/postgresql@18/bin/psql',args=['-X','-w','-h','127.0.0.1','-p','55459','-U','pilot','-At'];
+const db=execFileSync(pg,[...args,'-d','postgres','-c',"SELECT datname FROM pg_database WHERE datname LIKE 'daynomy_android_%_test'"],{encoding:'utf8'}).trim();
+execFileSync(pg,[...args,'-d',db,'-c',"UPDATE members SET role='ADMIN' WHERE id=930001"],{stdio:'ignore'});
+const cookies=new Map();const traffic=[];
+const transport=async(input,init={})=>{const url=new URL(String(input)),headers=new Headers(init.headers);const selected=[...cookies.values()].filter(c=>url.pathname.startsWith(c.path));if(selected.length)headers.set('cookie',selected.map(c=>`${c.name}=${c.value}`).join('; '));const r=await fetch(input,{...init,headers});traffic.push({path:url.pathname,method:init.method??'GET',status:r.status});for(const value of r.headers.getSetCookie()){const[pair,...attrs]=value.split(';'),index=pair.indexOf('='),name=pair.slice(0,index),v=pair.slice(index+1),path=attrs.find(a=>/^\s*path=/i.test(a))?.trim().slice(5)??'/';if(attrs.some(a=>/^\s*max-age=0$/i.test(a)))cookies.delete(name);else cookies.set(name,{name,value:v,path});}return r;};
+const client=new ServiceClient(base,transport),api={baseURL:base,request:client.request.bind(client)};
+await fs.writeFile(new URL('issue-login',fixture),'');
+for(let i=0;i<30;i++){try{await fs.access(new URL('issue-login',fixture));await new Promise(r=>setTimeout(r,100));}catch{break;}}
+const material=JSON.parse(await fs.readFile(new URL('login-env.json',fixture),'utf8'));
+await client.request('/api/auth/mobile/exchange',{method:'POST',body:{code:material.ANDROID30_LOGIN_CODE,codeVerifier:material.ANDROID30_LOGIN_VERIFIER}});
+const source=await fs.readFile(new URL('../../../clients/react-native/src/ui/Admin.tsx',import.meta.url),'utf8');
+const block=source.slice(source.indexOf('async function saveNews('),source.indexOf('export function Admin('));
+const require=createRequire(import.meta.url),ts=require('../../../clients/react-native/node_modules/typescript');
+const js=ts.transpileModule(block,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.None}}).outputText;
+const record=value=>typeof value==='object'&&value!==null&&!Array.isArray(value);
+const saveNews=new Function('fetch','record','ApiError','buildURL',js+'\nreturn saveNews;')(transport,record,ApiError,buildURL);
+const cases=[];let id;
+async function run(name,fn){try{await fn();cases.push({name,pass:true});}catch(error){cases.push({name,pass:false,error:error.message});}}
+await run('synthetic admin member authenticated',async()=>assert.equal((await client.request('/api/users/me')).role,'ADMIN'));
+await run('actual extracted UI saveNews creates multipart draft',async()=>{const result=await saveNews(api,{title:'RN 검증 초안',content:'검증을 위한 합성 본문',category:'STOCK',sources:[{name:'합성 출처',url:'https://fixture.invalid/rn'}],assetIds:[910001]},new AbortController().signal);assert.equal(result.status,'DRAFT');assert.equal(result.relatedAssets[0].assetId,910001);id=result.id;});
+await run('actual extracted UI saveNews updates multipart draft preserving links',async()=>{const result=await saveNews(api,{id,title:'RN 검증 수정',content:'수정한 합성 본문',category:'STOCK',sources:[{name:'합성 출처',url:'https://fixture.invalid/rn'}],assetIds:[910001]},new AbortController().signal);assert.equal(result.title,'RN 검증 수정');assert.equal(result.relatedAssets[0].assetId,910001);});
+await run('actual admin news publish appears publicly',async()=>{await client.request(`/api/admin/news/${id}/publish`,{method:'POST',csrf:true});assert.equal((await client.request(`/api/news/${id}`)).title,'RN 검증 수정');});
+await run('actual admin news delete removes public detail',async()=>{await client.request(`/api/admin/news/${id}`,{method:'DELETE',csrf:true});await assert.rejects(client.request(`/api/news/${id}`),e=>e.status===404);});
+await run('actual admin feedback state mutation',async()=>{const list=await client.request('/api/admin/feedbacks',{query:{page:'1',size:'15'}});assert.equal(list.items.length,1);const feedback=list.items[0];await client.request(`/api/admin/feedbacks/${feedback.id}`,{method:'PATCH',csrf:true,body:{status:'RESOLVED'}});const saved=await client.request(`/api/admin/feedbacks/${feedback.id}`);assert.equal(saved.status,'RESOLVED');});
+const refreshCount=()=>Number(execFileSync(pg,[...args,'-d',db,'-c',"SELECT count(*) FROM refresh_tokens WHERE member_id=930001"],{encoding:'utf8'}).trim());
+const beforeLogout=refreshCount();
+await client.request('/api/auth/logout',{method:'POST',csrf:true});
+const afterLogout=refreshCount();
+assert.equal(afterLogout,beforeLogout-1);
+const result={logoutDBEffect:{before:beforeLogout,after:afterLogout,removedExactlyCurrentSession:afterLogout===beforeLogout-1},checkedAt:new Date().toISOString(),sourceFunction:'src/ui/Admin.tsx saveNews extracted with TypeScript transpileModule and injected Node cookie fetch; no RN UI execution',sourceSha256:createHash('sha256').update(source).digest('hex'),cases,traffic,passed:cases.filter(x=>x.pass).length,failed:cases.filter(x=>!x.pass).length};
+await fs.writeFile(new URL('./admin-http-result.json',import.meta.url),JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify({passed:result.passed,failed:result.failed,cases},null,2));process.exitCode=result.failed?1:0;

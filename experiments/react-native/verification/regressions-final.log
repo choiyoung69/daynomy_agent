@@ -1,0 +1,70 @@
+TAP version 13
+# Subtest: independent concurrent guest additions retain both transactions
+ok 1 - independent concurrent guest additions retain both transactions
+  ---
+  duration_ms: 36.644333
+  type: 'test'
+  ...
+# Subtest: independent queued guest add then clear cannot resurrect ledger
+ok 2 - independent queued guest add then clear cannot resurrect ledger
+  ---
+  duration_ms: 11.046292
+  type: 'test'
+  ...
+# Subtest: independent corrupt guest storage is preserved and surfaces message
+ok 3 - independent corrupt guest storage is preserved and surfaces message
+  ---
+  duration_ms: 0.432084
+  type: 'test'
+  ...
+# Subtest: independent failed storage write does not update memory
+ok 4 - independent failed storage write does not update memory
+  ---
+  duration_ms: 0.176209
+  type: 'test'
+  ...
+# Subtest: independent session invalidation rejects late member response
+ok 5 - independent session invalidation rejects late member response
+  ---
+  duration_ms: 20.429625
+  type: 'test'
+  ...
+# Subtest: independent session invalidation during CSRF prevents stale write
+ok 6 - independent session invalidation during CSRF prevents stale write
+  ---
+  duration_ms: 0.273333
+  type: 'test'
+  ...
+# Subtest: independent concurrent 401 shares one refresh operation
+ok 7 - independent concurrent 401 shares one refresh operation
+  ---
+  duration_ms: 13.11225
+  type: 'test'
+  ...
+# Subtest: independent decimal serialization never converts through float
+ok 8 - independent decimal serialization never converts through float
+  ---
+  duration_ms: 0.230959
+  type: 'test'
+  ...
+# Subtest: independent US weighted cost uses explicit six-digit FX
+ok 9 - independent US weighted cost uses explicit six-digit FX
+  ---
+  duration_ms: 0.206166
+  type: 'test'
+  ...
+# Subtest: independent timeout covers response body consumption after headers
+ok 10 - independent timeout covers response body consumption after headers
+  ---
+  duration_ms: 21.474042
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 225.271958

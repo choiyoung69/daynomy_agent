@@ -1,0 +1,437 @@
+{
+  "created_at": "2026-10-28T09:58:10.734359+00:00",
+  "task": "core-portfolio",
+  "feature": "portfolio-ledger",
+  "platform": "android",
+  "documents": {
+    "knowledge/wiki/projects/daynomy/portfolio-ledger.md": "f7577b943d96efcc02b2c6c869eb62dbd1890cb8f4b508410f3ea4227c11a958",
+    "knowledge/wiki/projects/daynomy/portfolio-calculation.md": "6607b620f66996fa4394fc1ff8a2ac7cfdf21e30f209d5ce06a999cfc57fe935",
+    "knowledge/wiki/packages/android-kotlin/numbers-and-money.md": "bc5269fa0eef06744dae4117cf1c5e2d848f02e2d1d32196f152e6c4c9c8a36a",
+    "knowledge/wiki/packages/android-kotlin/errors-and-transactions.md": "f72637b1c47608078112eaab02726f3cf299c36ac4455b3166850838c74ac4fd",
+    "knowledge/wiki/packages/android-kotlin/types-and-json.md": "c65bfd46a9f7918f7b69f7d5efd197d330b3f9e21754686d6cb4da10d7a3ecca"
+  },
+  "source_records": {
+    "DX01": {
+      "id": "DX01",
+      "kind": "local",
+      "path": "knowledge/examples/kotlin/Core.kt",
+      "sha256": "496a91da6801f035e94dde8539fa095f84f606f9f5f4db5b691f3f09987270e9",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Kotlin JSON, ownership, cancellation and pure bridge policy examples",
+      "runtime_verification_this_run": "see DX09; integration not-run"
+    },
+    "DX09": {
+      "id": "DX09",
+      "kind": "local",
+      "path": "knowledge/evidence/2026-10-28-topic-examples-04.json",
+      "sha256": "62808d5fe2bdc0b4122c16435d76120415121079faf87e08d7ff92680a655c79",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Five-language final example build/run evidence; 100 cases",
+      "runtime_verification_this_run": "see DX09; integration not-run"
+    },
+    "E19": {
+      "id": "E19",
+      "kind": "external",
+      "title": "RFC 9110 HTTP Semantics",
+      "url": "https://www.rfc-editor.org/rfc/rfc9110.html#section-9.2.2",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "9.2.1 safe methods, 9.2.2 idempotent methods and conditions for automatic retries",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E19/21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a.txt",
+        "sha256": "21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a",
+        "bytes": 502941,
+        "media_type": "text/plain",
+        "retrieved_url": "https://www.rfc-editor.org/rfc/rfc9110.txt",
+        "retrieved_at": "2026-10-28T06:16:29.644973+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_url": "https://www.rfc-editor.org/rfc/rfc9110.txt",
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E19/21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a.txt",
+            "sha256": "21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a",
+            "bytes": 502941,
+            "media_type": "text/plain",
+            "retrieved_url": "https://www.rfc-editor.org/rfc/rfc9110.txt",
+            "retrieved_at": "2026-10-28T06:16:29.644973+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-initial.json",
+          "reviewed_at": "2026-10-28T06:18:02.331108+00:00",
+          "review_note": "RFC Editor의 RFC 9110 텍스트와 9.2.2 비멱등 자동 재시도 조건을 재확인. 전체 RFC 응답 보관, 적용한 절의 범위는 기존 reviewed_scope 유지."
+        }
+      ]
+    },
+    "E23": {
+      "id": "E23",
+      "kind": "external",
+      "title": "Kotlin numbers",
+      "url": "https://kotlinlang.org/docs/numbers.html",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Integer ranges and floating point precision",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E23/d8cb45cc423b44311800cd62d42463a51f1944ecd773cd91ea7e3b49f0c5297b.html",
+        "sha256": "d8cb45cc423b44311800cd62d42463a51f1944ecd773cd91ea7e3b49f0c5297b",
+        "bytes": 32902,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/docs/numbers.html",
+        "retrieved_at": "2026-10-28T06:28:27.712470+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E23/d8cb45cc423b44311800cd62d42463a51f1944ecd773cd91ea7e3b49f0c5297b.html",
+            "sha256": "d8cb45cc423b44311800cd62d42463a51f1944ecd773cd91ea7e3b49f0c5297b",
+            "bytes": 32902,
+            "media_type": "text/html",
+            "retrieved_url": "https://kotlinlang.org/docs/numbers.html",
+            "retrieved_at": "2026-10-28T06:28:27.712470+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.912262+00:00",
+          "review_note": "보관 응답의 관련 절 확인: 再確認: Integer ranges and floating point precision; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E24": {
+      "id": "E24",
+      "kind": "external",
+      "title": "Kotlin null safety",
+      "url": "https://kotlinlang.org/docs/null-safety.html",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Nullable types and Java interoperability caveats",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E24/b691cc0e8f41c03d56a55f330e64471081019d6dbfcdc285b5be808040b3ef6c.html",
+        "sha256": "b691cc0e8f41c03d56a55f330e64471081019d6dbfcdc285b5be808040b3ef6c",
+        "bytes": 34012,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/docs/null-safety.html",
+        "retrieved_at": "2026-10-28T06:28:28.722308+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E24/b691cc0e8f41c03d56a55f330e64471081019d6dbfcdc285b5be808040b3ef6c.html",
+            "sha256": "b691cc0e8f41c03d56a55f330e64471081019d6dbfcdc285b5be808040b3ef6c",
+            "bytes": 34012,
+            "media_type": "text/html",
+            "retrieved_url": "https://kotlinlang.org/docs/null-safety.html",
+            "retrieved_at": "2026-10-28T06:28:28.722308+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.914932+00:00",
+          "review_note": "보관 응답의 관련 절 확인: 再確認: Nullable types and Java interoperability caveats; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E31": {
+      "id": "E31",
+      "kind": "external",
+      "title": "Kotlin JSON explicitNulls",
+      "url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-builder/explicit-nulls.html",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "explicitNulls defaults and absent/null/default decoding differences",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E31/78b3270b5e76ebaee9d176818e39f5bb3d49ad08bea24a022418b70ff5aafb88.html",
+        "sha256": "78b3270b5e76ebaee9d176818e39f5bb3d49ad08bea24a022418b70ff5aafb88",
+        "bytes": 41852,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-builder/explicit-nulls.html",
+        "retrieved_at": "2026-10-28T06:28:31.037233+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E31/78b3270b5e76ebaee9d176818e39f5bb3d49ad08bea24a022418b70ff5aafb88.html",
+            "sha256": "78b3270b5e76ebaee9d176818e39f5bb3d49ad08bea24a022418b70ff5aafb88",
+            "bytes": 41852,
+            "media_type": "text/html",
+            "retrieved_url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-builder/explicit-nulls.html",
+            "retrieved_at": "2026-10-28T06:28:31.037233+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.927394+00:00",
+          "review_note": "보관 응답의 관련 절 확인: explicitNulls defaults and absent/null/default decoding differences; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E40": {
+      "id": "E40",
+      "kind": "external",
+      "title": "Kotlin JSON ignoreUnknownKeys",
+      "url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-builder/ignore-unknown-keys.html",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "ignoreUnknownKeys default false and allowing additional JSON properties",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E40/123e3be1a8e6e77823b2dc3156be9bf60b337ce173d8b43d2eabc670b21fd3f1.html",
+        "sha256": "123e3be1a8e6e77823b2dc3156be9bf60b337ce173d8b43d2eabc670b21fd3f1",
+        "bytes": 40736,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-builder/ignore-unknown-keys.html",
+        "retrieved_at": "2026-10-28T06:28:37.449889+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E40/123e3be1a8e6e77823b2dc3156be9bf60b337ce173d8b43d2eabc670b21fd3f1.html",
+            "sha256": "123e3be1a8e6e77823b2dc3156be9bf60b337ce173d8b43d2eabc670b21fd3f1",
+            "bytes": 40736,
+            "media_type": "text/html",
+            "retrieved_url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-builder/ignore-unknown-keys.html",
+            "retrieved_at": "2026-10-28T06:28:37.449889+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-packages.json",
+          "reviewed_at": "2026-10-28T06:44:41.949572+00:00",
+          "review_note": "보관 응답의 관련 절 확인: ignoreUnknownKeys default false and allowing additional JSON properties; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E45": {
+      "id": "E45",
+      "kind": "external",
+      "title": "OkHttp recipes and cancellation",
+      "url": "https://github.com/square/okhttp/blob/master/docs/recipes.md",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Official repository recipes Canceling a Call and Call.cancel IOException behavior",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E45/001ed65e6ec707902b03025e1e5a382ec5eb766606ea7240f0eb64f59bd0ca78.txt",
+        "sha256": "001ed65e6ec707902b03025e1e5a382ec5eb766606ea7240f0eb64f59bd0ca78",
+        "bytes": 49101,
+        "media_type": "text/plain",
+        "retrieved_url": "https://raw.githubusercontent.com/square/okhttp/master/docs/recipes.md",
+        "retrieved_at": "2026-10-28T06:31:44.864633+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_url": "https://raw.githubusercontent.com/square/okhttp/master/docs/recipes.md",
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E45/001ed65e6ec707902b03025e1e5a382ec5eb766606ea7240f0eb64f59bd0ca78.txt",
+            "sha256": "001ed65e6ec707902b03025e1e5a382ec5eb766606ea7240f0eb64f59bd0ca78",
+            "bytes": 49101,
+            "media_type": "text/plain",
+            "retrieved_url": "https://raw.githubusercontent.com/square/okhttp/master/docs/recipes.md",
+            "retrieved_at": "2026-10-28T06:31:44.864633+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-canonical.json",
+          "reviewed_at": "2026-10-28T06:44:41.970496+00:00",
+          "review_note": "보관 응답의 관련 절 확인: Official repository recipes Canceling a Call and Call.cancel IOException behavior; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ],
+      "previous_urls": [
+        "https://square.github.io/okhttp/recipes/"
+      ],
+      "reading_note": "Published recipes URL returned 404; used the official repository source. Failed capture retained."
+    },
+    "E46": {
+      "id": "E46",
+      "kind": "external",
+      "title": "Kotlin JSON primitive content",
+      "url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-primitive/content.html",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "JsonPrimitive.content and JsonNull contentOrNull distinction",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E46/f27c04b0827013e356d6fee59fde67d7ecd85ee3e7abe1fa3b8aef314bb1af91.html",
+        "sha256": "f27c04b0827013e356d6fee59fde67d7ecd85ee3e7abe1fa3b8aef314bb1af91",
+        "bytes": 39212,
+        "media_type": "text/html",
+        "retrieved_url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-primitive/content.html",
+        "retrieved_at": "2026-10-28T06:31:09.097988+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E46/f27c04b0827013e356d6fee59fde67d7ecd85ee3e7abe1fa3b8aef314bb1af91.html",
+            "sha256": "f27c04b0827013e356d6fee59fde67d7ecd85ee3e7abe1fa3b8aef314bb1af91",
+            "bytes": 39212,
+            "media_type": "text/html",
+            "retrieved_url": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-primitive/content.html",
+            "retrieved_at": "2026-10-28T06:31:09.097988+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-sources-libraries.json",
+          "reviewed_at": "2026-10-28T06:44:41.963821+00:00",
+          "review_note": "보관 응답의 관련 절 확인: JsonPrimitive.content and JsonNull contentOrNull distinction; 문서의 확인 범위이며 앱 실행 또는 전체 문서 의미 검증을 뜻하지 않음.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "E63": {
+      "id": "E63",
+      "kind": "external",
+      "title": "Java BigDecimal",
+      "url": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/math/BigDecimal.html",
+      "registered_on": "2026-10-28",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "BigDecimal string construction, scale and explicit rounding; Java 21 comparison source.",
+      "target_project_version": null,
+      "content_snapshot": {
+        "path": "knowledge/raw/external/E63/5b155debcd85d8627010dcce008830118f2d1f779f442bf59d1dff75e1cdde6c.html",
+        "sha256": "5b155debcd85d8627010dcce008830118f2d1f779f442bf59d1dff75e1cdde6c",
+        "bytes": 207302,
+        "media_type": "text/html",
+        "retrieved_url": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/math/BigDecimal.html",
+        "retrieved_at": "2026-10-28T07:17:54.668966+00:00",
+        "scope": "exact HTTP response body; completeness and applicability require review"
+      },
+      "snapshot_history": [
+        {
+          "previous": null,
+          "selected": {
+            "path": "knowledge/raw/external/E63/5b155debcd85d8627010dcce008830118f2d1f779f442bf59d1dff75e1cdde6c.html",
+            "sha256": "5b155debcd85d8627010dcce008830118f2d1f779f442bf59d1dff75e1cdde6c",
+            "bytes": 207302,
+            "media_type": "text/html",
+            "retrieved_url": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/math/BigDecimal.html",
+            "retrieved_at": "2026-10-28T07:17:54.668966+00:00",
+            "scope": "exact HTTP response body; completeness and applicability require review"
+          },
+          "report": "knowledge/evidence/2026-10-28-topic-runtime-sources.json",
+          "reviewed_at": "2026-10-28T07:40:00.280023+00:00",
+          "review_note": "BigDecimal string construction, scale and explicit rounding; Java 21 comparison source. Topic excerpts checked against captured official body; app target versions unselected.",
+          "pin_tool_sha256": "0c834feed06678ac8de757a7d84969c03e62175c9ac01a1e0e5f71e1387dd1e4"
+        }
+      ]
+    },
+    "F01": {
+      "id": "F01",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/frontend/src/features/stocks/api.ts",
+      "sha256": "bd4189b4ae61e779c10beb1eb933d23894385d9a7885aac1eba647384d6c4756",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "종목 API와 런타임 응답 검증",
+      "runtime_verification_this_run": "not-run"
+    },
+    "JC24": {
+      "id": "JC24",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/controller/PortfolioController.java",
+      "sha256": "f53781c5afa9fb3883d691553f366a3298bd02c790d75ff11d75c8b6cbf7d927",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "HTTP class/method mapping annotations only; compared programmatically, not full business-service review",
+      "runtime_verification_this_run": "not-run"
+    },
+    "JC26": {
+      "id": "JC26",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/controller/SavedPortfolioController.java",
+      "sha256": "0d30f6bed59aca399a738405926763d411142b3ca817d1fdb3f732cfbf994ad0",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "HTTP class/method mapping annotations only; compared programmatically, not full business-service review",
+      "runtime_verification_this_run": "not-run"
+    },
+    "JC28": {
+      "id": "JC28",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/backend/src/main/java/org/grit/daynomy/portfolio/v2/controller/PortfolioTransactionControllerV2.java",
+      "sha256": "740e6e3711d5ae50a80d27dc62422e730d0e0b4cf998904486402b4cec110410",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "HTTP class/method mapping annotations only; compared programmatically, not full business-service review",
+      "runtime_verification_this_run": "not-run"
+    },
+    "P02": {
+      "id": "P02",
+      "kind": "local",
+      "path": "spec/service.md",
+      "sha256": "31fed07c550f6bccfa5cd80114c6db56f3bd6489dcfe28eee49893bfc72ad11a",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Full non-league service contract, feature sections and API appendix; requirements, not runtime proof",
+      "runtime_verification_this_run": "not-run"
+    },
+    "R02": {
+      "id": "R02",
+      "kind": "local",
+      "path": "app/src/service_portfolio.rs",
+      "sha256": "c29b84dde9472aba85b1778949032e9790abbfcd166d3ced4f27920392428b67",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Transaction envelope, member/portfolio lock and ledger/snapshot mutation",
+      "runtime_verification_this_run": "not-run"
+    },
+    "W02": {
+      "id": "W02",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/frontend/src/features/portfolio/transactionForm.ts",
+      "sha256": "f2a9d1e34c01fd3199242accc9efc0ceaa324052f786bb50c9ade78ed9fd6493",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Seoul date, input precision, quantity and request conversion",
+      "runtime_verification_this_run": "not-run"
+    },
+    "W03": {
+      "id": "W03",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/frontend/src/features/portfolio/portfolioHoldingsStorage.ts",
+      "sha256": "ba20cb040efbf688482956549aa27d73d22748c6431b8f656fea23aac6690dc5",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Session-scoped guest holdings, ledger validation and invalid-data handling",
+      "runtime_verification_this_run": "not-run"
+    },
+    "W05": {
+      "id": "W05",
+      "kind": "local",
+      "path": "reference/2026-DAYNOMY-dev/frontend/src/features/portfolio/api.ts",
+      "sha256": "8b499b25dd06d1bcd28b8fcf317c60f91d8e8d9c1168a7a44cc3e887d277b528",
+      "review_status": "read",
+      "reviewed_on": "2026-10-28",
+      "reviewed_scope": "Portfolio request paths, response guards, mutation result uncertainty",
+      "runtime_verification_this_run": "not-run"
+    }
+  },
+  "context": "experiments/android-native/core30/knowledge/core-portfolio/context.md",
+  "context_sha256": "859d7157f87edf85bc71cdc067aa20cd0b99669fd5b17ce3d849dccceea5b3bb",
+  "scope": "Required input materialization and provenance; content understanding is tested/reviewed, not mechanically proven"
+}

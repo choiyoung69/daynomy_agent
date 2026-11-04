@@ -1,0 +1,193 @@
+{
+  "device": "emulator-5576",
+  "provider": "ephemeral locally signed OIDC; not real Google",
+  "mode": "actual full Android WebView and external Chrome with real Rust/private DB",
+  "steps": [
+    "actual guest protected MyPage redirects to login",
+    "original login link launches external Chrome while WebView stays trusted",
+    "return from unfinished browser login; native retry cancels and unlocks a fresh login",
+    "wrong-state app callback installs no session before legitimate completion",
+    "external browser callback returns to app; native exchange installs session; actual protected MyPage loads",
+    "OS cookie store retains HttpOnly access and refresh; JavaScript cannot read them",
+    "actual member nickname PATCH200 and USER/admin boundary pass",
+    "actual logout204 removes protected access",
+    "replayed callback after logout does not restore authentication"
+  ],
+  "api": [
+    {
+      "path": "/api/users/me",
+      "status": 401,
+      "method": "GET"
+    },
+    {
+      "path": "/api/auth/csrf",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/auth/refresh",
+      "status": 401,
+      "method": "POST"
+    },
+    {
+      "path": "/api/users/me",
+      "status": 401,
+      "method": "GET"
+    },
+    {
+      "path": "/api/auth/csrf",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/auth/refresh",
+      "status": 401,
+      "method": "POST"
+    },
+    {
+      "path": "/api/users/me",
+      "status": 401,
+      "method": "GET"
+    },
+    {
+      "path": "/api/users/me",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/users/me/portfolio",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/users/me/portfolio/performance",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/users/me",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/users/me",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/users/me",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/auth/csrf",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/users/me",
+      "status": 200,
+      "method": "PATCH"
+    },
+    {
+      "path": "/api/users/me",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/users/me",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/users/me",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/auth/csrf",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/auth/logout",
+      "status": 204,
+      "method": "POST"
+    },
+    {
+      "path": "/api/users/me",
+      "status": 401,
+      "method": "GET"
+    },
+    {
+      "path": "/api/auth/csrf",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/auth/refresh",
+      "status": 401,
+      "method": "POST"
+    },
+    {
+      "path": "/api/users/me",
+      "status": 401,
+      "method": "GET"
+    },
+    {
+      "path": "/api/auth/csrf",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/auth/refresh",
+      "status": 401,
+      "method": "POST"
+    },
+    {
+      "path": "/api/users/me",
+      "status": 401,
+      "method": "GET"
+    },
+    {
+      "path": "/api/auth/csrf",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/auth/refresh",
+      "status": 401,
+      "method": "POST"
+    }
+  ],
+  "cookieProperties": [
+    {
+      "name": "refresh_token",
+      "path": "/api/auth",
+      "domain": "127.0.0.1",
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "access_token",
+      "path": "/",
+      "domain": "127.0.0.1",
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "XSRF-TOKEN",
+      "path": "/",
+      "domain": "127.0.0.1",
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "externalEngine": "Mozilla/5.0 (Linux; Android 13; sdk_gphone64_arm64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36",
+  "serverCallbackStatus": 302,
+  "delivery": "Real Rust callback302 retrieved with external Chrome context cookies through verification APIRequestContext; same Chrome page then opens the returned app URI by a user-gesture link. Automatic HTTP302-to-app dispatch is not claimed by this adaptation.",
+  "status": "passed"
+}

@@ -1,0 +1,67 @@
+{
+  "global_developer_directory_changed": false,
+  "license_accepted_by_agent": false,
+  "checks": [
+    {
+      "command": [
+        "node",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "v22.23.1\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "npm",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "10.9.8\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcodebuild",
+        "-version"
+      ],
+      "exit_code": 0,
+      "stdout": "Xcode 27.1\nBuild version 27A9275\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "list",
+        "runtimes"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "2026-10-28 19:19:43.587 simctl[70808:19725905] CoreSimulatorService connection became invalid.  Simulator services will no longer be available.\n2026-10-28 19:19:43.698 simctl[70808:19725906] Logging connecton invalid: <OS_xpc_error: <dictionary: 0x1f228e080> { count = 1, transaction: 0, voucher = 0x0, contents =\n\t\"XPCErrorDescription\" => <string: 0x1f228e1c0> { string cache = 0x0, length = 18, contents = \"Connection invalid\" }\n}>\n2026-10-28 19:19:43.698 simctl[70808:19725905] Error opening log file (/Users/seoyeong/Library/Logs/CoreSimulator/CoreSimulator.com.apple.CoreSimulator.simctl.log): Operation not permitted\n[-[SimServiceContext initWithDeveloperDir:connectionType:error:]:499] WARN  : Unable to discover any Simulator runtimes. Developer Directory is /Applications/Xcode.app/Contents/Developer.\n[-[SimServiceContext initWithDeveloperDir:connectionType:error:]_block_invoke:556] ERROR : Could not get list of trusted mount directories: Error Domain=com.apple.CoreSimulator.SimError Code=410 \"The service used to manage runtime disk images (simdiskimaged) crashed or is not responding\" UserInfo={NSLocalizedDescription=The service used to manage runtime disk images (simdiskimaged) crashed or is not responding}\n[-[SimDiskImageManager init]:226] ERROR : Could not kickstart simdiskimaged; SimDiskImageManager services will not be available: Error Domain=NSPOSIXErrorDomain Code=53 \"Software caused connection abort\" UserInfo={NSLocalizedDescription=Error returned in reply from CoreSimulatorService: Connection invalid}\n[-[SimDiskImageManager _onQueue_checkConnection:]:290] ERROR : simdiskimaged returned error (invalid), marking disconnected.\n[-[SimDiskImageManager _onQueue_checkConnection:]:290] ERROR : simdiskimaged returned error (invalid), marking disconnected.\n[-[SimServiceContext sendRequest:reply:error:]:2074] ERROR : Unable to deliver request ({\n    request = \"notification_subscription\";\n    \"set_path\" = \"/Users/seoyeong/Library/Developer/CoreSimulator/Devices\";\n}) because we are not connected to CoreSimulatorService.\n2026-10-28 19:19:43.699 simctl[70808:19725902] Error Domain=NSPOSIXErrorDomain Code=61 \"Connection refused\" UserInfo={NSLocalizedDescription=CoreSimulatorService connection became invalid.  Simulator services will no longer be available.}\nUnable to locate device set: Error Domain=NSPOSIXErrorDomain Code=61 \"Connection refused\" UserInfo={NSLocalizedFailureReason=Failed to subscribe to notifications from CoreSimulatorService., NSLocalizedDescription=Failed to initialize simulator device set., NSUnderlyingError=0x8fb1f07b0 {Error Domain=NSPOSIXErrorDomain Code=61 \"Connection refused\" UserInfo={NSLocalizedDescription=CoreSimulatorService connection became invalid.  Simulator services will no longer be available.}}}\n"
+    },
+    {
+      "command": [
+        "/bin/zsh",
+        "-lc",
+        "command -v adb; command -v java; ls /Users/seoyeong/Library/Android/sdk/platforms 2>/dev/null"
+      ],
+      "exit_code": 0,
+      "stdout": "/usr/bin/java\nandroid-34\nandroid-35\n",
+      "stderr": ""
+    }
+  ],
+  "unsandboxed_simulator_runtimes": {
+    "exit_code": 0,
+    "stdout": "== Runtimes ==\n",
+    "installed_runtimes": 0
+  },
+  "unsandboxed_android_devices": {
+    "exit_code": 0,
+    "devices": [
+      "emulator-5564",
+      "emulator-5576"
+    ],
+    "expo_go_on_emulator_5576": false
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "baseline": 0,
+  "after": 1,
+  "delta": 1,
+  "query_exit": 0,
+  "first_query_error": "wrong singular table name feedback; relation absent; corrected against app/src/main.rs feedbacks"
+}

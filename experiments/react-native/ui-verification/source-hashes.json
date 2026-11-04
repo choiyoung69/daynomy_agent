@@ -1,0 +1,11 @@
+{
+  "clients/react-native/App.tsx": "66ff87b2c7b2e2b1f410655cc096a9c5e040a89987daef63a786678f39168dfa",
+  "clients/react-native/src/api.ts": "0167949d3a2dedfe97e0db564c5724c9dd3e9e52367d75bd4e270b2f88e23883",
+  "clients/react-native/src/auth.ts": "34031369d46e9d8c0c4060f81833a00012fe79288613c2d34941c27caa461714",
+  "clients/react-native/src/core.ts": "e31fb8cf39a17bfffb44a33e2443aacd845414a6a3144b58f888c4a500f01136",
+  "clients/react-native/src/routes.ts": "7a873e81fcdfd469c22be50be597f1a3bcc239bbc5b84281074f73dada4840dc",
+  "clients/react-native/src/storage.ts": "2b68ddb2ec2228e8ae7d8b38667420774063a7915d7a38839b3fd1f9b605ff7e",
+  "clients/react-native/src/ui/Admin.tsx": "7a8f80cda47c69d96c057cf8104396b83fd6e675bbe08e49b7a6440a5623dc11",
+  "clients/react-native/src/ui/kit.tsx": "650f82d5c85fa742bb71443209c40950362399a3f907698634bc2c453166faaf",
+  "clients/react-native/src/ui/theme.ts": "714ba0ca5ace5df163c5eb3d93a0ad32632115b4336eb3416864cb3cd04716af"
+}

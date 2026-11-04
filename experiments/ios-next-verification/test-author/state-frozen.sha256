@@ -1,0 +1,5 @@
+3a63514dc0c242ecd094a0ac995c96d7b815693143c8f12354bc686ca331ec6d  experiments/ios-next-verification/test-author/StateRegressionContract.swift
+b44a008124ae0108cf2af3414346a50ae4346de9fc9143d4203518891609c8cd  experiments/ios-next-verification/test-author/run_state_contract.py
+0a5761b239c562cfea7c7bf34785daa3e7a5041dc7ffae6de0331e3481a45f2c  experiments/ios-next-verification/test-author/state-red.log
+47e6877e322d1f58f942e3e669ca14d3b7629fa21ed0f88f48ad487017a60a81  experiments/ios-next-verification/test-author/check_source_wiring.py
+151b6c6e1ac7ec248bfa111d3d75e4f78dc8e1f5cccac473776b6439e3478884  experiments/ios-next-verification/test-author/wiring-red.log

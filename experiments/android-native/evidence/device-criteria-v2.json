@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-10-28T08:38:36.134535+00:00",
+  "author_role": "independent-test-author-reviewer",
+  "file": "clients/android/app/src/androidTest/kotlin/org/daynomy/android/MarketScreenAcceptanceTest.kt",
+  "before_sha256": "e6d383dab7244d311c29b0a5daccd117394dfb681f67a8a13b7ee0be245d42e4",
+  "after_sha256": "5d8ee4b87f74e201217ce2c9aa0512df622533916622d2c05187e5e9fa9bdb5b",
+  "change": "Remove invalid import androidx.compose.ui.test.assertDoesNotExist only. Every existing assertion and test body is unchanged.",
+  "reason": "Coordinator compilation found unresolved top-level import with Compose BOM 2025.04.01; assertDoesNotExist is a SemanticsNodeInteraction member and needs no import. This is a compilation-only correction, not an expectation change.",
+  "runtime_validation": "Not run by this role; coordinator will compile and execute.",
+  "previous_evidence": "Initial v1 criterion hashes and first red evidence are preserved."
+}

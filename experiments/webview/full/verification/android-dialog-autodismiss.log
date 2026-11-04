@@ -1,0 +1,2 @@
+NATIVE_CONFIRM_OPENED
+{"name":"AssertionError","message":"Expected values to be strictly equal:\n\nfalse !== true\n"}

@@ -1,0 +1,391 @@
+{
+  "browser": "156.0.8078.48",
+  "base": "http://127.0.0.1:18082",
+  "routes": [
+    {
+      "viewport": "mobile",
+      "path": "/",
+      "url": "http://127.0.0.1:18082/",
+      "headings": [
+        "최근 검색",
+        "내 포트폴리오",
+        "자산 추이",
+        "자산 구성",
+        "포트폴리오 AI 분석",
+        "보유 자산 소식",
+        "DAYNOMY에 의견 보내기"
+      ],
+      "text": "DAYNOMY\n포트폴리오\n소식\n투자 캘린더\n로그인\n내 포트폴리오\nⓘ\n사용 가이드\n처음이신가요?\n\n여기서 예시로 따라 해보세요.\n\n자산 등록부터 소식 확인,\n포트폴리오 분석까지 함께 살펴봐요.\n\n비회원 자산은 이 탭에만 임시 저장돼요.\n\n소식\n거래 기록\n전체 자산 평가금액\n금액 숨기기\n0원\n최근 거래일 손익\n— —\n보유자산 매입금액\n0원\n현재 보유 수량 기준\n평가손익\n0원\n0.00%\n누적 실현손익\n로그인 후 확인할 수 있어요\n매도로 확정된 손익\n\n매수·매도 거래를 기록해 시작하세요.\n\n자산 분석\n자산 추이\n잠금\n로그인 후 자산 추이를 확인할 수 있어요\n로그인하기\n자산 구성\n\n표시할 자산이 없습니다\n\n보유 자산 0\n거래 내역\n보유 중인 자산이 없어요\n\n매수·매도를 기록하고 보유 자산의 평가금액을 확인해 보세요.\n\n거래 기록하기\n포트폴리오 AI 분석\n\n오늘의 경제·금융·산업 이슈가 보유 자산에 미칠 영향을 확인해 보세요.\n\n1회 분석 체험하기\n−\n\n포트폴리오에 자산을 등록하면 오늘의 주요 이슈가 내 자산에 미치는 영향을 확인할 수 있어요.\n\n보유 자산 소식\n최신순\n\n내 종목과 연결된 이야기\n\n자산을 등록하면 관련 소식이 여기에 모입니다.\n\n보유 종목 소식 더 보기\n피드백\nDAYNOMY\n\n매일의 경제를 더 선명하게\n© 2026 DAYNOMY\n\n서비스 소개\n회사소개\n이용약관\n개인정보처리방침\n문의하기",
+      "overflow": false
+    },
+    {
+      "viewport": "mobile",
+      "path": "/news",
+      "url": "http://127.0.0.1:18082/news",
+      "headings": [
+        "최근 검색",
+        "소식",
+        "투자 캘린더",
+        "주목받는 인물의 글",
+        "전체 콘텐츠",
+        "DAYNOMY에 의견 보내기"
+      ],
+      "text": "DAYNOMY\n포트폴리오\n소식\n투자 캘린더\n로그인\n소식\n투자 캘린더\n\n다가오는 발표 전, 내 자산이 과거에 어떻게 움직였는지 확인하세요.\n\n2026년 10월\n달력으로 보기\n\n일정을 불러오지 못했어요.\n\n다시 시도\n\n일정을 선택하면 내 자산의 과거 반응을 보여드려요.\n\n주목받는 인물의 글\n전체 보기\n\n인물의 글을 불러오지 못했습니다. 다시 시도\n\n전체 콘텐츠\n전체\n데이노미\nX\nThreads\nYouTube\n\nYouTube·Threads·X 자료를 불러오지 못했습니다. 다시 시도\n\n데이노미 이슈를 불러오지 못했습니다. 다시 시도\n\n피드백\nDAYNOMY\n\n매일의 경제를 더 선명하게\n© 2026 DAYNOMY\n\n서비스 소개\n회사소개\n이용약관\n개인정보처리방침\n문의하기",
+      "overflow": false
+    },
+    {
+      "viewport": "mobile",
+      "path": "/news/1",
+      "url": "http://127.0.0.1:18082/news/1",
+      "headings": [
+        "최근 검색",
+        "DAYNOMY에 의견 보내기"
+      ],
+      "text": "DAYNOMY\n포트폴리오\n소식\n투자 캘린더\n로그인\n\n뉴스를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.\n\n피드백\nDAYNOMY\n\n매일의 경제를 더 선명하게\n© 2026 DAYNOMY\n\n서비스 소개\n회사소개\n이용약관\n개인정보처리방침\n문의하기",
+      "overflow": false
+    },
+    {
+      "viewport": "mobile",
+      "path": "/search",
+      "url": "http://127.0.0.1:18082/search",
+      "headings": [
+        "최근 검색",
+        "소식 검색",
+        "DAYNOMY에 의견 보내기"
+      ],
+      "text": "DAYNOMY\n포트폴리오\n소식\n투자 캘린더\n로그인\n소식 검색\n\n데이노미, Threads, YouTube, X의 소식을 찾아보세요.\n\n피드백\nDAYNOMY\n\n매일의 경제를 더 선명하게\n© 2026 DAYNOMY\n\n서비스 소개\n회사소개\n이용약관\n개인정보처리방침\n문의하기",
+      "overflow": false
+    },
+    {
+      "viewport": "mobile",
+      "path": "/people",
+      "url": "http://127.0.0.1:18082/people",
+      "headings": [
+        "최근 검색",
+        "인물의 글",
+        "DAYNOMY에 의견 보내기"
+      ],
+      "text": "DAYNOMY\n포트폴리오\n소식\n투자 캘린더\n로그인\n← 소식 홈\n인물의 글\n전체\n인물 찾기\n\n인물의 글을 불러오지 못했습니다. 다시 시도\n\n피드백\nDAYNOMY\n\n매일의 경제를 더 선명하게\n© 2026 DAYNOMY\n\n서비스 소개\n회사소개\n이용약관\n개인정보처리방침\n문의하기",
+      "overflow": false
+    },
+    {
+      "viewport": "mobile",
+      "path": "/stocks/1",
+      "url": "http://127.0.0.1:18082/stocks/1",
+      "headings": [
+        "최근 검색",
+        "DAYNOMY에 의견 보내기"
+      ],
+      "text": "DAYNOMY\n포트폴리오\n소식\n투자 캘린더\n로그인\n포트폴리오\n종목 자료\n!\n관련 자료를 불러오지 못했어요.\n\nAPI 서버에 연결할 수 없습니다.\n\n포트폴리오로 돌아가기\n피드백\nDAYNOMY\n\n매일의 경제를 더 선명하게\n© 2026 DAYNOMY\n\n서비스 소개\n회사소개\n이용약관\n개인정보처리방침\n문의하기",
+      "overflow": false
+    },
+    {
+      "viewport": "mobile",
+      "path": "/investment-calendar",
+      "url": "http://127.0.0.1:18082/investment-calendar",
+      "headings": [
+        "최근 검색",
+        "투자 캘린더",
+        "DAYNOMY에 의견 보내기"
+      ],
+      "text": "DAYNOMY\n포트폴리오\n소식\n투자 캘린더\n로그인\n투자 캘린더\n\n다가오는 발표 전, 내 자산이 과거에 어떻게 움직였는지 확인하세요.\n\n2026년 10월\n달력으로 보기\n\n일정을 불러오지 못했어요.\n\n다시 시도\n\n일정을 선택하면 내 자산의 과거 반응을 보여드려요.\n\n피드백\nDAYNOMY\n\n매일의 경제를 더 선명하게\n© 2026 DAYNOMY\n\n서비스 소개\n회사소개\n이용약관\n개인정보처리방침\n문의하기",
+      "overflow": false
+    },
+    {
+      "viewport": "mobile",
+      "path": "/login",
+      "url": "http://127.0.0.1:18082/login",
+      "headings": [
+        "DAYNOMY 로그인"
+      ],
+      "text": "×\nDAYNOMY 로그인\n\n로그인하고 내 포트폴리오를 관리하세요\n\nGoogle로 시작하기\n\n계속하면 서비스 이용약관과 개인정보처리방침에 동의하게 됩니다.",
+      "overflow": false
+    },
+    {
+      "viewport": "mobile",
+      "path": "/mypage",
+      "url": "http://127.0.0.1:18082/login?returnTo=%2Fmypage",
+      "headings": [
+        "DAYNOMY 로그인"
+      ],
+      "text": "×\nDAYNOMY 로그인\n\n로그인하고 내 포트폴리오를 관리하세요\n\nGoogle로 시작하기\n\n계속하면 서비스 이용약관과 개인정보처리방침에 동의하게 됩니다.",
+      "overflow": false
+    },
+    {
+      "viewport": "mobile",
+      "path": "/admin/news",
+      "url": "http://127.0.0.1:18082/login?returnTo=%2Fadmin%2Fnews",
+      "headings": [
+        "DAYNOMY 관리자 로그인"
+      ],
+      "text": "×\nDAYNOMY 관리자 로그인\n\n관리자 계정으로 로그인해 뉴스 콘텐츠를 관리하세요\n\nGoogle로 시작하기\n\n계속하면 서비스 이용약관과 개인정보처리방침에 동의하게 됩니다.",
+      "overflow": false
+    },
+    {
+      "viewport": "desktop",
+      "path": "/",
+      "url": "http://127.0.0.1:18082/",
+      "headings": [
+        "최근 검색",
+        "내 포트폴리오",
+        "자산 추이",
+        "자산 구성",
+        "포트폴리오 AI 분석",
+        "보유 자산 소식",
+        "DAYNOMY에 의견 보내기"
+      ],
+      "text": "DAYNOMY\n포트폴리오\n소식\n투자 캘린더\n/\n를 눌러 검색하세요\n로그인\n내 포트폴리오\nⓘ\n사용 가이드\n처음이신가요?\n\n여기서 예시로 따라 해보세요.\n\n자산 등록부터 소식 확인,\n포트폴리오 분석까지 함께 살펴봐요.\n\n비회원 자산은 이 탭에만 임시 저장돼요.\n\n소식\n거래 기록\n전체 자산 평가금액\n금액 숨기기\n0원\n최근 거래일 손익\n— —\n보유자산 매입금액\n0원\n현재 보유 수량 기준\n평가손익\n0원\n0.00%\n누적 실현손익\n로그인 후 확인할 수 있어요\n매도로 확정된 손익\n\n매수·매도 거래를 기록해 시작하세요.\n\n자산 분석\n자산 추이\n잠금\n로그인 후 자산 추이를 확인할 수 있어요\n로그인하기\n자산 구성\n\n표시할 자산이 없습니다\n\n보유 자산 0\n거래 내역\n보유 중인 자산이 없어요\n\n매수·매도를 기록하고 보유 자산의 평가금액을 확인해 보세요.\n\n거래 기록하기\n포트폴리오 AI 분석\n\n오늘의 경제·금융·산업 이슈가 보유 자산에 미칠 영향을 확인해 보세요.\n\n1회 분석 체험하기\n−\n\n포트폴리오에 자산을 등록하면 오늘의 주요 이슈가 내 자산에 미치는 영향을 확인할 수 있어요.\n\n보유 자산 소식\n최신순\n\n내 종목과 연결된 이야기\n\n자산을 등록하면 관련 소식이 여기에 모입니다.\n\n보유 종목 소식 더 보기\n피드백\nDAYNOMY\n\n매일의 경제를 더 선명하게\n© 2026 DAYNOMY\n\n서비스 소개\n회사소개\n이용약관\n개인정보처리방침\n문의하기",
+      "overflow": false
+    },
+    {
+      "viewport": "desktop",
+      "path": "/news",
+      "url": "http://127.0.0.1:18082/news",
+      "headings": [
+        "최근 검색",
+        "소식",
+        "투자 캘린더",
+        "주목받는 인물의 글",
+        "전체 콘텐츠",
+        "DAYNOMY에 의견 보내기"
+      ],
+      "text": "DAYNOMY\n포트폴리오\n소식\n투자 캘린더\n/\n를 눌러 검색하세요\n로그인\n소식\n투자 캘린더\n\n다가오는 발표 전, 내 자산이 과거에 어떻게 움직였는지 확인하세요.\n\n2026년 10월\n달력으로 보기\n\n일정을 불러오지 못했어요.\n\n다시 시도\n\n일정을 선택하면 내 자산의 과거 반응을 보여드려요.\n\n주목받는 인물의 글\n전체 보기\n\n인물의 글을 불러오지 못했습니다. 다시 시도\n\n전체 콘텐츠\n전체\n데이노미\nX\nThreads\nYouTube\n최신순\n\nYouTube·Threads·X 자료를 불러오지 못했습니다. 다시 시도\n\n데이노미 이슈를 불러오지 못했습니다. 다시 시도\n\n피드백\nDAYNOMY\n\n매일의 경제를 더 선명하게\n© 2026 DAYNOMY\n\n서비스 소개\n회사소개\n이용약관\n개인정보처리방침\n문의하기",
+      "overflow": false
+    },
+    {
+      "viewport": "desktop",
+      "path": "/news/1",
+      "url": "http://127.0.0.1:18082/news/1",
+      "headings": [
+        "최근 검색",
+        "DAYNOMY에 의견 보내기"
+      ],
+      "text": "DAYNOMY\n포트폴리오\n소식\n투자 캘린더\n/\n를 눌러 검색하세요\n로그인\n\n뉴스를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.\n\n피드백\nDAYNOMY\n\n매일의 경제를 더 선명하게\n© 2026 DAYNOMY\n\n서비스 소개\n회사소개\n이용약관\n개인정보처리방침\n문의하기",
+      "overflow": false
+    },
+    {
+      "viewport": "desktop",
+      "path": "/search",
+      "url": "http://127.0.0.1:18082/search",
+      "headings": [
+        "최근 검색",
+        "소식 검색",
+        "DAYNOMY에 의견 보내기"
+      ],
+      "text": "DAYNOMY\n포트폴리오\n소식\n투자 캘린더\n/\n를 눌러 검색하세요\n로그인\n소식 검색\n\n데이노미, Threads, YouTube, X의 소식을 찾아보세요.\n\n피드백\nDAYNOMY\n\n매일의 경제를 더 선명하게\n© 2026 DAYNOMY\n\n서비스 소개\n회사소개\n이용약관\n개인정보처리방침\n문의하기",
+      "overflow": false
+    },
+    {
+      "viewport": "desktop",
+      "path": "/people",
+      "url": "http://127.0.0.1:18082/people",
+      "headings": [
+        "최근 검색",
+        "인물의 글",
+        "DAYNOMY에 의견 보내기"
+      ],
+      "text": "DAYNOMY\n포트폴리오\n소식\n투자 캘린더\n/\n를 눌러 검색하세요\n로그인\n← 소식 홈\n인물의 글\n‹\n전체\n›\n인물 찾기\n\n인물의 글을 불러오지 못했습니다. 다시 시도\n\n피드백\nDAYNOMY\n\n매일의 경제를 더 선명하게\n© 2026 DAYNOMY\n\n서비스 소개\n회사소개\n이용약관\n개인정보처리방침\n문의하기",
+      "overflow": false
+    },
+    {
+      "viewport": "desktop",
+      "path": "/stocks/1",
+      "url": "http://127.0.0.1:18082/stocks/1",
+      "headings": [
+        "최근 검색",
+        "DAYNOMY에 의견 보내기"
+      ],
+      "text": "DAYNOMY\n포트폴리오\n소식\n투자 캘린더\n/\n를 눌러 검색하세요\n로그인\n포트폴리오\n종목 자료\n!\n관련 자료를 불러오지 못했어요.\n\nAPI 서버에 연결할 수 없습니다.\n\n포트폴리오로 돌아가기\n피드백\nDAYNOMY\n\n매일의 경제를 더 선명하게\n© 2026 DAYNOMY\n\n서비스 소개\n회사소개\n이용약관\n개인정보처리방침\n문의하기",
+      "overflow": false
+    },
+    {
+      "viewport": "desktop",
+      "path": "/investment-calendar",
+      "url": "http://127.0.0.1:18082/investment-calendar",
+      "headings": [
+        "최근 검색",
+        "투자 캘린더",
+        "DAYNOMY에 의견 보내기"
+      ],
+      "text": "DAYNOMY\n포트폴리오\n소식\n투자 캘린더\n/\n를 눌러 검색하세요\n로그인\n투자 캘린더\n\n다가오는 발표 전, 내 자산이 과거에 어떻게 움직였는지 확인하세요.\n\n2026년 10월\n달력으로 보기\n\n일정을 불러오지 못했어요.\n\n다시 시도\n\n일정을 선택하면 내 자산의 과거 반응을 보여드려요.\n\n피드백\nDAYNOMY\n\n매일의 경제를 더 선명하게\n© 2026 DAYNOMY\n\n서비스 소개\n회사소개\n이용약관\n개인정보처리방침\n문의하기",
+      "overflow": false
+    },
+    {
+      "viewport": "desktop",
+      "path": "/login",
+      "url": "http://127.0.0.1:18082/login",
+      "headings": [
+        "DAYNOMY 로그인"
+      ],
+      "text": "×\nDAYNOMY 로그인\n\n로그인하고 내 포트폴리오를 관리하세요\n\nGoogle로 시작하기\n\n계속하면 서비스 이용약관과 개인정보처리방침에 동의하게 됩니다.",
+      "overflow": false
+    },
+    {
+      "viewport": "desktop",
+      "path": "/mypage",
+      "url": "http://127.0.0.1:18082/login?returnTo=%2Fmypage",
+      "headings": [
+        "DAYNOMY 로그인"
+      ],
+      "text": "×\nDAYNOMY 로그인\n\n로그인하고 내 포트폴리오를 관리하세요\n\nGoogle로 시작하기\n\n계속하면 서비스 이용약관과 개인정보처리방침에 동의하게 됩니다.",
+      "overflow": false
+    },
+    {
+      "viewport": "desktop",
+      "path": "/admin/news",
+      "url": "http://127.0.0.1:18082/login?returnTo=%2Fadmin%2Fnews",
+      "headings": [
+        "DAYNOMY 관리자 로그인"
+      ],
+      "text": "×\nDAYNOMY 관리자 로그인\n\n관리자 계정으로 로그인해 뉴스 콘텐츠를 관리하세요\n\nGoogle로 시작하기\n\n계속하면 서비스 이용약관과 개인정보처리방침에 동의하게 됩니다.",
+      "overflow": false
+    }
+  ],
+  "requests": [
+    {
+      "path": "/api/users/me",
+      "status": 502
+    },
+    {
+      "path": "/api/people",
+      "status": 502
+    },
+    {
+      "path": "/api/news",
+      "status": 502
+    },
+    {
+      "path": "/api/contents",
+      "status": 502
+    },
+    {
+      "path": "/api/users/me",
+      "status": 502
+    },
+    {
+      "path": "/api/auth/csrf",
+      "status": 502
+    },
+    {
+      "path": "/api/news/1",
+      "status": 502
+    },
+    {
+      "path": "/api/users/me",
+      "status": 502
+    },
+    {
+      "path": "/api/users/me",
+      "status": 502
+    },
+    {
+      "path": "/api/people",
+      "status": 502
+    },
+    {
+      "path": "/api/users/me",
+      "status": 502
+    },
+    {
+      "path": "/api/assets/1/contents",
+      "status": 502
+    },
+    {
+      "path": "/api/users/me",
+      "status": 502
+    },
+    {
+      "path": "/api/users/me",
+      "status": 502
+    },
+    {
+      "path": "/api/auth/csrf",
+      "status": 502
+    },
+    {
+      "path": "/api/users/me",
+      "status": 502
+    },
+    {
+      "path": "/api/users/me",
+      "status": 502
+    },
+    {
+      "path": "/api/users/me",
+      "status": 502
+    },
+    {
+      "path": "/api/users/me",
+      "status": 502
+    },
+    {
+      "path": "/api/people",
+      "status": 502
+    },
+    {
+      "path": "/api/news",
+      "status": 502
+    },
+    {
+      "path": "/api/contents",
+      "status": 502
+    },
+    {
+      "path": "/api/users/me",
+      "status": 502
+    },
+    {
+      "path": "/api/auth/csrf",
+      "status": 502
+    },
+    {
+      "path": "/api/news/1",
+      "status": 502
+    },
+    {
+      "path": "/api/users/me",
+      "status": 502
+    },
+    {
+      "path": "/api/users/me",
+      "status": 502
+    },
+    {
+      "path": "/api/people",
+      "status": 502
+    },
+    {
+      "path": "/api/users/me",
+      "status": 502
+    },
+    {
+      "path": "/api/assets/1/contents",
+      "status": 502
+    },
+    {
+      "path": "/api/users/me",
+      "status": 502
+    },
+    {
+      "path": "/api/users/me",
+      "status": 502
+    },
+    {
+      "path": "/api/auth/csrf",
+      "status": 502
+    },
+    {
+      "path": "/api/users/me",
+      "status": 502
+    },
+    {
+      "path": "/api/users/me",
+      "status": 502
+    },
+    {
+      "path": "/api/users/me",
+      "status": 502
+    }
+  ],
+  "pageErrors": []
+}

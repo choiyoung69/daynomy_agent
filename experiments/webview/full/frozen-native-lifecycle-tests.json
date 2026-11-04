@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "frozen_at": "2026-10-28T09:44:58.147030+00:00",
+  "role": "independent-test-author",
+  "command": "node clients/webview/fullweb/node_modules/vitest/vitest.mjs run --config clients/webview/full-tests/native-lifecycle.config.mjs",
+  "exit": 1,
+  "actual_tests": 4,
+  "failed": 4,
+  "skipped": 0,
+  "implementation_sha256_at_red": {
+    "clients/webview/fullweb/src/hooks/useWebViewForeground.ts": "83e141dfdd86c91a4a2ae3a8c8eb3e6ef7b448c20bd917a80e5590f486c0e749",
+    "clients/webview/fullweb/src/features/portfolio/components/PortfolioTransactionEditor.tsx": "ca13893100fd8a0d552ad991c502376cf20af5e15e90a28140657c8b8abc99e2"
+  },
+  "files": {
+    "clients/webview/full-tests/native-lifecycle.test.tsx": "a3e7b5a14d3aaf90272f43f3f99736de8ed28513866776273bdcce1dca3577fe",
+    "clients/webview/full-tests/native-lifecycle.config.mjs": "e7e872f763aa875aad193e3d77c197cec722a6d753bbc7c1fcc3213847e4495e",
+    "experiments/webview/full/tests/native-lifecycle-red.log": "6265434a9814807ff012b6c6eb7b8b77a82f1313ee3af54c36873333936dfe6c",
+    "experiments/webview/full/tests/native-lifecycle-notes.md": "e7c4ffcc2a22773bd39bb0ad2ffdd26db0375a8ea918623a3e8063328d4041f9"
+  }
+}

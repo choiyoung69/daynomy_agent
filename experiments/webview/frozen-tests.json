@@ -1,0 +1,65 @@
+{
+  "created_at": "2026-10-28T08:52:11.372247+00:00",
+  "purpose": "Independent tests frozen before WebView implementation; no implementation stubs",
+  "files": {
+    "clients/webview/tests/NavigationPolicyTest.kt": "e603d17820257826e455231d040ee71333d7a3e5781e863818773ba5aa000ec1",
+    "clients/webview/tests/host-policy.test.mjs": "194331d7aa78a4a5d7b10ee7f2dced25c8be9bbb1bf54e7dda10bec51d0a3a6b",
+    "clients/webview/tests/http-browser.test.mjs": "cfaae5cd954caf7cd36dc5fe13c9bd29e373adcb5ee00965e609c55afe1bebd4",
+    "clients/webview/tests/main.swift": "beaed0f87bfc30204c1dfa8b8ee1371d201c3f5a2d335b0a96ef60598899140c",
+    "clients/webview/tests/red/build.log": "7d31d146760f34825db3144eac2a8edc0e8c1eee0670210899e337d2c73fd7ab",
+    "clients/webview/tests/red/hosts.log": "50822158c5a9ee411fcc5a99cad86bfd180b845a1ec8d570c2fb1a0173328ab8",
+    "clients/webview/tests/red/http-browser.log": "313be7f54c579528bcc89a9692b95a6cc528b78f8a8743dd7a6d748671cefb3e",
+    "clients/webview/tests/red/market.log": "7fcdfbd0c135941536f375f18b502886398763ca286fe0b220397ea1e5311eb5",
+    "clients/webview/tests/red/results.json": "449612d4f28969215f38d4d10fffba7931bf1c0506fdac2f07d56726fa6da616",
+    "clients/webview/tests/red/syntax.log": "b0bc386a0ec1d376f9590a846135e9362dea8f8d5be094f908ba04f1e916a68a",
+    "clients/webview/web/package.json": "2d45fb68495c222f9f98bca8ad6f9a6ae94defa602e107109413cbe0e7a41b3e",
+    "clients/webview/web/tests/market.test.mjs": "f20c49c5f3ca3c6108a200f29cb4b528301cd16a31d1ea191f186592569c25a2",
+    "clients/webview/web/tsconfig.json": "3ad42bad0840911f36fc5b25605acbb9a90079910f8b426dd5d1af8bf3ff21d5"
+  },
+  "red_results": [
+    {
+      "name": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "cwd": "/Users/seoyeong/develop/AI/daynomy_agent/clients/webview/web",
+      "exit_code": 2,
+      "log": "clients/webview/tests/red/build.log"
+    },
+    {
+      "name": "market",
+      "command": [
+        "npm",
+        "run",
+        "test:contracts"
+      ],
+      "cwd": "/Users/seoyeong/develop/AI/daynomy_agent/clients/webview/web",
+      "exit_code": 1,
+      "log": "clients/webview/tests/red/market.log"
+    },
+    {
+      "name": "hosts",
+      "command": [
+        "node",
+        "--test",
+        "clients/webview/tests/host-policy.test.mjs"
+      ],
+      "cwd": "/Users/seoyeong/develop/AI/daynomy_agent",
+      "exit_code": 1,
+      "log": "clients/webview/tests/red/hosts.log"
+    },
+    {
+      "name": "http-browser",
+      "command": [
+        "node",
+        "--test",
+        "clients/webview/tests/http-browser.test.mjs"
+      ],
+      "cwd": "/Users/seoyeong/develop/AI/daynomy_agent",
+      "exit_code": 1,
+      "log": "clients/webview/tests/red/http-browser.log"
+    }
+  ]
+}

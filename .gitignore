@@ -10,3 +10,13 @@ runs/acceptance-*.json
 runs/lifecycle-*.json
 runs/comparison-*.json
 .local/
+
+# Local credentials and machine-specific/generated files
+/.codex/langfuse.json
+**/node_modules/
+**/.dart_tool/
+**/build/
+**/.gradle/
+**/.swiftpm/
+**/.build/
+**/.run/

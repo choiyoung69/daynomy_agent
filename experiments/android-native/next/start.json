@@ -1,0 +1,20 @@
+{
+  "measurement_start": null,
+  "recorded_at": "2026-10-28T09:13:22.314058+00:00",
+  "measurement_note": "Root request-to-work start not precisely captured; earliest agent-reported actual author start preserved. No estimated historical offset used.",
+  "scope": "Next increment news list/detail and exchange lookup; optional scope response pending.",
+  "roles": [
+    "android_next_tests",
+    "android_next_implementation",
+    "android_next_validation"
+  ],
+  "stub_hashes": {
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryModels.kt": "75ee707ceea85c0db6757f1c84ba20e2c9819fb15b7f52774da194c6f88c925e",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/ExchangeController.kt": "5a0cae31f12736a589cf6982c6a2e34de65354fa815733e12c2c5454fd5e578c",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryClients.kt": "8e21a7df3ece20b49e9a7c81792e3ec3e605921b9e075acab744818eb10c8249",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/ExchangeClient.kt": "3070ae04bc14a54a31a9b93367f4fd4c5b531d7323f4a98e67b459b6ce6a570e",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryController.kt": "d51ad785d82e08aed078f36cc2b3d93cf2378aeb465bcd3c37f7bde5ff78994e",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/ExchangeModels.kt": "c9eb006058ca0f2b0ecb2b4c75b6bfacbcb8196392546d242f9562187cee22bc"
+  },
+  "first_agent_reported_start": "2026-10-28T09:09:39+00:00"
+}

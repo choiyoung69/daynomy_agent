@@ -1,0 +1,22 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for getByRole('button', { name: '거래 기록', exact: true })[22m
+[2m    - locator resolved to <button type="button" data-portfolio-tour="trade" class="portfolio-primary-button">…</button>[22m
+[2m  - attempting click action[22m
+[2m    - waiting for element to be visible, enabled and stable[22m
+
+    at /Users/seoyeong/develop/AI/daynomy_agent/experiments/webview/full/verification/android-guest-real.mjs:4:427 {
+  log: [
+    "  - waiting for getByRole('button', { name: '거래 기록', exact: true })",
+    '    - locator resolved to <button type="button" data-portfolio-tour="trade" class="portfolio-primary-button">…</button>',
+    '  - attempting click action',
+    '    - waiting for element to be visible, enabled and stable'
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v22.23.1

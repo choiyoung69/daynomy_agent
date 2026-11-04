@@ -1,0 +1,21 @@
+{
+  "at": "2026-10-28T09:52:03.306293+00:00",
+  "findings": [
+    {
+      "severity": "blocking",
+      "finding": "OkHttp4.12 RetryAndFollowUpInterceptor retries 503 Retry-After:0 independent of retryOnConnectionFailure(false)",
+      "evidence": "Local javap bytecode followUpRequest offset282-321; helper checks retryAfter==0 then returns response.request",
+      "fix_proposed_by_implementer": "isOneShot mutation request body; independent regression pending"
+    },
+    {
+      "severity": "contract",
+      "finding": "Account profile role not restricted to USER|ADMIN as original frontend",
+      "fix": "independent regression pending"
+    },
+    {
+      "severity": "policy_gap",
+      "finding": "Original frontend rejects zero saved average; existing Rust ledger rounds valid0.0001 trade average to0.00",
+      "decision": "Do not silently conflate source validation parity and Rust result compatibility; defer zero policy"
+    }
+  ]
+}

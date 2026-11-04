@@ -1,0 +1,12 @@
+{
+  "reviewed_at": "2026-10-28T10:31:41.191678+00:00",
+  "source_manifest_sha256": "48b52c78e77104e988c5a6a6870b19b62282674d5f77e48d72069de4b3dec37f",
+  "source_manifest_reported_aggregate": "fb2e3d2c3d54cb2fa7c16410b11d7fcfbe9aa8244bf7c31fe72fbc2f4e55bf05",
+  "source_files_checked": 26,
+  "source_mismatches": [],
+  "apk_sha256": "2bc9bdf08d9905c1672fd31b76bb512ef0a282abccc5a824cce2dfc479f3b07e",
+  "apk_matches": true,
+  "frozen_manifest_sha256": "144fac2d952c9ed8674b85a69a8ebbfa4846481654cc89fa0dce7ded0b2f0f81",
+  "frozen_mismatches": [],
+  "read_input_mismatches": []
+}

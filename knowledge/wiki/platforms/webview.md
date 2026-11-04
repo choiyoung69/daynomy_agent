@@ -8,7 +8,7 @@ source_ids: ["F03", "F04", "E04", "E11", "Q08", "E21", "E22", "E37", "E47"]
 
 # WebView 사전 지식
 
-기존 웹을 표시할 호스트의 Android/iOS 범위, 앱·WebView 버전과 제공 URL은 미정이다.
+초기에는 호스트 범위·버전·제공 URL이 미정이었다. 현재 종목 검색·최근 종가 파일럿의 착수 계약은 아래에 확정했고, 실제 호스트 실행은 별도 검증한다.
 
 ## 공식 근거와 이식 적용
 
@@ -63,3 +63,26 @@ Node의 숫자·날짜·JSON 예제를 실행했다(Q08/E21/E22). Android/iOS We
 ## 상세 패키지
 
 [WebView + TypeScript/Kotlin/Swift 주제별 문서](../packages/webview/index.md)를 공통·기능 계약과 함께 선택한다.
+
+## 2026-10-28 종목 검색·최근 종가 파일럿 착수 결정
+
+사용자가 지식베이스를 활용한 테스트 작성자 → 별도 구현자 → 별도 검증자를 요청했다.
+범위와 공통 인터페이스는 [WebView 계약](../../../spec/webview/README.md)에 고정한다.
+이는 전체 서비스 또는 로그인·배포 승인으로 확대하지 않는다.
+
+- 웹 TypeScript6.0.2 ESM, Node22.23.1; Android min26/compile·target35, iOS15.0 소스 타깃이다. iOS Xcode/시뮬레이터는 현재 호스트에 없으며 빌드·기기 성공을 뜻하지 않는다.
+- 웹은 로컬 HTTP 제공 + `/api/` 동일 origin 프록시다. 기본 웹18082/API18081, 검증용 API18091; Android 에뮬레이터는10.0.2.2를 사용한다. release는 명시 설정한 단일 HTTPS origin을 사용한다.
+- 원본 웹 디코더·JS trim·250ms 취소·요청 세대·수동 단가 보존 계약을 재사용한다. UI 상태와 네이티브 탐색 정책을 분리한다.
+- 공개 조회만 제공하며 로그인·OAuth·토큰 복제는 구현하지 않는다. 특권 JavaScript 브리지도 필요하지 않아 노출하지 않는다. 쿠키는 웹 엔진 저장소에 유지하고 native로 추출하지 않는다.
+- 내부 scheme/host/effective port만 탐색; 외부 HTTPS는 사용자 행동에서 OS 브라우저로 열고 임의 scheme/팝업/SSL 우회는 거절한다. 웹 history 우선 back과 사용자 재시도/프로세스 복구를 각 호스트에 구현한다.
+- 초안은 화면 background에서 유지하고 요청을 취소한다. 프로세스 종료 후 거래 입력의 영구 복원을 보장하지 않는다. 실제 회전/복원·입력/키보드·쿠키 실행 결과는 별도로 기록한다.
+- 웹은 `npm test`(설정은 독립 테스트 작성자가 작성), Android는 별도 프로젝트 assembleDebug 및 독립 정책/기기 검사, iOS는 순수 Swift 정책과 Xcode 앱 빌드/기기를 구분한다. 테스트 해시와 구현 해시를 기록한다.
+
+`packs.json`의 documented는 이 제한된 파일럿의 착수 계약이 문서화됐음을 뜻한다.
+원본 의미·WebView 엔진·호스트 실행 검증 완료 상태가 아니다. 다른 기능은 approved_features 경계로 막는다.
+
+## 2026-10-28 전체 비리그 웹 화면 확장 착수
+
+이전 stock-search-price 파일럿 제한 이후 사용자가 전체 WebView 코드를 빠르게 구현하도록 요청했다. Android native/iOS native/React Native/Flutter/WebView는 별도 구현 방식이며 여기서는 WebView 버전만 확장한다. 원본 React/TypeScript 소스를 명시적 복사하고 WebView 호스트와 연결한다. [전체 확장 계약](../../../spec/webview/full-service.md)에 범위·버전·프록시·화면 검증을 고정한다. 리그·F14·배포는 제외한다.
+
+원본 lockfile의 React19/Vite8/TypeScript6와 Node22.23.1을 사용하며 Android/iOS 호스트의 기존 버전과 정확한 origin 정책은 유지한다. API 쓰기는 원본 쿠키/CSRF/refresh 및 서버 권한을 유지한다. 실제 Google 외부 user-agent·앱 콜백/세션 공유·iOS 실행은 별도 미검증으로 남긴다. 구현 범위 승인을 전체 런타임 호환 완료로 표현하지 않는다. 기존 pilot 입력 문서 스냅샷은 새 단계 knowledge/previous-pilot-platform.md 및 이전 context.md에 보존했다.

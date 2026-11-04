@@ -1,0 +1,9 @@
+{
+  "mode": "synthetic stock data; real Chrome/React lifecycle and guest sessionStorage",
+  "steps": [
+    "boolean native event re-queries quote; pageshow/string payload cannot override inactive host, preserves manual price+quantity, no mutation replay",
+    "guest BUY saved to sessionStorage despite unavailable optional calculation API",
+    "guest ledger survives same-tab reload"
+  ],
+  "errors": []
+}

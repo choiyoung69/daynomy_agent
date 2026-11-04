@@ -21,7 +21,9 @@ ROOT=Path(__file__).resolve().parents[1]
 PG=Path('/opt/homebrew/opt/postgresql@18/bin')
 
 
-def run(output,suites,timeout=900,mock_ai=False,mock_auth=False,mock_fx=False,standalone_schema=False,mock_sync=False,mock_media=False,mock_social=False,mock_schedule=False,source=None,criteria_source=None,mutant=None):
+def run(output,suites,timeout=900,mock_ai=False,mock_auth=False,mock_fx=False,standalone_schema=False,mock_sync=False,mock_media=False,mock_social=False,mock_schedule=False,source=None,criteria_source=None,mutant=None,rust_only=False):
+    if rust_only and any(suite in ('public','binding','service_calendar_acceptance') for suite in suites):
+        raise ValueError('These suites compare Spring and require the original server')
     output=Path(output).resolve();output.mkdir(parents=True,exist_ok=False)
     candidate=output/'candidate';shutil.copytree(Path(source or ROOT/'app'),candidate,ignore=shutil.ignore_patterns('target'))
     injection=None
@@ -44,6 +46,7 @@ def run(output,suites,timeout=900,mock_ai=False,mock_auth=False,mock_fx=False,st
     env=clean_env();env.update(CARGO_HOME=str(ROOT/'.local/cargo'),CARGO_NET_OFFLINE='true',CARGO_TARGET_DIR=str(output/'target'))
     processes=[];created=False;started_db=False
     db='daynomy_'+uuid.uuid4().hex[:10]+'_service_test'
+    report['database_name']=db
     def save():dump(output/'result.json',report)
     def command(name,args,environment=None,cwd=ROOT,allow_failure=False,input=None):
         before=time.monotonic()
@@ -74,9 +77,12 @@ def run(output,suites,timeout=900,mock_ai=False,mock_auth=False,mock_fx=False,st
                     props=temp/'application-comparison.properties';props.write_text(props.read_text()+'\njwt.issuer=daynomy\n')
                     if standalone_schema:props.write_text(props.read_text()+'\nspring.flyway.enabled=false\n')
                     key=base64.b64encode(os.urandom(32));secret_file=temp/'fixture-key';secret_file.write_bytes(key);secret_file.chmod(0o600)
-                    java=subprocess.check_output(['/usr/libexec/java_home','-v','21'],text=True).strip()
-                    javaenv=spring.spring_env(java);javaenv['JWT_SECRET']=key.decode()
-                    original=spring.start([java+'/bin/java','-jar',str(ROOT/'.local/spring-reference/build/libs/daynomy-0.0.1-SNAPSHOT.jar')],javaenv,spring.COPY,'original');processes.append(original);spring.ready(original,18082)
+                    if not rust_only:
+                        java=subprocess.check_output(['/usr/libexec/java_home','-v','21'],text=True).strip()
+                        javaenv=spring.spring_env(java);javaenv['JWT_SECRET']=key.decode()
+                        original=spring.start([java+'/bin/java','-jar',str(ROOT/'.local/spring-reference/build/libs/daynomy-0.0.1-SNAPSHOT.jar')],javaenv,spring.COPY,'original');processes.append(original);spring.ready(original,18082)
+                    else:
+                        report['original_server']='not started; Rust-only suite, no Spring comparison claimed'
                     for migration in sorted((candidate/'migrations').glob('*.sql')):
                         if standalone_schema or migration.name.startswith('001'):continue
                         pgenv={**env,'PGHOST':'127.0.0.1','PGPORT':'55439','PGUSER':'pilot','PGDATABASE':db}
@@ -131,6 +137,8 @@ def run(output,suites,timeout=900,mock_ai=False,mock_auth=False,mock_fx=False,st
                             if suite=='service_analysis_acceptance' and provider is not None:args+=['--mock-control-url',provider.control_url]
                             if suite=='service_auth_provider_acceptance' and auth_provider is not None:
                                 args+=['--mock-control-url',auth_provider.control_url,'--failure-status','302','--failure-redirect','/fixture-failure']
+                            if suite=='flutter_auth_acceptance' and auth_provider is not None:
+                                args+=['--mock-control-url',auth_provider.control_url]
                             if suite=='service_fx_acceptance' and fx_provider is not None:args+=['--mock-control-url',fx_provider.control_url]
                             if suite=='service_sync_acceptance' and sync_provider is not None:args+=['--mock-control-url',sync_provider.control_url]
                             if suite=='service_media_acceptance' and media_provider is not None:args+=['--mock-control-url',media_provider.control_url]
@@ -145,10 +153,12 @@ def run(output,suites,timeout=900,mock_ai=False,mock_auth=False,mock_fx=False,st
                     if any(digest(criteria/p)!=h for p,h in report['criteria_hashes'].items()):raise ValueError('Frozen test criteria changed during checks')
                     report['status']='passed' if all(r['exit_code']==0 and r['failed']==0 for r in report['suites'].values()) else 'failed'
             finally:
-                for process in reversed(processes):
-                    if process is not processes[0]:stop_group(process)
-                    else:spring.stop(process)
                 cleanup_errors=[]
+                for process in reversed(processes):
+                    try:
+                        if rust_only or process is not processes[0]:stop_group(process)
+                        else:spring.stop(process)
+                    except Exception:cleanup_errors.append('server-stop')
                 for name,args in ([('database-drop',[str(PG/'dropdb'),'--force','-h','127.0.0.1','-p','55439','-U','pilot',db])] if created else [])+([('database-stop',['bash','scripts/local-db.sh','stop'])] if started_db else []):
                     try:command(name,args)
                     except Exception:cleanup_errors.append(name)
@@ -166,6 +176,7 @@ if __name__=='__main__':
     parser.add_argument('--mock-auth',action='store_true')
     parser.add_argument('--mock-fx',action='store_true')
     parser.add_argument('--standalone-schema',action='store_true')
+    parser.add_argument('--rust-only',action='store_true',help='Skip Spring for suites that only exercise the Rust server')
     parser.add_argument('--mock-sync',action='store_true')
     parser.add_argument('--mock-media',action='store_true')
     parser.add_argument('--mock-social',action='store_true')
@@ -176,5 +187,6 @@ if __name__=='__main__':
     args=parser.parse_args()
     if sum((args.mock_ai,args.mock_media,args.mock_social))>1:parser.error('Use one AI provider fixture per gate; their response contracts differ')
     if sum((args.mock_fx,args.mock_sync,args.mock_schedule))>1:parser.error('Use one market-data provider fixture per gate')
-    result=run(args.output,args.suites,args.timeout,args.mock_ai,args.mock_auth,args.mock_fx,args.standalone_schema,args.mock_sync,args.mock_media,args.mock_social,args.mock_schedule,args.source,args.criteria_source,args.mutant)
+    if args.rust_only and any(suite in ('public','binding','service_calendar_acceptance') for suite in args.suites):parser.error('Selected suites require Spring comparison')
+    result=run(args.output,args.suites,args.timeout,args.mock_ai,args.mock_auth,args.mock_fx,args.standalone_schema,args.mock_sync,args.mock_media,args.mock_social,args.mock_schedule,args.source,args.criteria_source,args.mutant,args.rust_only)
     print(json.dumps({k:result[k] for k in ('status','seconds','suites')}));sys.exit(0 if result['status']=='passed' else 1)

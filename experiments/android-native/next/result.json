@@ -1,0 +1,46 @@
+{
+  "status": "passed-bounded-debug-increment",
+  "scope": [
+    "news list/detail text and attribution",
+    "USD/KRW exchange lookup",
+    "previous stock regression"
+  ],
+  "recorded_at": "2026-10-28T09:36:10.157639+00:00",
+  "role_separation": {
+    "tests": "android_next_tests",
+    "implementation": "android_next_implementation",
+    "validation": "android_next_validation",
+    "root": "coordination/environment/native navigation integration"
+  },
+  "counts": {
+    "jvm": 88,
+    "rust_db": 10,
+    "device": 8
+  },
+  "new_tests": 42,
+  "previous_tests": 64,
+  "external_web_queries": 0,
+  "timing": {
+    "from": "2026-10-28T09:09:39+00:00",
+    "to": "2026-10-28T09:34:12.711007+00:00",
+    "seconds": 1473.711007,
+    "scope": "first agent-reported work start to independent final approval; user request-to-start not precisely measured; no sequential control"
+  },
+  "review": "experiments/android-native/next/validation-final.json",
+  "review_sha256": "0ef043749e1ec0241410c179c4778184c30aece81a9490347651752344fe3665",
+  "review_source_hashes_current": true,
+  "all_seven_frozen_test_hashes_current": true,
+  "cleanup": {
+    "owned_server": "stopped",
+    "synthetic_db_drop_exit": 0,
+    "owned_emulator_kill_exit": 0
+  },
+  "limits": [
+    "Remote news image rendering is absent; image/source metadata is decoded and text attribution shown. NONE attribution currently renders an empty credit label (cosmetic).",
+    "News-list original web Content-Type guard is not enforced by body-only shared transport. Rust valid JSON path was tested; MIME-header parity is not claimed.",
+    "No release backend configuration or production deployment; APK is debug-only with local fixture.",
+    "Today-news, keywords, market analysis, authentication and trading outside this slice.",
+    "No original Spring runtime comparison, external FX provider call, other OS/API or full accessibility/large-font/process-death testing.",
+    "Device instrumentation uses MockWebServer; actual Rust/DB JVM tests and manual same-APK device-to-Rust observations are separately identified."
+  ]
+}

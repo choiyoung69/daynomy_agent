@@ -1,0 +1,14 @@
+PASS first calculation accepted
+PASS holdings updated before failed valuation
+PASS failed valuation reports error
+FAIL failed valuation cannot retain old-holdings result
+PASS ready saved analysis accepted
+FAIL EMPTY clears previously visible analysis
+PASS FAILED explicitly supplied last-good analysis retained
+FAIL FAILED without last-good analysis clears stale result
+FAIL cancel then clear query removes spinner
+FAIL selected-stock search guard removes stale spinner
+FAIL remove guest holding ignores empty correction fields
+FAIL guest holding actually removed
+PASS guest holding removal never sends member mutation
+STATE CONTRACT 13 checks; failures 7

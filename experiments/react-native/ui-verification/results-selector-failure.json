@@ -1,0 +1,61 @@
+{
+  "evidence": "Expo web synthetic HTTP route fixtures; NOT actual Rust integration or native OS execution",
+  "timestamp": "2026-10-28T10:29:21.902Z",
+  "checks": [
+    {
+      "name": "manual-price-preserved-after-delayed-close",
+      "pass": true
+    },
+    {
+      "name": "scenario-error",
+      "pass": false,
+      "error": "locator.waitFor: Error: strict mode violation: getByText('삼성전자', { exact: true }) resolved to 2 elements:\n    1) <div dir=\"auto\" class=\"css-text-146c3p1 r-color-m2u3gy r-fontSize-1inkyih r-fontWeight-b88u0q\">삼성전자</div> aka locator('#root').getByText('삼성전자')\n    2) <h1 dir=\"auto\" role=\"heading\" class=\"css-text-146c3p1 r-color-m2u3gy r-fontSize-adyw6z r-fontWeight-b88u0q r-letterSpacing-icto9i\">삼성전자</h1> aka getByRole('heading', { name: '삼성전자' })\n\nCall log:\n\u001b[2m  - waiting for getByText('삼성전자', { exact: true }) to be visible\u001b[22m\n"
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 401 (Unauthorized)",
+    "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+  ],
+  "requests": [
+    {
+      "path": "/api/users/me",
+      "method": "GET",
+      "query": {}
+    },
+    {
+      "path": "/api/auth/csrf",
+      "method": "GET",
+      "query": {}
+    },
+    {
+      "path": "/api/auth/refresh",
+      "method": "POST",
+      "query": {}
+    },
+    {
+      "path": "/api/stocks",
+      "method": "GET",
+      "query": {
+        "q": "삼성",
+        "country": "KR"
+      }
+    },
+    {
+      "path": "/api/stocks/910001/price",
+      "method": "GET",
+      "query": {}
+    },
+    {
+      "path": "/api/auth/csrf",
+      "method": "GET",
+      "query": {}
+    },
+    {
+      "path": "/api/portfolio/calculate",
+      "method": "POST",
+      "query": {}
+    }
+  ],
+  "body": "DAYNOMY•\n게스트 포트폴리오\nMY PORTFOLIO\n오늘의 자산을, 한눈에.\n로그인 없이 시작하세요. 거래 기록은 이 기기에 저장됩니다.\n총 평가금액\n140,000 원\n투자 손익\n-2,002 원\n+ 거래 기록\n보유 종목\n거래 내역\n보유 종목\n1개 종목 · 최근 저장 종가 기준\n삼\n삼성전자\n2주 · KOSPI\n71001.00\n평균 매입가\n투자 인사이트\n자산 추이 확인\n내 보유 종목 분석하기\n\n내 자산\n\n뉴스\n\n탐색\n\n캘린더\n\n더보기"
+}

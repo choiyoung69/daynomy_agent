@@ -1,0 +1,1 @@
+node --check: market.test.mjs, host-policy.test.mjs, http-browser.test.mjs: exit 0
