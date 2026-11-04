@@ -21,6 +21,8 @@ class NewsController(private val source: NewsSource, private val scope: Coroutin
     private var detailJob: Job? = null
     private var keywordsJob: Job? = null
     private var keywordsGeneration = 0L
+    private var analysisJob: Job? = null
+    private var analysisGeneration = 0L
 
     fun selectToday(todayOnly: Boolean) {
         if (closed || state.value.todayOnly == todayOnly) return
@@ -46,29 +48,31 @@ class NewsController(private val source: NewsSource, private val scope: Coroutin
         mutableState.update { it.copy(selectedId = id) }
         loadDetail()
         loadKeywords()
+        loadAnalysis()
     }
     fun closeDetail() {
         if (closed) return
-        invalidateDetail(); invalidateKeywords()
-        mutableState.update { it.copy(selectedId = null, detail = LoadState.Idle, keywords = LoadState.Idle) }
+        invalidateDetail(); invalidateKeywords(); invalidateAnalysis()
+        mutableState.update { it.copy(selectedId = null, detail = LoadState.Idle, keywords = LoadState.Idle, analysis = LoadState.Idle) }
     }
     fun retryList() { if (!closed) loadList() }
+    fun retryAnalysis() { if (!closed) loadAnalysis() }
     fun retryKeywords() { if (!closed) loadKeywords() }
     fun retryDetail() { if (!closed) loadDetail() }
     fun setActive(active: Boolean) {
         if (closed || this.active == active) return
         this.active = active
-        if (active) { loadList(); loadDetail(); loadKeywords() }
+        if (active) { loadList(); loadDetail(); loadKeywords(); loadAnalysis() }
         else {
-            invalidateList(); invalidateDetail(); invalidateKeywords()
-            mutableState.update { it.copy(list = LoadState.Idle, detail = LoadState.Idle, keywords = LoadState.Idle) }
+            invalidateList(); invalidateDetail(); invalidateKeywords(); invalidateAnalysis()
+            mutableState.update { it.copy(list = LoadState.Idle, detail = LoadState.Idle, keywords = LoadState.Idle, analysis = LoadState.Idle) }
         }
     }
     override fun close() {
         if (closed) return
         closed = true; active = false
-        invalidateList(); invalidateDetail(); invalidateKeywords()
-        mutableState.update { it.copy(list = LoadState.Idle, detail = LoadState.Idle, keywords = LoadState.Idle) }
+        invalidateList(); invalidateDetail(); invalidateKeywords(); invalidateAnalysis()
+        mutableState.update { it.copy(list = LoadState.Idle, detail = LoadState.Idle, keywords = LoadState.Idle, analysis = LoadState.Idle) }
     }
     private fun invalidateList() { listGeneration++; listJob?.cancel(); listJob = null }
     private fun invalidateDetail() { detailGeneration++; detailJob?.cancel(); detailJob = null }
@@ -89,6 +93,26 @@ class NewsController(private val source: NewsSource, private val scope: Coroutin
                 throw cancelled
             } catch (_: Exception) {
                 if (current()) mutableState.update { it.copy(keywords = LoadState.Failed("뉴스 키워드를 불러오지 못했습니다.")) }
+            }
+        }
+    }
+    private fun invalidateAnalysis() { analysisGeneration++; analysisJob?.cancel(); analysisJob = null }
+    private fun loadAnalysis() {
+        invalidateAnalysis()
+        val id = state.value.selectedId
+        if (!active || id == null) { mutableState.update { it.copy(analysis = LoadState.Idle) }; return }
+        val token = analysisGeneration
+        fun current() = !closed && active && token == analysisGeneration && state.value.selectedId == id
+        mutableState.update { it.copy(analysis = LoadState.Loading) }
+        analysisJob = scope.launch {
+            try {
+                val analysis = source.marketAnalysis(id)
+                if (current()) mutableState.update { it.copy(analysis = LoadState.Ready(analysis)) }
+            } catch (cancelled: CancellationException) {
+                if (current()) mutableState.update { it.copy(analysis = LoadState.Idle) }
+                throw cancelled
+            } catch (_: Exception) {
+                if (current()) mutableState.update { it.copy(analysis = LoadState.Failed("시장 분석을 불러오지 못했습니다.")) }
             }
         }
     }
