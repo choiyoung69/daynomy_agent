@@ -129,4 +129,11 @@
 
 ## 기존 CLI adapter의 입력 경계
 
-`agent_workflow.CliAgent`를 사용하는 기존 실험에는 새 ephemeral 세션과 기본 32 KiB UTF-8 prompt 제한을 적용한다. 초과 입력은 계약을 자르지 않고 호출 전에 거절한다. `max_prompt_bytes`로 명시적으로 조정할 수 있다. 전체 gate JSON은 `prompt-evidence/`에 보존하고 prompt에는 근거 경로/해시·리뷰 지적을 전달한다. `input.json`은 입력 크기/해시, `attempts.json`은 실패 시도까지 원본 사용량(없으면 빈 목록)을 기록한다. 크기 제한은 시스템·도구·파일 읽기까지 포함하는 모델 토큰 상한이 아니다. 과거 실행기를 자동 시작하지 않으며 실제 개발의 새 채팅 시작은 `HANDOFF.md`를 따른다.
+`agent_workflow.CliAgent`를 사용하는 기존 실험에는 새 ephemeral 세션과 기본 32 KiB UTF-8 prompt 제한을 적용한다. 초과 입력은 계약을 자르지 않고 호출 전에 거절한다. `max_prompt_bytes`로 명시적으로 조정할 수 있다. Workflow의 기본 `--evidence-mode inline`은 전체 근거 본문을 유지한다. `--evidence-mode reference`를 명시한 실험에서만 전체 gate JSON을 `prompt-evidence/`에 보존하고 prompt에 근거 경로/해시·리뷰 지적을 전달한다. 실제 작은 회귀 비교에서는 참조 방식이 더 느려 기본으로 채택하지 않았다. `input.json`은 입력 크기/해시, `attempts.json`은 실패 시도까지 원본 사용량(없으면 빈 목록)을 기록한다. 크기 제한은 시스템·도구·파일 읽기까지 포함하는 모델 토큰 상한이 아니다. 과거 실행기를 자동 시작하지 않으며 실제 개발의 새 채팅 시작은 `HANDOFF.md`를 따른다.
+
+
+## 작업별 KB를 실제 공통 입력에 넣기
+
+기존 Android 작업 프로필을 명시한 `CliAgent(knowledge_task="query-reset", knowledge_base=".local/<작업>/knowledge")`는 ensure/준비·출처 검증 후 선택 문서 본문만 실제 모델 prompt에 삽입한다. Workflow CLI에서도 `--knowledge-task`/`--knowledge-base`로 연결한다. 프로필은 해당 과제에 맞아야 한다. caller prompt에 KB 전체를 미리 넣지 않는다. custom adapter를 직접 주는 경우 KB는 그 adapter에 설정해야 하며 Workflow가 무시하지 않고 오류로 알린다. 현재 선택기는 Android만 지원하며 다른 플랫폼을 자동 판정하지 않는다.
+
+`input.json`의 knowledge에는 task·manifest/문서/삽입 문자열 해시와 bytes, 실제 최종 prompt 크기·해시, 준비 시간을 남긴다. attempts에는 프로세스/이벤트 처리 경과도 남긴다. 알 수 없는/미준비/변경된 자료는 호출 전 실패한다. 관련 실구현 비교와 시간 악화까지 `experiments/task-kb-input-ab`에 보존했다.
