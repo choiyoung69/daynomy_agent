@@ -48,7 +48,6 @@
   ],
   "not_verified": [
     "actual Rust/DB keyword request",
-    "independent reviewer approval",
     "TalkBack speech",
     "tablet, dark theme and large-font measurements",
     "process death restore",
@@ -61,5 +60,15 @@
     "knowledge/wiki/packages/android-kotlin/dates-and-unicode.md",
     "knowledge/wiki/packages/android-kotlin/async-and-cancellation.md",
     "knowledge/wiki/packages/android-kotlin/state-and-navigation.md"
-  ]
+  ],
+  "independent_static_review": {
+    "commit": "88535f605c83d0791d0d6850335cf3245298818f",
+    "result": "no actionable findings",
+    "source_and_test_hashes": "matched",
+    "runtime_rerun": false,
+    "optional_test_gaps": [
+      "detail failure with keyword success",
+      "non-cooperative stale completion during keyword retry"
+    ]
+  }
 }
