@@ -1,0 +1,20 @@
+--- experiments/ios-sdk-verification/test-author/ui-baseline/DaynomyNextUITests.picker-revision.swift	2026-11-04 17:39:45
++++ experiments/ios-next-verification/test-author/DaynomyNextUITests.swift	2026-11-04 17:39:45
+@@ -85,7 +85,7 @@
+         holding(10, average: 110, app: app)
+         // Sale earns (150 - 110) * 2 = 80 KRW, independently of fixture valuation.
+         app.swipeDown(); app.swipeDown()
+-        XCTAssertTrue(text("80 원", in: app).waitForExistence(timeout: 5))
++        XCTAssertTrue(text("실현손익, 80 원", in: app).waitForExistence(timeout: 5))
+         deleteRow("매도", in: app); holding(12, average: 110, app: app)
+         deleteRow("매수", in: app)
+         XCTAssertTrue(text("아직 보유 자산이 없어요. 첫 거래를 기록해 보세요.", in: app).waitForExistence(timeout: 10))
+@@ -138,7 +138,7 @@
+         let add = app.buttons["addTransaction"]; reveal(add, in: app); add.tap()
+         let query = app.textFields["tradeStockQuery"]
+         XCTAssertTrue(query.waitForExistence(timeout: 5)); query.tap(); query.typeText("삼성")
+-        let spinner = app.progressIndicators["검색 중"]
++        let spinner = app.descendants(matching: .activityIndicator).matching(identifier: "검색 중").firstMatch
+         XCTAssertTrue(spinner.waitForExistence(timeout: 2))
+         query.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: 2))
+         expectation(for: NSPredicate(format: "exists == false"), evaluatedWith: spinner)

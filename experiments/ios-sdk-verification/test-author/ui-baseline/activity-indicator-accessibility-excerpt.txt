@@ -1,0 +1,11 @@
+                                  TextField, 0x112c98dc0, {{32.0, 291.7}, {338.0, 22.0}}, identifier: 'tradeStockQuery', placeholderValue: '종목명 또는 코드', value: 삼성, Keyboard Focused <AX element pid: 44489, elementOrHash.elementID: 4729807616.273>
+                          Other, 0x112c98f00, {{32.0, 275.7}, {338.0, 1.0}} <AX element pid: 44489, elementOrHash.elementID: 4396105728.198>
+                          Cell, 0x112c99040, {{16.0, 329.0}, {370.0, 77.0}} <AX element pid: 44489, elementOrHash.elementID: 4805446144.364>
+                            Other, 0x112c99180, {{16.0, 329.0}, {370.0, 77.0}} <AX element pid: 44489, elementOrHash.elementID: 4395938304.366>
+                              Other, 0x112c992c0, {{16.0, 329.0}, {370.0, 77.0}} <AX element pid: 44489, elementOrHash.elementID: 4804925120.368>
+                            Other, 0x112c99400, {{16.0, 329.0}, {370.0, 77.0}} <AX element pid: 44489, elementOrHash.elementID: 4804924672.367>
+                              Other, 0x112c99540, {{16.0, 329.0}, {370.0, 77.0}} <AX element pid: 44489, elementOrHash.elementID: 4789704704.369>
+                                Other, 0x112c99680, {{16.0, 329.0}, {370.0, 77.0}} <AX element pid: 44489, elementOrHash.elementID: 4805087456.370>
+                                  ActivityIndicator, 0x112c997c0, {{16.0, 329.0}, {370.0, 77.0}}, label: '검색 중', value: 1 <AX element pid: 44489, elementOrHash.elementID: 4805086336.371>
+                                    ActivityIndicator, 0x112c99900, {{46.3, 344.0}, {20.0, 20.0}}, value: 1 <AX element pid: 44489, elementOrHash.elementID: 4802561920.372>
+                                    StaticText, 0x112c99a40, {{0.0, 0.0}, {0.0, 0.0}}, label: '검색 중' <AX element pid: 44489, elementOrHash.elementID: 4805087616.373>

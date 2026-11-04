@@ -2,8 +2,8 @@
 title: iOS 네이티브 사전 지식
 confirmed_on: 2026-11-04
 review_status: static-reviewed
-runtime_status: not-run
-source_ids: ["F04", "B04", "E13", "E18", "E26", "Q08", "E08", "E33", "E42", "E43", "E49"]
+runtime_status: evidence-linked
+source_ids: ["F04", "B04", "E13", "E18", "E26", "Q08", "E08", "E33", "E42", "E43", "E49", "AP06"]
 ---
 
 # iOS 네이티브 사전 지식
@@ -69,3 +69,5 @@ Xcode 선택 경로·SDK·Swift 언어 모드·지원 iOS·scheme·simulator des
 - `spec/ios-native/interfaces.md`와 `clarifications.md`: JSON 금액 원문 보존, safe integer ID, 취소와 요청 세대, 검색 초안·수동 단가의 보존 경계를 유지한다.
 - `spec/ios-native/full-contract.md`: Decimal 원장과 원자적 실패 복구, CSRF·쿠키·로그아웃 세대와 늦은 응답 무효화를 따른다. 게스트 기록·인증 쿠키는 앱 세션 메모리 수명이며 영구 저장으로 확대하지 않는다.
 - 후속 상태 리뷰의 발견·수정·검증은 `experiments/ios-next-verification/review.md` 및 이번 iOS 빌드·회귀 PR에 구분해 기록한다. 문서화·SDK 빌드 성공은 모든 상태 전이의 의미 정확성이나 화면 실행 성공을 뜻하지 않는다.
+
+현재 SDK·코어·증분 UI 실행 범위와 최종 코드/검사 식별은 AP06의 `experiments/ios-sdk-verification/results.json`에 연결한다. 실제 제공자·계정 전환 렌더링·전체 접근성 인수는 미검증이다.

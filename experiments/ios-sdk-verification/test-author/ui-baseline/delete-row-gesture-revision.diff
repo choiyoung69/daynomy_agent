@@ -1,0 +1,29 @@
+--- experiments/ios-sdk-verification/test-author/ui-baseline/DaynomyNextUITests.activity-profit-revision.swift	2026-11-04 17:44:30
++++ experiments/ios-next-verification/test-author/DaynomyNextUITests.swift	2026-11-04 17:44:30
+@@ -64,8 +64,24 @@
+         reveal(label, in: app); XCTAssertTrue(label.waitForExistence(timeout: 10))
+     }
+     private func deleteRow(_ side: String, in app: XCUIApplication) {
+-        let trade = row(side, in: app); reveal(trade, in: app); trade.swipeLeft()
+-        app.buttons["삭제"].tap()
++        let trade = row(side, in: app)
++        // A partially obscured row may be hittable while its swipe center is behind the tab bar.
++        let top = app.navigationBars.firstMatch.frame.maxY + 8
++        let bottom = app.tabBars.firstMatch.frame.minY - 12
++        func unobscured() -> Bool {
++            trade.exists && trade.isHittable && trade.frame.minY >= top && trade.frame.maxY <= bottom
++        }
++        for _ in 0..<7 {
++            if unobscured() { break }
++            if trade.exists && trade.frame.minY < top { app.swipeDown() }
++            else { app.swipeUp() }
++        }
++        XCTAssertTrue(unobscured(), "Entire transaction row must be above the tab bar before swiping")
++        let start = trade.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5))
++        let end = trade.coordinate(withNormalizedOffset: CGVector(dx: 0.45, dy: 0.5))
++        start.press(forDuration: 0.05, thenDragTo: end)
++        let remove = app.buttons["삭제"]
++        XCTAssertTrue(remove.waitForExistence(timeout: 3)); remove.tap()
+         let confirm = app.buttons["거래 삭제"]
+         XCTAssertTrue(confirm.waitForExistence(timeout: 3)); confirm.tap()
+         expectation(for: NSPredicate(format: "exists == false"), evaluatedWith: trade)

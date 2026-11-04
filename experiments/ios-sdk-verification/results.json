@@ -1,0 +1,344 @@
+{
+  "issue": "https://github.com/choiyoung69/daynomy_agent/issues/29",
+  "pull_request": "https://github.com/choiyoung69/daynomy_agent/pull/30",
+  "baseline_commit": "892151432ee774a735f04de731c6379717585b01",
+  "implementation_commit": "d791f840",
+  "recorded_at": "2026-11-04T08:48:10.860801+00:00",
+  "environment": {
+    "xcode": "27.1 (27A9275)",
+    "swift_compiler": "Apple Swift 6.4",
+    "swift_language_mode": "6",
+    "ios_minimum": "17.0",
+    "sdk": "iPhoneSimulator27.1",
+    "ui_runtime": "iOS27.0",
+    "ui_device": "dedicated iPhone17",
+    "global_developer_directory_changed": false
+  },
+  "source_manifest": {
+    "path": "experiments/ios-sdk-verification/final-source.sha256",
+    "sha256": "d790625aa0f88c0f9aef567ff6fc9d012641a6b823cda835c835d5289dddd3f3",
+    "files": 41
+  },
+  "host_checks": {
+    "canonical_swift_testing": {
+      "tests": 51,
+      "suites": 9,
+      "status": "passed"
+    },
+    "frozen_state_body": {
+      "checks": 13,
+      "status": "passed",
+      "runner": "run_async_state_contract.py --baseline"
+    },
+    "async_state": {
+      "checks": 17,
+      "baseline_failures": 12,
+      "status": "passed"
+    },
+    "internal_route": {
+      "checks": 16,
+      "baseline_failures": 8,
+      "status": "passed"
+    },
+    "presentation": {
+      "checks": 10,
+      "status": "passed"
+    },
+    "static_wiring": {
+      "checks": 9,
+      "status": "passed"
+    },
+    "static_financial_identity": {
+      "checks": 1,
+      "status": "passed"
+    }
+  },
+  "ui": {
+    "distinct_tests": 10,
+    "latest_applicable_results": [
+      {
+        "test": "DaynomyFullUITests/testFourNativeSectionsAndGuestFeedbackEntry",
+        "status": "passed",
+        "seconds": 35.015,
+        "run": "revised-ui-active-arch"
+      },
+      {
+        "test": "DaynomyIOSUITests/testManualDeletionRemainsEmptyAfterLateQuote",
+        "status": "passed",
+        "seconds": 18.439,
+        "run": "revised-ui-active-arch"
+      },
+      {
+        "test": "DaynomyIOSUITests/testSearchSelectionQuoteAndChangeStock",
+        "status": "passed",
+        "seconds": 18.556,
+        "run": "revised-ui-active-arch"
+      },
+      {
+        "test": "DaynomyNextUITests/testClearingPendingTradeSearchStopsSpinner",
+        "status": "passed",
+        "seconds": 21.442,
+        "run": "final-two-ui"
+      },
+      {
+        "test": "DaynomyNextUITests/testGuestBuyEditSellDeleteReplaysVisibleHoldings",
+        "status": "passed",
+        "seconds": 92.376,
+        "run": "final-ledger-ui"
+      },
+      {
+        "test": "DaynomyNextUITests/testGuestFeedbackSuccessClearsAndFailurePreservesInput",
+        "status": "passed",
+        "seconds": 23.448,
+        "run": "next-ui"
+      },
+      {
+        "test": "DaynomyNextUITests/testGuestHoldingRemovalIgnoresClearedAdjustmentFields",
+        "status": "passed",
+        "seconds": 39.277,
+        "run": "next-ui"
+      },
+      {
+        "test": "DaynomyNextUITests/testGuestOversellKeepsEditorAndPreviousHolding",
+        "status": "passed",
+        "seconds": 49.363,
+        "run": "revised-ui-active-arch"
+      },
+      {
+        "test": "DaynomyNextUITests/testNewsDetailKeywordAnalysisAndBackNavigation",
+        "status": "passed",
+        "seconds": 19.482,
+        "run": "next-ui"
+      },
+      {
+        "test": "DaynomyNextUITests/testNewsTextSearchRendersContentArrayAndOpensDetail",
+        "status": "passed",
+        "seconds": 18.172,
+        "run": "next-ui"
+      }
+    ],
+    "all_passed": true,
+    "scope": "Incremental runs, not a single ten-test run. Unchanged successful methods were not repeated. Later revisions affect only failed test queries/gesture; app Swift and final project settings remained unchanged.",
+    "criteria_revisions": "test-author/ui-baseline/README.md"
+  },
+  "runs": [
+    {
+      "name": "initial-build",
+      "local_log": ".local/initial-build.log",
+      "sha256": "4c970c71b37f87e47059ff93ddb75cf34eab6afed6258ea6c4f637390586c2e3",
+      "tests": [],
+      "test_build_succeeded": true,
+      "test_succeeded": false
+    },
+    {
+      "name": "swift-baseline",
+      "local_log": ".local/swift-baseline.log",
+      "sha256": "fe2782a8302acbce974ac99aa5ba2e605b5cd8f6967c3faa00dd2ab5424bdd95",
+      "tests": [],
+      "test_build_succeeded": false,
+      "test_succeeded": false
+    },
+    {
+      "name": "baseline-ui",
+      "local_log": ".local/baseline-ui.log",
+      "sha256": "c2ecf73c4dc6f7205a938ff1090630bd7537545b96755afffeb3a5b95b730587",
+      "tests": [
+        {
+          "test": "DaynomyFullUITests/testFourNativeSectionsAndGuestFeedbackEntry",
+          "status": "failed",
+          "seconds": 18.065
+        },
+        {
+          "test": "DaynomyIOSUITests/testManualDeletionRemainsEmptyAfterLateQuote",
+          "status": "failed",
+          "seconds": 18.995
+        },
+        {
+          "test": "DaynomyIOSUITests/testSearchSelectionQuoteAndChangeStock",
+          "status": "failed",
+          "seconds": 19.027
+        }
+      ],
+      "test_build_succeeded": false,
+      "test_succeeded": false
+    },
+    {
+      "name": "baseline-phone-ui",
+      "local_log": ".local/baseline-phone-ui.log",
+      "sha256": "ba94c772ccf00a2a25603d8deb10d83259f6112976e4bc395c1a2add9b954099",
+      "tests": [
+        {
+          "test": "DaynomyFullUITests/testFourNativeSectionsAndGuestFeedbackEntry",
+          "status": "passed",
+          "seconds": 36.047
+        },
+        {
+          "test": "DaynomyIOSUITests/testManualDeletionRemainsEmptyAfterLateQuote",
+          "status": "failed",
+          "seconds": 20.075
+        },
+        {
+          "test": "DaynomyIOSUITests/testSearchSelectionQuoteAndChangeStock",
+          "status": "passed",
+          "seconds": 20.916
+        }
+      ],
+      "test_build_succeeded": false,
+      "test_succeeded": false
+    },
+    {
+      "name": "final-build",
+      "local_log": ".local/final-build.log",
+      "sha256": "96a1dd32e0c7fbc4931072c7b58264e6d288af9944bdc75cb33927ae0d1644e6",
+      "tests": [],
+      "test_build_succeeded": true,
+      "test_succeeded": false
+    },
+    {
+      "name": "next-ui",
+      "local_log": ".local/next-ui.log",
+      "sha256": "a906a93bec09868050b377376fdb4bbfdad7d551bf7c1bc809e02a3a30aefc36",
+      "tests": [
+        {
+          "test": "DaynomyNextUITests/testClearingPendingTradeSearchStopsSpinner",
+          "status": "failed",
+          "seconds": 21.127
+        },
+        {
+          "test": "DaynomyNextUITests/testGuestBuyEditSellDeleteReplaysVisibleHoldings",
+          "status": "failed",
+          "seconds": 56.492
+        },
+        {
+          "test": "DaynomyNextUITests/testGuestFeedbackSuccessClearsAndFailurePreservesInput",
+          "status": "passed",
+          "seconds": 23.448
+        },
+        {
+          "test": "DaynomyNextUITests/testGuestHoldingRemovalIgnoresClearedAdjustmentFields",
+          "status": "passed",
+          "seconds": 39.277
+        },
+        {
+          "test": "DaynomyNextUITests/testGuestOversellKeepsEditorAndPreviousHolding",
+          "status": "failed",
+          "seconds": 39.56
+        },
+        {
+          "test": "DaynomyNextUITests/testNewsDetailKeywordAnalysisAndBackNavigation",
+          "status": "passed",
+          "seconds": 19.482
+        },
+        {
+          "test": "DaynomyNextUITests/testNewsTextSearchRendersContentArrayAndOpensDetail",
+          "status": "passed",
+          "seconds": 18.172
+        }
+      ],
+      "test_build_succeeded": false,
+      "test_succeeded": false
+    },
+    {
+      "name": "revised-ui",
+      "local_log": ".local/revised-ui.log",
+      "sha256": "3e27b288a6b27317b0227d8a9c11ade1ff7e49f950ff62d1735042a9cdcceff6",
+      "tests": [],
+      "test_build_succeeded": false,
+      "test_succeeded": false
+    },
+    {
+      "name": "revised-ui-active-arch",
+      "local_log": ".local/revised-ui-active-arch.log",
+      "sha256": "bc696b566748f4544fc8cd70bca7217fb1bf198c1de710d6a350527a7e1c8ce4",
+      "tests": [
+        {
+          "test": "DaynomyFullUITests/testFourNativeSectionsAndGuestFeedbackEntry",
+          "status": "passed",
+          "seconds": 35.015
+        },
+        {
+          "test": "DaynomyIOSUITests/testManualDeletionRemainsEmptyAfterLateQuote",
+          "status": "passed",
+          "seconds": 18.439
+        },
+        {
+          "test": "DaynomyIOSUITests/testSearchSelectionQuoteAndChangeStock",
+          "status": "passed",
+          "seconds": 18.556
+        },
+        {
+          "test": "DaynomyNextUITests/testClearingPendingTradeSearchStopsSpinner",
+          "status": "failed",
+          "seconds": 14.781
+        },
+        {
+          "test": "DaynomyNextUITests/testGuestBuyEditSellDeleteReplaysVisibleHoldings",
+          "status": "failed",
+          "seconds": 66.91
+        },
+        {
+          "test": "DaynomyNextUITests/testGuestOversellKeepsEditorAndPreviousHolding",
+          "status": "passed",
+          "seconds": 49.363
+        }
+      ],
+      "test_build_succeeded": false,
+      "test_succeeded": false
+    },
+    {
+      "name": "final-generic-build",
+      "local_log": ".local/final-generic-build.log",
+      "sha256": "bb4cf263ddb93223c2609cfecca9c44d0b7aa9ef4cd2d5b23a753f2bd27905dd",
+      "tests": [],
+      "test_build_succeeded": true,
+      "test_succeeded": false
+    },
+    {
+      "name": "final-two-ui",
+      "local_log": ".local/final-two-ui.log",
+      "sha256": "b44b7f09f1a9cf006818de78ff04175a0a80a40325bee5165aaaabed2578852d",
+      "tests": [
+        {
+          "test": "DaynomyNextUITests/testClearingPendingTradeSearchStopsSpinner",
+          "status": "passed",
+          "seconds": 21.442
+        },
+        {
+          "test": "DaynomyNextUITests/testGuestBuyEditSellDeleteReplaysVisibleHoldings",
+          "status": "failed",
+          "seconds": 68.234
+        }
+      ],
+      "test_build_succeeded": false,
+      "test_succeeded": false
+    },
+    {
+      "name": "final-ledger-ui",
+      "local_log": ".local/final-ledger-ui.log",
+      "sha256": "fbcab67166d6438f6c0475bf8cd041f38f6177aa558c32f7dc4e79d15ed8da6d",
+      "tests": [
+        {
+          "test": "DaynomyNextUITests/testGuestBuyEditSellDeleteReplaysVisibleHoldings",
+          "status": "passed",
+          "seconds": 92.376
+        }
+      ],
+      "test_build_succeeded": false,
+      "test_succeeded": true
+    }
+  ],
+  "not_verified": [
+    "Real Google authentication/callback and account-switch rendered-frame isolation",
+    "Real Rust/DB integration in this change",
+    "Actual AI/S3/social/provider calls",
+    "VoiceOver/Dynamic Type/tablet/dark/rotation comprehensive acceptance",
+    "iPhone Duo sidebar UI acceptance",
+    "Release/device signing and deployment",
+    "Langfuse collection and total time/token savings"
+  ],
+  "measurement": {
+    "whole_task_elapsed_seconds": null,
+    "tokens": null,
+    "reason": "Overall time/tokens not measured; command/test durations and logs are not whole-task usage."
+  }
+}

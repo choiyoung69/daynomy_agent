@@ -64,8 +64,24 @@ import XCTest
         reveal(label, in: app); XCTAssertTrue(label.waitForExistence(timeout: 10))
     }
     private func deleteRow(_ side: String, in app: XCUIApplication) {
-        let trade = row(side, in: app); reveal(trade, in: app); trade.swipeLeft()
-        app.buttons["삭제"].tap()
+        let trade = row(side, in: app)
+        // A partially obscured row may be hittable while its swipe center is behind the tab bar.
+        let top = app.navigationBars.firstMatch.frame.maxY + 8
+        let bottom = app.tabBars.firstMatch.frame.minY - 12
+        func unobscured() -> Bool {
+            trade.exists && trade.isHittable && trade.frame.minY >= top && trade.frame.maxY <= bottom
+        }
+        for _ in 0..<7 {
+            if unobscured() { break }
+            if trade.exists && trade.frame.minY < top { app.swipeDown() }
+            else { app.swipeUp() }
+        }
+        XCTAssertTrue(unobscured(), "Entire transaction row must be above the tab bar before swiping")
+        let start = trade.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5))
+        let end = trade.coordinate(withNormalizedOffset: CGVector(dx: 0.45, dy: 0.5))
+        start.press(forDuration: 0.05, thenDragTo: end)
+        let remove = app.buttons["삭제"]
+        XCTAssertTrue(remove.waitForExistence(timeout: 3)); remove.tap()
         let confirm = app.buttons["거래 삭제"]
         XCTAssertTrue(confirm.waitForExistence(timeout: 3)); confirm.tap()
         expectation(for: NSPredicate(format: "exists == false"), evaluatedWith: trade)
@@ -85,7 +101,7 @@ import XCTest
         holding(10, average: 110, app: app)
         // Sale earns (150 - 110) * 2 = 80 KRW, independently of fixture valuation.
         app.swipeDown(); app.swipeDown()
-        XCTAssertTrue(text("80 원", in: app).waitForExistence(timeout: 5))
+        XCTAssertTrue(text("실현손익, 80 원", in: app).waitForExistence(timeout: 5))
         deleteRow("매도", in: app); holding(12, average: 110, app: app)
         deleteRow("매수", in: app)
         XCTAssertTrue(text("아직 보유 자산이 없어요. 첫 거래를 기록해 보세요.", in: app).waitForExistence(timeout: 10))
@@ -138,7 +154,7 @@ import XCTest
         let add = app.buttons["addTransaction"]; reveal(add, in: app); add.tap()
         let query = app.textFields["tradeStockQuery"]
         XCTAssertTrue(query.waitForExistence(timeout: 5)); query.tap(); query.typeText("삼성")
-        let spinner = app.progressIndicators["검색 중"]
+        let spinner = app.descendants(matching: .activityIndicator).matching(identifier: "검색 중").firstMatch
         XCTAssertTrue(spinner.waitForExistence(timeout: 2))
         query.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: 2))
         expectation(for: NSPredicate(format: "exists == false"), evaluatedWith: spinner)

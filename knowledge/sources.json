@@ -3526,6 +3526,16 @@
       "reviewed_on": "2026-10-28",
       "reviewed_scope": "Frozen Android news/exchange request, response, lifecycle and fixture contract authored before implementation; not runtime proof",
       "runtime_verification_this_run": "AP04 for core and actual Rust/DB; device results separate in runs/015"
+    },
+    {
+      "id": "AP06",
+      "kind": "local",
+      "path": "experiments/ios-sdk-verification/results.json",
+      "sha256": "56f2b7cd04feac69d8f1b01f378c3393440e70da7b930fe7abb8e4855fa310a5",
+      "review_status": "read",
+      "reviewed_on": "2026-11-04",
+      "reviewed_scope": "iOS SDK build, canonical Swift tests, source identity and incremental synthetic-HTTP Simulator evidence; independent source/criterion review linked separately",
+      "runtime_verification_this_run": "SDK build-for-testing, Swift Testing51, state13+17, route16 and 10 distinct UI cases passed in incremental runs; no real providers/DB or full accessibility acceptance"
     }
   ]
 }

@@ -1,0 +1,8 @@
+                                    Cell, 0x112dcb980, {{16.0, 429.7}, {370.0, 52.3}} <AX element pid: 44567, elementOrHash.elementID: 4399274240.71>
+                                      Other, 0x112dcbc00, {{16.0, 429.7}, {370.0, 52.3}} <AX element pid: 44567, elementOrHash.elementID: 4388073472.98>
+                                        Other, 0x112dcbd40, {{16.0, 429.7}, {370.0, 52.3}} <AX element pid: 44567, elementOrHash.elementID: 4710881856.125>
+                                      Other, 0x112dcbe80, {{16.0, 429.7}, {370.0, 52.3}} <AX element pid: 44567, elementOrHash.elementID: 4710881408.99>
+                                        Other, 0x112dcb840, {{16.0, 429.7}, {370.0, 52.3}} <AX element pid: 44567, elementOrHash.elementID: 4711794176.126>
+                                          Other, 0x112dcb0c0, {{16.0, 429.7}, {370.0, 52.3}} <AX element pid: 44567, elementOrHash.elementID: 4725556320.143>
+                                            StaticText, 0x112dc92c0, {{16.0, 429.7}, {370.0, 52.3}}, label: '실현손익, 80 원' <AX element pid: 44567, elementOrHash.elementID: 4725556000.159>
+                                            StaticText, 0x112dc9e00, {{32.0, 445.7}, {59.0, 20.3}}, label: '실현손익' <AX element pid: 44567, elementOrHash.elementID: 4725556160.160>

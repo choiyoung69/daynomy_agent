@@ -4,7 +4,7 @@
 
 ## 판정
 
-검토한 수정에서 새 수정 필수 결함을 발견하지 않았다. F1–F7의 소스 원인은 모두 해소됐다. 이 판정은 아래 해시의 소스·host 회귀 증거에 한정되며 모든 native 인수 항목 완료를 뜻하지 않는다. 최종 SDK 빌드와 Simulator 결과는 이 기록 작성 시 root로부터 아직 수령하지 않았다.
+검토한 수정에서 새 수정 필수 결함을 발견하지 않았다. F1–F7의 소스 원인은 모두 해소됐다. 이 판정과 후속 SDK 빌드·고유 UI10개 증분 통과는 모든 native 인수 항목 완료를 뜻하지 않는다. 최초 소스 리뷰 이후 도착한 실행 증거와 후속 검사 개정 검토는 아래 부록에 구분했다.
 
 | 항목 | 현재 근거 | 판단 |
 | --- | --- | --- |
@@ -41,7 +41,7 @@ SDK·UI 결과에서 구별할 핵심은 계정 전환 중 비활성 금융 navi
 | `clients/ios/DaynomyIOS/DiscoveryView.swift` | `510c257fced02d7fa87bfda81534e7a22f0edbba58d135f5906c87a0f1657c2a` |
 | `clients/ios/DaynomyIOS/AdminView.swift` | `4350d78b4e701fe939934b8a0daab8b979aee57e44a9c94879897a1713b83857` |
 | `clients/ios/Sources/DaynomyCore/NewsPresentation.swift` | `dd51a20c1c2dec18d57d5abdccaea7279a3bc43a0012a5b0851742cca3166762` |
-| `clients/ios/DaynomyIOS.xcodeproj/project.pbxproj` | `7ff88922420e14fc1cc742dca7de8243b5737abc3a463daf609f36d37cba5dba` |
+| `clients/ios/DaynomyIOS.xcodeproj/project.pbxproj` | `205e096e48fd1beb75d174281d15188dde373cc92dece12286df9f4fadb93551` |
 
 ## 후속 검토 — SDK 및 UI 검사 조건
 
@@ -62,3 +62,37 @@ root의 최종 build-for-testing 로그 `.local/final-build.log` 끝에서 `TEST
 변경은 `openTrade`의 매도 분기에서 Button label을 정확히 `유형` 또는 `유형, 매수`로 조회하는 한 곳뿐이다. 임의 contains 조회로 확대하지 않고 기존 label과 관측된 현재 label만 허용한다. 그다음 매도 메뉴 선택, 수량·단가 입력, 저장·보유·실현손익·원장 삭제·oversell 오류 및 기존 보유 보존 단언은 그대로다. 인수 기준 약화로 판단하지 않는다. 현재 Next 소스 SHA256은 `c2abb7f73ffe8d457c1e52a78983293f632430d8871e6a139b55c6d9bdc790a8`다. 이 query 개정이 실패했던 뒤쪽 거래 흐름을 통과시켰는지는 실제 재실행 결과로 별도 판단한다.
 
 또한 `test-author/delayed-fixture.sha256`의 wrapper·smoke 코드·smoke 로그 3항목을 추가 대조해 모두 일치를 확인했다. 이 리뷰 역할은 앱·검사·fixture 수정이나 재실행을 수행하지 않았다.
+
+### Debug architecture 설정
+
+후속 실제 destination의 `xcodebuild test`에서 `.local/revised-ui.log`에 DaynomyCore의 x86_64 undefined symbol 링크 실패가 발생했다. root는 package object가 arm64로 갱신되는 반면 앱이 arm64+x86_64를 링크하는 불일치를 확인했다. 이전 generic build 성공은 이전 object 상태에서의 결과이며 이 재실행 실패를 지우지 않는다.
+
+현재 프로젝트 diff를 독립 검토했다. project Debug `XCBuildConfiguration`에 `ONLY_ACTIVE_ARCH = YES` 한 항목을 추가하고 앱/UI target이 이를 상속한다. 특정 architecture 제외나 `ARCHS` 강제 지정은 없고 Release 설정도 바꾸지 않는다. 실제 실행 destination의 active architecture에 앱·테스트 빌드를 맞추는 수정으로 범위가 적절하다. 이 변경은 Intel Simulator 빌드 통과 증거는 아니다.
+
+프로젝트 SHA256은 이전 SDK 성공 시점 `7ff88922420e14fc1cc742dca7de8243b5737abc3a463daf609f36d37cba5dba`에서 현재 `205e096e48fd1beb75d174281d15188dde373cc92dece12286df9f4fadb93551`로 바뀌었다. 위 현재 소스 표도 갱신했다. 앱 Swift5개는 `verified-source.sha256` 직접 재대조로 모두 불변임을 확인했다. `.local/revised-ui-active-arch.log`의 이후 빌드/UI 성공 여부는 최종 실행 결과에서 별도 판정한다.
+
+### ActivityIndicator·실현손익 조회 개정
+
+실제 `.local/revised-ui-attachments/0242583C-AAA3-4FE2-9CE5-A2CEAB74308A.txt:221`에서 label `검색 중`, value1인 ActivityIndicator를 직접 확인했다. `.local/revised-ui-attachments/E8DEB146-0694-4FF1-BEC1-9FACFD9CE178.txt:76`의 StaticText label은 `실현손익, 80 원`이다. 보존된 두 영상 frame도 직접 열어 검색어 `삼성` 아래 spinner와 검색 중 문구, 실현손익80원·보유10주·평균110원을 확인했다. `activity-profit-revision.sha256`의 직전 Picker-stage 원문·frame2개·AX2개·diff·현재 소스 7항목을 직접 대조해 모두 일치했다.
+
+이번 변경은 Next 두 query만 수정한다. spinner의 존재→전체삭제→동일 indicator 부재→빈 검색어/이전 결과 부재 순서와 timeout은 유지하고 실제 AX type인 `.activityIndicator`와 정확한 `검색 중` label/identifier를 조회한다. 손익은 정확한 combined label `실현손익, 80 원`을 요구해 `(150 - 110) * 2 = 80` 기대값을 유지한다. 이후 매도/매수 삭제 및 빈 보유·거래 단언도 불변이다. 실제 표시 타입/묶인 접근성 label에 맞춘 수정이며 인수 기준 약화로 판단하지 않는다.
+
+현재 Next 소스 SHA256은 `6e8e3ffac065a054e78ef19d6ba7c02bdb27277cbb7ab6a9d377f0ab69145bcf`다. 이전 단계 해시는 보존된 stage 원문의 식별로 유지한다. `.local/final-generic-build.log`의 `TEST BUILD SUCCEEDED`도 직접 확인했다. 이 generic SDK 성공과 남은 두 UI 사례의 실제 통과 여부는 구분하며, 이 부록 작성 시 두 UI 최종 결과는 미수령이다.
+
+### 거래 삭제 제스처 개정
+
+마지막 두 UI 중 검색 spinner는 통과했다는 root 통지를 받았다. 거래 CRUD는 손익80원까지 도달한 뒤 삭제 버튼 조회에서 실패했다. `.local/final-two-attachments/83408F8C-0DD9-47FE-9426-0C23B616B59E.txt:119,141`을 직접 읽어 매도 row frame y779~860.3, TabBar y791~874를 확인했다. row 중앙819.65는 탭바 범위다. 보존된 실패 frame도 직접 열어 거래 행이 탭바 뒤에 가려지고 삭제 버튼·확인창이 없는 것을 확인했다. `delete-row-revision.sha256` 5항목(직전 원문·frame·AX·diff·현재 Next 소스)을 직접 대조해 전부 일치했다.
+
+수정은 `deleteRow` helper에 한정된다. 최대7회 스크롤 후 row 전체가 navigation bar와 tab bar 사이에 있는지 더 강하게 단언하고, row 내부 x90%→45%의 부분 drag로 실제 삭제 action을 노출한다. 삭제 버튼 존재 대기→명시적 `삭제`→`거래 삭제` 확인→해당 행 부재 순서는 유지한다. 매도 삭제 후12주 평균110원, 매수 삭제 후 빈 보유·빈 거래 인수도 그대로다. 조회/제스처 좌표를 실제 표시된 row에 맞춘 변경이며 오류 무시·조건부 skip·기대값 완화가 없어 인수 기준 약화로 판단하지 않는다.
+
+현재 Next 소스 SHA256은 `da6dfeb61f1da886f8133206ac94a6903619009ba7d4921b141c30aa4710cd21`다. 앞 단계 현재 소스 해시는 보존 stage 식별이다. 앱·프로젝트 소스는 변경하지 않았다. 실제 마지막 거래 삭제와 빈 원장 완료는 root의 최종 UI1 결과가 도착하기 전까지 통과로 처리하지 않는다.
+
+## 최종 실행 증거 확정
+
+`results.json`과 실제 로컬 로그 메타를 읽기 전용으로 대조했다. 기록된 11개 실행 모두 로그 SHA256·build/test 성공 marker가 일치하고, 각 testcase의 이름·pass/fail·소요초가 로그와 일치했다. 전체 실행에서 testcase별 가장 최근 결과를 계산한 합집합이 JSON의 고유 UI10개 목록과 정확히 일치하며 모두 pass다. 이는 한 번의 UI10개 전체 실행이 아니다. 이미 통과한 메서드는 유지하고 실패와 개정 영향을 받은 검사만 재실행한 증분 합집합이다. 앞선 실패와 그 원문·단계별 소스는 기록에서 제거하지 않았다.
+
+마지막 `.local/final-ledger-ui.log`는 거래 매수→수정→매도→삭제 흐름 1개,92.376초,0실패 및 `TEST SUCCEEDED`를 직접 확인했다. 앞 단계 `.local/final-two-ui.log`의 spinner21.442초 pass와 거래 삭제 전 실패도 분리되어 있다. canonical Swift log의 51tests/9suites pass 및 `.local/final-generic-build.log`의 SDK `TEST BUILD SUCCEEDED`도 직접 확인했다. host 상태/정적 연결·SDK 빌드·Simulator UI를 서로 대신 세지 않았다.
+
+최종 `final-source.sha256` 41파일을 직접 대조해 전부 일치했고, manifest 자체 SHA256 `d790625aa0f88c0f9aef567ff6fc9d012641a6b823cda835c835d5289dddd3f3`와 파일 수41도 결과 JSON과 일치했다. 검토한 `results.json` SHA256은 `56f2b7cd04feac69d8f1b01f378c3393440e70da7b930fe7abb8e4855fa310a5`다. `.local/final-knowledge-check.log`의 local source111/111 PASS도 읽었다. KB 준비/해시 검사를 실제 앱 동작 증명으로 해석하지 않는다.
+
+확정 범위는 Xcode27.1·Swift6 모드·iOS17 최소 target의 SDK 빌드, 합성 fixture의 iPhone17/iOS27.0에서 고유 UI10개 최신 증분 통과, 연결된 host 회귀 및 현재 소스 리뷰다. 실제 Google 로그인/callback, 계정전환의 렌더 프레임 격리, 실제 Rust/DB·외부 AI/S3/social/provider, 포괄적 접근성·tablet/dark/rotation·Duo sidebar, Release/device 서명·배포는 여전히 미검증이다. 전체 시간·토큰 절감을 측정하거나 추정하지 않았다. 이 독립 검토 역할은 실행 재수행이나 앱·기존 테스트·KB 수정 없이 증거와 최종 source만 대조했다.

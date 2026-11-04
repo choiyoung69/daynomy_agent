@@ -31,7 +31,13 @@ DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcrun simctl list devic
 python3 experiments/ios-next-verification/test-author/ui_fixture.py --port 18082
 ```
 
-후속 UI 검사의 기본 포트는 18097이므로 전체 실행에서는 해당 포트에도 같은 fixture를 준비하거나 테스트 프로세스의 `DAYNOMY_UI_BASE_URL`을 동일 루프백 주소로 지정한다. 포트·기기 공유를 피하고 검사 후 자신이 시작한 서버만 종료한다.
+후속 UI 검사는 별도 터미널에서 검색 지연을 제어하는 기존 Handler 상속 fixture를 시작한다:
+
+```sh
+python3 experiments/ios-sdk-verification/ui_fixture.py --port 18097 --stock-delay 3
+```
+
+후속 UI 검사의 기본 포트는 18097이다. 기존 종목/탭 검사는 18082를 사용한다. `DAYNOMY_UI_BASE_URL`을 테스트 프로세스에 지정해 주소를 통일할 수도 있지만 검색 취소 인수에는 지연 fixture를 사용한다. 포트·기기 공유를 피하고 검사 후 자신이 시작한 서버만 종료한다.
 
 과거 `experiments/ios-full/test-author/run_host_tests.py`는 CLT에 Swift Testing 라이브러리가 없을 때 고정 본문을 실행한 대체 러너다. 현재 Xcode 환경에서는 정식 `swift test`를 우선한다. 추출 상태 회귀도 SwiftUI 화면 인수와 구분한다.
 

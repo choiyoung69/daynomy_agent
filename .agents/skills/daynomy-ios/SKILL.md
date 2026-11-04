@@ -24,7 +24,7 @@ description: DAYNOMY의 기존 SwiftUI 앱에서 기능·상태 결함을 수정
 - 코어: `swift test --package-path clients/ios`를 Xcode toolchain으로 실행한다.
 - 상태: `python3 experiments/ios-next-verification/test-author/run_state_contract.py`는 실제 메서드 추출 호스트 검사다. SwiftUI 화면 검사로 표현하지 않는다.
 - 앱/검사 타깃: `xcodebuild -project clients/ios/DaynomyIOS.xcodeproj -scheme DaynomyIOS -destination 'generic/platform=iOS Simulator' -derivedDataPath .local/ios-derived CODE_SIGNING_ALLOWED=NO build-for-testing`.
-- 화면: 설치된 실제 destination을 조회하고 작업 전용 Simulator에서 실행한다. `experiments/ios-next-verification/test-author/ui_fixture.py`는 루프백 합성 HTTP이며 Rust/DB 근거가 아니다. 동시에 같은 Simulator·포트·DB를 사용하지 않는다.
+- 화면: 설치된 실제 destination을 조회하고 작업 전용 Simulator에서 실행한다. 기존 UI fixture는 `experiments/ios-next-verification/test-author/ui_fixture.py`(18082), 후속 검색 취소 UI는 그 Handler에 지연만 추가한 `experiments/ios-sdk-verification/ui_fixture.py --port 18097 --stock-delay 3`을 사용한다. 둘 다 루프백 합성 HTTP이며 Rust/DB 근거가 아니다. 동시에 같은 Simulator·포트·DB를 사용하지 않는다.
 
 완료된 동일 코드 검사를 반복하지 않고 실패·수정 영향만 재실행한다. Xcode result bundle·로그는 `.local/`에 보존하고 PR에 기준 커밋·최종 소스/검사 해시·실행 범위와 미검증을 연결한다.
 
