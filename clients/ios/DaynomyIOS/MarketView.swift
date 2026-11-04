@@ -10,8 +10,7 @@ import DaynomyCore
     init(api: any MarketAPI, client: ServiceClient? = nil) { self.client = client; _model = State(initialValue: MarketModel(api: api)) }
 
     var body: some View {
-        NavigationStack {
-            Form {
+        Form {
                 if let stock = model.state.draft.selected {
                     Section("선택한 종목") {
                         stockLabel(stock)
@@ -64,7 +63,6 @@ import DaynomyCore
                         .frame(minHeight: 44)
                 }
             }
-        }
         .onAppear { model.activate() }
         .onDisappear { model.deactivate() }
         .onChange(of: scenePhase) { _, phase in

@@ -9,9 +9,10 @@ import DaynomyCore
     @State private var message = ""
     @State private var busy = false
     @State private var confirmWithdrawal = false
+    @State private var showFeedback = false
     var body: some View {
         NavigationStack {
-            Form {
+            List {
                 Section("내 계정") {
                     if let user = session.user {
                         LabeledContent("이메일", value: user.field("email").display)
@@ -20,17 +21,31 @@ import DaynomyCore
                         Button("닉네임 저장") { Task { await saveNickname() } }.disabled(busy || nickname.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                         Button("로그아웃") { Task { await session.logout() } }.disabled(session.busy)
                     } else {
-                        Text("Google로 로그인하면 포트폴리오와 투자 기록을 저장할 수 있어요.")
-                        Button("Google로 로그인") { Task { await session.login() } }.disabled(session.busy).frame(minHeight: 44)
+                        VStack(alignment: .leading, spacing: 20) {
+                            Image(systemName: "person.crop.circle").font(.largeTitle).foregroundStyle(.tint).accessibilityHidden(true)
+                            Text("내 자산을 한곳에서").font(.title2.bold())
+                            Text("로그인하면 보유 자산과 거래 내역을 계정에 저장할 수 있어요.").foregroundStyle(.secondary)
+                            Button { Task { await session.login() } } label: { Text("Google로 로그인").frame(maxWidth: .infinity, minHeight: 44).foregroundStyle(Color(uiColor: .systemBackground)) }
+                                .buttonStyle(.borderedProminent).tint(.primary).buttonBorderShape(.capsule).disabled(session.busy)
+                        }.padding(20).frame(maxWidth: .infinity, alignment: .leading)
+                            .background(Color(uiColor: .secondarySystemBackground), in: RoundedRectangle(cornerRadius: 16))
+                            .listRowSeparator(.hidden)
                     }
                     if session.busy { ProgressView("계정 처리 중") }
                     if !session.error.isEmpty { Text(session.error) }
-                    Button("계정 새로고침") { Task { await session.reloadProfile() } }.frame(minHeight: 44)
+                    if !session.error.isEmpty { Button("계정 다시 확인") { Task { await session.reloadProfile() } }.frame(minHeight: 44) }
                 }
-                Section {
-                    TextField("의견을 남겨 주세요", text: $feedback, axis: .vertical).lineLimit(4...10).accessibilityIdentifier("feedbackField")
-                    Button("의견 보내기") { Task { await sendFeedback() } }.disabled(busy || feedback.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                } header: { Text("서비스 피드백") } footer: { Text("로그인하지 않아도 의견을 보낼 수 있어요. 개인정보나 계정 비밀번호는 적지 마세요.") }
+                Section("서비스") {
+                    Button { showFeedback = true } label: {
+                        HStack {
+                            VStack(alignment: .leading, spacing: 6) {
+                                Text("의견 보내기").font(.headline).foregroundStyle(.primary)
+                                Text("이용 중 불편했던 점을 알려주세요").font(.subheadline).foregroundStyle(.secondary)
+                            }
+                            Spacer(); Image(systemName: "chevron.right").foregroundStyle(.secondary)
+                        }.frame(minHeight: 60)
+                    }.accessibilityIdentifier("openFeedback").accessibilityLabel("의견 보내기").accessibilityHint("이용 중 불편했던 점을 알려주세요")
+                }
                 if busy { ProgressView("저장 중") }
                 if !message.isEmpty { Section { Text(message).accessibilityIdentifier("accountMessage") } }
                 if session.isAdmin { Section("관리자") { NavigationLink("서비스 관리") { AdminView(client: client) } } }
@@ -39,7 +54,20 @@ import DaynomyCore
                         Button("회원 탈퇴", role: .destructive) { confirmWithdrawal = true }.disabled(busy)
                     } footer: { Text("탈퇴하면 이 계정으로 저장한 기능을 이용할 수 없습니다.") }
                 }
-            }.navigationTitle("내 계정").scrollDismissesKeyboard(.interactively)
+            }.listStyle(.plain).scrollContentBackground(.hidden).background(Color(uiColor: .systemBackground)).navigationTitle("내 계정").scrollDismissesKeyboard(.interactively)
+                .sheet(isPresented: $showFeedback) {
+                    NavigationStack {
+                        Form {
+                            Section {
+                                TextField("의견을 남겨 주세요", text: $feedback, axis: .vertical).lineLimit(4...10).accessibilityIdentifier("feedbackField")
+                                Button("의견 보내기") { Task { await sendFeedback() } }.disabled(busy || feedback.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty).accessibilityIdentifier("sendFeedback")
+                            } footer: { Text("로그인하지 않아도 의견을 보낼 수 있어요. 개인정보나 계정 비밀번호는 적지 마세요.") }
+                            if busy { ProgressView("저장 중") }
+                            if !message.isEmpty { Text(message).accessibilityIdentifier("accountMessage") }
+                        }.navigationTitle("의견 보내기").navigationBarTitleDisplayMode(.inline)
+                            .toolbar { ToolbarItem(placement: .cancellationAction) { Button("닫기") { showFeedback = false }.disabled(busy) } }
+                    }
+                }
                 .task { if let user = session.user { nickname = user.field("nickname").display } }
                 .confirmationDialog("정말 탈퇴하시겠어요?", isPresented: $confirmWithdrawal, titleVisibility: .visible) {
                     Button("탈퇴", role: .destructive) { Task { await withdraw() } }
