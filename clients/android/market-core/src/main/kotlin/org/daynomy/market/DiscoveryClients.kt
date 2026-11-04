@@ -14,6 +14,22 @@ class NewsClient(private val transport: HttpTransport) : NewsSource {
         val path = "/api/news?page=$page&size=$size" + (category?.let { "&category=${it.name}" } ?: "")
         return decodePage(transport.get(path))
     }
+    override suspend fun marketAnalysis(newsId: Long): NewsMarketAnalysis? {
+        val body = try {
+            transport.get("/api/news/$newsId/market-analysis")
+        } catch (failure: ApiException) {
+            if (failure.status == 404 && failure.code == "MARKET_ANALYSIS_NOT_FOUND") return null
+            throw failure
+        }
+        val row = newsObject(body)
+        fun requiredText(name: String): String {
+            val value = newsString(row[name])
+            // Preserve Java String.isBlank semantics, including non-breaking spaces.
+            if (value.all { Character.isWhitespace(it) }) invalidNewsResponse()
+            return value
+        }
+        return NewsMarketAnalysis(requiredText("risk"), requiredText("watchPoint"))
+    }
     override suspend fun keywords(newsId: Long): List<NewsKeyword> {
         val row = newsObject(transport.get("/api/news/$newsId/keywords"))
         return newsArray(row["keywords"]).map { element ->

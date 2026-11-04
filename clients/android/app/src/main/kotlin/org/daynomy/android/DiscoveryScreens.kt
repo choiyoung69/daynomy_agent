@@ -77,6 +77,7 @@ fun NewsScreen(state: NewsUiState, controller: NewsController) {
                     }
                 }
             }
+            NewsMarketAnalysisSection(state.analysis, controller::retryAnalysis)
         } else {
             Text("경제 소식", style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold, modifier = Modifier.semantics { heading() })
             Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -179,4 +180,25 @@ private fun keywordCategoryLabel(category: NewsKeywordCategory): String = when (
     NewsKeywordCategory.EVENT -> "사건"
     NewsKeywordCategory.TERM -> "용어"
     NewsKeywordCategory.TREND -> "흐름"
+}
+
+@Composable
+private fun NewsMarketAnalysisSection(analysis: LoadState<NewsMarketAnalysis?>, retry: () -> Unit) {
+    Text("시장 분석", style = MaterialTheme.typography.titleMedium, modifier = Modifier.semantics { heading() })
+    when (analysis) {
+        LoadState.Idle -> Text("시장 분석 조회를 준비하고 있어요.")
+        LoadState.Loading -> DiscoveryLoading("시장 분석을 불러오고 있어요.")
+        is LoadState.Failed -> {
+            DiscoveryError(analysis.message, "news-analysis-error")
+            OutlinedButton(retry, Modifier.heightIn(min = 48.dp).testTag("news-analysis-retry")) { Text("시장 분석 다시 조회") }
+        }
+        is LoadState.Ready -> {
+            val value = analysis.value
+            if (value == null) Text("이 뉴스에 제공되는 시장 분석이 없습니다.", Modifier.testTag("news-analysis-empty"))
+            else Column(Modifier.testTag("news-analysis"), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text("위험과 불확실성: ${value.risk}")
+                Text("확인할 점: ${value.watchPoint}")
+            }
+        }
+    }
 }
