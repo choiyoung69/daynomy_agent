@@ -1,0 +1,17 @@
+PASS internal news route /news/71
+PASS internal news route /news/72
+FAIL internal news route https://untrusted.example/news/71
+FAIL internal news route //untrusted.example/news/71
+FAIL internal news route news/71
+FAIL internal news route /news/71?redirect=https://untrusted.example
+FAIL internal news route /news/71#other
+FAIL internal news route /news//71
+FAIL internal news route /news/71/
+FAIL internal news route /news/%37%31
+PASS internal news route /news/0
+PASS internal news route /news/-1
+PASS internal news route /news/not-a-number
+PASS internal news route /news/9223372036854775808
+PASS internal news route /videos/71
+PASS internal news route /news/71/extra
+NEWS ROUTE CONTRACT 16 checks; failures 8

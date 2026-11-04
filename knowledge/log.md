@@ -217,3 +217,9 @@ wiki/projects/daynomy/android-news-exchange.md에 추가했다. AP04는 실제 �
 - feedback 작업에 기능/인증/JSON/취소 4문서만 연결하고 기존 ensure·수용 verify를 사용했다.
 - 새 실험·실행기 없이 계정 화면 진입과 의견 전송을 구현했다. 독립 JVM 14개·세션 7개 및 APK 빌드 통과.
 - 기기 검사 결과·시간·사용량·독립 리뷰·남은 한계는 runs/024-android-feedback.md에 기록한다.
+
+# 2026-11-04 — iOS 기존 구현과 준비 상태 대조
+
+- 기존 iOS 17·Swift 6 계약과 Xcode 27.1의 실제 SDK build-for-testing 성공을 플랫폼 선택/검사 절차에 반영했다. 준비 문서화는 모든 화면의 인수 완료와 구분한다.
+- portfolio-ledger·portfolio-analysis·news·stock-search-price의 context --require-ready가 통과했다. 원본 110개 해시·기존 문서·평가 기준을 보존했다.
+- 실제 상태/UI 회귀·실패·독립 리뷰와 미검증은 experiments/ios-sdk-verification/README.md 및 Issue #29의 PR 한 곳에 연결한다. 새로운 사용량 절감률은 주장하지 않는다.

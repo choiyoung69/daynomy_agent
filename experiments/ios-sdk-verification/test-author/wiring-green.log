@@ -1,0 +1,10 @@
+PASS Discovery actually uses NewsPresentation.items
+PASS Discovery supplies news-search mode to helper
+PASS Admin editor uses constrained categories
+PASS Admin editor does not offer all public news categories
+PASS History derives account identity
+PASS History task restarts for account change
+PASS History captures request owner
+PASS History guards both awaited result assignments
+PASS History clears prior performance and rows
+STATIC WIRING 9 checks; failures 0

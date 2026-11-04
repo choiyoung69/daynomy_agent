@@ -1,0 +1,5 @@
+6e8e3ffac065a054e78ef19d6ba7c02bdb27277cbb7ab6a9d377f0ab69145bcf  experiments/ios-sdk-verification/test-author/ui-baseline/DaynomyNextUITests.activity-profit-revision.swift
+d4c1d4f6ed44ca097a0f8ec8829a330270df1184b5d2d154d08d6828031d0964  experiments/ios-sdk-verification/test-author/ui-baseline/trade-row-swipe-failure.png
+ae116b180f84a13428ef1bff030ff69762bb757499339431e6622727d84d4f00  experiments/ios-sdk-verification/test-author/ui-baseline/trade-row-swipe-accessibility-excerpt.txt
+6a370121f7ef0828085e656e3aef18460cf9f753a5c3157f6393014e91f2e2f2  experiments/ios-sdk-verification/test-author/ui-baseline/delete-row-gesture-revision.diff
+da6dfeb61f1da886f8133206ac94a6903619009ba7d4921b141c30aa4710cd21  experiments/ios-next-verification/test-author/DaynomyNextUITests.swift

@@ -1,0 +1,7 @@
+c2abb7f73ffe8d457c1e52a78983293f632430d8871e6a139b55c6d9bdc790a8  experiments/ios-sdk-verification/test-author/ui-baseline/DaynomyNextUITests.picker-revision.swift
+ce24e013e7fc258a6d865a9b69d6fb271771c0c32e2a81f3d4deafc3594816c1  experiments/ios-sdk-verification/test-author/ui-baseline/pending-search-at-query-failure.png
+fa030d1f8bcb7175a551ccea4b2318f07182dd7de19e2c90926037a5aefab18a  experiments/ios-sdk-verification/test-author/ui-baseline/realized-profit-at-query-failure.png
+a463d20e5dcd60985efb92f13dc534cfd78e81369828f9d9498169f6695ebb34  experiments/ios-sdk-verification/test-author/ui-baseline/activity-indicator-accessibility-excerpt.txt
+c6cb06ae4424b1caae3c652fa1b300569ab77319351b880864b9c15ea062a2eb  experiments/ios-sdk-verification/test-author/ui-baseline/realized-profit-accessibility-excerpt.txt
+7fc2b5cd64a8a8d853757ab98153a44f601e6f11fcb1af7503d20281c99c0e3b  experiments/ios-sdk-verification/test-author/ui-baseline/activity-profit-query-revision.diff
+6e8e3ffac065a054e78ef19d6ba7c02bdb27277cbb7ab6a9d377f0ab69145bcf  experiments/ios-next-verification/test-author/DaynomyNextUITests.swift

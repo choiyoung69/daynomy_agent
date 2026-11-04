@@ -353,23 +353,26 @@
     "ios": {
       "title": "iOS 네이티브",
       "document": "wiki/platforms/ios.md",
-      "selected_versions": null,
+      "selected_versions": {
+        "ios-min": "17.0 (existing application and package target)",
+        "swift": "6 language mode; Apple Swift 6.4 compiler",
+        "xcode": "27.1 (27A9275); iPhoneSimulator SDK 27.1",
+        "http": "Foundation URLSession, ephemeral in-memory cookie storage",
+        "json": "Existing lossless numeric-token ServiceValue/JSON parser"
+      },
       "source_ids": [
         "E13",
         "E18"
       ],
       "topics": {
-        "language-data": "partial",
-        "state-lifecycle": "partial",
+        "language-data": "documented",
+        "state-lifecycle": "documented",
         "requests-cancellation": "documented",
-        "build-validation": "pending"
+        "build-validation": "documented"
       },
       "extra_required_topics": [],
-      "pending_decisions": [
-        "지원 iOS·Swift 버전과 사용 가능한 UI·네트워크 API 선택",
-        "숫자·날짜 디코딩과 UI 상태 격리·보존 정책"
-      ],
-      "runtime_verification": "not-run",
+      "pending_decisions": [],
+      "runtime_verification": "2026-11-04 SDK build-for-testing passed; feature/UI/provider acceptance remains separate",
       "required_version_fields": [
         "ios-min",
         "swift",

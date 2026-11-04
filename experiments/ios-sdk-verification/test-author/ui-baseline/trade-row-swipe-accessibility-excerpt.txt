@@ -1,0 +1,16 @@
+                                    Cell, 0x1144b8f00, {{16.0, 779.0}, {370.0, 81.3}} <AX element pid: 46961, elementOrHash.elementID: 4809834496.904>
+                                      Other, 0x1144b9040, {{16.0, 779.0}, {370.0, 81.3}} <AX element pid: 46961, elementOrHash.elementID: 4421148160.906>
+                                        Other, 0x1144b9180, {{16.0, 779.0}, {370.0, 81.3}} <AX element pid: 46961, elementOrHash.elementID: 4825979008.908>
+                                      Other, 0x1144b92c0, {{16.0, 779.0}, {370.0, 81.3}} <AX element pid: 46961, elementOrHash.elementID: 4825972736.907>
+                                        Other, 0x1144b9400, {{16.0, 779.0}, {370.0, 81.3}} <AX element pid: 46961, elementOrHash.elementID: 4761540608.909>
+                                          Other, 0x1144b9540, {{16.0, 779.0}, {370.0, 81.3}} <AX element pid: 46961, elementOrHash.elementID: 4763244800.910>
+                                            Button, 0x1144b9680, {{16.0, 779.0}, {370.0, 81.3}}, label: '삼성전자 · 매도, 2026-11-04 · 2 주 × 150 KRW' <AX element pid: 46961, elementOrHash.elementID: 4763253280.913>
+                                              StaticText, 0x1144b97c0, {{32.0, 798.0}, {101.7, 20.3}}, label: '삼성전자 · 매도' <AX element pid: 46961, elementOrHash.elementID: 4763240800.915>
+                                              StaticText, 0x1144b9900, {{32.0, 823.3}, {199.3, 18.0}}, label: '2026-11-04 · 2 주 × 150 KRW' <AX element pid: 46961, elementOrHash.elementID: 4763252160.916>
+                Other, 0x1144baf80, {{0.0, 791.0}, {402.0, 83.0}} <AX element pid: 46961, elementOrHash.elementID: 4378305280.14>
+                  Other, 0x1144bb0c0, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 46961, elementOrHash.elementID: 4378305728.16>
+                    TabBar, 0x1144bb200, {{0.0, 791.0}, {402.0, 83.0}}, label: 'Tab Bar' <AX element pid: 46961, elementOrHash.elementID: 4421474304.19>
+                      Other, 0x1144bb340, {{21.0, 791.0}, {360.0, 62.0}} <AX element pid: 46961, elementOrHash.elementID: 4378282496.22>
+                        Other, 0x1144bb480, {{21.0, 791.0}, {95.0, 54.0}} <AX element pid: 46961, elementOrHash.elementID: 4378311552.25>
+                        Other, 0x1144bb5c0, {{21.0, 791.0}, {360.0, 62.0}} <AX element pid: 46961, elementOrHash.elementID: 4378299008.26>
+                          Button, 0x1144bb700, {{25.0, 795.0}, {95.0, 54.0}}, identifier: 'chart.pie', label: '포트폴리오', Selected <AX element pid: 46961, elementOrHash.elementID: 4377203712.34>

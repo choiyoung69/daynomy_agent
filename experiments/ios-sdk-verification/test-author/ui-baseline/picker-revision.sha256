@@ -1,0 +1,4 @@
+1a91c27beee80f7d18e1a9da39122218eb93cd24b20683ef31983df6a7c54282  experiments/ios-sdk-verification/test-author/ui-baseline/DaynomyNextUITests.original.swift
+c0c156d6d44827e5342df323522f4d27ffa837926f7cc1989282ccfbd7478586  experiments/ios-sdk-verification/test-author/ui-baseline/picker-accessibility-excerpt.txt
+17f78af793a23979709d690df612ec780c8d532e326aa9224dbaab0fcbb657d1  experiments/ios-sdk-verification/test-author/ui-baseline/picker-query-revision.diff
+c2abb7f73ffe8d457c1e52a78983293f632430d8871e6a139b55c6d9bdc790a8  experiments/ios-next-verification/test-author/DaynomyNextUITests.swift

@@ -4,6 +4,8 @@
  classes = {};
  objectVersion = 56;
  objects = {
+  D29000000000000000000001 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "../../experiments/ios-next-verification/test-author/DaynomyNextUITests.swift"; sourceTree = SOURCE_ROOT; };
+  E29000000000000000000001 = {isa = PBXBuildFile; fileRef = D29000000000000000000001; };
   DFDD1F40A469F2ACAE2555A0 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarAnalysisView.swift; sourceTree = "<group>"; };
   EFDD1F40A469F2ACAE2555A0 = {isa = PBXBuildFile; fileRef = DFDD1F40A469F2ACAE2555A0; };
   DCE8AD449B28AE95637C884E = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaynomyFullUITests.swift; sourceTree = "<group>"; };
@@ -27,8 +29,8 @@
   C10000000000000000000001 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaynomyIOSUITests.swift; sourceTree = "<group>"; };
   C10000000000000000000002 = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DaynomyIOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
   C20000000000000000000001 = {isa = PBXBuildFile; fileRef = C10000000000000000000001; };
-  C30000000000000000000001 = {isa = PBXGroup; children = (DCE8AD449B28AE95637C884E,C10000000000000000000001); path = UITests; sourceTree = "<group>"; };
-  C40000000000000000000001 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (ECE8AD449B28AE95637C884E,C20000000000000000000001); runOnlyForDeploymentPostprocessing = 0; };
+  C30000000000000000000001 = {isa = PBXGroup; children = (D29000000000000000000001,DCE8AD449B28AE95637C884E,C10000000000000000000001); path = UITests; sourceTree = "<group>"; };
+  C40000000000000000000001 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (E29000000000000000000001,ECE8AD449B28AE95637C884E,C20000000000000000000001); runOnlyForDeploymentPostprocessing = 0; };
   C40000000000000000000002 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
   C50000000000000000000001 = {isa = PBXNativeTarget; buildConfigurationList = C70000000000000000000001; buildPhases = (C40000000000000000000001,C40000000000000000000002); buildRules = (); dependencies = (C60000000000000000000002); name = DaynomyIOSUITests; productName = DaynomyIOSUITests; productReference = C10000000000000000000002; productType = "com.apple.product-type.bundle.ui-testing"; };
   C60000000000000000000001 = {isa = PBXContainerItemProxy; containerPortal = A60000000000000000000001; proxyType = 1; remoteGlobalIDString = A50000000000000000000001; remoteInfo = DaynomyIOS; };
@@ -56,7 +58,7 @@
   A60000000000000000000001 = {isa = PBXProject; attributes = {BuildIndependentTargetsInParallel = YES; LastSwiftUpdateCheck = 1600; LastUpgradeCheck = 1600; }; buildConfigurationList = A70000000000000000000001; compatibilityVersion = "Xcode 14.0"; developmentRegion = ko; hasScannedForEncodings = 0; knownRegions = (ko,en,Base); mainGroup = A30000000000000000000001; productRefGroup = A30000000000000000000003; packageReferences = (B30000000000000000000001); projectDirPath = ""; projectRoot = ""; targets = (A50000000000000000000001,C50000000000000000000001); };
   A70000000000000000000001 = {isa = XCConfigurationList; buildConfigurations = (A80000000000000000000001,A80000000000000000000002); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
   A70000000000000000000002 = {isa = XCConfigurationList; buildConfigurations = (A80000000000000000000003,A80000000000000000000004); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
-  A80000000000000000000001 = {isa = XCBuildConfiguration; buildSettings = {CLANG_ENABLE_MODULES = YES; SDKROOT = iphoneos; IPHONEOS_DEPLOYMENT_TARGET = 17.0; SWIFT_VERSION = 6.0; }; name = Debug; };
+  A80000000000000000000001 = {isa = XCBuildConfiguration; buildSettings = {CLANG_ENABLE_MODULES = YES; SDKROOT = iphoneos; IPHONEOS_DEPLOYMENT_TARGET = 17.0; SWIFT_VERSION = 6.0; ONLY_ACTIVE_ARCH = YES; }; name = Debug; };
   A80000000000000000000002 = {isa = XCBuildConfiguration; buildSettings = {CLANG_ENABLE_MODULES = YES; SDKROOT = iphoneos; IPHONEOS_DEPLOYMENT_TARGET = 17.0; SWIFT_VERSION = 6.0; }; name = Release; };
   A80000000000000000000003 = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGN_STYLE = Automatic; INFOPLIST_FILE = "DaynomyIOS/Info-Debug.plist"; PRODUCT_BUNDLE_IDENTIFIER = com.daynomy.iospilot; PRODUCT_NAME = "$(TARGET_NAME)"; TARGETED_DEVICE_FAMILY = "1,2"; SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG; SWIFT_OPTIMIZATION_LEVEL = "-Onone"; DAYNOMY_API_URL = "http://127.0.0.1:18081"; }; name = Debug; };
   A80000000000000000000004 = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGN_STYLE = Automatic; INFOPLIST_FILE = "DaynomyIOS/Info-Release.plist"; PRODUCT_BUNDLE_IDENTIFIER = com.daynomy.iospilot; PRODUCT_NAME = "$(TARGET_NAME)"; TARGETED_DEVICE_FAMILY = "1,2"; DAYNOMY_API_URL = ""; SWIFT_COMPILATION_MODE = wholemodule; }; name = Release; };

@@ -1,0 +1,5 @@
+413d7063bf4ed310cc54dbb57c2ca839e590d1874d3832c098f763ee1589d907  experiments/ios-sdk-verification/test-author/ui-baseline/DaynomyIOSUITests.original.swift
+d2e6306be48ace2fcb3885c719cecc45a63bc4b78026b2db51b6b691b8a32d45  experiments/ios-sdk-verification/test-author/ui-baseline/empty-price-at-failure.png
+6f754ee840a55fbfa052e5ca0e1bcef1428959c2b137731d3c4c19713e934f1d  experiments/ios-sdk-verification/test-author/ui-baseline/manual-deletion-failure.log
+39ac967c9287270fde77b4ddfac4ba0b3874949c9324d4fd34b8ba84e5cb9b1e  experiments/ios-sdk-verification/test-author/ui-baseline/assertion-revision.diff
+823b5ea9cc21c5c3d24d9e35fbedcf512d23a74c8a7c8969868b42906e3f9815  clients/ios/UITests/DaynomyIOSUITests.swift
