@@ -88,11 +88,13 @@ class MainActivity : ComponentActivity() {
                 val exchange by discovery.exchange.state.collectAsStateWithLifecycle()
                 BackHandler(tab == "news" && news.selectedId != null) { discovery.news.closeDetail() }
                 Column(Modifier.fillMaxSize().safeDrawingPadding()) {
+                    MaterialTheme(colorScheme = if (tab == "portfolio") PortfolioStyle.colors else MaterialTheme.colorScheme) {
                     Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         listOf("market" to "종목", "news" to "뉴스", "exchange" to "환율", "portfolio" to "자산", "account" to "계정").forEach { (key, title) ->
                             FilterChip(tab == key, { tab = key }, label = { Text(title) },
                                 modifier = Modifier.weight(1f).heightIn(min = 48.dp).testTag("tab-$key"))
                         }
+                    }
                     }
                     Box(Modifier.weight(1f)) {
                         when (tab) {
@@ -102,7 +104,7 @@ class MainActivity : ComponentActivity() {
                                 try { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(core.loginUrl()))) }
                                 catch (_: Exception) { core.showMessage("로그인 브라우저를 열지 못했습니다. 다시 시도해 주세요.") }
                             }
-                            "portfolio" -> PortfolioScreen(core)
+                            "portfolio" -> PortfolioScreen(core) { tab = "account" }
                             else -> MarketScreen(state, model.controller)
                         }
                     }

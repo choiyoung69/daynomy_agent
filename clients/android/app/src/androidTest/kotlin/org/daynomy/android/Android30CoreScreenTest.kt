@@ -74,7 +74,7 @@ class Android30CoreScreenTest {
 
     @Test fun lostTradeResponseShowsUnknownOutcomeAndDoesNotResubmitOrClaimSuccess() {
         launch().use {
-            awaitTag("tab-portfolio"); compose.onNodeWithTag("tab-portfolio").performClick(); awaitTag("transaction-asset")
+            awaitTag("tab-portfolio"); compose.onNodeWithTag("tab-portfolio").performClick(); awaitTag("transaction-open"); compose.onNodeWithTag("transaction-open").performClick(); awaitTag("transaction-asset")
             fill("transaction-asset","삼성전자"); awaitTag("transaction-stock-1"); compose.onNodeWithTag("transaction-stock-1").performScrollTo().performClick()
             fill("transaction-quantity","2"); fill("transaction-price","10.0001"); fill("transaction-date","2026-10-23")
             compose.onNodeWithTag("transaction-type-BUY").performScrollTo().performClick()

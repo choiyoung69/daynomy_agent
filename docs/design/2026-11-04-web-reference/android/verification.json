@@ -1,0 +1,12 @@
+{
+  "base": "40668b76",
+  "scope": "JVM 17, native 9 + large-font 1; source comparison; no real backend/DB or independent code review",
+  "files": {
+    "clients/android/app/src/main/kotlin/org/daynomy/android/PortfolioScreen.kt": "469b06816425a6127cd89fd929177baaefed3fc6d6e441d08532ae22f1857636",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/CoreViewModel.kt": "bb529f89f4d7441e609c2e29cd8cf00add6ab307ac1162d2f30bfeba943fe35d",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/MainActivity.kt": "f5074f7caafb299265d1b7b9ac19a4b215296fbc5d73e34c05700ee20198c8ae",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/CoreScreens.kt": "302784371e2a9ed81266a98bd3d16c5b94e350d75ac33f81d9dae94fe1b29c65",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/PortfolioWebDesignScreenTest.kt": "1eed73a8f78c0cefbca7194e2913098048834adc1fd41096eaa0b6b6d6cf41bb",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/Android30CoreScreenTest.kt": "6d885a354eddf2b34ca081f49bf743f5157940afc66fccc21e7760130f69416c"
+  }
+}

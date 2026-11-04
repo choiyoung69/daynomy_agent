@@ -29,6 +29,9 @@ class CoreViewModel(baseUrl: String) : ViewModel() {
     var message by mutableStateOf<String?>(null); private set
     var busy by mutableStateOf(false); private set
     var loading by mutableStateOf(false); private set
+    var portfolioError by mutableStateOf<String?>(null); private set
+    var portfolioRequiresLogin by mutableStateOf(false); private set
+    var totalRealizedProfitLoss by mutableStateOf("0"); private set
     var portfolioLoaded by mutableStateOf(false); private set
     var unknown by mutableStateOf(false); private set
     var searchResults by mutableStateOf<List<Stock>>(emptyList()); private set
@@ -51,7 +54,7 @@ class CoreViewModel(baseUrl: String) : ViewModel() {
         check(!busy) { "Another operation is pending" }
         epoch++; session.clearSession(); login.cancel()
         profile = null; holdings = JsonArray(emptyList()); history = JsonArray(emptyList())
-        evaluation = null; performance = null; portfolioLoaded = false; loading = false; unknown = false
+        evaluation = null; performance = null; portfolioLoaded = false; portfolioError = null; portfolioRequiresLogin = false; totalRealizedProfitLoss = "0"; loading = false; unknown = false
         searchGeneration++; searchJob?.cancel(); searchBusy = false; searchResults = emptyList(); selection = null
         query = ""; editId = null; quantity = ""; price = ""; type = "BUY"; country = Country.KR
         tradeDate = LocalDate.now().toString(); fee = "0"; tax = "0"; exchangeRate = ""
@@ -83,7 +86,7 @@ class CoreViewModel(baseUrl: String) : ViewModel() {
         profile = null; holdings = JsonArray(emptyList()); history = JsonArray(emptyList()); evaluation = null; performance = null
         selection = null; searchResults = emptyList(); query = ""; editId = null; unknown = false
         loading = false; searchBusy = false; searchGeneration++; searchJob?.cancel()
-        portfolioLoaded = false
+        portfolioLoaded = false; portfolioError = null; portfolioRequiresLogin = false; totalRealizedProfitLoss = "0"
         quantity = ""; price = ""; type = "BUY"; tradeDate = LocalDate.now().toString(); fee = "0"; tax = "0"; exchangeRate = ""; country = Country.KR
         viewModelScope.launch {
             try { if (withdraw) account.delete() else account.logout(); message = if (withdraw) "탈퇴했습니다." else "로그아웃했습니다." }
@@ -108,17 +111,26 @@ class CoreViewModel(baseUrl: String) : ViewModel() {
     fun select(stock: Stock) { searchGeneration++; searchJob?.cancel(); searchBusy = false; selection = TradeAsset(stock.assetId, stock.assetCode, stock.name, stock.currency.name); searchResults = emptyList() }
     fun refreshPortfolio() {
         if (loading) return
-        val generation = epoch; loading = true; message = null
+        val generation = epoch; loading = true; message = null; portfolioError = null
+        evaluation = null; performance = null
         viewModelScope.launch {
             try {
                 val saved = portfolio.holdings()
                 val records = portfolio.histories(from, to)
-                if (generation == epoch) { holdings = saved["holdings"]!!.jsonArray; history = records; unknown = false; portfolioLoaded = true }
+                if (generation == epoch) { holdings = saved["holdings"]!!.jsonArray; history = records; totalRealizedProfitLoss = saved.text("totalRealizedProfitLoss"); unknown = false; portfolioLoaded = true; portfolioRequiresLogin = false }
             } catch (e: CancellationException) { throw e }
             catch (e: Exception) {
                 if (generation == epoch) {
-                    if (e is ApiException && e.code == "PORTFOLIO_NOT_FOUND") { holdings = JsonArray(emptyList()); history = JsonArray(emptyList()); portfolioLoaded = true; unknown = false; message = "아직 보유자산이 없습니다. 첫 거래를 등록하세요." }
-                    else message = if (e is ApiException && e.status == 401) "내 포트폴리오는 로그인 후 이용할 수 있습니다." else "보유자산·거래 내역을 확인하지 못했습니다."
+                    if (e is ApiException && e.code == "PORTFOLIO_NOT_FOUND") { holdings = JsonArray(emptyList()); history = JsonArray(emptyList()); portfolioLoaded = true; portfolioRequiresLogin = false; totalRealizedProfitLoss = "0"; unknown = false; message = "아직 보유자산이 없습니다. 첫 거래를 등록하세요." }
+                    else {
+                        portfolioRequiresLogin = e is ApiException && e.status == 401
+                        portfolioError = if (portfolioRequiresLogin) "내 포트폴리오는 로그인 후 이용할 수 있습니다." else "보유자산·거래 내역을 확인하지 못했습니다."
+                        message = portfolioError
+                        if (portfolioRequiresLogin) {
+                            holdings = JsonArray(emptyList()); history = JsonArray(emptyList()); portfolioLoaded = false
+                            totalRealizedProfitLoss = "0"
+                        }
+                    }
                 }
             } finally { if (generation == epoch) loading = false }
         }
