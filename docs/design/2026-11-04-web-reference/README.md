@@ -108,3 +108,13 @@
 앞선 상단 고정 검색 캡처는 이전 적용 증거다. 최신 화면은 전역 검색창을 제거한다. 이슈 상단에 오늘 뉴스 최신3건/최대9건 펼침을 두고 그 아래 실제 `/api/search/news` 검색을 제공한다. 거래/종목 조회 검색은 `/api/stocks`로 분리한다. 환율은 미국 종목/거래에서 원래 화면으로 복귀하도록 이동했으며 내 계정 메뉴에서는 제거했다.
 
 [현재 대시보드 Compose](android/context-dashboard.png) · [현재 검색 Compose](android/context-search.png). 명시적 합성 HTTP 응답 캡처이며 실제 계좌/발행 데이터가 아니다. Issue #11 검색 구현과 검사를 재사용했고 오늘 뉴스·검색의 실패/빈 상태를 독립 검증한다. 실시간 환율·통합 콘텐츠 검색·뉴스 이미지/AI 구현으로 표현하지 않는다.
+
+## 최신 이미지 캐러셀과 키보드 검색
+
+[실제 사진 캐러셀](android/carousel-dashboard.png) · [실제 API 검색 입력/결과](android/carousel-search.png) · [글자200%](android/carousel-dashboard-font200.png)
+
+사용자 제공 트렌딩 예시를 기준으로 오늘 뉴스 API의 imageUrl·제목·분류·발행일을 실제 Compose HorizontalPager에 연결했다. 좌우스와이프·이전/다음·위치 표시·상세/회전 복원, 이미지 로딩/없음/실패를 구분한다. 데이터는 오늘 API의 발행순이며 최근7일 반응 순위가 아니다. 검색 제출 버튼은 제거하고 키보드 검색/Enter로 제출한다.
+
+사진 로딩은 [Coil2.7.0](https://github.com/coil-kt/coil/releases/tag/2.7.0)의 AsyncImage로 요청·디코딩·캐시를 처리하고 기존 Compose BOM의 Foundation Pager를 명시했다. dependency lock에 Coil/전이 의존성과 Okio3.9.0이 반영됐다. 기존 API 세션/쿠키를 이미지 로더에 전달하지 않는다.
+
+캡처의 기사·응답은 명시적 테스트 데이터다. 사진은 원본 웹의 reference/2026-DAYNOMY-dev/frontend/src/assets/news-home-banner.jpg를 **AndroidTest/assets/news-photo-fixture.jpg에만** 복사해 MockWebServer의 실제 image/jpeg 응답으로 제공했다(SHA256 0ac56a098fccb71b1496d92b10e2e8bef19776b522d86e5ad1ffc7914cd9b76a). 원본은 수정하지 않았고 제품 APK에는 이 fixture를 넣지 않았다. 정상 PNG 절대URL·상대JPEG·이미지없음·HTTP404도 구분해 검사한다. 제품에서 임의 기본 사진으로 쓰지 않는다.

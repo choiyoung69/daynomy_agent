@@ -1,11 +1,26 @@
 package org.daynomy.android
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.icons.outlined.KeyboardArrowLeft
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.text.style.TextAlign
+import coil.compose.AsyncImage
+import kotlinx.coroutines.launch
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.Search
+import androidx.compose.ui.input.key.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.*
@@ -30,9 +45,9 @@ import androidx.compose.ui.unit.dp
 import org.daynomy.market.*
 
 @Composable
-fun NewsScreen(state: NewsUiState, controller: NewsController, today: NewsUiState, todayController: NewsController) {
+fun NewsScreen(state: NewsUiState, controller: NewsController, today: NewsUiState, todayController: NewsController, imageBaseUrl: String) {
     var query by rememberSaveable { mutableStateOf(state.searchQuery.orEmpty()) }
-    var todayExpanded by rememberSaveable { mutableStateOf(false) }
+    var todayArticleId by rememberSaveable { mutableStateOf<Long?>(null) }
     val keyboard = LocalSoftwareKeyboardController.current
     val focus = LocalFocusManager.current
     fun search() { focus.clearFocus(); keyboard?.hide(); controller.submitSearch(query) }
@@ -66,20 +81,22 @@ fun NewsScreen(state: NewsUiState, controller: NewsController, today: NewsUiStat
             }
         } else {
             AppPageTitle("이슈")
-            TodayNewsDashboard(today.list, todayExpanded, { todayExpanded = !todayExpanded }, todayController::retryList, controller::openDetail)
+            TodayNewsCarousel(today.list, imageBaseUrl, todayArticleId, { todayArticleId = it }, todayController::retryList, controller::openDetail)
             Text("전체 이슈", fontSize = 18.sp, fontWeight = FontWeight.Bold, modifier = Modifier.semantics { heading() })
             OutlinedTextField(query, { query = it }, label = { Text("이슈 검색") },
                 leadingIcon = { Icon(Icons.Outlined.Search, contentDescription = null) },
                 singleLine = true, isError = state.searchError != null, shape = PortfolioStyle.panel,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                 keyboardActions = KeyboardActions(onSearch = { search() }),
-                modifier = Modifier.fillMaxWidth().testTag("news-query"))
+                modifier = Modifier.fillMaxWidth().onPreviewKeyEvent { event ->
+                    if (event.key == Key.Enter || event.key == Key.NumPadEnter) {
+                        if (event.type == KeyEventType.KeyUp) search()
+                        true
+                    } else false
+                }.testTag("news-query"))
             state.searchError?.let { DiscoveryError(it, "news-query-error") }
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Button({ search() }, shape = PortfolioStyle.pill, modifier = Modifier.heightIn(min = 48.dp).testTag("news-search")) { Text("검색") }
-                if (state.searchQuery != null || query.isNotEmpty()) {
-                    TextButton({ query = ""; controller.clearSearch() }, Modifier.heightIn(min = 48.dp).testTag("news-search-clear")) { Text("검색 해제") }
-                }
+            if (state.searchQuery != null || query.isNotEmpty()) {
+                TextButton({ query = ""; controller.clearSearch() }, Modifier.heightIn(min = 48.dp).testTag("news-search-clear")) { Text("검색 해제") }
             }
             state.searchQuery?.let {
                 Text("검색 중: $it", Modifier.testTag("news-active-query").semantics { liveRegion = LiveRegionMode.Polite })
@@ -143,39 +160,64 @@ fun NewsScreen(state: NewsUiState, controller: NewsController, today: NewsUiStat
 }
 
 @Composable
-private fun TodayNewsDashboard(result: LoadState<NewsPage>, expanded: Boolean, toggle: () -> Unit, retry: () -> Unit, open: (Long) -> Unit) {
-    Card(Modifier.fillMaxWidth().testTag("news-today-summary"), shape = PortfolioStyle.panel,
-        colors = CardDefaults.cardColors(containerColor = PortfolioStyle.colors.secondaryContainer)) {
-        Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-            Text("오늘 뉴스", fontSize = 21.sp, fontWeight = FontWeight.Bold, modifier = Modifier.semantics { heading() })
-            Text("서버 날짜 기준 · 최신 발행 소식 최대 9건", color = PortfolioStyle.muted, style = MaterialTheme.typography.bodySmall)
-            when (result) {
-                LoadState.Idle, LoadState.Loading -> DiscoveryLoading("오늘 뉴스를 불러오고 있어요.")
-                is LoadState.Failed -> {
-                    DiscoveryError("오늘 뉴스를 불러오지 못했습니다.", "news-today-error")
-                    OutlinedButton(retry, shape = PortfolioStyle.pill, modifier = Modifier.heightIn(min = 48.dp).testTag("news-today-retry")) { Text("다시 조회") }
-                }
-                is LoadState.Ready -> {
-                    if (result.value.items.isEmpty()) Text("오늘 발행된 뉴스가 없습니다.", Modifier.testTag("news-today-empty"))
-                    else {
-                        Text("최신 ${result.value.items.size}건", color = PortfolioStyle.blue, style = MaterialTheme.typography.labelLarge)
-                        result.value.items.take(if (expanded) 9 else 3).forEachIndexed { index, news ->
-                            Column(Modifier.fillMaxWidth().clickable(onClickLabel = "오늘 기사 읽기", role = androidx.compose.ui.semantics.Role.Button) { open(news.id) }
-                                .heightIn(min = 64.dp).padding(vertical = 8.dp).testTag("news-today-${news.id}"),
-                                verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                                Text(newsLabel(news.category), color = PortfolioStyle.muted, style = MaterialTheme.typography.labelMedium)
-                                Text(news.title, fontSize = if (index == 0) 19.sp else 16.sp, lineHeight = 26.sp,
-                                    fontWeight = if (index == 0) FontWeight.Bold else FontWeight.Medium)
+private fun TodayNewsCarousel(result: LoadState<NewsPage>, imageBaseUrl: String, selectedId: Long?, select: (Long) -> Unit, retry: () -> Unit, open: (Long) -> Unit) {
+    Column(Modifier.fillMaxWidth().testTag("news-today-summary"), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Text("오늘 뉴스", fontSize = 21.sp, fontWeight = FontWeight.Bold, modifier = Modifier.semantics { heading() })
+        Text("최신 발행 소식 · 좌우로 넘겨보세요", color = PortfolioStyle.muted, style = MaterialTheme.typography.bodySmall)
+        when (result) {
+            LoadState.Idle, LoadState.Loading -> DiscoveryLoading("오늘 뉴스를 불러오고 있어요.")
+            is LoadState.Failed -> {
+                DiscoveryError("오늘 뉴스를 불러오지 못했습니다.", "news-today-error")
+                OutlinedButton(retry, shape = PortfolioStyle.pill, modifier = Modifier.heightIn(min = 48.dp).testTag("news-today-retry")) { Text("다시 조회") }
+            }
+            is LoadState.Ready -> {
+                val articles = result.value.items.take(9)
+                if (articles.isEmpty()) Text("오늘 발행된 뉴스가 없습니다.", Modifier.testTag("news-today-empty"))
+                else {
+                    val pager = rememberPagerState(initialPage = articles.indexOfFirst { it.id == selectedId }.coerceAtLeast(0), pageCount = { articles.size })
+                    val scope = rememberCoroutineScope()
+                    LaunchedEffect(pager, articles) {
+                        snapshotFlow { pager.settledPage }.collect { index -> articles.getOrNull(index)?.let { select(it.id) } }
+                    }
+                    HorizontalPager(state = pager, pageSpacing = 12.dp, key = { articles[it].id },
+                        modifier = Modifier.fillMaxWidth().testTag("news-today-pager")) { page ->
+                        val news = articles[page]
+                        Box(Modifier.fillMaxWidth().heightIn(min = if (LocalDensity.current.fontScale > 1.3f) 380.dp else 280.dp)
+                            .clip(PortfolioStyle.panel).background(PortfolioStyle.ink)
+                            .clickable(onClickLabel = "오늘 기사 읽기", role = androidx.compose.ui.semantics.Role.Button) { select(news.id); open(news.id) }
+                            .testTag("news-today-${news.id}")) {
+                            StoryPhoto(news.imageUrl, imageBaseUrl, news.id, Modifier.matchParentSize())
+                            Box(Modifier.matchParentSize().background(Brush.verticalGradient(listOf(Color.Black.copy(alpha = .10f), Color.Black.copy(alpha = .45f), Color.Black.copy(alpha = .94f)))))
+                            Column(Modifier.fillMaxWidth().align(Alignment.BottomStart).padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                                Text("오늘 뉴스 %02d".format(page + 1), color = Color(0xFFB8D5FF), style = MaterialTheme.typography.labelLarge)
+                                Text(news.title, color = Color.White, fontSize = 22.sp, lineHeight = 31.sp, fontWeight = FontWeight.Bold)
+                                Text(listOfNotNull(newsLabel(news.category), news.publishedAt?.take(10)).joinToString(" · "),
+                                    color = Color.White.copy(alpha = .90f), style = MaterialTheme.typography.bodySmall)
                             }
-                            if (index < (if (expanded) result.value.items.size.coerceAtMost(9) else result.value.items.size.coerceAtMost(3)) - 1) HorizontalDivider(color = PortfolioStyle.line)
                         }
-                        if (result.value.items.size > 3) TextButton(toggle, Modifier.heightIn(min = 48.dp).testTag("news-today-more")) {
-                            Text(if (expanded) "접기" else "오늘 뉴스 더 보기")
-                        }
+                    }
+                    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+                        IconButton({ scope.launch { pager.scrollToPage(pager.currentPage - 1) } }, enabled = pager.currentPage > 0,
+                            modifier = Modifier.size(48.dp).testTag("news-today-previous")) { Icon(Icons.Outlined.KeyboardArrowLeft, contentDescription = "이전 뉴스") }
+                        Text("${pager.currentPage + 1} / ${articles.size}", Modifier.testTag("news-today-position"), color = PortfolioStyle.muted,
+                            style = MaterialTheme.typography.labelLarge, textAlign = TextAlign.Center)
+                        IconButton({ scope.launch { pager.scrollToPage(pager.currentPage + 1) } }, enabled = pager.currentPage < articles.lastIndex,
+                            modifier = Modifier.size(48.dp).testTag("news-today-next")) { Icon(Icons.Outlined.KeyboardArrowRight, contentDescription = "다음 뉴스") }
                     }
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun StoryPhoto(rawUrl: String?, baseUrl: String, id: Long, modifier: Modifier) {
+    val url = remember(rawUrl, baseUrl) { rawUrl?.takeIf { it.isNotBlank() }?.let { baseUrl.toHttpUrlOrNull()?.resolve(it)?.toString() } }
+    var state by remember(rawUrl, url) { mutableStateOf(if (rawUrl.isNullOrBlank()) "이미지 없음" else if (url == null) "이미지를 불러오지 못했습니다" else "이미지 불러오는 중") }
+    Box(modifier.semantics { stateDescription = state }.testTag("news-today-image-$id")) {
+        if (url != null) AsyncImage(model = url, contentDescription = null, contentScale = ContentScale.Crop, modifier = Modifier.fillMaxSize(),
+            onLoading = { state = "이미지 불러오는 중" }, onSuccess = { state = "이미지 로드 완료" }, onError = { state = "이미지를 불러오지 못했습니다" })
+        if (state != "이미지 로드 완료") Text(state, Modifier.align(Alignment.TopEnd).padding(16.dp), color = Color.White.copy(alpha = .85f), style = MaterialTheme.typography.labelSmall)
     }
 }
 

@@ -121,7 +121,7 @@ class MainActivity : ComponentActivity() {
                         Box(Modifier.weight(1f)) {
                             screenState.SaveableStateProvider(tab) {
                             when (tab) {
-                                "news" -> NewsScreen(news, discovery.news, todayNews, discovery.todayNews)
+                                "news" -> NewsScreen(news, discovery.news, todayNews, discovery.todayNews, baseUrl)
                                 "exchange" -> Column {
                                     TextButton({ tab = exchangeReturn }, Modifier.heightIn(min = 48.dp).testTag("exchange-back")) { Text("이전 화면으로") }
                                     ExchangeScreen(exchange, discovery.exchange)

@@ -2,6 +2,9 @@ package org.daynomy.android
 
 import android.content.Context
 import android.content.Intent
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.test.performKeyInput
+import androidx.compose.ui.test.pressKey
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextContains
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
@@ -11,6 +14,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextReplacement
+import androidx.compose.ui.test.performImeAction
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -67,13 +71,15 @@ class NewsSearchScreenTest {
     }
     private fun awaitTag(tag: String) { compose.waitUntil(8000) { compose.onAllNodesWithTag(tag).fetchSemanticsNodes().isNotEmpty() } }
 
+    @OptIn(androidx.compose.ui.test.ExperimentalTestApi::class)
     @Test fun searchFiltersDetailClearAndRotationUseExistingNewsScreen() {
         launch().use { scenario ->
             awaitTag("tab-news"); compose.onNodeWithTag("tab-news").performClick()
             awaitTag("news-query")
             compose.onNodeWithTag("news-query").performScrollTo().performTextReplacement("금리 %_!")
-            compose.onNodeWithTag("news-search").performScrollTo().performClick()
+            compose.onNodeWithTag("news-query").performScrollTo().performKeyInput { pressKey(Key.Enter) }
             awaitTag("news-item-42")
+            assertEquals(1, requests.count { it.requestUrl?.encodedPath == "/api/search/news" && it.requestUrl?.queryParameter("q") == "금리 %_!" && it.requestUrl?.queryParameter("sort") == "LATEST" })
             compose.onNodeWithTag("news-sort-RELEVANCE").performScrollTo().performClick()
             compose.onNodeWithTag("category-STOCK").performScrollTo().performClick()
             compose.waitUntil(8000) { requests.any { it.requestUrl?.encodedPath == "/api/search/news" && it.requestUrl?.queryParameter("q") == "금리 %_!" && it.requestUrl?.queryParameter("category") == "STOCK" && it.requestUrl?.queryParameter("sort") == "RELEVANCE" } }
@@ -85,7 +91,7 @@ class NewsSearchScreenTest {
             compose.onNodeWithTag("news-back").performScrollTo().performClick()
             awaitTag("news-item-42")
             compose.onNodeWithTag("news-query").performScrollTo().performTextReplacement("!!!")
-            compose.onNodeWithTag("news-search").performScrollTo().performClick()
+            compose.onNodeWithTag("news-query").performScrollTo().performImeAction()
             awaitTag("news-query-error")
             assertFalse(requests.any { it.requestUrl?.queryParameter("q") == "!!!" })
             compose.onNodeWithTag("news-search-clear").performScrollTo().performClick()
