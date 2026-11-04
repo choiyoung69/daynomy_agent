@@ -126,6 +126,8 @@ class MarketScreenAcceptanceTest {
     @Test fun usSearchSendsCountryAndLocalCategoryFilterDoesNotRefetch() {
         launch().use {
             awaitTag("query")
+            compose.onNodeWithTag("query").performClick()
+            awaitTag("country-US")
             compose.onNodeWithTag("country-US").performClick()
             compose.onNodeWithTag("query").performTextReplacement("AAPL & ETF")
             awaitTag("stock-1"); awaitTag("stock-2")

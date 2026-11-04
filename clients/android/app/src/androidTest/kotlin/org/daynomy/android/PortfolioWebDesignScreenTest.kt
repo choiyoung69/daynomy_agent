@@ -157,4 +157,26 @@ class PortfolioWebDesignScreenTest {
             scenario.onActivity { it.requestedOrientation=android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT }
         }
     }
+    @Test fun threeBottomTabsAndPersistentTopSearchUseRealScreens() {
+        launch().use {
+            awaitTag("bottom-navigation")
+            compose.onNodeWithTag("tab-portfolio").assertTextContains("포트폴리오",substring=true)
+            compose.onNodeWithTag("tab-news").assertTextContains("이슈",substring=true)
+            compose.onNodeWithTag("tab-account").assertTextContains("내 계정",substring=true)
+            compose.onNodeWithTag("tab-market").assertDoesNotExist()
+            val bottom=compose.onNodeWithTag("bottom-navigation").fetchSemanticsNode().boundsInRoot
+            val search=compose.onNodeWithTag("query").fetchSemanticsNode().boundsInRoot
+            assertTrue(bottom.top>search.bottom)
+            compose.onNodeWithTag("query").performTextReplacement("삼성전자")
+            awaitTag("stock-1")
+            compose.onNodeWithTag("stock-1").performScrollTo().performClick()
+            compose.onNodeWithTag("clear-selection").assertExists()
+            compose.onNodeWithTag("query").performTextReplacement("삼성")
+            awaitTag("stock-1")
+            compose.onNodeWithTag("tab-news").performClick()
+            compose.onNodeWithTag("query").assertIsDisplayed()
+            compose.onNodeWithTag("tab-account").performClick(); awaitTag("account-profile")
+            capture("portfolio-bottom-navigation")
+        }
+    }
 }

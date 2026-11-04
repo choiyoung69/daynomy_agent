@@ -1,12 +1,14 @@
 {
   "base": "40668b76",
-  "scope": "JVM 17, native 9 + large-font 1; source comparison; no real backend/DB or independent code review",
+  "scope": "Navigation revision: JVM 25; native 20 (19 passes + corrected-entry retest 1); 200% navigation 1; APK/lint; no real backend/DB",
   "files": {
-    "clients/android/app/src/main/kotlin/org/daynomy/android/PortfolioScreen.kt": "469b06816425a6127cd89fd929177baaefed3fc6d6e441d08532ae22f1857636",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/PortfolioScreen.kt": "1bf6bfa91d755fd72d72c564adb3b6bfce1c19dcff748b85047ef02a3ff8095d",
     "clients/android/app/src/main/kotlin/org/daynomy/android/CoreViewModel.kt": "bb529f89f4d7441e609c2e29cd8cf00add6ab307ac1162d2f30bfeba943fe35d",
-    "clients/android/app/src/main/kotlin/org/daynomy/android/MainActivity.kt": "f5074f7caafb299265d1b7b9ac19a4b215296fbc5d73e34c05700ee20198c8ae",
-    "clients/android/app/src/main/kotlin/org/daynomy/android/CoreScreens.kt": "302784371e2a9ed81266a98bd3d16c5b94e350d75ac33f81d9dae94fe1b29c65",
-    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/PortfolioWebDesignScreenTest.kt": "1eed73a8f78c0cefbca7194e2913098048834adc1fd41096eaa0b6b6d6cf41bb",
-    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/Android30CoreScreenTest.kt": "6d885a354eddf2b34ca081f49bf743f5157940afc66fccc21e7760130f69416c"
+    "clients/android/app/src/main/kotlin/org/daynomy/android/MainActivity.kt": "7f4c67deb500d07834beea0e27939fa07c989fc843cf4420688ededeb03cfc04",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/CoreScreens.kt": "68ccfe583af8d5562d7a87320d1d072a28aecc5d2570537ead9ee8e255d5d733",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/PortfolioWebDesignScreenTest.kt": "fe4f2daee570131f5bdb15fb56d7bc0319bf6369924898e5c4fbe2aa1805da84",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/Android30CoreScreenTest.kt": "6d885a354eddf2b34ca081f49bf743f5157940afc66fccc21e7760130f69416c",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/DiscoveryScreenAcceptanceTest.kt": "e9bc2c744bc5a0de8949ad6f8c3a4c25d59cca5a01c9ce6fde321efacbb43094",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/MarketScreenAcceptanceTest.kt": "c279ec99320136caf130eadc8043b7bc552454b8022b3a6da797d8851fb9e066"
   }
 }

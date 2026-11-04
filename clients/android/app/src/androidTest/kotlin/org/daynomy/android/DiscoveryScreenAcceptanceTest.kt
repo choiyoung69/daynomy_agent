@@ -83,7 +83,7 @@ class DiscoveryScreenAcceptanceTest {
 
     @Test fun exchangeShowsActualFallbackDateAndExactRateAndSurvivesRecreation() {
         launch().use { scenario ->
-            awaitTag("tab-exchange"); compose.onNodeWithTag("tab-exchange").performClick()
+            awaitTag("tab-account"); compose.onNodeWithTag("tab-account").performClick(); awaitTag("tab-exchange"); compose.onNodeWithTag("tab-exchange").performClick()
             awaitTag("exchange-date"); compose.onNodeWithTag("exchange-date").performTextReplacement("2026-10-25")
             assertFalse(requests.any { it.requestUrl?.encodedPath == "/api/exchange-rates/usd-krw" })
             compose.onNodeWithTag("exchange-load").performClick()
@@ -99,7 +99,7 @@ class DiscoveryScreenAcceptanceTest {
     @Test fun exchangeErrorDoesNotBecomeAQuoteAndExplicitRetryRecovers() {
         exchangeFails = true
         launch().use {
-            awaitTag("tab-exchange"); compose.onNodeWithTag("tab-exchange").performClick()
+            awaitTag("tab-account"); compose.onNodeWithTag("tab-account").performClick(); awaitTag("tab-exchange"); compose.onNodeWithTag("tab-exchange").performClick()
             awaitTag("exchange-date"); compose.onNodeWithTag("exchange-date").performTextReplacement("2026-10-25")
             compose.onNodeWithTag("exchange-load").performClick(); awaitTag("exchange-error")
             compose.onNodeWithTag("exchange-error").assertIsDisplayed()

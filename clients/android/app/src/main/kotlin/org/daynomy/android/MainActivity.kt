@@ -16,6 +16,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
@@ -63,7 +68,10 @@ class MainActivity : ComponentActivity() {
                 val core: CoreViewModel = viewModel(factory = viewModelFactory { initializer { CoreViewModel(baseUrl) } })
                 val feedback: FeedbackViewModel = viewModel(factory = viewModelFactory { initializer { FeedbackViewModel(baseUrl) } })
                 var feedbackOpen by rememberSaveable { mutableStateOf(false) }
-                var tab by rememberSaveable { mutableStateOf("market") }
+                var tab by rememberSaveable { mutableStateOf("portfolio") }
+                var returnTab by rememberSaveable { mutableStateOf("portfolio") }
+                val focus = LocalFocusManager.current
+                val keyboard = LocalSoftwareKeyboardController.current
                 LaunchedEffect(authCallback) {
                     authCallback?.let { callback -> authCallback = null; tab = "account"; core.completeLogin(callback) }
                 }
@@ -87,25 +95,61 @@ class MainActivity : ComponentActivity() {
                 val news by discovery.news.state.collectAsStateWithLifecycle()
                 val exchange by discovery.exchange.state.collectAsStateWithLifecycle()
                 BackHandler(tab == "news" && news.selectedId != null) { discovery.news.closeDetail() }
-                Column(Modifier.fillMaxSize().safeDrawingPadding()) {
-                    MaterialTheme(colorScheme = if (tab == "portfolio") PortfolioStyle.colors else MaterialTheme.colorScheme) {
-                    Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        listOf("market" to "종목", "news" to "뉴스", "exchange" to "환율", "portfolio" to "자산", "account" to "계정").forEach { (key, title) ->
-                            FilterChip(tab == key, { tab = key }, label = { Text(title) },
-                                modifier = Modifier.weight(1f).heightIn(min = 48.dp).testTag("tab-$key"))
-                        }
-                    }
-                    }
-                    Box(Modifier.weight(1f)) {
-                        when (tab) {
-                            "news" -> NewsScreen(news, discovery.news)
-                            "exchange" -> ExchangeScreen(exchange, discovery.exchange)
-                            "account" -> AccountScreen(core, onFeedback = { feedbackOpen = true }) {
-                                try { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(core.loginUrl()))) }
-                                catch (_: Exception) { core.showMessage("로그인 브라우저를 열지 못했습니다. 다시 시도해 주세요.") }
+                BackHandler(tab == "market" || tab == "exchange") {
+                    if (tab == "market" && state.selected != null) model.controller.clearSelection()
+                    else { focus.clearFocus(); keyboard?.hide(); tab = returnTab }
+                }
+                MaterialTheme(colorScheme = PortfolioStyle.colors) {
+                    Column(Modifier.fillMaxSize().safeDrawingPadding().imePadding()) {
+                        OutlinedTextField(
+                            value = state.query,
+                            onValueChange = {
+                                if (tab != "market") { returnTab = tab; tab = "market" }
+                                if (state.selected != null) model.controller.clearSelection()
+                                model.controller.updateQuery(it)
+                            },
+                            label = { Text("종목 검색") },
+                            placeholder = { Text("종목명 또는 종목코드") },
+                            singleLine = true,
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+                            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                            keyboardActions = KeyboardActions(onSearch = { keyboard?.hide(); focus.clearFocus() }),
+                            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp)
+                                .testTag("query").onFocusChanged {
+                                    if (it.isFocused && tab != "market") { returnTab = tab; tab = "market" }
+                                },
+                        )
+                        Box(Modifier.weight(1f)) {
+                            when (tab) {
+                                "news" -> NewsScreen(news, discovery.news)
+                                "exchange" -> Column {
+                                    TextButton({ tab = "account" }, Modifier.heightIn(min = 48.dp)) { Text("내 계정으로") }
+                                    ExchangeScreen(exchange, discovery.exchange)
+                                }
+                                "account" -> AccountScreen(core, onFeedback = { feedbackOpen = true },
+                                    onExchange = { returnTab = "account"; tab = "exchange" }) {
+                                    try { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(core.loginUrl()))) }
+                                    catch (_: Exception) { core.showMessage("로그인 브라우저를 열지 못했습니다. 다시 시도해 주세요.") }
+                                }
+                                "portfolio" -> PortfolioScreen(core) { tab = "account" }
+                                else -> MarketScreen(state, model.controller)
                             }
-                            "portfolio" -> PortfolioScreen(core) { tab = "account" }
-                            else -> MarketScreen(state, model.controller)
+                        }
+                        Surface(color = Color.White) {
+                            Column(Modifier.testTag("bottom-navigation")) {
+                                HorizontalDivider(color = PortfolioStyle.line)
+                                Row(Modifier.fillMaxWidth()) {
+                                    listOf("portfolio" to "포트폴리오", "news" to "이슈", "account" to "내 계정").forEach { (key, title) ->
+                                        val active = tab == key || (tab == "market" && returnTab == key) || (tab == "exchange" && key == "account")
+                                        TextButton({ focus.clearFocus(); keyboard?.hide(); returnTab = key; tab = key },
+                                            modifier = Modifier.weight(1f).heightIn(min = 64.dp).testTag("tab-$key")
+                                                .semantics { role = Role.Tab; selected = active }) {
+                                            Text(title, color = if (active) PortfolioStyle.blue else PortfolioStyle.muted,
+                                                fontWeight = if (active) FontWeight.Bold else FontWeight.Medium)
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -124,11 +168,6 @@ private fun MarketScreen(state: MarketUiState, controller: MarketController) {
             Text("종목과 가격", style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold,
                 modifier = Modifier.semantics { heading() })
             if (selected == null) {
-                OutlinedTextField(state.query, controller::updateQuery, label = { Text("종목 검색") },
-                    placeholder = { Text("종목명 또는 종목코드") }, singleLine = true,
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-                    keyboardActions = KeyboardActions(onSearch = { keyboard?.hide() }),
-                    modifier = Modifier.fillMaxWidth().testTag("query"))
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     Country.entries.forEach { country ->
                         FilterChip(state.country == country, { controller.updateCountry(country) },

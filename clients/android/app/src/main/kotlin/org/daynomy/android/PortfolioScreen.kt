@@ -63,8 +63,6 @@ fun PortfolioScreen(model: CoreViewModel, onAccount: () -> Unit = {}) {
                 val gutter = if (maxWidth <= 600.dp) 36.dp else (16 + (maxWidth.value * .08f).coerceIn(32f, 128f)).dp
                 Column(Modifier.fillMaxSize().imePadding().verticalScroll(if (editorOpen) editorScroll else dashboardScroll)
                     .padding(horizontal = gutter, vertical = 28.dp), verticalArrangement = Arrangement.spacedBy(24.dp)) {
-                    Text("DAYNOMY", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.ExtraBold,
-                        color = PortfolioStyle.ink)
                     if (editorOpen) {
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                             SectionTitle(if (model.editId == null) "거래 기록" else "거래 수정")
@@ -175,7 +173,7 @@ fun PortfolioScreen(model: CoreViewModel, onAccount: () -> Unit = {}) {
                         HorizontalDivider(color = PortfolioStyle.line)
                         SectionTitle("보유 자산 소식")
                         Text("관련 소식 연결은 준비 중입니다.", color = PortfolioStyle.muted)
-                        Text("발행된 뉴스는 상단 뉴스 메뉴에서 볼 수 있어요.", style = MaterialTheme.typography.bodyMedium, color = PortfolioStyle.muted)
+                        Text("발행된 뉴스는 하단 이슈 메뉴에서 볼 수 있어요.", style = MaterialTheme.typography.bodyMedium, color = PortfolioStyle.muted)
                     }
                 }
             }

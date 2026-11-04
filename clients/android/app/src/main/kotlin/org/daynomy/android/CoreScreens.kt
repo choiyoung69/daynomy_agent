@@ -18,7 +18,7 @@ import kotlinx.serialization.json.*
 import org.daynomy.market.Country
 
 @Composable
-fun AccountScreen(model: CoreViewModel, onFeedback: () -> Unit = {}, onLogin: () -> Unit) {
+fun AccountScreen(model: CoreViewModel, onFeedback: () -> Unit = {}, onExchange: () -> Unit = {}, onLogin: () -> Unit) {
     val focus = LocalFocusManager.current
     val profile = model.profile
     var nickname by remember(profile?.id, profile?.nickname) { mutableStateOf(profile?.nickname.orEmpty()) }
@@ -27,6 +27,7 @@ fun AccountScreen(model: CoreViewModel, onFeedback: () -> Unit = {}, onLogin: ()
     Column(Modifier.fillMaxSize().imePadding().verticalScroll(rememberScrollState()).padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)) {
         CoreHeading("내 계정")
+        TextButton(onExchange, Modifier.heightIn(min = 48.dp).testTag("tab-exchange")) { Text("환율 조회") }
         OutlinedButton(onFeedback, Modifier.fillMaxWidth().heightIn(min = 48.dp).testTag("account-feedback")) { Text("의견 보내기") }
         CoreMessage(model.message)
         if (model.busy) LinearProgressIndicator(Modifier.fillMaxWidth())
