@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-04",
+  "issue": 5,
+  "base_commit": "0efb8e24d3eb2610065d1f960bd2721b66fcb67b",
+  "experiment_kind": "constructed historical regression replay; no production change",
+  "conditions": {
+    "A": {
+      "requested_model": "gpt-6.1-sol",
+      "observed_settings": [
+        [
+          "gpt-6.1-sol",
+          "medium"
+        ]
+      ],
+      "usage": {
+        "input_tokens": 134414,
+        "cached_input_tokens": 109440,
+        "output_tokens": 2049,
+        "total_tokens": 136463,
+        "uncached_input_tokens": 24974
+      },
+      "model_responses": 3,
+      "jvm_results": {
+        "tests": 105,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "gradle_reported_seconds": 10,
+      "recorded_turn_seconds": 48.847,
+      "input_block_count": 8,
+      "all_input_blocks_matched": true,
+      "kb_documents": 18,
+      "kb_characters": 48735,
+      "prompt_characters": 60808
+    },
+    "B": {
+      "requested_model": "gpt-6.1-sol",
+      "observed_settings": [
+        [
+          "gpt-6.1-sol",
+          "medium"
+        ]
+      ],
+      "usage": {
+        "input_tokens": 97455,
+        "cached_input_tokens": 90880,
+        "output_tokens": 1853,
+        "total_tokens": 99308,
+        "uncached_input_tokens": 6575
+      },
+      "model_responses": 3,
+      "jvm_results": {
+        "tests": 105,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "gradle_reported_seconds": 10,
+      "recorded_turn_seconds": 47.441,
+      "input_block_count": 8,
+      "all_input_blocks_matched": true,
+      "kb_documents": 3,
+      "kb_characters": 6676,
+      "prompt_characters": 18749
+    }
+  },
+  "comparison": {
+    "total_token_reduction": 37155,
+    "total_token_reduction_percent": 27.23,
+    "uncached_input_reduction_percent": 73.67
+  },
+  "red": {
+    "tests": 3,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "case": "changingStockRetainsSearchTextAndReissuesSearchWhileResettingOnlyPriceDraft"
+  },
+  "same_fixed_test_files": 14,
+  "all_fixed_test_files_unchanged": true,
+  "same_minimal_patch": true,
+  "production_unchanged": true,
+  "extra_measured_work_not_in_A_B_reduction": [
+    {
+      "phase": "independent task/contract review",
+      "usage": {
+        "input_tokens": 557032,
+        "cached_input_tokens": 504320,
+        "output_tokens": 1601,
+        "total_tokens": 558633,
+        "uncached_input_tokens": 52712
+      },
+      "model_responses": 11,
+      "recorded_turn_seconds": 90.498
+    },
+    {
+      "phase": "excluded preliminary B paired with incomplete A",
+      "usage": {
+        "input_tokens": 97057,
+        "cached_input_tokens": 90752,
+        "output_tokens": 2007,
+        "total_tokens": 99064,
+        "uncached_input_tokens": 6305
+      },
+      "model_responses": 3,
+      "recorded_turn_seconds": 51.13
+    },
+    {
+      "phase": "excluded preliminary A: presented output truncated",
+      "usage": {
+        "input_tokens": 109504,
+        "cached_input_tokens": 96768,
+        "output_tokens": 1848,
+        "total_tokens": 111352,
+        "uncached_input_tokens": 12736
+      },
+      "model_responses": 3,
+      "recorded_turn_seconds": 46.865
+    },
+    {
+      "phase": "delivery check: model reported truncation and stopped",
+      "usage": {
+        "input_tokens": 69665,
+        "cached_input_tokens": 55552,
+        "output_tokens": 134,
+        "total_tokens": 69799,
+        "uncached_input_tokens": 14113
+      },
+      "model_responses": 2,
+      "recorded_turn_seconds": 8.655
+    },
+    {
+      "phase": "independent final validation",
+      "usage": {
+        "input_tokens": 251638,
+        "cached_input_tokens": 225024,
+        "output_tokens": 2040,
+        "total_tokens": 253678,
+        "uncached_input_tokens": 26614
+      },
+      "model_responses": 7
+    }
+  ],
+  "setup_cli_error": {
+    "status": "model_not_supported_for_current_ChatGPT_CLI_login",
+    "seconds": 3.111,
+    "usage": "not reported; not assumed zero",
+    "automatic_retry": false
+  },
+  "limits": [
+    "One small, deterministic historical regression replay; no general savings estimate.",
+    "A then B; no randomized or counterbalanced repetitions; cache/host load can differ.",
+    "Same eight-block delivery protocol; agent answer-write tool choices differ.",
+    "Gradle dependency caches prewarmed by red; tests separate from model repair time; A verification overlapped B remote model run.",
+    "Implementation token reduction excludes common preparation, failed deliveries, independent reviews and coordinator usage.",
+    "Coordinator current chat usage not finalized/measured here; not zero and not an end-to-end total.",
+    "No API billing conversion, APK build, emulator/UI, HTTP/DB validation or production feature change.",
+    "Private rollouts, session IDs and input provenance details retained locally, not published."
+  ],
+  "independent_validation": {
+    "status": "approve",
+    "scope": "red failure, fresh 105-test green suites, minimal identical fixes, key regression hash, unchanged tracked Android code, usage arithmetic and limited claims",
+    "test_file_scope": "Coordinator compared all 14 files; independent validator individually checked the key regression file, plus executed suites.",
+    "model": "gpt-6-astra",
+    "usage": {
+      "input_tokens": 251638,
+      "cached_input_tokens": 225024,
+      "output_tokens": 2040,
+      "total_tokens": 253678,
+      "uncached_input_tokens": 26614
+    },
+    "model_responses": 7
+  },
+  "measured_subagent_total_excluding_coordinator": 1328297
+}

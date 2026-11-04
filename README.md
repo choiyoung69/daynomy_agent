@@ -30,6 +30,7 @@ WebView는 별도 구현 방식이며 독립된 여섯 번째 언어가 아니�
 
 - [폴더·패키지 역할 안내](docs/structure.md): 지식 묶음·앱 의존성·에이전트 확장의 차이와 읽는 순서.
 - [기존 로그 병목 보고서](runs/022-log-bottlenecks.md): 시간·토큰 병목 3개, 수정 대상과 개선 계획.
+- [Android/Kotlin KB 비교 결과](runs/023-android-kotlin-kb-ab.md): 같은 회귀 수정의 실제 사용량·JVM 검사·준비 비용과 한계.
 - [Issue·브랜치·PR 운영](CONTRIBUTING.md): 작업 크기, 기록, 변경별 검사 선택.
 - [에이전트 규칙](AGENTS.md): 범위·근거·보안·완료 판정.
 - [Python 도구 목록](scripts/README.md): 실제 검사, 과거 AI 호출 실험, KB, 환경 도구 구분.

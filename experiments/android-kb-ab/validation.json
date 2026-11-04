@@ -1,0 +1,12 @@
+{
+  "status": "approve",
+  "actual_checks": [
+    "red: 3 tests / 1 query preservation failure",
+    "A and B: fresh JVM 105 passed, no failures/errors/skips, 4 tasks executed each",
+    "A/B identical minimal patch, no tracked production Android change",
+    "core regression test preserved and 249/250ms condition checked",
+    "implementation token arithmetic 136463 vs 99308, delta 37155 (27.23%)"
+  ],
+  "scope_limit": "All 14 test files were hash-compared by the coordinator. Independent per-file hash review covered the key regression test, not every test file.",
+  "claim_limit": "No end-to-end savings, actual billing savings or general speedup claim."
+}
