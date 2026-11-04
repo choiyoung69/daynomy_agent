@@ -7,7 +7,102 @@
 제외한다. 구현 여부와 실제 검증 결과는 [이번 실행 기록](../runs/010-three-hour-service.md)에서
 구분한다. 코드를 작성했다는 이유만으로 모든 외부 서비스 연결이 검증된 것은 아니다.
 
-## 로컬 실행
+## Docker DB와 공통 개발 서버
+
+원본 `reference/`에는 백엔드 DB용 `.env`가 없고 프런트엔드용 `.env.example`만 있다.
+아래 구성은 새 로컬 실험 DB를 사용한다. PostgreSQL은 Docker에서, 공통 Rust API는
+호스트에서 실행한다. Android와 다른 클라이언트가 같은 API를 사용할 수 있다.
+Docker Desktop(Compose v2), Rust/Cargo, Python 3.11+, PostgreSQL 클라이언트 `psql`이 필요하다.
+
+```sh
+# 저장소 루트. Git 제외 .env에 임의 DB 비밀번호/JWT 키를 생성한다. 기존 파일은 보존한다.
+python3 scripts/dev_backend.py init
+# Docker DB 시작 → 기존 마이그레이션 → 선택한 합성 데이터 → Rust API 실행
+python3 scripts/dev_backend.py start --seed
+```
+
+호스트 API는 `http://127.0.0.1:18109`, Docker PostgreSQL은 `127.0.0.1:55459`다.
+Android 디버그 앱의 기본 주소도 `http://10.0.2.2:18109/`이므로 에뮬레이터에서 연결할 수 있다.
+앱이 다른 서버로 실행 중이면 다음처럼 다시 연다.
+
+```sh
+adb shell am start -S -n org.daynomy.android/.MainActivity --es base_url http://10.0.2.2:18109/
+# USB 실기기는 해당 기기에 포트 전달 후 localhost 사용
+adb reverse tcp:18109 tcp:18109
+adb shell am start -S -n org.daynomy.android/.MainActivity --es base_url http://127.0.0.1:18109/
+```
+
+기기가 여러 대면 `adb -s <serial>`로 대상을 고른다. DB 접속 정보는 서버에서만 사용한다.
+`.env`는 커밋하지 않으며 `docker compose config` 등으로 비밀값을 출력하지 않는다.
+이 실행 도구는 `.env`를 명령으로 실행하지 않고 단순 `KEY=value`(선택적 따옴표)로 읽는다.
+변수 치환·여러 줄 값·줄 끝 주석은 지원하지 않는다. `.env.example`과 같은 형식을 사용한다.
+
+`--seed`는 선택 사항이다. 삼성전자·Apple, 예시 종가, 합성 뉴스 1건, 예시 USD/KRW 환율을 넣는다.
+화면에 로컬 샘플임을 표시하며 종가·환율 기준일은 **2026-11-03**, 환율 예시값은 **1400**이다.
+최신 시장 데이터가 아니다. 뉴스 목록에서 샘플을 열거나 종목 이름/코드를 검색하고,
+환율 화면에서 해당 날짜를 조회해 연결을 확인한다. 반복 seed는 기존 행·수정값을 보존한다.
+`--seed` 없이 시작하면 새 DB는 비어 있다. 아래 공개 데이터 import를 사용할 수 있다.
+Google 로그인·기존 전체 종목 동기화·AI는 별도 제공자 설정이 필요하다.
+인증 우회나 고정 회원은 추가하지 않았고 예약 수집은 비활성화한다.
+
+### 실제 공개 종목·뉴스를 로컬 DB에 넣기
+
+```sh
+# 위의 start 또는 prepare로 DB·스키마를 먼저 준비한 뒤 별도 터미널에서 실행
+python3 scripts/import_public_data.py
+```
+
+국내 주요 KOSPI 종목 10개는 네이버 공개 차트의 종목명·일봉을, 미국 주요 종목 10개는
+Yahoo Finance 공개 차트의 종목명·일봉을 저장한다. 전체 상장 목록 수집 도구가 아니다.
+장중 가격을 종가로 저장하지 않도록 각 시장의 오늘 날짜는 제외한다. 최신 실시간 시세가 아닌
+**제공자의 완료된 일봉 종가**이며, 소수는 기존 DB NUMERIC 자릿수로 저장된다.
+이 공개 차트 URL은 버전이 보장된 공식 개발자 API가 아니므로 응답 변경 시 재확인이 필요하다.
+
+뉴스는 [한국경제 공식 RSS](https://www.hankyung.com/feed)의 증권 피드 최대 50건이다.
+제목·원래 발행시각·출처·원문 URL을 보존하며 기사 HTML의 `og:image`에서 대표 이미지 URL을 확인한다.
+한국경제 이미지 CDN의 HTTPS 주소만 허용하고 원문 출처를 함께 저장한다. 기사 전문과 이미지 파일을
+복제·재배포하거나 AI 기사로 바꾸지 않는다. Android가 원문 CDN의 대표 이미지를 불러온다.
+대표 이미지가 없으면 기존 빈 이미지 표시를 유지한다. 개별 조회 실패는 별도로 집계한다.
+기존 뉴스의 빈 이미지 URL만 채우려면 다음을 실행한다. 이미 지정된 이미지는 보존한다.
+
+```sh
+python3 scripts/import_public_data.py --news-images
+```
+
+Android 뉴스 상세에 출처와 원문 URL을 표시한다. RSS의 원래 날짜를 사용하므로 이후 날짜의
+오늘 뉴스에 과거 기사를 억지로 표시하지 않는다.
+
+모든 응답 검증 후 한 트랜잭션으로 저장한다. 종목 ID는 유지하며 종목코드/거래일로 갱신하고,
+뉴스는 원문 URL로 중복을 방지한다. 위 seed의 알려진 합성 뉴스·합성 종가/환율만 식별해 제거한다.
+원문 주소·응답 해시·수집시각은 `local_public_import_sources`와 Git 제외
+`.local/public-data/`에 기록한다. 실제 데이터 import 후 `--seed`는 거절하므로
+이후에는 `python3 scripts/dev_backend.py start`로 실행한다. import는 명시적으로 실행할 때만
+최신 데이터를 가져오며 예약 실행은 추가하지 않는다.
+
+기존 전체 종목/가격 수집은 위 `주요 설정`의 공공데이터·EODHD 키와 기존 `--job` 진입점을 사용한다.
+기존 국내 종가 배치는 거래일 캘린더 준비와 제공자의 데이터 게시 시점도 필요하다.
+전체 동기화의 일부 성공을 전체 종목·전체 거래일 검증으로 세지 않는다.
+
+Ctrl-C는 API를 종료한다. Docker DB는 계속 실행되며 named volume에 데이터를 보존한다.
+다음 시작은 `python3 scripts/dev_backend.py start`로 충분하다. DB까지 멈추려면 다음을 쓴다.
+
+```sh
+python3 scripts/dev_backend.py stop
+# API를 실행하지 않고 DB·스키마만 준비할 때
+python3 scripts/dev_backend.py prepare --seed
+```
+
+`compose.yaml`은 프로젝트 `daynomy-local`의 DB 하나만 관리한다. 기존 fixture의 DB와 분리한다.
+`stop`은 데이터를 지우지 않는다. `docker compose down -v`는 데이터를 삭제하므로 일상 종료에
+사용하지 않는다. 볼륨 생성 후 `.env`의 DB 비밀번호를 바꾸는 것만으로 DB 비밀번호가 바뀌지는 않는다.
+포트 변경 시 `POSTGRES_PORT`와 `DATABASE_URL`을 함께 수정하고, `PORT`를 바꾸면 앱 API 주소도 바꾼다.
+마이그레이션은 기존 loopback/`_test` 제한과 해시 검사를 그대로 사용한다.
+과거 피드백 전용 DB나 임의 기존 DB를 이 구성에 연결하지 않는다.
+
+Compose의 포트·healthcheck는 [Docker 문서](https://docs.docker.com/reference/compose-file/services/),
+PostgreSQL 18 볼륨 경로는 [공식 이미지 안내](https://hub.docker.com/_/postgres)를 따른다.
+
+## 기존 호스트 PostgreSQL로 로컬 실행
 
 프로젝트 루트에서 Rust/Cargo, Python 3.11+, PostgreSQL CLI/서버를 사용한다.
 원본 `.env`나 운영 DB를 사용하지 않는다. 아래는 비밀번호 없는 loopback 실험 DB다.

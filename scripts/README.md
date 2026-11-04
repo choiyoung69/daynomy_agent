@@ -1,6 +1,6 @@
 # Python 도구 목록
 
-2026-11-04 파일 정적 열람 기준: Python 63개. 이 목록 작성 중 도구를 실행하지 않았다.
+2026-11-04 파일 목록 기준: Python 67개. 개수는 도구의 동작 검증을 뜻하지 않는다.
 
 앱 구현은 `app/`·`clients/`에 있다. Python은 검사·실험·환경·KB를 지원한다.
 현재 운영 절차는 [CONTRIBUTING](../CONTRIBUTING.md), 대상별 실행법은 각 README를 따른다.
@@ -82,6 +82,8 @@
 | 파일 | 파일에 선언된 역할 |
 | --- | --- |
 | [android_backend_fixture.py](android_backend_fixture.py) | Serve existing Rust code against a disposable local DB for Android acceptance. |
+| [dev_backend.py](dev_backend.py) | Git 제외 .env 생성·보존, Docker 로컬 DB와 기존 마이그레이션, 선택적 합성 데이터, 공통 Rust API 실행. 사용법은 app/README.md. |
+| [import_public_data.py](import_public_data.py) | 실제 주요 종목·완료 일봉·공식 RSS와 기사 대표 이미지 URL/출처를 로컬 DB에 저장. 원문 URL 중복 방지·합성 seed 정리. --news-images는 기존 뉴스의 빈 이미지 보완. |
 | [flutter_backend_fixture.py](flutter_backend_fixture.py) | Own a disposable Rust/PostgreSQL fixture for Flutter verification only. |
 | [flutter_preview.py](flutter_preview.py) | Serve a Flutter web build and proxy the local API on one loopback origin. |
 | [flutter_setup.py](flutter_setup.py) | Install the pinned official macOS ARM64 Flutter SDK inside .local only. |
@@ -94,6 +96,8 @@
 | 파일 | 파일에 선언된 역할 |
 | --- | --- |
 | [test_acceptance.py](test_acceptance.py) | Tests for false-positive risks in the acceptance gate, not for the future Rust app. |
+| [test_dev_backend.py](test_dev_backend.py) | Docker 호출 없이 로컬 설정·비밀값 생성/보존·원격 DB 거절·.env 비실행 경계 검사. |
+| [test_import_public_data.py](test_import_public_data.py) | 합성 응답으로 문자 인코딩·완료 거래일·가격·RSS 원문 도메인/발행일·중복·SQL 문자열 경계를 검사. |
 | [test_admin_feedback_gate.py](test_admin_feedback_gate.py) | Lock regression checks; never start models, servers, or a database. |
 | [test_admin_feedback_oracle.py](test_admin_feedback_oracle.py) | Oracle v2 safeguards: synthetic evidence only, no models/servers/database. |
 | [test_admin_feedback_queue.py](test_admin_feedback_queue.py) | Local orchestrator safeguards; no model, subprocess, HTTP or database calls. |
