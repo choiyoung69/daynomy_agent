@@ -130,3 +130,12 @@ android_pilot.py의 implement 시작은 준비 검사/필수 지식 입력 생�
 최신 [독립 검증 승인](../../experiments/android-native/next/validation-final.json)과
 [병렬 작업 기록](../../runs/015-android-native-parallel.md)은 기존 회귀 포함106개 검사,
 실제 Rust에 연결한 뉴스·환율 화면, 실패·수정·범위 제한을 구분한다.
+
+## 피드백 보내기(F11)
+
+계정 → 의견 보내기에서 로그인 없이 입력·전송한다. 기존 CSRF 통신을 재사용하며
+중복 클릭·자동 POST 재전송을 막는다. 응답 유실은 결과 불명으로 표시하고 새 의견 작성으로만 초기화한다.
+계약은 [피드백 명세](../../spec/android-native/feedback.md), 검사와 시간·토큰은
+[실행 기록](../../runs/024-android-feedback.md)을 따른다.
+작업 시작 시 `python3 scripts/android_knowledge.py ensure feedback`으로 필요한 4문서만 전달한다.
+관련 JVM 검사는 FeedbackContractTest·Android30SessionContractTest, 화면 검사는 FeedbackScreenTest다.
