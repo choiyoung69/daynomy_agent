@@ -137,3 +137,18 @@
 기존 Android 작업 프로필을 명시한 `CliAgent(knowledge_task="query-reset", knowledge_base=".local/<작업>/knowledge")`는 ensure/준비·출처 검증 후 선택 문서 본문만 실제 모델 prompt에 삽입한다. Workflow CLI에서도 `--knowledge-task`/`--knowledge-base`로 연결한다. 프로필은 해당 과제에 맞아야 한다. caller prompt에 KB 전체를 미리 넣지 않는다. custom adapter를 직접 주는 경우 KB는 그 adapter에 설정해야 하며 Workflow가 무시하지 않고 오류로 알린다. 현재 선택기는 Android만 지원하며 다른 플랫폼을 자동 판정하지 않는다.
 
 `input.json`의 knowledge에는 task·manifest/문서/삽입 문자열 해시와 bytes, 실제 최종 prompt 크기·해시, 준비 시간을 남긴다. attempts에는 프로세스/이벤트 처리 경과도 남긴다. 알 수 없는/미준비/변경된 자료는 호출 전 실패한다. 관련 실구현 비교와 시간 악화까지 `experiments/task-kb-input-ab`에 보존했다.
+
+
+## 준비·조정·검증·기록 비용을 한 번에 확인
+
+기존 Workflow 종료 시 cost-summary.json/md를 자동 생성하고 phase_seconds에 단계 경과를 기록한다. CLI 출력은 짧은 상태/근거 경로로 제한하지만 전체 질문·실패 근거는 state.json에 보존한다. 기존 인수 gate를 생략하거나 성공 결과를 캐시해 승인하지 않는다.
+
+종료한 작업의 조정 비용까지 포함하려면 모델을 다시 실행하지 않고 다음 명령 한 번만 사용한다.
+
+```sh
+python3 scripts/agent_workflow.py --summarize-run .local/<실행> \
+  --coordinator-rollout <해당 세션.jsonl> --coordinator-turn <해당 턴 ID> \
+  --coordinator-cwd <해당 저장소 경로>
+```
+
+보고 모드는 Workflow/모델/검사/DB를 시작하지 않는다. 지정한 턴과 cwd만 읽고 response_id·CLI session/attempt 식별자로 중복을 제거한다. 실패/사용량 누락은 unknown으로 표시한다. 부모 전체 경과에 child 시간을 더하지 않는다. 조정 로그를 주지 않으면 agent 비용만 알 수 있어 complete=false다. 진행 중 조정 턴도 complete=false이며 생성 시각까지 부분 집계다. 내부 모델 응답 수가 없는 CLI usage record 수를 모델 호출 수로 바꾸지 않는다. 보고서를 한 번 확인해 기존 기록/PR에 링크하고 수동 Python 재계산·반복 상태 조회·원시 로그 재출력을 하지 않는다. 이 도구가 현재 데스크톱 대화의 누적 문맥을 초기화하지는 않는다.

@@ -424,6 +424,89 @@ class CliRetryTests(unittest.TestCase):
         self.assertTrue((self.output / "failed-result-1.json").is_file())
 
 
+class CostSummaryTests(unittest.TestCase):
+    def setUp(self):
+        self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
+        self.root=Path(self.temp.name);self.run=self.root/'run';self.run.mkdir()
+        agent=self.run/'agent';agent.mkdir()
+        workflow.dump(agent/'input.json',{'context_mode':'fresh-ephemeral','prompt_bytes':20})
+        workflow.dump(agent/'attempts.json',[{'attempt':1,'session_ids':['a'],'capture_seconds':4,
+            'usage_records':[{'input_tokens':100,'cached_input_tokens':80,'output_tokens':10}]},
+            {'attempt':2,'session_ids':['b'],'capture_seconds':5,
+            'usage_records':[{'input_tokens':200,'cached_input_tokens':150,'output_tokens':20}]}])
+
+    def rollout(self,cwd=None):
+        path=self.root/'rollout.jsonl'
+        events=[{'type':'event_msg','timestamp':'2026-11-04T00:00:00Z','payload':{'type':'task_started','turn_id':'wanted'}},
+          {'type':'turn_context','payload':{'cwd':str(cwd or self.root)}},
+          {'type':'token_usage_record','payload':{'turn_id':'wanted','response_id':'r','usage':{'input_tokens':900,'cached_input_tokens':700,'output_tokens':30}}},
+          {'type':'token_usage_record','payload':{'turn_id':'wanted','response_id':'r','usage':{'input_tokens':1000,'cached_input_tokens':800,'output_tokens':30}}},
+          {'type':'token_usage_record','payload':{'turn_id':'other','response_id':'other','usage':{'input_tokens':99999,'cached_input_tokens':0,'output_tokens':0}}},
+          {'type':'event_msg','timestamp':'2026-11-04T00:00:10Z','payload':{'type':'task_complete','turn_id':'wanted'}}]
+        path.write_text(''.join(json.dumps(x)+'\n' for x in events));return path
+
+    def test_total_includes_failed_attempts_and_deduplicated_coordinator(self):
+        r=workflow.summarize_run(self.run,self.rollout(),'wanted',self.root)
+        self.assertEqual(r['combined_measured']['input_tokens'],1300)
+        self.assertEqual(r['combined_measured']['cached_input_tokens'],1030)
+        self.assertEqual(r['combined_measured']['non_cached_input_tokens'],270)
+        self.assertEqual(r['combined_measured']['output_tokens'],60)
+        self.assertEqual(r['combined_measured']['total_tokens'],1360)
+        self.assertEqual(r['coordinator']['usage_records'],1)
+        self.assertEqual(r['elapsed_seconds'],10)
+        self.assertEqual(r['agent_capture_seconds_sum'],9)
+        self.assertTrue((self.run/'cost-summary.md').is_file())
+
+    def test_copied_agent_artifacts_are_not_counted_twice(self):
+        shutil.copytree(self.run/'agent',self.run/'copied-agent')
+        r=workflow.summarize_run(self.run)
+        self.assertEqual(r['agent']['total_tokens'],330)
+        self.assertEqual(r['agent_capture_seconds_sum'],9)
+
+    def test_report_cli_does_not_start_workflow_or_model(self):
+        out=io.StringIO()
+        with mock.patch('sys.argv',['agent_workflow','--summarize-run',str(self.run)]),mock.patch('agent_workflow.Workflow') as runner,redirect_stdout(out):
+            self.assertEqual(workflow.main(),0)
+        runner.assert_not_called()
+        self.assertLess(len(out.getvalue()),1024)
+
+    def test_missing_usage_is_unknown_and_missing_coordinator_not_hidden(self):
+        workflow.dump(self.run/'agent/attempts.json',[{'attempt':1,'usage_records':[]}])
+        r=workflow.summarize_run(self.run)
+        self.assertFalse(r['complete'])
+        self.assertEqual(r['agent']['unmeasured_attempts'],1)
+        self.assertIsNone(r['agent']['total_tokens'])
+        self.assertIsNone(r['coordinator'])
+
+    def test_other_project_coordinator_is_rejected(self):
+        with self.assertRaises(ValueError):workflow.summarize_run(self.run,self.rollout(Path('/other-project')),'wanted',self.root)
+        self.assertFalse((self.run/'cost-summary.json').exists())
+
+    def test_missing_cache_is_unknown_and_inconsistent_total_rejected(self):
+        workflow.dump(self.run/'agent/attempts.json',[{'attempt':1,'usage_records':[{'input_tokens':10,'output_tokens':2}]}])
+        r=workflow.summarize_run(self.run)
+        self.assertIsNone(r['agent']['cached_input_tokens'])
+        self.assertIsNone(r['agent']['non_cached_input_tokens'])
+        self.assertFalse(r['complete'])
+        workflow.dump(self.run/'agent/attempts.json',[{'attempt':1,'usage_records':[{'input_tokens':10,'output_tokens':2,'total_tokens':99}]}])
+        with self.assertRaises(ValueError):workflow.summarize_run(self.run)
+
+    def test_invalid_cached_usage_is_not_silently_counted(self):
+        workflow.dump(self.run/'agent/attempts.json',[{'attempt':1,'usage_records':[{'input_tokens':1,'cached_input_tokens':2,'output_tokens':0}]}])
+        with self.assertRaises(ValueError):workflow.summarize_run(self.run)
+
+    def test_events_preserve_full_details_but_bound_stdout_and_phase_time(self):
+        out=io.StringIO()
+        with mock.patch('agent_workflow.time.perf_counter',side_effect=[0,2,5]),redirect_stdout(out):
+            ctl=workflow.Workflow(self.root,self.run,'Task',probe=False)
+            ctl.event('implementing',questions=['X'*20000])
+            ctl.event('verifying')
+        self.assertLess(len(out.getvalue()),2048)
+        self.assertEqual(ctl.state['events'][0]['questions'],['X'*20000])
+        self.assertEqual(ctl.state['phase_seconds']['preparing'],2)
+        self.assertEqual(ctl.state['phase_seconds']['implementing'],3)
+
+
 class InputBoundaryTests(unittest.TestCase):
     def test_workflow_does_not_silently_drop_profile_for_custom_adapter(self):
         with tempfile.TemporaryDirectory() as t:
@@ -644,6 +727,13 @@ class StateMachineTests(unittest.TestCase):
         state = self.execute(agent=SyntheticAgent(repeat_identity=True))
         self.assertEqual(state["status"], "blocked")
         self.assertIn("independent", state["events"][-1]["reason"])
+
+    def test_workflow_automatically_writes_cost_summary(self):
+        state=self.execute()
+        report=json.loads((self.run_dir/'cost-summary.json').read_text())
+        self.assertEqual(report['workflow_status'],state['status'])
+        self.assertIn('phase_seconds',report)
+        self.assertIn('cost_report',state)
 
     def test_round_limit_stops_perpetual_review_revision(self):
         agent = SyntheticAgent(reviews=[result("revise", findings=["Still incomplete."])])
