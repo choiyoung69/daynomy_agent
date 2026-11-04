@@ -4,8 +4,6 @@
 거래 저장·로그인·환율·전체 앱·배포는 이번 범위에 포함하지 않는다.
 원본은 reference/2026-DAYNOMY-dev 읽기 전용, 연결 대상은 기존 Rust app/이다.
 
-후속 F09 뉴스 검색: [계약](news-search.md). 통합 콘텐츠 검색은 미구현이다.
-
 ## 계약과 책임
 
 - [검색](search.md), [가격](price.md), [독립 검증 계획](verification-plan.md)을 함께 사용한다.
