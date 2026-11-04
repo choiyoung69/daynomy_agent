@@ -56,8 +56,15 @@ fun NewsScreen(state: NewsUiState, controller: NewsController) {
             }
         } else {
             Text("경제 소식", style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold, modifier = Modifier.semantics { heading() })
-            Text("발행된 뉴스를 분야별로 살펴보세요.", style = MaterialTheme.typography.bodyLarge)
             Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                FilterChip(!state.todayOnly, { controller.selectToday(false) }, label = { Text("전체 뉴스") },
+                    modifier = Modifier.heightIn(min = 48.dp).testTag("news-mode-all"))
+                FilterChip(state.todayOnly, { controller.selectToday(true) }, label = { Text("오늘 뉴스") },
+                    modifier = Modifier.heightIn(min = 48.dp).testTag("news-mode-today"))
+            }
+            Text(if (state.todayOnly) "서버 날짜 기준으로 오늘 발행된 최신 뉴스 최대 9개를 보여줍니다." else "발행된 뉴스를 분야별로 살펴보세요.",
+                style = MaterialTheme.typography.bodyLarge)
+            if (!state.todayOnly) Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 listOf(null, NewsCategory.REAL_ESTATE, NewsCategory.STOCK, NewsCategory.ETF).forEach { category ->
                     FilterChip(state.category == category, { controller.selectCategory(category) }, label = { Text(newsLabel(category)) },
                         modifier = Modifier.heightIn(min = 48.dp).testTag("category-${category?.name ?: "ALL"}"))
@@ -71,7 +78,7 @@ fun NewsScreen(state: NewsUiState, controller: NewsController) {
                     OutlinedButton(controller::retryList, Modifier.heightIn(min = 48.dp).testTag("news-retry")) { Text("목록 다시 조회") }
                 }
                 is LoadState.Ready -> {
-                    if (result.value.items.isEmpty()) Text("발행된 뉴스가 없습니다.", Modifier.testTag("news-empty"))
+                    if (result.value.items.isEmpty()) Text(if (state.todayOnly) "오늘 발행된 뉴스가 없습니다." else "발행된 뉴스가 없습니다.", Modifier.testTag("news-empty"))
                     result.value.items.forEach { news ->
                         OutlinedCard(onClick = { controller.openDetail(news.id) }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).testTag("news-item-${news.id}")) {
                             Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -81,7 +88,7 @@ fun NewsScreen(state: NewsUiState, controller: NewsController) {
                             }
                         }
                     }
-                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    if (!state.todayOnly) Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         OutlinedButton({ controller.selectPage(state.page - 1) }, enabled = state.page > 1,
                             modifier = Modifier.heightIn(min = 48.dp).testTag("news-previous")) { Text("이전") }
                         Text("${state.page} 페이지", Modifier.padding(vertical = 14.dp))

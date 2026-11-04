@@ -20,15 +20,21 @@ class NewsController(private val source: NewsSource, private val scope: Coroutin
     private var listJob: Job? = null
     private var detailJob: Job? = null
 
+    fun selectToday(todayOnly: Boolean) {
+        if (closed || state.value.todayOnly == todayOnly) return
+        closeDetail()
+        mutableState.update { it.copy(todayOnly = todayOnly, category = null, page = 1) }
+        loadList()
+    }
     fun load() { if (!closed) loadList() }
     fun selectCategory(category: NewsCategory?) {
-        if (closed || state.value.category == category) return
+        if (closed || state.value.todayOnly || state.value.category == category) return
         closeDetail()
         mutableState.update { it.copy(category = category, page = 1) }
         loadList()
     }
     fun selectPage(page: Int) {
-        if (closed || state.value.page == page) return
+        if (closed || state.value.todayOnly || state.value.page == page) return
         closeDetail()
         mutableState.update { it.copy(page = page) }
         loadList()
@@ -72,7 +78,7 @@ class NewsController(private val source: NewsSource, private val scope: Coroutin
         mutableState.update { it.copy(list = LoadState.Loading) }
         listJob = scope.launch {
             try {
-                val page = source.list(snapshot.category, snapshot.page, 6)
+                val page = if (snapshot.todayOnly) source.today() else source.list(snapshot.category, snapshot.page, 6)
                 if (currentList(token)) mutableState.update { it.copy(list = LoadState.Ready(page)) }
             } catch (cancelled: CancellationException) {
                 if (currentList(token)) mutableState.update { it.copy(list = LoadState.Idle) }
