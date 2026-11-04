@@ -217,3 +217,7 @@ wiki/projects/daynomy/android-news-exchange.md에 추가했다. AP04는 실제 �
 - feedback 작업에 기능/인증/JSON/취소 4문서만 연결하고 기존 ensure·수용 verify를 사용했다.
 - 새 실험·실행기 없이 계정 화면 진입과 의견 전송을 구현했다. 독립 JVM 14개·세션 7개 및 APK 빌드 통과.
 - 기기 검사 결과·시간·사용량·독립 리뷰·남은 한계는 runs/024-android-feedback.md에 기록한다.
+
+## 2026-11-04 — Android 회원 AI 분석 연결 준비/검증
+
+사용자 명시 요청으로 portfolio-analysis를 Android 준비 범위에 추가했다. W05의 DTO/nullable 검증·JC25 저장 분석 Controller와 Rust F06을 대조하고 기존 회원 세션/CSRF로 저장 조회·명시 생성/근거 갱신·이력을 연결했다. 캘린더·통합 콘텐츠/인물·관리자는 Android 대상에서 제외한다. 준비 상태는 실행 인증이 아니다. 별도 계약/상태 검사와 합성 HTTP 네이티브 검증 결과는 [PR #19](https://github.com/choiyoung69/daynomy_agent/pull/19)의 Android AI 계약/실험4에 연결한다. 실제 외부 AI/DB/OAuth 의미 검증은 실행하지 않았다.

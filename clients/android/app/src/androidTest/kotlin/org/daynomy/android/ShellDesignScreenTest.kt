@@ -215,16 +215,19 @@ class ShellDesignScreenTest {
                 store.put("login-retry", model)
                 model.loginUrl() // Exercise state only; never launch an external browser.
                 assertTrue(model.accountRequiresLogin)
+                assertTrue(model.portfolioAi.state.value.loginRequired)
                 assertFalse(model.busy)
                 model.completeLogin("org.daynomy.app://auth/callback?state=invalid&code=invalid")
             }
             compose.waitUntil(10_000) { !model.busy && model.message == "로그인하지 못했습니다. 다시 시작해 주세요." }
             instrumentation.runOnMainSync {
                 assertTrue(model.accountRequiresLogin)
+                assertTrue(model.portfolioAi.state.value.loginRequired)
                 assertFalse(model.busy)
                 assertNull(model.profile)
                 model.loginUrl()
                 assertTrue(model.accountRequiresLogin)
+                assertTrue(model.portfolioAi.state.value.loginRequired)
             }
             assertTrue(requests.none { it.requestUrl?.encodedPath?.startsWith("/api/auth/mobile/") == true })
         } finally {

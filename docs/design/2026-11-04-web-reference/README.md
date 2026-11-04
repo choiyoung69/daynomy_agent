@@ -118,3 +118,9 @@
 사진 로딩은 [Coil2.7.0](https://github.com/coil-kt/coil/releases/tag/2.7.0)의 AsyncImage로 요청·디코딩·캐시를 처리하고 기존 Compose BOM의 Foundation Pager를 명시했다. dependency lock에 Coil/전이 의존성과 Okio3.9.0이 반영됐다. 기존 API 세션/쿠키를 이미지 로더에 전달하지 않는다.
 
 캡처의 기사·응답은 명시적 테스트 데이터다. 사진은 원본 웹의 reference/2026-DAYNOMY-dev/frontend/src/assets/news-home-banner.jpg를 **AndroidTest/assets/news-photo-fixture.jpg에만** 복사해 MockWebServer의 실제 image/jpeg 응답으로 제공했다(SHA256 0ac56a098fccb71b1496d92b10e2e8bef19776b522d86e5ad1ffc7914cd9b76a). 원본은 수정하지 않았고 제품 APK에는 이 fixture를 넣지 않았다. 정상 PNG 절대URL·상대JPEG·이미지없음·HTTP404도 구분해 검사한다. 제품에서 임의 기본 사진으로 쓰지 않는다.
+
+## 회원 AI 포트폴리오 분석
+
+[저장 분석 실제 Compose](android/ai-ready.png) · [부분 분석](android/ai-partial.png) · [큰 글꼴](android/ai-ready-font200.png) · [API/상태 계약](../../../spec/android-native/ai-analysis.md)
+
+자산 요약 아래 AI 분석을 펼치면 GET으로 저장 결과를 읽는다. 분석 생성/최신 근거 확인·이력은 기존 회원 API를 명시적으로 호출한다. 이전 성공 보존·null 점수 판단 보류·부분/근거 부족·출처·세션 만료를 구분한다. 캡처는 검증용 합성 AI 응답이며 실제 외부 모델이 생성한 금융 분석이 아니다. 제품에 샘플 결과를 하드코딩하지 않았다.

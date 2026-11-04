@@ -347,7 +347,8 @@
         "account",
         "portfolio-ledger",
         "portfolio-calculation",
-        "feedback"
+        "feedback",
+        "portfolio-analysis"
       ]
     },
     "ios": {

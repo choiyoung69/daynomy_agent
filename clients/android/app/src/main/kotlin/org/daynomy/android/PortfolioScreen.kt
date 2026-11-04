@@ -116,8 +116,10 @@ fun PortfolioScreen(model: CoreViewModel, onAccount: () -> Unit = {}, onStockSea
                                     modifier = Modifier.heightIn(min = 48.dp).testTag("portfolio-refresh")) { Text("다시 조회") }
                             }
                         }
-                        if (model.portfolioLoaded && !model.loading && !model.portfolioRequiresLogin && model.portfolioError == null) {
-                        PortfolioSummary(model, amountsHidden, { amountsHidden = !amountsHidden })
+                        val dashboardReady = model.portfolioLoaded && !model.loading && !model.portfolioRequiresLogin && model.portfolioError == null
+                        if (dashboardReady) PortfolioSummary(model, amountsHidden, { amountsHidden = !amountsHidden })
+                        PortfolioAiSection(model.portfolioAi, dashboardReady && model.holdings.isNotEmpty() && !model.busy && !model.unknown, onAccount)
+                        if (dashboardReady) {
                         TabRow(selectedTabIndex = if (historyTab) 1 else 0, containerColor = Color.White,
                             contentColor = PortfolioStyle.blue,
                             indicator = { positions -> TabRowDefaults.SecondaryIndicator(
