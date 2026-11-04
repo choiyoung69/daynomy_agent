@@ -1,0 +1,195 @@
+{
+  "issue": 27,
+  "pull_request": "https://github.com/choiyoung69/daynomy_agent/pull/28",
+  "base_commit": "646cc4760c8927f7647b69738a245a1505d582b1",
+  "implementation_commit": "eb41a32e748b9a434444164d093b6a02036b3c25",
+  "implementation_sha256": {
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryModels.kt": "8992266858ca6a91be40fd4b7c7afcfa4da9b0c89f8f5de123549447181f7ae6",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryClients.kt": "59e60d4297b17ad173a4ce5407400cddd0b5cceeeb9f7c669c54907fb360af5a",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryController.kt": "e3da929591b15198966e601112ffb629026f5b822973e5d1f0a0c568fe3c88f8",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/DiscoveryScreens.kt": "4aca08a54e4d874d61783821072020452a53ef96e67db871218897405d6995e3"
+  },
+  "criteria_sha256": {
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/NewsMarketAnalysisContractTest.kt": "4a919ab2ce7456b9b6fe6fd56ed68fed30c7677a44298d2a03ca2547d61aef2f",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/NewsMarketAnalysisScreenTest.kt": "a0d7d3a170358ec52ba83b78a75c06080ee2b40582439ded79406c10482e9b27"
+  },
+  "checks": {
+    "red": {
+      "tests": 10,
+      "failures": 9,
+      "errors": 0,
+      "skipped": 0
+    },
+    "jvm": {
+      "tests": 148,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "device_api33_arm64": {
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "device_new": 3,
+    "device_regression": 7,
+    "apk_test_apk_lint": "passed, Gradle cache partly reused",
+    "knowledge_manifest_usage": "passed",
+    "independent_review": "no actionable findings; original Java/Rust and code/test/evidence hashes matched; read-only, no rerun"
+  },
+  "browser": {
+    "observation_count": 7,
+    "raw_text_bytes": 205900,
+    "selected_text_bytes": 3662,
+    "reduction_percent": 98.22,
+    "snapshots": [
+      {
+        "step": "issue-form-loaded",
+        "raw_bytes": 5654,
+        "returned_bytes": 373
+      },
+      {
+        "step": "issue-reconnect-fields",
+        "raw_bytes": 5886,
+        "returned_bytes": 378
+      },
+      {
+        "step": "issue-created",
+        "raw_bytes": 1798,
+        "returned_bytes": 0
+      },
+      {
+        "step": "issue-created-verified",
+        "raw_bytes": 12633,
+        "returned_bytes": 549
+      },
+      {
+        "step": "pr-form",
+        "raw_bytes": 10964,
+        "returned_bytes": 939
+      },
+      {
+        "step": "pr-submit",
+        "raw_bytes": 154464,
+        "returned_bytes": 575
+      },
+      {
+        "step": "pr-created-verified",
+        "raw_bytes": 14501,
+        "returned_bytes": 848
+      }
+    ],
+    "required_final_pr_fields_preserved": true,
+    "measurement_scope": "explicit AX snapshots/diffs before selection versus selected returned text; excludes screenshots, inputs, tool wrapper metadata and initial about:blank bootstrap; not model tokens or billing"
+  },
+  "roles": [
+    {
+      "role": "market_analysis_review",
+      "fork_turns": "none",
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "responses": 8,
+      "tokens": {
+        "input_tokens": 314703,
+        "cached_input_tokens": 293888,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1649,
+        "total_tokens": 316352,
+        "non_cached_input_tokens": 20815
+      },
+      "lifecycle": [
+        {
+          "task_started": "2026-11-04T07:31:27.583Z",
+          "task_complete": "2026-11-04T07:32:21.103Z"
+        }
+      ]
+    },
+    {
+      "role": "analysis_tests",
+      "fork_turns": "none",
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "responses": 11,
+      "tokens": {
+        "input_tokens": 487670,
+        "cached_input_tokens": 452224,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 6783,
+        "total_tokens": 494453,
+        "non_cached_input_tokens": 35446
+      },
+      "lifecycle": [
+        {
+          "task_started": "2026-11-04T07:25:10.473Z",
+          "task_complete": "2026-11-04T07:28:26.271Z"
+        }
+      ]
+    }
+  ],
+  "accounting": {
+    "started_at": "2026-11-04T07:21:56.470Z",
+    "pr_created_at": "2026-11-04T07:35:15Z",
+    "request_to_pr_seconds": 798.53,
+    "parent_recorded_before_pr": {
+      "input_tokens": 10720979,
+      "cached_input_tokens": 10703872,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 21932,
+      "total_tokens": 10742911,
+      "non_cached_input_tokens": 17107,
+      "usage_records": 33
+    },
+    "desktop_roles_completed_before_pr": {
+      "input_tokens": 802373,
+      "cached_input_tokens": 746112,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 8432,
+      "total_tokens": 810805,
+      "non_cached_input_tokens": 56261,
+      "usage_records": 19
+    },
+    "combined_recorded_before_pr": {
+      "input_tokens": 11523352,
+      "cached_input_tokens": 11449984,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 30364,
+      "total_tokens": 11553716,
+      "non_cached_input_tokens": 73368,
+      "usage_records": 52
+    },
+    "parent_snapshot_after_pr": {
+      "input_tokens": 11753241,
+      "cached_input_tokens": 11735040,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 28092,
+      "total_tokens": 11781333,
+      "non_cached_input_tokens": 18201,
+      "usage_records": 36
+    },
+    "complete": false,
+    "exclusions": [
+      "current unfinished response and final response",
+      "after-snapshot record/commit/push work",
+      "pre-steering aborted experiment setup"
+    ],
+    "provenance": "response_id latest records, disjoint parent/child IDs; existing summarize_run reused for parent; desktop role records supplemented in this closing analysis; local usage, Langfuse collection unconfirmed"
+  },
+  "limitations": [
+    "new feature rather than same-feature A/B",
+    "parent conversation already long; not reset",
+    "previous reviewer high effort, current roles medium; no total cost/time savings attribution",
+    "actual Rust/DB, TalkBack, tablet/dark/large-font and process-death restore not verified",
+    "local byte instrumentation not an independent billing measurement"
+  ],
+  "rework": [
+    "browser handle from interrupted turn unavailable",
+    "dynamic issue form rerender disconnected input; observed again",
+    "planned emulator-5580 unavailable; existing API33 ARM64 emulator-5554 reused"
+  ],
+  "closure": "tests and independent review completed before PR; one PR creation, no PR description corrections; one final usage/experiment recording phase",
+  "original_sha256": {
+    "dto/MarketAnalysisResponse.java": "90e5988549860a1b9f4b2864c3edfac12fd103a1d9a19e440c799f059cb638db",
+    "service/MarketAnalysisService.java": "6770421cc1863a7146026c55769ad5f339923d9793579bcc51473b8b44cad6ff"
+  }
+}
