@@ -111,3 +111,7 @@ source_ids: ["E01", "P02", "G01", "F01", "F04"]
 검색어·선택 해제·가격 초안 수정은 [Android 작업 안내](../../clients/android/README.md)의
 `android_knowledge.py ensure query-reset`으로 필요한 3문서를 선택한다.
 다른 기능의 필수 지식을 대체하지 않으며 변경 시점의 준비·출처·해시는 계속 검사한다.
+
+Android F11은 [피드백](projects/daynomy/feedback.md)의 원문 검증·CSRF 규칙과
+인증/JSON/취소 문서 4개를 선택한다. [실행 기록](../../runs/024-android-feedback.md)은
+실제 앱 화면 검사와 Rust/DB 미검증을 구분한다.

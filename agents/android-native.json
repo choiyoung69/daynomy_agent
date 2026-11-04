@@ -100,6 +100,12 @@
         "wiki/projects/daynomy/stock-search-price.md",
         "wiki/packages/android-kotlin/state-and-navigation.md",
         "wiki/packages/android-kotlin/async-and-cancellation.md"
+      ],
+      "feedback": [
+        "wiki/projects/daynomy/feedback.md",
+        "wiki/shared/auth-storage.md",
+        "wiki/packages/android-kotlin/types-and-json.md",
+        "wiki/packages/android-kotlin/async-and-cancellation.md"
       ]
     },
     "task_features": {
@@ -108,21 +114,31 @@
       "discovery-ui": "news",
       "core-session": "auth-session",
       "core-portfolio": "portfolio-ledger",
-      "core-ui": "account"
+      "core-ui": "account",
+      "feedback": "feedback"
     },
     "task_topics": {
       "query-reset": [
         "state-and-navigation",
+        "async-and-cancellation"
+      ],
+      "feedback": [
+        "auth-and-storage",
+        "types-and-json",
         "async-and-cancellation"
       ]
     },
     "task_checks": {
       "query-reset": [
         "clients/android/gradlew -p clients/android :market-core:test --tests org.daynomy.market.MarketControllerContractTest --tests org.daynomy.market.MarketControllerRegressionTest"
+      ],
+      "feedback": [
+        "clients/android/gradlew -p clients/android :market-core:test --tests org.daynomy.market.FeedbackContractTest --tests org.daynomy.market.Android30SessionContractTest :app:assembleDebug"
       ]
     },
     "task_scopes": {
-      "query-reset": "MarketController 검색어·선택 해제·가격 초안 상태 수정 전용. JSON/금액/인증/서버/플랫폼 연결 변경은 해당 기존 프로필과 검사를 추가한다."
+      "query-reset": "MarketController 검색어·선택 해제·가격 초안 상태 수정 전용. JSON/금액/인증/서버/플랫폼 연결 변경은 해당 기존 프로필과 검사를 추가한다.",
+      "feedback": "F11 피드백 입력·CSRF 공개 전송·전송 상태와 계정 화면 연결. 관리자 CRUD·서버 구현 변경 제외."
     }
   },
   "next_increment": {

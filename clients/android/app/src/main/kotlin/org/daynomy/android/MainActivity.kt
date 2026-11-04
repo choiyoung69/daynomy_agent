@@ -61,6 +61,8 @@ class MainActivity : ComponentActivity() {
                     initializer { DiscoveryViewModel(baseUrl) }
                 })
                 val core: CoreViewModel = viewModel(factory = viewModelFactory { initializer { CoreViewModel(baseUrl) } })
+                val feedback: FeedbackViewModel = viewModel(factory = viewModelFactory { initializer { FeedbackViewModel(baseUrl) } })
+                var feedbackOpen by rememberSaveable { mutableStateOf(false) }
                 var tab by rememberSaveable { mutableStateOf("market") }
                 LaunchedEffect(authCallback) {
                     authCallback?.let { callback -> authCallback = null; tab = "account"; core.completeLogin(callback) }
@@ -80,6 +82,7 @@ class MainActivity : ComponentActivity() {
                     activate(owner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED))
                     onDispose { owner.lifecycle.removeObserver(observer); activate(false) }
                 }
+                if (feedbackOpen) FeedbackDialog(feedback.controller) { feedbackOpen = false }
                 val state by model.controller.state.collectAsStateWithLifecycle()
                 val news by discovery.news.state.collectAsStateWithLifecycle()
                 val exchange by discovery.exchange.state.collectAsStateWithLifecycle()
@@ -95,7 +98,7 @@ class MainActivity : ComponentActivity() {
                         when (tab) {
                             "news" -> NewsScreen(news, discovery.news)
                             "exchange" -> ExchangeScreen(exchange, discovery.exchange)
-                            "account" -> AccountScreen(core) {
+                            "account" -> AccountScreen(core, onFeedback = { feedbackOpen = true }) {
                                 try { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(core.loginUrl()))) }
                                 catch (_: Exception) { core.showMessage("로그인 브라우저를 열지 못했습니다. 다시 시도해 주세요.") }
                             }
