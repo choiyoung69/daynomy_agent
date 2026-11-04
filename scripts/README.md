@@ -129,4 +129,4 @@
 
 ## 기존 CLI adapter의 입력 경계
 
-`agent_workflow.CliAgent`를 사용하는 기존 실험에는 새 ephemeral 세션과 기본 32 KiB UTF-8 prompt 제한을 적용한다. 초과 입력은 계약을 자르지 않고 호출 전에 거절한다. `max_prompt_bytes`로 명시적으로 조정할 수 있다. 전체 gate JSON은 `prompt-evidence/`에 보존하고 prompt에는 근거 경로/해시·리뷰 지적을 전달한다. `input.json`은 입력 크기/해시, `attempts.json`은 실패 시도까지 원본 사용량(없으면 빈 목록)을 기록한다. 크기 제한은 시스템·도구·파일 읽기까지 포함하는 모델 토큰 상한이 아니다. 과거 실행기를 자동 시작하지 않으며 실제 개발의 새 채팅 시작은 `HANDOFF.md`를 따른다.
+`agent_workflow.CliAgent`를 사용하는 기존 실험에는 새 ephemeral 세션과 기본 32 KiB UTF-8 prompt 제한을 적용한다. 초과 입력은 계약을 자르지 않고 호출 전에 거절한다. `max_prompt_bytes`로 명시적으로 조정할 수 있다. Workflow의 기본 `--evidence-mode inline`은 전체 근거 본문을 유지한다. `--evidence-mode reference`를 명시한 실험에서만 전체 gate JSON을 `prompt-evidence/`에 보존하고 prompt에 근거 경로/해시·리뷰 지적을 전달한다. 실제 작은 회귀 비교에서는 참조 방식이 더 느려 기본으로 채택하지 않았다. `input.json`은 입력 크기/해시, `attempts.json`은 실패 시도까지 원본 사용량(없으면 빈 목록)을 기록한다. 크기 제한은 시스템·도구·파일 읽기까지 포함하는 모델 토큰 상한이 아니다. 과거 실행기를 자동 시작하지 않으며 실제 개발의 새 채팅 시작은 `HANDOFF.md`를 따른다.

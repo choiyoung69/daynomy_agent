@@ -351,12 +351,15 @@ def gate_passes(gate, expected_hash):
 
 class Workflow:
     def __init__(self, root, run_dir, task, agent=None, gate=run_gate, rounds=3, demo=False,
-                 probe=True):
+                 probe=True, evidence_mode="inline"):
+        if evidence_mode not in ("inline", "reference"):
+            raise ValueError("Evidence mode must be inline or reference")
+        self.evidence_mode = evidence_mode
         self.root, self.run_dir = Path(root).resolve(), Path(run_dir).resolve()
         self.task, self.agent, self.gate = task, agent or CliAgent(), gate
         self.rounds, self.demo, self.probe = rounds, demo, probe
         self.state = {"status": "preparing", "started_at": now(), "task": task,
-                      "events": [], "rounds": [], "agents": [], "fault_test": demo}
+                      "evidence_mode": evidence_mode, "events": [], "rounds": [], "agents": [], "fault_test": demo}
         self.session_ids = set()
 
     def event(self, status, **details):
@@ -417,6 +420,10 @@ class Workflow:
 
     def prompt(self, role, feedback):
         text = (self.root / "prompts" / ("worker.md" if role == "implementer" else "reviewer.md")).read_text()
+        if self.evidence_mode == "inline":
+            return (text + "\n\nTASK:\n" + self.task + "\n\nAUTHORITATIVE CONTRACT:\n"
+                    + str(self.candidate / "spec/feedback.md") + "\n\nPREVIOUS EVIDENCE:\n"
+                    + json.dumps(feedback, ensure_ascii=False))
         # Keep full controller evidence on disk; only actionable review and status enter the next prompt.
         payload = json.dumps(feedback, ensure_ascii=False, indent=2) + "\n"
         evidence_hash = hashlib.sha256(payload.encode("utf-8")).hexdigest()
@@ -539,12 +546,13 @@ def main():
     parser.add_argument("--task", default="Implement the approved feedback contract without changing its requirements.")
     parser.add_argument("--demo", action="store_true", help="Inject one no-save fault after first implementation")
     parser.add_argument("--rounds", type=int, default=3)
+    parser.add_argument("--evidence-mode", choices=("inline", "reference"), default="inline", help="Reference mode is experimental; inline preserves the existing evidence delivery")
     args = parser.parse_args()
     if not 1 <= args.rounds <= 3:
         parser.error("rounds must be 1..3")
     run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + uuid.uuid4().hex[:8]
     directory = ROOT / ".local/agent-workflows" / run_id
-    state = Workflow(ROOT, directory, args.task, rounds=args.rounds, demo=args.demo).execute()
+    state = Workflow(ROOT, directory, args.task, rounds=args.rounds, demo=args.demo, evidence_mode=args.evidence_mode).execute()
     print("Workflow evidence: " + str(directory / "state.json"), flush=True)
     return 0 if state["status"] == "completed" else (3 if state["status"] == "needs_decision" else 2)
 

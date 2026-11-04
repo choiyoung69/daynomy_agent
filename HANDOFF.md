@@ -15,7 +15,7 @@
 ## 하네스에 반영한 것
 
 - 기존 CliAgent 새 ephemeral 세션 유지. 기본 prompt UTF-8 32 KiB 초과는 호출 전 실패.
-- 이전 gate JSON은 파일 경로·해시로 전달. 원본 근거/리뷰 지적/승인 검사는 유지.
+- 기본은 전체 근거 inline 전달 유지. --evidence-mode reference는 선택 실험 옵션. 실제 작은 회귀에서 105개씩 통과했지만 참조 방식이 더 느렸다.
 - input.json과 attempts.json으로 입력 크기·모든 시도의 원본 사용량 확인.
 - 이 adapter는 과거 CLI 실험의 경계다. 일반 데스크톱 개발을 자동 실행하는 도구가 아니다.
 - 실제 전체 입력 감소·자동 Langfuse Stop 수집은 다음 정상 개발에서 확인할 항목이다.
