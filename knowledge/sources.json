@@ -3471,11 +3471,11 @@
       "id": "DX14",
       "kind": "local",
       "path": "scripts/knowledge.py",
-      "sha256": "8b72cba4aa8753514d30cc2e26e3a705f0d9aa4549fb6b4e41d7756dd2abf040",
+      "sha256": "03f483eca9b164b33283b1d094dea07caa67e4c784bdca5a5916638050c005e3",
       "review_status": "read",
-      "reviewed_on": "2026-10-28",
-      "reviewed_scope": "Detailed package/topic mapping, preparation guard, current example evidence hash validation; not semantic certification",
-      "runtime_verification_this_run": "regression commands in detailed-packages report"
+      "reviewed_on": "2026-11-04",
+      "reviewed_scope": "Detailed package/topic mapping, preparation guard and evidence hash validation retained. Reviewed check-only output suppression after all readiness decisions; does not certify semantic correctness or app execution.",
+      "runtime_verification_this_run": "Targeted scripts/test_knowledge.py results recorded in the workflow PR; historical detailed-package example results are not rerun or recertified."
     },
     {
       "id": "AP01",

@@ -25,3 +25,7 @@ Q01/Q08의 WebView stock-search-price 착수 범위·버전·로컬 제공은 [�
 ### WebView 파일럿 검증 후 보강
 
 Q04/Q09의 stock-search-price 웹·Android 로컬 흐름은 [run013](../runs/013-webview.md)에서 실제 확인했다. Node 모의 fetch가 놓친 브라우저 receiver 결함과, 검증 스크립트의 loading/error 문구 조기 매칭을 각각 수정·보강했다. Q05 로그인/OAuth·특권 브리지의 origin 획득, Q11 iOS Xcode/기기 검증, Q06 같은 범위의 시간 절감 비교는 해결하지 않았다.
+# 2026-11-04 작업 전달 보완
+
+검색어/선택 상태의 작은 수정에는 query-reset 3문서 프로필과 관련 검사 목록을 연결한다.
+패킷 재사용도 준비·출처·해시가 유효해야 한다. 전체 앱의 준비/검증이나 일반 비용 절감은 미확정이다.

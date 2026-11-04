@@ -286,7 +286,7 @@ def topic_documents(package, requested=None, include_auth=False):
     return [package["index"]] + [package["topics"][topic] for topic in topics]
 
 
-def context(feature_slug, platform_slug, require_ready=False, topics=None):
+def context(feature_slug, platform_slug, require_ready=False, topics=None, emit_documents=True):
     if check():
         return 1
     packs = load_packs()
@@ -333,6 +333,8 @@ def context(feature_slug, platform_slug, require_ready=False, topics=None):
     if issues and require_ready:
         print("No implementation context emitted because preparation is incomplete.")
         return 2
+    if not emit_documents:
+        return 0
     if topics:
         print("Topic-filtered reading context; omitted topics remain necessary when relevant to implementation.")
     print("\nSelected documents only; no agent invocation or file-access isolation:")
@@ -448,6 +450,7 @@ def main():
     context_parser.add_argument("--feature", required=True)
     context_parser.add_argument("--platform", required=True)
     context_parser.add_argument("--require-ready", action="store_true")
+    context_parser.add_argument("--check-only", action="store_true", help="check the same readiness criteria without printing document bodies")
     context_parser.add_argument("--topic", action="append", help="repeat for a topic-filtered reading context")
     args = parser.parse_args()
     try:
@@ -463,7 +466,8 @@ def main():
             return detailed_package(args.package_slug, args.topic)
         if args.command == "coverage":
             return coverage(args.json)
-        return context(args.feature, args.platform, args.require_ready, args.topic)
+        return context(args.feature, args.platform, args.require_ready, args.topic,
+                       emit_documents=not args.check_only)
     except (OSError, ValueError, KeyError, TypeError) as error:
         print(f"FAIL knowledge data: {error}", file=sys.stderr)
         return 1

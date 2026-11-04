@@ -18,14 +18,19 @@ def inside(name):
     if not p.is_relative_to(ROOT):raise ValueError('path outside repository')
     return p
 
+def require_ready(config, task):
+    feature=config.get('task_features',{}).get(task,config['feature'])
+    topics=config.get('task_topics',{}).get(task,['types-and-json'])
+    with contextlib.redirect_stdout(io.StringIO()) as output:
+        result=knowledge.context(feature,config['platform'],True,topics,emit_documents=False)
+    if result:raise ValueError('knowledge preparation check failed: '+output.getvalue()[:2500])
+
 def prepare(task, base):
     config=json.loads((ROOT/'agents/android-native.json').read_text())['knowledge']
     if task not in config['documents']:raise ValueError('unknown knowledge task')
     feature=config.get('task_features',{}).get(task,config['feature'])
-    # Every invocation reuses local evidence. No web fetch occurs here.
-    with contextlib.redirect_stdout(io.StringIO()) as output:
-        result=knowledge.context(feature,config['platform'],True,['types-and-json'])
-    if result:raise ValueError('knowledge preparation check failed: '+output.getvalue()[:2500])
+    # Check readiness once; reuse the existing provenance checks below, without rendering a discarded full packet.
+    require_ready(config,task)
     folder=inside(base)/task
     if folder.exists():raise ValueError('knowledge packet exists; use a fresh revision directory')
     folder.mkdir(parents=True)
@@ -42,11 +47,22 @@ def prepare(task, base):
     manifest={'created_at':datetime.now(timezone.utc).isoformat(),'task':task,'feature':feature,
               'platform':config['platform'],'documents':docs,'source_records':sources,
               'context':str(packet.relative_to(ROOT)),'context_sha256':sha(packet),
+              'checks':config.get('task_checks',{}).get(task,[]),
+              'task_scope':config.get('task_scopes',{}).get(task),
               'scope':'Required input materialization and provenance; content understanding is tested/reviewed, not mechanically proven'}
     path=folder/'manifest.json';path.write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
+    _verify_packet(str(path.relative_to(ROOT)),expected_task=task)
     return str(path.relative_to(ROOT))
 
-def verify(manifest_path, usage_path=None, expected_task=None):
+def ensure(task, base):
+    """Reuse a valid packet or create it; never overwrite stale evidence or skip readiness."""
+    path=inside(base)/task/'manifest.json'
+    if path.exists():
+        verify(str(path.relative_to(ROOT)),expected_task=task)
+        return str(path.relative_to(ROOT))
+    return prepare(task,base)
+
+def _verify_packet(manifest_path, usage_path=None, expected_task=None):
     manifest=json.loads(inside(manifest_path).read_text());changed=[]
     config=json.loads((ROOT/'agents/android-native.json').read_text())['knowledge']
     task=manifest.get('task')
@@ -58,9 +74,10 @@ def verify(manifest_path, usage_path=None, expected_task=None):
     required={'knowledge/'+relative for relative in config['documents'][task]}
     if set(manifest['documents'])!=required:
         raise ValueError('required knowledge document set mismatch')
-    with contextlib.redirect_stdout(io.StringIO()):
-        if knowledge.context(feature,config['platform'],True,['types-and-json']):
-            raise ValueError('knowledge preparation check failed')
+    if manifest.get('checks',[])!=config.get('task_checks',{}).get(task,[]):
+        raise ValueError('knowledge check selection mismatch')
+    if manifest.get('task_scope')!=config.get('task_scopes',{}).get(task):
+        raise ValueError('knowledge task scope mismatch')
     for name,digest in manifest['documents'].items():
         if not inside(name).is_file() or sha(inside(name))!=digest:changed.append(name)
     if changed:raise ValueError('knowledge input changed: '+', '.join(changed))
@@ -92,12 +109,19 @@ def verify(manifest_path, usage_path=None, expected_task=None):
         if covered!=set(manifest['documents']):raise ValueError('knowledge document missing from application mapping')
     return manifest
 
+def verify(manifest_path, usage_path=None, expected_task=None):
+    manifest=_verify_packet(manifest_path,usage_path,expected_task)
+    config=json.loads((ROOT/'agents/android-native.json').read_text())['knowledge']
+    require_ready(config,manifest['task'])
+    return manifest
+
 def main():
     p=argparse.ArgumentParser(description=__doc__);sub=p.add_subparsers(dest='cmd',required=True)
     a=sub.add_parser('prepare');a.add_argument('task');a.add_argument('--base',default='.local/android-pilot/knowledge-v1')
+    a=sub.add_parser('ensure');a.add_argument('task');a.add_argument('--base',default='.local/android-pilot/knowledge-v1')
     a=sub.add_parser('verify');a.add_argument('manifest');a.add_argument('--usage')
     args=p.parse_args()
-    if args.cmd=='prepare':print(prepare(args.task,args.base))
+    if args.cmd in ('prepare','ensure'):print((prepare if args.cmd=='prepare' else ensure)(args.task,args.base))
     else:verify(args.manifest,args.usage);print('PASS knowledge packet and declared application mapping')
     return 0
 

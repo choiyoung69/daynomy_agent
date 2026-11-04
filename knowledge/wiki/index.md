@@ -106,3 +106,8 @@ source_ids: ["E01", "P02", "G01", "F01", "F04"]
 ## 제한된 앱 실행 결과
 
 [WebView 종목 검색·종가 파일럿](../../runs/013-webview.md)은 웹/Android 실제 흐름과 iOS 미검증을 구분한다. 지식 입력·고정 테스트·수정·독립 리뷰 근거를 함께 확인한다. 다른 플랫폼/전체 기능의 실행 완료를 뜻하지 않는다.
+# Android의 작은 상태 수정 진입점
+
+검색어·선택 해제·가격 초안 수정은 [Android 작업 안내](../../clients/android/README.md)의
+`android_knowledge.py ensure query-reset`으로 필요한 3문서를 선택한다.
+다른 기능의 필수 지식을 대체하지 않으며 변경 시점의 준비·출처·해시는 계속 검사한다.
