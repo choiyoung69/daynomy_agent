@@ -1,6 +1,7 @@
 # Android·React Native 화면 밀도 정리
 
-2026-11-04 · [Issue #39](https://github.com/choiyoung69/daynomy_agent/issues/39)
+2026-11-04 시작 · [Issue #39](https://github.com/choiyoung69/daynomy_agent/issues/39) ·
+[PR #41](https://github.com/choiyoung69/daynomy_agent/pull/41)
 
 사용자가 두 앱에서 글자·버튼·여백이 전반적으로 크다고 지적했다. 시각 기준은 실제
 staff.daynomy.com 모바일 반응형과 기존 WebView이며, 하단 세 탭과 플랫폼별 기능·저장 방식은 유지한다.
@@ -49,9 +50,24 @@ KB의 `news/android --require-ready --check-only`는 준비 판정이 통과했�
   새 비회원 임시 화면 대신 예전 `portfolio-login`을 기다리는 사례다. 고정 검사를 수정/skip하지 않았다.
 - 현재 비회원 계약의 `ApprovedPortfolioScreenTest.unauthorizedReadShowsSeparateGuestDraftWithoutMemberDataAndCanOpenAccount`
   한 개를 추가 실행하여 통과했다. 앞선 실패를 통과로 대체하지 않는다.
+- 비회원 페이지 폭 제한 보완 후 APK·검사 APK·lint 재실행 성공: 77 tasks 중13 실행·64 캐시.
+  변경 영향을 받는 기존 `GuestPortfolioScreenTest` 1개를 새 APK에서 재실행하여 통과했다.
 - 실제 staff 390/820폭 원본 캡처, 실행 RN의 자산/계정 화면을 확인했다.
-  뉴스 본문·이미지·키워드·시장 분석 및 폭/글자 확대의 최종 기기 확인은 진행 중이다.
+- 승인된 ADB 조작으로 별도 API33 에뮬레이터의 RN을 실제 로컬 API에 연결했다.
+  remote295 → local102 기사의 원래 제목·발행일·본문과 실제 이미지 로딩을 확인했다.
+  본문의 `공모가`를 눌러 뜻·기사 맥락·확인할 점 3개가 원본 값과 일치함을 대조했고,
+  아래 시장 분석의 위험 요인·확인할 점 2개도 원본 값과 일치했다. 닫기와 목록 이동을 확인했다.
+- 두 앱의 세로/가로 화면에서 하단 탭과 스크롤을 확인했다. RN 계정과 Android 비회원 화면은
+  글자130%에서도 줄바꿈·버튼·하단 탭 접근을 확인했다. 가로 화면은1080×2400 기기의 회전이며
+  별도 태블릿 검증으로 세지 않는다. 검증 후 글자1.0·자동회전 원래 설정을 복원했다.
+- 11월5일 확인 시 오늘 뉴스는 비어 있고 전체 목록에는 11월4일의 실제 기사가 보였다.
+  오늘 표시를 채우려고 원래 발행일을 바꾸지 않았다. Android는 기존 main의 뉴스 부가 기능
+  범위를 유지했으며 RN의 이미지·키워드·시장 분석 검증을 Android 완료로 확대하지 않는다.
 
 상세 로컬 근거는 Git 제외 `.local/native-design/`의 소스 manifest·원본 화면·검사 로그에 있다.
 Metro 미리보기는 localhost18090에 한정한다. 다른 작업이 쓰던5556의 포트 전달은 원래18089로 복원했다.
+주요 캡처는 `device/rn-article-top.png`, `rn-keyword-clean.png`, `rn-market-analysis.png`,
+`rn-landscape.png`, `rn-account-font130.png`, `android-portfolio-font130.png`,
+`android-portfolio-landscape-final.png`에 있다. `final-verification.json`에 검사 대상 파일·APK 해시를 남겼다.
+기존 UI 검사1개 실패를 남겨 PR은 Draft로 유지한다. 운영 브랜치에 병합하지 않았다.
 운영 배포·실기기·iOS·TalkBack은 이번 검증으로 표현하지 않는다. 시간·비용 절감은 미계측이다.

@@ -6,6 +6,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
@@ -27,7 +28,8 @@ fun GuestPortfolioScreen(model: GuestPortfolioViewModel, onAccount: () -> Unit) 
     val scroll = rememberScrollState()
     val scope = rememberCoroutineScope()
     MaterialTheme(colorScheme = PortfolioStyle.colors) {
-        Column(Modifier.fillMaxSize().imePadding().verticalScroll(scroll).padding(20.dp)
+        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
+        Column(Modifier.widthIn(max = 760.dp).fillMaxWidth().fillMaxHeight().imePadding().verticalScroll(scroll).padding(20.dp)
             .testTag("guest-portfolio"), verticalArrangement = Arrangement.spacedBy(16.dp)) {
             Text("내 포트폴리오", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold,
                 modifier = Modifier.semantics { heading() })
@@ -101,6 +103,7 @@ fun GuestPortfolioScreen(model: GuestPortfolioViewModel, onAccount: () -> Unit) 
                     }
                 }
             }
+        }
         }
     }
 }
