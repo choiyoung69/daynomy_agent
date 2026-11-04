@@ -11,6 +11,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextReplacement
 import androidx.test.core.app.ActivityScenario
@@ -69,6 +70,8 @@ class MarketScreenAcceptanceTest {
         compose.onNodeWithTag("unit-price").assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(value)))
     }
     private fun searchAndSelect() {
+        awaitTag("portfolio-stock-search")
+        compose.onNodeWithTag("portfolio-stock-search").performScrollTo().performClick()
         awaitTag("query")
         compose.onNodeWithTag("query").performTextReplacement("삼성")
         awaitTag("stock-1")
@@ -125,6 +128,8 @@ class MarketScreenAcceptanceTest {
     }
     @Test fun usSearchSendsCountryAndLocalCategoryFilterDoesNotRefetch() {
         launch().use {
+            awaitTag("portfolio-stock-search")
+            compose.onNodeWithTag("portfolio-stock-search").performScrollTo().performClick()
             awaitTag("query")
             compose.onNodeWithTag("query").performClick()
             awaitTag("country-US")

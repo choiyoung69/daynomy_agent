@@ -217,10 +217,8 @@ class ApprovedPortfolioScreenTest {
     @Test fun approvedHierarchyKeepsSearchNavigationTabsAndExplicitTradeAvailable() {
         launch().use {
             awaitText("검증용 보유종목")
-            compose.onNodeWithTag("query").assertIsDisplayed()
-            val search = compose.onNodeWithTag("query").fetchSemanticsNode().boundsInRoot
-            val navigation = compose.onNodeWithTag("bottom-navigation").fetchSemanticsNode().boundsInRoot
-            assertTrue(navigation.top > search.bottom)
+            compose.onNodeWithTag("query").assertDoesNotExist()
+            compose.onNodeWithTag("portfolio-stock-search").assertExists()
             compose.onNodeWithTag("tab-portfolio").assertTextContains("포트폴리오")
             compose.onNodeWithTag("tab-news").assertTextContains("이슈")
             compose.onNodeWithTag("tab-account").assertTextContains("내 계정")

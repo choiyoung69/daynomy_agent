@@ -44,7 +44,7 @@ internal object PortfolioStyle {
 }
 
 @Composable
-fun PortfolioScreen(model: CoreViewModel, onAccount: () -> Unit = {}) {
+fun PortfolioScreen(model: CoreViewModel, onAccount: () -> Unit = {}, onStockSearch: () -> Unit = {}, onExchange: (String) -> Unit = {}) {
     MaterialTheme(colorScheme = PortfolioStyle.colors) {
         var editorOpen by rememberSaveable { mutableStateOf(false) }
         var historyTab by rememberSaveable { mutableStateOf(false) }
@@ -76,7 +76,7 @@ fun PortfolioScreen(model: CoreViewModel, onAccount: () -> Unit = {}) {
                         }
                         Text("매수와 매도를 기록하고 자산의 흐름을 확인하세요.", color = PortfolioStyle.muted)
                         PortfolioNotice(model)
-                        PortfolioTransactionForm(model)
+                        PortfolioTransactionForm(model, onExchange)
                     } else {
                         val tradeAction: @Composable () -> Unit = {
                             Button({ openTrade() }, enabled = canWrite && model.portfolioLoaded && !model.loading,
@@ -91,6 +91,7 @@ fun PortfolioScreen(model: CoreViewModel, onAccount: () -> Unit = {}) {
                             Text("내 포트폴리오", Modifier.weight(1f).semantics { heading() }, fontSize = 22.sp, fontWeight = FontWeight.Bold)
                             tradeAction()
                         }
+                        TextButton(onStockSearch, Modifier.heightIn(min = 48.dp).testTag("portfolio-stock-search")) { Text("종목 찾기") }
                         PortfolioNotice(model)
                         if (model.loading) {
                             LinearProgressIndicator(Modifier.fillMaxWidth())
@@ -334,7 +335,7 @@ private fun displayNumber(raw: String?, hidden: Boolean): String {
     return DecimalFormat("#,##0.############################", DecimalFormatSymbols(Locale.KOREA)).format(amount)
 }
 
-@Composable private fun PortfolioTransactionForm(model: CoreViewModel) {
+@Composable private fun PortfolioTransactionForm(model: CoreViewModel, onExchange: (String) -> Unit) {
     val focus = LocalFocusManager.current
     val canWrite = !model.busy && !model.unknown && !model.portfolioRequiresLogin
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -365,6 +366,9 @@ private fun displayNumber(raw: String?, hidden: Boolean): String {
         if (model.selection?.currency == "USD") {
             CoreField(model.exchangeRate, { model.exchangeRate = it }, "거래 환율 (USD → KRW)", "transaction-rate", KeyboardType.Decimal, canWrite)
             Text("미국 종목 거래에는 해당 거래일의 환율이 필요합니다.", style = MaterialTheme.typography.bodySmall)
+            OutlinedButton({ focus.clearFocus(); onExchange(model.tradeDate) }, enabled = canWrite, shape = PortfolioStyle.pill,
+                modifier = Modifier.heightIn(min = 48.dp).testTag("transaction-exchange")) { Text("거래일 환율 조회") }
+            Text("조회한 환율을 확인한 뒤 직접 입력하세요. 거래 초안은 유지됩니다.", color = PortfolioStyle.muted, style = MaterialTheme.typography.bodySmall)
         }
         if (model.busy) {
             LinearProgressIndicator(Modifier.fillMaxWidth().testTag("transaction-pending"))

@@ -5,6 +5,7 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.KeyboardArrowRight
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.*
@@ -29,7 +30,12 @@ import androidx.compose.ui.unit.dp
 import org.daynomy.market.*
 
 @Composable
-fun NewsScreen(state: NewsUiState, controller: NewsController) {
+fun NewsScreen(state: NewsUiState, controller: NewsController, today: NewsUiState, todayController: NewsController) {
+    var query by rememberSaveable { mutableStateOf(state.searchQuery.orEmpty()) }
+    var todayExpanded by rememberSaveable { mutableStateOf(false) }
+    val keyboard = LocalSoftwareKeyboardController.current
+    val focus = LocalFocusManager.current
+    fun search() { focus.clearFocus(); keyboard?.hide(); controller.submitSearch(query) }
     AppPage {
         if (state.selectedId != null) {
             TextButton(controller::closeDetail, Modifier.heightIn(min = 48.dp).testTag("news-back")) { Text("뉴스 목록으로") }
@@ -60,22 +66,32 @@ fun NewsScreen(state: NewsUiState, controller: NewsController) {
             }
         } else {
             AppPageTitle("이슈")
-            Text("시장 흐름을 읽는 경제 소식", color = PortfolioStyle.muted)
-            val selectedMode = if (state.todayOnly) 1 else 0
-            TabRow(selectedTabIndex = selectedMode, containerColor = MaterialTheme.colorScheme.surface,
-                contentColor = PortfolioStyle.blue,
-                indicator = { positions -> TabRowDefaults.SecondaryIndicator(Modifier.tabIndicatorOffset(positions[selectedMode]), color = PortfolioStyle.blue) },
-                divider = { HorizontalDivider(color = PortfolioStyle.line) }) {
-                listOf("전체 뉴스", "오늘 뉴스").forEachIndexed { index, label ->
-                    Tab(selected = selectedMode == index, onClick = { controller.selectToday(index == 1) },
-                        selectedContentColor = PortfolioStyle.blue, unselectedContentColor = PortfolioStyle.muted,
-                        text = { Text(label, fontWeight = FontWeight.SemiBold) },
-                        modifier = Modifier.heightIn(min = 48.dp).testTag(if (index == 0) "news-mode-all" else "news-mode-today"))
+            TodayNewsDashboard(today.list, todayExpanded, { todayExpanded = !todayExpanded }, todayController::retryList, controller::openDetail)
+            Text("전체 이슈", fontSize = 18.sp, fontWeight = FontWeight.Bold, modifier = Modifier.semantics { heading() })
+            OutlinedTextField(query, { query = it }, label = { Text("이슈 검색") },
+                leadingIcon = { Icon(Icons.Outlined.Search, contentDescription = null) },
+                singleLine = true, isError = state.searchError != null, shape = PortfolioStyle.panel,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                keyboardActions = KeyboardActions(onSearch = { search() }),
+                modifier = Modifier.fillMaxWidth().testTag("news-query"))
+            state.searchError?.let { DiscoveryError(it, "news-query-error") }
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Button({ search() }, shape = PortfolioStyle.pill, modifier = Modifier.heightIn(min = 48.dp).testTag("news-search")) { Text("검색") }
+                if (state.searchQuery != null || query.isNotEmpty()) {
+                    TextButton({ query = ""; controller.clearSearch() }, Modifier.heightIn(min = 48.dp).testTag("news-search-clear")) { Text("검색 해제") }
                 }
             }
-            if (state.todayOnly) Text("서버 날짜 기준으로 오늘 발행된 최신 뉴스 최대 9개를 보여줍니다.",
-                color = PortfolioStyle.muted, style = MaterialTheme.typography.bodyMedium)
-            if (!state.todayOnly) Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            state.searchQuery?.let {
+                Text("검색 중: $it", Modifier.testTag("news-active-query").semantics { liveRegion = LiveRegionMode.Polite })
+                Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    NewsSearchSort.entries.forEach { sort ->
+                        FilterChip(state.sort == sort, { controller.selectSort(sort) },
+                            label = { Text(if (sort == NewsSearchSort.LATEST) "최신순" else "관련도순") },
+                            modifier = Modifier.heightIn(min = 48.dp).testTag("news-sort-${sort.name}"))
+                    }
+                }
+            }
+            Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 listOf(null, NewsCategory.REAL_ESTATE, NewsCategory.STOCK, NewsCategory.ETF).forEach { category ->
                     FilterChip(state.category == category, { controller.selectCategory(category) }, label = { Text(newsLabel(category)) },
                         shape = PortfolioStyle.pill,
@@ -93,7 +109,7 @@ fun NewsScreen(state: NewsUiState, controller: NewsController) {
                 is LoadState.Ready -> {
                     if (result.value.items.isEmpty()) {
                         Column(Modifier.fillMaxWidth().padding(vertical = 32.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Text(if (state.todayOnly) "오늘 발행된 뉴스가 없습니다." else "발행된 뉴스가 없습니다.", Modifier.testTag("news-empty"), fontWeight = FontWeight.SemiBold)
+                            Text(if (state.searchQuery == null) "발행된 뉴스가 없습니다." else "검색 결과가 없습니다.", Modifier.testTag("news-empty"), fontWeight = FontWeight.SemiBold)
                             Text("새로 발행된 소식은 이곳에서 확인할 수 있어요.", color = PortfolioStyle.muted)
                         }
                     }
@@ -112,7 +128,7 @@ fun NewsScreen(state: NewsUiState, controller: NewsController) {
                             HorizontalDivider(color = PortfolioStyle.line)
                         }
                     }
-                    if (!state.todayOnly) Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         OutlinedButton({ controller.selectPage(state.page - 1) }, enabled = state.page > 1,
                             modifier = Modifier.heightIn(min = 48.dp).testTag("news-previous")) { Text("이전") }
                         Text("${state.page} 페이지", Modifier.padding(vertical = 14.dp))
@@ -127,8 +143,49 @@ fun NewsScreen(state: NewsUiState, controller: NewsController) {
 }
 
 @Composable
+private fun TodayNewsDashboard(result: LoadState<NewsPage>, expanded: Boolean, toggle: () -> Unit, retry: () -> Unit, open: (Long) -> Unit) {
+    Card(Modifier.fillMaxWidth().testTag("news-today-summary"), shape = PortfolioStyle.panel,
+        colors = CardDefaults.cardColors(containerColor = PortfolioStyle.colors.secondaryContainer)) {
+        Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+            Text("오늘 뉴스", fontSize = 21.sp, fontWeight = FontWeight.Bold, modifier = Modifier.semantics { heading() })
+            Text("서버 날짜 기준 · 최신 발행 소식 최대 9건", color = PortfolioStyle.muted, style = MaterialTheme.typography.bodySmall)
+            when (result) {
+                LoadState.Idle, LoadState.Loading -> DiscoveryLoading("오늘 뉴스를 불러오고 있어요.")
+                is LoadState.Failed -> {
+                    DiscoveryError("오늘 뉴스를 불러오지 못했습니다.", "news-today-error")
+                    OutlinedButton(retry, shape = PortfolioStyle.pill, modifier = Modifier.heightIn(min = 48.dp).testTag("news-today-retry")) { Text("다시 조회") }
+                }
+                is LoadState.Ready -> {
+                    if (result.value.items.isEmpty()) Text("오늘 발행된 뉴스가 없습니다.", Modifier.testTag("news-today-empty"))
+                    else {
+                        Text("최신 ${result.value.items.size}건", color = PortfolioStyle.blue, style = MaterialTheme.typography.labelLarge)
+                        result.value.items.take(if (expanded) 9 else 3).forEachIndexed { index, news ->
+                            Column(Modifier.fillMaxWidth().clickable(onClickLabel = "오늘 기사 읽기", role = androidx.compose.ui.semantics.Role.Button) { open(news.id) }
+                                .heightIn(min = 64.dp).padding(vertical = 8.dp).testTag("news-today-${news.id}"),
+                                verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                                Text(newsLabel(news.category), color = PortfolioStyle.muted, style = MaterialTheme.typography.labelMedium)
+                                Text(news.title, fontSize = if (index == 0) 19.sp else 16.sp, lineHeight = 26.sp,
+                                    fontWeight = if (index == 0) FontWeight.Bold else FontWeight.Medium)
+                            }
+                            if (index < (if (expanded) result.value.items.size.coerceAtMost(9) else result.value.items.size.coerceAtMost(3)) - 1) HorizontalDivider(color = PortfolioStyle.line)
+                        }
+                        if (result.value.items.size > 3) TextButton(toggle, Modifier.heightIn(min = 48.dp).testTag("news-today-more")) {
+                            Text(if (expanded) "접기" else "오늘 뉴스 더 보기")
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
 fun ExchangeScreen(state: ExchangeUiState, controller: ExchangeController) {
     var date by rememberSaveable { mutableStateOf(state.date) }
+    var boundDate by rememberSaveable { mutableStateOf(state.date) }
+    LaunchedEffect(state.date) {
+        if (boundDate != state.date) { date = state.date; boundDate = state.date }
+    }
     val keyboard = LocalSoftwareKeyboardController.current
     val focus = LocalFocusManager.current
     fun submit() {

@@ -1,6 +1,7 @@
 package org.daynomy.market
 
 import java.math.BigDecimal
+import java.net.URLEncoder
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
@@ -15,16 +16,25 @@ class NewsClient(private val transport: HttpTransport) : NewsSource {
         return decodePage(transport.get(path))
     }
     override suspend fun today(): NewsPage = decodePage(transport.get("/api/news/today"))
-
     private fun decodePage(body: String): NewsPage {
         val row = newsObject(body)
-        val items = newsArray(row["items"]).map { element ->
-            val item = newsObject(element)
-            NewsListItem(newsLong(item["id"]), newsString(item["title"]), newsCategory(item["category"]),
-                newsNullableString(item["imageUrl"]), newsNullableString(item["publishedAt"]))
-        }
+        val items = newsItems(row["items"])
         return NewsPage(items, newsInt(row["page"]), newsInt(row["size"]), newsInt(row["totalPages"]),
             newsLong(row["totalElements"]), newsBoolean(row["hasNext"]))
+    }
+    override suspend fun search(query: String, category: NewsCategory?, page: Int, size: Int, sort: NewsSearchSort): NewsPage {
+        require(validNewsQuery(query)) { "검색어는 문자 또는 숫자를 포함해 100자 이내로 입력해 주세요." }
+        require(page >= 1 && size in 1..100) { "검색 페이지가 올바르지 않습니다." }
+        val path = "/api/search/news?q=${URLEncoder.encode(query, "UTF-8")}&page=$page&size=$size&sort=${sort.name}" +
+            (category?.let { "&category=${it.name}" } ?: "")
+        val row = newsObject(transport.get(path))
+        val items = newsItems(row["content"])
+        val responsePage = newsInt(row["page"])
+        val responseSize = newsInt(row["size"])
+        val totalPages = newsInt(row["totalPages"])
+        val totalElements = newsLong(row["totalElements"])
+        if (responsePage < 1 || responseSize < 1 || totalPages < 0 || totalElements < 0) invalidNewsResponse()
+        return NewsPage(items, responsePage, responseSize, totalPages, totalElements, responsePage < totalPages)
     }
     override suspend fun detail(newsId: Long): NewsDetail {
         val row = newsObject(transport.get("/api/news/$newsId"))
@@ -84,4 +94,10 @@ private fun newsBoolean(element: JsonElement?): Boolean {
     val value = element as? JsonPrimitive ?: invalidNewsResponse()
     if (value.isString) invalidNewsResponse()
     return when (value.content) { "true" -> true; "false" -> false; else -> invalidNewsResponse() }
+}
+
+private fun newsItems(element: JsonElement?): List<NewsListItem> = newsArray(element).map {
+    val item = newsObject(it)
+    NewsListItem(newsLong(item["id"]), newsString(item["title"]), newsCategory(item["category"]),
+        newsNullableString(item["imageUrl"]), newsNullableString(item["publishedAt"]))
 }

@@ -23,7 +23,29 @@ class NewsController(private val source: NewsSource, private val scope: Coroutin
     fun selectToday(todayOnly: Boolean) {
         if (closed || state.value.todayOnly == todayOnly) return
         closeDetail()
-        mutableState.update { it.copy(todayOnly = todayOnly, category = null, page = 1) }
+        mutableState.update { it.copy(todayOnly = todayOnly, searchQuery = null, searchError = null, category = null, page = 1) }
+        loadList()
+    }
+    fun submitSearch(query: String) {
+        if (closed) return
+        if (!validNewsQuery(query)) {
+            mutableState.update { it.copy(searchError = "검색어는 문자 또는 숫자를 포함해 100자 이내로 입력해 주세요.") }
+            return
+        }
+        closeDetail()
+        mutableState.update { it.copy(searchQuery = query, searchError = null, todayOnly = false, page = 1) }
+        loadList()
+    }
+    fun clearSearch() {
+        if (closed) return
+        closeDetail()
+        mutableState.update { it.copy(searchQuery = null, searchError = null, todayOnly = false, page = 1) }
+        loadList()
+    }
+    fun selectSort(sort: NewsSearchSort) {
+        if (closed || state.value.sort == sort) return
+        closeDetail()
+        mutableState.update { it.copy(sort = sort, page = 1) }
         loadList()
     }
     fun load() { if (!closed) loadList() }
@@ -78,7 +100,11 @@ class NewsController(private val source: NewsSource, private val scope: Coroutin
         mutableState.update { it.copy(list = LoadState.Loading) }
         listJob = scope.launch {
             try {
-                val page = if (snapshot.todayOnly) source.today() else source.list(snapshot.category, snapshot.page, 6)
+                val page = when {
+                    snapshot.todayOnly -> source.today()
+                    snapshot.searchQuery != null -> source.search(snapshot.searchQuery, snapshot.category, snapshot.page, 6, snapshot.sort)
+                    else -> source.list(snapshot.category, snapshot.page, 6)
+                }
                 if (currentList(token)) mutableState.update { it.copy(list = LoadState.Ready(page)) }
             } catch (cancelled: CancellationException) {
                 if (currentList(token)) mutableState.update { it.copy(list = LoadState.Idle) }

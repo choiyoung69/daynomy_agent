@@ -1,23 +1,43 @@
 {
   "base": "40668b76",
-  "scope": "Latest shell extension: UI native full suite 34 passed; after login-gate fixes, impacted 16 ran (15 passed, 1 fixture reverse-DNS-on-main failure); fixture-only correction then isolated login regression 1 passed. Font200 news/member journeys 2 passed, scale restored. APK/test-APK/lint passed; independent static/portrait visual review. Synthetic HTTP only; no real server/DB/OAuth/TalkBack/tablet/dark verification. Prior JVM 130 result belongs to previous main integration; pure market-core unchanged in this extension.",
+  "scope": "Latest contextual search/dashboard revision: market-core 146 freshly passed; first native run 39 (36 pass, 3 fixture failures), after exchange bound-date fix and fixture corrections affected 14 passed (30.701s); font200 dashboard/US exchange draft journeys 2 passed (10.157s). Capture-only native-idle refinement: dashboard scenario 1 normal + 1 font200 passed. APK/test APK/lint passed. Synthetic HTTP fixtures; real backend/DB/OAuth/TalkBack/tablet/dark not run. Final large-font navigation label bound/two-line layout: rebuilt APK/testAPK/lint, normal dashboard 1 passed(4.427s), font200 dashboard/US draft 2 passed(10.292s), scale restored.",
   "files": {
-    "clients/android/app/src/main/kotlin/org/daynomy/android/PortfolioScreen.kt": "611214c142978b956d47d971ad7ef636456cbc5b83d64b32d0492cc54b6c9895",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/PortfolioScreen.kt": "6f863925341e870ac847690ac7d3bdc474328e72fd6a69ff9810866658222090",
     "clients/android/app/src/main/kotlin/org/daynomy/android/CoreViewModel.kt": "830753e3b37c8619d20e205f58583bd54966625b81bec3aea85ec6aaa476b7e6",
-    "clients/android/app/src/main/kotlin/org/daynomy/android/MainActivity.kt": "a551edd57b63ce94c6b0df926cdc64503c5906f70e18c631561fff76a37bae7d",
-    "clients/android/app/src/main/kotlin/org/daynomy/android/CoreScreens.kt": "a98e7f9c9dd1ad50b9f969ad51337eab1f5f2fe2cbacdbbaec6650a2d48e8c88",
-    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/PortfolioWebDesignScreenTest.kt": "db692e547979bed068044f99ad5f4dbe487af6645bb3739790b249726dde9c7b",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/MainActivity.kt": "bcad1df1a91d2c828458b68791dd45b66117e0481dbbb96bd285878f32d73cc5",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/CoreScreens.kt": "d9ea67e5fb6ebe1fe313c7e431118ec1f8e0ce728c547a1eb19f9f7f5153a7ac",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/PortfolioWebDesignScreenTest.kt": "c56cf559eb1255dba1ed9f4e9df645960ae3b9cbcacc1fc7ed0d4130bb7ecf65",
     "clients/android/app/src/androidTest/kotlin/org/daynomy/android/Android30CoreScreenTest.kt": "6d885a354eddf2b34ca081f49bf743f5157940afc66fccc21e7760130f69416c",
-    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/DiscoveryScreenAcceptanceTest.kt": "e9bc2c744bc5a0de8949ad6f8c3a4c25d59cca5a01c9ce6fde321efacbb43094",
-    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/MarketScreenAcceptanceTest.kt": "c279ec99320136caf130eadc8043b7bc552454b8022b3a6da797d8851fb9e066",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/DiscoveryScreenAcceptanceTest.kt": "7b4972a07e1ac2b90111886959191340f3dc74f2b044c626dc6ac4a9af386ee6",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/MarketScreenAcceptanceTest.kt": "7a23467a00b9a7b21fd2c666407711de6dbcb5103e93f3c2143bfb9d556417e5",
     "clients/android/app/build.gradle.kts": "5c65d69c46b615d3cc95ae525e466324e98cddb87a201924aad740f0e61960af",
-    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/ApprovedPortfolioScreenTest.kt": "7df7d8f66e61741a39b3d7fc5101e29a83d42d8c58820f192fb5b867315ae378",
-    "clients/android/app/src/main/kotlin/org/daynomy/android/DiscoveryScreens.kt": "f796c03f87ccb88379ee9e2865aed03c1c1a7bee3f46518ea407999e88c0445a",
-    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/ShellDesignScreenTest.kt": "4d3ba63f5132c78f1be33e402f82e3d9c0fbb6547d03673a9579f26d4967cd85"
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/ApprovedPortfolioScreenTest.kt": "0aaced5b47468123df353a4e8253653f87eea978821bbe6f7c00441478332ad0",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/DiscoveryScreens.kt": "88e76142a8392bf7da06f0fcd5d10a45749f3d256740204f0af8c8f894b7c8c0",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/ShellDesignScreenTest.kt": "44ebd36be1d3e4f94830cacef60b54391a4082d4cd72dfbb2b44edc0e323ed54",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/DiscoveryViewModel.kt": "b0b129c98dcf564845feda2e357e768c5fc315b26c25dc33a8538a897959469a",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryModels.kt": "662be04865a8579de7446132e27d1c533751cbd0d66556bc5775b2c520ca86bc",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryClients.kt": "8d8b00e141392e84be711870a0a637680850b0cd238fb2bf34c515b347665125",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryController.kt": "da6d46ebf660e3498823e8411ef748211101f9d0e1ed77fd5f5d88562497caf1",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/NewsSearchContractTest.kt": "172f109ef508e35807717eb3db291f481f84e0f8ff791044c6f056dd52f57151",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/NewsSearchControllerTest.kt": "ca3e72ee43b2accfae41d590f579eb3be961ce5573cdff008d7dd30c2af298bf",
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/NewsDashboardSearchIntegrationTest.kt": "41a3c21022118a5245ae8b1a9a6a2589a47fd107bb722096cd2b84730e301c2b",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/TodayNewsScreenTest.kt": "5b54ac287374b670990d874eed8b1cdc0bd2ef2dd928201fb891a95eba927b01",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/NewsSearchScreenTest.kt": "86064b195540db3386cf628d693a497648a631de1825ece4f51cbcc90586a0a7"
   },
   "artifacts": {
-    "clients/android/app/build/outputs/apk/debug/app-debug.apk": "a03ad6055d6f248f91163fb114c49e88ff27156dcc8c8fb172de375fca4d6edd",
-    "clients/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk": "df686e2de4267780598e1e3e435225bb4b27143c4052749199883d2ee2515b7d",
+    "clients/android/app/build/outputs/apk/debug/app-debug.apk": "01f59b0d79ac5f27e42704963e264f41029b053956e8293f020732cc1522fe17",
+    "clients/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk": "11a7d7f4418b8344041aecc7ca1820ae651fb611c06764964097bd1b72ac5d1e",
+    "docs/design/2026-11-04-web-reference/android/context-dashboard.png": "9138634b2764a3cff3345b91a6ebcd5ac866a79dd3d93529bdb167189c7bace7",
+    "docs/design/2026-11-04-web-reference/android/context-search.png": "a058dcd15bf3d526ec57191c33c8b9674d0d598f58ada6357bdfeab0549e2585",
+    "docs/design/2026-11-04-web-reference/android/context-dashboard-font200.png": "64070f45792f2989ed54796aad5c486a50dfbb0b431bdac61ef185d12ea0e8c5",
+    "docs/design/2026-11-04-web-reference/android/context-search-font200.png": "592af1967fc2955c0463005c314eadde155f46d240eb410bdb76d8bd93b04bf7",
+    "docs/design/2026-11-04-web-reference/android/shell-news.png": "44824b12154ff873fca882b393843fa6799022dfe235847574eb3e228aa22ca8",
+    "docs/design/2026-11-04-web-reference/android/shell-account.png": "44b9838daea87d5eec3f73464c0ef035e75d75df77dfbe4d2138c1fffb2fae5b",
+    "docs/design/2026-11-04-web-reference/android/shell-account-guest.png": "630caf9faa550b8101d48415134f7adcc239c80f270553f0089fa0d95ffa5fbe",
+    "docs/design/2026-11-04-web-reference/android/approved-normal.png": "c6ce79d97e044c1230852499f5a6ac0eaaf1bbae999fc4ce38240d4b39b7dc63"
+  },
+  "review": "Independent core lifecycle/state review: no finding. Android review found stale exchange context date, fixed with saveable boundDate and verified. Latest normal/font200 dashboard/search captures independently re-reviewed: no visual blocker, no IME or nav label overlap; labels bounded to their item with no font clamping/ellipsis.",
+  "previous_captures": {
     "docs/design/2026-11-04-web-reference/android/approved-normal.png": "0ea2a4c194ecd637c2b52e61ddee14eebbcda06c9cff27dbc2e14014e0a99b7d",
     "docs/design/2026-11-04-web-reference/android/approved-font200.png": "024aa1c6fa854c2194bf96962ec69c2dcb0bad8d7e9d58c280e757f1b094b757",
     "docs/design/2026-11-04-web-reference/android/approved-live.png": "15171d1c284beaceb6b16332aff6e9a2b3c10df96d3a162deb786439590b28c3",
@@ -27,5 +47,9 @@
     "docs/design/2026-11-04-web-reference/android/shell-news-font200.png": "46bcc2875e6c707f7559253b43b32c2afdd54cb1ed26398f8246f2771b747701",
     "docs/design/2026-11-04-web-reference/android/shell-account-font200.png": "cfc82f0445c153957cf857e05c003bce3bb154c5bb4fb172d294d8f5c01b43b2"
   },
-  "review": "approved_mock_validation: independent 8 acceptance cases, static review fixes rechecked, final mock/capture comparison: no visual blocker. ShellDesignScreenTest 6 independent journeys; account 401 and login-cancel retry gates fixed, re-reviewed; news/member/guest portrait captures: no visual blocker."
+  "source_reuse": {
+    "issue": 11,
+    "commit": "3a2d9e46",
+    "scope": "Existing news Search API decoder, validation/controller/sort and tests, merged with today API; source checkout and its uncommitted changes preserved."
+  }
 }

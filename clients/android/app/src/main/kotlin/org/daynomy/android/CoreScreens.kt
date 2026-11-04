@@ -25,7 +25,7 @@ import kotlinx.serialization.json.*
 import org.daynomy.market.Country
 
 @Composable
-fun AccountScreen(model: CoreViewModel, onFeedback: () -> Unit = {}, onExchange: () -> Unit = {}, onLogin: () -> Unit) {
+fun AccountScreen(model: CoreViewModel, onFeedback: () -> Unit = {}, onLogin: () -> Unit) {
     val focus = LocalFocusManager.current
     val profile = model.profile
     var nickname by rememberSaveable(profile?.id, profile?.nickname) { mutableStateOf(profile?.nickname.orEmpty()) }
@@ -79,7 +79,6 @@ fun AccountScreen(model: CoreViewModel, onFeedback: () -> Unit = {}, onExchange:
         if (model.busy) LinearProgressIndicator(Modifier.fillMaxWidth())
         Column {
             Text("서비스", color = PortfolioStyle.muted, style = MaterialTheme.typography.labelLarge, modifier = Modifier.padding(bottom = 8.dp).semantics { heading() })
-            AccountMenu("환율 조회", "날짜별 USD/KRW 환율 확인", "tab-exchange", onExchange)
             AccountMenu("의견 보내기", "이용 중 불편했던 점을 알려주세요", "account-feedback", onFeedback)
         }
         if (profile != null && !model.accountLoading && model.accountError == null) {

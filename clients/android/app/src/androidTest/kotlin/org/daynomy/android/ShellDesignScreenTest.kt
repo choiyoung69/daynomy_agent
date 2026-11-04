@@ -52,6 +52,7 @@ class ShellDesignScreenTest {
                     }
                     "/api/portfolio" -> json("""{"holdings":[],"totalRealizedProfitLoss":0}""")
                     "/api/portfolio/histories" -> json("[]")
+                    "/api/stocks" -> json("""{"stocks":[{"assetId":88,"assetCode":"AAPL","name":"검증용 미국종목","category":"STOCK","market":"NASDAQ","currency":"USD"}]}""")
                     "/api/news" -> if (newsFails) json("""{"code":"UNAVAILABLE","message":"private news diagnostic"}""", 503)
                         else { val current = request.requestUrl?.queryParameter("page")?.toInt() ?: 1; json(page(if (current == 2) 72 else 71, current)) }
                     "/api/news/today" -> json(page(73))
@@ -73,7 +74,7 @@ class ShellDesignScreenTest {
     private fun await(tag: String) { compose.waitUntil(10_000) { compose.onAllNodesWithTag(tag).fetchSemanticsNodes().isNotEmpty() } }
     private fun tab(name: String) { await("tab-$name"); compose.onNodeWithTag("tab-$name").performClick() }
     private fun assertShell() {
-        compose.onNodeWithTag("query").assertIsDisplayed()
+        compose.onNodeWithTag("query").assertDoesNotExist()
         compose.onNodeWithTag("bottom-navigation").assertIsDisplayed()
         listOf("portfolio", "news", "account").forEach { compose.onNodeWithTag("tab-$it").assertIsDisplayed() }
         compose.onNodeWithTag("tab-market").assertDoesNotExist()
@@ -102,10 +103,11 @@ class ShellDesignScreenTest {
             compose.onNodeWithText("독립 검증 본문입니다.").performScrollTo().assertIsDisplayed()
             assertShell()
             compose.onNodeWithTag("news-back").performScrollTo().performClick(); await("news-item-72")
-            compose.onNodeWithTag("news-mode-today").performScrollTo().performClick(); await("news-item-73")
-            compose.onNodeWithTag("category-ALL").assertDoesNotExist()
-            compose.onNodeWithTag("news-next").assertDoesNotExist()
-            compose.onNodeWithTag("news-mode-all").performScrollTo().performClick(); await("news-item-71")
+            await("news-today-73")
+            compose.onNodeWithTag("news-today-73").performScrollTo().performClick(); await("news-detail")
+            compose.onNodeWithTag("news-back").performScrollTo().performClick(); await("news-item-72")
+            compose.onNodeWithTag("news-mode-all").assertDoesNotExist()
+            compose.onNodeWithTag("news-mode-today").assertDoesNotExist()
             assertTrue(requests.any { it.requestUrl?.encodedPath == "/api/news/today" })
         }
     }
@@ -118,7 +120,7 @@ class ShellDesignScreenTest {
             compose.onNodeWithTag("account-profile").assertTextContains("디자인검증회원", substring = true)
             capture("shell-account", "account-profile")
             compose.onNodeWithTag("account-feedback").assertExists()
-            compose.onNodeWithTag("tab-exchange").assertExists()
+            compose.onNodeWithTag("tab-exchange").assertDoesNotExist()
             compose.onNodeWithTag("account-delete").assertExists()
             compose.onNodeWithTag("account-nickname").performScrollTo().performTextReplacement("변경검증회원")
             compose.onNodeWithTag("account-save").performScrollTo().performClick()
@@ -132,7 +134,7 @@ class ShellDesignScreenTest {
         }
     }
 
-    @Test fun guestAccountKeepsFeedbackAndExchangeRoutesWithoutMemberActions() {
+    @Test fun guestAccountKeepsFeedbackWithoutMemberOrExchangeActions() {
         signedIn = false
         launch().use {
             tab("account"); await("account-login"); assertShell()
@@ -140,8 +142,7 @@ class ShellDesignScreenTest {
             compose.onNodeWithTag("account-profile").assertDoesNotExist()
             compose.onNodeWithTag("account-save").assertDoesNotExist()
             compose.onNodeWithTag("account-delete").assertDoesNotExist()
-            compose.onNodeWithTag("tab-exchange").performScrollTo().performClick(); await("exchange-date")
-            tab("account"); await("account-login")
+            compose.onNodeWithTag("tab-exchange").assertDoesNotExist()
             compose.onNodeWithTag("account-feedback").performScrollTo().performClick(); await("feedback-content")
             compose.onNodeWithTag("feedback-close").performClick()
             compose.onNodeWithTag("account-login").assertExists()
@@ -159,6 +160,47 @@ class ShellDesignScreenTest {
             compose.onNodeWithTag("account-profile").assertDoesNotExist()
             compose.onNodeWithTag("account-save").assertDoesNotExist()
             assertTrue(requests.any { it.method == "PATCH" && it.requestUrl?.encodedPath == "/api/users/me" })
+        }
+    }
+
+    @Test fun contextualStockSearchAndUsdExchangeReturnKeepTradeDraft() {
+        launch().use {
+            tab("account"); await("account-profile")
+            compose.onNodeWithTag("query").assertDoesNotExist()
+            compose.onNodeWithTag("tab-exchange").assertDoesNotExist()
+            tab("portfolio"); await("portfolio-stock-search")
+            compose.onNodeWithTag("portfolio-stock-search").performScrollTo().performClick(); await("query")
+            compose.onNodeWithTag("market-exchange").assertDoesNotExist()
+            compose.onNodeWithTag("country-US").performScrollTo().performClick()
+            compose.onNodeWithTag("query").performTextReplacement("AAPL")
+            await("stock-88")
+            compose.onNodeWithTag("market-exchange").performScrollTo().performClick(); await("exchange-date")
+            compose.onNodeWithTag("query").assertDoesNotExist()
+            compose.onNodeWithTag("exchange-back").performClick(); await("query")
+            compose.onNodeWithTag("query").assertTextContains("AAPL")
+            tab("portfolio"); await("transaction-open")
+            compose.onNodeWithTag("transaction-open").performScrollTo().performClick(); await("transaction-asset")
+            compose.onNodeWithTag("transaction-country-US").performScrollTo().performClick()
+            compose.onNodeWithTag("transaction-asset").performScrollTo().performTextReplacement("AAPL")
+            await("transaction-stock-88")
+            compose.onNodeWithTag("transaction-stock-88").performScrollTo().performClick()
+            compose.onNodeWithTag("transaction-quantity").performScrollTo().performTextReplacement("3")
+            compose.onNodeWithTag("transaction-price").performScrollTo().performTextReplacement("217.45")
+            compose.onNodeWithTag("transaction-date").performScrollTo().performTextReplacement("2026-10-23")
+            compose.onNodeWithTag("transaction-rate").performScrollTo().performTextReplacement("1423.123456")
+            compose.onNodeWithTag("transaction-exchange").performScrollTo().performClick(); await("exchange-date")
+            compose.waitUntil(10_000) {
+                compose.onAllNodes(hasTestTag("exchange-date") and hasText("2026-10-23", substring = true)).fetchSemanticsNodes().isNotEmpty() &&
+                    requests.any { it.requestUrl?.encodedPath == "/api/exchange-rates/usd-krw" && it.requestUrl?.queryParameter("date") == "2026-10-23" }
+            }
+            compose.onNodeWithTag("exchange-date").assertTextContains("2026-10-23")
+            compose.onNodeWithTag("exchange-back").performClick(); await("transaction-asset")
+            compose.onNodeWithTag("transaction-quantity").assertTextContains("3")
+            compose.onNodeWithTag("transaction-price").assertTextContains("217.45")
+            compose.onNodeWithTag("transaction-rate").assertTextContains("1423.123456")
+            compose.onNodeWithTag("transaction-date").assertTextContains("2026-10-23")
+            compose.onNodeWithTag("transaction-selected").assertTextContains("AAPL", substring = true)
+            assertTrue(requests.none { it.requestUrl?.encodedPath == "/api/portfolio/transactions" })
         }
     }
 

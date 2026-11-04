@@ -8,6 +8,7 @@ import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextReplacement
 import androidx.test.core.app.ActivityScenario
@@ -68,14 +69,14 @@ class DiscoveryScreenAcceptanceTest {
         launch().use {
             awaitTag("tab-news"); compose.onNodeWithTag("tab-news").performClick()
             awaitTag("news-item-2")
-            compose.onNodeWithTag("category-STOCK").performClick()
+            compose.onNodeWithTag("category-STOCK").performScrollTo().performClick()
             compose.waitUntil(8000) { requests.any { it.requestUrl?.queryParameter("category") == "STOCK" } }
-            awaitTag("news-item-2"); compose.onNodeWithTag("news-next").performClick()
-            awaitTag("news-item-1"); compose.onNodeWithTag("news-item-1").performClick()
+            awaitTag("news-item-2"); compose.onNodeWithTag("news-next").performScrollTo().performClick()
+            awaitTag("news-item-1"); compose.onNodeWithTag("news-item-1").performScrollTo().performClick()
             awaitTag("news-detail"); compose.onNodeWithText("첫 상세 문단").assertIsDisplayed()
             compose.onNodeWithText("둘째 상세 문단").assertIsDisplayed()
-            compose.onNodeWithTag("news-back").performClick()
-            awaitTag("news-item-1"); compose.onNodeWithTag("news-item-1").assertIsDisplayed()
+            compose.onNodeWithTag("news-back").performScrollTo().performClick()
+            awaitTag("news-item-1"); compose.onNodeWithTag("news-item-1").performScrollTo().assertIsDisplayed()
             assertTrue(requests.any { it.path == "/api/news/1" })
             assertTrue(requests.any { it.requestUrl?.queryParameter("page") == "2" && it.requestUrl?.queryParameter("category") == "STOCK" })
         }
@@ -83,14 +84,14 @@ class DiscoveryScreenAcceptanceTest {
 
     @Test fun exchangeShowsActualFallbackDateAndExactRateAndSurvivesRecreation() {
         launch().use { scenario ->
-            awaitTag("tab-account"); compose.onNodeWithTag("tab-account").performClick(); awaitTag("tab-exchange"); compose.onNodeWithTag("tab-exchange").performClick()
+            awaitTag("portfolio-stock-search"); compose.onNodeWithTag("portfolio-stock-search").performScrollTo().performClick(); awaitTag("country-US"); compose.onNodeWithTag("country-US").performClick(); compose.onNodeWithTag("market-exchange").performScrollTo().performClick()
             awaitTag("exchange-date"); compose.onNodeWithTag("exchange-date").performTextReplacement("2026-10-25")
-            assertFalse(requests.any { it.requestUrl?.encodedPath == "/api/exchange-rates/usd-krw" })
-            compose.onNodeWithTag("exchange-load").performClick()
+            assertFalse(requests.any { it.requestUrl?.encodedPath == "/api/exchange-rates/usd-krw" && it.requestUrl?.queryParameter("date") == "2026-10-25" })
+            compose.onNodeWithTag("exchange-load").performScrollTo().performClick()
             awaitTag("exchange-value")
             compose.onNodeWithTag("exchange-value").assertTextContains("1423.123456", substring = true)
             compose.onNodeWithTag("exchange-value").assertTextContains("2026-10-23", substring = true)
-            assertEquals("2026-10-25", requests.last { it.requestUrl?.encodedPath == "/api/exchange-rates/usd-krw" }.requestUrl!!.queryParameter("date"))
+            assertEquals("2026-10-25", requests.last { it.requestUrl?.encodedPath == "/api/exchange-rates/usd-krw" && it.requestUrl?.queryParameter("date") == "2026-10-25" }.requestUrl!!.queryParameter("date"))
             scenario.recreate(); awaitTag("exchange-value")
             compose.onNodeWithTag("exchange-value").assertTextContains("1423.123456", substring = true)
         }
@@ -99,17 +100,17 @@ class DiscoveryScreenAcceptanceTest {
     @Test fun exchangeErrorDoesNotBecomeAQuoteAndExplicitRetryRecovers() {
         exchangeFails = true
         launch().use {
-            awaitTag("tab-account"); compose.onNodeWithTag("tab-account").performClick(); awaitTag("tab-exchange"); compose.onNodeWithTag("tab-exchange").performClick()
+            awaitTag("portfolio-stock-search"); compose.onNodeWithTag("portfolio-stock-search").performScrollTo().performClick(); awaitTag("country-US"); compose.onNodeWithTag("country-US").performClick(); compose.onNodeWithTag("market-exchange").performScrollTo().performClick()
             awaitTag("exchange-date"); compose.onNodeWithTag("exchange-date").performTextReplacement("2026-10-25")
-            compose.onNodeWithTag("exchange-load").performClick(); awaitTag("exchange-error")
+            compose.onNodeWithTag("exchange-load").performScrollTo().performClick(); awaitTag("exchange-error")
             compose.onNodeWithTag("exchange-error").assertIsDisplayed()
             compose.onNodeWithTag("exchange-value").assertDoesNotExist()
             compose.onNodeWithText("private-provider-body").assertDoesNotExist()
-            assertEquals(1, requests.count { it.requestUrl?.encodedPath == "/api/exchange-rates/usd-krw" })
+            assertEquals(1, requests.count { it.requestUrl?.encodedPath == "/api/exchange-rates/usd-krw" && it.requestUrl?.queryParameter("date") == "2026-10-25" })
             exchangeFails = false
-            compose.onNodeWithTag("exchange-retry").performClick(); awaitTag("exchange-value")
+            compose.onNodeWithTag("exchange-retry").performScrollTo().performClick(); awaitTag("exchange-value")
             compose.onNodeWithTag("exchange-value").assertTextContains("1423.123456", substring = true)
-            assertEquals(2, requests.count { it.requestUrl?.encodedPath == "/api/exchange-rates/usd-krw" })
+            assertEquals(2, requests.count { it.requestUrl?.encodedPath == "/api/exchange-rates/usd-krw" && it.requestUrl?.queryParameter("date") == "2026-10-25" })
         }
     }
 }

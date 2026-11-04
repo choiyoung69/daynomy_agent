@@ -15,9 +15,10 @@ class DiscoveryViewModel(baseUrl: String) : ViewModel() {
         .retryOnConnectionFailure(false).followRedirects(false).build()
     private val transport = OkHttpTransport(baseUrl, client)
     val news = NewsController(NewsClient(transport), viewModelScope)
+    val todayNews = NewsController(NewsClient(transport), viewModelScope).apply { selectToday(true) }
     val exchange = ExchangeController(ExchangeRateClient(transport), viewModelScope)
     override fun onCleared() {
-        news.close(); exchange.close()
+        news.close(); todayNews.close(); exchange.close()
         client.dispatcher.cancelAll(); client.connectionPool.evictAll(); client.dispatcher.executorService.shutdown()
     }
 }
