@@ -176,22 +176,22 @@ class ApprovedPortfolioScreenTest {
     @Test fun expiredSessionDuringReevaluationRemovesPriorAccountData() {
         launch().use {
             failReevaluation(401)
-            compose.waitUntil(10_000) { compose.onAllNodesWithTag("portfolio-login").fetchSemanticsNodes().isNotEmpty() }
+            compose.waitUntil(10_000) { compose.onAllNodesWithTag("guest-portfolio").fetchSemanticsNodes().isNotEmpty() }
             compose.onNodeWithTag("portfolio-summary").assertDoesNotExist()
             compose.onNodeWithText("검증용 보유종목", substring = true).assertDoesNotExist()
             compose.onAllNodesWithText("987,654.32", substring = true).assertCountEquals(0)
             compose.onAllNodesWithText("-1,234.56", substring = true).assertCountEquals(0)
-            compose.onNodeWithTag("portfolio-login").performScrollTo().performClick()
+            compose.onNodeWithTag("guest-account").performScrollTo().performClick()
             compose.waitUntil(10_000) { compose.onAllNodesWithTag("account-login").fetchSemanticsNodes().isNotEmpty() }
         }
     }
 
-    @Test fun unauthorizedReadHasNoSyntheticSummaryOrHoldingAndRoutesToAccount() {
+    @Test fun unauthorizedReadShowsSeparateGuestDraftWithoutMemberDataAndCanOpenAccount() {
         readStatus = 401
         launch().use {
-            compose.waitUntil(10_000) { compose.onAllNodesWithTag("portfolio-login").fetchSemanticsNodes().isNotEmpty() }
+            compose.waitUntil(10_000) { compose.onAllNodesWithTag("guest-portfolio").fetchSemanticsNodes().isNotEmpty() }
             assertUnavailableRead()
-            compose.onNodeWithTag("portfolio-login").performScrollTo().performClick()
+            compose.onNodeWithTag("guest-account").performScrollTo().performClick()
             compose.waitUntil(10_000) { compose.onAllNodesWithTag("account-profile").fetchSemanticsNodes().isNotEmpty() }
         }
     }
@@ -210,7 +210,8 @@ class ApprovedPortfolioScreenTest {
         compose.onNodeWithTag("portfolio-summary-amount").assertDoesNotExist()
         compose.onNodeWithText("검증용 보유종목", substring = true).assertDoesNotExist()
         compose.onAllNodesWithText("987,654.32", substring = true).assertCountEquals(0)
-        compose.onNodeWithTag("transaction-open").assertIsNotEnabled()
+        if (readStatus == 401) compose.onNodeWithTag("transaction-open").assertDoesNotExist()
+        else compose.onNodeWithTag("transaction-open").assertIsNotEnabled()
         assertEquals(0, requests.count { it.requestUrl?.encodedPath == "/api/portfolio/calculate" })
     }
 

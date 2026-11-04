@@ -38,6 +38,10 @@ clients/android/gradlew -p clients/android :market-core:test :app:assembleDebug 
 디버그 앱의 기본 API는 현재 로컬 미리보기 서버인 http://10.0.2.2:18109/이다.
 기존 Rust 개발 서버를 18081로 실행한다면 아래 Intent의 `base_url`로 해당 주소를 지정한다.
 일반 Rust 실행법은 [백엔드 안내](../../app/README.md)를 따른다.
+Docker DB와 공통 Rust 서버를 새로 준비하려면 저장소 루트에서
+`python3 scripts/dev_backend.py start --seed`를 실행한다.
+Git 제외 `.env`를 자동 생성하며 API 포트는 기본 `18109`다. `--seed`는 로컬 합성 데이터를
+선택해서 넣는 옵션이며 최신 시세·실제 뉴스·회원 로그인 검증을 뜻하지 않는다.
 실기기는 자신의 개발 서버 주소·TLS 또는 adb reverse에 맞춰 연결해야 하며 이번 실험은 API33 ARM64 에뮬레이터에서 실행했다.
 
 ```sh
@@ -55,6 +59,21 @@ release의 실제 API 주소는 아직 구성하지 않았고 배포용 앱은 �
 거래 응답을 잃으면 결과 미확정으로 표시하고 자동 재전송하지 않는다. 내역을 다시 조회해 확인한다.
 
 ## 실제 검증
+
+2026-11-04 비회원 작성·평가 확장: 회원 조회 401이면 별도의 임시 포트폴리오에서
+종목 검색·수량·원화 평균 매수가 입력·수정/제거·공개 평가를 사용할 수 있다.
+임시 목록은 회전·탭 이동에 유지되며 앱 프로세스 종료 시 사라진다. 상세 계약과 검사 범위는
+[비회원 포트폴리오](../../spec/android-native/guest-portfolio.md)를 따른다.
+로그인한 계정의 자산 조회·저장과 분리하며 기존 인증·CSRF를 유지한다.
+
+공유 에뮬레이터에서 다른 작업이 기본 앱을 재설치하는 경우 디버그 미리보기를 별도 패키지로
+빌드할 수 있다. 기본 applicationId와 release 설정은 유지한다.
+
+```sh
+clients/android/gradlew -p clients/android :app:assembleDebug -PpreviewApplicationIdSuffix=.guestnews
+# 해당 APK의 Activity 실행 이름
+adb -s <serial> shell am start -n org.daynomy.android.guestnews/org.daynomy.android.MainActivity --es base_url http://10.0.2.2:18109/
+```
 
 1. 독립 테스트를 빈 구현 복사본에서 실행해 최초49개가 모두 실패함을 확인하고 해시를 고정했다.
 2. API 구현2개를 병렬 배정하고, 연결 화면·상태·실제 HTTP 취소를 구현했다.

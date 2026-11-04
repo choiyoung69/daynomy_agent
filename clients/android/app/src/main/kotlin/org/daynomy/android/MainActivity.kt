@@ -74,6 +74,7 @@ class MainActivity : ComponentActivity() {
                     initializer { DiscoveryViewModel(baseUrl) }
                 })
                 val core: CoreViewModel = viewModel(factory = viewModelFactory { initializer { CoreViewModel(baseUrl) } })
+                val guest: GuestPortfolioViewModel = viewModel(factory = viewModelFactory { initializer { GuestPortfolioViewModel(baseUrl) } })
                 val feedback: FeedbackViewModel = viewModel(factory = viewModelFactory { initializer { FeedbackViewModel(baseUrl) } })
                 var feedbackOpen by rememberSaveable { mutableStateOf(false) }
                 var tab by rememberSaveable { mutableStateOf("portfolio") }
@@ -130,7 +131,9 @@ class MainActivity : ComponentActivity() {
                                     try { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(core.loginUrl()))) }
                                     catch (_: Exception) { core.showMessage("로그인 브라우저를 열지 못했습니다. 다시 시도해 주세요.") }
                                 }
-                                "portfolio" -> PortfolioScreen(core, onAccount = { tab = "account" },
+                                "portfolio" -> if (core.portfolioRequiresLogin && core.profile == null) {
+                                    GuestPortfolioScreen(guest, onAccount = { tab = "account" })
+                                } else PortfolioScreen(core, onAccount = { tab = "account" },
                                     onStockSearch = { tab = "market" }, onExchange = { openExchange(it) })
                                 else -> MarketScreen(state, model.controller, onBack = { tab = "portfolio" },
                                     onExchange = { openExchange((state.price as? LoadState.Ready)?.value?.baseDate ?: java.time.LocalDate.now().toString()) })
