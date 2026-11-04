@@ -44,6 +44,10 @@ import XCTest
         // Wait on quote's visible reference date, rather than sleeping, then check empty dirty value.
         let date = app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "2026-10-24")).firstMatch
         XCTAssertTrue(date.waitForExistence(timeout: 10))
-        XCTAssertEqual(price.value as? String, "")
+        // iOS 27 exposes the placeholder as value for an empty SwiftUI TextField.
+        let value = price.value as? String
+        let placeholder = price.placeholderValue
+        XCTAssertEqual(placeholder, "단가")
+        XCTAssertTrue(value == "" || (placeholder == "단가" && value == placeholder), "Manual deletion must remain empty, never 77 or the delayed quote: \(String(describing: value))")
     }
 }

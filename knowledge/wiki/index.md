@@ -85,6 +85,8 @@ source_ids: ["E01", "P02", "G01", "F01", "F04"]
 
 ### [iOS + Swift](packages/ios-swift/index.md)
 
+현재 앱의 iOS 17·Swift 6 선택과 SDK 검사 경로는 [iOS 준비 문서](platforms/ios.md)를 따른다. SDK/코어/상태/화면의 실제 검증 범위는 [후속 실행 기록](../../experiments/ios-sdk-verification/README.md)에서 구분한다.
+
 [타입·null·JSON](packages/ios-swift/types-and-json.md) · [숫자·금액](packages/ios-swift/numbers-and-money.md) · [날짜·Unicode](packages/ios-swift/dates-and-unicode.md) · [컬렉션·모델 복사](packages/ios-swift/collections-and-models.md) · [비동기·취소](packages/ios-swift/async-and-cancellation.md) · [상태·탐색·수명](packages/ios-swift/state-and-navigation.md) · [오류·트랜잭션](packages/ios-swift/errors-and-transactions.md) · [인증·저장소](packages/ios-swift/auth-and-storage.md) · [모듈·의존성·검증](packages/ios-swift/modules-and-testing.md)
 
 ### [React Native + TypeScript](packages/react-native-typescript/index.md)

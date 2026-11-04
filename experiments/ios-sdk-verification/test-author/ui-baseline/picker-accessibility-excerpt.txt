@@ -1,0 +1,5 @@
+                              Other, 0x107706800, {{16.0, 439.3}, {370.0, 52.3}} <AX element pid: 41262, elementOrHash.elementID: 4768567808.246>
+                                Other, 0x107706940, {{16.0, 439.3}, {370.0, 52.3}} <AX element pid: 41262, elementOrHash.elementID: 4843043200.263>
+                                  Button, 0x107706a80, {{32.0, 448.3}, {338.0, 34.3}}, label: '유형, 매수' <AX element pid: 41262, elementOrHash.elementID: 4571262976.275>
+                                    StaticText, 0x107706bc0, {{324.0, 455.3}, {29.7, 20.3}}, label: '매수' <AX element pid: 41262, elementOrHash.elementID: 4842754432.288>
+                                  StaticText, 0x107706d00, {{32.0, 455.3}, {29.7, 20.3}}, label: '유형' <AX element pid: 41262, elementOrHash.elementID: 4843043040.276>

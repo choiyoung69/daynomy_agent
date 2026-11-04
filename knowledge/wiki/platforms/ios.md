@@ -1,6 +1,6 @@
 ---
 title: iOS 네이티브 사전 지식
-confirmed_on: 2026-10-28
+confirmed_on: 2026-11-04
 review_status: static-reviewed
 runtime_status: not-run
 source_ids: ["F04", "B04", "E13", "E18", "E26", "Q08", "E08", "E33", "E42", "E43", "E49"]
@@ -8,7 +8,7 @@ source_ids: ["F04", "B04", "E13", "E18", "E26", "Q08", "E08", "E33", "E42", "E43
 
 # iOS 네이티브 사전 지식
 
-Swift·SwiftUI는 현재 후보이며 지원 OS·언어 버전은 미정이다.
+현재 앱은 iOS 17 이상·Swift 6 언어 모드·SwiftUI·Foundation URLSession을 사용한다. 기존 선택 근거는 `clients/ios/Package.swift`, Xcode 프로젝트와 `spec/ios-native/full-contract.md`다. 이 문서의 준비 상태는 앱 전체 인수 완료와 구분한다.
 
 ## 공식 근거와 이식 적용
 
@@ -40,7 +40,7 @@ macOS Swift 예제에서 Int64, Optional 누락/null, Decimal, 문자열 차이�
 기본 제안은 Swift + SwiftUI + Foundation URLSession/JSONDecoder다(E08/E42/E43).
 앱 모델과 view 의존성을 분리하고(E33) UI 갱신의 actor 격리를 명시한다.
 Observation의 SwiftUI 지원은 iOS 17부터라는 공식 조건을 확인했으며(E33),
-더 낮은 지원 OS를 선택하면 대응 상태 모델을 별도로 정한다. 현재 최소 OS를 승인된 값으로 확정하지 않는다.
+더 낮은 지원 OS를 선택하면 대응 상태 모델을 별도로 정한다. 현재 앱의 최소 OS는 기존 프로젝트와 패키지의 iOS 17 선택을 유지한다.
 
 - 검색어·국가·선택·dirty 단가·요청 세대를 모델에서 관리하고 task(id:)의 사용 가능한 오버로드를 SDK와 대조한다.
   E18의 name/file/line 매개변수 설명은 새 OS 조건이 있으므로 오래된 OS에 그대로 적용하지 않는다.
@@ -54,7 +54,7 @@ Observation의 SwiftUI 지원은 iOS 17부터라는 공식 조건을 확인했�
 
 Xcode 선택 경로·SDK·Swift 언어 모드·지원 iOS·scheme·simulator destination을 잠근다.
 생성한 프로젝트에서 xcodebuild -list로 실제 scheme을 확인한 뒤 build/test 명령과 destination을 기록한다.
-현재 호스트는 활성 Xcode/시뮬레이터가 준비되지 않아 이 빌드를 실행하지 않았다.
+2026-11-04 Xcode 27.1(27A9275), Apple Swift 6.4 컴파일러의 Swift 6 언어 모드와 iPhoneSimulator SDK 27.1에서 앱·UI 테스트 타깃의 build-for-testing이 성공했다. 전역 선택 경로는 CLT이므로 명령별 DEVELOPER_DIR를 지정한다. 실제 화면·공급자 인수는 별도다.
 선택한 OS에서 화면 이탈·재진입·응답 역전·입력 보존·쿠키/로그인 복귀를 재현한다.
 
 [Swift 패키지](../languages/swift.md), [인증·저장](../shared/auth-storage.md),
@@ -63,3 +63,9 @@ Xcode 선택 경로·SDK·Swift 언어 모드·지원 iOS·scheme·simulator des
 ## 상세 패키지
 
 [iOS + Swift 주제별 문서](../packages/ios-swift/index.md)를 공통·기능 계약과 함께 선택한다.
+
+## 현재 구현에 적용할 데이터·상태 계약
+
+- `spec/ios-native/interfaces.md`와 `clarifications.md`: JSON 금액 원문 보존, safe integer ID, 취소와 요청 세대, 검색 초안·수동 단가의 보존 경계를 유지한다.
+- `spec/ios-native/full-contract.md`: Decimal 원장과 원자적 실패 복구, CSRF·쿠키·로그아웃 세대와 늦은 응답 무효화를 따른다. 게스트 기록·인증 쿠키는 앱 세션 메모리 수명이며 영구 저장으로 확대하지 않는다.
+- 후속 상태 리뷰의 발견·수정·검증은 `experiments/ios-next-verification/review.md` 및 이번 iOS 빌드·회귀 PR에 구분해 기록한다. 문서화·SDK 빌드 성공은 모든 상태 전이의 의미 정확성이나 화면 실행 성공을 뜻하지 않는다.

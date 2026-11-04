@@ -1,0 +1,2 @@
+PASS financial navigation identity follows login state and user ID
+STATIC IDENTITY 1 check; failures 0

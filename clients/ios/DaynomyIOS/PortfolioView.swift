@@ -60,24 +60,28 @@ func stockFromValue(_ value: ServiceValue) throws -> Stock {
                 try Task.checkCancellation(); guard loadGeneration == generation else { return }
                 guard let rows = value.field("holdings").array,
                       let profit = Decimal(string: value.field("totalRealizedProfitLoss").display) else { throw MarketError.invalidResponse }
-                holdings = try rows.map { item in
+                let nextHoldings = try rows.map { item in
                     guard let quantity = Int64(item.field("quantity").display), quantity > 0,
                           let price = Decimal(string: item.field("averagePurchasePrice").display), price > 0 else { throw MarketError.invalidResponse }
                     return LocalHolding(stock: try stockFromValue(item), quantity: quantity, averagePurchasePrice: price)
                 }
-                realized = profit
+                // A valuation belongs to one holdings snapshot, including when a later request fails.
+                calculation = .null; holdings = nextHoldings; realized = profit
+                history = []; transactions = []
                 let histories = try await client.request(path: "/api/portfolio/histories", query: ["from": "1900-01-01", "to": portfolioToday()])
                 try Task.checkCancellation(); guard loadGeneration == generation else { return }; guard let rows = histories.array else { throw MarketError.invalidResponse }
-                history = rows
-                transactions = try rows.filter { ["BUY", "SELL"].contains($0.field("changeType").display) }.map { item in
+                let nextTransactions = try rows.filter { ["BUY", "SELL"].contains($0.field("changeType").display) }.map { item in
                     guard let id = Int64(item.field("historyId").display), let quantity = Int64(item.field("transactionQuantity").display),
                           let type = LocalTradeType(rawValue: item.field("changeType").display) else { throw MarketError.invalidResponse }
                     return LocalTrade(id: id, stock: try stockFromValue(item), type: type, date: item.field("effectiveDate").display, quantity: quantity,
                                       unitPrice: item.field("unitPrice").display, fee: item.field("fee").display, tax: item.field("tax").display,
                                       exchangeRate: item.field("exchangeRate").display.isEmpty ? nil : item.field("exchangeRate").display)
                 }
+                history = rows; transactions = nextTransactions
             } else {
-                holdings = try guest.holdings(); transactions = guest.trades; realized = try guest.realizedProfitLoss()
+                let nextHoldings = try guest.holdings()
+                let nextRealized = try guest.realizedProfitLoss()
+                calculation = .null; holdings = nextHoldings; transactions = guest.trades; realized = nextRealized
             }
             if !holdings.isEmpty {
                 let result = try await client.request(path: "/api/portfolio/calculate", method: "POST", body: .object(["holdings": holdingBody(holdings)]), csrf: true, retryUnauthorized: member)
@@ -144,7 +148,9 @@ func stockFromValue(_ value: ServiceValue) throws -> Stock {
                 body = .object(["quantity": .number(String(count)), "averagePurchasePrice": .number(moneyText(price))])
             }
             if !member {
-                guard let count = Int64(quantity) else { throw PortfolioError.invalidTrade }
+                let count: Int64
+                if removing { count = 0 }
+                else { guard let parsed = Int64(quantity) else { throw PortfolioError.invalidTrade }; count = parsed }
                 var proposed = try refreshedGuest()
                 let change = HoldingAdjustment(id: nextGuestID, stock: holding.stock, date: portfolioToday(), quantity: removing ? 0 : count, averagePurchasePrice: removing ? "0" : average, kind: removing ? .removed : .adjusted)
                 try proposed.changeHolding(change)
@@ -277,6 +283,7 @@ func stockFromValue(_ value: ServiceValue) throws -> Stock {
     @State private var rate = ""
     @State private var priceEdited = false
     @State private var searching = false
+    @State private var searchGeneration: UInt64 = 0
     @State private var quoteStatus = ""
     @State private var localError = ""
     @State private var quoteTask: Task<Void, Never>?
@@ -319,31 +326,42 @@ func stockFromValue(_ value: ServiceValue) throws -> Stock {
             .navigationTitle(existing == nil ? "거래 기록" : "거래 수정")
             .toolbar { ToolbarItem(placement: .cancellationAction) { Button("닫기") { dismiss() }.disabled(store.busy) } }
             .scrollDismissesKeyboard(.interactively)
-            .task(id: "\(query)|\(country.rawValue)") { await search() }
+            .task(id: "\(query)|\(country.rawValue)|\(selected?.assetId.description ?? "none")") { await search() }
             .onAppear {
                 store.error = ""
                 if let trade = existing { selected = trade.stock; type = trade.type; date = trade.date; quantity = String(trade.quantity); price = trade.unitPrice; fee = trade.fee; tax = trade.tax; rate = trade.exchangeRate ?? ""; priceEdited = true }
             }
-            .onDisappear { quoteTask?.cancel() }
+            .onDisappear { quoteTask?.cancel(); searchGeneration &+= 1; searching = false; matches = [] }
         }
     }
     private func search() async {
+        searchGeneration &+= 1; let generation = searchGeneration
         let text = query.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard selected == nil, !text.isEmpty else { matches = []; return }
-        searching = true; localError = ""
-        defer { if !Task.isCancelled { searching = false } }
+        let requestedCountry = country
+        matches = []; searching = false; localError = ""
+        guard selected == nil, !text.isEmpty, !Task.isCancelled else { return }
+        searching = true
+        defer { if searchGeneration == generation { searching = false } }
         do {
             try await Task.sleep(for: .milliseconds(300))
             let result: [Stock]
-            if let marketAPI { result = try await marketAPI.search(keyword: text, country: country) }
+            if let marketAPI { result = try await marketAPI.search(keyword: text, country: requestedCountry) }
             else {
-                let response = try await client.request(path: "/api/stocks", query: ["q": text, "country": country.rawValue], retryUnauthorized: false)
+                let response = try await client.request(path: "/api/stocks", query: ["q": text, "country": requestedCountry.rawValue], retryUnauthorized: false)
                 result = try response.field("stocks").rows.map(stockFromValue)
             }
-            try Task.checkCancellation(); matches = result
-        } catch { if !Task.isCancelled { localError = "종목 검색에 실패했어요. 검색어를 다시 입력해 주세요." } }
+            try Task.checkCancellation()
+            guard searchGeneration == generation, selected == nil, country == requestedCountry,
+                  query.trimmingCharacters(in: .whitespacesAndNewlines) == text else { return }
+            matches = result
+        } catch {
+            if !Task.isCancelled && searchGeneration == generation && selected == nil && country == requestedCountry && query.trimmingCharacters(in: .whitespacesAndNewlines) == text {
+                localError = "종목 검색에 실패했어요. 검색어를 다시 입력해 주세요."
+            }
+        }
     }
     private func select(_ stock: Stock) {
+        searchGeneration &+= 1; searching = false; matches = []
         selected = stock; price = ""; priceEdited = false; quoteStatus = "최근 종가를 확인하는 중이에요."; quoteTask?.cancel()
         quoteTask = Task {
             do {

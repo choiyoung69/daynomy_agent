@@ -1,0 +1,11 @@
+PASS search uses content
+PASS regular list uses items
+PASS search cannot prefer unrelated items
+PASS regular list cannot prefer unrelated content
+PASS wrong search shape does not fallback
+PASS wrong list shape does not fallback
+PASS null search is empty
+PASS non-array content is empty
+PASS admin codes exactly match accepted backend enum and order
+PASS unsupported ECONOMY cannot be authored
+PRESENTATION CONTRACT 10 checks; failures 0

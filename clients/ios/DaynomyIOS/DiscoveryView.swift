@@ -13,7 +13,8 @@ func publicLink(_ text: String) -> URL? {
     guard let url = URL(string: text), ["http", "https"].contains(url.scheme?.lowercased() ?? ""), url.host != nil, url.user == nil, url.password == nil else { return nil }; return url
 }
 func relatedNewsID(_ value: String) -> String? {
-    guard let path = URLComponents(string: value)?.path.split(separator: "/"), path.count == 2, path[0] == "news", let id = Int64(path[1]), id > 0 else { return nil }
+    guard value.hasPrefix("/news/"), let id = Int64(value.dropFirst(6)), id > 0,
+          value == "/news/\(id)" else { return nil }
     return String(id)
 }
 let newsCategories = [("ALL", "전체"), ("STOCK", "주식"), ("ETF", "ETF"), ("ECONOMY", "경제지표"), ("REAL_ESTATE", "부동산"), ("DEPOSIT_SAVINGS", "예금·적금"), ("BOND", "채권"), ("PENSION", "연금"), ("FOREIGN_EXCHANGE", "외화·환율"), ("VIRTUAL_ASSET", "가상자산"), ("GOLD", "금")]

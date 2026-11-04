@@ -19,6 +19,9 @@ import DaynomyCore
     @State private var analysisError = ""
     @State private var retry = 0
     @State private var showAnalysisHistory = false
+    @State private var analysisAccountKey = ""
+    @State private var analysisGeneration: UInt64 = 0
+    @State private var calendarGeneration: UInt64 = 0
     private var yearNumber: Int { Calendar(identifier: .gregorian).component(.year, from: month) }
     private var monthNumber: Int { Calendar(identifier: .gregorian).component(.month, from: month) }
     private var accountKey: String { "\(session.isLoggedIn)|\(session.user?.field("id").display ?? "guest")" }
@@ -95,14 +98,19 @@ import DaynomyCore
             }
         }
         .navigationTitle("일정과 분석")
+        .onChange(of: accountKey) { _, _ in synchronizeAnalysisAccount() }
+        .onDisappear { analysisGeneration &+= 1; calendarGeneration &+= 1; analyzing = false; loading = false }
         .task(id: requestKey) { await loadCalendar() }
         .task(id: accountKey) { await loadSavedAnalysis() }
         .refreshable { retry += 1; await loadSavedAnalysis() }
     }
     private func changeMonth(_ offset: Int) { if let value = Calendar(identifier: .gregorian).date(byAdding: .month, value: offset, to: month) { month = value } }
     private func loadCalendar() async {
+        synchronizeAnalysisAccount()
+        calendarGeneration &+= 1; let generation = calendarGeneration
+        let startedRequest = requestKey
         loading = true; error = ""; calendar = .null
-        defer { if !Task.isCancelled { loading = false } }
+        defer { if calendarGeneration == generation { loading = false } }
         do {
             let query = ["year": String(yearNumber), "month": String(monthNumber), "scope": scope]
             let result: ServiceValue
@@ -111,32 +119,44 @@ import DaynomyCore
                 let rows: [ServiceValue] = holdings.map { .object(["assetId": .number(String($0.stock.assetId)), "quantity": .number(String($0.quantity))]) }
                 result = try await client.request(path: "/api/investment-calendar", method: "POST", query: query, body: .object(["holdings": .array(rows)]), csrf: true, retryUnauthorized: false)
             }
-            try Task.checkCancellation()
+            try Task.checkCancellation(); guard calendarGeneration == generation, requestKey == startedRequest else { return }
             guard result.field("events").array != nil, result.field("year").number != nil, result.field("month").number != nil else { throw MarketError.invalidResponse }
             calendar = result
-        } catch { if !Task.isCancelled { self.error = friendlyServiceError(error) } }
+        } catch { if !Task.isCancelled && calendarGeneration == generation && requestKey == startedRequest { self.error = friendlyServiceError(error) } }
+    }
+    private func synchronizeAnalysisAccount() {
+        guard analysisAccountKey != accountKey else { return }
+        analysisAccountKey = accountKey; analysisGeneration &+= 1
+        savedAnalysis = .null; analysis = .null; history = []; showAnalysisHistory = false
+        analysisError = ""; analyzing = false
+        calendarGeneration &+= 1; calendar = .null; error = ""; loading = false
     }
     private func loadSavedAnalysis() async {
-        guard session.isLoggedIn else { savedAnalysis = .null; analysis = .null; history = []; showAnalysisHistory = false; return }
-        let startedAccount = accountKey
+        synchronizeAnalysisAccount()
+        guard session.isLoggedIn, !analyzing else { return }
+        analysisGeneration &+= 1
+        let startedAccount = accountKey, generation = analysisGeneration
         do {
             let result = try await client.request(path: "/api/users/me/portfolio/analysis")
-            try Task.checkCancellation(); guard accountKey == startedAccount else { return }; try acceptSaved(result)
-        } catch { if !Task.isCancelled { analysisError = friendlyServiceError(error) } }
+            try Task.checkCancellation(); guard accountKey == startedAccount, analysisGeneration == generation else { return }; try acceptSaved(result)
+        } catch { if !Task.isCancelled && accountKey == startedAccount && analysisGeneration == generation { analysisError = friendlyServiceError(error) } }
     }
     private func acceptSaved(_ result: ServiceValue) throws {
         guard ["EMPTY", "READY", "PORTFOLIO_CHANGED", "PROCESSING", "RECHECK_REQUIRED", "FAILED"].contains(result.field("status").display) else { throw MarketError.invalidResponse }
         savedAnalysis = result
-        if result.field("analysis").object != nil { analysis = result.field("analysis") }
+        analysis = result.field("status").display == "EMPTY" ? .null : (result.field("analysis").object != nil ? result.field("analysis") : .null)
         analysisError = result.field("status").display == "FAILED" ? "새 분석을 완료하지 못했어요. 이전 분석이 있다면 계속 볼 수 있어요." : ""
     }
     private func runAnalysis(refresh: Bool) async {
-        guard !analyzing else { return }; let startedAccount = accountKey; analyzing = true; analysisError = ""
-        defer { analyzing = false }
+        synchronizeAnalysisAccount()
+        guard !analyzing else { return }
+        analysisGeneration &+= 1
+        let startedAccount = accountKey, generation = analysisGeneration; analyzing = true; analysisError = ""
+        defer { if accountKey == startedAccount && analysisGeneration == generation { analyzing = false } }
         do {
             if session.isLoggedIn {
                 let result = try await client.request(path: "/api/users/me/portfolio/analysis" + (refresh ? "/refresh" : ""), method: "POST", csrf: true)
-                try Task.checkCancellation(); guard accountKey == startedAccount else { return }; try acceptSaved(result)
+                try Task.checkCancellation(); guard accountKey == startedAccount, analysisGeneration == generation else { return }; try acceptSaved(result)
             } else {
                 let assets = calculation.field("holdings").rows.compactMap { row -> ServiceValue? in
                     guard let raw = row.field("weight").number, let weight = Decimal(string: raw), weight > 0 else { return nil }
@@ -144,25 +164,26 @@ import DaynomyCore
                 }
                 guard !assets.isEmpty else { throw ServiceError(status: 400, message: "평가 가능한 보유 자산이 없어요. 종가가 있는 자산을 먼저 확인해 주세요.") }
                 let result = try await client.request(path: "/api/portfolio/analysis", method: "POST", body: .object(["assets": .array(assets)]), retryUnauthorized: false)
-                try Task.checkCancellation(); guard accountKey == startedAccount else { return }; guard result.field("impacts").array != nil, result.field("overallImpact").string != nil else { throw MarketError.invalidResponse }
+                try Task.checkCancellation(); guard accountKey == startedAccount, analysisGeneration == generation else { return }; guard result.field("impacts").array != nil, result.field("overallImpact").string != nil else { throw MarketError.invalidResponse }
                 analysis = result
             }
         } catch {
-            if !Task.isCancelled && accountKey == startedAccount {
+            if !Task.isCancelled && accountKey == startedAccount && analysisGeneration == generation {
                 if (error as? ServiceError)?.status == 409 { analysisError = "이미 분석 중이거나 포트폴리오가 변경됐어요. 잠시 후 분석 확인을 눌러 주세요." }
                 else { analysisError = friendlyServiceError(error) }
             }
         }
     }
     private func loadAnalysisHistory() async {
-        guard !analyzing else { return }; let startedAccount = accountKey; analyzing = true; analysisError = ""
-        defer { analyzing = false }
+        synchronizeAnalysisAccount()
+        guard session.isLoggedIn, !analyzing else { return }; let startedAccount = accountKey, generation = analysisGeneration; analyzing = true; analysisError = ""
+        defer { if accountKey == startedAccount && analysisGeneration == generation { analyzing = false } }
         do {
             let result = try await client.request(path: "/api/users/me/portfolio/analysis/history")
-            try Task.checkCancellation(); guard accountKey == startedAccount else { return }
+            try Task.checkCancellation(); guard accountKey == startedAccount, analysisGeneration == generation else { return }
             guard let rows = result.array ?? result.field("items").array ?? result.field("histories").array else { throw MarketError.invalidResponse }
             history = rows; showAnalysisHistory = true
-        } catch { if accountKey == startedAccount && !Task.isCancelled { analysisError = friendlyServiceError(error) } }
+        } catch { if accountKey == startedAccount && analysisGeneration == generation && !Task.isCancelled { analysisError = friendlyServiceError(error) } }
     }
 }
 
@@ -222,6 +243,8 @@ func analysisStatus(_ value: String) -> String {
     @State private var loading = false
     @State private var error = ""
     @State private var retry = 0
+    @State private var historyGeneration: UInt64 = 0
+    @State private var historyAccountKey = ""
     private var accountKey: String { "\(session.isLoggedIn)|\(session.user?.field("id").display ?? "guest")" }
     var body: some View {
         List {
@@ -270,7 +293,10 @@ func analysisStatus(_ value: String) -> String {
             }
         }
         .navigationTitle("자산 추이와 이력")
-        .onChange(of: accountKey) { _, _ in clearHistory() }
+        .onChange(of: accountKey) { _, _ in
+            if historyAccountKey != accountKey { historyAccountKey = accountKey; clearHistory() }
+        }
+        .onDisappear { clearHistory() }
         .task(id: "\(accountKey)|\(retry)") { await load() }
     }
     private struct PerformanceChartPoint: Identifiable {
@@ -295,24 +321,26 @@ func analysisStatus(_ value: String) -> String {
         }.sorted { $0.date < $1.date }
     }
     private func clearHistory() {
+        historyGeneration &+= 1
         performance = .null; histories = []; error = ""; loading = false
     }
     private func load() async {
+        historyAccountKey = accountKey
         clearHistory()
         guard session.isLoggedIn else { return }
-        let startedAccount = accountKey
+        let startedAccount = accountKey, generation = historyGeneration
         guard from <= to, to <= portfolioToday(), from.range(of: #"^\d{4}-\d{2}-\d{2}$"#, options: .regularExpression) != nil, to.range(of: #"^\d{4}-\d{2}-\d{2}$"#, options: .regularExpression) != nil else { error = "올바른 날짜 범위를 입력해 주세요."; return }
         loading = true
-        defer { if !Task.isCancelled && accountKey == startedAccount { loading = false } }
+        defer { if accountKey == startedAccount && historyGeneration == generation { loading = false } }
         do {
             let query = ["from": from, "to": to]
             let result = try await client.request(path: "/api/users/me/portfolio/performance", query: query)
-            try Task.checkCancellation(); guard accountKey == startedAccount else { return }
+            try Task.checkCancellation(); guard accountKey == startedAccount, historyGeneration == generation else { return }
             guard result.field("points").array != nil else { throw MarketError.invalidResponse }; performance = result
             let history = try await client.request(path: "/api/portfolio/histories", query: query)
-            try Task.checkCancellation(); guard accountKey == startedAccount else { return }
+            try Task.checkCancellation(); guard accountKey == startedAccount, historyGeneration == generation else { return }
             guard let rows = history.array else { throw MarketError.invalidResponse }; histories = rows
-        } catch { if !Task.isCancelled && accountKey == startedAccount { self.error = friendlyServiceError(error) } }
+        } catch { if !Task.isCancelled && accountKey == startedAccount && historyGeneration == generation { self.error = friendlyServiceError(error) } }
     }
     private func historyType(_ value: String) -> String { ["BUY": "매수", "SELL": "매도", "ADJUSTED": "보유 조정", "REMOVED": "보유 삭제", "OPENING_BALANCE": "기초 잔고", "ADDED": "추가", "UPDATED": "수정"][value] ?? value }
 }

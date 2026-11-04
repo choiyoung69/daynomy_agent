@@ -46,7 +46,8 @@ import XCTest
         let quote = app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "2026-10-24 종가 기준")).firstMatch
         XCTAssertTrue(quote.waitForExistence(timeout: 10))
         if side == "매도" {
-            let picker = app.buttons["유형"]
+            // SwiftUI exposes the current value in the iOS 27 picker button label.
+            let picker = app.buttons.matching(NSPredicate(format: "label == %@ OR label == %@", "유형", "유형, 매수")).firstMatch
             reveal(picker, in: app); picker.tap(); app.buttons["매도"].tap()
         }
         replace(field("tradeQuantity", in: app), with: quantity, in: app)

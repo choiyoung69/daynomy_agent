@@ -1,0 +1,18 @@
+FAIL new search immediately removes selectable old matches
+FAIL ABA old failure cannot set error or stop newer loading
+FAIL uncancelled old success cannot replace newest country result
+FAIL selecting stock invalidates pending search result
+FAIL explicit guest removal ignores invalid editable quantity and average
+FAIL guest removal records adjustment while preserving all original transactions
+PASS invalid-field guest removal stays entirely local
+FAIL member holdings change invalidates old valuation before histories completes
+FAIL history failure after changed holdings cannot leave previous valuation
+PASS A saved analysis initially accepted
+FAIL B request clears A data before network completes
+FAIL B network failure cannot restore A analysis
+PASS same-account refresh preserves last good while pending
+PASS same-account transport failure preserves last good analysis with error
+FAIL late previous-account transport error cannot overwrite current account
+FAIL older same-account refresh failure cannot overwrite newer success
+PASS late GET EMPTY cannot clear newer POST READY analysis
+ASYNC STATE CONTRACT 17 checks; failures 12

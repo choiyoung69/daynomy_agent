@@ -13,32 +13,29 @@ SwiftUI·iOS 17 이상·Swift 6 언어 모드의 네이티브 클라이언트다
 
 리그·이메일 알림·배포는 제외한다. 웹 전용 소개/약관・개인정보 문구의 iOS 정책 확정, 마케팅 투어·미디어 내장 임베드·정밀한 차트/화면 재현은 남아 있다. 외부 미디어는 출처 링크로 열며 실제 제공자 로그인/AI/이미지/소셜 실행 검증은 별도다.
 
-**현재 환경에는 full Xcode·iOS SDK가 없다.** 코어의 호스트·실제 HTTP 검사와 네이티브 화면 소스 작성/구문 검사를 iOS 앱 빌드·기기 실행 성공으로 보지 않는다. 검증한 범위와 미완료 항목은 [30분 확장 기록](../../runs/016-ios-full-thirty-minute.md)을 따른다.
+**2026-11-04 현재 Xcode 27.1·iOS Simulator SDK 27.1로 앱과 UI 테스트 타깃의 빌드가 통과했다.** 코어의 정식 Swift Testing 51개도 새 실행에서 통과했다. 화면·상태 회귀와 과거 HTTP/DB 근거의 범위는 [이번 검증 기록](../../experiments/ios-sdk-verification/README.md)에서 구분한다. 과거 CLT/Xcode 부재 기록을 현재 환경의 사실로 사용하지 않는다.
 
 ## 실행과 검사
 
-저장소 루트에서 현재 CLT 환경의 고정된 코어 테스트 본문을 실행한다:
+기본 developer directory가 CLT일 수 있어 각 명령에 Xcode 경로를 지정한다. 전역 설정은 바꾸지 않는다.
 
 ```sh
-python3 experiments/ios-full/test-author/run_host_tests.py
+DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer swift test --package-path clients/ios
+DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcodebuild -project clients/ios/DaynomyIOS.xcodeproj -scheme DaynomyIOS -destination 'generic/platform=iOS Simulator' -derivedDataPath .local/ios-derived CODE_SIGNING_ALLOWED=NO build-for-testing
+DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcrun simctl list devices available
 ```
 
-현재 CLT는 `lib_TestingInterop.dylib`가 없어 정식 `swift test` 런타임을 실행하지 못한다. 위 명령은 별도 작성자가 고정한 assertion 변환 러너다. 정상 Swift Testing 환경에서는 `swift test --package-path clients/ios`를 추가 실행한다. 과거 빈 구현 실패·고정 해시·추가 검사는 `experiments/ios-full/test-author/`, 독립 검증은 `experiments/ios-full/verification/`에 보존한다.
-
-full Xcode를 준비한 호스트에서 프로젝트와 실제 Simulator destination을 조회한다:
+조회한 실제 Simulator destination으로 `test`를 실행한다. 기존 종목 2개·탭 1개 검사와 후속 거래/피드백/뉴스/검색 회귀가 같은 UI 테스트 타깃에 연결돼 있다. 합성 HTTP fixture는 아래처럼 시작한다. 이 서버의 결과는 실제 Rust/DB·OAuth·AI 제공자 검증과 구분한다.
 
 ```sh
-xcodebuild -list -project clients/ios/DaynomyIOS.xcodeproj
-xcrun simctl list devices available
-xcodebuild -project clients/ios/DaynomyIOS.xcodeproj -scheme DaynomyIOS -showdestinations
-xcodebuild -project clients/ios/DaynomyIOS.xcodeproj -scheme DaynomyIOS -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
+python3 experiments/ios-next-verification/test-author/ui_fixture.py --port 18082
 ```
 
-그 뒤 조회한 실제 destination으로 `test`를 실행한다. 2개 종목 시나리오와 1개 전체 탭 XCUITest 소스가 같은 타깃에 연결돼 있다. 이 UI 검사는 현재 호스트에서 실행하지 않았다. 종목 UI 검사에 필요한 독립 합성 서버는 아래 명령으로 시작한다. Rust/DB 증거와 구별한다.
+후속 UI 검사의 기본 포트는 18097이므로 전체 실행에서는 해당 포트에도 같은 fixture를 준비하거나 테스트 프로세스의 `DAYNOMY_UI_BASE_URL`을 동일 루프백 주소로 지정한다. 포트·기기 공유를 피하고 검사 후 자신이 시작한 서버만 종료한다.
 
-```sh
-python3 experiments/ios-native/verification/ui_fixture.py
-```
+과거 `experiments/ios-full/test-author/run_host_tests.py`는 CLT에 Swift Testing 라이브러리가 없을 때 고정 본문을 실행한 대체 러너다. 현재 Xcode 환경에서는 정식 `swift test`를 우선한다. 추출 상태 회귀도 SwiftUI 화면 인수와 구분한다.
+
+반복 작업의 최소 입력·역할·검사 경로는 [프로젝트 iOS 스킬](../../.agents/skills/daynomy-ios/SKILL.md)에 있다. 기존 tracing hook 설정을 재사용하며 설정 존재를 수집 성공으로 해석하지 않는다.
 
 ## API와 인증 설정
 

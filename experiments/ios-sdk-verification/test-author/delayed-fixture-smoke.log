@@ -1,0 +1,1 @@
+PASS delayed fixture real-loopback: stock latency >= 2.9s; original stock/news/auth/CSRF/feedback/calculate preserved; no app/UI/Rust/DB execution

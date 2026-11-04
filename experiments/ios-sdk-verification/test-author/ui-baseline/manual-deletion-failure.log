@@ -1,0 +1,76 @@
+Test Case '-[DaynomyIOSUITests.DaynomyIOSUITests testManualDeletionRemainsEmptyAfterLateQuote]' started.
+    t =     0.00s Start Test at 2026-11-04 17:26:00.028
+    t =     0.05s Set Up
+    t =     0.05s Open com.daynomy.iospilot
+    t =     0.05s     Launch com.daynomy.iospilot
+    t =     0.05s         Terminate com.daynomy.iospilot:39348
+2026-11-04 17:26:00.249 xcodebuild[38512:5435968] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-11-04 17:26:00.263 xcodebuild[38512:5435968] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-11-04 17:26:00.311 xcodebuild[38512:5435968] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-11-04 17:26:01.149 xcodebuild[38512:5435968] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-11-04 17:26:01.149 xcodebuild[38512:5435968] [MT] IDELaunchParametersSnapshot: no debugger version
+2026-11-04 17:26:01.169 xcodebuild[38512:5435968] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+    t =     1.34s         Setting up automation session
+    t =     5.39s         Wait for com.daynomy.iospilot to idle
+    t =     7.33s Waiting 5.0s for "종목" Button to exist
+    t =     8.42s     Checking `Expect predicate `existsNoRetry == 1` for object "종목" Button`
+    t =     8.42s         Checking existence of `"종목" Button`
+    t =     8.58s Tap "종목" Button
+    t =     8.58s     Wait for com.daynomy.iospilot to idle
+    t =     8.58s     Find the "종목" Button
+    t =     8.64s     Check for interrupting elements affecting "종목" Button
+    t =     8.68s     Synthesize event
+    t =     9.01s     Wait for com.daynomy.iospilot to idle
+    t =    10.88s Waiting 5.0s for "stockQuery" TextField to exist
+    t =    11.92s     Checking `Expect predicate `existsNoRetry == 1` for object "stockQuery" TextField`
+    t =    11.92s         Checking existence of `"stockQuery" TextField`
+    t =    11.96s Tap "stockQuery" TextField
+    t =    11.96s     Wait for com.daynomy.iospilot to idle
+    t =    11.96s     Find the "stockQuery" TextField
+    t =    11.98s     Check for interrupting elements affecting "stockQuery" TextField
+    t =    12.01s     Synthesize event
+    t =    12.30s     Wait for com.daynomy.iospilot to idle
+<unknown>:0: warning: -[DaynomyIOSUITests.DaynomyIOSUITests testManualDeletionRemainsEmptyAfterLateQuote] : Invalid frame dimension (negative or non-finite).
+    t =    13.73s Type '삼성' into "stockQuery" TextField
+    t =    13.73s     Wait for com.daynomy.iospilot to idle
+    t =    14.09s     Find the "stockQuery" TextField
+    t =    14.15s     Check for interrupting elements affecting "stockQuery" TextField
+    t =    14.18s     Synthesize event
+    t =    14.42s     Wait for com.daynomy.iospilot to idle
+    t =    14.42s Waiting 10.0s for "stockResult_1" Button to exist
+    t =    15.44s     Checking `Expect predicate `existsNoRetry == 1` for object "stockResult_1" Button`
+    t =    15.45s         Checking existence of `"stockResult_1" Button`
+    t =    15.50s Tap "stockResult_1" Button
+    t =    15.50s     Wait for com.daynomy.iospilot to idle
+    t =    15.50s     Find the "stockResult_1" Button
+    t =    15.54s     Check for interrupting elements affecting "stockResult_1" Button
+    t =    15.59s     Synthesize event
+    t =    15.97s     Wait for com.daynomy.iospilot to idle
+    t =    16.10s Waiting 5.0s for "unitPrice" TextField to exist
+    t =    17.14s     Checking `Expect predicate `existsNoRetry == 1` for object "unitPrice" TextField`
+    t =    17.14s         Checking existence of `"unitPrice" TextField`
+    t =    17.19s Tap "unitPrice" TextField
+    t =    17.19s     Wait for com.daynomy.iospilot to idle
+    t =    17.19s     Find the "unitPrice" TextField
+    t =    17.21s     Check for interrupting elements affecting "unitPrice" TextField
+    t =    17.25s     Synthesize event
+    t =    17.55s     Wait for com.daynomy.iospilot to idle
+    t =    17.87s Type '77' into "unitPrice" TextField
+    t =    17.87s     Wait for com.daynomy.iospilot to idle
+    t =    17.88s     Find the "unitPrice" TextField
+    t =    17.91s     Check for interrupting elements affecting "unitPrice" TextField
+    t =    17.95s     Synthesize event
+    t =    18.19s     Wait for com.daynomy.iospilot to idle
+    t =    18.19s Type '' into "unitPrice" TextField
+    t =    18.19s     Wait for com.daynomy.iospilot to idle
+    t =    18.19s     Find the "unitPrice" TextField
+    t =    18.22s     Check for interrupting elements affecting "unitPrice" TextField
+    t =    18.25s     Synthesize event
+    t =    18.49s     Wait for com.daynomy.iospilot to idle
+    t =    18.49s Waiting 10.0s for StaticText (First Match) to exist
+    t =    19.51s     Checking `Expect predicate `existsNoRetry == 1` for object StaticText (First Match)`
+    t =    19.52s         Checking existence of `StaticText (First Match)`
+    t =    19.61s Find the "unitPrice" TextField
+<worktree>/clients/ios/UITests/DaynomyIOSUITests.swift:47: error: -[DaynomyIOSUITests.DaynomyIOSUITests testManualDeletionRemainsEmptyAfterLateQuote] : XCTAssertEqual failed: ("Optional("단가")") is not equal to ("Optional("")")
+    t =    19.85s Tear Down
+Test Case '-[DaynomyIOSUITests.DaynomyIOSUITests testManualDeletionRemainsEmptyAfterLateQuote]' failed (20.075 seconds).
