@@ -52,9 +52,9 @@ fun AccountScreen(model: CoreViewModel, onFeedback: () -> Unit = {}, onLogin: ()
             }
             profile == null -> {
                 Surface(color = PortfolioStyle.soft, shape = PortfolioStyle.panel) {
-                    Column(Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         Icon(Icons.Outlined.Person, contentDescription = null, tint = PortfolioStyle.blue, modifier = Modifier.size(32.dp))
-                        Text("내 자산을 한곳에서", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                        Text("내 자산을 한곳에서", fontSize = 18.sp, fontWeight = FontWeight.Bold)
                         Text("로그인하면 보유자산과 거래 내역을 계정에 저장할 수 있어요.", color = PortfolioStyle.muted)
                         Button(onLogin, enabled = !model.busy && model.accountRequiresLogin, shape = PortfolioStyle.pill,
                             modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).testTag("account-login")) { Text("Google로 로그인") }
@@ -99,8 +99,8 @@ fun AccountScreen(model: CoreViewModel, onFeedback: () -> Unit = {}, onLogin: ()
 
 @Composable
 private fun AccountMenu(title: String, subtitle: String, tag: String, action: () -> Unit) {
-    TextButton(action, modifier = Modifier.fillMaxWidth().heightIn(min = 72.dp).testTag(tag), shape = PortfolioStyle.panel,
-        colors = ButtonDefaults.textButtonColors(contentColor = PortfolioStyle.ink), contentPadding = PaddingValues(vertical = 16.dp)) {
+    TextButton(action, modifier = Modifier.fillMaxWidth().heightIn(min = 64.dp).testTag(tag), shape = PortfolioStyle.panel,
+        colors = ButtonDefaults.textButtonColors(contentColor = PortfolioStyle.ink), contentPadding = PaddingValues(vertical = 10.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text(title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
@@ -117,8 +117,8 @@ internal fun AppPage(content: @Composable ColumnScope.() -> Unit) {
     Surface(Modifier.fillMaxSize(), color = PortfolioStyle.colors.surface) {
         BoxWithConstraints(Modifier.fillMaxSize()) {
             val gutter = if (maxWidth <= 600.dp) 20.dp else (16 + (maxWidth.value * .08f).coerceIn(32f, 128f)).dp
-            Column(Modifier.fillMaxSize().imePadding().verticalScroll(rememberScrollState()).padding(horizontal = gutter, vertical = 24.dp),
-                verticalArrangement = Arrangement.spacedBy(24.dp), content = content)
+            Column(Modifier.widthIn(max = 760.dp).fillMaxSize().align(Alignment.TopCenter).imePadding().verticalScroll(rememberScrollState()).padding(horizontal = gutter, vertical = 20.dp),
+                verticalArrangement = Arrangement.spacedBy(20.dp), content = content)
         }
     }
 }

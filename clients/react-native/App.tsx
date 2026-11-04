@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import {
   ActivityIndicator,
+  Image,
   Alert,
   BackHandler,
   FlatList,
@@ -23,6 +24,9 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { LinearGradient } from "expo-linear-gradient";
+import { NewsDetail } from "./src/ui/NewsDetail";
+import { newsCategories } from "./src/news-detail";
 import { StatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -41,9 +45,11 @@ import { todayInSeoul } from "./src/storage";
 
 const localDate = todayInSeoul;
 const errorText = (e: unknown) =>
-  e instanceof Error
-    ? e.message
-    : "요청을 완료하지 못했습니다. 다시 확인해 주세요.";
+  e instanceof TypeError
+    ? "서버에 연결하지 못했습니다. 연결 설정을 확인하고 다시 시도해 주세요."
+    : e instanceof Error
+      ? e.message
+      : "요청을 완료하지 못했습니다. 다시 확인해 주세요.";
 const money = (n: unknown) =>
   typeof n === "number"
     ? n.toLocaleString("ko-KR", { maximumFractionDigits: 2 })
@@ -79,11 +85,9 @@ const tabs: {
   label: string;
   icon: React.ComponentProps<typeof Ionicons>["name"];
 }[] = [
-  { key: "portfolio", label: "내 자산", icon: "pie-chart-outline" },
-  { key: "news", label: "뉴스", icon: "newspaper-outline" },
-  { key: "explore", label: "탐색", icon: "search-outline" },
-  { key: "calendar", label: "캘린더", icon: "calendar-outline" },
-  { key: "more", label: "더보기", icon: "ellipsis-horizontal-outline" },
+  { key: "portfolio", label: "포트폴리오", icon: "home-outline" },
+  { key: "news", label: "이슈", icon: "list-outline" },
+  { key: "more", label: "내 계정", icon: "person-outline" },
 ];
 
 export default function App() {
@@ -103,6 +107,10 @@ function Main() {
     [editor, setEditor] = useState<Trade | null | undefined>(undefined),
     [panel, setPanel] = useState<Panel | null>(null),
     [revision, setRevision] = useState(0);
+  const openPanel = useCallback((next: Panel) => {
+    if (next.name === "newsDetail") setTab("news");
+    setPanel(next);
+  }, []);
   const api = useMemo(() => new APIClient({ baseURL }), [baseURL]);
   const apiRef = useRef(api);
   apiRef.current = api;
@@ -230,23 +238,13 @@ function Main() {
       <View
         style={[
           styles.app,
-          width > 720 && { maxWidth: 920, alignSelf: "center", width: "100%" },
+          width > 720 && { maxWidth: 760, alignSelf: "center", width: "100%" },
         ]}
       >
-        <View style={styles.brand}>
-          <Text style={styles.logo}>
-            DAYNOMY<Text style={{ color: c.accent }}>•</Text>
-          </Text>
-          <View style={styles.mode}>
-            <View style={styles.dot} />
-            <Text style={s.caption}>
-              {profile ? "회원 포트폴리오" : "게스트 포트폴리오"}
-            </Text>
-          </View>
-        </View>
         <View style={{ flex: 1 }}>
           {tab === "portfolio" && (
             <Portfolio
+              key={`${baseURL}:${profile?.id ?? profile?.userId ?? "guest"}`}
               api={api}
               profile={profile}
               holdings={holdings}
@@ -257,14 +255,33 @@ function Main() {
               onAdd={() => setEditor(null)}
               onEdit={setEditor}
               onDelete={confirmDelete}
-              openPanel={setPanel}
+              openPanel={openPanel}
             />
           )}
-          {tab === "news" && <News api={api} openPanel={setPanel} />}
+          {tab === "news" && (
+            <>
+              <View
+                style={{
+                  flex: 1,
+                  display: panel?.name === "newsDetail" ? "none" : "flex",
+                }}
+              >
+                <News api={api} openPanel={openPanel} />
+              </View>
+              {panel?.name === "newsDetail" && panel.id && (
+                <NewsDetail
+                  key={`${baseURL}:${panel.id}`}
+                  api={api}
+                  id={panel.id}
+                  onClose={() => setPanel(null)}
+                />
+              )}
+            </>
+          )}
           {tab === "explore" && (
             <Explore
               api={api}
-              openPanel={setPanel}
+              openPanel={openPanel}
               onTrade={(stock: Stock) =>
                 setEditor({
                   id: Date.now(),
@@ -289,7 +306,7 @@ function Main() {
               setBaseURL={setBaseURL}
               profile={profile}
               refreshProfile={refreshProfile}
-              openPanel={setPanel}
+              openPanel={openPanel}
             />
           )}
         </View>
@@ -308,13 +325,14 @@ function Main() {
             >
               <Ionicons
                 name={t.icon}
-                size={23}
+                size={22}
                 color={tab === t.key ? c.accent : c.muted}
                 importantForAccessibility="no"
               />
               <Text
                 style={{
-                  fontSize: 11,
+                  fontSize: 12,
+                  lineHeight: 18,
                   fontWeight: tab === t.key ? "700" : "500",
                   color: tab === t.key ? c.accent : c.muted,
                 }}
@@ -339,14 +357,37 @@ function Main() {
           </SafeAreaView>
         </Modal>
         <Modal
-          visible={!!panel}
+          visible={!!panel && panel.name !== "newsDetail"}
           animationType="slide"
           onRequestClose={() => setPanel(null)}
         >
           <SafeAreaView style={styles.safe}>
             {panel &&
+              panel.name !== "newsDetail" &&
               (panel.admin ? (
                 <Admin api={api} onClose={() => setPanel(null)} />
+              ) : panel.name === "calendarScreen" ? (
+                <Calendar api={api} member={!!profile} holdings={holdings} />
+              ) : panel.name === "stockLookup" ? (
+                <ScrollView>
+                  <Explore
+                    api={api}
+                    openPanel={openPanel}
+                    onTrade={(stock: Stock) => {
+                      setPanel(null);
+                      setEditor({
+                        id: Date.now(),
+                        stock,
+                        type: "BUY",
+                        date: localDate(),
+                        quantity: 1,
+                        unitPrice: "",
+                        fee: "0",
+                        tax: "0",
+                      });
+                    }}
+                  />
+                </ScrollView>
               ) : (
                 <Detail api={api} panel={panel} close={() => setPanel(null)} />
               ))}
@@ -362,12 +403,14 @@ function Page({
   children,
   refreshing,
   onRefresh,
+  headerAction,
 }: {
   title: string;
   eyebrow: string;
   children: React.ReactNode;
   refreshing?: boolean;
   onRefresh?: () => void;
+  headerAction?: React.ReactNode;
 }) {
   return (
     <ScrollView
@@ -383,11 +426,19 @@ function Page({
         ) : undefined
       }
     >
-      <View style={{ gap: 8, marginBottom: 4 }}>
-        <Text style={s.badge}>{eyebrow}</Text>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          gap: 12,
+        }}
+      >
         <Text accessibilityRole="header" style={styles.pageTitle}>
           {title}
         </Text>
+        {headerAction}
       </View>
       {children}
     </ScrollView>
@@ -453,7 +504,7 @@ function Portfolio({
   onDelete,
   openPanel,
 }: any) {
-  const [view, setView] = useState("보유 종목");
+  const [view, setView] = useState("보유 자산");
   const result = useLoad(async () => {
     const saved = profile ? await api.portfolio() : { holdings };
     const positions = saved.holdings ?? [];
@@ -481,42 +532,58 @@ function Portfolio({
   const currentHoldings = profile ? (data?.holdings ?? []) : holdings;
   return (
     <Page
-      title="오늘의 자산을, 한눈에."
+      title="내 포트폴리오"
+      headerAction={
+        <Button
+          title="거래 기록"
+          onPress={onAdd}
+          disabled={!hydrated || !!storageError}
+        />
+      }
       eyebrow="MY PORTFOLIO"
       refreshing={result.loading}
       onRefresh={result.reload}
     >
+      <Pressable
+        accessibilityRole="button"
+        onPress={() => openPanel({ title: "종목 찾기", name: "stockLookup" })}
+        style={{
+          minHeight: 48,
+          justifyContent: "center",
+          alignSelf: "flex-start",
+          paddingHorizontal: 12,
+        }}
+      >
+        <Text style={{ color: c.ink, fontSize: 16 }}>종목 찾기</Text>
+      </Pressable>
       {!profile && (
         <Text style={s.muted}>
           로그인 없이 시작하세요. 거래 기록은 이 기기에 저장됩니다.
         </Text>
       )}
-      <View style={styles.balance}>
-        <Text style={{ color: "#D8D3FF", fontSize: 14 }}>총 평가금액</Text>
-        <Text style={styles.balanceValue}>
-          {data
-            ? `${money(data.totalEvaluationAmount ?? data.calculation?.totalEvaluationAmount)} 원`
-            : "—"}
-        </Text>
-        <View
-          style={{ height: 1, backgroundColor: "#7669E8", marginVertical: 4 }}
-        />
-        <View style={s.row}>
-          <Text style={{ color: "#EBE8FF" }}>투자 손익</Text>
-          <Text style={{ color: "#FFF", fontWeight: "700" }}>
+      {data && !result.error && (
+        <View style={styles.balance}>
+          <Text style={{ color: c.muted, fontSize: 14 }}>총 평가금액</Text>
+          <Text style={styles.balanceValue}>
             {data
-              ? `${money(data.totalProfitLoss ?? data.calculation?.totalProfitLoss)} 원`
-              : "가격 조회 후 표시"}
+              ? `${money(data.totalEvaluationAmount ?? data.calculation?.totalEvaluationAmount)} 원`
+              : "—"}
           </Text>
+          <View
+            style={{ height: 1, backgroundColor: c.line, marginVertical: 4 }}
+          />
+          <View style={s.row}>
+            <Text style={{ color: c.muted }}>투자 손익</Text>
+            <Text style={{ color: c.ink, fontWeight: "700" }}>
+              {data
+                ? `${money(data.totalProfitLoss ?? data.calculation?.totalProfitLoss)} 원`
+                : "가격 조회 후 표시"}
+            </Text>
+          </View>
         </View>
-      </View>
-      <View style={s.row}>
-        <Button
-          title="+ 거래 기록"
-          onPress={onAdd}
-          disabled={!hydrated || !!storageError}
-        />
-        {profile && (
+      )}
+      {profile && (
+        <View style={{ gap: 12 }}>
           <Button
             title="포트폴리오 분석"
             secondary
@@ -524,8 +591,8 @@ function Portfolio({
               openPanel({ title: "포트폴리오 분석", name: "analysis" })
             }
           />
-        )}
-      </View>
+        </View>
+      )}
       {!!storageError && (
         <Text style={{ color: c.danger }}>
           {storageError} 기존 저장 내용을 보존하고 있습니다.
@@ -533,27 +600,61 @@ function Portfolio({
       )}
       <State {...result} retry={result.reload} />
       {profile && <State {...memberTrades} retry={memberTrades.reload} />}
-      <View style={{ flexDirection: "row", gap: 8 }}>
-        {["보유 종목", "거래 내역"].map((t) => (
-          <Chip
+      <View
+        style={{
+          flexDirection: "row",
+          borderBottomWidth: 1,
+          borderBottomColor: c.line,
+        }}
+      >
+        {["보유 자산", "거래 내역"].map((t) => (
+          <Pressable
             key={t}
-            title={t}
-            selected={view === t}
+            accessibilityRole="tab"
+            accessibilityState={{ selected: view === t }}
             onPress={() => setView(t)}
-          />
+            style={{
+              flex: 1,
+              minHeight: 48,
+              alignItems: "center",
+              justifyContent: "center",
+              borderBottomWidth: 2,
+              borderBottomColor: view === t ? c.accent : "transparent",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: "600",
+                color: view === t ? c.accent : c.muted,
+              }}
+            >
+              {t}
+            </Text>
+          </Pressable>
         ))}
       </View>
+      {profile && (
+        <HoldingManager
+          api={api}
+          holdings={currentHoldings}
+          onChanged={() => {
+            result.reload();
+            memberTrades.reload();
+          }}
+        />
+      )}
       <Section
         title={view}
         detail={
-          view === "보유 종목"
+          view === "보유 자산"
             ? `${currentHoldings.length}개 종목 · 최근 저장 종가 기준`
             : "날짜 순으로 거래 기록을 확인하세요."
         }
       >
         {!hydrated ? (
           <ActivityIndicator />
-        ) : view === "보유 종목" ? (
+        ) : view === "보유 자산" ? (
           currentHoldings.length ? (
             currentHoldings.map((h: any) => (
               <View key={h.assetId} style={styles.holding}>
@@ -743,22 +844,248 @@ function GuestAnalysis({ api, holdings }: any) {
     </View>
   );
 }
-function News({ api, openPanel }: any) {
-  const [category, setCategory] = useState("ALL"),
-    [page, setPage] = useState(1);
+function News({
+  api,
+  openPanel,
+}: {
+  api: APIClient;
+  openPanel: (panel: Panel) => void;
+}) {
+  const [draft, setDraft] = useState(""),
+    [query, setQuery] = useState(""),
+    [category, setCategory] = useState("ALL"),
+    [page, setPage] = useState(1),
+    [sort, setSort] = useState("LATEST"),
+    [validation, setValidation] = useState("");
   const result = useLoad(
     () =>
-      api.news({ page, size: 20, ...(category === "ALL" ? {} : { category }) }),
-    [api, category, page],
+      query
+        ? api.searchNews(query, { page, category, sort })
+        : api.news({
+            page,
+            size: 20,
+            ...(category === "ALL" ? {} : { category }),
+          }),
+    [api, query, page, category, sort],
   );
-  const items = result.data?.items ?? [];
+  const today = useLoad(() => api.todayNews(), [api]);
+  const [selected, setSelected] = useState(0),
+    [storyWidth, setStoryWidth] = useState(300);
+  const pager = useRef<React.ElementRef<typeof ScrollView>>(null);
+  const { fontScale } = useWindowDimensions();
+  const storyHeight = fontScale > 1.3 ? 380 : 280;
+  const selectStory = (n: number) => {
+    setSelected(n);
+    pager.current?.scrollTo({ x: n * storyWidth, animated: true });
+  };
+  useEffect(() => {
+    pager.current?.scrollTo({ x: selected * storyWidth, animated: false });
+  }, [storyWidth]);
+  const articles = today.data?.items?.slice(0, 9) ?? [];
+  const open = (n: { id: number }) =>
+    openPanel({ title: "뉴스", name: "newsDetail", id: n.id });
+  const submit = () => {
+    if (
+      !draft.trim() ||
+      draft.length > 100 ||
+      !/[\p{L}\p{N}]/u.test(draft) ||
+      /[\r\n\u0085\u2028\u2029]/u.test(draft)
+    ) {
+      setValidation(
+        "검색어는 문자나 숫자를 포함해 100자 이내로 입력해 주세요.",
+      );
+      return;
+    }
+    setValidation("");
+    setQuery(draft.trim());
+    setPage(1);
+  };
   return (
     <Page
-      title="세상을 읽는 투자 습관."
-      eyebrow="DAILY BRIEFING"
-      refreshing={result.loading}
-      onRefresh={result.reload}
+      title="이슈"
+      eyebrow=""
+      onRefresh={() => {
+        result.reload();
+        today.reload();
+      }}
+      refreshing={result.loading || today.loading}
     >
+      <View style={{ gap: 12 }}>
+        <Text accessibilityRole="header" style={s.heading}>
+          오늘 뉴스
+        </Text>
+        <Text style={s.muted}>최신 발행 소식 · 좌우로 넘겨보세요</Text>
+        <State {...today} retry={today.reload} />
+        {articles.length > 0 && (
+          <>
+            <View onLayout={(e) => setStoryWidth(e.nativeEvent.layout.width)}>
+              <ScrollView
+                ref={pager}
+                horizontal
+                pagingEnabled
+                showsHorizontalScrollIndicator={false}
+                onMomentumScrollEnd={(e) => {
+                  const w = e.nativeEvent.layoutMeasurement.width;
+                  if (w)
+                    setSelected(Math.round(e.nativeEvent.contentOffset.x / w));
+                }}
+              >
+                {articles.map((story: any, i: number) => (
+                  <Pressable
+                    key={story.id}
+                    style={{
+                      width: storyWidth,
+                      height: storyHeight,
+                      borderRadius: 14,
+                      overflow: "hidden",
+                      backgroundColor: c.ink,
+                    }}
+                    accessibilityRole="button"
+                    accessibilityLabel={`오늘 기사 읽기: ${story.title}`}
+                    onPress={() => open(story)}
+                  >
+                    <NewsPhoto
+                      uri={story.imageUrl}
+                      base={api.baseURL}
+                      height={storyHeight}
+                    />
+                    <LinearGradient
+                      colors={[
+                        "rgba(0,0,0,0.10)",
+                        "rgba(0,0,0,0.45)",
+                        "rgba(0,0,0,0.94)",
+                      ]}
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        right: 0,
+                        bottom: 0,
+                        left: 0,
+                        justifyContent: "flex-end",
+                        padding: 20,
+                        gap: 12,
+                      }}
+                    >
+                      <Text style={{ color: "#B8D5FF", fontSize: 14 }}>
+                        오늘 뉴스 {String(i + 1).padStart(2, "0")}
+                      </Text>
+                      <Text
+                        style={{
+                          color: "#FFFFFF",
+                          fontSize: 20,
+                          lineHeight: 28,
+                          fontWeight: "700",
+                        }}
+                      >
+                        {story.title}
+                      </Text>
+                      <Text style={{ color: "#FFFFFF", fontSize: 14 }}>
+                        {newsCategories[story.category] ?? story.category} ·{" "}
+                        {story.publishedAt?.slice(0, 10) ?? "발행일 정보 없음"}
+                      </Text>
+                    </LinearGradient>
+                  </Pressable>
+                ))}
+              </ScrollView>
+            </View>
+            <View style={s.row}>
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel="이전 뉴스"
+                disabled={selected === 0}
+                accessibilityState={{ disabled: selected === 0 }}
+                onPress={() => selectStory(selected - 1)}
+                style={{
+                  minWidth: 48,
+                  minHeight: 48,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Ionicons
+                  name="chevron-back"
+                  size={24}
+                  color={selected === 0 ? "#AAAAAA" : c.ink}
+                />
+              </Pressable>
+              <Text style={{ color: c.muted, fontWeight: "600", fontSize: 14 }}>
+                {Math.min(selected + 1, articles.length)} / {articles.length}
+              </Text>
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel="다음 뉴스"
+                disabled={selected >= articles.length - 1}
+                accessibilityState={{
+                  disabled: selected >= articles.length - 1,
+                }}
+                onPress={() => selectStory(selected + 1)}
+                style={{
+                  minWidth: 48,
+                  minHeight: 48,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Ionicons
+                  name="chevron-forward"
+                  size={24}
+                  color={selected >= articles.length - 1 ? "#AAAAAA" : c.ink}
+                />
+              </Pressable>
+            </View>
+          </>
+        )}
+        {!articles.length && !today.loading && !today.error && (
+          <Text style={s.muted}>오늘 발행된 뉴스가 없습니다.</Text>
+        )}
+      </View>
+      <Text accessibilityRole="header" style={s.heading}>
+        전체 이슈
+      </Text>
+      <Field
+        label="이슈 검색"
+        placeholder="이슈 검색"
+        value={draft}
+        onChangeText={setDraft}
+        returnKeyType="search"
+        onSubmitEditing={submit}
+      />
+      {!!validation && (
+        <Text accessibilityRole="alert" style={{ color: c.danger }}>
+          {validation}
+        </Text>
+      )}
+      {!!query && (
+        <>
+          <Text style={s.muted}>“{query}” 검색 결과</Text>
+          <Button
+            title="검색 해제"
+            secondary
+            onPress={() => {
+              setDraft("");
+              setQuery("");
+              setPage(1);
+              setValidation("");
+            }}
+          />
+          <View style={{ flexDirection: "row", gap: 8 }}>
+            {[
+              ["LATEST", "최신순"],
+              ["RELEVANCE", "관련도순"],
+            ].map(([v, label]) => (
+              <Chip
+                key={v}
+                title={label!}
+                selected={sort === v}
+                onPress={() => {
+                  setSort(v!);
+                  setPage(1);
+                }}
+              />
+            ))}
+          </View>
+        </>
+      )}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -766,86 +1093,257 @@ function News({ api, openPanel }: any) {
       >
         {[
           ["ALL", "전체"],
+          ["REAL_ESTATE", "부동산"],
           ["STOCK", "주식"],
           ["ETF", "ETF"],
-          ["REAL_ESTATE", "부동산"],
-        ].map(([key, label]) => (
+        ].map(([v, label]) => (
           <Chip
-            key={key}
+            key={v}
             title={label!}
-            selected={category === key}
+            selected={category === v}
             onPress={() => {
-              setCategory(key!);
+              setCategory(v!);
               setPage(1);
             }}
           />
         ))}
       </ScrollView>
       <State {...result} retry={result.reload} />
-      {items.length
-        ? items.map((n: any) => (
-            <Pressable
-              key={n.id ?? n.newsId}
-              accessibilityRole="button"
-              onPress={() =>
-                openPanel({
-                  title: "뉴스",
-                  name: "newsDetail",
-                  id: n.id ?? n.newsId,
-                })
-              }
-              style={({ pressed }) => [
-                styles.newsCard,
-                pressed && { opacity: 0.7 },
-              ]}
-            >
-              <Text style={s.badge}>{n.category ?? "DAYNOMY NEWS"}</Text>
-              <Text
-                style={{
-                  fontSize: 20,
-                  lineHeight: 29,
-                  fontWeight: "700",
-                  color: c.ink,
-                }}
-              >
-                {n.title}
-              </Text>
-              {!!(n.summary ?? n.description) && (
-                <Text numberOfLines={3} style={s.muted}>
-                  {n.summary ?? n.description}
-                </Text>
-              )}
-              <View style={s.row}>
-                <Text style={s.caption}>
-                  {n.publishedAt?.slice(0, 10) ?? n.createdAt?.slice(0, 10)}
-                </Text>
-                <Ionicons name="arrow-forward" size={20} color={c.accent} />
-              </View>
-            </Pressable>
-          ))
-        : !result.loading &&
-          !result.error && (
-            <Empty
-              title="새 소식을 기다리고 있어요"
-              detail="다른 카테고리를 선택하거나 잠시 뒤 다시 확인해 주세요."
-            />
-          )}
+      {result.data?.items.map((n: any) => (
+        <Pressable
+          key={n.id}
+          accessibilityRole="button"
+          onPress={() => open(n)}
+          style={{
+            gap: 12,
+            paddingVertical: 12,
+            borderBottomWidth: 1,
+            borderBottomColor: c.line,
+          }}
+        >
+          <Text style={s.caption}>
+            {newsCategories[n.category] ?? n.category} ·{" "}
+            {n.publishedAt?.slice(0, 10) ?? "발행일 정보 없음"}
+          </Text>
+          <Text style={s.heading}>{n.title}</Text>
+          {!!n.summary && <Text style={s.muted}>{n.summary}</Text>}
+        </Pressable>
+      ))}
+      {!result.loading && !result.error && result.data?.items.length === 0 && (
+        <Empty
+          title="뉴스가 없습니다"
+          detail="검색어나 분류를 변경해 주세요."
+        />
+      )}
       <View style={s.row}>
         <Button
           title="이전"
           secondary
-          disabled={page === 1}
-          onPress={() => setPage((p) => p - 1)}
+          disabled={page === 1 || result.loading}
+          onPress={() => setPage((n) => n - 1)}
         />
-        <Text style={s.muted}>{page} 페이지</Text>
+        <Text>{page} 페이지</Text>
         <Button
           title="다음"
           secondary
-          disabled={!result.data?.hasNext}
-          onPress={() => setPage((p) => p + 1)}
+          disabled={!result.data?.hasNext || result.loading}
+          onPress={() => setPage((n) => n + 1)}
         />
       </View>
     </Page>
+  );
+}
+function NewsPhoto({
+  uri,
+  base,
+  height = 280,
+}: {
+  uri: string | null;
+  base: string;
+  height?: number;
+}) {
+  const [failed, setFailed] = useState(false);
+  let url: string | undefined;
+  try {
+    const u = new URL(uri ?? "", base);
+    if (
+      uri &&
+      !u.username &&
+      !u.password &&
+      (u.protocol === "https:" ||
+        (u.protocol === "http:" &&
+          ["localhost", "127.0.0.1", "10.0.2.2"].includes(u.hostname)))
+    )
+      url = u.href;
+  } catch {}
+  return url && !failed ? (
+    <Image
+      source={{ uri: url }}
+      accessibilityLabel="기사 사진"
+      style={{ width: "100%", height, borderRadius: 14 }}
+      onError={() => setFailed(true)}
+    />
+  ) : (
+    <View
+      style={{
+        height,
+        backgroundColor: "#30343B",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Text style={[s.muted, { color: "#FFFFFF" }]}>
+        {failed ? "사진을 불러오지 못했습니다" : "제공된 사진이 없습니다"}
+      </Text>
+    </View>
+  );
+}
+function HoldingManager({ api, holdings, onChanged }: any) {
+  const [selected, setSelected] = useState<any>(null),
+    [qty, setQty] = useState(""),
+    [price, setPrice] = useState(""),
+    [error, setError] = useState(""),
+    [busy, setBusy] = useState(false),
+    [unknown, setUnknown] = useState(false);
+  const lock = useRef(false);
+  const save = async (remove = false) => {
+    if (lock.current || unknown) return;
+    if (
+      !remove &&
+      (!/^\d+$/.test(qty) ||
+        !Number.isSafeInteger(Number(qty)) ||
+        Number(qty) <= 0 ||
+        !/^\d{1,15}(?:\.\d{1,2})?$/.test(price) ||
+        Number(price) < 0.01)
+    ) {
+      setError("보유 수량과 원화 평균 매입가를 확인해 주세요.");
+      return;
+    }
+    lock.current = true;
+    setBusy(true);
+    setError("");
+    try {
+      if (remove) await api.deleteHolding(selected.assetId);
+      else await api.updateHolding(selected.assetId, qty, price);
+      setSelected(null);
+      onChanged();
+    } catch (e: any) {
+      setError(errorText(e));
+      if (!e.status || e.status >= 500) setUnknown(true);
+    } finally {
+      lock.current = false;
+      setBusy(false);
+    }
+  };
+  return (
+    <Section
+      title="보유 자산 관리"
+      detail="평균 매입가는 미국 종목도 원화 기준입니다."
+    >
+      {holdings.map((h: any) => (
+        <Button
+          key={h.assetId}
+          title={`${h.name ?? h.assetCode} 수량·평균가 조정`}
+          secondary
+          disabled={busy || unknown}
+          onPress={() => {
+            setSelected(h);
+            setQty(String(h.quantity));
+            setPrice(String(h.averagePurchasePrice));
+            setError("");
+          }}
+        />
+      ))}
+      {selected && (
+        <>
+          <Text style={s.title}>{selected.name}</Text>
+          <Field
+            label="보유 수량"
+            value={qty}
+            onChangeText={setQty}
+            keyboardType="number-pad"
+            editable={!busy}
+          />
+          <Field
+            label="원화 평균 매입가"
+            value={price}
+            onChangeText={setPrice}
+            keyboardType="decimal-pad"
+            editable={!busy}
+          />
+          <Button
+            title="조정 저장"
+            disabled={busy || unknown}
+            onPress={() => void save()}
+          />
+          <Button
+            title="보유 삭제"
+            danger
+            disabled={busy || unknown}
+            onPress={() =>
+              Alert.alert(
+                "보유 삭제",
+                `${selected.name} 보유를 제거합니다. 거래 이력은 보존됩니다.`,
+                [
+                  { text: "취소", style: "cancel" },
+                  {
+                    text: "삭제",
+                    style: "destructive",
+                    onPress: () => void save(true),
+                  },
+                ],
+              )
+            }
+          />
+          <Button
+            title="취소"
+            secondary
+            disabled={busy}
+            onPress={() => setSelected(null)}
+          />
+        </>
+      )}
+      {!!error && (
+        <Text accessibilityRole="alert" style={{ color: c.danger }}>
+          {error}
+        </Text>
+      )}
+      {unknown && (
+        <>
+          <Text style={s.muted}>
+            처리 결과를 확인하지 못했습니다. 자동 재전송하지 않습니다. 보유
+            자산과 거래 내역을 다시 조회해 확인해 주세요.
+          </Text>
+          <Button
+            title="처리 결과 조회"
+            secondary
+            disabled={busy}
+            onPress={() => {
+              if (lock.current) return;
+              lock.current = true;
+              setBusy(true);
+              Promise.all([
+                api.portfolio(),
+                api.call("histories", {
+                  query: { from: "2000-01-01", to: localDate() },
+                }),
+              ])
+                .then(() => {
+                  setUnknown(false);
+                  setSelected(null);
+                  setError("");
+                  onChanged();
+                })
+                .catch((e: any) => setError(errorText(e)))
+                .finally(() => {
+                  lock.current = false;
+                  setBusy(false);
+                });
+            }}
+          />
+        </>
+      )}
+    </Section>
   );
 }
 function Explore({ api, openPanel, onTrade }: any) {
@@ -1364,6 +1862,7 @@ function More({
   const [url, setUrl] = useState(baseURL),
     [nickname, setNickname] = useState(profile?.nickname ?? ""),
     [feedback, setFeedback] = useState(""),
+    [feedbackOpen, setFeedbackOpen] = useState(false),
     [busy, setBusy] = useState(false),
     [message, setMessage] = useState("");
   useEffect(() => setNickname(profile?.nickname ?? ""), [profile]);
@@ -1394,120 +1893,188 @@ function More({
     await refreshProfile();
   };
   return (
-    <Page
-      title={
-        profile
-          ? `${profile.nickname ?? "투자자"}님, 반가워요.`
-          : "나만의 투자 기록을 이어가세요."
-      }
-      eyebrow="MY DAYNOMY"
-    >
-      <Section
-        title="계정"
-        detail={
-          profile
-            ? "회원 기록은 서버에 저장됩니다."
-            : "게스트 기록은 이 기기에만 저장됩니다. 로그인하면 회원 포트폴리오를 불러옵니다."
+    <Page title="내 계정" eyebrow="MY DAYNOMY">
+      <Text style={s.muted}>프로필과 서비스 이용을 관리하세요.</Text>
+      <View
+        style={
+          !profile
+            ? {
+                backgroundColor: c.soft,
+                borderRadius: 14,
+                padding: 16,
+                gap: 12,
+              }
+            : { gap: 16 }
         }
       >
-        {profile ? (
-          <>
-            <Field
-              label="닉네임"
-              value={nickname}
-              maxLength={20}
-              onChangeText={setNickname}
-            />
-            <Button
-              title="닉네임 저장"
-              disabled={busy || !nickname.trim()}
-              onPress={() =>
-                void run(async () => {
-                  await api.call("updateProfile", {
-                    body: { nickname: nickname.trim() },
-                  });
-                  await refreshProfile();
-                }, "닉네임을 변경했습니다.")
-              }
-            />
-            <Button
-              title="로그아웃"
-              secondary
-              disabled={busy}
-              onPress={() =>
-                void run(async () => {
-                  await api.call("logout");
-                  api.invalidateSession();
-                  await refreshProfile();
-                }, "로그아웃했습니다.")
-              }
-            />
-            <Button
-              title="회원 탈퇴"
-              secondary
-              disabled={busy}
-              onPress={() =>
-                Alert.alert(
-                  "회원 탈퇴",
-                  "계정과 회원 데이터가 삭제됩니다. 계속할까요?",
-                  [
-                    { text: "취소", style: "cancel" },
-                    {
-                      text: "탈퇴",
-                      style: "destructive",
-                      onPress: () =>
-                        void run(async () => {
-                          await api.call("withdraw");
-                          api.invalidateSession();
-                          await refreshProfile();
-                        }, "탈퇴 처리했습니다."),
-                    },
-                  ],
-                )
-              }
-            />
-          </>
-        ) : (
-          <>
-            <Button
-              title="Google로 로그인"
-              disabled={busy || Platform.OS === "web"}
-              onPress={() => void run(login, "로그인 상태를 확인했습니다.")}
-            />
-            {Platform.OS === "web" && (
-              <Text style={s.caption}>
-                외부 브라우저 로그인은 Android/iOS 개발 빌드에서 이용하세요.
-              </Text>
-            )}
-            <Text style={s.caption}>
-              외부 브라우저에서 안전하게 인증합니다. 게스트 데이터는 자동으로
-              회원 계정에 합쳐지지 않습니다.
-            </Text>
-          </>
+        {!profile && (
+          <Ionicons name="person-outline" size={32} color={c.accent} />
         )}
+        <Section
+          title={profile ? "프로필" : "내 자산을 한곳에서"}
+          detail={
+            profile
+              ? "회원 기록은 서버에 저장됩니다."
+              : "게스트 기록은 이 기기에만 저장됩니다. 로그인하면 회원 포트폴리오를 불러옵니다."
+          }
+        >
+          {profile ? (
+            <>
+              <Field
+                label="닉네임"
+                value={nickname}
+                maxLength={20}
+                onChangeText={setNickname}
+              />
+              <Button
+                title="닉네임 저장"
+                disabled={busy || !nickname.trim()}
+                onPress={() =>
+                  void run(async () => {
+                    await api.call("updateProfile", {
+                      body: { nickname: nickname.trim() },
+                    });
+                    await refreshProfile();
+                  }, "닉네임을 변경했습니다.")
+                }
+              />
+              <Button
+                title="로그아웃"
+                secondary
+                disabled={busy}
+                onPress={() =>
+                  void run(async () => {
+                    await api.call("logout");
+                    api.invalidateSession();
+                    await refreshProfile();
+                  }, "로그아웃했습니다.")
+                }
+              />
+              <Button
+                title="회원 탈퇴"
+                secondary
+                disabled={busy}
+                onPress={() =>
+                  Alert.alert(
+                    "회원 탈퇴",
+                    "계정과 회원 데이터가 삭제됩니다. 계속할까요?",
+                    [
+                      { text: "취소", style: "cancel" },
+                      {
+                        text: "탈퇴",
+                        style: "destructive",
+                        onPress: () =>
+                          void run(async () => {
+                            await api.call("withdraw");
+                            api.invalidateSession();
+                            await refreshProfile();
+                          }, "탈퇴 처리했습니다."),
+                      },
+                    ],
+                  )
+                }
+              />
+            </>
+          ) : (
+            <>
+              <Button
+                title="Google로 로그인"
+                disabled={busy || Platform.OS === "web"}
+                onPress={() => void run(login, "로그인 상태를 확인했습니다.")}
+              />
+              {Platform.OS === "web" && (
+                <Text style={s.caption}>
+                  외부 브라우저 로그인은 Android/iOS 개발 빌드에서 이용하세요.
+                </Text>
+              )}
+              <Text style={s.caption}>
+                외부 브라우저에서 안전하게 인증합니다. 게스트 데이터는 자동으로
+                회원 계정에 합쳐지지 않습니다.
+              </Text>
+            </>
+          )}
+        </Section>
+      </View>
+      <Section title="서비스">
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="의견 보내기"
+          onPress={() => setFeedbackOpen(true)}
+          style={{
+            minHeight: 72,
+            paddingVertical: 16,
+            borderBottomWidth: 1,
+            borderBottomColor: c.line,
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 12,
+          }}
+        >
+          <View style={{ flex: 1, gap: 4 }}>
+            <Text style={s.label}>의견 보내기</Text>
+            <Text style={s.muted}>이용 중 불편했던 점을 알려주세요</Text>
+          </View>
+          <Ionicons name="chevron-forward" size={24} color={c.ink} />
+        </Pressable>
       </Section>
-      <Section title="의견을 들려주세요">
-        <Field
-          label="피드백 내용 (최대 2,000자)"
-          value={feedback}
-          onChangeText={setFeedback}
-          maxLength={2000}
-          multiline
-          placeholder="더 나은 DAYNOMY를 위한 의견"
+      <Section title="더 보기">
+        <Button
+          title="투자 캘린더"
+          secondary
+          onPress={() =>
+            openPanel({ title: "투자 캘린더", name: "calendarScreen" })
+          }
         />
         <Button
-          title="피드백 보내기"
-          disabled={busy || !feedback.trim()}
+          title="콘텐츠·인물 탐색"
+          secondary
           onPress={() =>
-            void run(async () => {
-              await api.call("feedback", {
-                body: { content: feedback.trim() },
-              });
-              setFeedback("");
-            }, "소중한 의견을 전달했습니다.")
+            openPanel({ title: "콘텐츠·인물 탐색", name: "stockLookup" })
           }
         />
       </Section>
+      <Modal
+        visible={feedbackOpen}
+        animationType="slide"
+        onRequestClose={() => setFeedbackOpen(false)}
+      >
+        <SafeAreaView style={{ flex: 1, backgroundColor: c.bg }}>
+          <View style={{ paddingHorizontal: 20 }}>
+            <Button
+              title="내 계정으로"
+              secondary
+              onPress={() => setFeedbackOpen(false)}
+            />
+          </View>
+          <Page title="의견 보내기" eyebrow="">
+            <Section title="의견을 들려주세요">
+              <Field
+                label="피드백 내용 (최대 2,000자)"
+                value={feedback}
+                onChangeText={setFeedback}
+                maxLength={2000}
+                multiline
+                placeholder="더 나은 DAYNOMY를 위한 의견"
+              />
+              <Button
+                title="피드백 보내기"
+                disabled={busy || !feedback.trim()}
+                onPress={() =>
+                  void run(async () => {
+                    await api.call("feedback", {
+                      body: { content: feedback.trim() },
+                    });
+                    setFeedback("");
+                  }, "소중한 의견을 전달했습니다.")
+                }
+              />
+            </Section>
+            <Text style={s.muted} accessibilityLiveRegion="polite">
+              {message}
+            </Text>
+          </Page>
+        </SafeAreaView>
+      </Modal>
       {(profile?.role === "ADMIN" || profile?.roles?.includes("ADMIN")) && (
         <Section title="관리자">
           <Button
@@ -1629,7 +2196,7 @@ const labels: Record<string, string> = {
   assetName: "종목",
   weight: "비중",
   impacts: "자산별 영향",
-  holdings: "보유 종목",
+  holdings: "보유 자산",
   events: "일정",
   keywords: "키워드",
   marketAnalysis: "시장 분석",
@@ -1776,22 +2343,6 @@ function Detail({
             <DataView value={result.data} />
           </Section>
         )}
-        {panel.name === "newsDetail" && panel.id && (
-          <>
-            <Related
-              api={api}
-              name="keywords"
-              id={panel.id}
-              title="관련 키워드"
-            />
-            <Related
-              api={api}
-              name="marketAnalysis"
-              id={panel.id}
-              title="시장 분석"
-            />
-          </>
-        )}
       </ScrollView>
     </View>
   );
@@ -1823,38 +2374,45 @@ const styles = StyleSheet.create({
   logo: { fontSize: 20, fontWeight: "900", letterSpacing: -1, color: c.ink },
   mode: { flexDirection: "row", alignItems: "center", gap: 6 },
   dot: { height: 5, width: 5, borderRadius: 3, backgroundColor: c.accent },
-  content: { padding: 20, gap: 20, paddingBottom: 40 },
+  content: {
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    gap: 20,
+    paddingBottom: 28,
+  },
   pageTitle: {
-    fontSize: 30,
-    lineHeight: 40,
-    fontWeight: "800",
-    letterSpacing: -1.2,
+    fontSize: 22,
+    lineHeight: 30,
+    fontWeight: "700",
+    letterSpacing: -0.5,
     color: c.ink,
   },
   balance: {
-    backgroundColor: c.accent,
-    borderRadius: 20,
-    padding: 24,
-    gap: 18,
+    backgroundColor: c.surface,
+    borderBottomWidth: 1,
+    borderBottomColor: c.line,
+    paddingVertical: 16,
+    gap: 12,
   },
   balanceValue: {
-    fontSize: 35,
+    fontSize: 30,
     fontWeight: "800",
-    color: "#FFF",
+    color: c.ink,
     letterSpacing: -1,
   },
   nav: {
     flexDirection: "row",
     paddingHorizontal: 8,
-    paddingTop: 8,
-    paddingBottom: 8,
+    minHeight: 64,
+    paddingTop: 0,
+    paddingBottom: 0,
     backgroundColor: c.surface,
     borderTopWidth: 1,
     borderTopColor: c.line,
   },
   navItem: {
     flex: 1,
-    minHeight: 52,
+    minHeight: 64,
     alignItems: "center",
     justifyContent: "center",
     gap: 5,
@@ -1875,9 +2433,9 @@ const styles = StyleSheet.create({
   },
   newsCard: {
     backgroundColor: c.surface,
-    padding: 24,
-    borderRadius: 18,
-    gap: 18,
+    padding: 16,
+    borderRadius: 12,
+    gap: 12,
   },
   modalHeader: {
     padding: 20,

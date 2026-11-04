@@ -4,6 +4,10 @@ Expo + TypeScript의 Android/iOS 공통 네이티브 UI다. 기존 웹 DOM이나
 View/Text/TextInput/Pressable로 구성했다. 20분 구현 범위와 남은 기능은
 [실행 기록](../../runs/019-react-native-twenty-minute.md), [범위표](../../spec/react-native/coverage.md)를 본다.
 
+## 공통 UI/UX 후속 적용
+
+2026-11-04: Android 공통 화면 기준으로 포트폴리오·이슈·내 계정 3탭과 흰 표면·검정 버튼·청색 강조를 적용했다. 보유 조정/삭제와 오늘 뉴스 캐러셀·뉴스 검색/분류/정렬/페이지를 추가했다. 기존 추가 기능은 계정의 보조 진입점에 보존했다. 현재 검사와 미검증 범위는 [후속 계약](../../spec/react-native/common-uiux.md)을 본다. 아래 2026-10-28 기록의 범위와 구분한다.
+
 ## 실행
 
 Node 22.23.1 환경에서 설치·타입 검사·계약 테스트·Metro 번들을 확인한다.
@@ -67,3 +71,18 @@ Metro 번들·웹 프리뷰 성공은 네이티브 설치/실행 성공이 아�
 `experiments/react-native/ui-verification/`: 별도 UI 검증자의 브라우저 실행과 스크린샷.
 
 원본·Rust 백엔드·다른 클라이언트의 기존 변경은 보존했다. 리그·이메일 알림·배포는 제외한다.
+
+## 현재 수정본을 Android에서 보기
+
+현재 작업본은 저장소 루트의 `.local/rn-android-parity/clients/react-native`에 있다. TypeScript는 이 폴더에서 편집하고, Android Studio는 생성한 `android/` 폴더를 Open한다. 기존 `clients/android` Kotlin 프로젝트와 별개다. iOS는 생성된 네이티브 프로젝트를 Xcode에서 연다.
+
+```sh
+# 터미널1: React Native 폴더에서 로컬 전용 개발 서버
+NODE_OPTIONS=--dns-result-order=ipv4first EXPO_PUBLIC_API_URL=http://10.0.2.2:18109 npx expo start --localhost --port 18089
+# 터미널2: 같은 폴더에서 실행. Device Manager에서 에뮬레이터를 먼저 켠다.
+npx expo run:android --device emulator-5554 --port 18089 --no-bundler
+```
+
+첫 네이티브 빌드는 SDK/NDK 다운로드와 컴파일이 필요하다. 이 호스트에서 JDK21과 Android SDK를 사용해 APK 빌드·설치·실행을 확인했다. 이번 실제 화면과 한계는 `spec/react-native/common-uiux.md`의 후속 확인을 따른다.
+
+Android Studio의 내장 기기에서는 설치와 별도로 Metro 연결이 필요하다. 현재 React Native UI의 serial은 emulator-5556이며, 디버그 앱 서버 주소는 localhost:18089로 지정했다. 에뮬레이터 재시작 후에는 `adb -s emulator-5556 reverse tcp:18089 tcp:18089`를 다시 실행한다. serial은 `adb devices`로 확인한다. 정상 실행 캡처는 `experiments/react-native/android-parity/native/14-metro-fixed.png`다.

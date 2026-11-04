@@ -35,6 +35,25 @@ export class APIClient {
   async news(query: Query = {}, signal?: AbortSignal) {
     return decodeNewsPage(await this.call('news', {query, signal}));
   }
+  async todayNews(signal?: AbortSignal) {
+    const page=decodeNewsPage(await this.call('today', {signal}));
+    if(page.page<1||page.size<1||page.totalPages<0||page.totalElements<0||page.items.length>9) throw new Error('오늘 뉴스 응답이 올바르지 않습니다.');
+    return page;
+  }
+  async searchNews(q: string, options: {page?:number; category?:string; sort?:string} = {}, signal?:AbortSignal) {
+    if (!q.trim() || q.length>100 || !/[\p{L}\p{N}]/u.test(q) || /[\r\n\u0085\u2028\u2029]/u.test(q)) throw new Error('검색어는 문자나 숫자를 포함해 100자 이내로 입력해 주세요.');
+    const page=options.page??1, sort=options.sort??'LATEST';
+    if (!Number.isSafeInteger(page)||page<1||!['LATEST','RELEVANCE'].includes(sort)) throw new Error('검색 조건을 확인해 주세요.');
+    const raw:any=await this.call('newsSearch',{query:{q,page,size:20,sort,...(options.category&&options.category!=='ALL'?{category:options.category}:{})},signal});
+    if (!raw||!Array.isArray(raw.content)||raw.page<1||raw.size<1||raw.totalPages<0||raw.totalElements<0) throw new Error('뉴스 검색 응답이 올바르지 않습니다.');
+    return decodeNewsPage({...raw,items:raw.content,hasNext:raw.page<raw.totalPages});
+  }
+  async updateHolding(id:number, quantity:string, averagePurchasePrice:string) {
+    if (!/^\d+$/.test(quantity)||!Number.isSafeInteger(Number(quantity))||Number(quantity)<=0) throw new Error('수량은 1주 이상의 정수로 입력해 주세요.');
+    if (!/^\d{1,15}(?:\.\d{1,2})?$/.test(averagePurchasePrice)||Number(averagePurchasePrice)<0.01) throw new Error('원화 평균 매입가는 0.01원 이상, 소수 둘째 자리까지 입력해 주세요.');
+    return this.call('updateHolding',{id,body:{quantity:Number(quantity),averagePurchasePrice}});
+  }
+  deleteHolding(id:number) {return this.call('deleteHolding',{id});}
   portfolio(signal?: AbortSignal) {return this.call('portfolio', {signal});}
   calculate(holdings: unknown[], signal?: AbortSignal) {return this.call('calculate', {body:{holdings}, signal});}
   calendar(year: number, month: number, scope: 'ALL' | 'PORTFOLIO', member: boolean, holdings: unknown[] = [], signal?: AbortSignal) {
