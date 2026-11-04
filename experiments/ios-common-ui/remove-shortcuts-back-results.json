@@ -1,0 +1,49 @@
+{
+  "baseline": "bf489df4822a698f47d2e81eed8f68c281e4570e",
+  "request": "AI 분석·투자 캘린더 진입 제거, 하위 화면 뒤로가기",
+  "sources": {
+    "clients/ios/DaynomyIOS/PortfolioView.swift": "8f1d5f588bd1671afd21d4e37279d596c30fe2d0f207ab7430d47df50fa54b08",
+    "clients/ios/DaynomyIOS/MarketView.swift": "3dda30b0adc353782732b961c36bf8ab24a2dfdce3c6ee1b5cfb6711a8282c6a",
+    "experiments/ios-common-ui/test-author/DaynomyCommonUITests.swift": "b5e0547be47467f1b376980a15193159a3b0b6725042cc058530e49a9c7e961e",
+    "spec/ios-native/common-ui.md": "ab91dff184ac820daf30eed9c0ee6e4411bb51314ab453a5606595bb7c840970"
+  },
+  "runs": [
+    {
+      "log": ".local/remove-shortcuts-back-red.log",
+      "log_sha256": "6923c3d3b4217e63c95a1be8e4c52fa9d09fdd647dcef6f3824ca9aa098adbaa",
+      "tests": [
+        [
+          "DaynomyIOSUITests.DaynomyCommonUITests testMarketDepthsHaveBackNavigation",
+          "failed",
+          "21.748"
+        ],
+        [
+          "DaynomyIOSUITests.DaynomyCommonUITests testPortfolioHasNoAnalysisOrCalendarShortcut",
+          "failed",
+          "8.265"
+        ]
+      ]
+    },
+    {
+      "log": ".local/remove-shortcuts-back-green.log",
+      "log_sha256": "d9f57298c71bf39e02329bd804dc374b0db8bba5bf6dde06065c735e7024bf6e",
+      "tests": [
+        [
+          "DaynomyIOSUITests.DaynomyCommonUITests testMarketDepthsHaveBackNavigation",
+          "passed",
+          "24.124"
+        ],
+        [
+          "DaynomyIOSUITests.DaynomyCommonUITests testPortfolioHasNoAnalysisOrCalendarShortcut",
+          "passed",
+          "7.959"
+        ],
+        [
+          "DaynomyIOSUITests.DaynomyCommonUITests testTodayCarouselIsCappedAndPreservesSelectedArticleAfterDetail",
+          "passed",
+          "23.710"
+        ]
+      ]
+    }
+  ]
+}

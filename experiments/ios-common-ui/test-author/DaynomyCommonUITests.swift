@@ -93,15 +93,31 @@ import XCTest
         position("2 / 9", app: app)
         app.buttons["todayNewsNext"].tap(); position("3 / 9", app: app)
     }
-    func testPortfolioAnalysisOpensWithoutCalendar() {
+    func testPortfolioHasNoAnalysisOrCalendarShortcut() {
         let app = launch()
-        let analysis = app.buttons["portfolioAnalysis"]
-        reveal(analysis, in: app); analysis.tap()
-        XCTAssertTrue(app.navigationBars["AI 포트폴리오 분석"].waitForExistence(timeout: 10))
-        XCTAssertFalse(app.staticTexts["투자 캘린더"].exists)
-        XCTAssertFalse(app.buttons["이전 달"].exists)
-        XCTAssertFalse(app.buttons["다음 달"].exists)
-        // Guest entry only. Never taps generation or invokes external AI.
+        XCTAssertFalse(app.buttons["portfolioAnalysis"].exists)
+        XCTAssertFalse(app.buttons["AI 포트폴리오 분석"].exists)
+        XCTAssertFalse(app.buttons["투자 캘린더"].exists)
+        XCTAssertTrue(app.buttons["addTransaction"].exists)
+        XCTAssertTrue(app.buttons["portfolioMarket"].exists)
+    }
+    func testMarketDepthsHaveBackNavigation() {
+        let app = launch()
+        app.buttons["portfolioMarket"].tap()
+        let marketBar = app.navigationBars["종목과 단가"]
+        XCTAssertTrue(marketBar.waitForExistence(timeout: 10))
+        XCTAssertTrue(marketBar.buttons.firstMatch.exists)
+        let query = app.textFields["stockQuery"]
+        query.tap(); query.typeText("삼성")
+        let result = app.buttons["stockResult_1"]
+        XCTAssertTrue(result.waitForExistence(timeout: 10)); result.tap()
+        app.buttons["종목 관련 자료"].tap()
+        let back = app.navigationBars.buttons.firstMatch
+        XCTAssertTrue(back.waitForExistence(timeout: 10)); back.tap()
+        XCTAssertTrue(app.buttons["changeStock"].waitForExistence(timeout: 10))
+        app.navigationBars["종목과 단가"].buttons.firstMatch.tap()
+        XCTAssertTrue(app.navigationBars["포트폴리오"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.buttons["portfolioMarket"].exists)
     }
     func testAccountRetainsRealLoginAndGuestFeedback() {
         let app = launch(); app.tabBars.buttons["내 계정"].tap()

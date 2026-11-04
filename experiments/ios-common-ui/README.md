@@ -35,3 +35,11 @@
 | iPhone | [화면](screenshots/phone-portfolio-first-entry.png) | [화면](screenshots/phone-issue-first-photo.png) | [화면](screenshots/phone-account-login.png) |
 | iPad | [화면](screenshots/ipad-portfolio-first-entry.png) | [화면](screenshots/ipad-issue-first-photo.png) | [화면](screenshots/ipad-account-login.png) |
 | iPhone 큰 글자/Dark | [화면](screenshots/phone-large-dark-portfolio-first-entry.png) | [화면](screenshots/phone-large-dark-issue-first-photo.png) | [화면](screenshots/phone-large-dark-account-login.png) |
+
+
+## 사용자 후속 수정 — AI·캘린더 진입 제거와 뒤로가기
+
+기준 `bf489df4` 이후 사용자 요청으로 포트폴리오의 AI 분석·투자 캘린더 링크를 제거했다. 게스트에게 빈 투자 살펴보기 섹션을 남기지 않는다. 내부 분석/캘린더 API·구현은 삭제하지 않는다.
+종목 조회의 중첩 NavigationStack을 제거해 상위 stack의 native 뒤로가기를 유지한다. 다른 push 화면은 기존 stack을 상속하며, 시트는 닫기를 유지한다.
+변경 전 새 인수2개 실패를 확인한 뒤 구현했고, 변경 후 새2개와 기존 이슈 상세 복귀1개가 실제 Simulator에서 통과했다. 종목→관련 자료→종목→홈의 2단계 복귀를 포함한다. 상태/전체 기능 검사는 재실행하지 않았다.
+현재 수정 해시와 RED/GREEN 로그 해시는 [후속 결과](remove-shortcuts-back-results.json)를 따른다. 위 최초16개 결과·최초 screenshots·final-source.sha256·authored.sha256는 최초 적용 시점의 기록이며 현재 화면 해시로 재해석하지 않는다. AI 단독 진입 인수는 사용자 결정에 따라 제거 인수로 교체했다.

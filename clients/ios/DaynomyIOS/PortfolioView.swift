@@ -225,7 +225,6 @@ func stockFromValue(_ value: ServiceValue) throws -> Stock {
                                     .accessibilityIdentifier("portfolioMarket")
                             }
                         }
-                        NavigationLink { CalendarAnalysisView(client: client, holdings: store.holdings, calculation: store.calculation, showCalendar: false) } label: { Label("AI 포트폴리오 분석", systemImage: "sparkles").frame(minHeight: 44) }.accessibilityIdentifier("portfolioAnalysis")
                     }.padding(.vertical, 12)
                 }.listRowSeparator(.hidden)
                 Section {
@@ -275,9 +274,10 @@ func stockFromValue(_ value: ServiceValue) throws -> Stock {
                         }
                     }
                 }
-                Section("투자 살펴보기") {
-                    NavigationLink("투자 캘린더") { CalendarAnalysisView(client: client, holdings: store.holdings, calculation: store.calculation) }
-                    if session.isLoggedIn { NavigationLink("자산 추이와 변경 이력") { PortfolioHistoryView(client: client) } }
+                if session.isLoggedIn {
+                    Section("투자 살펴보기") {
+                        NavigationLink("자산 추이와 변경 이력") { PortfolioHistoryView(client: client) }
+                    }
                 }
             }
             .listStyle(.plain)
