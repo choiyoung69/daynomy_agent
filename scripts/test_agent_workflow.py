@@ -5,7 +5,7 @@ These tests exercise failure handling and state transitions only. They do not
 invoke an AI, compile Rust, or verify HTTP/PostgreSQL behavior. The real-model,
 real-DB fault demonstration is a separate workflow run.
 """
-from contextlib import redirect_stdout
+from contextlib import redirect_stdout, redirect_stderr
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 import io
@@ -422,6 +422,136 @@ class CliRetryTests(unittest.TestCase):
         self.assertEqual(identity["session_id"], "synthetic-retry-success")
         self.assertEqual(len(calls), 2)
         self.assertTrue((self.output / "failed-result-1.json").is_file())
+
+
+class CoordinatorBoundaryTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory(); self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+        (self.root / 'contract.md').write_text('SOURCE BODY MUST NOT BE INLINED')
+        self.spec = self.root / 'packet.json'; self.out = self.root / 'HANDOFF.md'
+        self.packet = {'task': '작은 수정', 'issue': '#18', 'done': ['계약 유지'],
+            'files': ['contract.md'], 'checks': ['기존 계약 검사'], 'unverified': ['실제 DB'], 'next': '검사부터 확인'}
+        workflow.dump(self.spec, self.packet)
+
+    def test_preserves_acceptance_without_copying_source(self):
+        result = workflow.prepare_coordinator(self.spec, self.root, self.out)
+        text = self.out.read_text()
+        self.assertIn('계약 유지', text); self.assertIn('기존 계약 검사', text)
+        self.assertIn('실제 DB', text); self.assertIn('contract.md', text)
+        self.assertNotIn('SOURCE BODY', text)
+        self.assertLessEqual(result['bytes'], 8192)
+
+    def test_oversize_fails_without_replacing_existing_handoff(self):
+        self.out.write_text('existing')
+        self.packet['task'] = '큰' * 8192; workflow.dump(self.spec, self.packet)
+        with self.assertRaises(ValueError): workflow.prepare_coordinator(self.spec, self.root, self.out)
+        self.assertEqual(self.out.read_text(), 'existing')
+
+    def test_missing_criteria_and_escape_fail(self):
+        for files in (['missing.md'], ['../outside.md'], [str(self.root / 'contract.md')]):
+            self.packet['files'] = files; workflow.dump(self.spec, self.packet)
+            with self.assertRaises(ValueError): workflow.prepare_coordinator(self.spec, self.root, self.out)
+        self.packet['files'] = ['contract.md']; self.packet['checks'] = []
+        workflow.dump(self.spec, self.packet)
+        with self.assertRaises(ValueError): workflow.prepare_coordinator(self.spec, self.root, self.out)
+        self.assertFalse(self.out.exists())
+
+    def test_prepare_cli_does_not_start_workflow(self):
+        with mock.patch.object(workflow, 'Workflow') as runner, \
+             mock.patch('sys.argv', ['agent_workflow', '--prepare-coordinator', str(self.spec),
+                 '--coordinator-root', str(self.root), '--handoff-output', str(self.out)]), redirect_stdout(io.StringIO()):
+            self.assertEqual(workflow.main(), 0)
+        runner.assert_not_called()
+
+    def test_record_requires_summary(self):
+        with mock.patch.object(workflow, 'Workflow') as runner, \
+             mock.patch('sys.argv', ['agent_workflow', '--record', str(self.out)]), redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):
+            with self.assertRaises(SystemExit): workflow.main()
+        runner.assert_not_called()
+
+
+class CostSummaryTests(unittest.TestCase):
+    def setUp(self):
+        self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
+        self.root=Path(self.temp.name);self.run=self.root/'run';self.run.mkdir()
+        agent=self.run/'agent';agent.mkdir()
+        workflow.dump(agent/'input.json',{'context_mode':'fresh-ephemeral','prompt_bytes':20})
+        workflow.dump(agent/'attempts.json',[{'attempt':1,'session_ids':['a'],'capture_seconds':4,
+            'usage_records':[{'input_tokens':100,'cached_input_tokens':80,'output_tokens':10}]},
+            {'attempt':2,'session_ids':['b'],'capture_seconds':5,
+            'usage_records':[{'input_tokens':200,'cached_input_tokens':150,'output_tokens':20}]}])
+
+    def rollout(self,cwd=None):
+        path=self.root/'rollout.jsonl'
+        events=[{'type':'event_msg','timestamp':'2026-11-04T00:00:00Z','payload':{'type':'task_started','turn_id':'wanted'}},
+          {'type':'turn_context','payload':{'cwd':str(cwd or self.root)}},
+          {'type':'token_usage_record','payload':{'turn_id':'wanted','response_id':'r','usage':{'input_tokens':900,'cached_input_tokens':700,'output_tokens':30}}},
+          {'type':'token_usage_record','payload':{'turn_id':'wanted','response_id':'r','usage':{'input_tokens':1000,'cached_input_tokens':800,'output_tokens':30}}},
+          {'type':'token_usage_record','payload':{'turn_id':'other','response_id':'other','usage':{'input_tokens':99999,'cached_input_tokens':0,'output_tokens':0}}},
+          {'type':'event_msg','timestamp':'2026-11-04T00:00:10Z','payload':{'type':'task_complete','turn_id':'wanted'}}]
+        path.write_text(''.join(json.dumps(x)+'\n' for x in events));return path
+
+    def test_record_is_idempotent_and_preserves_other_experiments(self):
+        path = self.root / 'experiment.md'; path.write_text('기존 실험 보존\n')
+        report = workflow.summarize_run(self.run)
+        workflow.record_cost(report, self.run, path)
+        workflow.record_cost(report, self.run, path)
+        text = path.read_text()
+        self.assertTrue(text.startswith('기존 실험 보존'))
+        self.assertEqual(text.count('### 실행 비용'), 1)
+        self.assertIn('부분 집계', text); self.assertIn('미계측', text)
+
+    def test_total_includes_failed_attempts_and_deduplicated_coordinator(self):
+        r=workflow.summarize_run(self.run,self.rollout(),'wanted',self.root)
+        self.assertEqual(r['combined_measured']['input_tokens'],1300)
+        self.assertEqual(r['combined_measured']['cached_input_tokens'],1030)
+        self.assertEqual(r['combined_measured']['non_cached_input_tokens'],270)
+        self.assertEqual(r['combined_measured']['output_tokens'],60)
+        self.assertEqual(r['combined_measured']['total_tokens'],1360)
+        self.assertEqual(r['coordinator']['usage_records'],1)
+        self.assertEqual(r['elapsed_seconds'],10)
+        self.assertEqual(r['agent_capture_seconds_sum'],9)
+        self.assertTrue((self.run/'cost-summary.md').is_file())
+
+    def test_copied_agent_artifacts_are_not_counted_twice(self):
+        shutil.copytree(self.run/'agent',self.run/'copied-agent')
+        r=workflow.summarize_run(self.run)
+        self.assertEqual(r['agent']['total_tokens'],330)
+        self.assertEqual(r['agent_capture_seconds_sum'],9)
+
+    def test_report_cli_does_not_start_workflow_or_model(self):
+        out=io.StringIO()
+        with mock.patch('sys.argv',['agent_workflow','--summarize-run',str(self.run)]),mock.patch('agent_workflow.Workflow') as runner,redirect_stdout(out):
+            self.assertEqual(workflow.main(),0)
+        runner.assert_not_called()
+        self.assertLess(len(out.getvalue()),1024)
+
+    def test_missing_usage_is_unknown_and_missing_coordinator_not_hidden(self):
+        workflow.dump(self.run/'agent/attempts.json',[{'attempt':1,'usage_records':[]}])
+        r=workflow.summarize_run(self.run)
+        self.assertFalse(r['complete'])
+        self.assertEqual(r['agent']['unmeasured_attempts'],1)
+        self.assertIsNone(r['agent']['total_tokens'])
+        self.assertIsNone(r['coordinator'])
+
+    def test_other_project_coordinator_is_rejected(self):
+        with self.assertRaises(ValueError):workflow.summarize_run(self.run,self.rollout(Path('/other-project')),'wanted',self.root)
+        self.assertFalse((self.run/'cost-summary.json').exists())
+
+    def test_missing_cache_is_unknown_and_inconsistent_total_rejected(self):
+        workflow.dump(self.run/'agent/attempts.json',[{'attempt':1,'usage_records':[{'input_tokens':10,'output_tokens':2}]}])
+        r=workflow.summarize_run(self.run)
+        self.assertIsNone(r['agent']['cached_input_tokens'])
+        self.assertIsNone(r['agent']['non_cached_input_tokens'])
+        self.assertFalse(r['complete'])
+        workflow.dump(self.run/'agent/attempts.json',[{'attempt':1,'usage_records':[{'input_tokens':10,'output_tokens':2,'total_tokens':99}]}])
+        with self.assertRaises(ValueError):workflow.summarize_run(self.run)
+
+    def test_invalid_cached_usage_is_not_silently_counted(self):
+        workflow.dump(self.run/'agent/attempts.json',[{'attempt':1,'usage_records':[{'input_tokens':1,'cached_input_tokens':2,'output_tokens':0}]}])
+        with self.assertRaises(ValueError):workflow.summarize_run(self.run)
+
 
 
 class InputBoundaryTests(unittest.TestCase):

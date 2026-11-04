@@ -130,3 +130,24 @@
 ## 기존 CLI adapter의 입력 경계
 
 `agent_workflow.CliAgent`를 사용하는 기존 실험에는 새 ephemeral 세션과 기본 32 KiB UTF-8 prompt 제한을 적용한다. 초과 입력은 계약을 자르지 않고 호출 전에 거절한다. `max_prompt_bytes`로 명시적으로 조정할 수 있다. 전체 gate JSON은 `prompt-evidence/`에 보존하고 prompt에는 근거 경로/해시·리뷰 지적을 전달한다. `input.json`은 입력 크기/해시, `attempts.json`은 실패 시도까지 원본 사용량(없으면 빈 목록)을 기록한다. 크기 제한은 시스템·도구·파일 읽기까지 포함하는 모델 토큰 상한이 아니다. 과거 실행기를 자동 시작하지 않으며 실제 개발의 새 채팅 시작은 `HANDOFF.md`를 따른다.
+
+## 조정 채팅 입력도 제한하기
+
+새 채팅은 전체 보고서 대신 인계 파일 하나로 시작한다. 기존 대화를 자동 초기화하는 기능은 아니다. 선택 파일의 본문·KB 원문·대화 로그는 인계에 삽입하지 않으며, 조회는 새 채팅에서 관련 구간만 한다.
+
+```sh
+python3 scripts/agent_workflow.py --prepare-coordinator .local/task-packet.json \
+  --coordinator-root /path/to/workspace --handoff-output HANDOFF.md
+```
+
+packet JSON 필드: `task`, `issue`, `next`는 짧은 문자열. `done`, `files`, `checks`, `unverified`는 비어 있지 않은 문자열 목록이다. `files`는 작업 공간 안의 기존 상대 경로만 허용한다. 기능 계약·검사·실패/미검증·다음 행동을 담는다. 전체 인계가 UTF-8 8KiB를 넘으면 기존 파일을 보존하며 실패한다. 이 상한은 토큰 수나 모델의 실제 전체 입력 상한이 아니다. 필요한 기준을 잘라내지 말고 과제를 나눈다.
+
+마감 집계 명령에 `--record docs/time-token-experiment.md`를 붙이면 비용 보고서와 기존 기록의 해당 실행 블록을 함께 갱신한다. 동일 실행 재호출은 중복 추가하지 않는다. 원시 로그·모델 재실행·수동 재계산 없이 요약 경로만 확인한다. 진행 중/누락 사용량은 부분 집계로 남긴다. 실행별 완료·실패 결과는 기존 실험 행에 짧게 적고 전체 보고서를 복사하지 않는다.
+
+```sh
+python3 scripts/agent_workflow.py --summarize-run .local/<실행> \
+  --coordinator-rollout <세션.jsonl> --coordinator-turn <턴-ID> \
+  --coordinator-cwd /path/to/workspace --record docs/time-token-experiment.md
+```
+
+시작: 상태·선택 계약·KB 조회를 묶는다 → 구현·필수 검사 → 실패한 검사만 재실행 → PR 게시 → 마감 집계/기록 한 번. 기능 도중 계측 API 복구나 실험 설계를 확대하지 않는다.
