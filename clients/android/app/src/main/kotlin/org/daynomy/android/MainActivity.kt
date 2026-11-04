@@ -13,9 +13,22 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.List
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
@@ -63,7 +76,11 @@ class MainActivity : ComponentActivity() {
                 val core: CoreViewModel = viewModel(factory = viewModelFactory { initializer { CoreViewModel(baseUrl) } })
                 val feedback: FeedbackViewModel = viewModel(factory = viewModelFactory { initializer { FeedbackViewModel(baseUrl) } })
                 var feedbackOpen by rememberSaveable { mutableStateOf(false) }
-                var tab by rememberSaveable { mutableStateOf("market") }
+                var tab by rememberSaveable { mutableStateOf("portfolio") }
+                val screenState = rememberSaveableStateHolder()
+                var exchangeReturn by rememberSaveable { mutableStateOf("portfolio") }
+                val focus = LocalFocusManager.current
+                val keyboard = LocalSoftwareKeyboardController.current
                 LaunchedEffect(authCallback) {
                     authCallback?.let { callback -> authCallback = null; tab = "account"; core.completeLogin(callback) }
                 }
@@ -72,6 +89,7 @@ class MainActivity : ComponentActivity() {
                     fun activate(started: Boolean) {
                         model.controller.setActive(started && tab == "market")
                         discovery.news.setActive(started && tab == "news")
+                        discovery.todayNews.setActive(started && tab == "news")
                         discovery.exchange.setActive(started && tab == "exchange")
                     }
                     val observer = LifecycleEventObserver { _, event ->
@@ -85,25 +103,54 @@ class MainActivity : ComponentActivity() {
                 if (feedbackOpen) FeedbackDialog(feedback.controller) { feedbackOpen = false }
                 val state by model.controller.state.collectAsStateWithLifecycle()
                 val news by discovery.news.state.collectAsStateWithLifecycle()
+                val todayNews by discovery.todayNews.state.collectAsStateWithLifecycle()
                 val exchange by discovery.exchange.state.collectAsStateWithLifecycle()
                 BackHandler(tab == "news" && news.selectedId != null) { discovery.news.closeDetail() }
-                Column(Modifier.fillMaxSize().safeDrawingPadding()) {
-                    Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        listOf("market" to "종목", "news" to "뉴스", "exchange" to "환율", "portfolio" to "자산", "account" to "계정").forEach { (key, title) ->
-                            FilterChip(tab == key, { tab = key }, label = { Text(title) },
-                                modifier = Modifier.weight(1f).heightIn(min = 48.dp).testTag("tab-$key"))
-                        }
-                    }
-                    Box(Modifier.weight(1f)) {
-                        when (tab) {
-                            "news" -> NewsScreen(news, discovery.news)
-                            "exchange" -> ExchangeScreen(exchange, discovery.exchange)
-                            "account" -> AccountScreen(core, onFeedback = { feedbackOpen = true }) {
-                                try { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(core.loginUrl()))) }
-                                catch (_: Exception) { core.showMessage("로그인 브라우저를 열지 못했습니다. 다시 시도해 주세요.") }
+                BackHandler(tab == "market") {
+                    if (state.selected != null) model.controller.clearSelection()
+                    else { focus.clearFocus(); keyboard?.hide(); tab = "portfolio" }
+                }
+                BackHandler(tab == "exchange") { tab = exchangeReturn }
+                fun openExchange(date: String) {
+                    exchangeReturn = tab
+                    discovery.exchange.updateDate(date)
+                    focus.clearFocus(); keyboard?.hide(); tab = "exchange"
+                }
+                MaterialTheme(colorScheme = PortfolioStyle.colors) {
+                    Column(Modifier.fillMaxSize().safeDrawingPadding().imePadding()) {
+                        Box(Modifier.weight(1f)) {
+                            screenState.SaveableStateProvider(tab) {
+                            when (tab) {
+                                "news" -> NewsScreen(news, discovery.news, todayNews, discovery.todayNews, baseUrl)
+                                "exchange" -> Column {
+                                    TextButton({ tab = exchangeReturn }, Modifier.heightIn(min = 48.dp).testTag("exchange-back")) { Text("이전 화면으로") }
+                                    ExchangeScreen(exchange, discovery.exchange)
+                                }
+                                "account" -> AccountScreen(core, onFeedback = { feedbackOpen = true }) {
+                                    try { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(core.loginUrl()))) }
+                                    catch (_: Exception) { core.showMessage("로그인 브라우저를 열지 못했습니다. 다시 시도해 주세요.") }
+                                }
+                                "portfolio" -> PortfolioScreen(core, onAccount = { tab = "account" },
+                                    onStockSearch = { tab = "market" }, onExchange = { openExchange(it) })
+                                else -> MarketScreen(state, model.controller, onBack = { tab = "portfolio" },
+                                    onExchange = { openExchange((state.price as? LoadState.Ready)?.value?.baseDate ?: java.time.LocalDate.now().toString()) })
                             }
-                            "portfolio" -> PortfolioScreen(core)
-                            else -> MarketScreen(state, model.controller)
+                        }
+                        }
+                        NavigationBar(containerColor = Color.White, tonalElevation = 0.dp,
+                            modifier = Modifier.heightIn(min = if (LocalDensity.current.fontScale > 1.3f) 112.dp else 80.dp).testTag("bottom-navigation")) {
+                            listOf("portfolio" to "포트폴리오", "news" to "이슈", "account" to "내 계정").forEach { (key, title) ->
+                                val active = tab == key || ((tab == "market" || tab == "exchange") && key == "portfolio")
+                                NavigationBarItem(selected = active,
+                                    onClick = { focus.clearFocus(); keyboard?.hide(); tab = key },
+                                    icon = { Icon(when(key) { "portfolio" -> Icons.Outlined.Home; "news" -> Icons.Outlined.List; else -> Icons.Outlined.Person }, contentDescription = null) },
+                                    label = { Text(title, modifier = Modifier.widthIn(max = 96.dp), maxLines = 2, textAlign = TextAlign.Center,
+                                        fontWeight = if (active) FontWeight.Bold else FontWeight.Medium) },
+                                    colors = NavigationBarItemDefaults.colors(indicatorColor = Color.Transparent,
+                                        selectedIconColor = PortfolioStyle.blue, selectedTextColor = PortfolioStyle.blue,
+                                        unselectedIconColor = PortfolioStyle.muted, unselectedTextColor = PortfolioStyle.muted),
+                                    modifier = Modifier.testTag("tab-$key"))
+                            }
                         }
                     }
                 }
@@ -113,20 +160,28 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-private fun MarketScreen(state: MarketUiState, controller: MarketController) {
+private fun MarketScreen(state: MarketUiState, controller: MarketController, onBack: () -> Unit, onExchange: () -> Unit) {
     val keyboard = LocalSoftwareKeyboardController.current
     val selected = state.selected
+    val focus = LocalFocusManager.current
     Surface(Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         Column(Modifier.fillMaxSize().imePadding().verticalScroll(rememberScrollState()).padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text("종목과 가격", style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold,
-                modifier = Modifier.semantics { heading() })
+            TextButton(onBack, Modifier.heightIn(min = 48.dp).testTag("market-back")) { Text("포트폴리오로") }
+            AppPageTitle("종목 찾기")
+            OutlinedTextField(state.query, {
+                if (state.selected != null) controller.clearSelection()
+                controller.updateQuery(it)
+            }, label = { Text("종목명 또는 코드") }, leadingIcon = { Icon(Icons.Outlined.Search, contentDescription = null) },
+                singleLine = true, shape = PortfolioStyle.panel,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                keyboardActions = KeyboardActions(onSearch = { keyboard?.hide(); focus.clearFocus() }),
+                modifier = Modifier.fillMaxWidth().testTag("query"))
+            if (state.country == Country.US || selected?.currency?.name == "USD") {
+                OutlinedButton(onExchange, shape = PortfolioStyle.pill, modifier = Modifier.heightIn(min = 48.dp).testTag("market-exchange")) { Text("미국 종목 참고 환율 · USD/KRW") }
+                Text("저장된 환율과 실제 기준일을 확인하세요. 실시간 환율이 아닙니다.", color = PortfolioStyle.muted, style = MaterialTheme.typography.bodySmall)
+            }
             if (selected == null) {
-                OutlinedTextField(state.query, controller::updateQuery, label = { Text("종목 검색") },
-                    placeholder = { Text("종목명 또는 종목코드") }, singleLine = true,
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-                    keyboardActions = KeyboardActions(onSearch = { keyboard?.hide() }),
-                    modifier = Modifier.fillMaxWidth().testTag("query"))
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     Country.entries.forEach { country ->
                         FilterChip(state.country == country, { controller.updateCountry(country) },

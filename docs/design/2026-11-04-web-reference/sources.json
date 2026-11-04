@@ -1,0 +1,60 @@
+{
+  "source_root": "reference/2026-DAYNOMY-dev/frontend",
+  "copied_files": 176,
+  "mismatches": [],
+  "checked_at": "2026-11-04T05:14:21.556072+00:00",
+  "files": [
+    {
+      "path": "src/App.css",
+      "sha256": "e2ae43127b85d5ad426bf27367f6d0252fe24803fa7aac692723694eba771a22"
+    },
+    {
+      "path": "src/App.tsx",
+      "sha256": "31de7e2e424f03ccee4dc0c60ade1c6a1494166a35c4a09a0bb379ffdf4bdebf"
+    },
+    {
+      "path": "src/features/landing/ProductMockup.tsx",
+      "sha256": "698441257968be07558e818be00b440fce0601bf85c65c439a8124b70b8230d4"
+    },
+    {
+      "path": "src/features/navigation/ServiceHeader.css",
+      "sha256": "bf630161feef8013c1a55ea375090cfff334c3a86c1c3a3369615e0c6c07985a"
+    },
+    {
+      "path": "src/features/navigation/ServiceHeader.tsx",
+      "sha256": "7be10449724abf02b39719eef4b33900542e1bf1c92d163c03fb1b198f8bc9bf"
+    },
+    {
+      "path": "src/features/portfolio/PortfolioPage.tsx",
+      "sha256": "6bf9f913fd6bf18a117647fd822f986ff845e6d9a402b2ed07b945d5755fefe9"
+    },
+    {
+      "path": "src/features/portfolio/components/portfolioTourExample.ts",
+      "sha256": "f60b777b25773823518fb2d5aead80a9f43588853c3095176fe8a0d02fae5f7d"
+    },
+    {
+      "path": "src/features/portfolio/portfolio.css",
+      "sha256": "262b123d98c39f14406e27add65b3de56d276bc97448031845b7be394f6b7442"
+    },
+    {
+      "path": "src/features/portfolio/portfolioLedger.css",
+      "sha256": "133af71fc632210361943d7be8ab68c3dfde837a33cab175e3ceb93383c54642"
+    },
+    {
+      "path": "src/index.css",
+      "sha256": "29480737b94b35ec1441a0f2c3f8a253e55e802c718a81d0b1fbaf971d36f292"
+    }
+  ],
+  "capture_viewports": {
+    "desktop": [
+      1440,
+      1024
+    ],
+    "mobile": [
+      390,
+      844
+    ]
+  },
+  "state": "guest, empty holdings; backend disconnected; original guide invitation dismissed",
+  "changes": "Vite preview configuration only; src/public original files unchanged; no env copied"
+}

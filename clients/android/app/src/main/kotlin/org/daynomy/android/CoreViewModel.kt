@@ -18,10 +18,14 @@ class CoreViewModel(baseUrl: String) : ViewModel() {
     private val account = AccountClient(session)
     private val portfolio = PortfolioClient(session)
     private val login = NativeLogin(session, baseUrl)
+    val portfolioAi = PortfolioAiController(PortfolioAnalysisClient(session), viewModelScope) { expireSession() }
     private var epoch = 0L
     private var searchJob: Job? = null
     private var searchGeneration = 0L
     var profile by mutableStateOf<AccountProfile?>(null); private set
+    var accountLoading by mutableStateOf(false); private set
+    var accountError by mutableStateOf<String?>(null); private set
+    var accountRequiresLogin by mutableStateOf(false); private set
     var holdings by mutableStateOf(JsonArray(emptyList())); private set
     var history by mutableStateOf(JsonArray(emptyList())); private set
     var evaluation by mutableStateOf<JsonObject?>(null); private set
@@ -29,6 +33,9 @@ class CoreViewModel(baseUrl: String) : ViewModel() {
     var message by mutableStateOf<String?>(null); private set
     var busy by mutableStateOf(false); private set
     var loading by mutableStateOf(false); private set
+    var portfolioError by mutableStateOf<String?>(null); private set
+    var portfolioRequiresLogin by mutableStateOf(false); private set
+    var totalRealizedProfitLoss by mutableStateOf("0"); private set
     var portfolioLoaded by mutableStateOf(false); private set
     var unknown by mutableStateOf(false); private set
     var searchResults by mutableStateOf<List<Stock>>(emptyList()); private set
@@ -49,9 +56,11 @@ class CoreViewModel(baseUrl: String) : ViewModel() {
     fun showMessage(text: String) { message = text }
     fun loginUrl(): String {
         check(!busy) { "Another operation is pending" }
+        portfolioAi.reset(true)
         epoch++; session.clearSession(); login.cancel()
+        accountLoading = false; accountError = null; accountRequiresLogin = true
         profile = null; holdings = JsonArray(emptyList()); history = JsonArray(emptyList())
-        evaluation = null; performance = null; portfolioLoaded = false; loading = false; unknown = false
+        evaluation = null; performance = null; portfolioLoaded = false; portfolioError = null; portfolioRequiresLogin = false; totalRealizedProfitLoss = "0"; loading = false; unknown = false
         searchGeneration++; searchJob?.cancel(); searchBusy = false; searchResults = emptyList(); selection = null
         query = ""; editId = null; quantity = ""; price = ""; type = "BUY"; country = Country.KR
         tradeDate = LocalDate.now().toString(); fee = "0"; tax = "0"; exchangeRate = ""
@@ -62,28 +71,41 @@ class CoreViewModel(baseUrl: String) : ViewModel() {
         if (busy) return
         val generation = epoch; busy = true; message = null
         viewModelScope.launch {
-            try { login.complete(callback); val p = account.me(); if (generation == epoch) { profile = p; message = "로그인했습니다." } }
+            try { login.complete(callback); val p = account.me(); if (generation == epoch) { profile = p; portfolioAi.reset(); accountRequiresLogin = false; message = "로그인했습니다." } }
             catch (e: CancellationException) { throw e }
-            catch (_: Exception) { if (generation == epoch) message = "로그인하지 못했습니다. 다시 시작해 주세요." }
+            catch (_: Exception) { if (generation == epoch) { accountRequiresLogin = true; message = "로그인하지 못했습니다. 다시 시작해 주세요." } }
             finally { if (generation == epoch) busy = false }
         }
     }
     fun loadAccount() {
+        if (accountLoading || busy) return
         val generation = epoch
+        accountLoading = true; accountError = null; accountRequiresLogin = false
         viewModelScope.launch {
-            try { val p = account.me(); if (generation == epoch) profile = p }
+            try { val p = account.me(); if (generation == epoch) { profile = p; if (portfolioAi.state.value.loginRequired) portfolioAi.reset() } }
             catch (e: CancellationException) { throw e }
-            catch (e: Exception) { if (generation == epoch) { profile = null; message = if (e is ApiException && e.status == 401) "로그인이 필요합니다." else "회원 정보를 확인하지 못했습니다." } }
+            catch (e: Exception) {
+                if (generation == epoch) {
+                    if (e is ApiException && e.status == 401) expireSession()
+                    else { profile = null; accountRequiresLogin = false; accountError = "회원 정보를 확인하지 못했습니다." }
+                }
+            }
+            finally { if (generation == epoch) accountLoading = false }
         }
     }
-    fun rename(nickname: String) = mutate(false, "닉네임을 변경했습니다.") { profile = account.updateNickname(nickname) }
+    fun rename(nickname: String) {
+        val owner = epoch
+        mutate(false, "닉네임을 변경했습니다.") { val updated = account.updateNickname(nickname); if (owner == epoch) profile = updated }
+    }
     fun logout(withdraw: Boolean = false) {
         if (busy) return
+        portfolioAi.reset(true)
         epoch++; login.cancel(); busy = true; message = null
+        accountLoading = false; accountError = null; accountRequiresLogin = true
         profile = null; holdings = JsonArray(emptyList()); history = JsonArray(emptyList()); evaluation = null; performance = null
         selection = null; searchResults = emptyList(); query = ""; editId = null; unknown = false
         loading = false; searchBusy = false; searchGeneration++; searchJob?.cancel()
-        portfolioLoaded = false
+        portfolioLoaded = false; portfolioError = null; portfolioRequiresLogin = false; totalRealizedProfitLoss = "0"
         quantity = ""; price = ""; type = "BUY"; tradeDate = LocalDate.now().toString(); fee = "0"; tax = "0"; exchangeRate = ""; country = Country.KR
         viewModelScope.launch {
             try { if (withdraw) account.delete() else account.logout(); message = if (withdraw) "탈퇴했습니다." else "로그아웃했습니다." }
@@ -108,17 +130,27 @@ class CoreViewModel(baseUrl: String) : ViewModel() {
     fun select(stock: Stock) { searchGeneration++; searchJob?.cancel(); searchBusy = false; selection = TradeAsset(stock.assetId, stock.assetCode, stock.name, stock.currency.name); searchResults = emptyList() }
     fun refreshPortfolio() {
         if (loading) return
-        val generation = epoch; loading = true; message = null
+        val generation = epoch; loading = true; message = null; portfolioError = null
+        evaluation = null; performance = null
         viewModelScope.launch {
             try {
                 val saved = portfolio.holdings()
                 val records = portfolio.histories(from, to)
-                if (generation == epoch) { holdings = saved["holdings"]!!.jsonArray; history = records; unknown = false; portfolioLoaded = true }
+                if (generation == epoch) { if (portfolioLoaded && holdings != saved["holdings"]!!.jsonArray) portfolioAi.invalidatePortfolio(); holdings = saved["holdings"]!!.jsonArray; history = records; totalRealizedProfitLoss = saved.text("totalRealizedProfitLoss"); unknown = false; portfolioLoaded = true; portfolioRequiresLogin = false }
             } catch (e: CancellationException) { throw e }
             catch (e: Exception) {
                 if (generation == epoch) {
-                    if (e is ApiException && e.code == "PORTFOLIO_NOT_FOUND") { holdings = JsonArray(emptyList()); history = JsonArray(emptyList()); portfolioLoaded = true; unknown = false; message = "아직 보유자산이 없습니다. 첫 거래를 등록하세요." }
-                    else message = if (e is ApiException && e.status == 401) "내 포트폴리오는 로그인 후 이용할 수 있습니다." else "보유자산·거래 내역을 확인하지 못했습니다."
+                    if (e is ApiException && e.code == "PORTFOLIO_NOT_FOUND") { if (portfolioLoaded && holdings.isNotEmpty()) portfolioAi.invalidatePortfolio(); holdings = JsonArray(emptyList()); history = JsonArray(emptyList()); portfolioLoaded = true; portfolioRequiresLogin = false; totalRealizedProfitLoss = "0"; unknown = false; message = "아직 보유자산이 없습니다. 첫 거래를 등록하세요." }
+                    else {
+                        portfolioRequiresLogin = e is ApiException && e.status == 401
+                        portfolioError = if (portfolioRequiresLogin) "내 포트폴리오는 로그인 후 이용할 수 있습니다." else "보유자산·거래 내역을 확인하지 못했습니다."
+                        message = portfolioError
+                        if (portfolioRequiresLogin) {
+                            expireSession()
+                            holdings = JsonArray(emptyList()); history = JsonArray(emptyList()); portfolioLoaded = false
+                            totalRealizedProfitLoss = "0"
+                        }
+                    }
                 }
             } finally { if (generation == epoch) loading = false }
         }
@@ -158,21 +190,33 @@ class CoreViewModel(baseUrl: String) : ViewModel() {
         mutate(true, "보유자산을 조정했습니다.") { portfolio.updateHolding(id, count, price); refreshPortfolio() }
     }
     fun evaluate() = mutate(false, "평가를 조회했습니다.") {
+        evaluation = null
+        val owner = epoch
         val body = buildJsonObject { put("holdings", JsonArray(holdings.map { row ->
             val h = row.jsonObject; buildJsonObject { put("assetId", h["assetId"]!!); put("quantity", h["quantity"]!!); put("averagePurchasePrice", h["averagePurchasePrice"]!!) }
         })) }
-        evaluation = portfolio.calculate(body)
+        val result = portfolio.calculate(body)
+        if (owner == epoch) evaluation = result
     }
-    fun loadPerformance() = mutate(false, "수익률을 조회했습니다.") { performance = portfolio.performance(from, to) }
+    fun loadPerformance() = mutate(false, "수익률을 조회했습니다.") {
+        performance = null
+        val owner = epoch
+        val result = portfolio.performance(from, to)
+        if (owner == epoch) performance = result
+    }
     private fun mutate(transaction: Boolean, success: String, action: suspend () -> Unit) {
         if (busy || transaction && unknown) return
         val generation = epoch; busy = true; message = null
         viewModelScope.launch {
-            try { action(); if (generation == epoch) message = success }
+            try { action(); if (generation == epoch) { if (transaction) portfolioAi.invalidatePortfolio(); message = success } }
             catch (e: CancellationException) { if (transaction && generation == epoch) unknown = true; throw e }
             catch (e: Exception) {
                 if (generation == epoch) {
+                    if (e is ApiException && e.status == 401) {
+                        expireSession()
+                    }
                     unknown = transaction && (e is IOException || e is ResponseFormatException)
+                    if (unknown) portfolioAi.invalidatePortfolio()
                     message = if (unknown) "거래 결과를 확인하지 못했습니다. 내역을 새로 조회한 뒤 확인하세요."
                     else if (e is ApiException) when (e.status) { 401 -> "로그인이 필요합니다."; 403 -> "요청 권한을 확인해 주세요."; 400 -> "날짜·수량·금액과 보유 수량을 확인하세요."; else -> "요청을 처리하지 못했습니다. 다시 조회해 주세요." }
                     else "입력값과 연결 상태를 확인해 주세요."
@@ -180,7 +224,23 @@ class CoreViewModel(baseUrl: String) : ViewModel() {
             } finally { if (generation == epoch) busy = false }
         }
     }
-    override fun onCleared() { epoch++; login.cancel(); searchJob?.cancel(); session.close() }
+    private fun expireSession() {
+        portfolioAi.reset(true)
+        session.clearSession()
+        epoch++; loading = false; busy = false; login.cancel()
+        accountLoading = false; accountError = null; accountRequiresLogin = true
+        type = "BUY"; tradeDate = LocalDate.now().toString()
+        profile = null; holdings = JsonArray(emptyList()); history = JsonArray(emptyList())
+        evaluation = null; performance = null; portfolioLoaded = false
+        portfolioRequiresLogin = true; totalRealizedProfitLoss = "0"
+        portfolioError = "내 포트폴리오는 로그인 후 이용할 수 있습니다."
+        selection = null; editId = null; query = ""; searchResults = emptyList()
+        quantity = ""; price = ""; fee = "0"; tax = "0"; exchangeRate = ""
+        searchGeneration++; searchJob?.cancel(); searchBusy = false
+        unknown = false
+        message = "로그인이 필요합니다."
+    }
+    override fun onCleared() { portfolioAi.close(); epoch++; login.cancel(); searchJob?.cancel(); session.close() }
 }
 private fun decimal(text: String): BigDecimal? = try { text.takeIf { it.matches(Regex("[0-9]+(?:\\.[0-9]+)?")) }?.toBigDecimal() } catch (_: NumberFormatException) { null }
 internal fun JsonObject.text(key: String): String = (get(key) as? JsonPrimitive)?.content.orEmpty()
