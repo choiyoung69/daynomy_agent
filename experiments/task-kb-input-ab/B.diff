@@ -1,0 +1,11 @@
+--- a/MarketController.kt
++++ b/MarketController.kt
+@@ -55,7 +55,7 @@
+     fun clearSelection() {
+         if (closed) return
+         invalidatePrice()
+-        mutableState.update { it.copy(query = "", selected = null, price = LoadState.Idle, unitPrice = "", priceEdited = false) }
++        mutableState.update { it.copy(selected = null, price = LoadState.Idle, unitPrice = "", priceEdited = false) }
+         search()
+     }
+     fun editUnitPrice(value: String) {

@@ -425,6 +425,40 @@ class CliRetryTests(unittest.TestCase):
 
 
 class InputBoundaryTests(unittest.TestCase):
+    def test_workflow_does_not_silently_drop_profile_for_custom_adapter(self):
+        with tempfile.TemporaryDirectory() as t:
+            with self.assertRaises(ValueError):workflow.Workflow(Path(t),Path(t)/'run','Task',agent=object(),knowledge_task='query-reset')
+
+    def test_workflow_passes_named_profile_to_common_adapter(self):
+        with tempfile.TemporaryDirectory() as t,mock.patch('agent_workflow.CliAgent') as factory:
+            workflow.Workflow(Path(t),Path(t)/'run','Task',probe=False,knowledge_task='query-reset',knowledge_base='.local/task-kb')
+            factory.assert_called_once_with(knowledge_task='query-reset',knowledge_base='.local/task-kb')
+
+    def test_selected_kb_reaches_actual_transport_and_input_hash(self):
+        helper=CliRetryTests();helper.setUp()
+        try:
+            capture,calls=helper.capture_script([helper.success()]);seen=[]
+            def observed(command,prompt,events,timeout,env):
+                seen.append(prompt)
+                return capture(command,prompt,events,timeout,env)
+            metadata={"task":"query-reset","documents":{"knowledge/selected.md":"hash"}}
+            with mock.patch("android_knowledge.model_input",return_value=("SELECTED_KB_RULE",metadata)),mock.patch("agent_workflow.capture",side_effect=observed):
+                _,identity=workflow.CliAgent(knowledge_task="query-reset")("reviewer",helper.workspace,"Fix task",helper.output)
+            self.assertIn("SELECTED_KB_RULE",seen[0]);self.assertNotIn("UNSELECTED_KB",seen[0])
+            self.assertEqual(identity['input']['prompt_sha256'],__import__('hashlib').sha256(seen[0].encode()).hexdigest())
+            self.assertEqual(identity['input']['knowledge'],metadata)
+        finally:helper.doCleanups()
+
+    def test_kb_preparation_failure_prevents_model_call(self):
+        with tempfile.TemporaryDirectory() as t,mock.patch('android_knowledge.model_input',side_effect=ValueError('not ready')),mock.patch('agent_workflow.capture') as capture:
+            with self.assertRaises(ValueError):workflow.CliAgent(knowledge_task='unknown')('reviewer',Path(t),'Task',Path(t)/'out')
+            capture.assert_not_called()
+
+    def test_budget_counts_inserted_kb(self):
+        with tempfile.TemporaryDirectory() as t,mock.patch('android_knowledge.model_input',return_value=('X'*1000,{})),mock.patch('agent_workflow.capture') as capture:
+            with self.assertRaises(ValueError):workflow.CliAgent(knowledge_task='query-reset',max_prompt_bytes=100)('reviewer',Path(t),'Task',Path(t)/'out')
+            capture.assert_not_called()
+
     def test_utf8_budget_rejects_before_transport(self):
         with tempfile.TemporaryDirectory() as tmp, mock.patch("agent_workflow.capture") as capture:
             out = Path(tmp) / "out"

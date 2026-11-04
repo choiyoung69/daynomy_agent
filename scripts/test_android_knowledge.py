@@ -10,6 +10,35 @@ import android_knowledge as gate
 import android_pilot as ledger
 
 class KnowledgeGateTests(unittest.TestCase):
+    def verified_packet(self, task, base):
+        gate.verify('packet/manifest.json', expected_task=task)
+        return 'packet/manifest.json'
+
+    def test_model_input_uses_verified_documents_not_packet_body(self):
+        (self.root/'packet/context.md').write_text('UNSELECTED_FULL_HISTORY')
+        self.manifest['context_sha256']=self.sha('packet/context.md')
+        self.save('packet/manifest.json',self.manifest)
+        with patch.object(gate,'ensure',side_effect=self.verified_packet):
+            text, meta=gate.model_input('search','packet')
+        self.assertIn('Kotlin required rule',text)
+        self.assertIn('Cancellation rule',text)
+        self.assertNotIn('UNSELECTED_FULL_HISTORY',text)
+        self.assertEqual(meta['documents'],self.manifest['documents'])
+        self.assertEqual(meta['input_sha256'],hashlib.sha256(text.encode()).hexdigest())
+
+    def test_model_input_rejects_unknown_profile(self):
+        with self.assertRaises(ValueError):gate.model_input('unknown','packet')
+
+    def test_model_input_rejects_changed_source_before_reading(self):
+        (self.root/'source.kt').write_text('changed')
+        with patch.object(gate,'ensure',side_effect=self.verified_packet):
+            with self.assertRaises(ValueError):gate.model_input('search','packet')
+
+    def test_model_input_rejects_not_ready_selection(self):
+        self.ready_patch.stop()
+        with patch.object(gate.knowledge,'context',return_value=2),patch.object(gate,'ensure',side_effect=self.verified_packet):
+            with self.assertRaises(ValueError):gate.model_input('search','packet')
+
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
         self.root=Path(self.temp.name).resolve();self.patch=patch.object(gate,'ROOT',self.root);self.patch.start();self.addCleanup(self.patch.stop)

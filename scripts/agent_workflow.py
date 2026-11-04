@@ -168,8 +168,11 @@ def transient_error(events):
 
 
 class CliAgent:
-    def __init__(self, timeout=240, model=None, max_attempts=3, reasoning_effort=None, executable="codex", max_prompt_bytes=32 * 1024):
+    def __init__(self, timeout=240, model=None, max_attempts=3, reasoning_effort=None, executable="codex", max_prompt_bytes=32 * 1024, knowledge_task=None, knowledge_base=".local/cli-knowledge"):
         self.timeout = timeout
+        if knowledge_task is not None and (not isinstance(knowledge_task, str) or not knowledge_task.strip()):
+            raise ValueError("Knowledge task must be a named profile")
+        self.knowledge_task, self.knowledge_base = knowledge_task, knowledge_base
         if isinstance(max_prompt_bytes, bool) or not isinstance(max_prompt_bytes, int) or max_prompt_bytes < 1:
             raise ValueError("Prompt byte limit must be a positive integer")
         self.max_prompt_bytes = max_prompt_bytes
@@ -187,12 +190,22 @@ class CliAgent:
     def __call__(self, role, workspace, prompt, output_dir):
         if not isinstance(prompt, str) or not prompt.strip():
             raise ValueError("Agent prompt must be nonempty text")
+        base_prompt_bytes = len(prompt.encode("utf-8"))
+        knowledge = None
+        knowledge_started = time.perf_counter()
+        if self.knowledge_task is not None:
+            from android_knowledge import model_input
+            selected, knowledge = model_input(self.knowledge_task, self.knowledge_base)
+            prompt += "\n\n" + selected
         prompt_bytes = prompt.encode("utf-8")
         if len(prompt_bytes) > self.max_prompt_bytes:
             raise ValueError(f"Agent prompt is {len(prompt_bytes)} bytes; limit {self.max_prompt_bytes}; use scoped file references, never truncate required evidence")
         input_evidence = {"prompt_bytes": len(prompt_bytes), "prompt_characters": len(prompt),
                           "prompt_sha256": hashlib.sha256(prompt_bytes).hexdigest(),
                           "max_prompt_bytes": self.max_prompt_bytes, "context_mode": "fresh-ephemeral"}
+        if knowledge is not None:
+            input_evidence.update(base_prompt_bytes=base_prompt_bytes, knowledge=knowledge,
+                                  knowledge_prepare_seconds=time.perf_counter() - knowledge_started)
         if role not in ROLE_STATUSES:
             raise ValueError("Unknown agent role")
         if (output_dir / "input.json").exists() or (output_dir / "result.json").exists():
@@ -224,6 +237,7 @@ class CliAgent:
         for attempt in range(1, self.max_attempts + 1):
             events = output_dir / ("events.jsonl" if attempt == 1 else f"events-attempt-{attempt}.jsonl")
             capture_error = None
+            capture_started = time.perf_counter()
             try:
                 code = capture(command, prompt, events, self.timeout, clean_env())
             except (OSError, RuntimeError, subprocess.SubprocessError) as error:
@@ -240,7 +254,8 @@ class CliAgent:
                     if event.get("type") in ("turn.completed", "turn.failed") and isinstance(event.get("usage"), dict):
                         usage_records.append(event["usage"])
             attempts.append({"attempt": attempt, "exit_code": code, "events": str(events),
-                             "session_ids": session_ids, "usage_records": usage_records})
+                             "session_ids": session_ids, "usage_records": usage_records,
+                             "capture_seconds": time.perf_counter() - capture_started})
             if capture_error is not None:
                 attempts[-1]["error_type"] = type(capture_error).__name__
             dump(output_dir / "attempts.json", attempts)
@@ -351,15 +366,17 @@ def gate_passes(gate, expected_hash):
 
 class Workflow:
     def __init__(self, root, run_dir, task, agent=None, gate=run_gate, rounds=3, demo=False,
-                 probe=True, evidence_mode="inline"):
+                 probe=True, evidence_mode="inline", knowledge_task=None, knowledge_base=".local/cli-knowledge"):
         if evidence_mode not in ("inline", "reference"):
             raise ValueError("Evidence mode must be inline or reference")
         self.evidence_mode = evidence_mode
+        if agent is not None and knowledge_task is not None:
+            raise ValueError("Configure knowledge_task on the supplied adapter instead of silently overriding it")
         self.root, self.run_dir = Path(root).resolve(), Path(run_dir).resolve()
-        self.task, self.agent, self.gate = task, agent or CliAgent(), gate
+        self.task, self.agent, self.gate = task, agent or CliAgent(knowledge_task=knowledge_task, knowledge_base=knowledge_base), gate
         self.rounds, self.demo, self.probe = rounds, demo, probe
         self.state = {"status": "preparing", "started_at": now(), "task": task,
-                      "evidence_mode": evidence_mode, "events": [], "rounds": [], "agents": [], "fault_test": demo}
+                      "evidence_mode": evidence_mode, "knowledge_task": knowledge_task, "events": [], "rounds": [], "agents": [], "fault_test": demo}
         self.session_ids = set()
 
     def event(self, status, **details):
@@ -543,6 +560,8 @@ class Workflow:
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--knowledge-task", help="Explicit existing Android task KB profile; must match the assigned work")
+    parser.add_argument("--knowledge-base", default=".local/cli-knowledge")
     parser.add_argument("--task", default="Implement the approved feedback contract without changing its requirements.")
     parser.add_argument("--demo", action="store_true", help="Inject one no-save fault after first implementation")
     parser.add_argument("--rounds", type=int, default=3)
@@ -552,7 +571,7 @@ def main():
         parser.error("rounds must be 1..3")
     run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + uuid.uuid4().hex[:8]
     directory = ROOT / ".local/agent-workflows" / run_id
-    state = Workflow(ROOT, directory, args.task, rounds=args.rounds, demo=args.demo, evidence_mode=args.evidence_mode).execute()
+    state = Workflow(ROOT, directory, args.task, rounds=args.rounds, demo=args.demo, evidence_mode=args.evidence_mode, knowledge_task=args.knowledge_task, knowledge_base=args.knowledge_base).execute()
     print("Workflow evidence: " + str(directory / "state.json"), flush=True)
     return 0 if state["status"] == "completed" else (3 if state["status"] == "needs_decision" else 2)
 

@@ -1,0 +1,92 @@
+{
+  "issue": 16,
+  "task": "isolated historical Android clearSelection regression",
+  "requested_model": "gpt-6.1-sol",
+  "reasoning_effort": "medium",
+  "order": [
+    "A",
+    "B"
+  ],
+  "timeout_seconds": 120,
+  "max_attempts": 1,
+  "max_prompt_bytes_both": 262144,
+  "same_base_prompt": true,
+  "baseline_sha256": "da96a9ffb01cc85da4cd5706c5f1ae3ab29399b06bbb7aca2ef090838706c491",
+  "test_files_sha256": {
+    "market-core/src/test/kotlin/org/daynomy/market/Android30SafetyRegressionTest.kt": "b85b6896d2d37d3668180a6b0440d2e7527e1a4197ee4d68e40c0264e66a92ee",
+    "market-core/src/test/kotlin/org/daynomy/market/MarketControllerContractTest.kt": "e8201ff7f3b21fcdba473803c02381a22f7584147442ff364e6c858e4cb82199",
+    "market-core/src/test/kotlin/org/daynomy/market/Android30SessionContractTest.kt": "dc5ae554d5993c07817930664400f5c8644fc76b2e45d7bd4dc9580e36df3d74",
+    "market-core/src/test/kotlin/org/daynomy/market/DiscoveryClientContractTest.kt": "cb45b07c464e0efccbd07a58812bff5f0e8d2e043e92ef76710485c0256bd684",
+    "market-core/src/test/kotlin/org/daynomy/market/StockPriceClientContractTest.kt": "1d568f1a3a654baa847beb5fc409bf0d3c2b2d916318a753472cabe833525093",
+    "market-core/src/test/kotlin/org/daynomy/market/StockSearchClientContractTest.kt": "fb3205972876f584cef4d43ba86d2ae16ae9a27feece05daef7edb20628e2566",
+    "market-core/src/test/kotlin/org/daynomy/market/DiscoveryControllerContractTest.kt": "ee15da3fe5a0656ae9834daef7bc19a9895f75e182ea068376e2b10a27138c22",
+    "market-core/src/test/kotlin/org/daynomy/market/ExchangeNumericBoundaryTest.kt": "a6ca3d3685f1739aee4475d632bb69c4feac70328e9365a3a20a52e8ccfce56e",
+    "market-core/src/test/kotlin/org/daynomy/market/OkHttpTransportContractTest.kt": "b80f55ddd41b33270018ab88bc4527a93378f0b6802f1c50098a1b7f8cc7bc4a",
+    "market-core/src/test/kotlin/org/daynomy/market/Android30CoreClientContractTest.kt": "50bb9fc264966dc6c25deaeb06303281e7a1f79578d1feab23eee7d10cb9524a",
+    "market-core/src/test/kotlin/org/daynomy/market/ExchangeClientContractTest.kt": "d739e52ef477dd455fc599b3cc5982ee407cdeba61f15fced43aa8f06c602353",
+    "market-core/src/test/kotlin/org/daynomy/market/ExchangeControllerContractTest.kt": "bcc5a8a8f8bce5aafb858018598caee4b229301aa0e0649b775090c37b6c8f26",
+    "market-core/src/test/kotlin/org/daynomy/market/MarketControllerRegressionTest.kt": "4e2a6fde6d0d9593ce82a6ecc5cb39b1019c99728bd72eb95612b76c27435b55",
+    "market-core/src/test/kotlin/org/daynomy/market/ContractFixtures.kt": "d9449c31b426a61cbb3afd1afef33577c733845c93f9c76496f0dc40fee59ab3"
+  },
+  "baseline_kb_documents": 18,
+  "selected_kb_profile": "query-reset",
+  "selected_kb_documents": {
+    "knowledge/wiki/projects/daynomy/stock-search-price.md": "706a51304f7404dd878a5fa809e5070104f5df914e3b4cfba703ce128131c7cf",
+    "knowledge/wiki/packages/android-kotlin/state-and-navigation.md": "33d9a43b77cf761885cd5cfb72f6942100858e6193fb7d8f84a03c6906eca5f9",
+    "knowledge/wiki/packages/android-kotlin/async-and-cancellation.md": "80ae16b4f8c37fd75fdc66aa4ca6068d7132ae889a39141d4ff2a147bbb04ad9"
+  },
+  "conditions": [
+    {
+      "condition": "A",
+      "seconds": 16.165,
+      "cached_input": 109312,
+      "non_cached_input": 38994,
+      "output": 377,
+      "total": 148683,
+      "verification": {
+        "tests": 105,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "prompt_bytes": 74870,
+      "shell_commands": 4,
+      "knowledge_documents": null,
+      "model_response_count": null,
+      "agent_runs": 1
+    },
+    {
+      "condition": "B",
+      "seconds": 24.296,
+      "cached_input": 95104,
+      "non_cached_input": 21212,
+      "output": 537,
+      "total": 116853,
+      "verification": {
+        "tests": 105,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "prompt_bytes": 11229,
+      "shell_commands": 6,
+      "knowledge_documents": {
+        "knowledge/wiki/projects/daynomy/stock-search-price.md": "706a51304f7404dd878a5fa809e5070104f5df914e3b4cfba703ce128131c7cf",
+        "knowledge/wiki/packages/android-kotlin/state-and-navigation.md": "33d9a43b77cf761885cd5cfb72f6942100858e6193fb7d8f84a03c6906eca5f9",
+        "knowledge/wiki/packages/android-kotlin/async-and-cancellation.md": "80ae16b4f8c37fd75fdc66aa4ca6068d7132ae889a39141d4ff2a147bbb04ad9"
+      },
+      "model_response_count": null,
+      "agent_runs": 1
+    }
+  ],
+  "same_implementation": true,
+  "trace": "45114c9f867569079b35de3a22830427",
+  "cloud_usage_matched": true,
+  "limits": [
+    "one pair",
+    "fixed order",
+    "cache/host load uncontrolled",
+    "historical small regression, not whole-service validation",
+    "CLI internal model-response count unavailable"
+  ]
+}
