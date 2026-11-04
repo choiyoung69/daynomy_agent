@@ -32,7 +32,7 @@ fun GuestPortfolioScreen(model: GuestPortfolioViewModel, onAccount: () -> Unit) 
             Text("내 포트폴리오", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold,
                 modifier = Modifier.semantics { heading() })
             Surface(color = PortfolioStyle.soft, shape = PortfolioStyle.panel) {
-                Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text("로그인 없이 포트폴리오 체험", fontWeight = FontWeight.SemiBold)
                     Text("종목·수량·원화 평균 매수가를 담아 최근 저장 종가로 평가해 보세요.")
                     Text("이 앱을 실행하는 동안만 임시 보관됩니다. 앱 프로세스가 종료되면 사라집니다.", color = PortfolioStyle.muted)

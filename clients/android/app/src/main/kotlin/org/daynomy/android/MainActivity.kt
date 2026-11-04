@@ -117,7 +117,7 @@ class MainActivity : ComponentActivity() {
                     discovery.exchange.updateDate(date)
                     focus.clearFocus(); keyboard?.hide(); tab = "exchange"
                 }
-                MaterialTheme(colorScheme = PortfolioStyle.colors) {
+                MaterialTheme(colorScheme = PortfolioStyle.colors, typography = PortfolioStyle.typography) {
                     Column(Modifier.fillMaxSize().safeDrawingPadding().imePadding()) {
                         Box(Modifier.weight(1f)) {
                             screenState.SaveableStateProvider(tab) {
@@ -141,13 +141,14 @@ class MainActivity : ComponentActivity() {
                         }
                         }
                         NavigationBar(containerColor = Color.White, tonalElevation = 0.dp,
-                            modifier = Modifier.heightIn(min = if (LocalDensity.current.fontScale > 1.3f) 112.dp else 80.dp).testTag("bottom-navigation")) {
+                            modifier = Modifier.heightIn(min = if (LocalDensity.current.fontScale > 1.3f) 104.dp else 72.dp).testTag("bottom-navigation")) {
                             listOf("portfolio" to "포트폴리오", "news" to "이슈", "account" to "내 계정").forEach { (key, title) ->
                                 val active = tab == key || ((tab == "market" || tab == "exchange") && key == "portfolio")
                                 NavigationBarItem(selected = active,
                                     onClick = { focus.clearFocus(); keyboard?.hide(); tab = key },
                                     icon = { Icon(when(key) { "portfolio" -> Icons.Outlined.Home; "news" -> Icons.Outlined.List; else -> Icons.Outlined.Person }, contentDescription = null) },
                                     label = { Text(title, modifier = Modifier.widthIn(max = 96.dp), maxLines = 2, textAlign = TextAlign.Center,
+                                        style = MaterialTheme.typography.labelMedium,
                                         fontWeight = if (active) FontWeight.Bold else FontWeight.Medium) },
                                     colors = NavigationBarItemDefaults.colors(indicatorColor = Color.Transparent,
                                         selectedIconColor = PortfolioStyle.blue, selectedTextColor = PortfolioStyle.blue,

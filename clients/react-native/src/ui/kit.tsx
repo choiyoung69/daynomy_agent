@@ -103,11 +103,11 @@ export function Chip({
       accessibilityState={{ selected }}
       style={({ pressed }) => [
         s.chip,
-        selected && { backgroundColor: c.ink, borderColor: c.ink },
+        selected && { backgroundColor: c.selected, borderColor: c.selected },
         pressed && { opacity: 0.7 },
       ]}
     >
-      <Text style={{ fontWeight: "600", color: selected ? "#FFF" : c.muted }}>
+      <Text style={{ fontWeight: "600", color: selected ? c.accent : c.muted }}>
         {title}
       </Text>
     </Pressable>
@@ -116,50 +116,51 @@ export function Chip({
 export const s = StyleSheet.create({
   button: {
     minHeight: 48,
-    borderRadius: 12,
-    backgroundColor: c.accent,
-    paddingHorizontal: 20,
-    paddingVertical: 14,
+    borderRadius: 999,
+    backgroundColor: c.action,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
     justifyContent: "center",
     alignItems: "center",
   },
   secondary: { backgroundColor: c.soft },
-  buttonText: { color: "#FFF", fontWeight: "700", fontSize: 15 },
+  buttonText: { color: "#FFF", fontWeight: "600", fontSize: 14, lineHeight: 20 },
   input: {
-    minHeight: 50,
+    minHeight: 48,
     borderWidth: 1,
     borderColor: c.line,
-    borderRadius: 12,
-    padding: 14,
+    borderRadius: 10,
+    padding: 12,
     backgroundColor: c.surface,
     color: c.ink,
-    fontSize: 16,
+    fontSize: 15,
   },
   label: { fontSize: 13, fontWeight: "600", color: c.muted },
   heading: {
-    fontSize: 20,
+    fontSize: 18,
+    lineHeight: 26,
     fontWeight: "700",
     letterSpacing: -0.5,
     color: c.ink,
   },
-  muted: { fontSize: 14, lineHeight: 21, color: c.muted },
+  muted: { fontSize: 13, lineHeight: 20, color: c.muted },
   section: {
-    padding: 20,
+    padding: 0,
     backgroundColor: c.surface,
-    borderRadius: 18,
-    gap: 18,
+    borderRadius: 0,
+    gap: 12,
   },
   empty: {
-    paddingVertical: 32,
+    paddingVertical: 24,
     paddingHorizontal: 20,
     alignItems: "center",
     gap: 10,
   },
-  emptyTitle: { fontSize: 17, fontWeight: "600", color: c.ink },
+  emptyTitle: { fontSize: 16, lineHeight: 24, fontWeight: "600", color: c.ink },
   chip: {
-    minHeight: 44,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    minHeight: 48,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
     borderRadius: 24,
     borderWidth: 1,
     borderColor: c.line,
@@ -171,14 +172,14 @@ export const s = StyleSheet.create({
     justifyContent: "space-between",
     gap: 12,
   },
-  title: { fontSize: 17, fontWeight: "700", color: c.ink },
+  title: { fontSize: 16, lineHeight: 24, fontWeight: "600", color: c.ink },
   divider: { height: 1, backgroundColor: c.line },
-  caption: { fontSize: 12, color: c.muted },
+  caption: { fontSize: 12, lineHeight: 18, color: c.muted },
   badge: {
     fontSize: 11,
     color: c.accent,
     fontWeight: "700",
     letterSpacing: 0.7,
   },
-  body: { fontSize: 16, lineHeight: 26, color: c.ink },
+  body: { fontSize: 15, lineHeight: 24, color: c.ink },
 });
