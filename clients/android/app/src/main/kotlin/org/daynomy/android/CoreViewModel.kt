@@ -22,6 +22,9 @@ class CoreViewModel(baseUrl: String) : ViewModel() {
     private var searchJob: Job? = null
     private var searchGeneration = 0L
     var profile by mutableStateOf<AccountProfile?>(null); private set
+    var accountLoading by mutableStateOf(false); private set
+    var accountError by mutableStateOf<String?>(null); private set
+    var accountRequiresLogin by mutableStateOf(false); private set
     var holdings by mutableStateOf(JsonArray(emptyList())); private set
     var history by mutableStateOf(JsonArray(emptyList())); private set
     var evaluation by mutableStateOf<JsonObject?>(null); private set
@@ -53,6 +56,7 @@ class CoreViewModel(baseUrl: String) : ViewModel() {
     fun loginUrl(): String {
         check(!busy) { "Another operation is pending" }
         epoch++; session.clearSession(); login.cancel()
+        accountLoading = false; accountError = null; accountRequiresLogin = true
         profile = null; holdings = JsonArray(emptyList()); history = JsonArray(emptyList())
         evaluation = null; performance = null; portfolioLoaded = false; portfolioError = null; portfolioRequiresLogin = false; totalRealizedProfitLoss = "0"; loading = false; unknown = false
         searchGeneration++; searchJob?.cancel(); searchBusy = false; searchResults = emptyList(); selection = null
@@ -65,24 +69,34 @@ class CoreViewModel(baseUrl: String) : ViewModel() {
         if (busy) return
         val generation = epoch; busy = true; message = null
         viewModelScope.launch {
-            try { login.complete(callback); val p = account.me(); if (generation == epoch) { profile = p; message = "로그인했습니다." } }
+            try { login.complete(callback); val p = account.me(); if (generation == epoch) { profile = p; accountRequiresLogin = false; message = "로그인했습니다." } }
             catch (e: CancellationException) { throw e }
-            catch (_: Exception) { if (generation == epoch) message = "로그인하지 못했습니다. 다시 시작해 주세요." }
+            catch (_: Exception) { if (generation == epoch) { accountRequiresLogin = true; message = "로그인하지 못했습니다. 다시 시작해 주세요." } }
             finally { if (generation == epoch) busy = false }
         }
     }
     fun loadAccount() {
+        if (accountLoading || busy) return
         val generation = epoch
+        accountLoading = true; accountError = null; accountRequiresLogin = false
         viewModelScope.launch {
             try { val p = account.me(); if (generation == epoch) profile = p }
             catch (e: CancellationException) { throw e }
-            catch (e: Exception) { if (generation == epoch) { profile = null; message = if (e is ApiException && e.status == 401) "로그인이 필요합니다." else "회원 정보를 확인하지 못했습니다." } }
+            catch (e: Exception) {
+                if (generation == epoch) {
+                    profile = null
+                    accountRequiresLogin = e is ApiException && e.status == 401
+                    accountError = if (accountRequiresLogin) null else "회원 정보를 확인하지 못했습니다."
+                }
+            }
+            finally { if (generation == epoch) accountLoading = false }
         }
     }
     fun rename(nickname: String) = mutate(false, "닉네임을 변경했습니다.") { profile = account.updateNickname(nickname) }
     fun logout(withdraw: Boolean = false) {
         if (busy) return
         epoch++; login.cancel(); busy = true; message = null
+        accountLoading = false; accountError = null; accountRequiresLogin = true
         profile = null; holdings = JsonArray(emptyList()); history = JsonArray(emptyList()); evaluation = null; performance = null
         selection = null; searchResults = emptyList(); query = ""; editId = null; unknown = false
         loading = false; searchBusy = false; searchGeneration++; searchJob?.cancel()
@@ -194,6 +208,7 @@ class CoreViewModel(baseUrl: String) : ViewModel() {
                 if (generation == epoch) {
                     if (e is ApiException && e.status == 401) {
                         epoch++; loading = false; busy = false; login.cancel()
+                        accountLoading = false; accountError = null; accountRequiresLogin = true
                         type = "BUY"; tradeDate = LocalDate.now().toString()
                         profile = null; holdings = JsonArray(emptyList()); history = JsonArray(emptyList())
                         evaluation = null; performance = null; portfolioLoaded = false

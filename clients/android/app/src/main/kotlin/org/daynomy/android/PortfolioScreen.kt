@@ -198,8 +198,6 @@ fun PortfolioScreen(model: CoreViewModel, onAccount: () -> Unit = {}) {
                             Text(if (analysisOpen) "평가·수익률 접기" else "평가·수익률 더 보기")
                         }
                         if (analysisOpen) PortfolioAnalysis(model, amountsHidden)
-                        TextButton(model::refreshPortfolio, enabled = !model.busy && !model.loading,
-                            modifier = Modifier.heightIn(min = 48.dp).testTag("portfolio-refresh")) { Text("새로고침") }
                         Text("보유 종목 뉴스 연결은 준비 중입니다. 발행 뉴스는 하단 이슈에서 볼 수 있어요.", color = PortfolioStyle.muted, fontSize = 14.sp)
                         }
                     }

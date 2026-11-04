@@ -1,24 +1,31 @@
 {
   "base": "40668b76",
-  "scope": "Approved mock implemented in Compose: JVM 17; final native 28; font 200% 2; APK/lint; independent static, acceptance and visual review. Synthetic HTTP only; no real backend/DB/OAuth/TalkBack/tablet/dark-mode verification. Integrated origin/main b83896a8 (today-news preserved): market-core 130 newly executed; native 30; APK/test-APK/lint passed.",
+  "scope": "Latest shell extension: UI native full suite 34 passed; after login-gate fixes, impacted 16 ran (15 passed, 1 fixture reverse-DNS-on-main failure); fixture-only correction then isolated login regression 1 passed. Font200 news/member journeys 2 passed, scale restored. APK/test-APK/lint passed; independent static/portrait visual review. Synthetic HTTP only; no real server/DB/OAuth/TalkBack/tablet/dark verification. Prior JVM 130 result belongs to previous main integration; pure market-core unchanged in this extension.",
   "files": {
-    "clients/android/app/src/main/kotlin/org/daynomy/android/PortfolioScreen.kt": "6d9f9d1e9c820bf8b5acc38fb8ff242b88746444febc4e09718ba90e14c78569",
-    "clients/android/app/src/main/kotlin/org/daynomy/android/CoreViewModel.kt": "c480c12f4bb401180b33c768807297ea409c3e07decae60e88d60fe95b7dae88",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/PortfolioScreen.kt": "611214c142978b956d47d971ad7ef636456cbc5b83d64b32d0492cc54b6c9895",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/CoreViewModel.kt": "830753e3b37c8619d20e205f58583bd54966625b81bec3aea85ec6aaa476b7e6",
     "clients/android/app/src/main/kotlin/org/daynomy/android/MainActivity.kt": "a551edd57b63ce94c6b0df926cdc64503c5906f70e18c631561fff76a37bae7d",
-    "clients/android/app/src/main/kotlin/org/daynomy/android/CoreScreens.kt": "68ccfe583af8d5562d7a87320d1d072a28aecc5d2570537ead9ee8e255d5d733",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/CoreScreens.kt": "a98e7f9c9dd1ad50b9f969ad51337eab1f5f2fe2cbacdbbaec6650a2d48e8c88",
     "clients/android/app/src/androidTest/kotlin/org/daynomy/android/PortfolioWebDesignScreenTest.kt": "db692e547979bed068044f99ad5f4dbe487af6645bb3739790b249726dde9c7b",
     "clients/android/app/src/androidTest/kotlin/org/daynomy/android/Android30CoreScreenTest.kt": "6d885a354eddf2b34ca081f49bf743f5157940afc66fccc21e7760130f69416c",
     "clients/android/app/src/androidTest/kotlin/org/daynomy/android/DiscoveryScreenAcceptanceTest.kt": "e9bc2c744bc5a0de8949ad6f8c3a4c25d59cca5a01c9ce6fde321efacbb43094",
     "clients/android/app/src/androidTest/kotlin/org/daynomy/android/MarketScreenAcceptanceTest.kt": "c279ec99320136caf130eadc8043b7bc552454b8022b3a6da797d8851fb9e066",
     "clients/android/app/build.gradle.kts": "5c65d69c46b615d3cc95ae525e466324e98cddb87a201924aad740f0e61960af",
-    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/ApprovedPortfolioScreenTest.kt": "7df7d8f66e61741a39b3d7fc5101e29a83d42d8c58820f192fb5b867315ae378"
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/ApprovedPortfolioScreenTest.kt": "7df7d8f66e61741a39b3d7fc5101e29a83d42d8c58820f192fb5b867315ae378",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/DiscoveryScreens.kt": "f796c03f87ccb88379ee9e2865aed03c1c1a7bee3f46518ea407999e88c0445a",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/ShellDesignScreenTest.kt": "4d3ba63f5132c78f1be33e402f82e3d9c0fbb6547d03673a9579f26d4967cd85"
   },
   "artifacts": {
-    "clients/android/app/build/outputs/apk/debug/app-debug.apk": "7c3cd2f0a15fd9e24b5a681dcb74e0899364e29630ae8e82377939dd6a4802aa",
-    "clients/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk": "d7fcbabf605e6bf49abdfaddc7f3c458d8121d0d8a73f718ed42ea3a0d0930af",
-    "docs/design/2026-11-04-web-reference/android/approved-normal.png": "23e534e444ce2decd58225cbe44997a26ddc69517ebca4c1007c882491f32835",
+    "clients/android/app/build/outputs/apk/debug/app-debug.apk": "a03ad6055d6f248f91163fb114c49e88ff27156dcc8c8fb172de375fca4d6edd",
+    "clients/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk": "df686e2de4267780598e1e3e435225bb4b27143c4052749199883d2ee2515b7d",
+    "docs/design/2026-11-04-web-reference/android/approved-normal.png": "0ea2a4c194ecd637c2b52e61ddee14eebbcda06c9cff27dbc2e14014e0a99b7d",
     "docs/design/2026-11-04-web-reference/android/approved-font200.png": "024aa1c6fa854c2194bf96962ec69c2dcb0bad8d7e9d58c280e757f1b094b757",
-    "docs/design/2026-11-04-web-reference/android/approved-live.png": "15171d1c284beaceb6b16332aff6e9a2b3c10df96d3a162deb786439590b28c3"
+    "docs/design/2026-11-04-web-reference/android/approved-live.png": "15171d1c284beaceb6b16332aff6e9a2b3c10df96d3a162deb786439590b28c3",
+    "docs/design/2026-11-04-web-reference/android/shell-news.png": "874a30716f95b014039eb1d8e6a31b6fee950b5b6277c133093aea6d041d1cc3",
+    "docs/design/2026-11-04-web-reference/android/shell-account.png": "19a8220d21e84c6e184bde9efa5c42ad18bbaab94f782a2ac39ab88fd1850cc1",
+    "docs/design/2026-11-04-web-reference/android/shell-account-guest.png": "634470e23026cca58a1d29b3a53586235a20498492ebd2bdc7768c58e70b1f59",
+    "docs/design/2026-11-04-web-reference/android/shell-news-font200.png": "46bcc2875e6c707f7559253b43b32c2afdd54cb1ed26398f8246f2771b747701",
+    "docs/design/2026-11-04-web-reference/android/shell-account-font200.png": "cfc82f0445c153957cf857e05c003bce3bb154c5bb4fb172d294d8f5c01b43b2"
   },
-  "review": "approved_mock_validation: independent 8 acceptance cases, static review fixes rechecked, final mock/capture comparison: no visual blocker."
+  "review": "approved_mock_validation: independent 8 acceptance cases, static review fixes rechecked, final mock/capture comparison: no visual blocker. ShellDesignScreenTest 6 independent journeys; account 401 and login-cancel retry gates fixed, re-reviewed; news/member/guest portrait captures: no visual blocker."
 }
