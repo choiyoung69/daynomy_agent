@@ -22,3 +22,11 @@ Android는 회원 포트폴리오만 지원한다. 게스트 체험·V1/V2 선�
 ## 검사 범위
 
 별도 검증 agent의 API/nullable/부분·출처·이력/취소·POST불명/401 검사를 재사용하고, 앱에서 정상·부분·503·409·결과불명·세션만료·늦은응답·빈보유를 합성 HTTP로 검증한다. 실제 외부 AI/DB/OAuth·금융 내용의 의미 정확성 검증은 실행하지 않았다. 실행 결과·시간/토큰은 [실험4](../../docs/time-token-experiment.md)에, 코드/APK/기본·큰글꼴 캡처는 [기존 검증 자료](../../docs/design/2026-11-04-web-reference/android/verification.json)에 연결한다.
+
+## 원본 시각 구조와 휴대폰 대응
+
+원본 `frontend/src/features/portfolio/components/PortfolioAnalysis.tsx`의 PortfolioDonut·PortfolioAssetList·OverallImpactDetail·ImpactDetail·AnalysisSources를 기준으로 Compose Canvas/선택 행/상세/접기 동작을 이식한다. 전체 선택은 종합 방향의 단색 도넛, 종목 선택은 실제 보유 비중만 강조하고 나머지는 비활성 색으로 남긴다. 누락 종목의 비중을 재정규화하거나 부분 분석을 전체 분석처럼 표시하지 않는다.
+
+전체 선택에는 overallImpact·overallScore·전체 sources, 종목 선택에는 해당 종목명·영향 방향/수준·issueSummary/expectedReaction/outlook·그 종목 sources를 표시한다. 종목 점수를 만들어내지 않는다. 출처는 기본 접힘이며 선택에 따라 다시 접힌다. 긍정은 원본 빨강, 부정은 파랑이며 방향 문구도 함께 표시한다.
+
+휴대폰 도넛은 172dp, 큰 글꼴에서는 220dp로 공간을 확보하고 가운데 문구를 축약한다. 종목명은 줄바꿈하며 선택 영역은 최소48dp다. 600dp 이상·기본 글꼴은 좌측 도넛/목록과 우측 설명의 두 열이다. 새 소식 확인은 실제 회원 refresh API만 호출한다. 현재 응답에는 일일 잔여 횟수가 없으므로 원본 캡처의 하루3회/남은3회를 하드코딩하지 않는다.

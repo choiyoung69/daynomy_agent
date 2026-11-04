@@ -107,10 +107,14 @@ class PortfolioAiScreenTest {
             openAi(); awaitSummary()
             compose.onNodeWithTag("ai-result").assertTextContains(SUMMARY, substring = true)
             compose.onNodeWithTag("ai-score").assertTextContains("37.5", substring = true)
+            compose.onNodeWithTag("ai-donut").assertExists()
             compose.onNodeWithTag("ai-coverage").assertExists()
             compose.onNodeWithTag("ai-impacts").assertExists()
+            compose.onAllNodesWithText("합성 근거 문서", substring = true).assertCountEquals(0)
+            click("ai-sources-toggle")
             compose.onNodeWithTag("ai-sources").assertExists()
             assertTrue(compose.onAllNodesWithText("합성 근거 문서", substring = true).fetchSemanticsNodes().isNotEmpty())
+            click("ai-sources-toggle")
             assertEquals(0, posts())
             capture("ai-ready")
             click("ai-generate"); awaitIdleAction("ai-generate")
@@ -131,9 +135,41 @@ class PortfolioAiScreenTest {
             compose.onNodeWithTag("ai-score").assertTextContains("판단 보류", substring = true)
             compose.onNodeWithTag("ai-score").assert(hasText("0점", substring = true).not())
             compose.onNodeWithTag("ai-coverage").assertExists()
+            click("ai-asset-1")
             assertTrue(compose.onAllNodesWithText("판단에 필요한 근거를 확인하지 못했어요.", substring = true).fetchSemanticsNodes().isNotEmpty())
+            click("ai-overall"); awaitSummary(PARTIAL_SUMMARY)
             assertEquals(0, posts())
             capture("ai-partial")
+        }
+    }
+
+    @Test fun donutAssetSelectionChangesDetailAndOverallRestoresSummaryWithoutRequests() {
+        launch().use {
+            openAi(); awaitSummary()
+            compose.onNodeWithTag("ai-donut").assertExists()
+            val initialReads = reads()
+            click("ai-asset-0")
+            compose.onNodeWithText("합성 수요가 증가했어요.").performScrollTo().assertIsDisplayed()
+            compose.onNodeWithText("변화를 지켜봐야 해요.").assertExists()
+            capture("ai-selected")
+            compose.onAllNodesWithText(SUMMARY, substring = true).assertCountEquals(0)
+            click("ai-sources-toggle")
+            compose.onNodeWithText("합성 근거 문서", substring = true).assertExists()
+            compose.onAllNodesWithText("합성 보조 근거 문서", substring = true).assertCountEquals(0)
+            click("ai-sources-toggle")
+            click("ai-overall"); awaitSummary()
+            compose.onNodeWithTag("ai-result").assertTextContains(SUMMARY, substring = true)
+            compose.onNodeWithTag("ai-score").assertTextContains("37.5", substring = true)
+            compose.onAllNodesWithText("합성 근거 문서", substring = true).assertCountEquals(0)
+            click("ai-sources-toggle")
+            assertTrue(compose.onAllNodesWithText("합성 근거 문서", substring = true).fetchSemanticsNodes().isNotEmpty())
+            compose.onNodeWithText("합성 보조 근거 문서", substring = true).assertExists()
+            compose.onNodeWithText("Synthetic demand changed.", substring = true).assertExists()
+            click("ai-sources-toggle")
+            compose.onAllNodesWithText("합성 근거 문서", substring = true).assertCountEquals(0)
+            compose.onAllNodesWithText("합성 보조 근거 문서", substring = true).assertCountEquals(0)
+            assertEquals(initialReads, reads())
+            assertEquals(0, posts())
         }
     }
 
@@ -266,12 +302,13 @@ class PortfolioAiScreenTest {
         private const val SUMMARY = "합성 검증 결과예요. 반도체 수요의 영향을 확인해야 해요."
         private const val PARTIAL_SUMMARY = "합성 부분 분석이에요. 근거가 없는 종목은 판단을 보류해요."
         private const val SOURCE = """{"title":"합성 근거 문서","url":"https://example.invalid/synthetic-evidence","publishedOn":"2026-11-03","occurredOn":null,"excerpt":"합성 자료에서 수요 변화를 확인했어요.","factQuote":"Synthetic demand changed."}"""
+        private const val AUX_SOURCE = """{"title":"합성 보조 근거 문서","url":"https://example.invalid/synthetic-secondary-evidence","publishedOn":"2026-11-02","occurredOn":null,"excerpt":"합성 보조 자료의 변화를 확인했어요.","factQuote":"Synthetic secondary evidence changed."}"""
         private fun error(code: String) = """{"code":"$code","message":"synthetic AI fixture failure"}"""
         private fun analysis(partial: Boolean = false): String {
             val first = """{"assetName":"합성자산","weight":75,"direction":"POSITIVE","impactLevel":"MEDIUM","issueSummary":"합성 수요가 증가했어요.","expectedReaction":"수요의 영향을 확인할 수 있어요.","outlook":"변화를 지켜봐야 해요.","reason":"비중을 함께 확인해야 해요.","evidenceSentence":"합성 자료에서 수요 변화를 확인했어요.","sources":[$SOURCE],"rank":1,"evidenceStatus":"SUPPORTED"}"""
             val second = if (partial) """{"assetName":"합성보조자산","weight":25,"direction":null,"impactLevel":null,"issueSummary":"판단에 필요한 근거를 확인하지 못했어요.","expectedReaction":"","outlook":"","reason":"판단에 필요한 근거를 확인하지 못했어요.","evidenceSentence":"판단에 필요한 근거를 확인하지 못했어요.","sources":[],"rank":2,"evidenceStatus":"INSUFFICIENT"}"""
-                else """{"assetName":"합성보조자산","weight":25,"direction":"NEGATIVE","impactLevel":"LOW","issueSummary":"합성 변화를 확인했어요.","expectedReaction":"추가 확인이 필요해요.","outlook":"자료를 지켜봐야 해요.","reason":"영향이 제한적이에요.","evidenceSentence":"합성 자료에서 수요 변화를 확인했어요.","sources":[$SOURCE],"rank":2,"evidenceStatus":"SUPPORTED"}"""
-            return """{"totalAssetCount":2,"analyzedAssetCount":${if (partial) 1 else 2},"selectedAssetCount":2,"overallDirection":${if (partial) "null" else "\"POSITIVE\""},"overallScore":${if (partial) "null" else "37.5"},"positiveImpactScore":45,"negativeImpactScore":${if (partial) 0 else 7.5},"analyzedAt":"2026-11-04T02:03:04Z","overallImpact":"${if (partial) PARTIAL_SUMMARY else SUMMARY}","impacts":[$first,$second],"sources":[$SOURCE],"excludedAssets":[],"analyzedWeight":${if (partial) 75 else 100},"coverage":"${if (partial) "PARTIAL" else "COMPLETE"}"}"""
+                else """{"assetName":"합성보조자산","weight":25,"direction":"NEGATIVE","impactLevel":"LOW","issueSummary":"합성 변화를 확인했어요.","expectedReaction":"추가 확인이 필요해요.","outlook":"자료를 지켜봐야 해요.","reason":"영향이 제한적이에요.","evidenceSentence":"합성 보조 자료의 변화를 확인했어요.","sources":[$AUX_SOURCE],"rank":2,"evidenceStatus":"SUPPORTED"}"""
+            return """{"totalAssetCount":2,"analyzedAssetCount":${if (partial) 1 else 2},"selectedAssetCount":2,"overallDirection":${if (partial) "null" else "\"POSITIVE\""},"overallScore":${if (partial) "null" else "37.5"},"positiveImpactScore":45,"negativeImpactScore":${if (partial) 0 else 7.5},"analyzedAt":"2026-11-04T02:03:04Z","overallImpact":"${if (partial) PARTIAL_SUMMARY else SUMMARY}","impacts":[$first,$second],"sources":[$SOURCE${if (partial) "" else ",$AUX_SOURCE"}],"excludedAssets":[],"analyzedWeight":${if (partial) 75 else 100},"coverage":"${if (partial) "PARTIAL" else "COMPLETE"}"}"""
         }
         private fun wrapper(status: String = "READY", body: String? = analysis()) = """{"status":"$status","lastCheckOutcome":${if (body == null) "null" else "\"UPDATED\""},"analysisId":${if (body == null) "null" else "91"},"matchesCurrentPortfolio":${status != "PORTFOLIO_CHANGED" && body != null},"lastSucceededAt":${if (body == null) "null" else "\"2026-11-04T02:03:04Z\""},"lastFailedAt":null,"failureCode":null,"changeReason":null,"analysis":${body ?: "null"}}"""
     }

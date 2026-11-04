@@ -1,6 +1,6 @@
 {
   "base": "40668b76",
-  "scope": "Member AI implementation: RED AI JVM11 had1 late-history race; fixed then full JVM157 passed. Full native47 passed; account401 clearing fix then affected18 passed(41.053s). Login-required read guard + authenticated resume: AI JVM12 passed and affected native18 passed(61.774s). Login-start keeps guard: focused1 passed(0.061s). Normal/partial AI font200 cases2 passed, then capture-position-only normal2(8.35s)/font2002(9.19s) passed; scale restored. Final APK/testAPK/lint passed. Real external AI/provider/DB/OAuth/TalkBack/tablet/dark not run.",
+  "scope": "Original web AI visual port: final native AI10 passed (22.325s), font200 normal/partial2 passed (5.851s), selection/source scope1 passed with final capture. APK/testAPK/lint passed. Previous core/API/auth results retained; UI-only changes do not rerun unchanged core/DB/provider. External AI/OAuth/TalkBack/tablet/dark not run.",
   "files": {
     "clients/android/app/src/main/kotlin/org/daynomy/android/PortfolioScreen.kt": "9ae1019f3f63027ec950a0a581daf162b41d9fbdbc8656ebf509544838a178ce",
     "clients/android/app/src/main/kotlin/org/daynomy/android/CoreViewModel.kt": "08c146d126956c2809915f954dd81f93971126631a6927d0fcaa029cda66775a",
@@ -25,23 +25,24 @@
     "clients/android/app/src/androidTest/kotlin/org/daynomy/android/NewsSearchScreenTest.kt": "eea430750f0a8dd750eadfbcecc89a5eb310e3e04dce1beb4aec2b66e1329adf",
     "clients/android/app/gradle.lockfile": "7d1e3816e7c09218ed16ef744ada1d406526903c609dbbfd446c7a3d02bc5bfc",
     "clients/android/app/src/androidTest/assets/news-photo-fixture.jpg": "0ac56a098fccb71b1496d92b10e2e8bef19776b522d86e5ad1ffc7914cd9b76a",
-    "clients/android/app/src/main/kotlin/org/daynomy/android/PortfolioAiSection.kt": "7766691f6ed20201b7d7efb5e3fbfead36c13e2b24728441d15737d7d7d9b906",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/PortfolioAiSection.kt": "1f9ab281951c0f4b6288b2c8f05cd5e686e5006ca0a3723263095ce518df9ca6",
     "clients/android/market-core/src/main/kotlin/org/daynomy/market/PortfolioAiModels.kt": "69824028eae9cc0850b0faab8f649733dee327dff5f2a416a3b976213f308924",
     "clients/android/market-core/src/main/kotlin/org/daynomy/market/PortfolioAnalysisClient.kt": "49d975648f13c523e8af8e45f9369c1811e2cd3d8919d1e35b07d3a2d13ac008",
     "clients/android/market-core/src/main/kotlin/org/daynomy/market/PortfolioAiController.kt": "4c327d264090b3a81c593acc99b06d2b333d1f5f9e1191dceff1e680907219c7",
     "clients/android/market-core/src/test/kotlin/org/daynomy/market/PortfolioAiContractTest.kt": "90ec601db05cee46dd969e1bf32f48b2c7300f531c720cd8963c09cc2696a6c9",
     "clients/android/market-core/src/test/kotlin/org/daynomy/market/PortfolioAiControllerTest.kt": "d635eb98e15d6b8128e6ad60fd00179d363a99a13c4e3aad390893db6a2c985b",
-    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/PortfolioAiScreenTest.kt": "403d258477a65145e9abe7be9a6c9d32310e3898c9043bd8fe7fa0a770fbab90"
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/PortfolioAiScreenTest.kt": "f812634f7767bca2eef01714fbd7cd4f6b519d0ce68aac828b527bccd23da340"
   },
   "artifacts": {
-    "clients/android/app/build/outputs/apk/debug/app-debug.apk": "052f1a2965394b8d0571bd597d01521172183538816771ccb7f5818248f0cf72",
-    "clients/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk": "050f7dc7de856210a296d91203fc8b5c24347b1f2341b8af2acfeffd06561064",
-    "docs/design/2026-11-04-web-reference/android/ai-ready.png": "4bcce329eaf2525642855b15a50b8bdf791ff8cd121df237eeec5f8b781a7ca0",
-    "docs/design/2026-11-04-web-reference/android/ai-partial.png": "bd0a3f7ba93818cd7bc0626b492b9f32a70f141a2b44a30a8391dd528fb6b46f",
-    "docs/design/2026-11-04-web-reference/android/ai-ready-font200.png": "7590485ee1a441c8e7637b2a0d068909f9c0380a4d81018d9462c7cfe530a736",
-    "docs/design/2026-11-04-web-reference/android/ai-partial-font200.png": "3bb7bb0ac1a07ebf824384261417fa105ab171b5bebf88e83d8d3749e1882c5c"
+    "clients/android/app/build/outputs/apk/debug/app-debug.apk": "94b3e1789b59b6ebe7a704b8e4e84afdcbb7e0f209afea65dde085eb859d32bd",
+    "clients/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk": "7bec52bb5bc18ccf1a5a1b96975fb2a37a2f8e20cb8389b77be48a4546e4624e",
+    "docs/design/2026-11-04-web-reference/android/ai-ready.png": "73f7f77a0184406e7fae5a1a6f05a67926728966b1cbce95eda2382f71a3f5a8",
+    "docs/design/2026-11-04-web-reference/android/ai-partial.png": "876316ca58996ccbf3e7b2399010ec56090844d8b31fb0409a5f0b5e47e8f0c0",
+    "docs/design/2026-11-04-web-reference/android/ai-ready-font200.png": "1bb4e5c09e71faa458777ad5253676b10fa0ee353510b424ec7025f12e28fb73",
+    "docs/design/2026-11-04-web-reference/android/ai-partial-font200.png": "7ac55485a117be38b6e5bfce8d6a4fbc9a9586207e9efa73f0cfc267fa9f1644",
+    "docs/design/2026-11-04-web-reference/android/ai-selected.png": "ae802f53ffd6a725f7edc46fd00f527e1e1037bd1e0302760346e496a373e806"
   },
-  "review": "Independent core tests/static review found stale in-flight history; fixed. Independent Android review found account-me401 must clear AI; fixed and directly asserted in Activity ViewModel. Both reviewers checked login-required new-read guard/verified-auth resume. Latest normal/partial/font2004 captures: no visual blocker; actual AI data is synthetic HTTP fixtures only.",
+  "review": "Independent Android validation agent reviewed original donut/selection/direction/source scope. Nonselected dot feedback fixed. Native tests cover selection without HTTP calls and distinct overall/asset sources. Normal/partial/font200 captures visually inspected; no AI control clipping.",
   "previous_captures": {
     "docs/design/2026-11-04-web-reference/android/approved-normal.png": "c6ce79d97e044c1230852499f5a6ac0eaaf1bbae999fc4ce38240d4b39b7dc63",
     "docs/design/2026-11-04-web-reference/android/approved-font200.png": "024aa1c6fa854c2194bf96962ec69c2dcb0bad8d7e9d58c280e757f1b094b757",
@@ -71,5 +72,6 @@
     "target": "clients/android/app/src/androidTest/assets/news-photo-fixture.jpg",
     "scope": "Test APK only, MockWebServer HTTP JPEG. Never bundled as product fallback. User trending attachment guides presentation only; no 7-day ranking claim."
   },
-  "packaging_check": "Photo fixture absent from product APK, present only in test APK assets."
+  "packaging_check": "Photo fixture absent from product APK, present only in test APK assets.",
+  "previous_scope": "Member AI implementation: RED AI JVM11 had1 late-history race; fixed then full JVM157 passed. Full native47 passed; account401 clearing fix then affected18 passed(41.053s). Login-required read guard + authenticated resume: AI JVM12 passed and affected native18 passed(61.774s). Login-start keeps guard: focused1 passed(0.061s). Normal/partial AI font200 cases2 passed, then capture-position-only normal2(8.35s)/font2002(9.19s) passed; scale restored. Final APK/testAPK/lint passed. Real external AI/provider/DB/OAuth/TalkBack/tablet/dark not run."
 }
