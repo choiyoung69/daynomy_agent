@@ -1,0 +1,3 @@
+Static presence checks only; no SDK/Simulator execution
+RED portfolio has no dedicated portfolioAnalysis entry
+RED CalendarAnalysisView has no showCalendar scope guard

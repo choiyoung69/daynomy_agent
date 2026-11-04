@@ -6,6 +6,7 @@ import DaynomyCore
     let client: ServiceClient
     var holdings: [LocalHolding] = []
     var calculation: ServiceValue = .null
+    var showCalendar = true
     @Environment(AppSession.self) private var session
     @State private var month = Date()
     @State private var scope = "PORTFOLIO"
@@ -28,6 +29,7 @@ import DaynomyCore
     private var requestKey: String { "\(yearNumber)|\(monthNumber)|\(scope)|\(accountKey)|\(retry)" }
     var body: some View {
         List {
+            if showCalendar {
             Section("투자 캘린더") {
                 HStack {
                     Button { changeMonth(-1) } label: { Image(systemName: "chevron.left").frame(minWidth: 44, minHeight: 44) }.accessibilityLabel("이전 달")
@@ -65,6 +67,7 @@ import DaynomyCore
                     }.padding(.vertical, 4)
                 }
             }
+            }
             Section("AI 포트폴리오 분석") {
                 if session.isLoggedIn {
                     Text(analysisStatus(savedAnalysis.field("status").display)).foregroundStyle(.secondary)
@@ -97,12 +100,12 @@ import DaynomyCore
                 }
             }
         }
-        .navigationTitle("일정과 분석")
+        .navigationTitle(showCalendar ? "일정과 분석" : "AI 포트폴리오 분석")
         .onChange(of: accountKey) { _, _ in synchronizeAnalysisAccount() }
         .onDisappear { analysisGeneration &+= 1; calendarGeneration &+= 1; analyzing = false; loading = false }
-        .task(id: requestKey) { await loadCalendar() }
+        .task(id: requestKey) { if showCalendar { await loadCalendar() } }
         .task(id: accountKey) { await loadSavedAnalysis() }
-        .refreshable { retry += 1; await loadSavedAnalysis() }
+        .refreshable { if showCalendar { retry += 1 }; await loadSavedAnalysis() }
     }
     private func changeMonth(_ offset: Int) { if let value = Calendar(identifier: .gregorian).date(byAdding: .month, value: offset, to: month) { month = value } }
     private func loadCalendar() async {

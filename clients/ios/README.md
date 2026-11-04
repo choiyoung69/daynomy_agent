@@ -2,6 +2,10 @@
 
 SwiftUI·iOS 17 이상·Swift 6 언어 모드의 네이티브 클라이언트다. 외부 Swift 패키지 없이 Foundation·Observation·CryptoKit과 iOS 시스템 프레임워크를 사용한다.
 
+## 공통 탐색
+
+하단은 **포트폴리오 · 이슈 · 내 계정** 세 탭이다. 종목 조회는 포트폴리오 안에서 열고, AI 분석은 요약 근처의 단독 진입을 사용한다. 캘린더·자료·관리자는 기존 보조 진입을 유지한다. 이슈의 오늘 뉴스 사진 캐러셀과 키보드 Search 제출 검색은 독립 상태다. [적용 계약](../../spec/ios-native/common-ui.md) · [실행·캡처 기록](../../experiments/ios-common-ui/README.md).
+
 ## 기능
 
 - 포트폴리오: 게스트 매수/매도·수정/삭제·보유 조정/삭제, 정확한 십진수 원장 재계산, 회원 거래·보유 관리, 평가금액·손익·자산 추이·변경 이력.
@@ -25,7 +29,7 @@ DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcodebuild -project cli
 DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcrun simctl list devices available
 ```
 
-조회한 실제 Simulator destination으로 `test`를 실행한다. 기존 종목 2개·탭 1개 검사와 후속 거래/피드백/뉴스/검색 회귀가 같은 UI 테스트 타깃에 연결돼 있다. 합성 HTTP fixture는 아래처럼 시작한다. 이 서버의 결과는 실제 Rust/DB·OAuth·AI 제공자 검증과 구분한다.
+조회한 실제 Simulator destination으로 `test`를 실행한다. 과거4탭 UI 기준은 보존돼 있으며 현재3탭은 `DaynomyCommonUITests`, `DaynomyCommonMarketRegressionUITests`, `DaynomyCommonNavigationRegressionUITests`, `DaynomyCommonSelloutUITests`로 명시 개정했다. `-only-testing:DaynomyIOSUITests/<클래스>`로 현재 탐색 인수를 선택한다. 시각 캡처는 `DaynomyCommonVisualUITests`다. 합성 HTTP fixture는 아래처럼 시작한다. 이 서버의 결과는 실제 Rust/DB·OAuth·AI 제공자 검증과 구분한다.
 
 ```sh
 python3 experiments/ios-next-verification/test-author/ui_fixture.py --port 18082
@@ -50,3 +54,5 @@ python3 experiments/ios-sdk-verification/ui_fixture.py --port 18097 --stock-dela
 인증은 `org.daynomy.app://auth/callback`의 state/PKCE를 검증한 뒤 서버의 `/api/auth/mobile/exchange`로 코드를 단 한 번 교환한다. 브라우저 쿠키를 복사하거나 bearer 토큰을 URL/일반 설정에 저장하지 않는다. 시장 API와 서비스 API는 같은 ephemeral URLSession을 사용한다. CSRF·동시 401 갱신·로그아웃 세대/쿠키 정리를 공통 클라이언트가 처리한다. 실제 Google 공급자 설정과 iPhone 인증 복귀 검증은 별도로 필요하다.
 
 게스트 기록과 앱 인증 쿠키는 현재 앱 세션 메모리에만 둔다. 앱 종료 뒤 복원이나 영구 로그인은 제공하지 않는다. 종가 원문은 문자열로 보존하고, 원장 계산은 입력 한도를 검증한 Decimal로 처리한다. 실시간 시세를 생성하거나 종가가 없는 자산을 임의 가격으로 평가하지 않는다.
+
+현재 공통 UI 인수 fixture는 `python3 experiments/ios-common-ui/test-author/ui_fixture.py --port 18097`을 사용한다. Android와 같은 테스트 JPEG를 서버가 제공하며 제품 앱에는 포함하지 않는다. 이전 core/SDK 기록과 이번 UI 실행 범위는 각 검증 기록에서 구분한다.

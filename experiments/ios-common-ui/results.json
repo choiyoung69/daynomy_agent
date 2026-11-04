@@ -1,0 +1,165 @@
+{
+  "issue": 31,
+  "baseline": "e3c9616fb019439ea20626d625fbc7133fe0cfbe",
+  "functional_unique": 16,
+  "functional_evaluation": "latest applicable incremental result; not a single full16 run",
+  "functional_tests": {
+    "DaynomyIOSUITests.DaynomyCommonMarketRegressionUITests testManualDeletionRemainsEmptyAfterLateQuote": {
+      "status": "passed",
+      "seconds": 25.255,
+      "run": "common-phone-ui"
+    },
+    "DaynomyIOSUITests.DaynomyCommonMarketRegressionUITests testSearchSelectionQuoteAndChangeStock": {
+      "status": "passed",
+      "seconds": 22.813,
+      "run": "common-phone-ui"
+    },
+    "DaynomyIOSUITests.DaynomyCommonNavigationRegressionUITests testClearingPendingTradeSearchStopsSpinner": {
+      "status": "passed",
+      "seconds": 21.253,
+      "run": "common-phone-ui"
+    },
+    "DaynomyIOSUITests.DaynomyCommonNavigationRegressionUITests testGuestBuyEditSellDeleteReplaysVisibleHoldings": {
+      "status": "passed",
+      "seconds": 136.907,
+      "run": "related-ui"
+    },
+    "DaynomyIOSUITests.DaynomyCommonNavigationRegressionUITests testGuestFeedbackSuccessClearsAndFailurePreservesInput": {
+      "status": "passed",
+      "seconds": 36.814,
+      "run": "feedback-ui"
+    },
+    "DaynomyIOSUITests.DaynomyCommonNavigationRegressionUITests testGuestHoldingRemovalIgnoresClearedAdjustmentFields": {
+      "status": "passed",
+      "seconds": 71.869,
+      "run": "related-ui"
+    },
+    "DaynomyIOSUITests.DaynomyCommonNavigationRegressionUITests testGuestOversellKeepsEditorAndPreviousHolding": {
+      "status": "passed",
+      "seconds": 64.8,
+      "run": "common-phone-ui"
+    },
+    "DaynomyIOSUITests.DaynomyCommonNavigationRegressionUITests testNewsDetailKeywordAnalysisAndBackNavigation": {
+      "status": "passed",
+      "seconds": 26.74,
+      "run": "common-phone-ui"
+    },
+    "DaynomyIOSUITests.DaynomyCommonNavigationRegressionUITests testNewsTextSearchRendersContentArrayAndOpensDetail": {
+      "status": "passed",
+      "seconds": 20.941,
+      "run": "common-phone-ui"
+    },
+    "DaynomyIOSUITests.DaynomyCommonSelloutUITests testFullSelloutRetainsCumulativeRealizedProfitAndLedger": {
+      "status": "passed",
+      "seconds": 104.4,
+      "run": "common-phone-ui"
+    },
+    "DaynomyIOSUITests.DaynomyCommonUITests testAccountRetainsRealLoginAndGuestFeedback": {
+      "status": "passed",
+      "seconds": 21.068,
+      "run": "feedback-ui"
+    },
+    "DaynomyIOSUITests.DaynomyCommonUITests testNewsSearchRequiresKeyboardSubmissionAndDoesNotReplaceToday": {
+      "status": "passed",
+      "seconds": 37.45,
+      "run": "related-ui"
+    },
+    "DaynomyIOSUITests.DaynomyCommonUITests testSearchFailureLeavesTodayCarouselAvailable": {
+      "status": "passed",
+      "seconds": 23.718,
+      "run": "common-phone-ui"
+    },
+    "DaynomyIOSUITests.DaynomyCommonUITests testThreeDestinationsAndContextualStockLookup": {
+      "status": "passed",
+      "seconds": 28.914,
+      "run": "common-phone-ui"
+    },
+    "DaynomyIOSUITests.DaynomyCommonUITests testTodayCarouselIsCappedAndPreservesSelectedArticleAfterDetail": {
+      "status": "passed",
+      "seconds": 42.26,
+      "run": "related-ui"
+    },
+    "DaynomyIOSUITests.DaynomyCommonUITests testPortfolioAnalysisOpensWithoutCalendar": {
+      "status": "passed",
+      "seconds": 17.202,
+      "run": "related-ui"
+    }
+  },
+  "functional_runs": [
+    {
+      "name": "common-phone-ui",
+      "passed": 10,
+      "failed": 5,
+      "log_sha256": "5272cc72726c458e33c5b16cdf199f29633ee7ef64292bd32df1ae0c9093962b",
+      "local_log": ".local/common-phone-ui.log",
+      "local_xcresult": ".local/common-phone-ui.xcresult"
+    },
+    {
+      "name": "related-ui",
+      "passed": 5,
+      "failed": 2,
+      "log_sha256": "b8caeac75a8df32cb9b5a4cff9624878f702156508f32fec90c18bfe8a3506f5",
+      "local_log": ".local/related-ui.log",
+      "local_xcresult": ".local/related-ui.xcresult"
+    },
+    {
+      "name": "feedback-ui",
+      "passed": 2,
+      "failed": 0,
+      "log_sha256": "9862fd2e664e01685f68dafda5b0d7d1c8502045bca556f1bb60e88b00df9cd6",
+      "local_log": ".local/feedback-ui.log",
+      "local_xcresult": ".local/feedback-ui.xcresult"
+    }
+  ],
+  "state_checks": {
+    "new_current": 30,
+    "state13_log_sha256": "866d4b457614d23971711ecb7bb5f7d2d6af742ae05ab714a0c39b4a14ba1986",
+    "state17_log_sha256": "88b0455af055ec77d64b236eef0a1e54face77299911bf48a1e94f5428a10f7c",
+    "prior_swift51": "reused PR30 evidence; no new execution"
+  },
+  "visual_runs": [
+    {
+      "run": "phone-normal",
+      "log_sha256": "e8633d6d6cb975b63c8894efbc94f235bd32f0f44b2996b1470e3d7e64c28f54",
+      "local_log": ".local/phone-normal.log",
+      "local_xcresult": ".local/phone-normal.xcresult"
+    },
+    {
+      "run": "ipad-visual",
+      "log_sha256": "141534c55a1487ee4fdeca06017636d2640c2aa31908a367d04921bbd81d2640",
+      "local_log": ".local/ipad-visual.log",
+      "local_xcresult": ".local/ipad-visual.xcresult"
+    },
+    {
+      "run": "phone-large-dark",
+      "log_sha256": "6e16115565e379f6f605385ab6e6316d2bd7a85a3db2a10c106fddb6fa6ce5bf",
+      "local_log": ".local/phone-large-dark.log",
+      "local_xcresult": ".local/phone-large-dark.xcresult"
+    },
+    {
+      "run": "phone-confirm",
+      "log_sha256": "950b28a8ed0587a8cad78e0767296d38315b186326434471c64bbd5f0fafae7c",
+      "local_log": ".local/phone-confirm.log",
+      "local_xcresult": ".local/phone-confirm.xcresult"
+    },
+    {
+      "run": "ipad-confirm",
+      "log_sha256": "00989a01b5702ed9a6870396f16f4c2ddc4c1b6607e2d443976a949c6a35e246",
+      "local_log": ".local/ipad-confirm.log",
+      "local_xcresult": ".local/ipad-confirm.xcresult"
+    },
+    {
+      "run": "phone-large-confirm",
+      "log_sha256": "7031ee0f2b6985c433f609bf4e5fc05493939c00f97ebb33715670eb1e151b61",
+      "local_log": ".local/phone-large-confirm.log",
+      "local_xcresult": ".local/phone-large-confirm.xcresult"
+    }
+  ],
+  "source_manifest_sha256": "662f2cbbe9a827e67f97b5249b4a147c2d53971bb0068686ceef832a05340d2a",
+  "limits": [
+    "synthetic loopback fixture, not Rust/DB proof",
+    "real Google OAuth and AI providers unverified",
+    "hardware, VoiceOver and full landscape audit unverified",
+    "dark account screenshot does not show login CTA; code contrast checked"
+  ]
+}

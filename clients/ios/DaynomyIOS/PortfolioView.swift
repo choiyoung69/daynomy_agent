@@ -181,70 +181,108 @@ func stockFromValue(_ value: ServiceValue) throws -> Stock {
     let client: ServiceClient
     let marketAPI: (any MarketAPI)?
     @Environment(AppSession.self) private var session
+    @Environment(\.dynamicTypeSize) private var typeSize
     @State private var store = PortfolioStore()
     @State private var editor = false
     @State private var editing: LocalTrade?
     @State private var deleting: LocalTrade?
     @State private var adjusting: LocalHolding?
     @State private var retry = 0
+    @State private var ledgerTab = "holdings"
+    @State private var amountsHidden = false
     init(client: ServiceClient, marketAPI: (any MarketAPI)? = nil) { self.client = client; self.marketAPI = marketAPI }
     private var accountKey: String { session.user?.field("id").display ?? "guest" }
     var body: some View {
         NavigationStack {
             List {
                 Section {
-                    Text(session.isLoggedIn ? "계정에 저장된 투자 기록" : "게스트 투자 기록").font(.subheadline).foregroundStyle(.secondary)
-                    if !session.isLoggedIn { Text("게스트 기록은 현재 앱 실행 중에만 유지돼요.").font(.footnote).foregroundStyle(.secondary) }
-                    LabeledContent("총 매입금액", value: displayAmount("totalPurchaseAmount"))
-                    LabeledContent("평가금액", value: displayAmount("totalEvaluationAmount"))
-                    LabeledContent("평가손익", value: displayAmount("totalProfitLoss"))
-                    LabeledContent("실현손익", value: "\(moneyText(store.realized)) 원")
-                    if store.calculation.field("pricingStatus").display == "PARTIAL" { Text("종가가 없는 종목은 평가금액에서 제외돼요.").foregroundStyle(.secondary) }
-                    if store.calculation.field("pricingStatus").display == "MIXED_DATES" { Text("종목마다 종가 기준일이 달라요.").foregroundStyle(.secondary) }
-                }
+                    VStack(alignment: .leading, spacing: 16) {
+                        HStack {
+                            Text(session.isLoggedIn ? "내 자산 요약" : "게스트 투자 기록").foregroundStyle(.secondary)
+                            Spacer()
+                            Button(amountsHidden ? "금액 보기" : "금액 숨기기") { amountsHidden.toggle() }
+                                .font(.subheadline).frame(minHeight: 44).accessibilityIdentifier("portfolioAmountVisibility")
+                        }
+                        if !store.holdings.isEmpty {
+                            Text("전체 자산 평가금액").foregroundStyle(.secondary)
+                            Text(displayAmount("totalEvaluationAmount")).font(.largeTitle.bold()).monospacedDigit()
+                            LabeledContent("평가손익", value: displayAmount("totalProfitLoss"))
+                            LabeledContent("총 매입금액", value: displayAmount("totalPurchaseAmount"))
+                            LabeledContent("실현손익", value: amountsHidden ? "숨김" : "\(moneyText(store.realized)) 원")
+                        } else if !store.busy && store.error.isEmpty {
+                            Text(store.transactions.isEmpty ? "첫 투자 기록을 시작해 보세요" : "현재 보유 자산이 없어요").font(.title2.bold())
+                        }
+                        if store.holdings.isEmpty && !store.transactions.isEmpty { LabeledContent("실현손익", value: amountsHidden ? "숨김" : "\(moneyText(store.realized)) 원") }
+                        if !session.isLoggedIn { Text("게스트 기록은 현재 앱 실행 중에만 유지돼요.").font(.footnote).foregroundStyle(.secondary) }
+                        if store.calculation.field("pricingStatus").display == "PARTIAL" { Text("종가가 없는 종목은 평가금액에서 제외돼요.").font(.footnote).foregroundStyle(.secondary) }
+                        if store.calculation.field("pricingStatus").display == "MIXED_DATES" { Text("종목마다 종가 기준일이 달라요.").font(.footnote).foregroundStyle(.secondary) }
+                        actionLayout {
+                            Button { editing = nil; editor = true } label: { Label("거래 기록", systemImage: "plus").frame(maxWidth: .infinity, minHeight: 44).padding(.horizontal, 12).foregroundStyle(Color(uiColor: .systemBackground)) }
+                                .buttonStyle(.borderedProminent).tint(.primary).buttonBorderShape(.capsule)
+                                .accessibilityIdentifier("addTransaction").disabled(store.busy)
+                            if let marketAPI {
+                                NavigationLink { MarketView(api: marketAPI, client: client) } label: { Label("종목 조회", systemImage: "magnifyingglass").frame(maxWidth: .infinity, minHeight: 44) }
+                                    .accessibilityIdentifier("portfolioMarket")
+                            }
+                        }
+                        NavigationLink { CalendarAnalysisView(client: client, holdings: store.holdings, calculation: store.calculation, showCalendar: false) } label: { Label("AI 포트폴리오 분석", systemImage: "sparkles").frame(minHeight: 44) }.accessibilityIdentifier("portfolioAnalysis")
+                    }.padding(.vertical, 12)
+                }.listRowSeparator(.hidden)
+                Section {
+                    Picker("자산 보기", selection: $ledgerTab) {
+                        Text("보유 자산").tag("holdings")
+                        Text("거래 내역").tag("trades")
+                    }.pickerStyle(.segmented).accessibilityIdentifier("portfolioLedgerPicker")
+                }.listRowSeparator(.hidden)
                 if store.busy { ProgressView("투자 기록 확인 중") }
                 if !store.error.isEmpty { Section { Text(store.error).accessibilityIdentifier("portfolioError"); Button("다시 확인") { retry += 1 } } }
+                if ledgerTab == "holdings" {
                 Section("보유 자산") {
-                    if store.holdings.isEmpty { Text("아직 보유 자산이 없어요. 첫 거래를 기록해 보세요.").foregroundStyle(.secondary) }
+                    if store.holdings.isEmpty { Text(store.transactions.isEmpty ? "아직 보유 자산이 없어요. 첫 거래를 기록해 보세요." : "현재 보유 자산이 없어요.").foregroundStyle(.secondary) }
                     ForEach(store.holdings, id: \.stock.assetId) { holding in
                         VStack(alignment: .leading, spacing: 6) {
                             Text(holding.stock.name).font(.headline)
-                            Text("\(holding.quantity) 주 · 평균 매입가 \(moneyText(holding.averagePurchasePrice)) 원").foregroundStyle(.secondary)
+                            Text(amountsHidden ? "\(holding.quantity) 주 · 평균 매입가 숨김" : "\(holding.quantity) 주 · 평균 매입가 \(moneyText(holding.averagePurchasePrice)) 원").foregroundStyle(.secondary)
                             if let result = store.calculation.field("holdings").rows.first(where: { $0.field("assetId").display == String(holding.stock.assetId) }) {
-                                Text(result.field("priceAvailable").flag ? "평가 \(result.field("evaluationAmount").display) 원 · \(result.field("returnRate").display)% · \(result.field("baseDate").display) 기준" : "종가 정보 없음").font(.caption).foregroundStyle(.secondary)
+                                Text(amountsHidden ? "평가 금액 숨김" : result.field("priceAvailable").flag ? "평가 \(result.field("evaluationAmount").display) 원 · \(result.field("returnRate").display)% · \(result.field("baseDate").display) 기준" : "종가 정보 없음").font(.caption).foregroundStyle(.secondary)
                             }
                             Button("보유 수량·원가 조정") { adjusting = holding }.font(.subheadline).disabled(store.busy)
                         }.padding(.vertical, 4)
                     }
-                    Button { editing = nil; editor = true } label: { Label("거래 기록하기", systemImage: "plus.circle.fill") }.accessibilityIdentifier("addTransaction").disabled(store.busy)
                 }
+                }
+                if ledgerTab == "trades" {
                 Section("거래 내역") {
                     if store.transactions.isEmpty { Text("기록한 매수·매도 거래가 없어요.").foregroundStyle(.secondary) }
                     ForEach(store.transactions.sorted { $0.date > $1.date || ($0.date == $1.date && $0.id > $1.id) }, id: \.id) { trade in
                         Button { editing = trade; editor = true } label: {
                             VStack(alignment: .leading, spacing: 5) {
                                 Text("\(trade.stock.name) · \(trade.type == .BUY ? "매수" : "매도")").foregroundStyle(.primary)
-                                Text("\(trade.date) · \(trade.quantity) 주 × \(trade.unitPrice) \(trade.stock.currency ?? "KRW")").font(.subheadline).foregroundStyle(.secondary)
+                                Text(amountsHidden ? "\(trade.date) · \(trade.quantity) 주 · 단가 숨김" : "\(trade.date) · \(trade.quantity) 주 × \(trade.unitPrice) \(trade.stock.currency ?? "KRW")").font(.subheadline).foregroundStyle(.secondary)
                             }.padding(.vertical, 4)
                         }.swipeActions { Button("삭제", role: .destructive) { deleting = trade }.disabled(store.busy) }
                     }
                 }
-                if !session.isLoggedIn && !store.guest.holdingChanges.isEmpty {
+                }
+                if ledgerTab == "trades" && !session.isLoggedIn && !store.guest.holdingChanges.isEmpty {
                     Section("보유 조정 이력") {
                         ForEach(store.guest.holdingChanges.reversed(), id: \.id) { change in
                             VStack(alignment: .leading, spacing: 5) {
                                 Text(change.stock.name).font(.headline)
                                 Text("\(change.date) · \(change.kind == .removed ? "보유 삭제" : "보유 조정")").foregroundStyle(.secondary)
-                                if change.kind == .adjusted { Text("\(change.quantity) 주 · 평균 매입가 \(change.averagePurchasePrice) 원").font(.subheadline) }
+                                if change.kind == .adjusted { Text(amountsHidden ? "\(change.quantity) 주 · 평균 매입가 숨김" : "\(change.quantity) 주 · 평균 매입가 \(change.averagePurchasePrice) 원").font(.subheadline) }
                             }
                         }
                     }
                 }
                 Section("투자 살펴보기") {
-                    NavigationLink("투자 캘린더와 AI 분석") { CalendarAnalysisView(client: client, holdings: store.holdings, calculation: store.calculation) }
+                    NavigationLink("투자 캘린더") { CalendarAnalysisView(client: client, holdings: store.holdings, calculation: store.calculation) }
                     if session.isLoggedIn { NavigationLink("자산 추이와 변경 이력") { PortfolioHistoryView(client: client) } }
                 }
             }
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
+            .background(Color(uiColor: .systemBackground))
             .navigationTitle("포트폴리오")
             .refreshable { await reload() }
             .task(id: "\(accountKey)|\(session.isLoggedIn)|\(retry)") { await reload() }
@@ -259,8 +297,11 @@ func stockFromValue(_ value: ServiceValue) throws -> Stock {
             }
         }
     }
+    private var actionLayout: AnyLayout {
+        typeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading, spacing: 12)) : AnyLayout(HStackLayout(spacing: 12))
+    }
     private func reload() async { await store.reload(client: client, member: session.isLoggedIn, accountKey: accountKey) }
-    private func displayAmount(_ key: String) -> String { let text = store.calculation.field(key).display; return text.isEmpty ? "확인 전" : "\(text) 원" }
+    private func displayAmount(_ key: String) -> String { if amountsHidden { return "숨김" }; let text = store.calculation.field(key).display; return text.isEmpty ? "확인 전" : "\(text) 원" }
 }
 
 @MainActor struct TransactionEditorView: View {
