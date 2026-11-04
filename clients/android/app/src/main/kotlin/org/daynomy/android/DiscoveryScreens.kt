@@ -63,10 +63,10 @@ fun NewsScreen(state: NewsUiState, controller: NewsController, today: NewsUiStat
                 }
                 is LoadState.Ready -> Column(Modifier.testTag("news-detail"), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                     val news = result.value
-                    Text(news.title, fontSize = 24.sp, lineHeight = 34.sp, fontWeight = FontWeight.Bold,
+                    Text(news.title, fontSize = 22.sp, lineHeight = 31.sp, fontWeight = FontWeight.Bold,
                         modifier = Modifier.semantics { heading() })
                     Text("${newsLabel(news.category)} · ${news.publishedAt}", color = PortfolioStyle.muted, style = MaterialTheme.typography.bodyMedium)
-                    news.content.forEach { Text(it, fontSize = 16.sp, lineHeight = 27.sp) }
+                    news.content.forEach { Text(it, fontSize = 15.sp, lineHeight = 25.sp) }
                     news.imageSource?.let { source ->
                         Text("이미지 출처: ${source.name} · ${source.author} · ${source.license}")
                         Text(source.url, style = MaterialTheme.typography.bodyMedium)
@@ -133,12 +133,12 @@ fun NewsScreen(state: NewsUiState, controller: NewsController, today: NewsUiStat
                     Column {
                         result.value.items.forEach { news ->
                             Column(Modifier.fillMaxWidth().clickable(onClickLabel = "기사 읽기") { controller.openDetail(news.id) }
-                                .heightIn(min = 96.dp).padding(vertical = 20.dp).testTag("news-item-${news.id}"),
+                                .heightIn(min = 80.dp).padding(vertical = 14.dp).testTag("news-item-${news.id}"),
                                 verticalArrangement = Arrangement.spacedBy(10.dp)) {
                                 Text(listOfNotNull(newsLabel(news.category), news.publishedAt).joinToString(" · "),
                                     color = PortfolioStyle.muted, style = MaterialTheme.typography.bodySmall)
                                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                                    Text(news.title, Modifier.weight(1f), fontSize = 19.sp, lineHeight = 28.sp, fontWeight = FontWeight.SemiBold)
+                                    Text(news.title, Modifier.weight(1f), fontSize = 17.sp, lineHeight = 25.sp, fontWeight = FontWeight.SemiBold)
                                     Icon(Icons.Outlined.KeyboardArrowRight, contentDescription = null, tint = PortfolioStyle.muted)
                                 }
                             }
@@ -162,7 +162,7 @@ fun NewsScreen(state: NewsUiState, controller: NewsController, today: NewsUiStat
 @Composable
 private fun TodayNewsCarousel(result: LoadState<NewsPage>, imageBaseUrl: String, selectedId: Long?, select: (Long) -> Unit, retry: () -> Unit, open: (Long) -> Unit) {
     Column(Modifier.fillMaxWidth().testTag("news-today-summary"), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        Text("오늘 뉴스", fontSize = 21.sp, fontWeight = FontWeight.Bold, modifier = Modifier.semantics { heading() })
+        Text("오늘 뉴스", fontSize = 18.sp, fontWeight = FontWeight.Bold, modifier = Modifier.semantics { heading() })
         Text("최신 발행 소식 · 좌우로 넘겨보세요", color = PortfolioStyle.muted, style = MaterialTheme.typography.bodySmall)
         when (result) {
             LoadState.Idle, LoadState.Loading -> DiscoveryLoading("오늘 뉴스를 불러오고 있어요.")
@@ -190,7 +190,7 @@ private fun TodayNewsCarousel(result: LoadState<NewsPage>, imageBaseUrl: String,
                             Box(Modifier.matchParentSize().background(Brush.verticalGradient(listOf(Color.Black.copy(alpha = .10f), Color.Black.copy(alpha = .45f), Color.Black.copy(alpha = .94f)))))
                             Column(Modifier.fillMaxWidth().align(Alignment.BottomStart).padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                                 Text("오늘 뉴스 %02d".format(page + 1), color = Color(0xFFB8D5FF), style = MaterialTheme.typography.labelLarge)
-                                Text(news.title, color = Color.White, fontSize = 22.sp, lineHeight = 31.sp, fontWeight = FontWeight.Bold)
+                                Text(news.title, color = Color.White, fontSize = 20.sp, lineHeight = 28.sp, fontWeight = FontWeight.Bold)
                                 Text(listOfNotNull(newsLabel(news.category), news.publishedAt?.take(10)).joinToString(" · "),
                                     color = Color.White.copy(alpha = .90f), style = MaterialTheme.typography.bodySmall)
                             }

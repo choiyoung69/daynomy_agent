@@ -18,6 +18,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -31,12 +32,25 @@ import java.util.Locale
 /** Tokens extracted from reference frontend index.css + portfolioLedger.css; scoped to this screen. */
 internal object PortfolioStyle {
     val ink = Color(0xFF171821)
-    val muted = Color(0xFF52647F)
+    val muted = Color(0xFF59616E)
     val line = Color(0xFFE4E7EF)
     val blue = Color(0xFF326BD5)
     val soft = Color(0xFFF1F3F7)
     val pill = RoundedCornerShape(999.dp)
     val panel = RoundedCornerShape(14.dp)
+    // Source web hierarchy, with Android scalable type and 48dp interaction targets.
+    val typography = Typography(
+        headlineSmall = TextStyle(fontSize = 22.sp, lineHeight = 30.sp, fontWeight = FontWeight.Bold),
+        titleLarge = TextStyle(fontSize = 18.sp, lineHeight = 26.sp, fontWeight = FontWeight.SemiBold),
+        titleMedium = TextStyle(fontSize = 16.sp, lineHeight = 24.sp, fontWeight = FontWeight.SemiBold),
+        titleSmall = TextStyle(fontSize = 14.sp, lineHeight = 22.sp, fontWeight = FontWeight.SemiBold),
+        bodyLarge = TextStyle(fontSize = 15.sp, lineHeight = 24.sp),
+        bodyMedium = TextStyle(fontSize = 14.sp, lineHeight = 22.sp),
+        bodySmall = TextStyle(fontSize = 12.sp, lineHeight = 18.sp),
+        labelLarge = TextStyle(fontSize = 14.sp, lineHeight = 20.sp, fontWeight = FontWeight.Medium),
+        labelMedium = TextStyle(fontSize = 12.sp, lineHeight = 18.sp, fontWeight = FontWeight.Medium),
+        labelSmall = TextStyle(fontSize = 11.sp, lineHeight = 16.sp, fontWeight = FontWeight.Medium)
+    )
     val colors = lightColorScheme(primary = Color(0xFF0A0A0A), onPrimary = Color.White,
         secondary = blue, onSecondary = Color.White, secondaryContainer = Color(0xFFEDF3FC), onSecondaryContainer = blue, background = Color.White, surface = Color.White,
         onSurface = ink, onSurfaceVariant = muted, surfaceVariant = soft, outline = line, outlineVariant = line,
@@ -66,8 +80,8 @@ fun PortfolioScreen(model: CoreViewModel, onAccount: () -> Unit = {}, onStockSea
         Surface(Modifier.fillMaxSize(), color = Color.White) {
             BoxWithConstraints(Modifier.fillMaxSize()) {
                 val gutter = if (maxWidth <= 600.dp) 20.dp else (16 + (maxWidth.value * .08f).coerceIn(32f, 128f)).dp
-                Column(Modifier.fillMaxSize().imePadding().verticalScroll(if (editorOpen) editorScroll else dashboardScroll)
-                    .padding(horizontal = gutter, vertical = 24.dp), verticalArrangement = Arrangement.spacedBy(24.dp)) {
+                Column(Modifier.widthIn(max = 760.dp).fillMaxSize().align(androidx.compose.ui.Alignment.TopCenter).imePadding().verticalScroll(if (editorOpen) editorScroll else dashboardScroll)
+                    .padding(horizontal = gutter, vertical = 20.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
                     if (editorOpen) {
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                             SectionTitle(if (model.editId == null) "거래 기록" else "거래 수정")
@@ -244,7 +258,7 @@ fun PortfolioScreen(model: CoreViewModel, onAccount: () -> Unit = {}, onStockSea
         if (LocalDensity.current.fontScale > 1.3f) Column { caption(); privacy() }
         else Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) { caption(); privacy() }
         Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-        Text(value("totalEvaluationAmount"), Modifier.testTag("portfolio-summary-amount"), fontSize = 32.sp, lineHeight = 40.sp, fontWeight = FontWeight.Bold)
+        Text(value("totalEvaluationAmount"), Modifier.testTag("portfolio-summary-amount"), fontSize = 30.sp, lineHeight = 38.sp, fontWeight = FontWeight.Bold)
         val profit = if (empty) displayWon("0", hidden) else signedWon(model.evaluation?.text("totalProfitLoss"), hidden)
         val rate = if (empty) displayNumber("0", hidden) else signedNumber(model.evaluation?.text("totalReturnRate"), hidden)
         Text("$profit ($rate${if (rate == "—") "" else "%"})", Modifier.testTag("portfolio-summary-profit"), color = PortfolioStyle.blue, fontSize = 18.sp)

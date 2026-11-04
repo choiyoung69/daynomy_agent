@@ -36,20 +36,45 @@ class GuestPortfolioScreenTest {
         server.start()
     }
     @After fun teardown() { server.shutdown() }
+    private fun capture(name: String) {
+        compose.waitForIdle()
+        val instrumentation = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation()
+        instrumentation.uiAutomation.waitForIdle(500, 5_000)
+        val prefix = androidx.test.platform.app.InstrumentationRegistry.getArguments().getString("capturePrefix", "default")
+        instrumentation.uiAutomation.executeShellCommand("screencap -p /sdcard/Download/daynomy-$prefix-$name.png")
+            .use { descriptor -> java.io.FileInputStream(descriptor.fileDescriptor).use { it.readBytes() } }
+    }
     @Test fun guestCanAddEvaluateRotateEditAndRemoveWithoutMemberWrites() {
         val intent = Intent(ApplicationProvider.getApplicationContext(), MainActivity::class.java)
             .putExtra("base_url",server.url("/").toString())
         ActivityScenario.launch<MainActivity>(intent).use { scenario ->
+            if (androidx.test.platform.app.InstrumentationRegistry.getArguments().getString("orientation") == "landscape") {
+                scenario.onActivity { it.requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE }
+            }
             compose.waitUntil(15_000) { compose.onAllNodesWithTag("guest-portfolio").fetchSemanticsNodes().isNotEmpty() }
+            compose.onNodeWithTag("guest-editor-open").performClick()
             compose.onNodeWithTag("guest-query").performScrollTo().performTextInput("005930")
             compose.waitUntil(10_000) { compose.onAllNodesWithTag("guest-stock-1").fetchSemanticsNodes().isNotEmpty() }
             compose.onNodeWithTag("guest-stock-1").performScrollTo().performClick()
+            compose.onNodeWithTag("guest-save").performScrollTo().performClick()
+            compose.onNodeWithTag("guest-error").performScrollTo().assertIsDisplayed()
+            compose.onNodeWithTag("guest-editor-close").assertExists()
             compose.onNodeWithTag("guest-quantity").performScrollTo().performTextInput("2")
             compose.onNodeWithTag("guest-average").performScrollTo().performTextInput("200000")
             compose.onNodeWithTag("guest-save").performScrollTo().performClick()
+            compose.onNodeWithTag("guest-summary-amount").performScrollTo().assertTextEquals("평가 필요")
+            capture("holding")
             compose.onNodeWithTag("guest-evaluate").performScrollTo().performClick()
             compose.waitUntil(10_000) { compose.onAllNodesWithTag("guest-evaluation").fetchSemanticsNodes().isNotEmpty() }
             compose.onNodeWithText("평가금액 444,000원").performScrollTo().assertIsDisplayed()
+            compose.onNodeWithTag("guest-amount-toggle").performScrollTo().performClick()
+            compose.onAllNodesWithText("444,000", substring = true).assertCountEquals(0)
+            compose.onAllNodesWithText("200,000", substring = true).assertCountEquals(0)
+            compose.onNodeWithTag("guest-summary-amount").assertTextEquals("••••••")
+            compose.onNodeWithTag("tab-account").performClick()
+            compose.onNodeWithTag("tab-portfolio").performClick()
+            compose.onNodeWithTag("guest-summary-amount").performScrollTo().assertTextEquals("••••••")
+            compose.onNodeWithTag("guest-amount-toggle").performScrollTo().performClick()
             scenario.recreate(); compose.waitForIdle()
             compose.onNodeWithTag("guest-evaluation").assertExists()
             compose.onNodeWithTag("guest-edit-1").performScrollTo().performClick()
@@ -63,4 +88,31 @@ class GuestPortfolioScreenTest {
             assertFalse(requests.any { it.first != "GET" && it.second.startsWith("/api/portfolio") && it.second != "/api/portfolio/calculate" })
         }
     }
+    @Test fun dashboardComesBeforeEditorAndClosingPreservesDraft() {
+        val intent = Intent(ApplicationProvider.getApplicationContext(), MainActivity::class.java)
+            .putExtra("base_url",server.url("/").toString())
+        ActivityScenario.launch<MainActivity>(intent).use { scenario ->
+            if (androidx.test.platform.app.InstrumentationRegistry.getArguments().getString("orientation") == "landscape") {
+                scenario.onActivity { it.requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE }
+            }
+            compose.waitUntil(15_000) { compose.onAllNodesWithTag("guest-portfolio").fetchSemanticsNodes().isNotEmpty() }
+            compose.onNodeWithTag("guest-summary").assertIsDisplayed()
+            compose.onNodeWithTag("guest-summary-amount").assertTextEquals("0원")
+            capture("home")
+            compose.onNodeWithTag("guest-query").assertDoesNotExist()
+            compose.onNodeWithTag("guest-editor-open").performClick()
+            capture("editor")
+            compose.onNodeWithTag("guest-query").performTextInput("삼성")
+            scenario.recreate()
+            compose.onNodeWithTag("guest-query").assertTextContains("삼성")
+            compose.onNodeWithTag("guest-editor-close").performClick()
+            compose.onNodeWithTag("guest-summary").assertIsDisplayed()
+            compose.onNodeWithTag("guest-editor-open").performClick()
+            compose.onNodeWithTag("guest-query").assertTextContains("삼성")
+            androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().uiAutomation
+                .performGlobalAction(android.accessibilityservice.AccessibilityService.GLOBAL_ACTION_BACK)
+            compose.waitUntil(5_000) { compose.onAllNodesWithTag("guest-summary").fetchSemanticsNodes().isNotEmpty() }
+        }
+    }
+
 }
