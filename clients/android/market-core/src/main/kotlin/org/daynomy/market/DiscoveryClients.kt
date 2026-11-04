@@ -14,6 +14,18 @@ class NewsClient(private val transport: HttpTransport) : NewsSource {
         val path = "/api/news?page=$page&size=$size" + (category?.let { "&category=${it.name}" } ?: "")
         return decodePage(transport.get(path))
     }
+    override suspend fun keywords(newsId: Long): List<NewsKeyword> {
+        val row = newsObject(transport.get("/api/news/$newsId/keywords"))
+        return newsArray(row["keywords"]).map { element ->
+            val item = newsObject(element)
+            val category = newsString(item["category"])
+            val points = newsArray(item["points"]).map(::newsString)
+            if (points.size != 3) invalidNewsResponse()
+            NewsKeyword(NewsKeywordCategory.entries.firstOrNull { it.name == category } ?: invalidNewsResponse(),
+                newsString(item["keyword"]), points, newsString(item["definition"]),
+                newsString(item["context"]), newsString(item["watchPoint"]))
+        }
+    }
     override suspend fun today(): NewsPage = decodePage(transport.get("/api/news/today"))
 
     private fun decodePage(body: String): NewsPage {

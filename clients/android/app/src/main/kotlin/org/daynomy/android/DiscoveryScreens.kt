@@ -42,6 +42,29 @@ fun NewsScreen(state: NewsUiState, controller: NewsController) {
                         modifier = Modifier.semantics { heading() })
                     Text("${newsLabel(news.category)} · ${news.publishedAt}", style = MaterialTheme.typography.bodyMedium)
                     news.content.forEach { Text(it, style = MaterialTheme.typography.bodyLarge) }
+                    Text("뉴스 키워드", style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.semantics { heading() })
+                    when (val keywords = state.keywords) {
+                        LoadState.Idle -> Text("키워드 조회를 준비하고 있어요.")
+                        LoadState.Loading -> DiscoveryLoading("키워드를 불러오고 있어요.")
+                        is LoadState.Failed -> {
+                            DiscoveryError(keywords.message, "news-keywords-error")
+                            OutlinedButton(controller::retryKeywords,
+                                Modifier.heightIn(min = 48.dp).testTag("news-keywords-retry")) { Text("키워드 다시 조회") }
+                        }
+                        is LoadState.Ready -> Column(Modifier.testTag("news-keywords"),
+                            verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                            if (keywords.value.isEmpty()) Text("이 뉴스에 등록된 키워드가 없습니다.", Modifier.testTag("news-keywords-empty"))
+                            keywords.value.forEach { keyword ->
+                                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                                    Text("${keyword.keyword} · ${keywordCategoryLabel(keyword.category)}", fontWeight = FontWeight.SemiBold)
+                                    Text("뜻: ${keyword.definition}")
+                                    Text("기사 속 의미: ${keyword.context}")
+                                    Text("확인할 점: ${keyword.watchPoint}")
+                                }
+                            }
+                        }
+                    }
                     news.imageSource?.let { source ->
                         Text("이미지 출처: ${source.name} · ${source.author} · ${source.license}")
                         Text(source.url, style = MaterialTheme.typography.bodyMedium)
@@ -148,4 +171,12 @@ private fun newsLabel(category: NewsCategory?): String = when (category) {
     null -> "전체"; NewsCategory.REAL_ESTATE -> "부동산"; NewsCategory.STOCK -> "주식"; NewsCategory.ETF -> "ETF"
     NewsCategory.DEPOSIT_SAVINGS -> "예금·적금"; NewsCategory.ECONOMY -> "경제지표"; NewsCategory.BOND -> "채권"
     NewsCategory.PENSION -> "연금"; NewsCategory.FOREIGN_EXCHANGE -> "외화·환율"; NewsCategory.VIRTUAL_ASSET -> "가상자산"; NewsCategory.GOLD -> "금"
+}
+
+private fun keywordCategoryLabel(category: NewsKeywordCategory): String = when (category) {
+    NewsKeywordCategory.PERSON -> "인물"
+    NewsKeywordCategory.POLICY -> "정책"
+    NewsKeywordCategory.EVENT -> "사건"
+    NewsKeywordCategory.TERM -> "용어"
+    NewsKeywordCategory.TREND -> "흐름"
 }
