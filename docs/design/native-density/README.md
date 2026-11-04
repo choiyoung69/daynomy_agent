@@ -33,7 +33,8 @@ RN은 실행 중이던 `codex/rn-android-parity` (`3c5cd119`)와 그 미커밋 �
 사용한 스킬: Impeccable의 native adapt·craft floor, redesign-existing-projects,
 daynomy-kb-input, React Best Practices의 관련 React/접근성 검토 항목.
 Impeccable 자동 로더는 엔진 캐시 권한 때문에 실행되지 않아 기존 PRODUCT/DESIGN·원본 명세를 직접 읽었다.
-새 폰트·라이브러리·범용 하네스·AI 생성 자산은 추가하지 않았다.
+밀도 수정 자체에는 새 폰트·라이브러리·범용 하네스·AI 생성 자산을 추가하지 않았다.
+기반 RN 미커밋 작업이 이미 사용하던 expo-linear-gradient 의존성과 잠금 파일은 함께 보존했다.
 
 KB의 `news/android --require-ready --check-only`는 준비 판정이 통과했다.
 `news/react-native`는 버전·수명·빌드 메타데이터가 오래되어 NOT READY였다.
@@ -41,7 +42,7 @@ KB의 `news/android --require-ready --check-only`는 준비 판정이 통과했�
 
 ## 현재 검증
 
-- RN 기존 회귀50개와 TypeScript 검사 통과. 이후 동시 변경 반영분은 최종 검사 기록으로 구분한다.
+- RN 기존 회귀50개와 TypeScript 검사 통과. 동시 변경과 밀도 수정을 반영한 최종 재검사도 모두 통과했다.
 - Android debug APK·검사 APK·lint 새 실행 성공: 77 tasks, 1분24초.
 - API33 ARM64 별도 emulator-5580에서 화면19개 실행: 18통과, 1실패.
   실패는 `PortfolioWebDesignScreenTest.unauthorizedReadOffersRealAccountRouteInsteadOfGuestStorage`가
