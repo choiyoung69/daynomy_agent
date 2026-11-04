@@ -2,6 +2,7 @@
 """Two independent CLI agents, a trusted gate, and a bounded repair state machine."""
 import argparse
 from datetime import datetime, timezone
+from contextlib import nullcontext
 import difflib
 import hashlib
 import json
@@ -167,8 +168,11 @@ def transient_error(events):
 
 
 class CliAgent:
-    def __init__(self, timeout=240, model=None, max_attempts=3, reasoning_effort=None, executable="codex"):
+    def __init__(self, timeout=240, model=None, max_attempts=3, reasoning_effort=None, executable="codex", max_prompt_bytes=32 * 1024):
         self.timeout = timeout
+        if isinstance(max_prompt_bytes, bool) or not isinstance(max_prompt_bytes, int) or max_prompt_bytes < 1:
+            raise ValueError("Prompt byte limit must be a positive integer")
+        self.max_prompt_bytes = max_prompt_bytes
         if model is not None and (not isinstance(model, str) or not model.strip()
                                   or model.startswith("-") or any(c.isspace() for c in model)):
             raise ValueError("Invalid model identifier")
@@ -181,9 +185,20 @@ class CliAgent:
         self.executable = str(executable)
 
     def __call__(self, role, workspace, prompt, output_dir):
-        output_dir.mkdir(parents=True, exist_ok=True)
+        if not isinstance(prompt, str) or not prompt.strip():
+            raise ValueError("Agent prompt must be nonempty text")
+        prompt_bytes = prompt.encode("utf-8")
+        if len(prompt_bytes) > self.max_prompt_bytes:
+            raise ValueError(f"Agent prompt is {len(prompt_bytes)} bytes; limit {self.max_prompt_bytes}; use scoped file references, never truncate required evidence")
+        input_evidence = {"prompt_bytes": len(prompt_bytes), "prompt_characters": len(prompt),
+                          "prompt_sha256": hashlib.sha256(prompt_bytes).hexdigest(),
+                          "max_prompt_bytes": self.max_prompt_bytes, "context_mode": "fresh-ephemeral"}
         if role not in ROLE_STATUSES:
             raise ValueError("Unknown agent role")
+        if (output_dir / "input.json").exists() or (output_dir / "result.json").exists():
+            raise RuntimeError("Agent output path must be fresh")
+        output_dir.mkdir(parents=True, exist_ok=True)
+        dump(output_dir / "input.json", input_evidence)
         statuses = sorted(ROLE_STATUSES[role])
         schema = {"type": "object", "additionalProperties": False,
                   "properties": {"status": {"type": "string", "enum": statuses},
@@ -208,8 +223,29 @@ class CliAgent:
         attempts = []
         for attempt in range(1, self.max_attempts + 1):
             events = output_dir / ("events.jsonl" if attempt == 1 else f"events-attempt-{attempt}.jsonl")
-            code = capture(command, prompt, events, self.timeout, clean_env())
-            attempts.append({"attempt": attempt, "exit_code": code, "events": str(events)})
+            capture_error = None
+            try:
+                code = capture(command, prompt, events, self.timeout, clean_env())
+            except (OSError, RuntimeError, subprocess.SubprocessError) as error:
+                code, capture_error = None, error
+            session_ids, usage_records = [], []
+            with events.open() if events.exists() else nullcontext([]) as event_stream:
+                for line in event_stream:
+                    try:
+                        event = json.loads(line)
+                    except ValueError:
+                        continue
+                    if event.get("type") == "thread.started":
+                        session_ids.append(event.get("thread_id"))
+                    if event.get("type") in ("turn.completed", "turn.failed") and isinstance(event.get("usage"), dict):
+                        usage_records.append(event["usage"])
+            attempts.append({"attempt": attempt, "exit_code": code, "events": str(events),
+                             "session_ids": session_ids, "usage_records": usage_records})
+            if capture_error is not None:
+                attempts[-1]["error_type"] = type(capture_error).__name__
+            dump(output_dir / "attempts.json", attempts)
+            if capture_error is not None:
+                raise capture_error
             if code == 0 and result_path.is_file():
                 break
             transient = transient_error(events)
@@ -221,16 +257,7 @@ class CliAgent:
             print(json.dumps({"status": "agent_retry", "role": role, "attempt": attempt,
                               "reason": transient}, ensure_ascii=False), flush=True)
             time.sleep(30 * attempt)
-        session_ids, usage = [], None
-        for line in events.read_text().splitlines():
-            try:
-                event = json.loads(line)
-            except ValueError:
-                continue
-            if event.get("type") == "thread.started":
-                session_ids.append(event.get("thread_id"))
-            if event.get("type") == "turn.completed":
-                usage = event.get("usage")
+        usage = usage_records[-1] if usage_records else None
         if len(session_ids) != 1 or not isinstance(session_ids[0], str):
             raise RuntimeError("Missing unique agent session identity")
         result = validate_result(json.loads(result_path.read_text()), role)
@@ -239,7 +266,7 @@ class CliAgent:
                         "requested_reasoning_effort": self.reasoning_effort,
                         "executable": self.executable,
                         "result": str(result_path), "events": str(events), "usage": usage,
-                        "attempts": attempts}
+                        "attempts": attempts, "input": input_evidence}
 
 
 def import_sources(workspace, candidate, baseline):
@@ -390,9 +417,25 @@ class Workflow:
 
     def prompt(self, role, feedback):
         text = (self.root / "prompts" / ("worker.md" if role == "implementer" else "reviewer.md")).read_text()
+        # Keep full controller evidence on disk; only actionable review and status enter the next prompt.
+        payload = json.dumps(feedback, ensure_ascii=False, indent=2) + "\n"
+        evidence_hash = hashlib.sha256(payload.encode("utf-8")).hexdigest()
+        evidence_path = self.run_dir / "prompt-evidence" / (evidence_hash + ".json")
+        evidence_path.parent.mkdir(parents=True, exist_ok=True)
+        if evidence_path.exists() and evidence_path.read_text() != payload:
+            raise ValueError("Prompt evidence changed")
+        if not evidence_path.exists():
+            evidence_path.write_text(payload)
+        summary = {key: feedback[key] for key in ("message", "review") if key in feedback}
+        gate = feedback.get("gate")
+        if isinstance(gate, dict):
+            summary["gate_status"] = gate.get("status")
         return (text + "\n\nTASK:\n" + self.task + "\n\nAUTHORITATIVE CONTRACT:\n"
                 + str(self.candidate / "spec/feedback.md") + "\n\nPREVIOUS EVIDENCE:\n"
-                + json.dumps(feedback, ensure_ascii=False))
+                + str(evidence_path) + "\nSHA256: " + evidence_hash
+                + "\nRead the referenced evidence and relevant failure reports before changing code or approving. "
+                  "A summary does not replace the original evidence. Do not reread unrelated history.\n"
+                + json.dumps(summary, ensure_ascii=False))
 
     def format_sources(self, round_dir):
         with (round_dir / "format.log").open("w") as log:

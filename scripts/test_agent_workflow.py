@@ -424,6 +424,80 @@ class CliRetryTests(unittest.TestCase):
         self.assertTrue((self.output / "failed-result-1.json").is_file())
 
 
+class InputBoundaryTests(unittest.TestCase):
+    def test_utf8_budget_rejects_before_transport(self):
+        with tempfile.TemporaryDirectory() as tmp, mock.patch("agent_workflow.capture") as capture:
+            out = Path(tmp) / "out"
+            with self.assertRaisesRegex(ValueError, "prompt.*bytes"):
+                workflow.CliAgent(max_prompt_bytes=5)("reviewer", Path(tmp), "한글", out)
+            capture.assert_not_called()
+            self.assertFalse(out.exists())
+
+    def test_input_metadata_and_failed_attempt_usage(self):
+        helper = CliRetryTests(); helper.setUp()
+        try:
+            failure = ([{"type": "turn.failed", "error": {"message": "429 Too Many Requests"},
+                        "usage": {"input_tokens": 9, "cached_input_tokens": 7, "output_tokens": 2}}], 1, None)
+            _, identity, calls = helper.invoke([failure, helper.success()])
+            info = json.loads((helper.output / "input.json").read_text())
+            self.assertEqual(info["prompt_bytes"], len("Synthetic retry test".encode()))
+            self.assertEqual(len(info["prompt_sha256"]), 64)
+            self.assertNotIn("Synthetic retry test", json.dumps(info))
+            self.assertEqual(identity["input"], info)
+            self.assertIn("--ephemeral", calls[0]["command"])
+            self.assertNotIn("resume", calls[0]["command"])
+            attempts = json.loads((helper.output / "attempts.json").read_text())
+            self.assertEqual(attempts, identity["attempts"])
+            self.assertEqual(attempts[0]["usage_records"][0]["input_tokens"], 9)
+            self.assertEqual(len(attempts[1]["usage_records"]), 1)
+        finally:
+            helper.doCleanups()
+
+    def test_terminal_failure_keeps_unknown_usage(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "out"
+            def failed(command, prompt, events, timeout, env):
+                events.write_text('{"type":"error","message":"offline"}\n')
+                return 1
+            with mock.patch("agent_workflow.capture", side_effect=failed):
+                with self.assertRaises(RuntimeError):
+                    workflow.CliAgent()("reviewer", Path(tmp), "task", out)
+            attempts = json.loads((out / "attempts.json").read_text())
+            self.assertEqual(attempts[0]["usage_records"], [])
+
+    def test_capture_timeout_preserves_partial_usage(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "out"
+            def timeout(command, prompt, events, limit, env):
+                events.write_text(json.dumps({"type": "turn.failed", "usage": {"input_tokens": 8}}) + "\n")
+                raise RuntimeError("Agent time limit exceeded")
+            with mock.patch("agent_workflow.capture", side_effect=timeout):
+                with self.assertRaisesRegex(RuntimeError, "time limit"):
+                    workflow.CliAgent()("reviewer", Path(tmp), "task", out)
+            attempt = json.loads((out / "attempts.json").read_text())[0]
+            self.assertIsNone(attempt["exit_code"])
+            self.assertEqual(attempt["error_type"], "RuntimeError")
+            self.assertEqual(attempt["usage_records"][0]["input_tokens"], 8)
+
+    def test_gate_log_is_referenced_without_losing_evidence(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            ctl = workflow.Workflow.__new__(workflow.Workflow)
+            ctl.root = Path(tmp); ctl.candidate = ctl.root / "candidate"
+            ctl.run_dir = ctl.root / "run"; ctl.task = "Fix storage"
+            (ctl.root / "prompts").mkdir()
+            (ctl.root / "prompts/worker.md").write_text("Role rules")
+            feedback = {"gate": {"status": "failed", "log": "X" * 100000, "failures": ["Missing row"]},
+                        "review": result("revise", findings=["Restore persistence"])}
+            prompt = ctl.prompt("implementer", feedback)
+            self.assertLess(len(prompt.encode()), 4000)
+            self.assertIn("Restore persistence", prompt)
+            paths = list((ctl.run_dir / "prompt-evidence").glob("*.json"))
+            self.assertEqual(len(paths), 1)
+            self.assertEqual(json.loads(paths[0].read_text()), feedback)
+            self.assertIn(str(paths[0]), prompt)
+            self.assertIn("failed", prompt)
+
+
 class StateMachineTests(unittest.TestCase):
     def setUp(self):
         # The real controller formats candidates with Cargo. State-machine unit
