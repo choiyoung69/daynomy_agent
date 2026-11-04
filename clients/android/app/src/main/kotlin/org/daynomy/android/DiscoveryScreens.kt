@@ -24,6 +24,14 @@ import org.daynomy.market.*
 
 @Composable
 fun NewsScreen(state: NewsUiState, controller: NewsController) {
+    var query by rememberSaveable { mutableStateOf(state.searchQuery.orEmpty()) }
+    val keyboard = LocalSoftwareKeyboardController.current
+    val focus = LocalFocusManager.current
+    fun search() {
+        focus.clearFocus(force = true)
+        keyboard?.hide()
+        controller.submitSearch(query)
+    }
     Column(Modifier.fillMaxSize().imePadding().verticalScroll(rememberScrollState()).padding(24.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Text("DAYNOMY", color = MaterialTheme.colorScheme.secondary, style = MaterialTheme.typography.labelLarge)
@@ -57,6 +65,28 @@ fun NewsScreen(state: NewsUiState, controller: NewsController) {
         } else {
             Text("경제 소식", style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold, modifier = Modifier.semantics { heading() })
             Text("발행된 뉴스를 분야별로 살펴보세요.", style = MaterialTheme.typography.bodyLarge)
+            OutlinedTextField(query, { query = it }, label = { Text("뉴스 검색어") },
+                singleLine = true, isError = state.searchError != null,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                keyboardActions = KeyboardActions(onSearch = { search() }),
+                modifier = Modifier.fillMaxWidth().testTag("news-query"))
+            state.searchError?.let { DiscoveryError(it, "news-query-error") }
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Button({ search() }, Modifier.heightIn(min = 48.dp).testTag("news-search")) { Text("검색") }
+                if (state.searchQuery != null || query.isNotEmpty()) {
+                    TextButton({ query = ""; controller.clearSearch() }, Modifier.heightIn(min = 48.dp).testTag("news-search-clear")) { Text("검색 해제") }
+                }
+            }
+            state.searchQuery?.let {
+                Text("검색 중: $it", Modifier.testTag("news-active-query").semantics { liveRegion = LiveRegionMode.Polite })
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    NewsSearchSort.entries.forEach { sort ->
+                        FilterChip(state.sort == sort, { controller.selectSort(sort) },
+                            label = { Text(if (sort == NewsSearchSort.LATEST) "최신순" else "관련도순") },
+                            modifier = Modifier.heightIn(min = 48.dp).testTag("news-sort-${sort.name}"))
+                    }
+                }
+            }
             Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 listOf(null, NewsCategory.REAL_ESTATE, NewsCategory.STOCK, NewsCategory.ETF).forEach { category ->
                     FilterChip(state.category == category, { controller.selectCategory(category) }, label = { Text(newsLabel(category)) },
@@ -71,7 +101,7 @@ fun NewsScreen(state: NewsUiState, controller: NewsController) {
                     OutlinedButton(controller::retryList, Modifier.heightIn(min = 48.dp).testTag("news-retry")) { Text("목록 다시 조회") }
                 }
                 is LoadState.Ready -> {
-                    if (result.value.items.isEmpty()) Text("발행된 뉴스가 없습니다.", Modifier.testTag("news-empty"))
+                    if (result.value.items.isEmpty()) Text(if (state.searchQuery == null) "발행된 뉴스가 없습니다." else "검색 결과가 없습니다.", Modifier.testTag("news-empty"))
                     result.value.items.forEach { news ->
                         OutlinedCard(onClick = { controller.openDetail(news.id) }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).testTag("news-item-${news.id}")) {
                             Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {

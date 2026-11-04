@@ -13,6 +13,10 @@ F09의 기존 명세를 작업용으로 정리한 문서다. 계약의 상세 �
 
 ## 기능 계약
 
+- 원본 JC31 `NewsSearchController`/`NewsSearchResponse`와 서비스 F09 기준: 공개 GET `/api/search/news`.
+- q는 원문 UTF-16 길이 100 이하이며 Unicode 문자/숫자를 포함한다. 원본 Java Pattern과 같이 줄바꿈은 거절한다. 공백·중복 단어·대소문자 정규화와 AND/일반문자 %, _, ! 검색은 서버 책임이다.
+- category 생략은 전체, page≥1, size=1~100, sort=LATEST/RELEVANCE. 응답은 `content`, `page`, `size`, `totalElements`, `totalPages`이며 목록 API의 `items`/`hasNext`와 다르다.
+- Android Issue #11은 뉴스 검색만 연결한다. 통합 콘텐츠 검색은 준비 범위에 포함하지 않는다. 정적 준비와 런타임 검증은 별개다.
 
 
 ## 원본 API 연결

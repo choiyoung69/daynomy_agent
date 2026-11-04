@@ -346,7 +346,8 @@
         "auth-session",
         "account",
         "portfolio-ledger",
-        "portfolio-calculation"
+        "portfolio-calculation",
+        "content-search"
       ]
     },
     "ios": {

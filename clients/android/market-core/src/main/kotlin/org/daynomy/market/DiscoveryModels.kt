@@ -7,8 +7,15 @@ data class NewsPage(val items: List<NewsListItem>, val page: Int, val size: Int,
 data class NewsSourceLink(val name: String, val url: String)
 data class NewsImageSource(val name: String, val url: String, val author: String, val license: String, val licenseUrl: String, val type: NewsImageSourceType)
 data class NewsDetail(val id: Long, val title: String, val category: NewsCategory, val publishedAt: String, val content: List<String>, val imageUrl: String?, val imageSource: NewsImageSource?, val sources: List<NewsSourceLink>)
+enum class NewsSearchSort { LATEST, RELEVANCE }
 interface NewsSource {
+    suspend fun search(query: String, category: NewsCategory? = null, page: Int = 1, size: Int = 6, sort: NewsSearchSort = NewsSearchSort.LATEST): NewsPage = throw UnsupportedOperationException("뉴스 검색 미구현")
     suspend fun list(category: NewsCategory? = null, page: Int = 1, size: Int = 6): NewsPage
     suspend fun detail(newsId: Long): NewsDetail
 }
-data class NewsUiState(val category: NewsCategory? = null, val page: Int = 1, val list: LoadState<NewsPage> = LoadState.Idle, val selectedId: Long? = null, val detail: LoadState<NewsDetail> = LoadState.Idle)
+data class NewsUiState(val searchQuery: String? = null, val sort: NewsSearchSort = NewsSearchSort.LATEST, val searchError: String? = null, val category: NewsCategory? = null, val page: Int = 1, val list: LoadState<NewsPage> = LoadState.Idle, val selectedId: Long? = null, val detail: LoadState<NewsDetail> = LoadState.Idle)
+
+/** Mirrors Java controller validation before any URL encoding or normalization. */
+internal fun validNewsQuery(query: String): Boolean =
+    query.isNotEmpty() && query.length <= 100 &&
+        Regex(".*[\\p{L}\\p{N}].*").matches(query)
