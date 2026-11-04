@@ -12,7 +12,12 @@ import kotlinx.serialization.json.JsonPrimitive
 class NewsClient(private val transport: HttpTransport) : NewsSource {
     override suspend fun list(category: NewsCategory?, page: Int, size: Int): NewsPage {
         val path = "/api/news?page=$page&size=$size" + (category?.let { "&category=${it.name}" } ?: "")
-        val row = newsObject(transport.get(path))
+        return decodePage(transport.get(path))
+    }
+    override suspend fun today(): NewsPage = decodePage(transport.get("/api/news/today"))
+
+    private fun decodePage(body: String): NewsPage {
+        val row = newsObject(body)
         val items = newsArray(row["items"]).map { element ->
             val item = newsObject(element)
             NewsListItem(newsLong(item["id"]), newsString(item["title"]), newsCategory(item["category"]),

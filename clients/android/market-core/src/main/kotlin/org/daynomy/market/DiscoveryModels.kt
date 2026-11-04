@@ -8,7 +8,8 @@ data class NewsSourceLink(val name: String, val url: String)
 data class NewsImageSource(val name: String, val url: String, val author: String, val license: String, val licenseUrl: String, val type: NewsImageSourceType)
 data class NewsDetail(val id: Long, val title: String, val category: NewsCategory, val publishedAt: String, val content: List<String>, val imageUrl: String?, val imageSource: NewsImageSource?, val sources: List<NewsSourceLink>)
 interface NewsSource {
+    suspend fun today(): NewsPage = throw UnsupportedOperationException("오늘 뉴스 조회를 지원하지 않습니다.")
     suspend fun list(category: NewsCategory? = null, page: Int = 1, size: Int = 6): NewsPage
     suspend fun detail(newsId: Long): NewsDetail
 }
-data class NewsUiState(val category: NewsCategory? = null, val page: Int = 1, val list: LoadState<NewsPage> = LoadState.Idle, val selectedId: Long? = null, val detail: LoadState<NewsDetail> = LoadState.Idle)
+data class NewsUiState(val category: NewsCategory? = null, val page: Int = 1, val list: LoadState<NewsPage> = LoadState.Idle, val selectedId: Long? = null, val detail: LoadState<NewsDetail> = LoadState.Idle, val todayOnly: Boolean = false)
