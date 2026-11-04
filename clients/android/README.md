@@ -85,6 +85,29 @@ fixture는 Ctrl-C 또는 출력 폴더에 stop 파일 생성으로 종료하며 
 
 ## 지식베이스를 기본 입력으로 쓰는 흐름
 
+검색어·선택 해제·가격 초안 상태만 고치는 작업은 기존 도구의 작은 프로필을 사용한다.
+
+```sh
+python3 scripts/android_knowledge.py ensure query-reset --base .local/my-task/knowledge
+```
+
+처음에는 3문서 패킷을 만들고, 같은 경로가 있으면 준비·출처·해시를 확인해 재사용한다.
+변경된 패킷은 덮어쓰지 않고 거절하므로 새 작업 경로를 사용한다. 이 명령 뒤 prepare/verify를
+동일 시작 단계에서 다시 실행할 필요는 없다. 구현 결과 수용 시의 verify는 유지한다.
+manifest의 documents에 적힌 기능·상태/탐색·비동기/취소 문서를 각각 읽는다.
+checks에는 관련 MarketController 계약·회귀 검사 명령이 들어 있다. 아래 두 클래스만 먼저 확인한다.
+
+```sh
+clients/android/gradlew -p clients/android :market-core:test \
+  --tests org.daynomy.market.MarketControllerContractTest \
+  --tests org.daynomy.market.MarketControllerRegressionTest
+```
+
+기존 실행 안내의 JAVA_HOME/GRADLE_USER_HOME을 사용한다. 수정이 JSON·금액·인증·HTTP·화면 연결까지
+확대되면 해당 프로필과 검사를 추가한다. 위 명령은 전체 앱 완료 판정이 아니다.
+문서/작업 도구만 바꾼 경우 위 앱 검사를 자동 실행하지 않고 해당 도구 자체 테스트만 확인한다.
+기존 android_pilot의 implement 시작도 ensure를 사용해 새 패킷의 준비 검사를 중복 실행하지 않는다.
+
 일반 작업은 로컬 지식 → 필요한 원본/보관본 → 해소되지 않는 항목만 외부 조회 순서다.
 검색은3문서·가격4문서·통합5문서만 묶어 제공한다. 평가 기대 답변이나 전체 원문은 전달하지 않는다.
 

@@ -78,12 +78,10 @@ def main():
             if sum(t['status']=='running' and t['kind']==task['kind'] for t in state['tasks'].values())>=limit:raise ValueError('no free slot')
         task.update(status='running',actor=args.actor,model=args.model,started_at=args.started if args.command=='record' else now())
         if args.task.startswith('implement.'):
-            from android_knowledge import prepare, verify
+            from android_knowledge import ensure
             name=args.task.split('.',1)[1]
             base=str(path.parent.relative_to(ROOT)/'knowledge-v1')
-            manifest=f'{base}/{name}/manifest.json'
-            if not inside(manifest).exists():manifest=prepare(name,base)
-            verify(manifest,expected_task=name)
+            manifest=ensure(name,base)
             task['knowledge_manifest']=manifest
             task['knowledge_enforcement']='required context generated before start'
     if args.command in ('finish','record'):

@@ -7,6 +7,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 import android_knowledge as gate
+import android_pilot as ledger
 
 class KnowledgeGateTests(unittest.TestCase):
     def setUp(self):
@@ -66,5 +67,43 @@ class KnowledgeGateTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'identity mismatch'):self.verify()
         self.manifest['task']='search';self.manifest['source_records']={};self.save('packet/manifest.json',self.manifest)
         with self.assertRaisesRegex(ValueError,'source set mismatch'):self.verify()
+
+    def test_ensure_reuses_valid_packet_without_rewriting_and_checks_readiness_once(self):
+        # Match the existing task-based directory layout without regenerating its receipt.
+        (self.root/'packet').rename(self.root/'search')
+        self.manifest['context']='search/context.md';self.save('search/manifest.json',self.manifest)
+        before=(self.root/'search/manifest.json').read_bytes()
+        self.assertEqual(gate.ensure('search','.'),'search/manifest.json')
+        self.assertEqual((self.root/'search/manifest.json').read_bytes(),before)
+        gate.knowledge.context.assert_called_once()
+        self.assertFalse(gate.knowledge.context.call_args.kwargs['emit_documents'])
+
+    def test_ensure_does_not_replace_stale_packet(self):
+        (self.root/'packet').rename(self.root/'search')
+        self.manifest['context']='search/context.md';self.save('search/manifest.json',self.manifest)
+        before=(self.root/'search/manifest.json').read_bytes()
+        (self.root/'knowledge/a.md').write_text('changed')
+        with self.assertRaisesRegex(ValueError,'input changed'):gate.ensure('search','.')
+        self.assertEqual((self.root/'search/manifest.json').read_bytes(),before)
+
+    def test_prepare_and_ledger_start_perform_one_readiness_check(self):
+        self.save('ledger.json',{'tasks':{'implement.search':{'status':'queued','kind':'agent','deps':[]}},'events':[],'frozen':{}})
+        with patch.object(gate.knowledge,'knowledge_document',side_effect=lambda p:self.root/'knowledge'/p), \
+             patch.object(ledger,'ROOT',self.root), \
+             patch('sys.argv',['android_pilot.py','--state','ledger.json','start','implement.search']):
+            self.assertEqual(ledger.main(),0)
+        gate.knowledge.context.assert_called_once()
+        packet=json.loads((self.root/'knowledge-v1/search/manifest.json').read_text())
+        self.assertEqual(set(packet['documents']),set(self.docs))
+
+    def test_reused_packet_still_requires_prepared_platform(self):
+        gate.knowledge.context.return_value=2
+        with self.assertRaisesRegex(ValueError,'preparation check failed'):self.verify()
+
+    def test_changed_check_selection_requires_new_packet(self):
+        config=json.loads((self.root/'agents/android-native.json').read_text())
+        config['knowledge']['task_checks']={'search':['new required check']}
+        self.save('agents/android-native.json',config)
+        with self.assertRaisesRegex(ValueError,'check selection mismatch'):self.verify()
 
 if __name__=='__main__':unittest.main()

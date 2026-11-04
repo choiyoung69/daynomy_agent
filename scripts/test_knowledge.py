@@ -34,13 +34,26 @@ class KnowledgeContextTests(unittest.TestCase):
         (self.root / "runs").mkdir(exist_ok=True)
         for path in (ROOT / "runs").glob("*.md"):
             shutil.copy2(path, self.root / "runs" / path.name)
+        (self.root / "clients/android").mkdir(parents=True)
+        shutil.copy2(ROOT / "clients/android/README.md", self.root / "clients/android/README.md")
 
-    def run_context(self, platform="ios", guarded=False):
+    def run_context(self, platform="ios", guarded=False, check_only=False):
         args = [sys.executable, str(self.root / "scripts/knowledge.py"), "context",
                 "--feature", "stock-search-price", "--platform", platform]
         if guarded:
             args.append("--require-ready")
+        if check_only:
+            args.append("--check-only")
         return subprocess.run(args, capture_output=True, text=True, cwd=self.root)
+
+    def test_check_only_preserves_ready_and_blocked_decisions_without_bodies(self):
+        for prepared in (False, True):
+            if prepared:
+                self.prepare_synthetic_ios()
+            result=self.run_context(guarded=True,check_only=True)
+            self.assertEqual(result.returncode,0 if prepared else 2,result.stdout+result.stderr)
+            self.assertNotIn('--- knowledge/',result.stdout)
+            self.assertNotIn('Selected source records:',result.stdout)
 
     def edit_json(self, relative, mutate):
         path = self.root / relative

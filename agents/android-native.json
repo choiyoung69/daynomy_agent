@@ -95,6 +95,11 @@
         "wiki/packages/android-kotlin/state-and-navigation.md",
         "wiki/packages/android-kotlin/auth-and-storage.md",
         "wiki/packages/android-kotlin/errors-and-transactions.md"
+      ],
+      "query-reset": [
+        "wiki/projects/daynomy/stock-search-price.md",
+        "wiki/packages/android-kotlin/state-and-navigation.md",
+        "wiki/packages/android-kotlin/async-and-cancellation.md"
       ]
     },
     "task_features": {
@@ -104,6 +109,20 @@
       "core-session": "auth-session",
       "core-portfolio": "portfolio-ledger",
       "core-ui": "account"
+    },
+    "task_topics": {
+      "query-reset": [
+        "state-and-navigation",
+        "async-and-cancellation"
+      ]
+    },
+    "task_checks": {
+      "query-reset": [
+        "clients/android/gradlew -p clients/android :market-core:test --tests org.daynomy.market.MarketControllerContractTest --tests org.daynomy.market.MarketControllerRegressionTest"
+      ]
+    },
+    "task_scopes": {
+      "query-reset": "MarketController 검색어·선택 해제·가격 초안 상태 수정 전용. JSON/금액/인증/서버/플랫폼 연결 변경은 해당 기존 프로필과 검사를 추가한다."
     }
   },
   "next_increment": {
