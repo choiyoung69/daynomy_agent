@@ -60,7 +60,7 @@ source_ids: ["E01", "P02", "G01", "F01", "F04"]
 | [투자 캘린더](projects/daynomy/investment-calendar.md) | 정적 정리 |
 | [뉴스·키워드·시장 분석](projects/daynomy/news.md) | 정적 정리 |
 | [이메일 알림 보류 경계](projects/daynomy/notifications-deferred.md) | 정적 정리 |
-| [AI 분석·재사용·근거·이력](projects/daynomy/portfolio-analysis.md) | 정적 계약·Android 회원 연결/합성 검증 범위 기록 |
+| [AI 분석·재사용·근거·이력](projects/daynomy/portfolio-analysis.md) | 정적 정리 |
 | [포트폴리오 평가 계산](projects/daynomy/portfolio-calculation.md) | 정적 정리 |
 | [보유자산·거래 원장·수익률](projects/daynomy/portfolio-ledger.md) | 정적 정리 |
 | [DAYNOMY 전체 서비스 지식 목록](projects/daynomy/service-catalog.md) | 정적 정리·실행 근거 연결(범위는 문서 참조) |
