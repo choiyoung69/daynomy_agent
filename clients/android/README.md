@@ -9,7 +9,8 @@ Kotlin/Compose 네이티브 앱이며 Rust 백엔드는 기존 app/을 사용한
 현재 전체 구현/검증 범위는 [Rust 대비 지도](../../spec/android-native/coverage.md),
 실제 검사·제한은 [30분 기록](../../runs/017-android-core-30min.md)을 따른다.
 실제 Google 계정 인증·전체 앱·운영 배포 완료를 의미하지 않는다.
-뉴스 이미지 다운로드·키워드·시장 분석·오늘 뉴스는 후속 묶음에 포함하지 않는다.
+뉴스 키워드 조회는 [별도 계약](../../spec/android-native/news-keywords.md)을 따르며 상세에서 확인한다.
+뉴스 이미지 다운로드·시장 분석은 미구현이다. 오늘 뉴스는 기존 모드 전환을 사용한다.
 
 ## 구성
 

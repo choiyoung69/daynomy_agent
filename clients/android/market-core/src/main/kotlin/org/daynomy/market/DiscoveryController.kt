@@ -19,6 +19,8 @@ class NewsController(private val source: NewsSource, private val scope: Coroutin
     private var detailGeneration = 0L
     private var listJob: Job? = null
     private var detailJob: Job? = null
+    private var keywordsJob: Job? = null
+    private var keywordsGeneration = 0L
 
     fun selectToday(todayOnly: Boolean) {
         if (closed || state.value.todayOnly == todayOnly) return
@@ -43,31 +45,53 @@ class NewsController(private val source: NewsSource, private val scope: Coroutin
         if (closed) return
         mutableState.update { it.copy(selectedId = id) }
         loadDetail()
+        loadKeywords()
     }
     fun closeDetail() {
         if (closed) return
-        invalidateDetail()
-        mutableState.update { it.copy(selectedId = null, detail = LoadState.Idle) }
+        invalidateDetail(); invalidateKeywords()
+        mutableState.update { it.copy(selectedId = null, detail = LoadState.Idle, keywords = LoadState.Idle) }
     }
     fun retryList() { if (!closed) loadList() }
+    fun retryKeywords() { if (!closed) loadKeywords() }
     fun retryDetail() { if (!closed) loadDetail() }
     fun setActive(active: Boolean) {
         if (closed || this.active == active) return
         this.active = active
-        if (active) { loadList(); loadDetail() }
+        if (active) { loadList(); loadDetail(); loadKeywords() }
         else {
-            invalidateList(); invalidateDetail()
-            mutableState.update { it.copy(list = LoadState.Idle, detail = LoadState.Idle) }
+            invalidateList(); invalidateDetail(); invalidateKeywords()
+            mutableState.update { it.copy(list = LoadState.Idle, detail = LoadState.Idle, keywords = LoadState.Idle) }
         }
     }
     override fun close() {
         if (closed) return
         closed = true; active = false
-        invalidateList(); invalidateDetail()
-        mutableState.update { it.copy(list = LoadState.Idle, detail = LoadState.Idle) }
+        invalidateList(); invalidateDetail(); invalidateKeywords()
+        mutableState.update { it.copy(list = LoadState.Idle, detail = LoadState.Idle, keywords = LoadState.Idle) }
     }
     private fun invalidateList() { listGeneration++; listJob?.cancel(); listJob = null }
     private fun invalidateDetail() { detailGeneration++; detailJob?.cancel(); detailJob = null }
+    private fun invalidateKeywords() { keywordsGeneration++; keywordsJob?.cancel(); keywordsJob = null }
+    private fun loadKeywords() {
+        invalidateKeywords()
+        val id = state.value.selectedId
+        if (!active || id == null) { mutableState.update { it.copy(keywords = LoadState.Idle) }; return }
+        val token = keywordsGeneration
+        fun current() = !closed && active && token == keywordsGeneration && state.value.selectedId == id
+        mutableState.update { it.copy(keywords = LoadState.Loading) }
+        keywordsJob = scope.launch {
+            try {
+                val keywords = source.keywords(id)
+                if (current()) mutableState.update { it.copy(keywords = LoadState.Ready(keywords)) }
+            } catch (cancelled: CancellationException) {
+                if (current()) mutableState.update { it.copy(keywords = LoadState.Idle) }
+                throw cancelled
+            } catch (_: Exception) {
+                if (current()) mutableState.update { it.copy(keywords = LoadState.Failed("뉴스 키워드를 불러오지 못했습니다.")) }
+            }
+        }
+    }
     private fun currentList(token: Long) = !closed && active && token == listGeneration
     private fun currentDetail(token: Long) = !closed && active && token == detailGeneration
     private fun loadList() {

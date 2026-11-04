@@ -1,0 +1,65 @@
+{
+  "issue": 25,
+  "base_commit": "32e9d0fd7b73fdca0b37baa5b8582b904276588c",
+  "source_sha256": {
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryModels.kt": "6dcf7d61aa215929acebe655c17745b2d6f6b3d58bd85a331e41f9e2e563e170",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryClients.kt": "7e894321b1af20b9543e1dc26b2e2ca36016cf74ce5dfc3cc78352fe45ad890f",
+    "clients/android/market-core/src/main/kotlin/org/daynomy/market/DiscoveryController.kt": "2422583c6058bec960a90bf722e86f6b53d10f4603e9b20f4814c90a5585c8e8",
+    "clients/android/app/src/main/kotlin/org/daynomy/android/DiscoveryScreens.kt": "039db0975664c38d89b4d93786d036b7b01447069da04755bd069dd6df29881f"
+  },
+  "criteria_sha256": {
+    "clients/android/market-core/src/test/kotlin/org/daynomy/market/NewsKeywordsContractTest.kt": "762c12a5ae071cb053da0ed0fd7dfc9490f41fccf424655b684e319ad3b3d815",
+    "clients/android/app/src/androidTest/kotlin/org/daynomy/android/NewsKeywordsScreenTest.kt": "92451bdba4a5b2fb82cde36157cb1f16873f038053caca70d7443907d3b8db4d"
+  },
+  "original_sha256": {
+    "dto/KeywordResponse.java": "161d40376fab823bdd8152914b33fc67e37000ba3958afb461ab659efdc7cbc2",
+    "dto/KeywordsResponse.java": "99b0dce2008d39abcab6ca69203cfb53defe316d0ebfff59d915bdb6fd9b3bee",
+    "domain/KeywordCategory.java": "f429b515f9a25fe92ff42624277c15c3926020d3b11fed04f11998dd1c9be4ab",
+    "service/KeywordService.java": "76a900abfc57b4315494b4456bd7938d5fb6bbd442bd506390599fe1bae96f80"
+  },
+  "checks": {
+    "new_jvm_red": {
+      "tests": 8,
+      "failed": 7,
+      "passed": 1
+    },
+    "jvm_green": {
+      "tests": 138,
+      "failed": 0,
+      "skipped": 0
+    },
+    "device_api33_arm64": {
+      "unique_tests": 7,
+      "failed_final": 0,
+      "new_keywords": 2,
+      "existing_today": 2,
+      "existing_discovery": 3
+    },
+    "assembleDebug": "passed",
+    "assembleDebugAndroidTest": "passed",
+    "lintDebug": "passed after test-only correction",
+    "knowledge_usage": "passed"
+  },
+  "failures_preserved": [
+    "Gradle local socket denied in sandbox; executed with normal approval",
+    "Initial new test generic syntax corrected before behavioral RED",
+    "Initial screen run: request count expected 1 but rotation reloads twice; corrected to assert 1 before rotation and 2 after",
+    "Incorrect existing device class name corrected; three previously unrun existing tests executed"
+  ],
+  "not_verified": [
+    "actual Rust/DB keyword request",
+    "independent reviewer approval",
+    "TalkBack speech",
+    "tablet, dark theme and large-font measurements",
+    "process death restore",
+    "Langfuse collection"
+  ],
+  "evidence_scope": "JVM and Android native tests with existing MockWebServer; not production or live backend validation",
+  "knowledge_manifest_documents": [
+    "knowledge/wiki/projects/daynomy/news.md",
+    "knowledge/wiki/packages/android-kotlin/types-and-json.md",
+    "knowledge/wiki/packages/android-kotlin/dates-and-unicode.md",
+    "knowledge/wiki/packages/android-kotlin/async-and-cancellation.md",
+    "knowledge/wiki/packages/android-kotlin/state-and-navigation.md"
+  ]
+}
