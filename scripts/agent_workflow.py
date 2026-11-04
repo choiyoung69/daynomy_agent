@@ -364,6 +364,94 @@ def gate_passes(gate, expected_hash):
     return True
 
 
+def summarize_run(run_dir, coordinator_rollout=None, coordinator_turn=None, coordinator_cwd=None):
+    """Deterministic accounting from explicitly scoped artifacts; never calls a model or gate."""
+    run_dir = Path(run_dir).resolve()
+    if not run_dir.is_dir():
+        raise ValueError('Run directory is missing')
+    if any((coordinator_rollout, coordinator_turn, coordinator_cwd)) and not all((coordinator_rollout, coordinator_turn, coordinator_cwd)):
+        raise ValueError('Coordinator rollout, turn and cwd must be specified together')
+    agent_records, unmeasured, attempt_times = {}, set(), {}
+    files = list(run_dir.rglob('attempts.json'))
+    for path in files:
+        if path.is_symlink() or not (path.parent / 'input.json').is_file():
+            raise ValueError('Invalid agent accounting artifact')
+        for attempt in json.loads(path.read_text()):
+            records = attempt.get('usage_records', [])
+            identity = tuple(attempt.get('session_ids') or [str(path)])
+            attempt_key = (identity, attempt['attempt'])
+            if not records: unmeasured.add(attempt_key)
+            attempt_times[attempt_key] = attempt.get('capture_seconds', 0)
+            for index, usage in enumerate(records):
+                agent_records[(identity, attempt['attempt'], index)] = usage
+    missing, capture_seconds = len(unmeasured), sum(attempt_times.values())
+    def totals(records, unmeasured=0):
+        rows = list(records)
+        for u in rows:
+            for key in ('input_tokens', 'output_tokens'):
+                if type(u.get(key)) is not int or u[key] < 0:
+                    raise ValueError('Invalid usage counters')
+            if 'total_tokens' in u and (type(u['total_tokens']) is not int or u['total_tokens'] != u['input_tokens'] + u['output_tokens']):
+                raise ValueError('Inconsistent total usage counter')
+            c = u.get('cached_input_tokens')
+            if c is not None and (type(c) is not int or not 0 <= c <= u['input_tokens']):
+                raise ValueError('Invalid cached input counter')
+        inp = sum(u['input_tokens'] for u in rows)
+        out = sum(u['output_tokens'] for u in rows)
+        cached = sum(u['cached_input_tokens'] for u in rows) if all('cached_input_tokens' in u for u in rows) else None
+        return {'input_tokens': inp, 'cached_input_tokens': cached,
+                'non_cached_input_tokens': inp-cached if cached is not None else None,
+                'output_tokens': out, 'total_tokens': inp+out, 'usage_records': len(rows),
+                'unmeasured_attempts': unmeasured}
+    state_path = run_dir / 'state.json'
+    state = json.loads(state_path.read_text()) if state_path.exists() else {}
+    def elapsed(start, end):
+        return (datetime.fromisoformat(end.replace('Z','+00:00')) - datetime.fromisoformat(start.replace('Z','+00:00'))).total_seconds() if start and end else None
+    wall = elapsed(state.get('started_at'), state.get('finished_at'))
+    parent, parent_rows = None, {}
+    parent_complete = False
+    if coordinator_rollout:
+        active, contexts, start, end = False, [], None, None
+        with Path(coordinator_rollout).open() as stream:
+            for line in stream:
+                row = json.loads(line); value = row.get('payload', {})
+                if row['type'] == 'event_msg' and value.get('type') == 'task_started':
+                    active = value.get('turn_id') == coordinator_turn
+                    if active: start = row['timestamp']
+                if not active: continue
+                if row['type'] == 'turn_context': contexts.append(value.get('cwd'))
+                if row['type'] == 'token_usage_record' and value.get('turn_id') == coordinator_turn:
+                    parent_rows[value['response_id']] = value['usage']
+                if row['type'] == 'event_msg' and value.get('type') == 'task_complete' and value.get('turn_id') == coordinator_turn:
+                    end = row['timestamp']
+        expected = Path(coordinator_cwd).resolve()
+        if not start or not contexts or any(not isinstance(c,str) or not Path(c).resolve().is_relative_to(expected) for c in contexts):
+            raise ValueError('Coordinator turn/cwd is not in the authorized scope')
+        parent = totals(parent_rows.values())
+        wall, parent_complete = elapsed(start,end), end is not None
+    combined = totals([*agent_records.values(), *parent_rows.values()], missing)
+    report = {'generated_at': now(),
+              'coordinator_started_at': start if coordinator_rollout else None,
+              'coordinator_finished_at': end if coordinator_rollout else None,
+              'agent': totals(agent_records.values(),missing), 'coordinator': parent,
+              'combined_measured': combined, 'complete': bool(files) and not missing and parent_complete and combined['cached_input_tokens'] is not None,
+              'elapsed_seconds': wall, 'agent_capture_seconds_sum': capture_seconds,
+              'phase_seconds': state.get('phase_seconds', {}), 'workflow_status': state.get('status'),
+              'scope': 'explicit CLI artifacts plus selected coordinator turn; elapsed times are not added',
+              'sources': {'agent_artifact_count': len(files), 'coordinator_turn': coordinator_turn},
+              'counts_note': 'CLI usage records are not individual model-response counts; missing usage is unknown'}
+    dump(run_dir / 'cost-summary.json',report)
+    lines = ['# Run cost summary', '', 'Measured token totals; not billing. Missing scope/usage is unknown.', '',
+             '| Scope | Input | Cached | Non-cached | Output | Total |', '| --- | ---: | ---: | ---: | ---: | ---: |']
+    for name, value in [('Agents',report['agent']),('Coordinator',parent),('Combined measured',combined)]:
+        if value is None: lines.append('| '+name+' | unknown | unknown | unknown | unknown | unknown |')
+        else: lines.append('| '+name+' | '+' | '.join(('unknown' if value[k] is None else str(value[k])) for k in ('input_tokens','cached_input_tokens','non_cached_input_tokens','output_tokens','total_tokens'))+' |')
+    lines += ['', 'Complete scope: '+str(report['complete']), 'Elapsed seconds: '+str(wall),
+              'Phase seconds: '+json.dumps(report['phase_seconds']), 'Workflow status: '+str(report['workflow_status']), report['counts_note']]
+    (run_dir / 'cost-summary.md').write_text('\n'.join(lines)+'\n')
+    return report
+
+
 class Workflow:
     def __init__(self, root, run_dir, task, agent=None, gate=run_gate, rounds=3, demo=False,
                  probe=True, evidence_mode="inline", knowledge_task=None, knowledge_base=".local/cli-knowledge"):
@@ -378,12 +466,25 @@ class Workflow:
         self.state = {"status": "preparing", "started_at": now(), "task": task,
                       "evidence_mode": evidence_mode, "knowledge_task": knowledge_task, "events": [], "rounds": [], "agents": [], "fault_test": demo}
         self.session_ids = set()
+        self.state['phase_seconds'] = {}
+        self._phase, self._phase_started = 'preparing', time.perf_counter()
+
+    def _close_phase(self):
+        clock = time.perf_counter()
+        phases = self.state['phase_seconds']
+        phases[self._phase] = phases.get(self._phase, 0) + clock - self._phase_started
+        self._phase_started = clock
 
     def event(self, status, **details):
+        self._close_phase()
+        self._phase = status
         self.state["status"] = status
         self.state["events"].append({"time": now(), "status": status, **details})
         dump(self.run_dir / "state.json", self.state)
-        print(json.dumps({"status": status, **details}, ensure_ascii=False), flush=True)
+        output = json.dumps({"status": status, **details}, ensure_ascii=False)
+        if len(output.encode('utf-8')) > 1024:
+            output = json.dumps({'status': status, 'details_omitted': True, 'evidence': str(self.run_dir/'state.json')})
+        print(output, flush=True)
 
     def prepare(self):
         self.run_dir.mkdir(parents=True, exist_ok=False)
@@ -553,13 +654,24 @@ class Workflow:
         finally:
             if hasattr(self, "worker"):
                 shutil.rmtree(self.worker)
+            self._close_phase()
             self.state["finished_at"] = now()
+            dump(self.run_dir / "state.json", self.state)
+            try:
+                summarize_run(self.run_dir)
+                self.state['cost_report'] = str(self.run_dir/'cost-summary.json')
+            except (OSError, ValueError, KeyError, TypeError) as error:
+                self.state['cost_report_error'] = type(error).__name__
             dump(self.run_dir / "state.json", self.state)
         return self.state
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--summarize-run', type=Path, help='Read existing evidence and emit one bounded cost report; no model/check execution')
+    parser.add_argument('--coordinator-rollout', type=Path)
+    parser.add_argument('--coordinator-turn')
+    parser.add_argument('--coordinator-cwd', type=Path)
     parser.add_argument("--knowledge-task", help="Explicit existing Android task KB profile; must match the assigned work")
     parser.add_argument("--knowledge-base", default=".local/cli-knowledge")
     parser.add_argument("--task", default="Implement the approved feedback contract without changing its requirements.")
@@ -567,6 +679,12 @@ def main():
     parser.add_argument("--rounds", type=int, default=3)
     parser.add_argument("--evidence-mode", choices=("inline", "reference"), default="inline", help="Reference mode is experimental; inline preserves the existing evidence delivery")
     args = parser.parse_args()
+    if args.summarize_run:
+        report = summarize_run(args.summarize_run,args.coordinator_rollout,args.coordinator_turn,args.coordinator_cwd)
+        print(json.dumps({'report':str(args.summarize_run/'cost-summary.json'),'complete':report['complete'],'elapsed_seconds':report['elapsed_seconds'],'combined_measured':report['combined_measured']},ensure_ascii=False))
+        return 0
+    if any((args.coordinator_rollout,args.coordinator_turn,args.coordinator_cwd)):
+        parser.error('Coordinator arguments require --summarize-run')
     if not 1 <= args.rounds <= 3:
         parser.error("rounds must be 1..3")
     run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + uuid.uuid4().hex[:8]

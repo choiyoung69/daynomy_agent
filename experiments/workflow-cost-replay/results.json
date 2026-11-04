@@ -1,0 +1,42 @@
+{
+  "agent": {
+    "input_tokens": 264622,
+    "cached_input_tokens": 204416,
+    "non_cached_input_tokens": 60206,
+    "output_tokens": 914,
+    "total_tokens": 265536,
+    "usage_records": 2,
+    "unmeasured_attempts": 0
+  },
+  "coordinator": {
+    "input_tokens": 5846108,
+    "cached_input_tokens": 5836544,
+    "non_cached_input_tokens": 9564,
+    "output_tokens": 31407,
+    "total_tokens": 5877515,
+    "usage_records": 18,
+    "unmeasured_attempts": 0
+  },
+  "combined_measured": {
+    "input_tokens": 6110730,
+    "cached_input_tokens": 6040960,
+    "non_cached_input_tokens": 69770,
+    "output_tokens": 32321,
+    "total_tokens": 6143051,
+    "usage_records": 20,
+    "unmeasured_attempts": 0
+  },
+  "complete": true,
+  "elapsed_seconds": 801.343,
+  "agent_capture_seconds_sum": 40.34481712500565,
+  "phase_seconds": {},
+  "counts_note": "CLI usage records are not individual model-response counts; missing usage is unknown",
+  "replay": {
+    "command_seconds": 0.08039366701268591,
+    "stdout_bytes": 306,
+    "model_calls_started": 0,
+    "agents_usage_matched": true,
+    "coordinator_usage_matched": true
+  },
+  "scope": "Completed task-KB implementation request through final response; same two actual CLI runs, no model replay"
+}
