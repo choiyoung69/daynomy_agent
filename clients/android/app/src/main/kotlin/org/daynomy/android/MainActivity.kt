@@ -13,11 +13,18 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.List
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.selected
@@ -69,6 +76,7 @@ class MainActivity : ComponentActivity() {
                 val feedback: FeedbackViewModel = viewModel(factory = viewModelFactory { initializer { FeedbackViewModel(baseUrl) } })
                 var feedbackOpen by rememberSaveable { mutableStateOf(false) }
                 var tab by rememberSaveable { mutableStateOf("portfolio") }
+                val screenState = rememberSaveableStateHolder()
                 var returnTab by rememberSaveable { mutableStateOf("portfolio") }
                 val focus = LocalFocusManager.current
                 val keyboard = LocalSoftwareKeyboardController.current
@@ -108,18 +116,22 @@ class MainActivity : ComponentActivity() {
                                 if (state.selected != null) model.controller.clearSelection()
                                 model.controller.updateQuery(it)
                             },
-                            label = { Text("종목 검색") },
-                            placeholder = { Text("종목명 또는 종목코드") },
+                            placeholder = { Text("종목명 또는 코드 검색") },
+                            leadingIcon = { Icon(Icons.Outlined.Search, contentDescription = null, tint = PortfolioStyle.muted) },
+                            colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = PortfolioStyle.soft,
+                                focusedContainerColor = PortfolioStyle.soft, unfocusedBorderColor = PortfolioStyle.line,
+                                focusedBorderColor = PortfolioStyle.blue),
                             singleLine = true,
                             shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
                             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                             keyboardActions = KeyboardActions(onSearch = { keyboard?.hide(); focus.clearFocus() }),
                             modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp)
-                                .testTag("query").onFocusChanged {
+                                .testTag("query").semantics { contentDescription = "종목 검색" }.onFocusChanged {
                                     if (it.isFocused && tab != "market") { returnTab = tab; tab = "market" }
                                 },
                         )
                         Box(Modifier.weight(1f)) {
+                            screenState.SaveableStateProvider(tab) {
                             when (tab) {
                                 "news" -> NewsScreen(news, discovery.news)
                                 "exchange" -> Column {
@@ -135,20 +147,19 @@ class MainActivity : ComponentActivity() {
                                 else -> MarketScreen(state, model.controller)
                             }
                         }
-                        Surface(color = Color.White) {
-                            Column(Modifier.testTag("bottom-navigation")) {
-                                HorizontalDivider(color = PortfolioStyle.line)
-                                Row(Modifier.fillMaxWidth()) {
-                                    listOf("portfolio" to "포트폴리오", "news" to "이슈", "account" to "내 계정").forEach { (key, title) ->
-                                        val active = tab == key || (tab == "market" && returnTab == key) || (tab == "exchange" && key == "account")
-                                        TextButton({ focus.clearFocus(); keyboard?.hide(); returnTab = key; tab = key },
-                                            modifier = Modifier.weight(1f).heightIn(min = 64.dp).testTag("tab-$key")
-                                                .semantics { role = Role.Tab; selected = active }) {
-                                            Text(title, color = if (active) PortfolioStyle.blue else PortfolioStyle.muted,
-                                                fontWeight = if (active) FontWeight.Bold else FontWeight.Medium)
-                                        }
-                                    }
-                                }
+                        }
+                        NavigationBar(containerColor = Color.White, tonalElevation = 0.dp,
+                            modifier = Modifier.testTag("bottom-navigation")) {
+                            listOf("portfolio" to "포트폴리오", "news" to "이슈", "account" to "내 계정").forEach { (key, title) ->
+                                val active = tab == key || (tab == "market" && (returnTab == key || returnTab == "exchange" && key == "account")) || (tab == "exchange" && key == "account")
+                                NavigationBarItem(selected = active,
+                                    onClick = { focus.clearFocus(); keyboard?.hide(); returnTab = key; tab = key },
+                                    icon = { Icon(when(key) { "portfolio" -> Icons.Outlined.Home; "news" -> Icons.Outlined.List; else -> Icons.Outlined.Person }, contentDescription = null) },
+                                    label = { Text(title, fontWeight = if (active) FontWeight.Bold else FontWeight.Medium) },
+                                    colors = NavigationBarItemDefaults.colors(indicatorColor = Color.Transparent,
+                                        selectedIconColor = PortfolioStyle.blue, selectedTextColor = PortfolioStyle.blue,
+                                        unselectedIconColor = PortfolioStyle.muted, unselectedTextColor = PortfolioStyle.muted),
+                                    modifier = Modifier.testTag("tab-$key"))
                             }
                         }
                     }

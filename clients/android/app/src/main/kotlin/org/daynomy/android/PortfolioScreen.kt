@@ -7,6 +7,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
+import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
@@ -17,6 +20,8 @@ import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.platform.LocalDensity
 import kotlinx.serialization.json.*
 import org.daynomy.market.Country
 import java.text.DecimalFormat
@@ -44,7 +49,7 @@ fun PortfolioScreen(model: CoreViewModel, onAccount: () -> Unit = {}) {
         var editorOpen by rememberSaveable { mutableStateOf(false) }
         var historyTab by rememberSaveable { mutableStateOf(false) }
         var amountsHidden by rememberSaveable { mutableStateOf(false) }
-        var analysisOpen by rememberSaveable { mutableStateOf(true) }
+        var analysisOpen by rememberSaveable { mutableStateOf(false) }
         var removal by remember { mutableStateOf<Pair<String, Long>?>(null) }
         var adjustment by remember { mutableStateOf<JsonObject?>(null) }
         var adjustQuantity by remember { mutableStateOf("") }
@@ -60,9 +65,9 @@ fun PortfolioScreen(model: CoreViewModel, onAccount: () -> Unit = {}) {
 
         Surface(Modifier.fillMaxSize(), color = Color.White) {
             BoxWithConstraints(Modifier.fillMaxSize()) {
-                val gutter = if (maxWidth <= 600.dp) 36.dp else (16 + (maxWidth.value * .08f).coerceIn(32f, 128f)).dp
+                val gutter = if (maxWidth <= 600.dp) 20.dp else (16 + (maxWidth.value * .08f).coerceIn(32f, 128f)).dp
                 Column(Modifier.fillMaxSize().imePadding().verticalScroll(if (editorOpen) editorScroll else dashboardScroll)
-                    .padding(horizontal = gutter, vertical = 28.dp), verticalArrangement = Arrangement.spacedBy(24.dp)) {
+                    .padding(horizontal = gutter, vertical = 24.dp), verticalArrangement = Arrangement.spacedBy(24.dp)) {
                     if (editorOpen) {
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                             SectionTitle(if (model.editId == null) "거래 기록" else "거래 수정")
@@ -73,23 +78,18 @@ fun PortfolioScreen(model: CoreViewModel, onAccount: () -> Unit = {}) {
                         PortfolioNotice(model)
                         PortfolioTransactionForm(model)
                     } else {
-                        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Text("내 포트폴리오", Modifier.semantics { heading() },
-                                style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
-                            Text(if (model.portfolioRequiresLogin) "로그인하면 계정의 자산과 거래 내역을 확인할 수 있어요."
-                                else "계정에 저장한 보유 자산과 거래 기록을 확인하세요.",
-                                color = PortfolioStyle.blue, style = MaterialTheme.typography.bodyMedium)
+                        val tradeAction: @Composable () -> Unit = {
+                            Button({ openTrade() }, enabled = canWrite && model.portfolioLoaded && !model.loading,
+                                shape = PortfolioStyle.pill, modifier = Modifier.heightIn(min = 48.dp).testTag("transaction-open")) { Text("거래 기록") }
                         }
-                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            OutlinedButton({ focus.clearFocus(); model.refreshPortfolio() },
-                                enabled = !model.busy && !model.loading, shape = PortfolioStyle.pill,
-                                modifier = Modifier.weight(1f).heightIn(min = 48.dp).testTag("portfolio-refresh")) {
-                                Text("새로고침")
+                        if (LocalDensity.current.fontScale > 1.3f) {
+                            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                                Text("내 포트폴리오", Modifier.semantics { heading() }, fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                                tradeAction()
                             }
-                            Button({ openTrade() }, enabled = canWrite && model.portfolioLoaded, shape = PortfolioStyle.pill,
-                                modifier = Modifier.weight(1f).heightIn(min = 48.dp).testTag("transaction-open")) {
-                                Text("거래 기록")
-                            }
+                        } else Row(Modifier.fillMaxWidth(), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+                            Text("내 포트폴리오", Modifier.weight(1f).semantics { heading() }, fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                            tradeAction()
                         }
                         PortfolioNotice(model)
                         if (model.loading) {
@@ -100,23 +100,31 @@ fun PortfolioScreen(model: CoreViewModel, onAccount: () -> Unit = {}) {
                             PortfolioPanel {
                                 SectionTitle("로그인이 필요해요")
                                 Text("Android는 아직 비회원 자산의 임시 저장을 지원하지 않습니다.", color = PortfolioStyle.muted)
+                                OutlinedButton(model::refreshPortfolio, enabled = !model.busy,
+                                    modifier = Modifier.heightIn(min = 48.dp).testTag("portfolio-refresh")) { Text("다시 조회") }
                                 Button(onAccount, shape = PortfolioStyle.pill, modifier = Modifier.heightIn(min = 48.dp).testTag("portfolio-login")) {
                                     Text("계정에서 로그인")
                                 }
                             }
                         }
-                        PortfolioSummary(model, amountsHidden, { amountsHidden = !amountsHidden })
-                        HorizontalDivider(color = PortfolioStyle.line)
-                        TextButton({ analysisOpen = !analysisOpen }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)
-                            .testTag("portfolio-analysis-toggle").semantics { stateDescription = if (analysisOpen) "펼쳐짐" else "접힘" }) {
-                            Text(if (analysisOpen) "자산 분석 접기" else "자산 분석 펼치기", Modifier.weight(1f), fontWeight = FontWeight.Bold)
+                        if (!model.loading && !model.portfolioRequiresLogin && model.portfolioError != null) {
+                            PortfolioPanel {
+                                SectionTitle("자산을 불러오지 못했어요")
+                                Text(model.portfolioError.orEmpty(), color = PortfolioStyle.muted)
+                                OutlinedButton(model::refreshPortfolio, enabled = !model.busy,
+                                    modifier = Modifier.heightIn(min = 48.dp).testTag("portfolio-refresh")) { Text("다시 조회") }
+                            }
                         }
-                        if (analysisOpen) PortfolioAnalysis(model, amountsHidden)
-                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            FilterChip(!historyTab, { historyTab = false }, label = { Text("보유 자산 ${if (model.portfolioLoaded) model.holdings.size else "—"}") },
-                                modifier = Modifier.heightIn(min = 48.dp).testTag("portfolio-holdings-tab"))
-                            FilterChip(historyTab, { historyTab = true }, label = { Text("거래 내역") },
-                                modifier = Modifier.heightIn(min = 48.dp).testTag("portfolio-history-tab"))
+                        if (model.portfolioLoaded && !model.loading && !model.portfolioRequiresLogin && model.portfolioError == null) {
+                        PortfolioSummary(model, amountsHidden, { amountsHidden = !amountsHidden })
+                        TabRow(selectedTabIndex = if (historyTab) 1 else 0, containerColor = Color.White,
+                            contentColor = PortfolioStyle.blue,
+                            indicator = { positions -> TabRowDefaults.SecondaryIndicator(
+                                Modifier.tabIndicatorOffset(positions[if (historyTab) 1 else 0]), color = PortfolioStyle.blue) }) {
+                            Tab(!historyTab, { historyTab = false }, selectedContentColor = PortfolioStyle.blue, unselectedContentColor = PortfolioStyle.muted, text = { Text("보유 자산", fontWeight = FontWeight.SemiBold) },
+                                modifier = Modifier.heightIn(min = 56.dp).testTag("portfolio-holdings-tab"))
+                            Tab(historyTab, { historyTab = true }, selectedContentColor = PortfolioStyle.blue, unselectedContentColor = PortfolioStyle.muted, text = { Text("거래 내역", fontWeight = FontWeight.SemiBold) },
+                                modifier = Modifier.heightIn(min = 56.dp).testTag("portfolio-history-tab"))
                         }
                         if (historyTab) {
                             SectionTitle("거래 내역")
@@ -158,9 +166,23 @@ fun PortfolioScreen(model: CoreViewModel, onAccount: () -> Unit = {}) {
                                 val row = element as? JsonObject ?: return@forEach
                                 val id = row["assetId"]?.jsonPrimitive?.longOrNull ?: return@forEach
                                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                                    Text(row.text("name").ifBlank { row.text("assetCode") }, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-                                    Text("${row.text("quantity")}주 · 평균 매수가 ${displayNumber(row.text("averagePurchasePrice"), amountsHidden)}원", color = PortfolioStyle.muted)
-                                    Column {
+                                    var managementOpen by rememberSaveable(id) { mutableStateOf(false) }
+                                    val evaluationRow = (model.evaluation?.get("holdings") as? JsonArray).orEmpty()
+                                        .mapNotNull { it as? JsonObject }.firstOrNull { it["assetId"]?.jsonPrimitive?.longOrNull == id }
+                                    Row(Modifier.fillMaxWidth(), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                                        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                                            Text(row.text("name").ifBlank { row.text("assetCode") }, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                                            Text("${row.text("assetCode")} · ${row.text("quantity")}주", color = PortfolioStyle.muted, fontSize = 14.sp)
+                                        }
+                                        if (LocalDensity.current.fontScale <= 1.3f) Text(displayWon(evaluationRow?.text("evaluationAmount"), amountsHidden), fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
+                                        IconButton({ managementOpen = !managementOpen }, modifier = Modifier.size(48.dp).testTag("holding-management-$id")) {
+                                            Icon(Icons.Outlined.MoreVert, contentDescription = "${row.text("name")} 보유 관리", tint = PortfolioStyle.muted)
+                                        }
+                                    }
+                                    if (LocalDensity.current.fontScale > 1.3f) Text(displayWon(evaluationRow?.text("evaluationAmount"), amountsHidden), fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
+                                    if (managementOpen) Column {
+                                        Text("평균 매수가 ${displayWon(row.text("averagePurchasePrice"), amountsHidden)}", color = PortfolioStyle.muted)
                                         TextButton({ adjustment = row; adjustQuantity = row.text("quantity"); adjustAverage = row.text("averagePurchasePrice") }, enabled = canWrite,
                                             modifier = Modifier.heightIn(min = 48.dp).testTag("holding-edit-$id")) { Text("수량·평균가 조정") }
                                         TextButton({ removal = "holding" to id }, enabled = canWrite,
@@ -170,10 +192,16 @@ fun PortfolioScreen(model: CoreViewModel, onAccount: () -> Unit = {}) {
                                 }
                             }
                         }
-                        HorizontalDivider(color = PortfolioStyle.line)
-                        SectionTitle("보유 자산 소식")
-                        Text("관련 소식 연결은 준비 중입니다.", color = PortfolioStyle.muted)
-                        Text("발행된 뉴스는 하단 이슈 메뉴에서 볼 수 있어요.", style = MaterialTheme.typography.bodyMedium, color = PortfolioStyle.muted)
+                        Text("가격은 최근 저장 종가 기준입니다.", color = PortfolioStyle.muted, fontSize = 14.sp)
+                        TextButton({ analysisOpen = !analysisOpen }, modifier = Modifier.heightIn(min = 48.dp)
+                            .testTag("portfolio-analysis-toggle").semantics { stateDescription = if (analysisOpen) "펼쳐짐" else "접힘" }) {
+                            Text(if (analysisOpen) "평가·수익률 접기" else "평가·수익률 더 보기")
+                        }
+                        if (analysisOpen) PortfolioAnalysis(model, amountsHidden)
+                        TextButton(model::refreshPortfolio, enabled = !model.busy && !model.loading,
+                            modifier = Modifier.heightIn(min = 48.dp).testTag("portfolio-refresh")) { Text("새로고침") }
+                        Text("보유 종목 뉴스 연결은 준비 중입니다. 발행 뉴스는 하단 이슈에서 볼 수 있어요.", color = PortfolioStyle.muted, fontSize = 14.sp)
+                        }
                     }
                 }
             }
@@ -202,45 +230,46 @@ fun PortfolioScreen(model: CoreViewModel, onAccount: () -> Unit = {}) {
         Text("처리 결과 확인 필요", Modifier.testTag("transaction-unknown").semantics { liveRegion = LiveRegionMode.Assertive }, color = MaterialTheme.colorScheme.error, fontWeight = FontWeight.Bold)
         Text("같은 거래를 다시 보내지 마세요. 내역을 새로 조회해 거래가 반영됐는지 확인하세요.")
     }
-    CoreMessage(model.message)
+    if (model.message != model.portfolioError && model.message !in listOf("평가를 조회했습니다.", "수익률을 조회했습니다.")) CoreMessage(model.message)
 }
 
 @Composable private fun PortfolioSummary(model: CoreViewModel, hidden: Boolean, toggle: () -> Unit) {
-    val empty = model.portfolioLoaded && model.holdings.isEmpty()
-    fun value(key: String) = when { !model.portfolioLoaded -> "—"; empty -> displayNumber("0", hidden) + "원"; model.evaluation == null -> "평가 조회 필요"; else -> displayWon(model.evaluation?.text(key), hidden) }
-    Column(Modifier.fillMaxWidth().testTag("portfolio-summary"), verticalArrangement = Arrangement.spacedBy(20.dp)) {
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            Text("전체 자산 평가금액", color = PortfolioStyle.muted, style = MaterialTheme.typography.bodyMedium)
-            TextButton(toggle, modifier = Modifier.heightIn(min = 48.dp).testTag("portfolio-summary-toggle").semantics { stateDescription = if (hidden) "금액 숨겨짐" else "금액 표시됨" }) {
-                Text(if (hidden) "금액 보기" else "금액 숨기기")
-            }
+    val empty = model.holdings.isEmpty()
+    fun value(key: String) = if (empty) displayWon("0", hidden) else if (model.evaluation == null) "평가 조회 필요" else displayWon(model.evaluation?.text(key), hidden)
+    Column(Modifier.fillMaxWidth().testTag("portfolio-summary"), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        val caption: @Composable () -> Unit = { Text("전체 자산 평가금액", color = PortfolioStyle.muted, fontSize = 14.sp) }
+        val privacy: @Composable () -> Unit = {
+            TextButton(toggle, modifier = Modifier.heightIn(min = 48.dp).testTag("portfolio-summary-toggle")
+                .semantics { stateDescription = if (hidden) "금액 숨겨짐" else "금액 표시됨" }) { Text(if (hidden) "금액 보기" else "금액 숨기기") }
         }
-        Text(value("totalEvaluationAmount"), Modifier.testTag("portfolio-summary-amount"), style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold)
-        Text("최근 거래일 손익 ${displayNumber(model.evaluation?.text("dailyProfitLoss"), hidden)}", color = PortfolioStyle.muted, style = MaterialTheme.typography.bodyMedium)
+        if (LocalDensity.current.fontScale > 1.3f) Column { caption(); privacy() }
+        else Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) { caption(); privacy() }
+        Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        Text(value("totalEvaluationAmount"), Modifier.testTag("portfolio-summary-amount"), fontSize = 32.sp, lineHeight = 40.sp, fontWeight = FontWeight.Bold)
+        val profit = if (empty) displayWon("0", hidden) else signedWon(model.evaluation?.text("totalProfitLoss"), hidden)
+        val rate = if (empty) displayNumber("0", hidden) else signedNumber(model.evaluation?.text("totalReturnRate"), hidden)
+        Text("$profit ($rate${if (rate == "—") "" else "%"})", Modifier.testTag("portfolio-summary-profit"), color = PortfolioStyle.blue, fontSize = 18.sp)
+        val date = model.evaluation?.text("baseDate")?.takeUnless { it.isBlank() || it == "null" }
+        if (date != null) Text("종가 기준일 $date", color = PortfolioStyle.muted, fontSize = 14.sp)
+        else Text(if (empty) "매수·매도 거래를 기록해 시작하세요." else "평가 기준일을 확인하지 못했습니다.", color = PortfolioStyle.muted, fontSize = 14.sp)
+        }
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("보유자산 매입금액", color = PortfolioStyle.muted, style = MaterialTheme.typography.bodySmall)
-                Text(value("totalPurchaseAmount"), fontWeight = FontWeight.SemiBold)
-            }
-            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("평가손익", color = PortfolioStyle.muted, style = MaterialTheme.typography.bodySmall)
-                Text(value("totalProfitLoss"), fontWeight = FontWeight.SemiBold)
-            }
+            Text("매입금액", Modifier.weight(1f), color = PortfolioStyle.muted, fontSize = 14.sp)
+            Text(value("totalPurchaseAmount"), fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
         }
-        Text("누적 실현손익", color = PortfolioStyle.muted, style = MaterialTheme.typography.bodySmall)
-        Text(if (model.portfolioLoaded) displayNumber(model.totalRealizedProfitLoss, hidden) + "원" else "—", fontWeight = FontWeight.SemiBold)
-        Text(when (model.evaluation?.text("pricingStatus")) {
-            "PARTIAL" -> "일부 종목의 가격을 확인하지 못했습니다. 미평가 금액은 —로 표시합니다."
-            "MIXED_DATES" -> "종목별 가격 기준일이 다릅니다."
-            else -> if (empty) "매수·매도 거래를 기록해 시작하세요." else "최근 저장 종가 기준입니다. 평가 조회는 거래를 저장하지 않습니다."
-        }, color = PortfolioStyle.muted, style = MaterialTheme.typography.bodySmall)
-        model.evaluation?.text("baseDate")?.takeUnless { it.isBlank() || it == "null" }?.let { Text("종가 기준일 $it", color = PortfolioStyle.muted) }
+        when (model.evaluation?.text("pricingStatus")) {
+            "PARTIAL" -> Text("일부 종목의 가격을 확인하지 못했습니다. 미평가 금액은 —로 표시합니다.", color = PortfolioStyle.muted)
+            "MIXED_DATES" -> Text("종목별 가격 기준일이 다릅니다.", color = PortfolioStyle.muted)
+        }
+        if (!empty && model.evaluation == null) OutlinedButton(model::evaluate, enabled = !model.busy,
+            modifier = Modifier.heightIn(min = 48.dp).testTag("portfolio-evaluate")) { Text("최근 종가로 평가 조회") }
     }
 }
 
 @Composable private fun PortfolioAnalysis(model: CoreViewModel, hidden: Boolean) {
     var periodOpen by rememberSaveable { mutableStateOf(false) }
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        Text("누적 실현손익 ${signedWon(model.totalRealizedProfitLoss, hidden)}", color = PortfolioStyle.muted)
         PortfolioPanel {
             SectionTitle("자산 추이")
             Text("저장된 수익률을 조회합니다. 그래프 시각화는 준비 중입니다.", color = PortfolioStyle.muted)
@@ -267,7 +296,7 @@ fun PortfolioScreen(model: CoreViewModel, onAccount: () -> Unit = {}) {
                 else -> Text("보유 자산 ${model.holdings.size}개 · 최근 종가로 평가를 조회하세요.", color = PortfolioStyle.muted)
             }
             OutlinedButton(model::evaluate, enabled = !model.busy && !model.loading && model.portfolioLoaded && model.holdings.isNotEmpty(),
-                modifier = Modifier.heightIn(min = 48.dp).testTag("portfolio-evaluate")) { Text("최근 종가로 평가 조회") }
+                modifier = Modifier.heightIn(min = 48.dp).testTag("portfolio-reevaluate")) { Text("평가 다시 조회") }
             (model.evaluation?.get("holdings") as? JsonArray).orEmpty().forEach { holding ->
                 (holding as? JsonObject)?.let { row -> Text("${row.text("name")} · 비중 ${displayNumber(row.text("weight"), hidden)}%") }
             }
@@ -288,6 +317,14 @@ fun PortfolioScreen(model: CoreViewModel, onAccount: () -> Unit = {}) {
 }
 @Composable private fun SectionTitle(text: String) {
     Text(text, Modifier.semantics { heading() }, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
+}
+private fun signedNumber(raw: String?, hidden: Boolean): String {
+    val value = displayNumber(raw, hidden)
+    return if (!hidden && (raw?.toBigDecimalOrNull()?.signum() ?: 0) > 0) "+$value" else value
+}
+private fun signedWon(raw: String?, hidden: Boolean): String {
+    val number = signedNumber(raw, hidden)
+    return if (number == "—") number else "${number}원"
 }
 private fun displayWon(raw: String?, hidden: Boolean): String {
     val number = displayNumber(raw, hidden)

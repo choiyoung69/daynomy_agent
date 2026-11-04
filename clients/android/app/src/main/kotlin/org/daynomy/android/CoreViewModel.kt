@@ -170,12 +170,20 @@ class CoreViewModel(baseUrl: String) : ViewModel() {
         mutate(true, "보유자산을 조정했습니다.") { portfolio.updateHolding(id, count, price); refreshPortfolio() }
     }
     fun evaluate() = mutate(false, "평가를 조회했습니다.") {
+        evaluation = null
+        val owner = epoch
         val body = buildJsonObject { put("holdings", JsonArray(holdings.map { row ->
             val h = row.jsonObject; buildJsonObject { put("assetId", h["assetId"]!!); put("quantity", h["quantity"]!!); put("averagePurchasePrice", h["averagePurchasePrice"]!!) }
         })) }
-        evaluation = portfolio.calculate(body)
+        val result = portfolio.calculate(body)
+        if (owner == epoch) evaluation = result
     }
-    fun loadPerformance() = mutate(false, "수익률을 조회했습니다.") { performance = portfolio.performance(from, to) }
+    fun loadPerformance() = mutate(false, "수익률을 조회했습니다.") {
+        performance = null
+        val owner = epoch
+        val result = portfolio.performance(from, to)
+        if (owner == epoch) performance = result
+    }
     private fun mutate(transaction: Boolean, success: String, action: suspend () -> Unit) {
         if (busy || transaction && unknown) return
         val generation = epoch; busy = true; message = null
@@ -184,6 +192,17 @@ class CoreViewModel(baseUrl: String) : ViewModel() {
             catch (e: CancellationException) { if (transaction && generation == epoch) unknown = true; throw e }
             catch (e: Exception) {
                 if (generation == epoch) {
+                    if (e is ApiException && e.status == 401) {
+                        epoch++; loading = false; busy = false; login.cancel()
+                        type = "BUY"; tradeDate = LocalDate.now().toString()
+                        profile = null; holdings = JsonArray(emptyList()); history = JsonArray(emptyList())
+                        evaluation = null; performance = null; portfolioLoaded = false
+                        portfolioRequiresLogin = true; totalRealizedProfitLoss = "0"
+                        portfolioError = "내 포트폴리오는 로그인 후 이용할 수 있습니다."
+                        selection = null; editId = null; query = ""; searchResults = emptyList()
+                        quantity = ""; price = ""; fee = "0"; tax = "0"; exchangeRate = ""
+                        searchGeneration++; searchJob?.cancel(); searchBusy = false
+                    }
                     unknown = transaction && (e is IOException || e is ResponseFormatException)
                     message = if (unknown) "거래 결과를 확인하지 못했습니다. 내역을 새로 조회한 뒤 확인하세요."
                     else if (e is ApiException) when (e.status) { 401 -> "로그인이 필요합니다."; 403 -> "요청 권한을 확인해 주세요."; 400 -> "날짜·수량·금액과 보유 수량을 확인하세요."; else -> "요청을 처리하지 못했습니다. 다시 조회해 주세요." }

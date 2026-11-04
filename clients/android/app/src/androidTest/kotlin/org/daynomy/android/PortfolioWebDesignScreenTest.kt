@@ -102,7 +102,7 @@ class PortfolioWebDesignScreenTest {
         launch().use {
             awaitTag("tab-portfolio"); compose.onNodeWithTag("tab-portfolio").performClick()
             compose.waitUntil(10000) { compose.onAllNodesWithText("보유자산·거래 내역을 확인하지 못했습니다.").fetchSemanticsNodes().isNotEmpty() }
-            compose.onNodeWithTag("portfolio-summary-amount").assertTextContains("—")
+            compose.onNodeWithTag("portfolio-summary").assertDoesNotExist()
             compose.onNodeWithText("보유 중인 자산이 없어요").assertDoesNotExist()
             compose.onNodeWithTag("transaction-open").assertIsNotEnabled()
         }
@@ -113,7 +113,7 @@ class PortfolioWebDesignScreenTest {
         launch().use {
             awaitTag("tab-portfolio"); compose.onNodeWithTag("tab-portfolio").performClick()
             awaitTag("portfolio-login")
-            compose.onNodeWithTag("portfolio-summary-amount").assertTextContains("—")
+            compose.onNodeWithTag("portfolio-summary").assertDoesNotExist()
             compose.onNodeWithTag("portfolio-login").performScrollTo().performClick()
             awaitTag("account-profile")
         }
