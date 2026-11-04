@@ -1,0 +1,353 @@
+{
+  "schema_version": 1,
+  "analyzed_on": "2026-11-04",
+  "code_base": "f6519129200af8bba00859b2337560613da18698",
+  "period_filter": "2026-10-26 through 2026-11-01 KST; retained usage on Oct 27-28",
+  "totals": {
+    "requests": 81,
+    "unique_model_responses": 4094,
+    "input_tokens": 587879353,
+    "cached_input_tokens": 577377408,
+    "output_tokens": 1839468,
+    "total_tokens": 589718821,
+    "uncached_input_tokens": 10501945,
+    "commands": 3048,
+    "nonzero_command_exits_not_defect_count": 325,
+    "responses_with_polling": 326,
+    "tokens_of_responses_with_polling_not_savings": 49439913
+  },
+  "current_context_character_inventory": [
+    {
+      "platform": "android",
+      "default_topics": 8,
+      "default_documents": 18,
+      "default_document_characters": 36716,
+      "two_topic_documents": 12,
+      "two_topic_document_characters": 27465
+    },
+    {
+      "platform": "ios",
+      "default_topics": 8,
+      "default_documents": 18,
+      "default_document_characters": 34857,
+      "two_topic_documents": 12,
+      "two_topic_document_characters": 26443
+    },
+    {
+      "platform": "react-native",
+      "default_topics": 8,
+      "default_documents": 18,
+      "default_document_characters": 35348,
+      "two_topic_documents": 12,
+      "two_topic_document_characters": 26481
+    },
+    {
+      "platform": "flutter",
+      "default_topics": 8,
+      "default_documents": 18,
+      "default_document_characters": 34489,
+      "two_topic_documents": 12,
+      "two_topic_document_characters": 25610
+    },
+    {
+      "platform": "webview",
+      "default_topics": 9,
+      "default_documents": 21,
+      "default_document_characters": 42077,
+      "two_topic_documents": 14,
+      "two_topic_document_characters": 32321
+    }
+  ],
+  "limitations": [
+    "No model or harness re-execution; no billing calculation.",
+    "Polling-associated response tokens overlap request totals and are not tool-specific token cost or recoverable waste.",
+    "Historical root turn elapsed, long-running process lifetime, and imported Langfuse trace elapsed differ.",
+    "Command classification is lexical and not a measured phase-time allocation.",
+    "Current packet size excludes output headers and source record descriptions; characters are not model tokens.",
+    "Two-topic example is reading-scope illustration, not sufficient context or readiness approval for full implementation."
+  ],
+  "scope": "Public aggregate report; private trace links, raw item IDs, local input paths and hashes excluded.",
+  "selected_cases": [
+    {
+      "label": "Flutter 최초 구현·인증·검증",
+      "status": "completed",
+      "recorded_turn_minutes": 75.42,
+      "total_tokens": 92772914,
+      "uncached_input_tokens": 1150943,
+      "cached_input_tokens": 91388160,
+      "output_tokens": 233811,
+      "model_responses": 514,
+      "subagent_tokens_included": 52849685,
+      "commands": 383,
+      "command_categories_heuristic": {
+        "조사·읽기": 137,
+        "기타": 35,
+        "검증·빌드": 200,
+        "상태·잠금 확인": 11
+      },
+      "responses_with_polling": 48,
+      "tokens_of_responses_with_polling_not_poll_cost": 7904703
+    },
+    {
+      "label": "WebView 확장 구현",
+      "status": "interrupted",
+      "recorded_turn_minutes": 47.05,
+      "total_tokens": 62657598,
+      "uncached_input_tokens": 1063336,
+      "cached_input_tokens": 61428864,
+      "output_tokens": 165398,
+      "model_responses": 491,
+      "subagent_tokens_included": 44134081,
+      "commands": 393,
+      "command_categories_heuristic": {
+        "조사·읽기": 197,
+        "상태·잠금 확인": 9,
+        "기타": 31,
+        "검증·빌드": 156
+      },
+      "responses_with_polling": 21,
+      "tokens_of_responses_with_polling_not_poll_cost": 3024680
+    },
+    {
+      "label": "iOS 전체 기능 확장",
+      "status": "completed",
+      "recorded_turn_minutes": 26.38,
+      "total_tokens": 49065777,
+      "uncached_input_tokens": 968022,
+      "cached_input_tokens": 47950592,
+      "output_tokens": 147163,
+      "model_responses": 306,
+      "subagent_tokens_included": 33401106,
+      "commands": 213,
+      "command_categories_heuristic": {
+        "조사·읽기": 122,
+        "검증·빌드": 72,
+        "상태·잠금 확인": 7,
+        "기타": 12
+      },
+      "responses_with_polling": 22,
+      "tokens_of_responses_with_polling_not_poll_cost": 3229329
+    },
+    {
+      "label": "Android 핵심 기능",
+      "status": "completed",
+      "recorded_turn_minutes": 30.52,
+      "total_tokens": 43688420,
+      "uncached_input_tokens": 540350,
+      "cached_input_tokens": 43048832,
+      "output_tokens": 99238,
+      "model_responses": 353,
+      "subagent_tokens_included": 31967595,
+      "commands": 197,
+      "command_categories_heuristic": {
+        "조사·읽기": 137,
+        "상태·잠금 확인": 16,
+        "기타": 24,
+        "검증·빌드": 20
+      },
+      "responses_with_polling": 31,
+      "tokens_of_responses_with_polling_not_poll_cost": 4547067
+    },
+    {
+      "label": "React Native 구현",
+      "status": "completed",
+      "recorded_turn_minutes": 19.14,
+      "total_tokens": 37639542,
+      "uncached_input_tokens": 459908,
+      "cached_input_tokens": 37067008,
+      "output_tokens": 112626,
+      "model_responses": 305,
+      "subagent_tokens_included": 27164200,
+      "commands": 231,
+      "command_categories_heuristic": {
+        "조사·읽기": 86,
+        "검증·빌드": 123,
+        "기타": 17,
+        "상태·잠금 확인": 5
+      },
+      "responses_with_polling": 40,
+      "tokens_of_responses_with_polling_not_poll_cost": 5015250
+    },
+    {
+      "label": "WebView 최초 병렬 구현",
+      "status": "completed",
+      "recorded_turn_minutes": 34.18,
+      "total_tokens": 36681031,
+      "uncached_input_tokens": 837752,
+      "cached_input_tokens": 35705344,
+      "output_tokens": 137935,
+      "model_responses": 354,
+      "subagent_tokens_included": 21151660,
+      "commands": 253,
+      "command_categories_heuristic": {
+        "조사·읽기": 120,
+        "기타": 37,
+        "상태·잠금 확인": 11,
+        "검증·빌드": 85
+      },
+      "responses_with_polling": 17,
+      "tokens_of_responses_with_polling_not_poll_cost": 1806528
+    },
+    {
+      "label": "KB 우선 조사·Android 후속 작업",
+      "status": "failed",
+      "recorded_turn_minutes": 40.07,
+      "total_tokens": 19119465,
+      "uncached_input_tokens": 180957,
+      "cached_input_tokens": 18863616,
+      "output_tokens": 74892,
+      "model_responses": 88,
+      "subagent_tokens_included": 6049650,
+      "commands": 67,
+      "command_categories_heuristic": {
+        "검증·빌드": 28,
+        "조사·읽기": 30,
+        "상태·잠금 확인": 5,
+        "기타": 4
+      },
+      "responses_with_polling": 7,
+      "tokens_of_responses_with_polling_not_poll_cost": 2105327
+    },
+    {
+      "label": "상세 언어·플랫폼 지식 패키지 구축",
+      "status": "completed",
+      "recorded_turn_minutes": 41.87,
+      "total_tokens": 8433080,
+      "uncached_input_tokens": 119150,
+      "cached_input_tokens": 8234368,
+      "output_tokens": 79562,
+      "model_responses": 41,
+      "subagent_tokens_included": 0,
+      "commands": 52,
+      "command_categories_heuristic": {
+        "조사·읽기": 25,
+        "기타": 17,
+        "상태·잠금 확인": 2,
+        "검증·빌드": 8
+      },
+      "responses_with_polling": 8,
+      "tokens_of_responses_with_polling_not_poll_cost": 1907718
+    },
+    {
+      "label": "언어별 KB 구축",
+      "status": "completed",
+      "recorded_turn_minutes": 32.37,
+      "total_tokens": 7785274,
+      "uncached_input_tokens": 66670,
+      "cached_input_tokens": 7657600,
+      "output_tokens": 61004,
+      "model_responses": 32,
+      "subagent_tokens_included": 0,
+      "commands": 54,
+      "command_categories_heuristic": {
+        "조사·읽기": 29,
+        "검증·빌드": 5,
+        "기타": 20
+      },
+      "responses_with_polling": 4,
+      "tokens_of_responses_with_polling_not_poll_cost": 943933
+    },
+    {
+      "label": "플랫폼별 KB 전달 방식",
+      "status": "completed",
+      "recorded_turn_minutes": 32.68,
+      "total_tokens": 3953247,
+      "uncached_input_tokens": 411882,
+      "cached_input_tokens": 3521408,
+      "output_tokens": 19957,
+      "model_responses": 13,
+      "subagent_tokens_included": 0,
+      "commands": 9,
+      "command_categories_heuristic": {
+        "조사·읽기": 6,
+        "검증·빌드": 1,
+        "기타": 2
+      },
+      "responses_with_polling": 0,
+      "tokens_of_responses_with_polling_not_poll_cost": 0
+    }
+  ],
+  "raw_log_crosscheck": {
+    "commands_recounted": 3048,
+    "selected_turn_durations_match": true,
+    "response_ids_unique": true,
+    "per_request_usage_reconciled": true,
+    "raw_token_usage_records_matched": 4094,
+    "rollout_files_read": 47,
+    "raw_record_fields_compared": [
+      "input_tokens",
+      "cached_input_tokens",
+      "output_tokens",
+      "total_tokens",
+      "thread_id"
+    ]
+  },
+  "historical_fixture_phases": {
+    "failed_attempt": {
+      "status": "blocked",
+      "reason": "TimeoutError:Lock deadline elapsed",
+      "seconds": 600.011,
+      "commands": [
+        {
+          "name": "build",
+          "exit_code": 0,
+          "seconds": 19.141
+        }
+      ]
+    },
+    "successful_attempt": {
+      "status": "passed",
+      "seconds": 377.296,
+      "commands": [
+        {
+          "name": "build",
+          "exit_code": 0,
+          "seconds": 18.565
+        },
+        {
+          "name": "database-start",
+          "exit_code": 0,
+          "seconds": 0.133
+        },
+        {
+          "name": "database-create",
+          "exit_code": 0,
+          "seconds": 0.291
+        },
+        {
+          "name": "rust-schema-initialize",
+          "exit_code": 0,
+          "seconds": 0.282
+        },
+        {
+          "name": "rust-schema-repeat",
+          "exit_code": 0,
+          "seconds": 0.126
+        },
+        {
+          "name": "rust-flutter_auth_acceptance",
+          "exit_code": 0,
+          "seconds": 1.9
+        },
+        {
+          "name": "rust-service_auth_provider_acceptance",
+          "exit_code": 0,
+          "seconds": 2.582
+        },
+        {
+          "name": "rust-core",
+          "exit_code": 0,
+          "seconds": 26.167
+        },
+        {
+          "name": "database-drop",
+          "exit_code": 0,
+          "seconds": 0.198
+        }
+      ]
+    },
+    "same_sources": false,
+    "same_criteria": false,
+    "same_binary": false
+  }
+}
