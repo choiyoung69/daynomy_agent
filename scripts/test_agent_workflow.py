@@ -475,6 +475,7 @@ class CostSummaryTests(unittest.TestCase):
         r=workflow.summarize_run(self.run)
         self.assertFalse(r['complete'])
         self.assertEqual(r['agent']['unmeasured_attempts'],1)
+        self.assertIsNone(r['agent']['total_tokens'])
         self.assertIsNone(r['coordinator'])
 
     def test_other_project_coordinator_is_rejected(self):

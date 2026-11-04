@@ -387,6 +387,9 @@ def summarize_run(run_dir, coordinator_rollout=None, coordinator_turn=None, coor
     missing, capture_seconds = len(unmeasured), sum(attempt_times.values())
     def totals(records, unmeasured=0):
         rows = list(records)
+        if not rows:
+            return {**{k:None for k in ('input_tokens','cached_input_tokens','non_cached_input_tokens','output_tokens','total_tokens')},
+                    'usage_records':0,'unmeasured_attempts':unmeasured}
         for u in rows:
             for key in ('input_tokens', 'output_tokens'):
                 if type(u.get(key)) is not int or u[key] < 0:
@@ -434,7 +437,7 @@ def summarize_run(run_dir, coordinator_rollout=None, coordinator_turn=None, coor
               'coordinator_started_at': start if coordinator_rollout else None,
               'coordinator_finished_at': end if coordinator_rollout else None,
               'agent': totals(agent_records.values(),missing), 'coordinator': parent,
-              'combined_measured': combined, 'complete': bool(files) and not missing and parent_complete and combined['cached_input_tokens'] is not None,
+              'combined_measured': combined, 'complete': bool(agent_records) and not missing and parent_complete and bool(parent_rows) and combined['cached_input_tokens'] is not None,
               'elapsed_seconds': wall, 'agent_capture_seconds_sum': capture_seconds,
               'phase_seconds': state.get('phase_seconds', {}), 'workflow_status': state.get('status'),
               'scope': 'explicit CLI artifacts plus selected coordinator turn; elapsed times are not added',
